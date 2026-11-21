@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerKeys.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerKeys.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERKEYS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerKeys.lsp</span> (commande) et <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (clés de calque, chargé au démarrage)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -57,19 +54,6 @@
 <li><strong>OK</strong> enregistre <span class="fixw">LayerKeys.csv</span>, <strong>Cancel</strong> annule chaque changement. <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Quand une App utilise une clé, la clé est cherchée dans <span class="fixw">LayerKeys.csv</span>. Les clés par défaut absentes du fichier utilisent leurs valeurs par défaut.</li>
-<li>Si le calque de la clé existe dans le dessin, il est utilisé; quand ses propriétés diffèrent de celles de la clé, on vous demande s'il faut le mettre à jour (voir <a href="#differ">Calques qui diffèrent de leur clé</a>). Il ne change jamais sans votre réponse.</li>
-<li>S'il n'existe pas, il est créé avec la couleur, le type de ligne, l'épaisseur de ligne, le réglage de traçage et la description de la clé. Un type de ligne pas encore chargé est chargé depuis <span class="fixw">acad.lin</span> (impérial) ou <span class="fixw">acadiso.lin</span> (métrique); s'il ne peut pas être chargé, le calque reste <span class="fixw">Continuous</span>.</li>
-<li>Tant que l'auto-phase est activée, chaque clé ajoute la phase active à son nom de calque (une dérogation de calque AEC aussi, au calque du style de clés de calque); ce calque est créé avec la couleur de phase (<span class="fixw">2#</span> pour existant à démolir, <span class="fixw">20#</span> pour existant à conserver, la couleur de la clé sinon, et toujours quand la clé garde sa couleur dans chaque phase). Avec l'auto-phase activée, les objets créés sur le calque d'une clé vont aussi dans la phase active.</li>
-<li>Le calque qu'une clé donne à une App pour dessiner est libéré et activé quand il est gelé ou désactivé, avec un message à la ligne de commande (<em>Layer A-Detl-Patt-E thawed to draw on it.</em>) : un calque gelé ne peut pas devenir courant, et ses objets ne peuvent pas être sélectionnés, donc les contours qui y sont dessinés ne pourraient pas être hachurés. Les calques verrouillés restent verrouillés.</li>
-<li>Une clé non définie utilise un calque du même nom, créé en couleur 7, Continuous, épaisseur de ligne par défaut; un message nomme la clé à la ligne de commande.</li>
-<li>Une dérogation de calque AEC utilise le calque que lui donne le style de clés de calque du dessin (voir <a href="#aec">Dérogations de calques AEC</a>).</li>
-</ol>
-</div>
-<p>Les nouvelles cotes, lignes de repère, textes et autres objets courants peuvent aussi aller sur leur propre clé de calque, quel que soit le calque courant : voir <a href="Dyl-ObjectLayerKeys.fr.htm">Clés de calque des objets</a> (Auto layer keys, Dyl-Settings).</p>
 <h2 id="differ">Calques qui diffèrent de leur clé</h2>
 <p>La première fois qu'une clé donne un calque qui existe déjà dans le dessin (dans une session), ou qu'un <a href="Dyl-LayerTransfer.fr.htm">Layer Transfer</a> vers une phase déplace des objets sur un calque de phase existant d'une clé, sa couleur, son type de ligne, son épaisseur de ligne et son réglage de traçage sont comparés à ceux de la clé (pas la description). Dans la phase active, la couleur attendue est la couleur de phase, ou la couleur de la clé quand la clé garde sa couleur. S'ils diffèrent, une petite fenêtre liste les différences (<em>Color: 5 (layer key: 2)</em>) et demande <em>Update the layer to the values of its layer key?</em></p>
 <div class="spacedbullets">
@@ -200,16 +184,6 @@
 <tr><td><span class="fixw">ZONE</span></td><td><span class="fixw">G-Area-Zone</span></td><td>52</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Zones</td></tr>
 <tr><td><span class="fixw">ZONENO</span></td><td><span class="fixw">G-Area-Zone-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Zone tags</td></tr>
 </table>
-</div>
-<h2>Utiliser les clés de calque dans une App</h2>
-<div class="spacedbullets">
-<ul>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyLayer "THIN")</span> &ndash; renvoie le calque de la clé, créé s'il manque.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyApply (entlast) "THIN")</span> &ndash; met un objet sur le calque de la clé.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyRead)</span> &ndash; renvoie chaque clé : <span class="fixw">(key layer color linetype lineweight plot description aec)</span>.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog key)</span> &ndash; ouvre la fenêtre Layer Keys sur une clé; renvoie T quand les clés ont été enregistrées.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyPick key)</span> &ndash; la même fenêtre pour choisir une clé : renvoie la clé double-cliquée (les clés enregistrées), nil avec <em>OK</em> ou <em>Cancel</em>.</li>
-</ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

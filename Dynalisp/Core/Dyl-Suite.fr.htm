@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-Suite.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Core/Dyl-Suite.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SUITE</span>, <span class="fixw">DYL-VSCODE</span>, <span class="fixw">DYL-SUITEUPDATE</span>, <span class="fixw">DYL-RELOAD</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> et <span class="fixw">Resources\Dyl-Suite.dcl</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -48,13 +45,10 @@
 <li><strong>Selection</strong> &ndash; le nom, la description et le fichier des commandes sélectionnées. <strong>Command docs</strong> ouvre leurs pages de docs (les commandes sans page propre ouvrent l'index des docs de leur module), <strong>Open Lisp</strong> leurs fichiers Lisp (10 au plus).</li>
 <li><strong>Aliases of the command</strong> &ndash; les noms courts qui lancent la commande sélectionnée : <strong>Add</strong> crée l'alias tapé, <strong>Rename</strong> donne le nom tapé à l'alias choisi, <strong>Remove</strong> le supprime. Un alias est un nom court : il ne peut pas commencer par <span class="fixw">Dyl-</span>, <span class="fixw">LM-</span> ou <span class="fixw">Pst-</span> (les noms longs sont les commandes), ni être le nom d'une commande, d'un autre alias, d'une commande AutoCAD, de la commande d'un autre programme chargé dans AutoCAD (une commande des Express Tools comme <span class="fixw">TCOUNT</span>, un fichier Lisp à vous...) ou d'un alias de <span class="fixw">acad.pgp</span> (<span class="fixw">DO</span> pour <span class="fixw">DONUT</span>), qu'il enlèverait à AutoCAD : le message sous la liste dit qui l'a. Un alias enregistré avant que ce nom soit pris (Express Tools installés plus tard...) ne se lance jamais, car une commande l'emporte toujours : le message sous la liste le signale quand sa commande est sélectionnée (<em>TCOUNT is already a command of another program: rename it.</em>), et Dyl-Reload et l'enregistrement de Dyl-Suite le listent à la ligne de commande, avec sa commande et ce qui porte son nom. Enregistrés dans <span class="fixw">Resources\Aliases.csv</span> (votre copie sous <span class="fixw">User</span>).</li>
 <li><strong>On/Off</strong> &ndash; active ou désactive les commandes sélectionnées; <strong>All Listed On/Off</strong> toutes les commandes listées.</li>
-<li><strong>Open in VS Code</strong> &ndash; ouvre le dossier DynALisp dans Visual Studio Code (<a href="#vscode">ci-dessous</a>).</li>
+<li><strong>Open in VS Code</strong> &ndash; ouvre le dossier DynALisp dans Visual Studio Code (<a href="../../dev/Dynalisp/Core/Dyl-Suite.htm#vscode">ci-dessous</a>).</li>
 <li><strong>Save</strong> &ndash; enregistre les commandes activées et désactivées (<span class="fixw">StartupSuite.csv</span>) et les alias, puis demande s'il faut les appliquer au dessin courant tout de suite (sinon ils s'appliquent aux dessins ouverts à partir de maintenant, ou après <span class="fixw">Dyl-Reload</span>); un fichier ouvert dans Excel peut être fermé, puis l'enregistrement repris. <strong>Cancel</strong> annule les changements. <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
-
-<h2 id="vscode">Visual Studio Code</h2>
-<p><span class="fixw">DYL-VSCODE</span> (ou <em>Open in VS Code</em>) ouvre le dossier DynALisp dans Visual Studio Code, pour lire ou modifier les programmes. Quand Visual Studio Code est introuvable, une fenêtre guide son installation : <strong>Install (winget)</strong> l'installe avec le gestionnaire de paquets de Windows, <strong>Download page</strong> ouvre sa page de téléchargement, <strong>Open DynALisp</strong> vérifie de nouveau et ouvre le dossier une fois qu'il est installé.</p>
 
 <h2 id="other">Autres commandes</h2>
 <div class="programs commands wide">

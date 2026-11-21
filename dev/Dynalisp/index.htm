@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynalisp Module &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../Dynalisp/index.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Dynalisp Module &ndash; Developer docs</h1>
+
+        <p>How the programs of the Dynalisp module work in the code: their files, the data they read and write, their settings and the steps each command runs, and the functions another program can reuse. What each program does and how to use it is in the <a href="../../Dynalisp/index.htm">User Guide</a>.</p>
+
+        <p class="note">Start with the <a href="../index.html">developer home</a> (installing a git clone, the structure of the bundle, the ribbon, releasing a version) and the <a href="../conventions.html">conventions</a> every program follows. The developer docs are in English only.</p>
+
+<h2>DynALisp</h2>
+<p>What every module shares: the windows of DynALisp itself, the ribbon and the plugins, and the standards the programs follow.</p>
+<h3>Core</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Core/Dyl-Info.htm">Info And User Files</a></td><td><span class="fixw">dynalisp.mnl</span>, <span class="fixw">CHANGELOG.md</span>, <span class="fixw">Dyl-Info.dcl</span>, <span class="fixw">Dyl-UserFiles.dcl</span></td></tr>
+<tr><td><a href="Core/Dyl-Settings.htm">Settings</a></td><td><span class="fixw">dynalisp.mnl</span>, <span class="fixw">Dyl-Settings.dcl</span></td></tr>
+<tr><td><a href="Core/Dyl-Suite.htm">Startup Suite</a></td><td><span class="fixw">dynalisp.mnl</span>, <span class="fixw">Dyl-Suite.dcl</span></td></tr>
+</table>
+</div>
+<h3>Plugins</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Plugins/CleanStartup.htm">Clean Startup</a></td><td><span class="fixw">DynALisp.Startup.dll</span>, <span class="fixw">DynALisp.Startup.dll</span></td></tr>
+<tr><td><a href="Plugins/Ribbon.htm">Ribbon</a></td><td><span class="fixw">DynALisp.cuix</span>, <span class="fixw">DynALisp.Ribbon.dll</span></td></tr>
+</table>
+</div>
+<h3>Conventions</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Conventions/LayerNaming.htm">Layer Naming</a></td><td></td></tr>
+</table>
+</div>
+<h2>Apps</h2>
+<p>The programs of the module, by group: one page per Apps file, in the folder of its group (<span class="fixw">Apps\Layer\Dyl-LayerPhase.lsp</span>, <span class="fixw">DevDocs\Layer\Dyl-LayerPhase.htm</span>).</p>
+<h3>Cleaning</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Cleaning/Dyl-ColorByLayer.htm">Color ByLayer</a></td><td><span class="fixw">Dyl-ColorByLayer.lsp</span></td></tr>
+<tr><td><a href="Cleaning/Dyl-DataLinks.htm">Data Links</a></td><td><span class="fixw">Dyl-DataLinks.lsp</span></td></tr>
+<tr><td><a href="Cleaning/Dyl-SetByBlock.htm">Fix Blocks ByBlock</a></td><td><span class="fixw">Dyl-SetByBlock.lsp</span></td></tr>
+</table>
+</div>
+<h3>Draw</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Draw/Dyl-HatchPresets.htm">Hatch Presets</a></td><td><span class="fixw">Dyl-Materials.lsp</span>, <span class="fixw">Dyl-Materials.lsp</span></td></tr>
+<tr><td><a href="Draw/Dyl-QuickDraw.htm">Quick Draw</a></td><td><span class="fixw">Dyl-QuickDraw.lsp</span></td></tr>
+<tr><td><a href="Draw/Dyl-QuickDrawEndsCorners.htm">Ends and Corners</a></td><td><span class="fixw">Dyl-QuickDraw.lsp</span></td></tr>
+<tr><td><a href="Draw/Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a></td><td><span class="fixw">Dyl-QuickDraw.lsp</span>, <span class="fixw">Dyl-Materials.lsp</span></td></tr>
+<tr><td><a href="Draw/Dyl-QuickShape.htm">Quick Shape</a></td><td><span class="fixw">Dyl-QuickShape.lsp</span></td></tr>
+<tr><td><a href="Draw/Dyl-Shrinkwrap.htm">Shrinkwrap</a></td><td><span class="fixw">Dyl-Shrinkwrap.lsp</span>, <span class="fixw">Dyl-Shrinkwrap.lsp</span></td></tr>
+</table>
+</div>
+<h3>Layer</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Layer/Dyl-DrawOrder.htm">Draw Order</a></td><td><span class="fixw">Dyl-DrawOrder.lsp</span>, <span class="fixw">Dyl-DrawOrder.lsp</span>, <span class="fixw">Dyl-DrawOrder.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerColorWeight.htm">Layer Color Weight</a></td><td><span class="fixw">Dyl-LayerColorWeight.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerExportToCsv.htm">Export Layers To CSV</a></td><td><span class="fixw">Dyl-LayerExportToCsv.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerFilter.htm">Layer Filters</a></td><td><span class="fixw">Dyl-LayerFilter.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerGroup.htm">Layer Groups</a></td><td><span class="fixw">Dyl-LayerGroup.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerImportFiltersFromDwg.htm">Import Layer Filters</a></td><td><span class="fixw">Dyl-LayerImportFiltersFromDwg.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerImportFromCsv.htm">Import Layers From CSV</a></td><td><span class="fixw">Dyl-LayerImportFromCsv.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerKeys.htm">Layer Keys</a></td><td><span class="fixw">Dyl-LayerKeys.lsp</span>, <span class="fixw">Dyl-LayerKey.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerList.htm">Layer Drawing List</a></td><td><span class="fixw">Dyl-LayerList.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerMake.htm">Make Layers</a></td><td><span class="fixw">Dyl-LayerMake.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerPenColors.htm">Layer Pen Colors</a></td><td><span class="fixw">Dyl-LayerPenColors.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerPhase.htm">Layer Phase</a></td><td><span class="fixw">Dyl-LayerPhase.lsp</span>, <span class="fixw">Dyl-LayerPhase.lsp</span>, <span class="fixw">Dyl-LayerPhase.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-LayerTransfer.htm">Layer Transfer</a></td><td><span class="fixw">Dyl-LayerTransfer.lsp</span></td></tr>
+<tr><td><a href="Layer/Dyl-ObjectLayerKeys.htm">Object Layer Keys</a></td><td><span class="fixw">Dyl-ObjectLayerKeys.lsp</span>, <span class="fixw">Dyl-LayerKey.lsp</span>, <span class="fixw">Dyl-ObjectLayerKeys.lsp</span></td></tr>
+</table>
+</div>
+<h3>Navigate</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Navigate/Dyl-SwitchDrawingScale.htm">Switch Drawing Scale</a></td><td><span class="fixw">Dyl-SwitchDrawingScale.lsp</span></td></tr>
+</table>
+</div>
+<h3>Output</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Output/Dyl-CmdOptimizer.htm">Command Optimizer</a></td><td><span class="fixw">Dyl-CmdOptimizer.lsp</span></td></tr>
+<tr><td><a href="Output/Dyl-PrepDrawing.htm">Prep Drawing</a></td><td><span class="fixw">Dyl-PrepDrawing.lsp</span></td></tr>
+<tr><td><a href="Output/Dyl-Revisions.htm">Revisions</a></td><td><span class="fixw">Dyl-Revisions.lsp</span>, <span class="fixw">Dyl-Revisions.lsp</span></td></tr>
+</table>
+</div>
+<h3>Setup</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Setup/Dyl-SetFilePrefs.htm">Set File Preferences</a></td><td><span class="fixw">Dyl-SetFilePrefs.lsp</span>, <span class="fixw">Dyl-FilePrefs.lsp</span>, <span class="fixw">FilePrefs.csv</span></td></tr>
+<tr><td><a href="Setup/Dyl-SetUnits.htm">Set Units</a></td><td><span class="fixw">Dyl-SetUnits.lsp</span></td></tr>
+<tr><td><a href="Setup/Dyl-StandardGrid.htm">Standard Grid</a></td><td><span class="fixw">Dyl-StandardGrid.lsp</span></td></tr>
+<tr><td><a href="Setup/Dyl-SysVars.htm">System Variables</a></td><td><span class="fixw">Dyl-SysVars.lsp</span>, <span class="fixw">Dyl-SysVars.lsp</span></td></tr>
+</table>
+</div>
+<h3>Troubleshooting</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Troubleshooting/Dyl-Diagnostics.htm">Diagnostics</a></td><td><span class="fixw">Dyl-Diagnostics.lsp</span>, <span class="fixw">Dyl-Diagnostics.lsp</span></td></tr>
+</table>
+</div>
+<h3>Utilities</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Page</th><th>Source files</th></tr>
+<tr><td><a href="Utilities/Dyl-AddPrefixSuffix.htm">Add Prefix / Suffix</a></td><td><span class="fixw">Dyl-AddPrefixSuffix.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-BatchInsert.htm">Batch Insert</a></td><td><span class="fixw">Dyl-BatchInsert.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-ClaudeTextFix.htm">Claude Text Fix</a></td><td><span class="fixw">Dyl-ClaudeTextFix.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-CountByLayers.htm">Count by Layers</a></td><td><span class="fixw">Dyl-CountByLayers.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-Dictionary.htm">Dictionary</a></td><td><span class="fixw">Dyl-Dictionary.lsp</span>, <span class="fixw">Dyl-Dictionary.dcl</span>, <span class="fixw">&lt;code&gt;-def.csv</span></td></tr>
+<tr><td><a href="Utilities/Dyl-GroupCluster.htm">Group Cluster</a></td><td><span class="fixw">Dyl-GroupCluster.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-LayerColorToObject.htm">Layer Color To Object</a></td><td><span class="fixw">Dyl-LayerColorToObject.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-LineToPolyline.htm">Line To Polyline</a></td><td><span class="fixw">Dyl-LineToPolyline.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-MultileaderList.htm">Multileader List</a></td><td><span class="fixw">Dyl-MultileaderList.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-OpenFolder.htm">Open Folder</a></td><td><span class="fixw">Dyl-OpenFolder.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-QuickAddPrefixSuffix.htm">Quick Add Prefix / Suffix</a></td><td><span class="fixw">Dyl-QuickAddPrefixSuffix.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-QuickSelectSimilar.htm">Quick Select Similar</a></td><td><span class="fixw">Dyl-QuickSelectSimilar.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-RebuildPat.htm">Rebuild Patterns</a></td><td><span class="fixw">Dyl-RebuildPat.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-ResetLinetypeScale.htm">Reset Linetype Scale</a></td><td><span class="fixw">Dyl-ResetLinetypeScale.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-UngroupNext.htm">Ungroup Nested</a></td><td><span class="fixw">Dyl-UngroupNext.lsp</span></td></tr>
+<tr><td><a href="Utilities/Dyl-ViewportToPaperSpace.htm">Viewport To Paper Space</a></td><td><span class="fixw">Dyl-ViewportToPaperSpace.lsp</span></td></tr>
+</table>
+</div>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

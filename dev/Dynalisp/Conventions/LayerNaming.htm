@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Naming &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Conventions/LayerNaming.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Naming</h1>
+
+<p class="note">The developer docs of Layer Naming: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Conventions/LayerNaming.htm">User Guide</a> page.</p>
+<h2 id="tools">How The Tools Read A Name</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Tool</th><th>What it reads</th></tr>
+<tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerTransfer.htm">Layer Transfer</a></td><td>The Level transfers (the ribbon drop-downs and <span class="fixw">LTF</span>) split the name into a designator of 1 or 2 letters, a major group, its minor groups and a status of 1 character, and replace one of them. The phase transfers (<span class="fixw">E-D</span>, <span class="fixw">D-N</span>...) replace or add the status.</td></tr>
+<tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerPhase.htm">Layer Phase</a></td><td>The status: counts the layers of each phase, shows or hides them, and moves the current layer and the new objects to the active phase.</td></tr>
+<tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm">Layer Keys</a></td><td>The unphased layer of each key, to which the active phase is added (<span class="fixw">A-Detl-Thin</span> &rarr; <span class="fixw">A-Detl-Thin-E</span>).</td></tr>
+<tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerFilter.htm">Layer Filters</a></td><td>Wildcards on the fields: <span class="fixw">A-*</span> for architecture, <span class="fixw">*-E</span> and <span class="fixw">*-X</span> for existing, <span class="fixw">*-@@??</span> for the unphased layers (a name ending with a group), <span class="fixw">*-0001</span> &hellip; <span class="fixw">*-0009</span> for the stacks, <span class="fixw">*-Dims*</span>, <span class="fixw">*-Text*</span>... for the annotation (see its <em>Tokens</em>).</td></tr>
+<tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerMake.htm">Make Layers</a></td><td>Builds each name from the <span class="fixw">Designator</span>, <span class="fixw">Major</span> and <span class="fixw">Minor</span> columns of its lists, and gives the layer a color, lineweight and linetype from its codes.</td></tr>
+</table>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

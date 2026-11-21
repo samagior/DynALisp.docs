@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Phase &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Layer/Dyl-LayerPhase.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Phase</h1>
+
+<p class="note">The developer docs of Layer Phase: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerPhase.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerPhase.lsp</span> (the phases and the active phase), <span class="fixw">Modules\Dynalisp\Reactor\Dyl-LayerPhase.lsp</span> (auto-phase), <span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPhase.lsp</span> (the commands and the Layer Phases window)</td>
+</tr>
+<tr>
+<td>Data</td>
+<td><span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span> (the phases), the <span class="fixw">dyl-layer</span> dictionary of each drawing (its active phase), the user settings <span class="fixw">DynalispPhaseAuto</span> and <span class="fixw">DynalispPhaseSkip</span></td>
+</tr>
+<tr class="alt">
+<td>Uses</td>
+<td><a href="Dyl-LayerKeys.htm">Layer Keys</a> (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyPhased</span>, <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyKeepColor</span>, <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDialog</span>), the ribbon plugin (<span class="fixw">Dyl:RibbonPhase</span>), the reactor helpers of <span class="fixw">dynalisp.mnl</span></td>
+</tr>
+</table>
+</div>
+
+<h2>The Three Files</h2>
+<p>The work is split by when it must be loaded, as the <a href="../../conventions.html#folders">Folders</a> and <a href="../../conventions.html#reactors">Reactors</a> conventions ask:</p>
+<div class="spacedbullets">
+<ol>
+<li><strong>Remote</strong> &ndash; loaded at startup in every drawing, before the Apps: the phase list, the names, the active phase and its setters. Every other program (Layer Keys, Quick Draw, Layer Transfer, the ribbon) calls these functions, so they must exist before any command runs. The file ends with <span class="fixw">(Remote&gt;&gt;Dyl:PhaseStatus)</span>, so each drawing opened shows its phase.</li>
+<li><strong>Reactor</strong> &ndash; loaded after the Remote files, only while <span class="fixw">DynalispReactors</span> is on (<span class="fixw">Dyl:load</span> skips the Reactor folders otherwise): the auto-phase reactors. Off, the file is not loaded and nothing of it exists; the code of the other files checks <span class="fixw">(if Reactor&gt;&gt;Dyl:PhaseReactors ...)</span> first.</li>
+<li><strong>Apps</strong> &ndash; autoloaded, defined when one of its commands runs: <span class="fixw">Dyl-LayerPhase</span> (the window) and its <span class="fixw">Pst-Phase*</span> children, run by the <span class="fixw">PH-*</span> aliases of <span class="fixw">Resources\Aliases.csv</span>.</li>
+</ol>
+</div>
+
+<h2>The Phases</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Remote&gt;&gt;Dyl:PhaseList</span> returns <span class="fixw">((code description) ...)</span>. It reads <span class="fixw">Phase.csv</span> through <span class="fixw">Dyl:UserFile</span> (the user's copy first), with <span class="fixw">Remote&gt;&gt;LM:csv-&gt;lst</span> and the separator of its header (<span class="fixw">;</span>, tab or <span class="fixw">,</span>). A row counts when its first field is a single character valid in a name (<span class="fixw">snvalid</span>), once per code, upper case.</li>
+<li>The description is the 6th column, <span class="fixw">Description</span>, or the column <span class="fixw">Description.&lt;code&gt;</span> of the language of the AutoCAD installed (<span class="fixw">Dyl:LangAcad</span>, never the docs language), found by its name in the header. The file is opened as UTF-8 (<span class="fixw">(open f "r" "utf8")</span>); an AutoCAD that cannot (older than 2021) opens it in the code page of Windows and keeps the English column.</li>
+<li>Without the file, or at startup before <span class="fixw">LM-Sub.lsp</span> defines <span class="fixw">Remote&gt;&gt;LM:csv-&gt;lst</span> (it loads after <span class="fixw">Dyl-LayerPhase.lsp</span>), the list is <span class="fixw">*ph:defaults*</span>, the eleven NCS phases. That is why <span class="fixw">Dyl:load</span> calls <span class="fixw">Remote&gt;&gt;Dyl:PhaseStatus</span> again once every Remote file is loaded.</li>
+<li>The file is read again on every call: the functions below take the list as their <span class="fixw">codes</span> argument, read once per operation by their caller.</li>
+</ul>
+</div>
+
+<h2>Layer Names</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseOf lay codes)</span> &ndash; the phase of a name: its last character when the name matches <span class="fixw">*?-?</span> and that character is a code of the list (<span class="fixw">"A-Wall-Full-E"</span> &rarr; <span class="fixw">"E"</span>), else nil.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseBase lay codes)</span> &ndash; the name without its phase (<span class="fixw">"A-Wall-Full"</span>).</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseTarget lay code codes bases)</span> &ndash; the layer an object on <span class="fixw">lay</span> goes to in phase <span class="fixw">code</span>, nil when it stays: never for <span class="fixw">*ph:never*</span> (<span class="fixw">0</span>, <span class="fixw">DEFPOINTS</span>, any name with <span class="fixw">|</span>, the xref layers); a phased name takes the new code in place of its own; a name of <span class="fixw">bases</span>, the layers of the layer keys (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyPhased</span>, upper case), gets <span class="fixw">-code</span> added; any other name stays.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseColor aci from to)</span> &ndash; the color of a layer moved from one phase to another, the rule of <a href="Dyl-LayerTransfer.htm">Layer Transfer</a>: to <span class="fixw">D</span>, <span class="fixw">2</span> followed by the last digit of the color (7 &rarr; 27); to <span class="fixw">E</span>, <span class="fixw">20</span> followed by it (7 &rarr; 207); from <span class="fixw">D</span> or <span class="fixw">E</span> to another phase, the last digit alone; otherwise the color is kept. A result outside 1&ndash;255 gives 7.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseMake src new from to)</span> &ndash; creates <span class="fixw">new</span> when the drawing does not have it, from <span class="fixw">src</span>: linetype, lineweight, plot and description of <span class="fixw">src</span>, and the color of <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyKeepColor</span> when the name (without its phase) is the layer of a key that keeps its color in every phase, else <span class="fixw">PhaseColor</span>. Returns T when the layer exists afterwards.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseLayer lay code)</span> &ndash; the two above together: the layer of <span class="fixw">lay</span> in phase <span class="fixw">code</span>, created when missing; <span class="fixw">lay</span> itself when it is not phased or <span class="fixw">code</span> is nil.</li>
+</ul>
+</div>
+
+<h2>The Active Phase</h2>
+<div class="spacedbullets">
+<ol>
+<li>It is kept in the drawing, <span class="fixw">(vlax-ldata-get "dyl-layer" "phase")</span>, so each drawing has its own and keeps it when saved; <span class="fixw">""</span> means none. <span class="fixw">Remote&gt;&gt;Dyl:PhaseGet</span> returns the code or nil.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseSet code)</span> writes it (nil writes <span class="fixw">""</span>), moves <span class="fixw">CLAYER</span> to <span class="fixw">(Remote&gt;&gt;Dyl:PhaseLayer (getvar "CLAYER") code)</span> when that is another layer, prints the new phase (and <em>auto-phase off</em> when it does not run), then calls <span class="fixw">Remote&gt;&gt;Dyl:PhaseStatus</span>.</li>
+<li>Every setter goes through it: the aliases (<span class="fixw">Pst-PhaseExisting</span> &hellip; <span class="fixw">Pst-PhaseNone</span>, each <span class="fixw">(ph:switch code)</span>), a double-click in the window, and the Phase drop-down of the ribbon, whose plugin runs <span class="fixw">(Remote&gt;&gt;Dyl:PhaseSet "N")</span> when the user picks an item (<span class="fixw">PhaseCombos.cs</span>).</li>
+<li><span class="fixw">Pst-PhaseNext</span> cycles through <span class="fixw">ph:cycle</span>: <span class="fixw">E</span>, <span class="fixw">D</span>, <span class="fixw">N</span>, <span class="fixw">F</span>, then the other phases that have layers in the drawing, in the order of <span class="fixw">Phase.csv</span>; after the last one, the first again.</li>
+<li>The layer keys read it too: while auto-phase is on, <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyLayer</span> gives the layer of a key in the active phase.</li>
+</ol>
+</div>
+
+<h2>The Status Bar And The Ribbon</h2>
+<p><span class="fixw">Remote&gt;&gt;Dyl:PhaseStatus</span> shows the state in both places, and runs after every change of the phase or of auto-phase, when a drawing becomes current and when DynALisp loads:</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Status bar</strong> &ndash; <span class="fixw">MODEMACRO</span> is set to <span class="fixw">Phase: N - New Work [Auto]</span> (or <span class="fixw">Phase: none [Auto]</span>, or <span class="fixw">""</span>), only when it is empty or already starts with <span class="fixw">Phase: </span>: a <span class="fixw">MODEMACRO</span> set by something else is left alone.</li>
+<li><strong>Ribbon</strong> &ndash; when the plugin is loaded (AutoCAD 2025 and later), <span class="fixw">(Dyl:RibbonPhase code auto reactors phases)</span>: the active phase (or nil), <span class="fixw">DynalispPhaseAuto</span>, <span class="fixw">DynalispReactors</span> and the flat list <span class="fixw">("E" "Existing To Remain" "D" ...)</span>. The plugin only records the state; it updates its drop-downs when AutoCAD is idle (see the <a href="../../conventions.html#ribbon">Ribbon</a> convention), and reads the translated descriptions of <span class="fixw">Phase.csv</span> itself.</li>
+</ul>
+</div>
+
+<h2>Auto-phase</h2>
+<p>A user setting, <span class="fixw">DynalispPhaseAuto</span> (<span class="fixw">"1"</span> on, off on a new installation), the same in every drawing. <span class="fixw">Remote&gt;&gt;Dyl:PhaseAuto-p</span> reads it; <span class="fixw">Remote&gt;&gt;Dyl:PhaseAutoOn-p</span> is T when it is on and the DynALisp reactors are on too, the only case where it runs. <span class="fixw">(Remote&gt;&gt;Dyl:PhaseAutoSet on)</span> writes it, makes or removes the reactors of the drawing (<span class="fixw">Reactor&gt;&gt;Dyl:PhaseReactors</span>, when the Reactor file is loaded) and updates the status; it is called by <span class="fixw">PH-AUTO</span>, the Auto-phase drop-down and the <em>Auto-phase new objects</em> toggle of <span class="fixw">Dyl-Settings</span>.</p>
+<h3>The reactors</h3>
+<p><span class="fixw">Reactor&gt;&gt;Dyl:PhaseReactors</span> removes the reactors of the file and resets its variables, then, when auto-phase and the reactors are on, makes two reactors, each through <span class="fixw">Dyl:ReactorLocal</span> (only the drawing in front acts):</p>
+<div class="programs">
+<table>
+<tr class="alt"><td><span class="fixw">*ph:append*</span></td><td>An <span class="fixw">acdb</span> reactor, <span class="fixw">:vlr-objectAppended</span> &rarr; <span class="fixw">Reactor&gt;&gt;Dyl:PhaseOnAppend</span>. Made off: <span class="fixw">Reactor&gt;&gt;Dyl:PhaseWatch</span> adds it only while a command or a Lisp command runs. Objects are also added with no command running (the Project Navigator palette of AutoCAD Architecture, as the first drawing opens), and a Lisp call for each of them froze AutoCAD.</td></tr>
+<tr><td>editor reactor</td><td><span class="fixw">:vlr-commandWillStart</span> &rarr; <span class="fixw">PhaseOnStart</span>; <span class="fixw">:vlr-commandEnded</span>, <span class="fixw">Cancelled</span>, <span class="fixw">Failed</span> &rarr; <span class="fixw">PhaseOnEnd</span>; <span class="fixw">:vlr-lispWillStart</span> &rarr; <span class="fixw">PhaseOnLisp</span>; <span class="fixw">:vlr-lispEnded</span>, <span class="fixw">Cancelled</span> &rarr; <span class="fixw">PhaseOnLispEnd</span>.</td></tr>
+</table>
+</div>
+<h3>One command, step by step</h3>
+<div class="spacedbullets">
+<ol>
+<li><strong>A command starts</strong> (<span class="fixw">PhaseOnStart</span>) &ndash; when no other command runs (<span class="fixw">Dyl:CmdTop-p</span> of <span class="fixw">dynalisp.mnl</span>), <span class="fixw">*ph:depth*</span> goes back to 0, so a count left above 0 by a command whose end was never seen cannot stop auto-phase. At depth 0, <span class="fixw">*ph:off*</span> is set when the command matches the skip pattern (<span class="fixw">Reactor&gt;&gt;Dyl:PhaseSkip</span>: <span class="fixw">DynalispPhaseSkip</span>, else <span class="fixw">*ph:skip*</span>: <span class="fixw">UNDO</span>, <span class="fixw">TRIM</span>, <span class="fixw">BREAK</span>, <span class="fixw">PASTE*</span>, <span class="fixw">XBIND</span>&hellip;). The depth goes up by one (a transparent <span class="fixw">'ZOOM</span> runs inside another command) and the append reactor is turned on.</li>
+<li><strong>Objects are added</strong> (<span class="fixw">PhaseOnAppend</span>) &ndash; only collected: the entity name goes to <span class="fixw">*ph:new*</span>, unless the command is skipped (<span class="fixw">*ph:off*</span>) or the objects are being moved (<span class="fixw">*ph:busy*</span>: the phase layers created then are not collected). An object cannot be changed while it is being added.</li>
+<li><strong>The command ends</strong> (<span class="fixw">PhaseOnEnd</span>, also when it is cancelled or fails) &ndash; the depth goes down; at 0, <span class="fixw">*ph:off*</span> is cleared and, unless a Lisp command is running, the append reactor is turned off and <span class="fixw">Reactor&gt;&gt;Dyl:PhaseRunSafe</span> runs.</li>
+<li><strong>A Lisp command</strong> (<span class="fixw">PhaseOnLisp</span>, <span class="fixw">PhaseOnLispEnd</span>) &ndash; <span class="fixw">*ph:lisp*</span> keeps the objects of every command it runs until it ends; then the variables are reset, the append reactor turned off, and the objects moved at once.</li>
+<li><strong>The objects move</strong> (<span class="fixw">Reactor&gt;&gt;Dyl:PhaseRun</span>, through <span class="fixw">PhaseRunSafe</span>, which catches any error so the next commands never stop) &ndash; with an active phase: <span class="fixw">*ph:busy*</span> on, the phase list and the layer key layers read once, then for each object still there, not a viewport, owned by model space or a layout (<span class="fixw">Reactor&gt;&gt;Dyl:PhaseInSpace-p</span>: never a block definition): <span class="fixw">Reactor&gt;&gt;Dyl:PhaseMove</span> takes its target (<span class="fixw">PhaseTarget</span>), makes the layer (<span class="fixw">PhaseMake</span>) and puts the object on it. The attributes of a block reference move the same way. A target layer that is off (negative color) or frozen (bit 1 of code 70) is listed, and the command line gives the count and those layers.</li>
+</ol>
+</div>
+<h3>Other drawings, and turning off</h3>
+<div class="spacedbullets">
+<ul>
+<li>Every drawing has a document reactor, <span class="fixw">*ph:docreactor*</span> (<span class="fixw">:vlr-documentBecameCurrent</span> &rarr; <span class="fixw">Reactor&gt;&gt;Dyl:PhaseOnDoc</span>), made again on each load of the file (<span class="fixw">Dyl-Reload</span>) so it always runs the current functions. When its drawing becomes current, it makes or removes the auto-phase reactors to follow a setting changed in another drawing, and shows the drawing's own phase. When the DynALisp reactors were turned off elsewhere, it calls <span class="fixw">Dyl:ReactorsStop</span> instead.</li>
+<li>The file registers <span class="fixw">Reactor&gt;&gt;Dyl:PhaseStop</span> with <span class="fixw">Dyl:ReactorsAdd</span>: <span class="fixw">Dyl:ReactorsStop</span> runs it to remove all its reactors at once.</li>
+</ul>
+</div>
+
+<h2>The Layer Phases Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-LayerPhase</span> writes the window to a temporary DCL file (<span class="fixw">ph:dcl</span>, deleted when it closes) and works on its locals: <span class="fixw">ph:codes</span> (the phase list after <span class="fixw">("" "Unphased")</span>), <span class="fixw">ph:sel</span> (the codes selected), <span class="fixw">ph:stat</span> and <span class="fixw">ph:regen</span>.</li>
+<li><span class="fixw">ph:stats</span> counts, per phase, the layers (<span class="fixw">tblnext</span>), the layers shown (positive color and not frozen) and the objects (<span class="fixw">(ssget "_X" '((8 . "*?-E")))</span>); the objects of <em>Unphased</em> are all the objects less the phased ones. The visibility is <em>Shown</em>, <em>Hidden</em>, <em>Partial</em> or <span class="fixw">-</span> (no layer).</li>
+<li><span class="fixw">ph:show</span> turns the layers of the phases selected on and thaws them, or off and freezes them (the current layer is only turned off); xref layers included. <em>Isolate phase</em> hides every other phase but <em>Unphased</em>. The drawing is regenerated at once; when it cannot be while the window is open, <span class="fixw">ph:regen</span> regenerates it when the window closes.</li>
+<li><em>Layer keys Editor</em> closes the window with code 3, runs <span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog nil)</span>, and the loop opens the window again.</li>
+</ul>
+</div>
+
+<h2 id="api">Using Phases In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PhaseGet)</span></td><td>The active phase code (<span class="fixw">"N"</span>), nil when there is none.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PhaseSet "N")</span></td><td>Sets the active phase (nil: none), moves the current layer, updates the status.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PhaseLayer "A-Wall-Full-E" "N")</span></td><td><span class="fixw">"A-Wall-Full-N"</span>, created when missing.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PhaseList)</span></td><td><span class="fixw">(("E" "Existing To Remain") ...)</span>: pass it as <span class="fixw">codes</span> to <span class="fixw">PhaseOf</span>, <span class="fixw">PhaseBase</span>, <span class="fixw">PhaseTarget</span>.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PhaseAutoOn-p)</span></td><td>T when auto-phase runs (on, and the reactors on).</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyLayer "THIN")</span></td><td>The layer of a layer key, in the active phase while auto-phase is on.</td></tr>
+</table>
+</div>
+<p>An object a Lisp command of an App creates moves to the active phase when the command ends, as any other: an App has nothing to do for auto-phase. To draw on a phase other than the active one, take the layer with <span class="fixw">PhaseLayer</span>.</p>
+
+<h2>Diagnostics</h2>
+<p><span class="fixw">Dyl-Diagnostics</span> (<a href="../Troubleshooting/Dyl-Diagnostics.htm">Diagnostics</a>) reports, in its Reactors section, <span class="fixw">DynalispPhaseAuto</span>, whether the drawing has its one database reactor (none while it is on, or one while the reactors are off, is a problem), <span class="fixw">*ph:depth*</span> and the objects waiting in <span class="fixw">*ph:new*</span> (a depth above 0 with no command running is a count stuck); and the active phase in its Drawing section.</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The objects are moved in a step of their own after the command, so <span class="fixw">U</span> undoes the move first.</li>
+<li><span class="fixw">UNDO</span> restores the <span class="fixw">dyl-layer</span> dictionary but no reactor sees it: the status bar and the drop-down show the restored phase only at the next <span class="fixw">PhaseStatus</span>.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:PhaseList</span> reads <span class="fixw">Phase.csv</span> on every call (each status update, each move of objects).</li>
+<li>The window is written from Lisp strings to a temporary file; the <a href="../../conventions.html#folders">Folders</a> convention keeps the dialogs in <span class="fixw">Res</span>.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Making A Module &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../LeeMac/index.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Making A Module</h1>
+
+        <p>The LeeMac module is the sample module of DynALisp: it shows, with over 100 programs by Lee Mac, how a collection of existing AutoLISP code becomes a DynALisp module, and it is the model for a module of your own. This page follows its parts. What the programs do and how to use them is in the <a href="../../LeeMac/index.htm">User Guide</a>; the rules every module follows are in the <a href="../conventions.html">conventions</a>.</p>
+
+        <p class="note">The programs and their descriptions are the work of Lee Mac (<a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a>), who keeps all the credit for them. Their files keep their author and their licence (<span class="fixw">LEE-MAC-LICENCE.md</span>, <a href="../licences/LEE-MAC-LICENCE.html">Lee Mac licence</a>).</p>
+
+<h2>The Folders</h2>
+<p>A module is a folder of <span class="fixw">Contents\Modules</span>. DynALisp loads and indexes every one the same way, so a new folder is all a module needs to start:</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Apps</td><td>One Lisp file per program, in a group folder: <span class="fixw">Apps\General</span>, <span class="fixw">Apps\Mathematical</span>, <span class="fixw">Apps\Novelty</span>, <span class="fixw">Apps\Utilities</span>. A file is named exactly as its main command (<span class="fixw">LM-AddObjectsToBlock.lsp</span>).</td></tr>
+<tr><td>Remote</td><td>The code every program shares, loaded at startup: <span class="fixw">Remote\LM-Sub.lsp</span>, the Lee Mac subfunctions (over 300), each with the <span class="fixw">Remote&gt;&gt;</span> prefix.</td></tr>
+<tr class="alt"><td>Docs</td><td>The User Guide: one page per program, in the same group folder as its file (<span class="fixw">Docs\General\LM-AddObjectsToBlock.htm</span>), its pictures in <span class="fixw">images</span>, and <span class="fixw">index.htm</span>.</td></tr>
+<tr><td>DevDocs</td><td>The developer docs: this page. A module of your own gets one page per program here, as the Dynalisp module does.</td></tr>
+</table>
+</div>
+<p>A module can also have <span class="fixw">Res</span> (its data files and dialogs) and <span class="fixw">Reactor</span> (its reactors, loaded only while the DynALisp reactors are on): the LeeMac module needs neither.</p>
+
+<h2>A Program File</h2>
+<ol>
+<li><strong>The heading</strong> &ndash; the GPL notice of DynALisp, the line saying the author's licence applies on top of it, the author and the date of the original, and the list of the changes made to integrate it. A file kept as an exact copy of the original says so: no renaming, no reformatting, no code added or removed, only the minor fixes it lists.</li>
+<li><strong>The main command</strong> &ndash; one per file, <span class="fixw">c:LM-&lt;Name&gt;</span>, named after what it does, in PascalCase and spelled out (<span class="fixw">LM-AddObjectsToBlock</span>, not <span class="fixw">ADDTOBLOCK</span>).</li>
+<li><strong>The child commands</strong> &ndash; its presets and variants, <span class="fixw">c:Pst-&lt;Name&gt;</span>. Each program has one that opens its original help page: <span class="fixw">c:Pst-2DProjectionHelp</span> runs <span class="fixw">(startapp "explorer" "http://www.lee-mac.com/2dprojection.html")</span>.</li>
+<li><strong>Two comment lines above each command</strong> &ndash; its name, then a one-line description:
+<div class="code"><pre>;; Add Objects To Block
+;; Adds the selected objects to the definition of a picked block.
+
+(defun c:LM-AddObjectsToBlock (/ *error* bln bnl btr def ent enx idx lst sel tmp)</pre></div>
+<span class="fixw">Dyl-SuiteUpdate</span> reads them (<span class="fixw">Dyl:SuiteParse</span> and <span class="fixw">Dyl:SuiteFlush</span> of <span class="fixw">dynalisp.mnl</span>: the token after <span class="fixw">(defun</span> that starts with <span class="fixw">C:</span>, and the last two comment lines before it) to write the row of the command.</li>
+<li><strong>Nothing runs when the file loads</strong> &ndash; the original code that ran on load is removed: an App turned on is only autoloaded, and its functions are defined once one of its commands has run.</li>
+</ol>
+
+<h2>The Startup Suite</h2>
+<p><span class="fixw">Dyl-SuiteUpdate</span> scans the Apps files of every module and writes one row per command in <span class="fixw">Resources\StartupSuite.csv</span> (your copy in <span class="fixw">User</span>):</p>
+<div class="code"><pre>Load;Command;Name;Description;File;Module;Group;Duplicate;Path
+1;C:LM-2DPROJECTION;2D Projection;Projects a selection of planar objects from one reference frame to another.;LM-2DProjection.lsp;LeeMac;General;;LeeMac\Apps\General\LM-2DProjection.lsp</pre></div>
+<p>From that index, <span class="fixw">Dyl-Suite</span> turns each file on or off (the <em>Load</em> column), and DynALisp autoloads the files turned on: their commands are known at startup, the file is loaded the first time one runs. A child is shown under its main command (<span class="fixw">[+]</span>), as the commands of the same file.</p>
+
+<h2>Aliases</h2>
+<p>The original names of a program are its short names, kept as aliases in <span class="fixw">Resources\Aliases.csv</span>, never as extra code:</p>
+<div class="code"><pre>Alias;Command
+C:ADDTOBLOCK;C:LM-ADDOBJECTSTOBLOCK</pre></div>
+<p>An alias never takes the name of a command of AutoCAD, of its Express Tools or of <span class="fixw">acad.pgp</span>: <span class="fixw">Dyl-Suite</span> refuses it, and an original name that is taken gets another alias (<span class="fixw">TXTCOUNT</span> for Lee Mac's <span class="fixw">TCOUNT</span>, <span class="fixw">ACL</span> for his <span class="fixw">CL</span>).</p>
+
+<h2>Shared Subfunctions</h2>
+<p>A subfunction used by several programs is loaded once, at startup, from <span class="fixw">Remote\LM-Sub.lsp</span>, as <span class="fixw">Remote&gt;&gt;LM:&lt;name&gt;</span>. A program that keeps its own local copy stays an exact copy of the original; a new program calls the remote one. In VS Code, the snippets <span class="fixw">LM-LocalSub</span> and <span class="fixw">LM-RemoteSub</span> insert a subfunction either way (<span class="fixw">.vscode\lmsnippets.py</span> writes them from <span class="fixw">LM-Sub.lsp</span>).</p>
+
+<h2>The Docs</h2>
+<ul>
+<li>A User Guide page per program, named as its file (<span class="fixw">Docs\General\LM-2DProjection.htm</span>), found by <span class="fixw">Dyl-Suite</span> from the file of the command. A program without a page of its own opens the index of its group, then of the module.</li>
+<li>Each page of the LeeMac module is a copy of Lee Mac's help page, and begins with a note saying it is delivered for consistency purposes only, crediting Lee Mac and linking to the original page. <span class="fixw">Installer\Docs\BuildDocs.py</span> reports a page without it.</li>
+<li><span class="fixw">BuildDocs.py</span> writes the language switch and the list of the pages of the website; the website is built and published on every push to <span class="fixw">main</span> (see the <a href="../index.html">developer home</a>).</li>
+</ul>
+
+<h2>A Module Of Your Own</h2>
+<ol>
+<li>Make a folder in <span class="fixw">Contents\Modules</span> with <span class="fixw">Apps\&lt;Group&gt;</span>; to keep it out of git, add it to <span class="fixw">.gitignore</span> as <span class="fixw">MyTools</span> is.</li>
+<li>Put one program per Lisp file, its main command named after the file, its two comment lines above each command, nothing run on load.</li>
+<li>Run <span class="fixw">Dyl-SuiteUpdate</span>, then turn the files on in <span class="fixw">Dyl-Suite</span> and give the commands their aliases there.</li>
+<li>Add a docs page per program in <span class="fixw">Docs\&lt;Group&gt;</span>: <span class="fixw">Dyl-Suite</span> opens it from your computer (the website has only the modules of the repository).</li>
+</ol>
+
+<p><a href="../index.html">&larr; Developer home</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

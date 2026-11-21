@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SetUnits.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Setup/Dyl-SetUnits.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-SETUNITS</span> and 4 unit settings (<span class="fixw">UNITS-M0</span>, <span class="fixw">UNITS-M1</span>, <span class="fixw">UNITS-M2</span>, <span class="fixw">UNITS-I16</span>)</td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetUnits.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -46,18 +43,6 @@
 <tr><td><span class="fixw">UNITS-I16</span></td><td>Units Imperial 1/16 in</td><td>Sets the drawing units to architectural with a 1/16 in precision.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<p>Each command sets the unit system variables (<span class="fixw">LUNITS</span>, <span class="fixw">LUPREC</span>, <span class="fixw">AUNITS</span>, <span class="fixw">AUPREC</span>, <span class="fixw">ANGBASE</span>, <span class="fixw">ANGDIR</span>) and prints a confirmation:</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Length</th><th>Length precision</th><th>Angle</th><th>Angle precision</th></tr>
-<tr><td><span class="fixw">UNITS-M0</span></td><td>Decimal</td><td><span class="fixw">0</span></td><td>Decimal degrees</td><td><span class="fixw">0</span></td></tr>
-<tr><td><span class="fixw">UNITS-M1</span></td><td>Decimal</td><td><span class="fixw">0.0</span></td><td>Decimal degrees</td><td><span class="fixw">0.0</span></td></tr>
-<tr><td><span class="fixw">UNITS-M2</span></td><td>Decimal</td><td><span class="fixw">0.00</span></td><td>Decimal degrees</td><td><span class="fixw">0.00</span></td></tr>
-<tr><td><span class="fixw">UNITS-I16</span></td><td>Architectural</td><td><span class="fixw">1/16</span></td><td>Decimal degrees</td><td><span class="fixw">0</span></td></tr>
-</table>
-</div>
-<p>All four set the base angle to East (0&deg;) and angles counter-clockwise.</p>
 <h2>Drawing Defaults</h2>
 <p>In <span class="fixw">Dyl-Settings</span>, the <em>open</em> button of <em>Drawing Settings</em> (in <em>Overrides</em>; unchecked, no drawing is checked) opens the window that picks the units of the imperial drawings and the units of the metric drawings (<span class="fixw">MEASUREMENT</span> 0 or 1). Each time a drawing opens, its units are compared with the default of its kind and set when they differ. The drawing is not marked as modified by it: save it to keep the units in the file. <em>(Not checked)</em> leaves the drawings of that kind as they are. This works whether the commands of this page are turned on or not (the presets are in <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
 <h2>Known Limitations</h2>

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerList.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerList.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-LAYERLIST</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerList.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -41,15 +38,6 @@
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">DYL-LAYERLIST</span></td><td>Layer Drawing List</td><td>Dessine une ligne et une étiquette avec la description de chaque calque du dessin ou de la sélection.</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Choisissez le point d'insertion de la première rangée.</li>
-<li>Choisissez <span class="fixw">All</span> (par défaut, chaque calque du dessin dans l'ordre de la table des calques) ou <span class="fixw">Select</span> (les calques des objets que vous sélectionnez, chacun une fois).</li>
-<li>Pour chaque calque, la routine crée sur ce calque : une ligne horizontale de 200 unités, le nom du calque en texte (hauteur 2,25) 1 unité au-dessus de la ligne et, si le calque en a une, sa description 75 unités à droite.</li>
-<li>La rangée suivante commence 7,5 unités plus bas.</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

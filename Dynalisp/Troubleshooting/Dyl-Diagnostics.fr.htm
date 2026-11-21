@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-Diagnostics.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Troubleshooting/Dyl-Diagnostics.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-DIAGNOSTICS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Troubleshooting\Dyl-Diagnostics.lsp</span>, son compte des événements dans <span class="fixw">Modules\Dynalisp\Reactor\Dyl-Diagnostics.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (PowerShell pour compresser le rapport, un compte GitHub pour l'envoyer)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -55,20 +52,6 @@
 <tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Rapporte les unités, les espaces, les tables d'ordre de tracé, les calques, les xréfs et les objets du dessin, et son temps de régénération.</td></tr>
 </table>
 </div>
-<h2>Fonctionnement</h2>
-<p>Chaque partie du rapport vérifie une chose :</p>
-<div class="spacedbullets">
-<ul>
-<li><em>DynALisp</em> : la version installée et la dernière version publiée (quand Dyl-Info l'a vérifiée), un clone git (sa branche et son commit) ou le programme d'installation, le dossier de DynALisp, une autre copie de DynALisp installée, le menu DynALisp, les paramètres en attente d'importation et vos fichiers. Puis le démarrage du dessin : sa durée, les commandes et alias définis, ses avertissements, les fichiers Remote et Reactor qui n'ont pas pu se charger et les plus lents, et les fichiers Lisp de chaque module.</li>
-<li><em>AutoCAD</em> : le produit et sa version, Windows, les profils, les variables système qui changent la façon dont les programmes se chargent et s'exécutent (<span class="fixw">SECURELOAD</span>, <span class="fixw">NOMUTT</span>, <span class="fixw">FILEDIA</span>...), le chemin de recherche des fichiers de support (dossiers manquants ou répétés), les emplacements approuvés, <span class="fixw">acad.lsp</span>, <span class="fixw">acaddoc.lsp</span> et <span class="fixw">acad.pgp</span>, les applications ARX et .NET chargées, les menus chargés, les paquets d'applications installés et la suite de démarrage d'AutoCAD (<span class="fixw">APPLOAD</span>).</li>
-<li><em>Conflicts</em> : lit les fichiers Lisp des autres programmes que charge AutoCAD (<span class="fixw">acad.lsp</span>, <span class="fixw">acaddoc.lsp</span>, la suite de démarrage d'AutoCAD, les autres paquets d'applications et les dossiers de support hors d'AutoCAD lui-même, 300 fichiers au plus). Un fichier qui définit <span class="fixw">S::STARTUP</span> avec <span class="fixw">defun</span> (le démarrage de DynALisp risque de ne pas s'exécuter), ou une commande nommée comme une commande ou un alias de DynALisp, est un problème; un fichier qui retire des commandes AutoCAD ou crée des réacteurs est noté. Puis les alias de <span class="fixw">acad.pgp</span> qui portent le nom d'une commande DynALisp activée ou d'un alias défini (l'un masque l'autre : renommez celui de DynALisp), les alias DynALisp non définis parce que leur nom est pris, et les réacteurs d'autres programmes dans le dessin.</li>
-<li><em>Startup Suite</em> : les commandes activées par module, les fichiers manquants de la suite de démarrage, les commandes activées mais non définies, une commande dans deux fichiers, les commandes principales sans page de docs, et les alias d'une commande qui n'est ni dans la suite de démarrage ni un préréglage personnalisé (restés d'une commande retirée ou renommée : retirez-les dans Dyl-Suite).</li>
-<li><em>Settings</em> : chaque paramètre <span class="fixw">Dynalisp*</span>, vos fichiers (le dossier <span class="fixw">User</span>, ceux dont le fichier par défaut est plus récent après une mise à jour), et chaque fichier de données que lit DynALisp (CSV) : un fichier illisible, les rangées qui n'ont pas les champs de leur en-tête, et le temps pour les lire tous.</li>
-<li><em>Reactors</em> : les paramètres des réacteurs, chaque réacteur activé a son réacteur dans le dessin (une fois), un compte de commandes bloqué ou des objets qui s'accumulent, et chaque réacteur du dessin.</li>
-<li><em>Drawing</em> : le fichier, ses unités et échelles, la phase active et le préréglage d'ordre de tracé, les objets et les entrées d'ordre de tracé de chaque espace, les calques, les blocs et les xréfs (introuvables ou non chargées), les types d'objets (objets proxy notés), les révisions de son projet (ses fichiers et les cartouches des présentations qui ont des révisions, voir <a href="../Output/Dyl-Revisions.htm">Revisions</a>) et le temps pour le régénérer.</li>
-</ul>
-</div>
-<p>Une partie lancée seule est écrite dans <span class="fixw">%TEMP%\DynALisp Diagnostics\&lt;part&gt;.txt</span> et s'ouvre dans votre éditeur de texte.</p>
 <h2>Envoyer un rapport</h2>
 <p><span class="fixw">Dyl-Diagnostics</span> écrit chaque partie dans un dossier <span class="fixw">DynALisp Report &lt;date&gt;</span> de <span class="fixw">%TEMP%</span>, avec :</p>
 <div class="unspacedbullets">

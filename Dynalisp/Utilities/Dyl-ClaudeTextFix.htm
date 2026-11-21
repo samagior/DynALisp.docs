@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ClaudeTextFix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-ClaudeTextFix.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-CLAUDETEXTFIX</span> (<span class="fixw">CLAUDETEXT</span>)</td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (WinHttp COM object), an Anthropic login (the <span class="fixw">ant</span> CLI, <span class="fixw">ant auth login</span> run once) or an Anthropic API key, an internet connection</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -41,16 +38,6 @@
 <p>Proofreads the selected texts, mtexts and multileaders with Claude (the Anthropic API) and replaces each one with its corrected version after you confirm it. Spelling, grammar, accents and punctuation are corrected in the language of the text, never translated; technical terms, abbreviations, units, numbers, dimensions, codes and standard references (e.g. CNB, CSA) are kept, and so are the AutoCAD formatting codes (<span class="fixw">\P</span>, <span class="fixw">\f...;</span>, <span class="fixw">%%c</span>...) and the line structure.</p>
 <p class="note">The text of the selected objects is sent to the Anthropic API. Do not use it on drawings whose text must not leave your computer.</p>
 
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Sign-in: the <span class="fixw">ANTHROPIC_API_KEY</span> environment variable when set (it wins), else the Anthropic login of the user (the <span class="fixw">ant</span> CLI: run <span class="fixw">ant auth login</span> once; its short-lived token is read again every 10 minutes), else a key asked on the command line.</li>
-<li>The API key is taken from the <span class="fixw">ANTHROPIC_API_KEY</span> Windows environment variable (restart AutoCAD after creating it), else asked on the command line; a key typed is kept for the session only, never saved.</li>
-<li>The objects selected before the command are used (right-click menu), else the command asks for a selection: <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span> and <span class="fixw">MULTILEADER</span>.</li>
-<li>Each object is sent on its own (model <span class="fixw">claude-haiku-5-5</span>, 30 s timeout). When the text changes, the original and the corrected text are shown (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) and the command asks <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span>: <em>Oui</em> replaces it, <em>Non</em> keeps it, <em>Tous</em> replaces it and every next correction without asking, <em>Quitter</em> stops.</li>
-<li>The corrections are written with ActiveX, so objects on locked layers are corrected too. The whole command is one undo step, and a summary gives the objects checked, corrected and failed.</li>
-</ol>
-</div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

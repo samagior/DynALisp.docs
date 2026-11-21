@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-StandardGrid.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Setup/Dyl-StandardGrid.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-STANDARDGRID</span> and 4 grids (<span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span>, <span class="fixw">GRID-M</span>)</td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-StandardGrid.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -46,18 +43,6 @@
 <tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Sets a 100 mm grid with a 1 m major grid and a 25 mm snap, converted in imperial drawings.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<p>The command reads <span class="fixw">MEASUREMENT</span> (0 = imperial, 1 = metric), sets the snap spacing, the grid spacing and the number of grid lines per major line, then turns the grid on:</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Imperial snap / grid</th><th>Metric snap / grid</th><th>Major line every</th></tr>
-<tr><td><span class="fixw">GRID-IN</span></td><td>1/8&Prime; / 1/4&Prime;</td><td>3.175 / 6.35</td><td>4 lines (1&Prime;)</td></tr>
-<tr><td><span class="fixw">GRID-FT</span></td><td>1/8&Prime; / 1&Prime;</td><td>3.175 / 25.4</td><td>12 lines (1&prime;)</td></tr>
-<tr><td><span class="fixw">GRID-CM</span></td><td>0.0394 / 0.0787</td><td>1 / 2</td><td>5 lines (1 cm)</td></tr>
-<tr><td><span class="fixw">GRID-M</span></td><td>0.9843 / 3.9370</td><td>25 / 100</td><td>10 lines (1 m)</td></tr>
-</table>
-</div>
-<p>It also sets <span class="fixw">SNAPTYPE</span> to grid snap, <span class="fixw">AUTOSNAP</span> to 15 and turns <span class="fixw">ORTHOMODE</span> off.</p>
 <h2>Drawing Defaults</h2>
 <p>In <span class="fixw">Dyl-Settings</span>, the <em>open</em> button of <em>Drawing Settings</em> (in <em>Overrides</em>; unchecked, no drawing is checked) opens the window that picks the grid of the imperial drawings and the grid of the metric drawings (<span class="fixw">MEASUREMENT</span> 0 or 1). Each time a drawing opens, its snap spacing, grid spacing and major lines are compared with the default of its kind and the grid is set when they differ. The drawing is not marked as modified by it: save it to keep the grid in the file. <em>(Not checked)</em> leaves the drawings of that kind as they are. This works whether the commands of this page are turned on or not (the presets are in <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
 <h2>Known Limitations</h2>

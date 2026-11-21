@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-RebuildPat.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-RebuildPat.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-REBUILDPAT</span> (<span class="fixw">RPAT</span>), <span class="fixw">OPENPATS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-RebuildPat.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -40,18 +37,6 @@
 <h2>Program Description</h2>
 <p>A drawing received from someone else often uses hatch patterns that are not on your computer: the hatches show, but the pattern cannot be picked for a new hatch (e.g. in the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window, where it is marked <em>(not found on the support path)</em>). <span class="fixw">DYL-REBUILDPAT</span> rebuilds the missing <span class="fixw">.pat</span> files from the hatches of the drawing and saves them in a folder of the support file search path, so they can be reused and edited. The drawing itself is not modified.</p>
 
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Select hatches, or press Enter to use every hatch of the drawing (model space, every layout and every block definition). Xrefs and xref-dependent blocks, solid fills, gradients and user-defined hatches are skipped (they use no <span class="fixw">.pat</span> file).</li>
-<li>Every hatch keeps a copy of its pattern definition, transformed by its scale, angle and origin. The routine reverses that transformation to get the original definition (scale 1, angle 0) and writes it in the standard <span class="fixw">.pat</span> format: one pattern per file, named after the pattern. The file says the units of the pattern, those of the drawing (<span class="fixw">;%UNITS=MM</span> in a metric drawing, <span class="fixw">;%UNITS=INCH</span> in an imperial one), so the <a href="../Draw/Dyl-HatchPresets.htm">hatch presets</a> scale it for both.</li>
-<li>A pattern is <em>missing</em> when no <span class="fixw">&lt;name&gt;.pat</span> is found and the name is not in <span class="fixw">acad.pat</span> or <span class="fixw">acadiso.pat</span>: it is always rebuilt. A pattern that exists is left as it is for the whole drawing; with selected hatches, the command asks <span class="fixw">[Replace/Rename/Cancel]</span> (<em>Replace</em> is not offered for a pattern of <span class="fixw">acad.pat</span> / <span class="fixw">acadiso.pat</span>).</li>
-<li>The folder: a folder named <span class="fixw">pats</span> already in the support file search path (e.g. the one AutoCAD Architecture installs), else <span class="fixw">&lt;ROAMABLEROOTPREFIX&gt;\Support\pats</span> (the roaming folder of the product, release and language running), created when needed. When it is not in the support file search path, it is added to the current profile. The command line gives the folder and the patterns written.</li>
-</ol>
-</div>
-<p><span class="fixw">OPENPATS</span> opens that pattern folder in Windows Explorer.</p>
-<p>The <strong>Pick hatch...</strong> button of the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window rebuilds the pattern of the hatch picked the same way, when no <span class="fixw">.pat</span> file has it and you agree. It uses this program: when Rebuild Patterns is turned off in the Startup Suite, it asks to turn it on first.</p>
-<!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
 <p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-RebuildPat</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
 <div class="programs commands wide">

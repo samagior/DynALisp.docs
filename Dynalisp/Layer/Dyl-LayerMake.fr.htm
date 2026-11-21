@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerMake.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerMake.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERMAKE</span> et 11 jeux de calques &ndash; voir <a href="#commands">Commandes</a></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>État</td>
 <td>En développement &ndash; voir Limites connues</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3; fonctions CSV de Lee Mac</td>
 </tr>
@@ -58,24 +55,6 @@
 </table>
 </div>
 <p>Les dossiers CSV sont relatifs à <span class="fixw">Modules\Dynalisp\Res\Layer\List</span>. Chaque CSV a les colonnes <span class="fixw">Designator, Major, Minor1, Minor2, Minor3, Description</span>.</p>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Les rangées de chaque CSV du préréglage sont lues (en-tête sauté).</li>
-<li>Si une rangée contient le repère d'empilement <span class="fixw">0000</span>, l'empilement vous est demandé (<span class="fixw">None</span>, <span class="fixw">1-First</span> &hellip; <span class="fixw">9-Ninth</span>), qui le remplace par <span class="fixw">0001</span> &hellip; <span class="fixw">0009</span>.</li>
-<li>Si une rangée contient le repère de discipline <span class="fixw">$$</span>, la discipline vous est demandée (General, Architectural, Interior, Structural, Landscape), qui le remplace par sa lettre.</li>
-<li>Les champs de nom sont joints par des tirets pour faire le nom du calque; la colonne Description devient la description du calque.</li>
-<li>Les propriétés sont déduites du nom :<div class="unspacedbullets">
-<ul>
-<li>couleur : 151 par défaut, puis des couleurs fixes par mot clé (p. ex. <span class="fixw">Eqpm</span> 1, <span class="fixw">Plnt</span> 81, <span class="fixw">Note</span>/<span class="fixw">Mark</span> 122, <span class="fixw">Dims</span>/<span class="fixw">Grid</span> 221, <span class="fixw">Text</span> 41, <span class="fixw">Scrn</span> 8, <span class="fixw">Exst</span> 9, <span class="fixw">Redl</span> couleur vraie 255,0,0; les calques d'élévation ont leurs propres couleurs);</li>
-<li>épaisseur de ligne : selon le dernier chiffre du numéro de couleur &ndash; 0 &rarr; 0.13, 1 &rarr; 0.18, 2 &rarr; 0.25, 3 &rarr; 0.35, 4 &rarr; 0.50, 5 &rarr; 0.70, 6 &rarr; 1.00, 7 &rarr; 1.40, 8 &rarr; 2.00, 9 &rarr; 0,13 mm (couleurs grises toujours 0,13);</li>
-<li>type de ligne : Continuous, ou Center/Hidden/Phantom (et leurs variantes 2) pour <span class="fixw">Cntr</span>, <span class="fixw">Hdln</span>, <span class="fixw">Phnt</span>, <span class="fixw">Grid</span>, <span class="fixw">Labl</span>, <span class="fixw">Tags</span> &hellip;;</li>
-<li>traçage : désactivé pour les calques <span class="fixw">Nplt</span> et <span class="fixw">Rdme</span>.</li>
-</ul>
-</div></li>
-<li>Chaque calque est créé ou mis à jour avec <span class="fixw">-LAYER</span> et la ligne de commande affiche <span class="fixw">...&lt;layer&gt; - created</span> ou <span class="fixw">- updated</span>.</li>
-</ol>
-</div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

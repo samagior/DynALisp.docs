@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Keys &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Keys</h1>
+
+<p class="note">The developer docs of Layer Keys: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerKeys.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (layer keys, loaded at startup)</td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>When an App uses a key, the key is looked up in <span class="fixw">LayerKeys.csv</span>. Default keys missing from the file use their default values.</li>
+<li>If the layer of the key exists in the drawing, it is used; when its properties differ from those of the key, you are asked whether to update it (see <a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm#differ">Layers That Differ From Their Key</a>). It is never changed without your answer.</li>
+<li>If it does not exist, it is created with the color, linetype, lineweight, plot setting and description of the key. A linetype that is not loaded yet is loaded from <span class="fixw">acad.lin</span> (imperial) or <span class="fixw">acadiso.lin</span> (metric); if it cannot be loaded, the layer stays <span class="fixw">Continuous</span>.</li>
+<li>While auto-phase is on, every key adds the active phase to its layer name (an AEC layer override too, to the layer of the layer key style); that layer is created with the phase color (<span class="fixw">2#</span> for existing to demolish, <span class="fixw">20#</span> for existing to remain, the key color otherwise, and always when the key keeps its color in every phase). With auto-phase on, objects created on the layer of a key also go to the active phase.</li>
+<li>The layer a key gives an App to draw on is thawed and turned on when it is frozen or off, with a message on the command line (<em>Layer A-Detl-Patt-E thawed to draw on it.</em>): a frozen layer cannot be made current, and the objects on it cannot be selected, so the outlines drawn there could not be hatched. Locked layers are left locked.</li>
+<li>A key that is not defined uses a layer of the same name, created as color 7, Continuous, default lineweight; a message names the key on the command line.</li>
+<li>An AEC layer override uses the layer the layer key style of the drawing gives it (see <a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm#aec">AEC Layer Overrides</a>).</li>
+</ol>
+</div>
+<p>The new dimensions, leaders, text and other common objects can go to a layer key of their own too, whatever the current layer: see <a href="../../../Dynalisp/Layer/Dyl-ObjectLayerKeys.htm">Object Layer Keys</a> (Auto layer keys, Dyl-Settings).</p>
+<h2>Using Layer Keys In An App</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyLayer "THIN")</span> &ndash; returns the layer of the key, created if missing.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyApply (entlast) "THIN")</span> &ndash; puts an object on the layer of the key.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyRead)</span> &ndash; returns every key: <span class="fixw">(key layer color linetype lineweight plot description aec)</span>.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog key)</span> &ndash; opens the Layer Keys dialog on a key; returns T when the keys were saved.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyPick key)</span> &ndash; the same dialog to pick a key: returns the key double-clicked (the keys saved), nil on <em>OK</em> or <em>Cancel</em>.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

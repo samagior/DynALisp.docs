@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerColorToObject.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-LayerColorToObject.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">LCOL</span>, <span class="fixw">LAYCOLTOOBJ</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -45,24 +42,6 @@
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">LCOL</span></td><td>Layer Color To Object</td><td>Applique directement à chaque objet sélectionné la couleur de son calque.</td></tr>
 <tr><td><span class="fixw">LAYCOLTOOBJ</span></td><td>Layer Color To Object (Alias)</td><td>Alias de LCOL.</td></tr>
-</table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Utilise les objets présélectionnés, ou demande une sélection (les objets sur des calques verrouillés sont exclus).</li>
-<li>Choisissez le mode de couleur à <span class="fixw">Color mode [AsIs/Index/TrueColor/ByLayer]</span>; Entrée garde le dernier mode de la session (<em>AsIs</em> au départ).</li>
-<li>Chaque objet reçoit la couleur établie d'après son calque (établie une fois par calque), le tout en une seule étape d'annulation.</li>
-<li>La commande indique combien d'objets ont été modifiés et combien n'ont pas pu l'être.</li>
-</ol>
-</div>
-<div class="programs commands wide">
-<table>
-<tr><th>Mode</th><th>Couleur appliquée</th></tr>
-<tr><td><span class="fixw">AsIs</span></td><td>La couleur du calque exactement telle que définie : index, couleur vraie ou couleur d'un carnet de couleurs.</td></tr>
-<tr><td><span class="fixw">Index</span></td><td>Une couleur d'index (ACI); pour un calque en couleur vraie, la couleur d'index la plus proche enregistrée avec le calque.</td></tr>
-<tr><td><span class="fixw">TrueColor</span></td><td>Une couleur vraie RVB; les couleurs d'index des calques sont converties en leurs valeurs RVB.</td></tr>
-<tr><td><span class="fixw">ByLayer</span></td><td>Ramène les objets à DuCalque.</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>

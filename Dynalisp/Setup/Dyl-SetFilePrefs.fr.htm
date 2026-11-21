@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-SetFilePrefs.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Setup/Dyl-SetFilePrefs.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,18 +25,14 @@
 <td><span class="fixw">DYL-SETFILEPREFS</span></td>
 </tr>
 <tr>
-<td>Fichiers source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetFilePrefs.lsp</span> (commande), <span class="fixw">Modules\Dynalisp\Remote\Dyl-FilePrefs.lsp</span> (profil, vérifié dans chaque dessin), <span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (chemins)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP); AutoCAD Architecture pour les chemins AEC</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>État</td>
 <td>Nouveau &ndash; voir Limites connues</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -60,42 +57,6 @@
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">DYL-SETFILEPREFS</span></td><td>Set File Preferences</td><td>Demande les préférences de fichiers et règle le profil DynALisp à partir d'elles.</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>File Preferences</em> (Overrides), choisissez les préférences dans sa fenêtre (son bouton <em>ouvrir</em>) et enregistrez. <span class="fixw">DYL-SETFILEPREFS</span> demande les mêmes préférences à la ligne de commande (Entrée garde la valeur courante) et active le profil.</li>
-<li>La première fois, le profil <span class="fixw">DynALisp</span> est créé comme copie du profil courant, mémorisé comme sa base.</li>
-<li>Les rangées de <span class="fixw">Res\FilePrefs.csv</span> qui correspondent aux préférences donnent les chemins. Pour chaque réglage, la première rangée correspondante dont le fichier ou le dossier existe est utilisée; les rangées suivantes sont des solutions de repli. Un réglage sans rangée correspondante est laissé tel quel.</li>
-<li>Les options d'AutoCAD Architecture dans le registre sont écrites pendant que le profil n'est pas courant, puis le profil est rendu courant. AutoCAD garde le profil courant en mémoire et relit un profil quand il est rendu courant. Les options de l'onglet <em>Fichiers</em> sont ensuite réglées dans le profil courant, et le dictionnaire principal de la langue avec elles.</li>
-<li>Chaque dessin ouvert ne fait que vérifier le profil : un avertissement à la dernière ligne du résumé de démarrage (<span class="fixw">--&gt; ... run Dyl-SetFilePrefs ...</span>) vous dit de lancer <span class="fixw">DYL-SETFILEPREFS</span> quand le profil n'est pas courant, ou quand les préférences ou <span class="fixw">FilePrefs.csv</span> ont changé depuis son réglage. Un dessin ne rend jamais le profil courant lui-même : un profil rendu courant pendant l'ouverture d'un dessin recharge les menus de chaque dessin ouvert et peut arrêter AutoCAD. Il règle toutefois les dictionnaires principal et personnalisé des préférences, dans le profil courant quel qu'il soit : un raccourci qui démarre AutoCAD avec un autre profil (<span class="fixw">/p "AutoCAD Architecture (Global)"</span>) a donc quand même la bonne orthographe.</li>
-<li>Désactivé dans <span class="fixw">Dyl-Settings</span>, le profil de base redevient courant. Le profil <span class="fixw">DynALisp</span> est conservé.</li>
-</ol>
-</div>
-<h2>Fichier des chemins</h2>
-<p><span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (une copie sous <span class="fixw">User\</span> est utilisée quand il y en a une, voir <span class="fixw">Dyl-UserFiles</span>), un chemin par rangée : <span class="fixw">Setting;Classification;Units;Language;Value</span>.</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Setting</strong> :
-<div class="unspacedbullets">
-<ul>
-<li><span class="fixw">Files:&lt;property&gt;</span> règle une option de l'onglet <em>Fichiers</em>, par exemple <span class="fixw">Files:TemplateDwgPath</span> ou <span class="fixw">Files:QNewTemplateFile</span>.</li>
-<li><span class="fixw">Reg:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> règle des valeurs du profil dans le registre, par exemple <span class="fixw">Reg:Preferences\AecGuiBase80|SILocationRoot</span> (le dossier de contenu des styles AEC).</li>
-<li><span class="fixw">Aec:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> règle une option d'AutoCAD Architecture partagée par tous les profils de cet AutoCAD (sous <span class="fixw">AEC\&lt;version&gt;</span>), par exemple <span class="fixw">Aec:General\Tools|ToolContentRoot</span> (le chemin racine du contenu du catalogue d'outils). AutoCAD Architecture la lit à son démarrage, et elle reste réglée quand le profil est désactivé.</li>
-<li><span class="fixw">Db:Components</span> et <span class="fixw">Db:Keynotes</span> règlent les bases de données courantes des composants de détail et des notes clés. Une base pas encore inscrite dans AutoCAD Architecture est ajoutée à sa liste sous l'identifiant écrit dans le fichier de la base (lu avec PowerShell), puisqu'AutoCAD Architecture connaît une base par cet identifiant.</li>
-</ul>
-</div></li>
-<li><strong>Classification</strong> (<span class="fixw">CAWS</span>, <span class="fixw">MasterFormat</span>, <span class="fixw">OmniClass</span>), <strong>Units</strong> (<span class="fixw">Metric</span>, <span class="fixw">Imperial</span>), <strong>Language</strong> (<span class="fixw">English</span>, <span class="fixw">French</span>, <span class="fixw">German</span>, <span class="fixw">Chinese-Simplified</span>...) donnent la préférence visée par la rangée. <span class="fixw">*</span> ou vide correspond à toutes.</li>
-<li><strong>Value</strong> est un chemin (plusieurs chemins sont séparés par <span class="fixw">;</span>). <span class="fixw">{ACA}</span> est le dossier de contenu d'AutoCAD Architecture de la langue (<span class="fixw">C:\ProgramData\Autodesk\ACA 2027\enu</span>, <span class="fixw">fra</span>, <span class="fixw">deu</span>..., trouvé à partir du dossier de contenu AEC du profil). <span class="fixw">{ACA*}</span> essaie le dossier de contenu de chaque langue installée, celle choisie en premier : une base absente de ce contenu est trouvée dans celui de l'autre langue. <span class="fixw">{DYL}</span> est <span class="fixw">Modules\Dynalisp\Res</span>. <span class="fixw">{DYLU}</span> est sa copie utilisateur sous <span class="fixw">User\</span> : le fichier y est copié de son fichier par défaut la première fois, pour un fichier dans lequel AutoCAD écrit, comme un dictionnaire personnalisé qui reçoit les mots ajoutés en vérifiant l'orthographe. Un nom de fichier peut utiliser <span class="fixw">*</span> et <span class="fixw">?</span> (<span class="fixw">AecDtlComponents*.mdb</span>) : le premier fichier correspondant du dossier est utilisé.</li>
-</ul>
-</div>
-<p>Les rangées par défaut règlent le dossier de gabarits et le gabarit QNEW de DynALisp, le dictionnaire personnalisé français, et règlent les dossiers de contenu AEC, de styles, IFC et de gabarits de projet et le chemin racine du contenu du catalogue d'outils selon les unités et la langue. Elles règlent aussi les bases courantes des composants de détail et des notes clés (<em>Configurer les bases de données de composants de détail / notes clés</em>), cherchées dans le contenu installé et ajoutées à la liste d'AutoCAD Architecture quand elles y manquent :</p>
-<div class="unspacedbullets">
-<ul>
-<li><strong>NBS CAWS :</strong> <span class="fixw">Details (Global)</span> en métrique (repli sur <span class="fixw">Details (UK)</span>), <span class="fixw">Details (UK)</span> en impérial (repli sur Global). Les deux utilisent les groupes CAWS (D - Groundwork, E - In Situ Concrete...).</li>
-<li><strong>CSI MasterFormat :</strong> <span class="fixw">Details (FR)</span> en français (repli sur <span class="fixw">Details (US)</span>), <span class="fixw">Details (US)</span> en anglais (repli sur <span class="fixw">Details (FR)</span>), pour les deux unités.</li>
-<li>Chacune est prise dans le contenu de la langue choisie, sinon dans celui de l'autre langue installée. Le contenu anglais 2027 n'a pas de dossier US ni FR : MasterFormat en anglais utilise donc les bases US du contenu français.</li>
-</ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

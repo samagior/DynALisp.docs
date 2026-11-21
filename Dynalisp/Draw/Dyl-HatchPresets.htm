@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-HatchPresets.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-HatchPresets.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-HATCHPRESETS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Materials.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (hatch presets, loaded at startup)</td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -145,9 +142,6 @@
 </div>
 <p>Each default preset of Quick Draw uses the default hatch preset of the same name (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
 
-<h2 id="file">Hatch Presets File</h2>
-<p>The hatch presets are saved in <span class="fixw">Res\Materials.csv</span> (semicolons, one hatch preset per row, with a header). Your changes go to its copy under <span class="fixw">User</span>; the shipped file under <span class="fixw">Contents</span> gives the default values (status, Reset Selected, Reset All). The columns, in order: <span class="fixw">Id, Group, Name, Pattern, Scale, ScaleMetric (no longer used: one scale; kept for the order of the columns), Angle, OutlineKey, HatchKey, Annotative, ScaleDrawing, ScaleRef</span>; the optional settings, each one an <span class="fixw">...On</span> column (<span class="fixw">1</span>: checked) and its value: <span class="fixw">BorderColor, BorderLinetype, BorderLtScale, BorderLineweight</span> (hundredths of mm, <span class="fixw">25</span> = 0.25 mm), <span class="fixw">BorderTransparency, HatchColor, Background, HatchLineweight, HatchTransparency</span>; then <span class="fixw">Associative, NoBorder, BehindBorder (no longer used, kept for the order of the columns), Method, Width, Justify, Sides, ScaleWidth, WidthFactor, OriginOnLine, OriginOffset, ExistingBackgroundOn, ExistingBackground, ShrinkGap</span> (in drawing units), <span class="fixw">ShrinkGapOn, ShrinkGapMetric</span> (no longer used: an older gap moved to ShrinkGap), <span class="fixw">OriginAlong, HatchLinetypeOn, HatchLinetype, HatchLtScaleOn, HatchLtScale</span>; then the slots of the bands of Quick Draw Linear and Offset, set in each preset (see <a href="Dyl-QuickDraw.htm#endscorners">Ends and Corners</a>): <span class="fixw">Ends, EndExtension, EndAngle, Corners, MiterLimit, LapThrough, Joints, HatchFollows</span>; the assembly of Linear (<a href="Dyl-QuickDraw.htm#assembly">Assemblies</a>): <span class="fixw">AssemblyOn, Assembly</span>. An id starting with <span class="fixw">mt-</span> is a default hatch preset, <span class="fixw">cu-</span> a custom one. Missing columns get their default value, so a file of an older version still reads.</p>
-<!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
 <p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
 <div class="programs commands wide">

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Shrinkwrap.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-Shrinkwrap.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SHRINKWRAP</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Shrinkwrap.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Shrinkwrap.lsp</span> (outline, loaded at startup)</td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -51,27 +48,6 @@
 <p>Objects that do not close an area (open lines, a drawing with small gaps) are handled with a <strong>gap tolerance</strong>. <span class="fixw">DYL-SHRINKWRAP</span> first asks it, <span class="fixw">0</span> by default (exact): with a value, the objects are thickened to bands of that width before the outline is traced, so objects closer than the gap are joined and an open drawing is closed, then the outline is offset back inwards by half the gap: it follows the objects within about half the gap. Straight pieces (lines, polylines without arcs) keep their vertices; arcs, circles, splines and curved polylines are divided every half gap.</p>
 <p>When no outline is found (or a try fails), Shrinkwrap tries again by itself with a larger gap: the gap typed plus one <strong>gap step</strong>, then two, up to 10 steps, and the command line gives the gap that was used (<span class="fixw">Shrinkwrap: no outline with a gap of 0, found with a gap tolerance of 3 (3 step(s) of 1...)</span>). The gap step is set in <span class="fixw">Dyl-Settings</span>, <em>Drawing Settings</em> (its <em>open</em> button): one for the imperial drawings (1 by default, inches) and one for the metric drawings (25 by default, mm). A larger gap closes larger openings but rounds the outline more.</p>
 <p>In Quick Draw, the gap is a behavior of the material: with <em>Gap override</em> off, Shrinkwrap starts at 0 and uses the gap step of Dyl-Settings; on, it starts with the <em>Gap</em> of the preset (one value, in drawing units), and asks the gap at every Shrinkwrap when that box is empty. The automatic tries apply in every case.</p>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Each selected object is added to a boundary set, or replaced by temporary objects that <span class="fixw">BOUNDARY</span> can trace:
-<ul>
-<li>texts, mtexts and visible attributes &rarr; a rectangle around the text, following its rotation;</li>
-<li>blocks, dimensions, multileaders and tables &rarr; the pieces of an exploded copy (texts in the pieces get a rectangle, attribute definitions are skipped);</li>
-<li>hatches &rarr; their boundary, recreated with <span class="fixw">-HATCHEDIT</span>;</li>
-<li>images, wipeouts and OLE frames &rarr; a rectangle on their bounding box;</li>
-<li>points, construction lines and rays are ignored.</li>
-</ul>
-</li>
-<li>With a gap tolerance, every curve of the boundary set is replaced by bands of the gap width (rectangles along its straight pieces, its curved pieces divided every half gap). The bands are made regions and united (<span class="fixw">UNION</span>), so they no longer overlap, and the united regions are exploded to their outlines: <span class="fixw">BOUNDARY</span> traces those reliably.</li>
-<li>A temporary rectangular frame is drawn around the extents of the boundary set, and the view zooms on it (<span class="fixw">BOUNDARY</span> only analyses what is on screen).</li>
-<li><span class="fixw">-BOUNDARY</span> runs with island detection on the boundary set, from a point between the objects and the frame. It creates the outline of the frame and the outline of each island, i.e. of each group of objects. With a gap tolerance, each outline is then offset inwards by half the gap.</li>
-<li>The outline of the frame and every temporary object are deleted, and the previous view is restored. When no outline was found, it is tried again with a larger gap (see <a href="#gap">Gap Tolerance</a>).</li>
-<li>Every AutoCAD command is run with <span class="fixw">command-s</span> (AutoCAD 2015 and later): a command that fails, e.g. <span class="fixw">BOUNDARY</span> finding no closed area, leaves nothing pending, so the next tries still run.</li>
-</ol>
-</div>
-<h2>Using It In An App</h2>
-<p><span class="fixw">(Remote&gt;&gt;Dyl:Shrinkwrap ss)</span> returns a selection set of the new polylines, or nil (it starts with a gap of 0). <span class="fixw">(Remote&gt;&gt;Dyl:ShrinkwrapGap ss gap)</span> starts with the gap tolerance <span class="fixw">gap</span> (drawing units). Both try larger gaps when no outline is found and print the gap used. They are used by the <em>Shrinkwrap</em> drawing method of <a href="Dyl-QuickDraw.htm">Quick Draw</a>.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

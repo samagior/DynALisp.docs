@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shrinkwrap &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Draw/Dyl-Shrinkwrap.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Shrinkwrap</h1>
+
+<p class="note">The developer docs of Shrinkwrap: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-Shrinkwrap.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Shrinkwrap.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Shrinkwrap.lsp</span> (outline, loaded at startup)</td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Each selected object is added to a boundary set, or replaced by temporary objects that <span class="fixw">BOUNDARY</span> can trace:
+<ul>
+<li>texts, mtexts and visible attributes &rarr; a rectangle around the text, following its rotation;</li>
+<li>blocks, dimensions, multileaders and tables &rarr; the pieces of an exploded copy (texts in the pieces get a rectangle, attribute definitions are skipped);</li>
+<li>hatches &rarr; their boundary, recreated with <span class="fixw">-HATCHEDIT</span>;</li>
+<li>images, wipeouts and OLE frames &rarr; a rectangle on their bounding box;</li>
+<li>points, construction lines and rays are ignored.</li>
+</ul>
+</li>
+<li>With a gap tolerance, every curve of the boundary set is replaced by bands of the gap width (rectangles along its straight pieces, its curved pieces divided every half gap). The bands are made regions and united (<span class="fixw">UNION</span>), so they no longer overlap, and the united regions are exploded to their outlines: <span class="fixw">BOUNDARY</span> traces those reliably.</li>
+<li>A temporary rectangular frame is drawn around the extents of the boundary set, and the view zooms on it (<span class="fixw">BOUNDARY</span> only analyses what is on screen).</li>
+<li><span class="fixw">-BOUNDARY</span> runs with island detection on the boundary set, from a point between the objects and the frame. It creates the outline of the frame and the outline of each island, i.e. of each group of objects. With a gap tolerance, each outline is then offset inwards by half the gap.</li>
+<li>The outline of the frame and every temporary object are deleted, and the previous view is restored. When no outline was found, it is tried again with a larger gap (see <a href="../../../Dynalisp/Draw/Dyl-Shrinkwrap.htm#gap">Gap Tolerance</a>).</li>
+<li>Every AutoCAD command is run with <span class="fixw">command-s</span> (AutoCAD 2015 and later): a command that fails, e.g. <span class="fixw">BOUNDARY</span> finding no closed area, leaves nothing pending, so the next tries still run.</li>
+</ol>
+</div>
+<h2>Using It In An App</h2>
+<p><span class="fixw">(Remote&gt;&gt;Dyl:Shrinkwrap ss)</span> returns a selection set of the new polylines, or nil (it starts with a gap of 0). <span class="fixw">(Remote&gt;&gt;Dyl:ShrinkwrapGap ss gap)</span> starts with the gap tolerance <span class="fixw">gap</span> (drawing units). Both try larger gaps when no outline is found and print the gap used. They are used by the <em>Shrinkwrap</em> drawing method of <a href="../../../Dynalisp/Draw/Dyl-QuickDraw.htm">Quick Draw</a>.</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

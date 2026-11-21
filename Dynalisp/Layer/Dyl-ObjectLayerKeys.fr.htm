@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-ObjectLayerKeys.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-ObjectLayerKeys.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-OBJECTLAYERKEYS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-ObjectLayerKeys.lsp</span> (fenêtre), <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (types, clés, paramètre) et <span class="fixw">Modules\Dynalisp\Reactor\Dyl-ObjectLayerKeys.lsp</span> (réacteurs)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -62,17 +59,6 @@
 <tr><td>Viewports</td><td>Les fenêtres des présentations (<span class="fixw">MVIEW</span>, <span class="fixw">VPORTS</span>)</td><td><span class="fixw">VIEWPORT</span> (G-View-Nplt)</td></tr>
 <tr><td>Raster images</td><td><span class="fixw">IMAGE</span></td><td>Aucune</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Pendant qu'une commande s'exécute, les nouveaux objets sont rassemblés; à sa fin, chacun d'un type qui a une clé va sur le calque de cette clé (créé avec les propriétés de la clé quand le dessin ne l'a pas, libéré s'il est gelé, voir <a href="Dyl-LayerKeys.fr.htm">Layer Keys</a>). Un message en donne le nombre.</li>
-<li>Tant que l'auto-phase est activée, le calque de la clé est celui de la phase active (<span class="fixw">G-Anno-Dims-E</span>).</li>
-<li>Les objets faits par une commande Lisp sont laissés tels quels : les outils DynALisp (Quick Draw, Quick Shape...) mettent les leurs sur leurs propres clés de calque.</li>
-<li>Les copies gardent le calque de leur original : les objets faits par <span class="fixw">COPY</span>, <span class="fixw">MIRROR</span>, <span class="fixw">ARRAY</span>, <span class="fixw">OFFSET</span>, une copie par poignées, un collage, une insertion, une décomposition et les autres commandes qui modifient ou apportent des objets (celles de l'auto-phase) sont laissés sur leur calque. Les objets d'une définition de bloc ne changent jamais, ni la fenêtre de l'espace papier d'une présentation.</li>
-<li>Aucune fenêtre ne peut s'ouvrir depuis un réacteur : un calque qui diffère de sa clé est vérifié la prochaine fois qu'un outil utilise la clé (<a href="Dyl-LayerKeys.fr.htm#differ">Layers That Differ From Their Key</a>). Une dérogation de calque AEC telle que livrée y utilise son propre calque (le style de clés de calque du dessin est lu par une commande, qui ne peut pas s'exécuter depuis un réacteur).</li>
-<li>Les clés sont enregistrées dans <span class="fixw">Modules\Dynalisp\Res\ObjectLayerKeys.csv</span> (sa copie sous <span class="fixw">User</span>) : une rangée par type, son identifiant et sa clé. Un type absent du fichier reçoit sa clé par défaut.</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

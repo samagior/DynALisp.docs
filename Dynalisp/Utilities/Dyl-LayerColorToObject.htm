@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerColorToObject.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-LayerColorToObject.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">LCOL</span>, <span class="fixw">LAYCOLTOOBJ</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -45,24 +42,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">LCOL</span></td><td>Layer Color To Object</td><td>Applies the color of each selected object's layer directly to the object.</td></tr>
 <tr><td><span class="fixw">LAYCOLTOOBJ</span></td><td>Layer Color To Object (Alias)</td><td>Alias of LCOL.</td></tr>
-</table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Uses the pre-selected objects, or prompts for a selection (objects on locked layers are left out).</li>
-<li>Choose the color mode at <span class="fixw">Color mode [AsIs/Index/TrueColor/ByLayer]</span>; Enter keeps the last mode of the session (<em>AsIs</em> at first).</li>
-<li>Each object gets the color built from its layer (built once per layer), all in one undo step.</li>
-<li>The command reports how many objects were changed and how many could not be.</li>
-</ol>
-</div>
-<div class="programs commands wide">
-<table>
-<tr><th>Mode</th><th>Color applied</th></tr>
-<tr><td><span class="fixw">AsIs</span></td><td>The layer color exactly as defined: index, true color or color book color.</td></tr>
-<tr><td><span class="fixw">Index</span></td><td>An index (ACI) color; for a true color layer, the closest index color stored with the layer.</td></tr>
-<tr><td><span class="fixw">TrueColor</span></td><td>An RGB true color; index layer colors are converted to their RGB values.</td></tr>
-<tr><td><span class="fixw">ByLayer</span></td><td>Reverts the objects to ByLayer.</td></tr>
 </table>
 </div>
 <h2>Known Limitations</h2>

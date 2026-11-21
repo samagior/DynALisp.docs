@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ObjectLayerKeys.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-ObjectLayerKeys.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-OBJECTLAYERKEYS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-ObjectLayerKeys.lsp</span> (window), <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (kinds, keys, setting) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-ObjectLayerKeys.lsp</span> (reactors)</td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -62,17 +59,6 @@
 <tr><td>Viewports</td><td>The viewports of the layouts (<span class="fixw">MVIEW</span>, <span class="fixw">VPORTS</span>)</td><td><span class="fixw">VIEWPORT</span> (G-View-Nplt)</td></tr>
 <tr><td>Raster images</td><td><span class="fixw">IMAGE</span></td><td>None</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>While a command runs, the new objects are collected; when it ends, each one of a kind with a key goes to the layer of that key (created with the key properties when the drawing does not have it, thawed when frozen, see <a href="Dyl-LayerKeys.htm">Layer Keys</a>). A message gives their number.</li>
-<li>While auto-phase is on, the layer of the key is the one of the active phase (<span class="fixw">G-Anno-Dims-E</span>).</li>
-<li>The objects made by a Lisp command are left as they are: the DynALisp tools (Quick Draw, Quick Shape...) put theirs on their own layer keys.</li>
-<li>Copies keep the layer of their original: the objects made by <span class="fixw">COPY</span>, <span class="fixw">MIRROR</span>, <span class="fixw">ARRAY</span>, <span class="fixw">OFFSET</span>, a grip copy, a paste, an insert, an explode and the other commands that edit or bring in objects (those of auto-phase) are left on their layer. Objects inside a block definition are never changed, nor the paper space viewport of a layout.</li>
-<li>From a reactor no window can open: a layer that differs from its key is checked the next time a tool uses the key (<a href="Dyl-LayerKeys.htm#differ">Layers That Differ From Their Key</a>). An AEC layer override as shipped uses its own layer there (the layer key style of the drawing is read by a command, which cannot run from a reactor).</li>
-<li>The keys are saved to <span class="fixw">Modules\Dynalisp\Res\ObjectLayerKeys.csv</span> (its copy under <span class="fixw">User</span>): one row per kind, its id and its key. A kind missing from the file gets its default key.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Suite.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Core/Dyl-Suite.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SUITE</span>, <span class="fixw">DYL-VSCODE</span>, <span class="fixw">DYL-SUITEUPDATE</span>, <span class="fixw">DYL-RELOAD</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> and <span class="fixw">Resources\Dyl-Suite.dcl</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -48,13 +45,10 @@
 <li><strong>Selection</strong> &ndash; the name, description and file of the commands selected. <strong>Command docs</strong> opens their docs pages (the commands without a page of their own open the docs index of their module), <strong>Open Lisp</strong> their Lisp files (10 at most).</li>
 <li><strong>Aliases of the command</strong> &ndash; the short names that run the command selected: <strong>Add</strong> creates the alias typed, <strong>Rename</strong> gives the alias picked the name typed, <strong>Remove</strong> deletes it. An alias is a short name: it cannot start with <span class="fixw">Dyl-</span>, <span class="fixw">LM-</span> or <span class="fixw">Pst-</span> (the long names are the commands), nor be the name of a command, another alias, an AutoCAD command, the command of another program loaded in AutoCAD (an Express Tools command such as <span class="fixw">TCOUNT</span>, a Lisp file of your own...) or an alias of <span class="fixw">acad.pgp</span> (<span class="fixw">DO</span> for <span class="fixw">DONUT</span>), which it would take from AutoCAD: the message under the list says which one has it. An alias saved before that name was taken (Express Tools installed later...) never runs, since a command always wins: the message under the list tells it when its command is selected (<em>TCOUNT is already a command of another program: rename it.</em>), and Dyl-Reload and the save of Dyl-Suite list it at the command line, with its command and what has its name. Saved to <span class="fixw">Resources\Aliases.csv</span> (your copy under <span class="fixw">User</span>).</li>
 <li><strong>On/Off</strong> &ndash; turns the commands selected on or off; <strong>All Listed On/Off</strong> all the commands listed.</li>
-<li><strong>Open in VS Code</strong> &ndash; opens the DynALisp folder in Visual Studio Code (<a href="#vscode">below</a>).</li>
+<li><strong>Open in VS Code</strong> &ndash; opens the DynALisp folder in Visual Studio Code (<a href="../../dev/Dynalisp/Core/Dyl-Suite.htm#vscode">below</a>).</li>
 <li><strong>Save</strong> &ndash; saves the commands turned on and off (<span class="fixw">StartupSuite.csv</span>) and the aliases, then asks whether to apply them to the current drawing now (else they apply to the drawings opened from now on, or after <span class="fixw">Dyl-Reload</span>); a file open in Excel can be closed and retried. <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
 </ul>
 </div>
-
-<h2 id="vscode">Visual Studio Code</h2>
-<p><span class="fixw">DYL-VSCODE</span> (or <em>Open in VS Code</em>) opens the DynALisp folder in Visual Studio Code, to read or edit the programs. When Visual Studio Code is not found, a window guides the install: <strong>Install (winget)</strong> installs it with the Windows package manager, <strong>Download page</strong> opens its download page, <strong>Open DynALisp</strong> checks again and opens the folder once it is installed.</p>
 
 <h2 id="other">Other Commands</h2>
 <div class="programs commands wide">

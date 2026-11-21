@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerExportToCsv.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerExportToCsv.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerExportToCsv.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -44,32 +41,6 @@
 <table>
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td><td>Export Layers To CSV</td><td>Exporte chaque calque du dessin avec ses propriétés dans un fichier CSV du dossier Téléchargements.</td></tr>
-</table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Le fichier de sortie est <span class="fixw">%USERPROFILE%\Downloads\layers_YYYYMMDD.csv</span>; si USERPROFILE n'est pas défini, HOMEDRIVE + HOMEPATH est utilisé, et en dernier recours le dossier du dessin.</li>
-<li>Chaque calque de la table des calques est lu (calques dépendants des xréfs compris) et ses valeurs sont converties en texte lisible (voir le tableau ci-dessous).</li>
-<li>Les rangées sont triées par nom de calque, sans tenir compte de la casse.</li>
-<li>Le fichier est écrit en UTF-8 avec BOM (pour Excel) et une rangée d'en-tête; les valeurs qui contiennent des virgules, des guillemets ou des sauts de ligne sont entre guillemets.</li>
-<li>La commande indique le nombre de calques et le chemin complet du fichier.</li>
-</ol>
-</div>
-<h3>Colonnes du CSV</h3>
-<div class="programs commands">
-<table>
-<tr><th>Colonne</th><th>Valeurs écrites</th></tr>
-<tr><td>Layer Name</td><td>Nom du calque</td></tr>
-<tr><td>Color</td><td><span class="fixw">Red (1)</span> &hellip; <span class="fixw">White/Black (7)</span>, <span class="fixw">ACI n</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
-<tr><td>Lineweight</td><td><span class="fixw">0.25 mm</span>, <span class="fixw">Default</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
-<tr><td>Linetype</td><td>Nom du type de ligne</td></tr>
-<tr><td>Plot</td><td><span class="fixw">Yes</span> / <span class="fixw">No</span></td></tr>
-<tr><td>Transparency</td><td><span class="fixw">0%</span> &hellip; <span class="fixw">90%</span></td></tr>
-<tr><td>On/Off</td><td><span class="fixw">On</span> / <span class="fixw">Off</span></td></tr>
-<tr><td>Freeze</td><td><span class="fixw">Frozen</span> / <span class="fixw">Thawed</span></td></tr>
-<tr><td>New VP Freeze</td><td><span class="fixw">VP Frozen</span> / <span class="fixw">VP Thawed</span></td></tr>
-<tr><td>Description</td><td>Description du calque</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>

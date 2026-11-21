@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-DrawOrder.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-DrawOrder.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,18 +25,14 @@
 <td><span class="fixw">DYL-DRAWORDER</span> (DRO), <span class="fixw">DO-APPLY</span>, <span class="fixw">DO-AUTO</span>, <span class="fixw">DO-COUNT</span>, <span class="fixw">DO-REBUILD</span>, <span class="fixw">DO-RESET</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-DrawOrder.lsp</span> (commandes), <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawOrder.lsp</span> (niveaux et paramètre d'ordre de tracé automatique, chargé au démarrage) et <span class="fixw">Modules\Dynalisp\Reactor\Dyl-DrawOrder.lsp</span> (réacteurs de l'ordre de tracé automatique, chargés au démarrage tant que les réacteurs DynALisp sont activés)</td>
-</tr>
-<tr class="alt">
 <td>Règles</td>
 <td><span class="fixw">Modules\Dynalisp\Res\DrawOrder\&lt;preset&gt;.csv</span> (un fichier par préréglage, <span class="fixw">Default.csv</span>...)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>Licence publique générale GNU v3. D'après Layer Draw Order (LDOrder) de Lee Mac.</td>
 </tr>
@@ -91,27 +88,6 @@
 <li><strong>Auto draw order</strong> &ndash; active ou désactive tout de suite l'ordre de tracé automatique. C'est un paramètre utilisateur (<span class="fixw">DynalispDrawOrderAuto</span>) : il s'applique donc à tous les dessins. Il est aussi dans <span class="fixw">Dyl-Settings</span> (<em>Auto draw order</em>), à côté du bouton <em>ouvrir</em> qui ouvre cette fenêtre. Il ne s'exécute que tant que les <em>DynALisp reactors</em> de <span class="fixw">Dyl-Settings</span> sont activés (grisé sinon).</li>
 <li><strong>Apply to drawing</strong> &ndash; réempile l'espace objet, chaque présentation et chaque définition de bloc avec les règles affichées, enregistrées ou non, en une seule étape d'annulation, et régénère le dessin.</li>
 <li><strong>OK</strong> enregistre chaque préréglage (les fichiers des préréglages supprimés ou renommés sont retirés), puis le préréglage préféré et celui de ce dessin s'ils ont changé : la commande suivante utilise les règles du préréglage actif, <span class="fixw">DO-APPLY</span> réempile le dessin avec elles. <strong>Cancel</strong> laisse les préréglages comme ils étaient : un réempilement fait avec <em>Apply to drawing</em> reste, <span class="fixw">U</span> l'annule. <strong>Open Docs</strong> ouvre cette page.</li>
-</ul>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Chaque niveau garde l'ordre de tracé de ses propres objets : le réempilement déplace des niveaux entiers en haut (le niveau positif le plus bas d'abord) ou en bas (le niveau négatif le plus haut d'abord) avec la table d'ordre de tracé de l'espace.</li>
-<li>L'ordre de tracé automatique surveille les objets ajoutés au dessin et réempile à la fin de la commande qui les a créés, comme l'<a href="Dyl-LayerPhase.fr.htm">auto-phase</a>. Les objets créés par une commande Lisp sont réempilés à la fin de la commande Lisp.</li>
-<li>Seuls les nouveaux objets sont déplacés, juste sous l'objet le plus bas des niveaux qui doivent rester au-dessus : une nouvelle ligne va sous l'annotation, une nouvelle hachure sous les lignes, un nouveau texte au niveau le plus haut ne déplace rien. Les niveaux déjà empilés ne sont pas touchés. Quand l'ordre de tracé ne peut pas être lu, ce sont les niveaux au-dessus ou en dessous des nouveaux objets qui sont réempilés.</li>
-<li>Chaque réempilement ajoute des entrées à la table d'ordre de tracé de l'espace, et une grande table ralentit les panoramiques et les zooms. <span class="fixw">DO-REBUILD</span> supprime les tables de l'espace objet, des présentations et des définitions de blocs, puis réempile les niveaux à partir de l'ordre de création, en une seule étape d'annulation. L'étape de préparation des sorties <em>Rebuild the draw order</em> (<span class="fixw">Dyl-PrepSuite</span>, désactivée par défaut) fait de même avant les commandes pour lesquelles elle est cochée, à la place d'<em>Apply the draw order</em>. Un <span class="fixw">DRAWORDER</span> fait à la main dans un niveau est perdu par une reconstruction.</li>
-<li>Les objets de l'espace objet, des présentations et des définitions de blocs sont réempilés : une hachure dans un bloc va sous les lignes de ce bloc, comme dans le dessin. Les niveaux sont ceux des objets du bloc (souvent le calque <span class="fixw">0</span> : ce sont donc les règles par type d'objet qui s'appliquent). L'ordre de tracé automatique réempile une définition de bloc quand des objets y sont ajoutés (<span class="fixw">BLOCK</span>, <span class="fixw">BEDIT</span>, <span class="fixw">REFEDIT</span>...) et régénère le dessin pour que ses références le montrent. Les xréfs et leurs blocs ne changent jamais, ni les blocs anonymes qu'AutoCAD refait lui-même (cotes, tableaux...); ceux des blocs dynamiques sont réempilés. Les fenêtres sont laissées de côté.</li>
-<li>Les objets ramenés par <span class="fixw">U</span>, <span class="fixw">UNDO</span>, <span class="fixw">REDO</span> et <span class="fixw">OOPS</span> restent où ils sont. La liste peut être remplacée par la variable d'environnement <span class="fixw">DynalispDrawOrderSkip</span>, et les commandes qui réempilent l'espace courant par <span class="fixw">DynalispDrawOrderRefresh</span>, par exemple <span class="fixw">(setenv "DynalispDrawOrderRefresh" "LAYMCH,MATCHPROP,CHPROP")</span>.</li>
-</ol>
-</div>
-<h2>Utiliser l'ordre de tracé dans une App</h2>
-<div class="spacedbullets">
-<ul>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply nil nil)</span> &ndash; réempile l'espace objet, chaque présentation et chaque définition de bloc avec les règles du préréglage actif, renvoie le nombre d'objets déplacés.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply "Model" nil)</span> &ndash; réempile un espace, donné par son nom de présentation. Le second argument peut donner d'autres règles (voir <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderParse</span>).</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderRebuild nil nil)</span> &ndash; supprime les tables d'ordre de tracé de l'espace objet, de chaque présentation et de chaque définition de bloc, puis les réempile; un nom de présentation à la place du premier <span class="fixw">nil</span> reconstruit un seul espace.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPreset)</span> &ndash; renvoie le nom du préréglage actif, <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetSet "Details")</span> en enregistre un autre dans le dessin (<span class="fixw">nil</span> : le dessin utilise le préréglage préféré), <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetDefault)</span> renvoie le préréglage préféré.</li>
-<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderAutoSet T)</span> &ndash; active l'ordre de tracé automatique (nil : désactivé).</li>
 </ul>
 </div>
 <h2>Limites connues</h2>

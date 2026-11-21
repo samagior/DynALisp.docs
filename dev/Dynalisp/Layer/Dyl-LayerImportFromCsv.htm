@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Import Layers From CSV &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Layer/Dyl-LayerImportFromCsv.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Import Layers From CSV</h1>
+
+<p class="note">The developer docs of Import Layers From CSV: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerImportFromCsv.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFromCsv.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<h3>Preset commands</h3>
+<div class="spacedbullets">
+<ol>
+<li>The preset CSV is looked up in the program folder. If it is missing, a file dialog opens instead.</li>
+<li>If the layer state of the preset already exists in the drawing, you choose <span class="fixw">U</span> (restore the existing state, CSV ignored), <span class="fixw">I</span> (apply the CSV and overwrite the state) or <span class="fixw">C</span> (cancel).</li>
+<li>Otherwise the CSV is applied and the layer state is created.</li>
+<li>All viewports are regenerated.</li>
+</ol>
+</div>
+<h3>Applying a CSV</h3>
+<div class="spacedbullets">
+<ol>
+<li>The header row and any UTF-8 BOM are skipped; quoted fields are supported.</li>
+<li>Each row is matched to an existing layer by name (case-insensitive). Layers that are not in the drawing are <em>not</em> created: they are counted and listed as <em>MISSING</em>.</li>
+<li>Colour, lineweight, linetype, plot, transparency, on/off, freeze, new viewport freeze and description are applied. A missing linetype is loaded from acad.lin / acadiso.lin; if it cannot be found, the layer keeps its linetype and a note is printed.</li>
+<li>A summary gives the number of layers updated and missing.</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

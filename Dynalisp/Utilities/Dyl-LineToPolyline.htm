@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LineToPolyline.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-LineToPolyline.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">LTPL</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LineToPolyline.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -41,15 +38,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">LTPL</span></td><td>Line To Polyline</td><td>Converts each selected line into a polyline with PEDIT, optionally joining the touching ones.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Answer <span class="fixw">Join touching polylines? [Yes/No] &lt;No&gt;:</span>.</li>
-<li>Select the objects; only lines are kept.</li>
-<li>Each line is converted with <span class="fixw">PEDIT</span>.</li>
-<li>With <em>Yes</em> and more than one line, <span class="fixw">JOIN</span> runs on all the new polylines: the ones that touch end to end become single polylines.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

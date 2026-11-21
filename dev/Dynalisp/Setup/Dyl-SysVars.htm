@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>System Variables &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Setup/Dyl-SysVars.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>System Variables</h1>
+
+<p class="note">The developer docs of System Variables: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Setup/Dyl-SysVars.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (profiles and override, loaded at startup)</td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ul>
+<li>A value is read as the type of the current value of its variable: a whole number (<span class="fixw">PICKADD 2</span>), a number (<span class="fixw">LTSCALE 1.5</span>), a text, or a point written <span class="fixw">x,y</span> or <span class="fixw">x,y,z</span>.</li>
+<li>Each drawing opened sets the protected variables and those of the active profile that differ, without marking the drawing as modified; the window shows what differs. A profile saved, or <em>System variables</em> turned on, in another drawing applies to the drawings already open when you switch to them, while <em>Settings sync</em> is on.</li>
+<li>The profiles are the CSV files of <span class="fixw">Modules\Dynalisp\Res\SysVars</span> (<span class="fixw">Variable;Value</span>, one variable per row). Saved profiles go to <span class="fixw">User\Modules\Dynalisp\Res\SysVars</span> (see <span class="fixw">Dyl-UserFiles</span>). The <span class="fixw">Default</span> profile is empty. The protected variables are <span class="fixw">Modules\Dynalisp\Res\SysVarsProtected.csv</span> (<span class="fixw">Variable;Value</span>, an empty value: protected only), saved to its copy under <span class="fixw">User</span>.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

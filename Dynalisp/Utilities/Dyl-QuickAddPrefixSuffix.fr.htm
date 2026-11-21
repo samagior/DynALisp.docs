@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-QuickAddPrefixSuffix.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-QuickAddPrefixSuffix.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> et 7 textes de cote (<span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-MAX</span>, <span class="fixw">DT-MIN</span>, <span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>)</td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickAddPrefixSuffix.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -48,21 +45,6 @@
 <tr><td><span class="fixw">DT-OB</span></td><td>Dimension Text OB</td><td>Ajoute ou retire le suffixe (OB) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OB)</span></td></tr>
 <tr><td><span class="fixw">DT-OL</span></td><td>Dimension Text OL</td><td>Ajoute ou retire le suffixe (OL) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OL)</span></td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>La commande demande <span class="fixw">Select dimension:</span> et lit le texte de remplacement de la cote (code DXF 1). La valeur mesurée y est représentée par <span class="fixw">&lt;&gt;</span>.</li>
-<li>Si le qualificatif n'est <em>pas</em> encore présent :<div class="unspacedbullets">
-<ul>
-<li>un texte de remplacement vide (valeur mesurée seule) devient <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span>;</li>
-<li>un texte de remplacement qui contient déjà <span class="fixw">&lt;&gt;</span> reçoit le qualificatif juste avant <span class="fixw">&lt;&gt;</span>;</li>
-<li>un texte de remplacement sans <span class="fixw">&lt;&gt;</span> (texte entièrement tapé) est laissé tel quel.</li>
-</ul>
-</div></li>
-<li>Si le qualificatif <em>est</em> présent, il est retiré : un texte de remplacement égal à <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> est vidé pour revenir à la valeur mesurée seule, sinon <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> est remplacé par <span class="fixw">&lt;&gt;</span>.</li>
-<li>Le changement est écrit avec <span class="fixw">entmod</span> : il s'annule donc avec <span class="fixw">U</span>.</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

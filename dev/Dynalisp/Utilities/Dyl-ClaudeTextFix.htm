@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claude Text Fix &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-ClaudeTextFix.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Claude Text Fix</h1>
+
+<p class="note">The developer docs of Claude Text Fix: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-ClaudeTextFix.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Sign-in: the <span class="fixw">ANTHROPIC_API_KEY</span> environment variable when set (it wins), else the Anthropic login of the user (the <span class="fixw">ant</span> CLI: run <span class="fixw">ant auth login</span> once; its short-lived token is read again every 10 minutes), else a key asked on the command line.</li>
+<li>The API key is taken from the <span class="fixw">ANTHROPIC_API_KEY</span> Windows environment variable (restart AutoCAD after creating it), else asked on the command line; a key typed is kept for the session only, never saved.</li>
+<li>The objects selected before the command are used (right-click menu), else the command asks for a selection: <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span> and <span class="fixw">MULTILEADER</span>.</li>
+<li>Each object is sent on its own (model <span class="fixw">claude-haiku-5-5</span>, 30 s timeout). When the text changes, the original and the corrected text are shown (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) and the command asks <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span>: <em>Oui</em> replaces it, <em>Non</em> keeps it, <em>Tous</em> replaces it and every next correction without asking, <em>Quitter</em> stops.</li>
+<li>The corrections are written with ActiveX, so objects on locked layers are corrected too. The whole command is one undo step, and a summary gives the objects checked, corrected and failed.</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-RebuildPat.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-RebuildPat.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-REBUILDPAT</span> (<span class="fixw">RPAT</span>), <span class="fixw">OPENPATS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-RebuildPat.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -40,18 +37,6 @@
 <h2>Description</h2>
 <p>Un dessin reçu de quelqu'un d'autre utilise souvent des motifs de hachures absents de votre ordinateur : les hachures s'affichent, mais le motif ne peut pas être choisi pour une nouvelle hachure (p. ex. dans la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a>, où il est marqué <em>(not found on the support path)</em>). <span class="fixw">DYL-REBUILDPAT</span> reconstruit les fichiers <span class="fixw">.pat</span> manquants à partir des hachures du dessin et les enregistre dans un dossier du chemin de recherche des fichiers de support, pour qu'ils puissent être réutilisés et modifiés. Le dessin lui-même n'est pas modifié.</p>
 
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Sélectionnez des hachures, ou appuyez sur Entrée pour utiliser chaque hachure du dessin (espace objet, chaque présentation et chaque définition de bloc). Les xréfs et les blocs qui en dépendent, les remplissages pleins, les dégradés et les hachures définies par l'utilisateur sont sautés (ils n'utilisent pas de fichier <span class="fixw">.pat</span>).</li>
-<li>Chaque hachure garde une copie de la définition de son motif, transformée par son échelle, son angle et son origine. La routine inverse cette transformation pour retrouver la définition d'origine (échelle 1, angle 0) et l'écrit au format <span class="fixw">.pat</span> standard : un motif par fichier, nommé d'après le motif. Le fichier indique les unités du motif, celles du dessin (<span class="fixw">;%UNITS=MM</span> dans un dessin métrique, <span class="fixw">;%UNITS=INCH</span> dans un dessin impérial) : les <a href="../Draw/Dyl-HatchPresets.fr.htm">préréglages de hachures</a> le mettent donc à l'échelle pour les deux.</li>
-<li>Un motif est <em>manquant</em> quand aucun <span class="fixw">&lt;nom&gt;.pat</span> n'est trouvé et que le nom n'est pas dans <span class="fixw">acad.pat</span> ni <span class="fixw">acadiso.pat</span> : il est toujours reconstruit. Un motif qui existe est laissé tel quel pour tout le dessin; avec des hachures sélectionnées, la commande demande <span class="fixw">[Replace/Rename/Cancel]</span> (<em>Replace</em> n'est pas offert pour un motif de <span class="fixw">acad.pat</span> / <span class="fixw">acadiso.pat</span>).</li>
-<li>Le dossier : un dossier nommé <span class="fixw">pats</span> déjà dans le chemin de recherche des fichiers de support (p. ex. celui qu'installe AutoCAD Architecture), sinon <span class="fixw">&lt;ROAMABLEROOTPREFIX&gt;\Support\pats</span> (le dossier itinérant du produit, de la version et de la langue en cours), créé au besoin. Quand il n'est pas dans le chemin de recherche, il est ajouté au profil courant. La ligne de commande donne le dossier et les motifs écrits.</li>
-</ol>
-</div>
-<p><span class="fixw">OPENPATS</span> ouvre ce dossier de motifs dans l'Explorateur Windows.</p>
-<p>Le bouton <strong>Pick hatch...</strong> de la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a> reconstruit de la même façon le motif de la hachure choisie, quand aucun fichier <span class="fixw">.pat</span> ne l'a et que vous acceptez. Il utilise ce programme : quand Rebuild Patterns est désactivé dans la suite de démarrage, il demande d'abord de l'activer.</p>
-<!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
 <p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-RebuildPat</span> : elles se lancent par leur alias (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
 <div class="programs commands wide">

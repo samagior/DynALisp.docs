@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerMake.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerMake.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERMAKE</span> and 11 layer sets &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Status</td>
 <td>Work in progress &ndash; see Known Limitations</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3; CSV helpers by Lee Mac</td>
 </tr>
@@ -58,24 +55,6 @@
 </table>
 </div>
 <p>CSV folders are relative to <span class="fixw">Modules\Dynalisp\Res\Layer\List</span>. Each CSV has the columns <span class="fixw">Designator, Major, Minor1, Minor2, Minor3, Description</span>.</p>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The rows of every CSV of the preset are read (header skipped).</li>
-<li>If a row contains the stack placeholder <span class="fixw">0000</span>, you are asked for the stack (<span class="fixw">None</span>, <span class="fixw">1-First</span> &hellip; <span class="fixw">9-Ninth</span>) which replaces it with <span class="fixw">0001</span> &hellip; <span class="fixw">0009</span>.</li>
-<li>If a row contains the discipline placeholder <span class="fixw">$$</span>, you are asked for the discipline (General, Architectural, Interior, Structural, Landscape) which replaces it with its letter.</li>
-<li>The name fields are joined with hyphens to make the layer name; the Description column becomes the layer description.</li>
-<li>Properties are derived from the name:<div class="unspacedbullets">
-<ul>
-<li>colour: 151 by default, then fixed colours by keyword (e.g. <span class="fixw">Eqpm</span> 1, <span class="fixw">Plnt</span> 81, <span class="fixw">Note</span>/<span class="fixw">Mark</span> 122, <span class="fixw">Dims</span>/<span class="fixw">Grid</span> 221, <span class="fixw">Text</span> 41, <span class="fixw">Scrn</span> 8, <span class="fixw">Exst</span> 9, <span class="fixw">Redl</span> true colour 255,0,0; elevation layers have their own colours);</li>
-<li>lineweight: from the last digit of the colour number &ndash; 0 &rarr; 0.13, 1 &rarr; 0.18, 2 &rarr; 0.25, 3 &rarr; 0.35, 4 &rarr; 0.50, 5 &rarr; 0.70, 6 &rarr; 1.00, 7 &rarr; 1.40, 8 &rarr; 2.00, 9 &rarr; 0.13 mm (grey colours always 0.13);</li>
-<li>linetype: Continuous, or Center/Hidden/Phantom (and their 2 variants) for <span class="fixw">Cntr</span>, <span class="fixw">Hdln</span>, <span class="fixw">Phnt</span>, <span class="fixw">Grid</span>, <span class="fixw">Labl</span>, <span class="fixw">Tags</span> &hellip; layers;</li>
-<li>plot: off for <span class="fixw">Nplt</span> and <span class="fixw">Rdme</span> layers.</li>
-</ul>
-</div></li>
-<li>Each layer is made or updated with <span class="fixw">-LAYER</span> and the command line shows <span class="fixw">...&lt;layer&gt; - created</span> or <span class="fixw">- updated</span>.</li>
-</ol>
-</div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

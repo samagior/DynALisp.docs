@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="LayerNaming.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Conventions/LayerNaming.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -31,7 +32,7 @@
 <li class="inner"><a class="inner" href="#dylminor">Groupes secondaires de DynALisp</a></li>
 <li class="outer"><a class="outer" href="#status">Statut (phase)</a></li>
 <li class="outer"><a class="outer" href="#other">Autres noms</a></li>
-<li class="outer"><a class="outer" href="#tools">Comment les outils lisent un nom</a></li>
+<li class="outer"><a class="outer" href="../../dev/Dynalisp/Conventions/LayerNaming.htm#tools">Comment les outils lisent un nom</a></li>
 <li class="outer"><a class="outer" href="#iso">ISO 13567</a></li>
 <li class="outer"><a class="outer" href="#source">Source</a></li>
 </ul>
@@ -217,18 +218,6 @@
 <li>Certains calques du style de clés de calque d'AutoCAD Architecture que suit DynALisp ont trois groupes secondaires (<span class="fixw">G-Anno-Stnd-Nplt-Scrn</span>, voir <a href="../Layer/Dyl-LayerKeys.fr.htm#aec">AEC Layer Overrides</a>). Le NCS en permet deux, mais les outils les lisent quand même : chaque champ de 4 caractères entre le groupe principal et le statut est un groupe secondaire.</li>
 <li>Un nom dont un champ a une autre longueur (<span class="fixw">A-Walls</span>, <span class="fixw">Hatch</span>) n'est pas lu comme un nom NCS : les transferts par niveau de Layer Transfer le laissent tel quel, et les caractères génériques des filtres de calques peuvent le manquer.</li>
 </ul>
-</div>
-
-<h2 id="tools">Comment les outils lisent un nom</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Outil</th><th>Ce qu'il lit</th></tr>
-<tr><td><a href="../Layer/Dyl-LayerTransfer.fr.htm">Layer Transfer</a></td><td>Les transferts par niveau (les listes déroulantes du ruban et <span class="fixw">LTF</span>) divisent le nom en une désignation de 1 ou 2 lettres, un groupe principal, ses groupes secondaires et un statut d'un caractère, et remplacent l'un d'eux. Les transferts de phase (<span class="fixw">E-D</span>, <span class="fixw">D-N</span>...) remplacent ou ajoutent le statut.</td></tr>
-<tr><td><a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a></td><td>Le statut : compte les calques de chaque phase, les affiche ou les masque, et déplace le calque courant et les nouveaux objets dans la phase active.</td></tr>
-<tr><td><a href="../Layer/Dyl-LayerKeys.fr.htm">Layer Keys</a></td><td>Le calque sans phase de chaque clé, auquel la phase active est ajoutée (<span class="fixw">A-Detl-Thin</span> &rarr; <span class="fixw">A-Detl-Thin-E</span>).</td></tr>
-<tr><td><a href="../Layer/Dyl-LayerFilter.fr.htm">Layer Filters</a></td><td>Des caractères génériques sur les champs : <span class="fixw">A-*</span> pour l'architecture, <span class="fixw">*-E</span> et <span class="fixw">*-X</span> pour l'existant, <span class="fixw">*-@@??</span> pour les calques sans phase (un nom qui finit par un groupe), <span class="fixw">*-0001</span> &hellip; <span class="fixw">*-0009</span> pour les empilements, <span class="fixw">*-Dims*</span>, <span class="fixw">*-Text*</span>... pour l'annotation (voir ses <em>Tokens</em>).</td></tr>
-<tr><td><a href="../Layer/Dyl-LayerMake.fr.htm">Make Layers</a></td><td>Construit chaque nom à partir des colonnes <span class="fixw">Designator</span>, <span class="fixw">Major</span> et <span class="fixw">Minor</span> de ses listes, et donne au calque une couleur, une épaisseur et un type de ligne selon ses codes.</td></tr>
-</table>
 </div>
 
 <h2 id="iso">ISO 13567</h2>

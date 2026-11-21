@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerGroup.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerGroup.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERGROUP</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerGroup.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -44,32 +41,6 @@
 <table>
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">DYL-LAYERGROUP</span></td><td>Layer Groups</td><td>Crée les filtres de groupes de calques standard de Dynalisp dans le Gestionnaire des propriétés des calques.</td></tr>
-</table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>La routine ouvre le dictionnaire des filtres de calques du dessin (<span class="fixw">ACLYDICTIONARY</span> dans le dictionnaire d'extension de la table des calques).</li>
-<li>Pour chaque discipline, un filtre de groupe existant du même nom affiché est trouvé et retiré : relancer la commande reconstruit donc les groupes au lieu de les dédoubler.</li>
-<li>Chaque calque dont le nom correspond au motif de la discipline, plus les calques 0 et Defpoints, est ajouté au nouveau filtre de groupe (enregistrement <span class="fixw">AcLyLayerGroup</span> qui liste les calques).</li>
-</ol>
-</div>
-<div class="programs commands">
-<table>
-<tr><th>Groupe</th><th>Calques inclus</th></tr>
-<tr><td>Architectural</td><td><span class="fixw">A-*</span></td></tr>
-<tr><td>&nbsp;&nbsp;Detail</td><td><span class="fixw">A-Detl*</span>, <span class="fixw">A-Anno*</span> (sans calques de xréfs)</td></tr>
-<tr><td>&nbsp;&nbsp;Elevation</td><td><span class="fixw">A-Elev*</span>, <span class="fixw">A-Anno*</span> (sans calques de xréfs)</td></tr>
-<tr><td>&nbsp;&nbsp;Plan</td><td><span class="fixw">A-????*</span> sauf <span class="fixw">?-Elev*</span>, <span class="fixw">?-Detl*</span>, <span class="fixw">?-Sect*</span></td></tr>
-<tr><td>&nbsp;&nbsp;Section</td><td><span class="fixw">A-Sect*</span>, <span class="fixw">A-Anno*</span> (sans calques de xréfs)</td></tr>
-<tr><td>Civil</td><td><span class="fixw">C-*</span></td></tr>
-<tr><td>Electrical</td><td><span class="fixw">E-*</span></td></tr>
-<tr><td>General</td><td><span class="fixw">G-*</span></td></tr>
-<tr><td>Interior</td><td><span class="fixw">I-*</span></td></tr>
-<tr><td>Landscape</td><td><span class="fixw">L-*</span></td></tr>
-<tr><td>Mechanical</td><td><span class="fixw">L-*</span> (voir Limites connues)</td></tr>
-<tr><td>Plumbing</td><td><span class="fixw">P-*</span></td></tr>
-<tr><td>Structural</td><td><span class="fixw">S-*</span></td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>

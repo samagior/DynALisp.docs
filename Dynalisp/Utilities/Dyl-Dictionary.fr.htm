@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-Dictionary.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-Dictionary.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,18 +25,14 @@
 <td><span class="fixw">DYL-DICTIONARY</span> (DICO)</td>
 </tr>
 <tr>
-<td>Fichiers source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-Dictionary.lsp</span> (commande), <span class="fixw">Modules\Dynalisp\Res\Dyl-Dictionary.dcl</span> (fenêtre), <span class="fixw">Modules\Dynalisp\Res\Dictionaries\&lt;code&gt;-def.csv</span> (définitions)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD 2021 or later for Windows (Unicode AutoLISP, ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>État</td>
 <td>Nouveau &ndash; voir Limites connues</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -50,31 +47,6 @@
 <tr><td><span class="fixw">DYL-DICTIONARY</span></td><td>Dictionary</td><td>Cherche les mots des dictionnaires DynALisp, leurs définitions et catégories, dans la langue des préférences de fichiers.</td></tr>
 </table>
 </div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>La fenêtre ouvre le fichier de définitions de la langue des préférences de fichiers (<span class="fixw">fra-def.csv</span> en français). <em>Dictionary</em> montre les autres de <span class="fixw">Res\Dictionaries</span>.</li>
-<li><em>Words</em> : tapez un ou plusieurs mots et appuyez sur Entrée ou <em>Search</em>. Chaque mot tapé doit se trouver dans le mot ou dans l'une de ses formes (<span class="fixw">vitr</span> trouve vitrage, vitrail et vitraux). Les accents, les ligatures et la casse sont ignorés : <span class="fixw">equarri</span> trouve équarri, <span class="fixw">oeil</span> trouve œil-de-bœuf. Cochez <em>Also in the definitions</em> pour chercher aussi dans les définitions (<span class="fixw">corrosion</span> trouve alors inhibiteur, galvanisé, galvanisation...).</li>
-<li><em>Category</em>, <em>Subcategory</em> et <em>Type</em> filtrent la liste (n.m., n.f., adj., v., sigle, abr., n.pr., loc.n.f. pour une expression...). Les sous-catégories sont celles de la catégorie choisie. <em>Clear</em> retire la recherche et les filtres.</li>
-<li>Sélectionner un mot montre son type, ses formes, sa définition et sa catégorie. <em>See also</em> liste des mots liés : <em>Go to</em> en montre un, en retirant les filtres quand il n'est pas dans la liste.</li>
-<li><em>Copy word</em>, ou un double-clic dans la liste, copie le mot dans le presse-papiers, pour le coller dans un texte.</li>
-<li><em>Edit list...</em> ferme la fenêtre et ouvre votre copie du fichier de définitions dans Excel (faite sous <span class="fixw">User\</span> à partir du fichier par défaut la première fois). Enregistrez-la en <em>CSV UTF-8</em>, puis relancez la commande. <span class="fixw">Dyl-UserFiles</span> peut faire de votre copie le fichier par défaut.</li>
-</ol>
-</div>
-<h2>Fichier de définitions</h2>
-<p><span class="fixw">Res\Dictionaries\&lt;code&gt;-def.csv</span>, UTF-8, un mot par rangée : <span class="fixw">Word;Forms;Type;Category;Subcategory;Definition;See also</span>.</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Word</strong> : le mot tel qu'écrit dans le dictionnaire personnalisé (singulier, masculin), ou une expression de plusieurs mots. Les expressions ne sont que dans le fichier de définitions : le correcteur vérifie chacun de leurs mots séparément.</li>
-<li><strong>Forms</strong> : ses autres formes dans le dictionnaire personnalisé (pluriel, féminin, autres graphies), séparées par des virgules. Elles sont cherchées avec le mot.</li>
-<li><strong>Type</strong> : n.m., n.f., adj., v., sigle, abr., n.pr., num. (chiffre romain) ou, pour une expression, loc.n.m., loc.n.f., loc.adj. ou loc.adv.; plusieurs séparés par <span class="fixw">/</span> (<span class="fixw">n.m./adj.</span>).</li>
-<li><strong>Category</strong> et <strong>Subcategory</strong> : le thème du mot, en 10 catégories : Structure, Enveloppe, Intérieur, Mécanique et électricité, Matériaux, Architecture, Patrimoine et rénovation, Projet et réglementation, Abréviations et sigles, Mots composés (Structure &gt; Pièce sur pièce, Enveloppe &gt; Ferblanterie, Architecture &gt; Églises : mobilier liturgique...).</li>
-<li><strong>Definition</strong> : une ou deux phrases, sans le séparateur <span class="fixw">;</span>.</li>
-<li><strong>See also</strong> : des mots liés du fichier, séparés par des virgules.</li>
-</ul>
-</div>
-<p>Un mot ajouté au dictionnaire personnalisé depuis AutoCAD (<em>Ajouter au dictionnaire</em>) n'est pas ajouté au fichier de définitions : ajoutez sa rangée avec <em>Edit list...</em>.</p>
-<p>Environ 100 termes définis par le Code de construction du Québec (Code national du bâtiment modifié pour le Québec, division A, article 1.4.1.2), comme <em>mur coupe-feu</em>, <em>premier étage</em> ou <em>distance limitative</em>, finissent leur définition par <em>Terme défini du code.</em> : cochez <em>Also in the definitions</em> et cherchez <span class="fixw">terme defini</span> pour les lister tous. Ceux qui ne sont pas ailleurs sont dans <em>Projet et réglementation &gt; Termes définis du code</em>. Leurs définitions sont des résumés reformulés, pas le texte du code : vérifiez le code avant de vous fier à l'une d'elles.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

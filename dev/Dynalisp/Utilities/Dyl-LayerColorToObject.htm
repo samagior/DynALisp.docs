@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Color To Object &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-LayerColorToObject.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Color To Object</h1>
+
+<p class="note">The developer docs of Layer Color To Object: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-LayerColorToObject.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Uses the pre-selected objects, or prompts for a selection (objects on locked layers are left out).</li>
+<li>Choose the color mode at <span class="fixw">Color mode [AsIs/Index/TrueColor/ByLayer]</span>; Enter keeps the last mode of the session (<em>AsIs</em> at first).</li>
+<li>Each object gets the color built from its layer (built once per layer), all in one undo step.</li>
+<li>The command reports how many objects were changed and how many could not be.</li>
+</ol>
+</div>
+<div class="programs commands wide">
+<table>
+<tr><th>Mode</th><th>Color applied</th></tr>
+<tr><td><span class="fixw">AsIs</span></td><td>The layer color exactly as defined: index, true color or color book color.</td></tr>
+<tr><td><span class="fixw">Index</span></td><td>An index (ACI) color; for a true color layer, the closest index color stored with the layer.</td></tr>
+<tr><td><span class="fixw">TrueColor</span></td><td>An RGB true color; index layer colors are converted to their RGB values.</td></tr>
+<tr><td><span class="fixw">ByLayer</span></td><td>Reverts the objects to ByLayer.</td></tr>
+</table>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

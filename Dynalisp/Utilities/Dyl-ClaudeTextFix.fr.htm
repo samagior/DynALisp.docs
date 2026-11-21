@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-ClaudeTextFix.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-ClaudeTextFix.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-CLAUDETEXTFIX</span> (<span class="fixw">CLAUDETEXT</span>)</td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (objet COM WinHttp), une connexion Anthropic (l'outil <span class="fixw">ant</span>, <span class="fixw">ant auth login</span> lancé une fois) ou une clé d'API Anthropic, une connexion Internet</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -41,16 +38,6 @@
 <p>Révise avec Claude (l'API d'Anthropic) les textes, textes multilignes et lignes de repère multiples sélectionnés, et remplace chacun par sa version corrigée après votre confirmation. L'orthographe, la grammaire, les accents et la ponctuation sont corrigés dans la langue du texte, jamais traduits; les termes techniques, abréviations, unités, nombres, cotes, codes et références de normes (p. ex. CNB, CSA) sont conservés, tout comme les codes de mise en forme d'AutoCAD (<span class="fixw">\P</span>, <span class="fixw">\f...;</span>, <span class="fixw">%%c</span>...) et la structure des lignes.</p>
 <p class="note">Le texte des objets sélectionnés est envoyé à l'API d'Anthropic. Ne l'utilisez pas sur des dessins dont le texte ne doit pas quitter votre ordinateur.</p>
 
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Connexion : la variable d'environnement <span class="fixw">ANTHROPIC_API_KEY</span> quand elle existe (elle l'emporte), sinon la connexion Anthropic de l'utilisateur (l'outil <span class="fixw">ant</span> : lancez <span class="fixw">ant auth login</span> une fois; son jeton de courte durée est relu toutes les 10 minutes), sinon une clé demandée à la ligne de commande.</li>
-<li>La clé d'API est prise dans la variable d'environnement Windows <span class="fixw">ANTHROPIC_API_KEY</span> (redémarrez AutoCAD après l'avoir créée), sinon demandée à la ligne de commande; une clé tapée est gardée pour la session seulement, jamais enregistrée.</li>
-<li>Les objets sélectionnés avant la commande sont utilisés (menu contextuel), sinon la commande demande une sélection : <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span> et <span class="fixw">MULTILEADER</span>.</li>
-<li>Chaque objet est envoyé séparément (modèle <span class="fixw">claude-haiku-5-5</span>, délai de 30 s). Quand le texte change, le texte d'origine et le texte corrigé sont affichés (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) et la commande demande <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span> : <em>Oui</em> le remplace, <em>Non</em> le garde, <em>Tous</em> le remplace ainsi que chaque correction suivante sans demander, <em>Quitter</em> arrête.</li>
-<li>Les corrections sont écrites avec ActiveX : les objets sur des calques verrouillés sont donc corrigés aussi. Toute la commande est une seule étape d'annulation, et un résumé donne les objets vérifiés, corrigés et en échec.</li>
-</ol>
-</div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

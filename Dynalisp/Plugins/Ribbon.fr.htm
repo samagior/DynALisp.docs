@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Ribbon.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Plugins/Ribbon.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -25,21 +26,17 @@
 <li class="outer"><a class="outer" href="#buttons">Boutons</a></li>
 <li class="outer"><a class="outer" href="#dropdowns">Listes déroulantes</a></li>
 <li class="outer"><a class="outer" href="#notes">Notes</a></li>
-<li class="outer"><a class="outer" href="#build">Construire le ruban</a></li>
+<li class="outer"><a class="outer" href="../../dev/Dynalisp/Plugins/Ribbon.htm#build">Construire le ruban</a></li>
 </ul>
 </div>
 
 <div class="programs">
 <table>
 <tr class="alt">
-<td>Fichier source</td>
-<td><span class="fixw">Resources\DynALisp.cuix</span> (l'onglet) et <span class="fixw">Resources\DynALisp.Ribbon.dll</span> (ses listes déroulantes)</td>
-</tr>
-<tr>
 <td>Requis</td>
 <td>AutoCAD pour Windows; les listes déroulantes demandent AutoCAD 2025 ou suivant</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -122,21 +119,7 @@
 </ul>
 </div>
 
-<h2 id="build">Construire le ruban</h2>
-<p>Pour qui modifie DynALisp : l'onglet est généré, jamais modifié dans l'éditeur CUI.</p>
-<div class="spacedbullets">
-<ul>
-<li><span class="fixw">Installer\Ribbon\BuildRibbon.py</span> écrit <span class="fixw">DynALisp.cuix</span> à partir de <span class="fixw">Installer\Ribbon\Ribbon.csv</span> (les groupes de fonctions et les boutons), de <span class="fixw">RibbonIcons.py</span> (les icônes) et de <span class="fixw">Resources\StartupSuite.csv</span> (les noms, descriptions et commandes enfants). Il signale une commande principale absente du ruban ou sans icône. <span class="fixw">--sheet &lt;fichier.png&gt;</span> dessine chaque icône sur le ruban clair et le ruban foncé.</li>
-<li>Les textes de l'onglet en français sont dans <span class="fixw">Installer\Ribbon\Ribbon.fr.csv</span> (un groupe de fonctions, une commande ou un élément de la galerie Dessin rapide, son nom et son info-bulle); le script les écrit par l'identifiant de chaque élément dans <span class="fixw">Resources\DynALisp.Ribbon.fr.csv</span>, que lit le module d'extension, et signale un texte manquant. Les descriptions des phases viennent de la colonne <span class="fixw">Description.fr</span> de <span class="fixw">Phase.csv</span>.</li>
-<li>Les listes déroulantes se compilent avec <span class="fixw">dotnet build Installer\Ribbon\Plugin -c Release</span>, AutoCAD fermé.</li>
-<li>La même exécution dessine les images de cette page à partir des mêmes groupes de fonctions et icônes (<span class="fixw">Installer\Ribbon\RibbonPanels.py</span>, dans <span class="fixw">Docs\Plugins\Ribbon</span>) et écrit sa section Groupes de fonctions, en anglais et en français : elles suivent le ruban, sans capture d'écran à faire. <span class="fixw">--pictures</span> ne dessine qu'elles.</li>
-<li>Redémarrez AutoCAD pour voir le nouveau ruban.</li>
-</ul>
 </div>
-
-<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
-    </div>
 
     <div id="footer">
         <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>

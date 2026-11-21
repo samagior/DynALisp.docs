@@ -133,6 +133,125 @@ img {
     cursor: default;
 }
 
+/* The switch between the two sets of the docs website, left of the language switch
+   (Installer\Docs\BuildSite.py writes it): User Guide | Developers */
+#header .set {
+    position: absolute;
+    top: 50%;
+    right: 112px;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid rgba(248, 250, 252, 0.25);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+#header .set a,
+#header .set span {
+    padding: 3px 10px;
+    border-radius: 5px;
+    color: var(--header-text);
+    text-decoration: none;
+}
+
+#header .set a:hover {
+    background-color: rgba(248, 250, 252, 0.12);
+}
+
+#header .set .on {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+/* The picture of a window or the GIF of a sample use (a guide page, once its file exists) */
+figure.shot {
+    margin: 16px 32px;
+    text-align: center;
+}
+
+figure.shot img {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/* The pages the website makes from Markdown (README.md, CONVENTIONS.md: the developer home) */
+#content p.devnav {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+.md ul, .md ol {
+    margin: 8px 32px 14px 32px;
+    padding-left: 22px;
+    line-height: 1.6;
+}
+
+.md li ul, .md li ol {
+    margin: 4px 0 4px 0;
+}
+
+.md li {
+    margin: 3px 0;
+}
+
+.md code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    color: var(--inline-code);
+    background-color: var(--inline-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+}
+
+.md pre {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.55;
+    overflow: auto;
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 14px 18px;
+    margin: 8px 32px 14px 32px;
+    border-radius: 8px;
+}
+
+.md pre code {
+    color: inherit;
+    background: none;
+    padding: 0;
+}
+
+.md table {
+    margin: 12px 32px 16px 32px;
+    width: calc(100% - 64px);
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.md th, .md td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.md th {
+    background-color: var(--surface-alt);
+}
+
+.md h1 img {
+    max-width: 100%;
+}
+
 /* ---------- Content ---------- */
 
 #content {
@@ -560,6 +679,14 @@ details.bundled pre {
 
     #header .lang {
         right: 16px;
+    }
+
+    /* Both switches under the title on a narrow screen: */
+    #header .lang, #header .set {
+        position: static;
+        transform: none;
+        display: inline-flex;
+        margin: 10px 6px 0 0;
     }
 
     #content h1, #content h2, #content h3, #content h4,

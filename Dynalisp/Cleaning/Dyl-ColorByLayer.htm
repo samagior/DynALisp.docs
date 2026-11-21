@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ColorByLayer.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Cleaning/Dyl-ColorByLayer.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">CHCOLOR</span>, <span class="fixw">CC</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-ColorByLayer.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -42,22 +39,6 @@
 <tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Sets the color of the selected objects to ByLayer.</td></tr>
 <tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Sets the color of the selected objects to a color picked in the color dialog.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<h3>CHCOLOR</h3>
-<div class="spacedbullets">
-<ol>
-<li>Select the objects (any selection method, pre-selection supported).</li>
-<li>The routine runs <span class="fixw">CHPROP</span> &rarr; Color &rarr; <span class="fixw">BYLAYER</span> on the selection and reports <span class="fixw">Objects&#x27; color changed to Bylayer.</span></li>
-</ol>
-</div>
-<h3>CC</h3>
-<div class="spacedbullets">
-<ol>
-<li>The <em>Select Color</em> dialog opens (index colours only, ByLayer shown as the default).</li>
-<li>At the prompt <span class="fixw">Select all object to change to one color.</span> select the objects.</li>
-<li><span class="fixw">CHPROP</span> applies the chosen colour to the selection.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

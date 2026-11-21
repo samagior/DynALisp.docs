@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickSelectSimilar.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-QuickSelectSimilar.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">QSS</span>, <span class="fixw">QSELECTSIMILAR</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickSelectSimilar.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (DCL dialog generated at run time)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -46,24 +43,6 @@
 <tr><td><span class="fixw">QSS</span></td><td>Quick Select Similar</td><td>Selects the visible objects matching the types and properties chosen in a dialog.</td></tr>
 <tr><td><span class="fixw">QSELECTSIMILAR</span></td><td>Quick Select Similar (Alias)</td><td>Alias of QSS.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Pre-select one or more reference objects, or pick them at the prompt. Press Enter without a selection to reopen the dialog with the last settings.</li>
-<li>The dialog <em>Selection rapide d'objets similaires</em> lists the object types visible in the current space with live counts; the reference types are selected.</li>
-<li>Property filters are pre-filled from the references: layer, colour (ACI), linetype, lineweight, text style, dimension style and block name (effective name, dynamic blocks included). Tick the filters to use and edit the values: comma-separated values and the <span class="fixw">*</span> <span class="fixw">?</span> wildcards are allowed.</li>
-<li>Set the scope (whole current space, or current view only) and the options (exclude locked layers, add to the current selection). <em>Choisir reference &lt;</em> picks new references without losing the settings.</li>
-<li>On OK the matching objects are gripped and stored as the <em>Previous</em> selection, and a count by type is printed.</li>
-</ol>
-</div>
-<h3>Filter logic</h3>
-<div class="spacedbullets">
-<ul>
-<li>Values inside one field are combined with OR; checked fields are combined with AND.</li>
-<li>Text style, dimension style and block name only restrict their own object types; the other selected types are not affected by them.</li>
-<li><em>Visible</em> means layer on and thawed and object not invisible.</li>
-</ul>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

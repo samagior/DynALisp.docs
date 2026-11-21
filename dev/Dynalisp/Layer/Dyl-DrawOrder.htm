@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Draw Order &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Layer/Dyl-DrawOrder.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Draw Order</h1>
+
+<p class="note">The developer docs of Draw Order: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-DrawOrder.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-DrawOrder.lsp</span> (commands), <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawOrder.lsp</span> (levels and the auto draw order setting, loaded at startup) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-DrawOrder.lsp</span> (auto draw order reactors, loaded at startup while the DynALisp reactors are on)</td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Each level keeps the draw order of its own objects: restacking moves whole levels to the top (the lowest positive level first) or to the bottom (the highest negative level first) with the draw order table of the space.</li>
+<li>Auto draw order watches the objects added to the drawing and restacks when the command that created them ends, like <a href="../../../Dynalisp/Layer/Dyl-LayerPhase.htm">auto-phase</a>. Objects created by a Lisp command are restacked when the Lisp command ends.</li>
+<li>Only the new objects are moved, right below the lowest object of the levels that must stay above them: a new line goes under the annotation, a new hatch under the lines, a new text on the top level moves nothing. The levels already stacked are left alone. When the draw order cannot be read, the levels above or below the new objects are restacked instead.</li>
+<li>Each restack adds entries to the draw order table of the space, and a large table slows down panning and zooming. <span class="fixw">DO-REBUILD</span> deletes the tables of model space, the layouts and the block definitions, then stacks the levels again from the creation order, as one undo step. The output prep step <em>Rebuild the draw order</em> (<span class="fixw">Dyl-PrepSuite</span>, off by default) does the same before the commands it is checked for, in place of <em>Apply the draw order</em>. A <span class="fixw">DRAWORDER</span> set by hand within a level is lost by a rebuild.</li>
+<li>The objects of model space, of the layouts and of the block definitions are restacked: a hatch inside a block goes below the lines of that block, like in the drawing. The levels are those of the objects in the block (often layer <span class="fixw">0</span>, so the rules by object type are the ones that apply). Auto draw order restacks a block definition when objects are added to it (<span class="fixw">BLOCK</span>, <span class="fixw">BEDIT</span>, <span class="fixw">REFEDIT</span>...) and regenerates the drawing so its references show it. Xrefs and their blocks are never changed, nor the anonymous blocks AutoCAD makes again itself (dimensions, tables...); the ones of the dynamic blocks are restacked. Viewports are left out.</li>
+<li>The objects brought back by <span class="fixw">U</span>, <span class="fixw">UNDO</span>, <span class="fixw">REDO</span> and <span class="fixw">OOPS</span> are left where they are. The list can be replaced with the <span class="fixw">DynalispDrawOrderSkip</span> environment variable, and the commands that restack the current space with <span class="fixw">DynalispDrawOrderRefresh</span>, for example <span class="fixw">(setenv "DynalispDrawOrderRefresh" "LAYMCH,MATCHPROP,CHPROP")</span>.</li>
+</ol>
+</div>
+<h2>Using The Draw Order In An App</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply nil nil)</span> &ndash; restacks model space, every layout and every block definition with the rules of the active preset, returns the number of objects moved.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply "Model" nil)</span> &ndash; restacks one space, given by its layout name. The second argument can give other rules (see <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderParse</span>).</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderRebuild nil nil)</span> &ndash; deletes the draw order tables of model space, every layout and every block definition, then restacks them; a layout name in place of the first <span class="fixw">nil</span> rebuilds one space.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPreset)</span> &ndash; returns the name of the active preset, <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetSet "Details")</span> saves another one in the drawing (<span class="fixw">nil</span>: the drawing uses the preferred preset), <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetDefault)</span> returns the preferred preset.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderAutoSet T)</span> &ndash; turns auto draw order on (nil: off).</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

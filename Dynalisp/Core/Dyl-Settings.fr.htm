@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-Settings.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Core/Dyl-Settings.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SETTINGS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> (région Settings) et <span class="fixw">Modules\Dynalisp\Res\Dyl-Settings.dcl</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -115,11 +112,7 @@
 </ul>
 </div>
 
-<h2 id="settings">Où sont les paramètres</h2>
-<p>Les paramètres sont des paramètres utilisateur Windows d'AutoCAD (<span class="fixw">getenv</span> / <span class="fixw">setenv</span>) : <span class="fixw">DynalispReactors</span>, <span class="fixw">DynalispSettingsSync</span>, <span class="fixw">DynalispSetupOn</span>, <span class="fixw">DynalispSysVarOn</span>, <span class="fixw">DynalispDisplayOn</span>, <span class="fixw">DynalispAutoUpdate</span>, <span class="fixw">DynalispCleanStartup</span>, <span class="fixw">DynalispRevisionSync</span>, <span class="fixw">DynalispLanguage</span>, <span class="fixw">DynalispShrinkGapImperial</span> / <span class="fixw">Metric</span>... Un paramètre n'est activé que s'il vaut <span class="fixw">"1"</span> : un paramètre jamais enregistré est donc désactivé; <span class="fixw">DynalispLanguage</span> vaut <span class="fixw">English</span> ou <span class="fixw">French</span>. Si les réacteurs empêchent AutoCAD de démarrer, désactivez-les depuis la ligne de commande : <span class="fixw">(setenv "DynalispReactors" "0")</span>, puis rouvrez les dessins.</p>
-<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
-    </div>
+</div>
 
     <div id="footer">
         <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>

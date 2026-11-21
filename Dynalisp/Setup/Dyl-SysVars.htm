@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SysVars.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Setup/Dyl-SysVars.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-SYSVARS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (profiles and override, loaded at startup)</td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -56,14 +53,6 @@
 </ul>
 </div>
 <p>The list is the one of the Express Tools (<span class="fixw">Express\sysvdlg.dat</span> of the AutoCAD installation, read where it is). Without the Express Tools, the window says so; variables can still be typed in the main window.</p>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ul>
-<li>A value is read as the type of the current value of its variable: a whole number (<span class="fixw">PICKADD 2</span>), a number (<span class="fixw">LTSCALE 1.5</span>), a text, or a point written <span class="fixw">x,y</span> or <span class="fixw">x,y,z</span>.</li>
-<li>Each drawing opened sets the protected variables and those of the active profile that differ, without marking the drawing as modified; the window shows what differs. A profile saved, or <em>System variables</em> turned on, in another drawing applies to the drawings already open when you switch to them, while <em>Settings sync</em> is on.</li>
-<li>The profiles are the CSV files of <span class="fixw">Modules\Dynalisp\Res\SysVars</span> (<span class="fixw">Variable;Value</span>, one variable per row). Saved profiles go to <span class="fixw">User\Modules\Dynalisp\Res\SysVars</span> (see <span class="fixw">Dyl-UserFiles</span>). The <span class="fixw">Default</span> profile is empty. The protected variables are <span class="fixw">Modules\Dynalisp\Res\SysVarsProtected.csv</span> (<span class="fixw">Variable;Value</span>, an empty value: protected only), saved to its copy under <span class="fixw">User</span>.</li>
-</ul>
-</div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

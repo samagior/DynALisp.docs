@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-PrepDrawing.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Output/Dyl-PrepDrawing.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">Dyl-PrepDrawing</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-PrepDrawing.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP), la préparation de sortie de <span class="fixw">Resources\dynalisp.mnl</span></td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -45,18 +42,6 @@
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">Dyl-PrepDrawing</span></td><td>Prep Drawing</td><td>Exécute maintenant chaque étape de préparation de sortie : calques, objets masqués, xréfs, liaisons de données, tableaux, ordre de tracé et régénération.</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li><em>Layers</em> : active et libère chaque calque.</li>
-<li><em>Unhide</em> : affiche les objets masqués et isolés (<span class="fixw">UNISOLATEOBJECTS</span>).</li>
-<li><em>Xrefs</em> : recharge chaque xréf, quand le dessin en a.</li>
-<li><em>Data links</em> : met à jour les tableaux de chaque liaison de données, quand le dessin en a.</li>
-<li><em>Tables</em> : ajuste chaque rangée de chaque tableau à la hauteur de son texte (aussi <span class="fixw">TBLFIX</span>).</li>
-<li><em>Draw order</em> : applique le préréglage d'ordre de tracé actif à l'espace objet, à chaque présentation et à chaque définition de bloc, tant que l'ordre de tracé automatique est activé (voir <a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>). Coché pour <span class="fixw">REGEN</span> seulement par défaut.</li>
-<li><em>Regen</em> : régénère chaque fenêtre (<span class="fixw">REGENALL</span>).</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

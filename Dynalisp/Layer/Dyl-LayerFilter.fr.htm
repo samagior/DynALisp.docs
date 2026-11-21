@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerFilter.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerFilter.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERFILTER</span> et 46 préréglages &ndash; voir <a href="#commands">Commandes</a></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>Noms de calques de style AIA / NCS; AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -57,38 +54,6 @@
 </table>
 </div>
 <p>Les numéros d'empilement sont des champs de quatre chiffres, <span class="fixw">0001</span> à <span class="fixw">0009</span> (p. ex. <span class="fixw">A-Wall-0002-N</span>), utilisés pour les élévations ou les étages empilés dessinés dans le même fichier.</p>
-<h2>Fonctionnement</h2>
-<p>Chaque commande est un préréglage fait de cinq listes de motifs (afficher, masquer, afficher secondaire, masquer secondaire, tramer), d'un indicateur de verrouillage et d'un état de départ. Quand la commande s'exécute :</p>
-<div class="spacedbullets">
-<ol>
-<li><strong>Xréfs</strong> &ndash; les xréfs insérées sur un calque du même nom que la xréf (convention des jeux de feuilles) ont ce calque ajouté à la liste à afficher, avec les calques 0 et Defpoints.</li>
-<li><strong>Jetons</strong> &ndash; les noms de groupes des listes sont développés en motifs génériques (voir le tableau ci-dessous).</li>
-<li><strong>Phases</strong> &ndash; pour les vues <em>Existant</em>, les variantes <span class="fixw">-E</span> et <span class="fixw">-X</span> des motifs à afficher sont ajoutées; les vues <em>Neuf</em> ajoutent aussi <span class="fixw">-N</span> <span class="fixw">-R</span> <span class="fixw">-M</span>; les vues <em>Démolition</em> ajoutent <span class="fixw">-D</span> <span class="fixw">-S</span> <span class="fixw">-T</span>.</li>
-<li><strong>Espace objet</strong> &ndash; une marque d'annulation est posée, chaque calque est remis à 0 % de transparence et déverrouillé; les préréglages à l'état de départ <em>Reset</em> rendent ensuite le calque 0 courant et désactivent et gèlent tous les calques. <span class="fixw">-LAYER</span> active/libère ensuite les listes à afficher et désactive/gèle les listes à masquer (les principales d'abord, les secondaires en dernier : les listes secondaires l'emportent), applique 50 % de transparence à la liste à tramer, la verrouille au besoin, et régénère.</li>
-<li><strong>Espace papier</strong> &ndash; sélectionnez les fenêtres (les autres objets sont ignorés). Les mêmes listes sont appliquées avec <span class="fixw">VPLAYER</span> (gel/libération et 50 % de transparence) aux fenêtres sélectionnées seulement; les calques eux-mêmes ne changent pas.</li>
-<li>Si la commande échoue, le dessin est ramené à la marque d'annulation.</li>
-</ol>
-</div>
-<h3>Jetons</h3>
-<div class="programs commands wide">
-<table>
-<tr><th>Jeton</th><th>Se développe en</th><th>Signification</th></tr>
-<tr><td><span class="fixw">Exst</span></td><td>*-@@?? , *-E , *-X</td><td>Calques sans phase (le dernier champ est un code de 4 caractères), existants et hors contrat</td></tr>
-<tr><td><span class="fixw">Demo</span></td><td>*-D , *-S , *-T</td><td>À démolir, à récupérer, temporaire</td></tr>
-<tr><td><span class="fixw">Neww</span></td><td>*-N , *-M , *-R</td><td>Travaux neufs, déplacé, rénové</td></tr>
-<tr><td><span class="fixw">Futw</span></td><td>*-F</td><td>Travaux futurs</td></tr>
-<tr><td><span class="fixw">Abnd</span></td><td>*-A</td><td>Abandonné</td></tr>
-<tr><td><span class="fixw">Ustk</span></td><td>*-@@?? , *-@@??-?</td><td>Calques non empilés (sans numéro de niveau), en phase ou non</td></tr>
-<tr><td><span class="fixw">Fstk</span></td><td>*-0001 &hellip; *-0009</td><td>Tous les empilements; avec un * final quand il sert dans une liste à masquer</td></tr>
-<tr><td><span class="fixw">Annotation</span></td><td>*-Anno* *-Tags* *-Dims* *-Text* *-Note* *-Titl* *-Symb* *-Iden* *-Mark* *-Keyn* *-Exst* *-Grid*</td><td>Calques d'annotation</td></tr>
-<tr><td><span class="fixw">Pattern</span></td><td>*-Patt* , *-Elev*-Mcut*</td><td>Calques de hachures et de matériaux coupés</td></tr>
-<tr><td><span class="fixw">Highlight</span></td><td>*-Elev*-Main* , -Otln , -Blin , -Sect , -Medm , -Wide &hellip;</td><td>Épaisseurs de ligne d'élévation à faire ressortir</td></tr>
-<tr><td><span class="fixw">Hidden</span></td><td>*-Elev-*Hidd* , *-Elev-*Bgrd* , *-Elev-*Nplt*</td><td>Calques d'élévation cachés, d'arrière-plan et non tracés</td></tr>
-<tr><td><span class="fixw">A-Flor</span></td><td>*A-Flor* , *A-Wall* , *A-Door* , *A-Glaz*</td><td>Plan d'étage architectural</td></tr>
-<tr><td><span class="fixw">N-Architectural</span></td><td>S-* , P-* , I-* , L-*</td><td>Toutes les disciplines sauf l'architecture</td></tr>
-<tr><td><span class="fixw">N-Structural</span></td><td>A-* , P-* , I-* , L-*</td><td>Toutes les disciplines sauf la structure</td></tr>
-</table>
-</div>
 <h2 id="commands">Commandes</h2>
 <p><em>Reset</em> : tout est masqué d'abord et seul le préréglage est affiché. <em>Keep</em> : la visibilité courante est gardée et le préréglage est appliqué par-dessus.</p>
 <div class="programs commands wide">

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerFilter.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerFilter.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERFILTER</span> and 46 presets &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AIA / NCS style layer names; AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -57,38 +54,6 @@
 </table>
 </div>
 <p>Stack numbers are four-digit fields <span class="fixw">0001</span> to <span class="fixw">0009</span> (e.g. <span class="fixw">A-Wall-0002-N</span>), used for stacked elevations or floors drawn in the same file.</p>
-<h2>How It Works</h2>
-<p>Each command is a preset made of five pattern lists (show, hide, secondary show, secondary hide, screen), a lock flag and a start state. When the command runs:</p>
-<div class="spacedbullets">
-<ol>
-<li><strong>Xrefs</strong> &ndash; xrefs inserted on a layer that has the same name as the xref (sheet set convention) have that layer added to the show list, along with layers 0 and Defpoints.</li>
-<li><strong>Tokens</strong> &ndash; group names in the lists are expanded into wildcard patterns (see table below).</li>
-<li><strong>Phases</strong> &ndash; for <em>Existing</em> views, <span class="fixw">-E</span> and <span class="fixw">-X</span> variants of the show patterns are added; <em>New</em> views also add <span class="fixw">-N</span> <span class="fixw">-R</span> <span class="fixw">-M</span>; <em>Demolition</em> views add <span class="fixw">-D</span> <span class="fixw">-S</span> <span class="fixw">-T</span>.</li>
-<li><strong>Model space</strong> &ndash; an UNDO mark is set, every layer is reset to 0% transparency and unlocked; presets with a <em>Reset</em> start state then set layer 0 current and turn off and freeze every layer. <span class="fixw">-LAYER</span> then turns on/thaws the show lists and turns off/freezes the hide lists (primary first, secondary last, so the secondary lists win), applies 50% transparency to the screen list, optionally locks it, and regenerates.</li>
-<li><strong>Paper space</strong> &ndash; select the viewports (other objects are ignored). The same lists are applied with <span class="fixw">VPLAYER</span> (freeze/thaw and 50% transparency) to the selected viewports only; the layers themselves are not changed.</li>
-<li>If the command fails, the drawing is rolled back to the UNDO mark.</li>
-</ol>
-</div>
-<h3>Tokens</h3>
-<div class="programs commands wide">
-<table>
-<tr><th>Token</th><th>Expands to</th><th>Meaning</th></tr>
-<tr><td><span class="fixw">Exst</span></td><td>*-@@?? , *-E , *-X</td><td>Unphased layers (last field is a 4-character code), existing and not in contract</td></tr>
-<tr><td><span class="fixw">Demo</span></td><td>*-D , *-S , *-T</td><td>Demolish, to be saved, temporary</td></tr>
-<tr><td><span class="fixw">Neww</span></td><td>*-N , *-M , *-R</td><td>New work, moved, refurbished</td></tr>
-<tr><td><span class="fixw">Futw</span></td><td>*-F</td><td>Future work</td></tr>
-<tr><td><span class="fixw">Abnd</span></td><td>*-A</td><td>Abandoned</td></tr>
-<tr><td><span class="fixw">Ustk</span></td><td>*-@@?? , *-@@??-?</td><td>Unstacked layers (no level number), phased or not</td></tr>
-<tr><td><span class="fixw">Fstk</span></td><td>*-0001 &hellip; *-0009</td><td>All stacks; with a trailing * when used in a hide list</td></tr>
-<tr><td><span class="fixw">Annotation</span></td><td>*-Anno* *-Tags* *-Dims* *-Text* *-Note* *-Titl* *-Symb* *-Iden* *-Mark* *-Keyn* *-Exst* *-Grid*</td><td>Annotation layers</td></tr>
-<tr><td><span class="fixw">Pattern</span></td><td>*-Patt* , *-Elev*-Mcut*</td><td>Hatch and material cut layers</td></tr>
-<tr><td><span class="fixw">Highlight</span></td><td>*-Elev*-Main* , -Otln , -Blin , -Sect , -Medm , -Wide &hellip;</td><td>Elevation line weights to emphasise</td></tr>
-<tr><td><span class="fixw">Hidden</span></td><td>*-Elev-*Hidd* , *-Elev-*Bgrd* , *-Elev-*Nplt*</td><td>Hidden, background and non-plot elevation layers</td></tr>
-<tr><td><span class="fixw">A-Flor</span></td><td>*A-Flor* , *A-Wall* , *A-Door* , *A-Glaz*</td><td>Architectural floor plan</td></tr>
-<tr><td><span class="fixw">N-Architectural</span></td><td>S-* , P-* , I-* , L-*</td><td>Every discipline but architecture</td></tr>
-<tr><td><span class="fixw">N-Structural</span></td><td>A-* , P-* , I-* , L-*</td><td>Every discipline but structure</td></tr>
-</table>
-</div>
 <h2 id="commands">Commands</h2>
 <p><em>Reset</em>: everything is hidden first and only the preset is shown. <em>Keep</em>: the current visibility is kept and the preset is applied on top of it.</p>
 <div class="programs commands wide">

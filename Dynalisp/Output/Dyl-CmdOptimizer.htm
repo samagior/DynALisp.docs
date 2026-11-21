@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-CmdOptimizer.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Output/Dyl-CmdOptimizer.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">Dyl-CmdOptimizer</span>, <span class="fixw">SAVE</span>, <span class="fixw">QSAVE</span>, <span class="fixw">SAVEAS</span>, <span class="fixw">+SAVEAS</span>, <span class="fixw">PLOT</span>, <span class="fixw">PUBLISH</span>, <span class="fixw">PREVIEW</span>, <span class="fixw">EXPORTPDF</span>, <span class="fixw">EXPORTDWF</span>, <span class="fixw">EXPORTDWFX</span>, <span class="fixw">REGEN</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-CmdOptimizer.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP), the output prep of <span class="fixw">Resources\dynalisp.mnl</span></td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -56,19 +53,6 @@
 <tr><td><span class="fixw">EXPORTDWFX</span></td><td>Export DWFx</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native EXPORTDWFX dialog.</td></tr>
 <tr><td><span class="fixw">REGEN</span></td><td>Regen</td><td>Runs the output prep steps checked for REGEN in Dyl-Settings (the draw order by default), then the native REGEN.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li><span class="fixw">Dyl-CmdOptimizer</span> shows whether the commands are redefined and prompts <span class="fixw">Command optimizer, for every drawing [On/Off] &lt;Off&gt;:</span> (Enter switches it). It is the <em>Commands</em> checkbox of the Overrides box of <span class="fixw">Dyl-Settings</span>: the user setting <span class="fixw">DynalispPrepRedefine</span>, applied right away to this drawing and to the other open drawings when they become current.</li>
-<li>At startup, when the output prep is on in <span class="fixw">Dyl-Settings</span>, the native command of each command turned on in <span class="fixw">Dyl-Suite</span> is removed with <span class="fixw">UNDEFINE</span>, so typing it (or its shortcut) runs the Lisp command. The startup log lists the commands redefined.</li>
-<li>A command turned off in <span class="fixw">Dyl-Suite</span> keeps its native definition (<span class="fixw">REDEFINE</span>): it is never left undefined without its Lisp command. Turning the commands on or off applies right away with the Suite changes (or <span class="fixw">Dyl-Reload</span>).</li>
-<li>Turning it off (<span class="fixw">Dyl-CmdOptimizer</span> or <span class="fixw">Dyl-Settings</span>) restores the native commands in every open drawing; <span class="fixw">Dyl-RestoreCommands</span> does it for the session only.</li>
-<li><span class="fixw">REGEN</span> runs its steps like the other commands: by default only <em>Apply the draw order preset</em> (a column of the output prep window (<span class="fixw">Dyl-PrepSuite</span>, or the <em>open</em> button next to <em>Commands</em> in <span class="fixw">Dyl-Settings</span>)). The draw order restacks model space, every layout and every block definition with the active preset (as <span class="fixw">DO-APPLY</span>), in one undo step, and is skipped while auto draw order is off (<span class="fixw">DO-AUTO</span> or <span class="fixw">Dyl-Settings</span>). The other commands can run it too: check it in their column.</li>
-<li>The save commands (<span class="fixw">SAVE</span>, <span class="fixw">QSAVE</span>, <span class="fixw">SAVEAS</span>, <span class="fixw">+SAVEAS</span>) always run the same steps: they share the <em>All saves</em> column of the grid. The print commands (<span class="fixw">PLOT</span>, <span class="fixw">PUBLISH</span>, <span class="fixw">EXPORTPDF</span>, <span class="fixw">EXPORTDWF</span>, <span class="fixw">EXPORTDWFX</span>) share the <em>All prints</em> column; <span class="fixw">PREVIEW</span> and <span class="fixw">REGEN</span> have their own. <span class="fixw">+SAVEAS</span> runs the native command and leaves its prompts to you, or to the menu macro that called it.</li>
-<li><span class="fixw">Dyl-PrepSuite</span> opens the output prep window: a grid of the steps (rows) and of the groups of commands (columns: <em>All saves</em>, <em>All prints</em>, <span class="fixw">PREVIEW</span>, <span class="fixw">REGEN</span>), with <em>All On</em> / <em>All Off</em>. OK saves it right away (<span class="fixw">Modules\Dynalisp\Res\PrepSuite.csv</span>, your copy under <span class="fixw">User</span>). The <em>open</em> button next to the <em>Commands</em> checkbox of <span class="fixw">Dyl-Settings</span> opens the same window, saved with the other settings.</li>
-<li>The commands call the native one with the <span class="fixw">_.</span> prefix (<span class="fixw">_.QSAVE</span>...), which always runs the AutoCAD command, undefined or not.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

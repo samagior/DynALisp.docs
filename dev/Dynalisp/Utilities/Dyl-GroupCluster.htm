@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Group Cluster &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-GroupCluster.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Group Cluster</h1>
+
+<p class="note">The developer docs of Group Cluster: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-GroupCluster.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-GroupCluster.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Pick two corners of a window (only objects fully inside are kept), or press Enter at the first corner to select objects instead.</li>
+<li>Enter the maximum gap between two objects for them to be grouped (default 10 drawing units).</li>
+<li>The gap is measured between the bounding boxes of the objects in plan (X/Y only); 0 when the boxes touch or overlap.</li>
+<li>Proximity is chained: if A is near B and B is near C, A, B and C go in the same group even when A and C are far apart.</li>
+<li>One anonymous group is created per cluster of two or more objects, and the command reports the groups created, the objects left alone and the objects skipped (no bounding box).</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

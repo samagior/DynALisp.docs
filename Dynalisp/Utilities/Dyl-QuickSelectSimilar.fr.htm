@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-QuickSelectSimilar.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-QuickSelectSimilar.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">QSS</span>, <span class="fixw">QSELECTSIMILAR</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickSelectSimilar.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (fenêtre DCL générée à l'exécution)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -46,24 +43,6 @@
 <tr><td><span class="fixw">QSS</span></td><td>Quick Select Similar</td><td>Sélectionne les objets visibles qui correspondent aux types et propriétés choisis dans une fenêtre.</td></tr>
 <tr><td><span class="fixw">QSELECTSIMILAR</span></td><td>Quick Select Similar (Alias)</td><td>Alias de QSS.</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Présélectionnez un ou plusieurs objets de référence, ou choisissez-les à l'invite. Appuyez sur Entrée sans sélection pour rouvrir la fenêtre avec les derniers réglages.</li>
-<li>La fenêtre <em>Selection rapide d'objets similaires</em> liste les types d'objets visibles dans l'espace courant avec leurs comptes à jour; les types des références sont sélectionnés.</li>
-<li>Les filtres de propriétés sont préremplis à partir des références : calque, couleur (ACI), type de ligne, épaisseur de ligne, style de texte, style de cote et nom de bloc (nom effectif, blocs dynamiques compris). Cochez les filtres à utiliser et modifiez les valeurs : les valeurs séparées par des virgules et les caractères génériques <span class="fixw">*</span> <span class="fixw">?</span> sont permis.</li>
-<li>Réglez la portée (tout l'espace courant, ou la vue courante seulement) et les options (exclure les calques verrouillés, ajouter à la sélection courante). <em>Choisir reference &lt;</em> choisit de nouvelles références sans perdre les réglages.</li>
-<li>Avec OK, les objets correspondants sont affichés avec leurs poignées et gardés comme sélection <em>Précédent</em>, et un compte par type est affiché.</li>
-</ol>
-</div>
-<h3>Logique des filtres</h3>
-<div class="spacedbullets">
-<ul>
-<li>Les valeurs d'un même champ se combinent par OU; les champs cochés se combinent par ET.</li>
-<li>Le style de texte, le style de cote et le nom de bloc ne restreignent que leurs propres types d'objets; les autres types sélectionnés n'en sont pas touchés.</li>
-<li><em>Visible</em> veut dire calque activé et libéré, et objet non invisible.</li>
-</ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

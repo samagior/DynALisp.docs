@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ResetLinetypeScale.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-ResetLinetypeScale.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">LTS1</span>, <span class="fixw">RESETLTSCALE</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ResetLinetypeScale.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -46,15 +43,6 @@
 <tr><td><span class="fixw">LTS1</span></td><td>Reset Linetype Scale</td><td>Resets the linetype scale of every object in model space and all layouts to 1.0.</td></tr>
 <tr><td><span class="fixw">RESETLTSCALE</span></td><td>Reset Linetype Scale (Alias)</td><td>Alias of LTS1 that resets the linetype scale of every drawing object to 1.0.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The routine goes through model space and every layout (external references are skipped).</li>
-<li>Each object whose linetype scale (DXF 48) is not 1.0 is set to 1.0, as well as the attributes of block references.</li>
-<li>Objects on locked, frozen or off layers are processed too.</li>
-<li>The change is one undo step; a <span class="fixw">REGENALL</span> runs when something changed, and the command reports the number of objects and spaces processed.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

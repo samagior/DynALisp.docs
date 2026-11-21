@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-BatchInsert.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-BatchInsert.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,18 +25,14 @@
 <td><span class="fixw">BATCH-INSERT</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-BatchInsert.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (Shell folder browser)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Status</td>
 <td>Work in progress &ndash; see Known Limitations</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -49,14 +46,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">BATCH-INSERT</span></td><td>Batch Insert</td><td>Inserts every drawing of a folder side by side as blocks in the current drawing.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>A Windows folder browser opens (<em>Select a folder</em>); the path can be typed in the dialog.</li>
-<li>The routine lists the <span class="fixw">*.dwg</span> files of the folder.</li>
-<li>Each file is inserted with <span class="fixw">-INSERT</span> at scale 1 and rotation 0, the X position being meant to advance by 100 drawing units for each drawing.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

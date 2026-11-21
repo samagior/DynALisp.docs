@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SetByBlock.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Cleaning/Dyl-SetByBlock.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">FIXBLKS</span>, <span class="fixw">SL-BLOCKALL</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-SetByBlock.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>FIXBLKS: routine by Tom Beauford; SL-BLOCKALL: GNU General Public License v3</td>
 </tr>
@@ -47,23 +44,6 @@
 <tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Selects every block reference in the drawing.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<h3>FIXBLKS</h3>
-<div class="spacedbullets">
-<ol>
-<li>Select block references (the selection is filtered to INSERT objects).</li>
-<li>For the definition of each selected reference, the routine walks every entity of the definition:<div class="unspacedbullets">
-<ul>
-<li>nested block references are followed and their own definitions fixed as well (each definition once);</li>
-<li>other entities get layer 0, colour ByBlock, linetype ByBlock and lineweight ByBlock. Failures (e.g. read-only entities) are ignored.</li>
-</ul>
-</div></li>
-<li>The changes are wrapped in a single UNDO group and the drawing is regenerated.</li>
-</ol>
-</div>
-<p>Because the <em>definition</em> is edited, every reference of the same block in the drawing changes, not only the selected ones.</p>
-<h3>SL-BLOCKALL</h3>
-<p>Builds a selection of every block reference in the drawing (all spaces, xrefs included) and grips it with <span class="fixw">PSELECT</span> so it can be fed to the next command.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

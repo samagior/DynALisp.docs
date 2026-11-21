@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-DataLinks.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Cleaning/Dyl-DataLinks.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-DATALINKS</span>, <span class="fixw">DLPURGE</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -57,15 +54,6 @@
 <li><strong>Update tables</strong> &ndash; closes the dialog, runs <span class="fixw">DATALINKUPDATE</span> on the tables of the selected links, then reopens the dialog.</li>
 <li><strong>Data Link Manager...</strong> &ndash; closes the dialog and opens the AutoCAD Data Link Manager, to change the file of a link or detach it from a table.</li>
 </ul>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The links are read from the <span class="fixw">ACAD_DATALINK</span> dictionary of the drawing.</li>
-<li>A link is <em>used</em> when a table of the drawing points to it, or when the link lists a table that still exists as one of its users. Both checks are made so that a link is never reported unused by mistake.</li>
-<li>The source file is read from the connection string of the link. A relative path is looked up from the drawing folder.</li>
-<li>Each delete runs in one undo group: <span class="fixw">U</span> restores the deleted links.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerList.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerList.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-LAYERLIST</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerList.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -41,15 +38,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">DYL-LAYERLIST</span></td><td>Layer Drawing List</td><td>Draws a line and a label with the description of each layer of the drawing or of the selection.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Pick the insertion point of the first row.</li>
-<li>Choose <span class="fixw">All</span> (default, every layer of the drawing in layer table order) or <span class="fixw">Select</span> (the layers of the objects you select, each once).</li>
-<li>For each layer the routine creates, on that layer: a 200-unit horizontal line, the layer name as text (height 2.25) 1 unit above the line and, if the layer has one, its description 75 units to the right.</li>
-<li>The next row starts 7.5 units below.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

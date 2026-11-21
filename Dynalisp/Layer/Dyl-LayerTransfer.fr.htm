@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerTransfer.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerTransfer.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERTRANSFER</span> et 58 transferts &ndash; voir <a href="#commands">Commandes</a></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP) avec ObjectDBX</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -53,43 +50,6 @@
 <li>Le bouton Transférer lance <span class="fixw">Pst-TransferField</span> (alias <span class="fixw">LTF</span>, qui fait de même quand il est tapé). Avant qu'une valeur À soit choisie, ou sans les listes déroulantes, il demande le niveau, la valeur De (Entrée : toutes) et la valeur À (<em>None</em> pour la retirer).</li>
 <li>Les listes déroulantes sont ajoutées par <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, qui demande AutoCAD 2025 ou suivant (voir <a href="../Plugins/Ribbon.fr.htm">Ruban</a>). Dans une version antérieure, le bouton Transférer demande le niveau et les valeurs.</li>
 </ul>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Sélectionnez les objets. Les objets dont le calque contient le champ source peuvent être choisis, et les références de blocs le peuvent toujours pour que leur contenu puisse être transféré.</li>
-<li>Chaque objet sélectionné est vérifié : son propre calque, ses attributs et, pour les blocs, chaque entité de la définition (blocs imbriqués compris) sont testés. Les objets sans rien à changer sont retirés.</li>
-<li>Le nom cible de chaque calque source est calculé (voir les règles ci-dessous). Un calque cible manquant est créé avec le type de ligne, l'épaisseur de ligne, le réglage de traçage, la description et la transparence de la source, et une couleur décalée selon la phase : <span class="fixw">-D</span> &rarr; 2 + dernier chiffre, <span class="fixw">-E</span> &rarr; 20 + dernier chiffre, sans phase depuis -D/-E &rarr; dernier chiffre seulement. Un calque de phase d'une <a href="Dyl-LayerKeys.fr.htm">clé de calque</a> (le nom cible sans sa phase, <span class="fixw">G-Detl-Exst-D</span> &rarr; <span class="fixw">G-Detl-Exst</span>, est le calque de cette clé) reçoit plutôt la couleur de sa clé dans cette phase : la couleur de phase de la couleur de la clé, ou la couleur de la clé elle-même quand la clé la garde dans chaque phase (<em>Keep this color in every phase</em>) ou que le transfert est vers sans phase.</li>
-<li>Un calque cible d'une clé de calque qui existe déjà est comparé à sa clé (couleur dans cette phase, type de ligne, épaisseur de ligne, traçage), comme quand une App utilise la clé : s'il diffère, la même fenêtre liste les différences et demande s'il faut le mettre à jour selon sa clé, avant que les objets soient déplacés (Yes / No, <em>Remember my answer</em>; voir <a href="Dyl-LayerKeys.fr.htm#differ">Layer Keys &ndash; Layers That Differ From Their Key</a>).</li>
-<li>Si un calque source est désactivé, gelé ou verrouillé, une alerte le liste et rien ne change.</li>
-<li>En un seul groupe d'annulation, les objets et les attributs sont déplacés sur leurs calques cibles. Un bloc dont le contenu change est copié (par ObjectDBX, qui garde les données des blocs dynamiques) sous un nouveau nom &ndash; <span class="fixw">2X6</span> &rarr; <span class="fixw">2X6-N</span>, <span class="fixw">2X6-E</span> &rarr; <span class="fixw">2X6-N</span> &ndash; la copie est transférée et les références sélectionnées pointent vers elle, avec leurs valeurs de propriétés dynamiques rétablies. Une copie faite par une exécution antérieure est réutilisée.</li>
-</ol>
-</div>
-<h3>Règles de nom</h3>
-<div class="spacedbullets">
-<ul>
-<li><strong>Phase</strong> &ndash; le suffixe est remplacé à la fin du nom (<span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span>). Un nom qui finit par un champ de 4 caractères sans phase (<span class="fixw">A-Wall-Full</span>) reçoit le nouveau suffixe à la fin. Les commandes <em>Unphased</em> retirent le suffixe.</li>
-<li><strong>Désignation</strong> &ndash; la première occurrence de la lettre de discipline est remplacée.</li>
-<li><strong>Majeur</strong> &ndash; la première occurrence après la désignation est remplacée (p. ex. Detl &harr; Sect).</li>
-<li><strong>Mineur</strong> &ndash; la première occurrence à partir du 8<sup>e</sup> caractère est remplacée (Line &harr; Hidd, numéros de pile).</li>
-<li><strong>Niveau</strong> (le bouton Transférer du ruban et <span class="fixw">LTF</span>) &ndash; le nom est lu comme un nom NCS : une désignation de discipline de 1 ou 2 lettres, un groupe majeur de 4 caractères, des groupes mineurs de 4 caractères (aucun ou plusieurs) et un statut facultatif de 1 caractère, séparés par <span class="fixw">-</span>. Seul ce niveau est remplacé : un transfert de désignation ne touche donc jamais les autres niveaux. Les calques aux autres noms (<span class="fixw">0</span>, <span class="fixw">Defpoints</span>, les calques des xréfs...) restent tels quels.</li>
-</ul>
-</div>
-<h3>Suffixes de phase</h3>
-<div class="programs commands">
-<table>
-<tr><th>Suffixe</th><th>Phase</th></tr>
-<tr><td><span class="fixw">-E</span></td><td>Existant à conserver</td></tr>
-<tr><td><span class="fixw">-D</span></td><td>Existant à démolir</td></tr>
-<tr><td><span class="fixw">-N</span></td><td>Travaux neufs</td></tr>
-<tr><td><span class="fixw">-R</span></td><td>En rénovation</td></tr>
-<tr><td><span class="fixw">-M</span></td><td>En déplacement</td></tr>
-<tr><td><span class="fixw">-S</span></td><td>À récupérer</td></tr>
-<tr><td><span class="fixw">-A</span></td><td>Abandonné</td></tr>
-<tr><td><span class="fixw">-F</span></td><td>Travaux futurs</td></tr>
-<tr><td><span class="fixw">-T</span></td><td>Travaux temporaires</td></tr>
-<tr><td><span class="fixw">-X</span></td><td>Hors contrat</td></tr>
-</table>
 </div>
 <h2 id="commands">Commandes</h2>
 <h3>Transferts de phase</h3>

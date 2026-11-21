@@ -1,7 +1,8 @@
 # DynALisp Docs
 
 The documentation of [DynALisp](https://github.com/samagior/DynALisp.release), published at
-https://samagior.github.io/DynALisp.docs/
+https://samagior.github.io/DynALisp.docs/: the **User Guide** (what each tool does and how to use it) and the **Developer docs**
+(`dev/`: how the code works).
 
 This repository is **generated**: every push to the main branch of the DynALisp source
 rebuilds it (`Installer/Docs/BuildSite.py`, `.github/workflows/docs.yml`). Do not edit it

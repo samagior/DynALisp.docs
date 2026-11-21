@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Output/Dyl-Revisions.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">Dyl-Revisions</span>, <span class="fixw">REVS</span>, <span class="fixw">RCLOUD</span>, <span class="fixw">REVUP</span>, <span class="fixw">REVTB</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-Revisions.lsp</span>, <span class="fixw">Modules\Dynalisp\Remote\Dyl-Revisions.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP), a Project Navigator project (AutoCAD Architecture)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -131,17 +128,6 @@
 <li><strong>Revisions</strong> in <span class="fixw">Dyl-Settings</span> (Overrides): every sheet of a project is updated when it opens, so the drawings that were skipped catch up. Its open button opens the Revision Title Blocks window.</li>
 </ul>
 </div>
-<h2>Where The Revisions Are Kept</h2>
-<p>The revisions are project data, shared by everyone who works on the project: they are kept in the project itself, in its <span class="fixw">DynALisp</span> folder beside the <span class="fixw">.apj</span>, never in your DynALisp settings.</p>
-<div class="programs commands wide">
-<table>
-<tr><th>File</th><th>What it holds</th></tr>
-<tr><td><span class="fixw">Revisions.csv</span></td><td>The revisions, in their sequence.</td></tr>
-<tr><td><span class="fixw">RevisionSettings.csv</span></td><td>The numbering and the first number of the project.</td></tr>
-<tr><td><span class="fixw">Sheets.csv</span></td><td>Every sheet, the revisions given to it and the ones its clouds had at its last update.</td></tr>
-</table>
-</div>
-<p>Each layout also keeps a copy of the revisions given to it: a sheet drawing copied or renamed keeps its revisions. When another user saves the revisions or the settings of the project while your window is open, <strong>OK</strong> and <strong>Update All Sheets</strong> are refused: cancel, then open the window again.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

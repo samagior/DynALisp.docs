@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prep Drawing &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Output/Dyl-PrepDrawing.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Prep Drawing</h1>
+
+<p class="note">The developer docs of Prep Drawing: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Output/Dyl-PrepDrawing.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-PrepDrawing.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li><em>Layers</em>: turns on and thaws every layer.</li>
+<li><em>Unhide</em>: shows the hidden and isolated objects (<span class="fixw">UNISOLATEOBJECTS</span>).</li>
+<li><em>Xrefs</em>: reloads every xref, when the drawing has some.</li>
+<li><em>Data links</em>: updates the tables of every data link, when the drawing has some.</li>
+<li><em>Tables</em>: fits every row of every table to its text height (also <span class="fixw">TBLFIX</span>).</li>
+<li><em>Draw order</em>: applies the active draw order preset to model space, every layout and every block definition, while auto draw order is on (see <a href="../../../Dynalisp/Layer/Dyl-DrawOrder.htm">Draw Order</a>). Checked for <span class="fixw">REGEN</span> only by default.</li>
+<li><em>Regen</em>: regenerates every viewport (<span class="fixw">REGENALL</span>).</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-ViewportToPaperSpace.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-ViewportToPaperSpace.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">VP2PS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ViewportToPaperSpace.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -45,22 +42,6 @@
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
 <tr><td><span class="fixw">VP2PS</span></td><td>Viewport To Paper Space</td><td>Recrée dans l'espace papier les objets de l'espace objet vus par les fenêtres sélectionnées, puis supprime les fenêtres.</td></tr>
 </table>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Lancez la commande depuis un onglet de présentation (elle refuse de s'exécuter dans l'espace objet et passe à l'espace papier si une fenêtre est active).</li>
-<li>Choisissez le mode de résultat à <span class="fixw">Mode de resultat [Decouper/Libre]</span>; le dernier choix est la valeur par défaut :<div class="unspacedbullets">
-<ul>
-<li><span class="fixw">Decouper</span> (par défaut) &ndash; les copies sont regroupées dans un bloc (préfixe <span class="fixw">VP2PS_</span>) découpé selon le contour de la fenêtre : le résultat ressemble exactement à la fenêtre;</li>
-<li><span class="fixw">Libre</span> &ndash; les copies sont des objets libres dans l'espace papier et les objets qui traversent le bord de la fenêtre ne sont pas coupés.</li>
-</ul>
-</div></li>
-<li>Sélectionnez les fenêtres à convertir (la fenêtre de l'espace papier elle-même est exclue).</li>
-<li>Les objets de l'espace objet sont rassemblés une fois. Pour chaque fenêtre, les objets des calques visibles sont copiés et transformés selon l'échelle, le centre de la vue et l'angle de rotation de la fenêtre; les fenêtres rectangulaires et découpées sont prises en charge.</li>
-<li>Avec <span class="fixw">PSLTSCALE</span> = 0, les échelles de types de ligne sont ajustées pour garder la longueur des tirets; les cotes gardent leur valeur et leur taille affichées.</li>
-<li>Chaque fenêtre convertie est supprimée. Les calques déverrouillés temporairement sont reverrouillés, le dessin est régénéré et un rapport donne le nombre de fenêtres et d'objets convertis. Toute l'opération est un seul groupe d'annulation.</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

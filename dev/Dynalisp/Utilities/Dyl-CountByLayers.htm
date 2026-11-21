@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Count by Layers &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-CountByLayers.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Count by Layers</h1>
+
+<p class="note">The developer docs of Count by Layers: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-CountByLayers.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-CountByLayers.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Select lines, arcs, circles, ellipses, polylines and splines (3D meshes and polyface meshes are excluded).</li>
+<li>For each object the length is measured; closed objects (closed flag, or start and end points at the same place) also give an area.</li>
+<li>Each object gets an Mtext label on its layer, sized to about 35% of the object:<div class="unspacedbullets"><ul><li>open objects: the length, aligned with the object just above its midpoint;</li><li>closed objects: area and perimeter, centred on the object.</li></ul></div>With <span class="fixw">INSUNITS</span> set, labels read <em>x ft (y m)</em>; in a unitless drawing they show drawing units.</li>
+<li>The totals per layer (quantity, length, area, plus metres / feet and m&sup2; / ft&sup2; when <span class="fixw">INSUNITS</span> is set) are printed at the command line, with a <em>Total</em> row.</li>
+<li>At <span class="fixw">Output [Table/Csv/None] &lt;None&gt;:</span>, <em>Table</em> inserts an AutoCAD table at a picked point in the current space (text height <span class="fixw">TEXTSIZE</span>); <em>Csv</em> writes a file, named <span class="fixw">&lt;drawing&gt;-CountByLayers.csv</span> by default.</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

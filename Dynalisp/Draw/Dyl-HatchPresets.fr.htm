@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-HatchPresets.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Draw/Dyl-HatchPresets.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-HATCHPRESETS</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Materials.lsp</span> (commande) et <span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (préréglages de hachures, chargé au démarrage)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -145,9 +142,6 @@
 </div>
 <p>Chaque préréglage par défaut de Quick Draw utilise le préréglage de hachure par défaut du même nom (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
 
-<h2 id="file">Fichier des préréglages de hachures</h2>
-<p>Les préréglages de hachures sont enregistrés dans <span class="fixw">Res\Materials.csv</span> (points-virgules, un préréglage par rangée, avec un en-tête). Vos changements vont dans sa copie sous <span class="fixw">User</span>; le fichier livré sous <span class="fixw">Contents</span> donne les valeurs par défaut (statut, Reset Selected, Reset All). Les colonnes, dans l'ordre : <span class="fixw">Id, Group, Name, Pattern, Scale, ScaleMetric (no longer used: one scale; kept for the order of the columns), Angle, OutlineKey, HatchKey, Annotative, ScaleDrawing, ScaleRef</span>; les réglages facultatifs, chacun une colonne <span class="fixw">...On</span> (<span class="fixw">1</span> : coché) et sa valeur : <span class="fixw">BorderColor, BorderLinetype, BorderLtScale, BorderLineweight</span> (centièmes de mm, <span class="fixw">25</span> = 0,25 mm), <span class="fixw">BorderTransparency, HatchColor, Background, HatchLineweight, HatchTransparency</span>; puis <span class="fixw">Associative, NoBorder, BehindBorder (no longer used, kept for the order of the columns), Method, Width, Justify, Sides, ScaleWidth, WidthFactor, OriginOnLine, OriginOffset, ExistingBackgroundOn, ExistingBackground, ShrinkGap</span> (en unités de dessin), <span class="fixw">ShrinkGapOn, ShrinkGapMetric</span> (plus utilisée : un ancien écart déplacé vers ShrinkGap), <span class="fixw">OriginAlong, HatchLinetypeOn, HatchLinetype, HatchLtScaleOn, HatchLtScale</span>; puis les emplacements des bandes de Linear et Offset de Quick Draw, réglés dans chaque préréglage (voir <a href="Dyl-QuickDraw.fr.htm#endscorners">Extrémités et coins</a>) : <span class="fixw">Ends, EndExtension, EndAngle, Corners, MiterLimit, LapThrough, Joints, HatchFollows</span>; l'assemblage de Linear (<a href="Dyl-QuickDraw.fr.htm#assembly">Assemblages</a>) : <span class="fixw">AssemblyOn, Assembly</span>. Un identifiant qui commence par <span class="fixw">mt-</span> est un préréglage de hachure par défaut, <span class="fixw">cu-</span> un personnalisé. Les colonnes manquantes reçoivent leur valeur par défaut : un fichier d'une version plus ancienne se lit donc toujours.</p>
-<!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
 <p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
 <div class="programs commands wide">

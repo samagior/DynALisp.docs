@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerImportFiltersFromDwg.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerImportFiltersFromDwg.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">LFIMP</span>, <span class="fixw">LFLIST</span>, <span class="fixw">IMPORTLAYERFILTER</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFiltersFromDwg.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP) with ObjectDBX</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -48,20 +45,6 @@
 <tr><td><span class="fixw">IMPORTLAYERFILTER</span></td><td>Import Layer Filters (Alias)</td><td>Alias of LFIMP that imports the layer filters of another drawing.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<h3>LFIMP / IMPORTLAYERFILTER</h3>
-<div class="spacedbullets">
-<ol>
-<li>Pick the source file (<span class="fixw">.dwg</span>, <span class="fixw">.dwt</span> or <span class="fixw">.dws</span>). The current drawing itself is refused.</li>
-<li>The source is opened through ObjectDBX (or used directly if it is already open), its filter tree is read and the source is released right away.</li>
-<li>The source filter tree is printed at the command line. At <span class="fixw">Filters to import (name or wildcard, comma-separated) &lt;*&gt;:</span> type names or wildcards of top-level filters, or press Enter for all of them.</li>
-<li>Names already used anywhere in the current filter tree are listed, and you choose <span class="fixw">Overwrite</span> (replace the existing filter and its children), <span class="fixw">Skip</span> (default) or <span class="fixw">Rename</span> (import with a <span class="fixw">_1</span>, <span class="fixw">_2</span> &hellip; suffix).</li>
-<li>The Layer Properties Manager is closed if it is open, so it cannot overwrite the result.</li>
-<li>The filters are written in one UNDO group and a report gives the number of filters imported, overwritten, renamed, skipped, not importable (group filters) and failed.</li>
-</ol>
-</div>
-<h3>LFLIST</h3>
-<p>Prints the filter tree of the current drawing at the command line, with indentation for nested filters.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

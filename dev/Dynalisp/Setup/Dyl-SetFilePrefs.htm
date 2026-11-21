@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Set File Preferences &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Setup/Dyl-SetFilePrefs.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Set File Preferences</h1>
+
+<p class="note">The developer docs of Set File Preferences: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Setup/Dyl-SetFilePrefs.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetFilePrefs.lsp</span> (command), <span class="fixw">Modules\Dynalisp\Remote\Dyl-FilePrefs.lsp</span> (profile, checked in every drawing), <span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (paths)</td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>File Preferences</em> (Overrides), choose the preferences in its window (its <em>open</em> button) and Save. <span class="fixw">DYL-SETFILEPREFS</span> asks for the same preferences on the command line (Enter keeps the current one) and turns the profile on.</li>
+<li>The first time, the <span class="fixw">DynALisp</span> profile is made as a copy of the current profile, which is remembered as its base.</li>
+<li>The rows of <span class="fixw">Res\FilePrefs.csv</span> that match the preferences give the paths. For each setting, the first matching row whose file or folder exists is used; the next rows are fallbacks. A setting with no matching row is left as it is.</li>
+<li>The registry options of AutoCAD Architecture are written while the profile is not current, then the profile is made current. AutoCAD keeps the current profile in memory and reads a profile again when it is made current. The options of the <em>Files</em> tab are then set in the current profile, the main dictionary of the language with them.</li>
+<li>Each drawing opened only checks the profile: a warning on the last line of the startup summary (<span class="fixw">--&gt; ... run Dyl-SetFilePrefs ...</span>) tells you to run <span class="fixw">DYL-SETFILEPREFS</span> when the profile is not current, or when the preferences or <span class="fixw">FilePrefs.csv</span> changed since it was set. A drawing never makes the profile current itself: a profile made current while a drawing opens reloads the menus of every open drawing and can stop AutoCAD. It does set the main and custom dictionaries of the preferences, in whichever profile is current, so a shortcut that starts AutoCAD with another profile (<span class="fixw">/p "AutoCAD Architecture (Global)"</span>) still gets the right spelling.</li>
+<li>Turned off in <span class="fixw">Dyl-Settings</span>, the base profile is made current again. The <span class="fixw">DynALisp</span> profile is kept.</li>
+</ol>
+</div>
+<h2>Paths File</h2>
+<p><span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (a copy under <span class="fixw">User\</span> is used when there is one, see <span class="fixw">Dyl-UserFiles</span>), one path per row: <span class="fixw">Setting;Classification;Units;Language;Value</span>.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Setting</strong>:
+<div class="unspacedbullets">
+<ul>
+<li><span class="fixw">Files:&lt;property&gt;</span> sets an option of the <em>Files</em> tab, for example <span class="fixw">Files:TemplateDwgPath</span> or <span class="fixw">Files:QNewTemplateFile</span>.</li>
+<li><span class="fixw">Reg:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> sets profile values in the registry, for example <span class="fixw">Reg:Preferences\AecGuiBase80|SILocationRoot</span> (the AEC style content folder).</li>
+<li><span class="fixw">Aec:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> sets an AutoCAD Architecture option shared by every profile of this AutoCAD (under <span class="fixw">AEC\&lt;version&gt;</span>), for example <span class="fixw">Aec:General\Tools|ToolContentRoot</span> (the tool catalog content root path). AutoCAD Architecture reads it when it starts, and it stays set when the profile is turned off.</li>
+<li><span class="fixw">Db:Components</span> and <span class="fixw">Db:Keynotes</span> set the current detail component and keynote databases. A database not yet registered in AutoCAD Architecture is added to its list under the id written inside the database file (read with PowerShell), since AutoCAD Architecture knows a database by that id.</li>
+</ul>
+</div></li>
+<li><strong>Classification</strong> (<span class="fixw">CAWS</span>, <span class="fixw">MasterFormat</span>, <span class="fixw">OmniClass</span>), <strong>Units</strong> (<span class="fixw">Metric</span>, <span class="fixw">Imperial</span>), <strong>Language</strong> (<span class="fixw">English</span>, <span class="fixw">French</span>, <span class="fixw">German</span>, <span class="fixw">Chinese-Simplified</span>...) give the preference the row is for. <span class="fixw">*</span> or empty matches any.</li>
+<li><strong>Value</strong> is a path (several paths are separated by <span class="fixw">;</span>). <span class="fixw">{ACA}</span> is the AutoCAD Architecture content folder of the language (<span class="fixw">C:\ProgramData\Autodesk\ACA 2027\enu</span>, <span class="fixw">fra</span>, <span class="fixw">deu</span>..., found from the AEC content folder of the profile). <span class="fixw">{ACA*}</span> tries the content folder of each installed language, the chosen one first, so a database missing from that content is found in the other language's. <span class="fixw">{DYL}</span> is <span class="fixw">Modules\Dynalisp\Res</span>. <span class="fixw">{DYLU}</span> is its user copy under <span class="fixw">User\</span>: the file is copied there from its default the first time, for a file AutoCAD writes to, such as a custom dictionary that gets the words you add while checking spelling. A file name can use <span class="fixw">*</span> and <span class="fixw">?</span> (<span class="fixw">AecDtlComponents*.mdb</span>): the first matching file of the folder is used.</li>
+</ul>
+</div>
+<p>The default rows set the DynALisp template folder and QNEW template, the French custom dictionary, and set the AEC content, style, IFC and project template folders and the tool catalog content root path by units and language. They also set the current detail component and keynote databases (<em>Configure Detail Component / Keynote Databases</em>), searched in the installed content and added to AutoCAD Architecture's list when missing:</p>
+<div class="unspacedbullets">
+<ul>
+<li><strong>NBS CAWS:</strong> <span class="fixw">Details (Global)</span> for Metric (falling back to <span class="fixw">Details (UK)</span>), <span class="fixw">Details (UK)</span> for Imperial (falling back to Global). Both use the CAWS groups (D - Groundwork, E - In Situ Concrete...).</li>
+<li><strong>CSI MasterFormat:</strong> <span class="fixw">Details (FR)</span> in French (falling back to <span class="fixw">Details (US)</span>), <span class="fixw">Details (US)</span> in English (falling back to <span class="fixw">Details (FR)</span>), for both units.</li>
+<li>Each one is taken from the content of the chosen language, else from the other installed language. The English 2027 content has no US or FR folder, so MasterFormat in English uses the US databases of the French content.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

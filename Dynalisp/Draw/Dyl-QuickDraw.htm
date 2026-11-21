@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickDraw.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-QuickDraw.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-QUICKDRAW</span> (preset dialog) + 35 preset commands &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP); the hatch patterns listed below on the support path; Dynalisp layer keys (<a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a>) and preset engine (<span class="fixw">Remote\Dyl-Presets.lsp</span>) and hatch presets (<span class="fixw">Remote\Dyl-Materials.lsp</span>), loaded at startup</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -316,17 +313,6 @@
 <li><strong>Offset</strong> &ndash; straight objects as Linear, the first layer on the object. Along a curve (an arc, a circle, a spline, a polyline with arcs), a curve is made at every join of two layers by the offset of AutoCAD, and each Hatch layer is the outline between its two curves, hatched with the angle of its hatch preset; the curves are kept as the borders (the edges and joins of the band, the Line layers on their layer key), with a line across each end. On a curve, the ends of an assembly are Square or Open (Round, Extended and Angled are square). <span class="fixw">Both sides</span> centers the assembly on the object, its first layer on the left looking along the object.</li>
 <li>Drawn with another method than Linear and Offset, an assembly preset is one outline of its own hatch preset. A preset that is an assembly cannot be a layer of another one.</li>
 </ul>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The hatch scale is the scale of the hatch preset, in the units of its pattern: multiplied by 25.4 for an imperial pattern (<span class="fixw">acad.pat</span>, most pattern files of their own) in a metric drawing (<span class="fixw">MEASUREMENT</span> = 1), divided by 25.4 for a metric pattern in an imperial drawing (see <a href="Dyl-HatchPresets.htm#hatch">Hatch Presets</a>).</li>
-<li>The layer of the outline layer key is made current (created first with the key properties when the drawing does not have it), then the outlines are made with the <a href="#drawwith">Draw with</a> method of the preset (asked first when the preset has none). The current layer is restored afterwards, also when the command is cancelled.</li>
-<li>Only closed polylines, circles, ellipses and splines are kept: an open outline that was drawn is erased (a selected one is skipped) and an alert is shown.</li>
-<li>The outlines are put on the layer of the outline layer key.</li>
-<li>One hatch is created on all the outlines with <span class="fixw">-HATCH</span> (Select objects), associative or not and annotative or not as set in the hatch preset, using the pattern, scale and angle of the hatch preset (the scale multiplied by the drawing scale divided by the one it was set for, when the hatch preset follows it) (<span class="fixw">SOLID</span> uses neither scale nor angle). Since the outlines are hatched together, an outline inside another one stays open (island). The hatch is then put on the layer of the hatch layer key (created if missing).</li>
-<li>Outlines and hatch are one undo step. If nothing was made, nothing is hatched.</li>
-</ol>
 </div>
 <h2 id="commands">Commands</h2>
 <p>Default presets and the default values of their hatch preset (restored by <em>Reset Selected</em> / <em>Reset All</em> of the Hatch Presets dialog). Scale is the scale of the hatch preset, in the units of its pattern. <em>Anno.</em> = annotative hatch. Every default preset draws with <em>Ask when drawn</em>, except <span class="fixw">QD-RIGIDINSULATION</span> (Linear, widths 25, 50, 75 and 100 asked, line asked, hatch scale = width x 1). See <a href="Dyl-HatchPresets.htm#defaults">Hatch Presets &ndash; Default Hatch Presets</a> for the other settings of each hatch preset.</p>

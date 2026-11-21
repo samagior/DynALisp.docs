@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickAddPrefixSuffix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-QuickAddPrefixSuffix.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> and 7 dimension texts (<span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-MAX</span>, <span class="fixw">DT-MIN</span>, <span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>)</td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickAddPrefixSuffix.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -48,21 +45,6 @@
 <tr><td><span class="fixw">DT-OB</span></td><td>Dimension Text OB</td><td>Toggles the (OB) suffix on the text of the selected dimension.</td><td><span class="fixw"> (OB)</span></td></tr>
 <tr><td><span class="fixw">DT-OL</span></td><td>Dimension Text OL</td><td>Toggles the (OL) suffix on the text of the selected dimension.</td><td><span class="fixw"> (OL)</span></td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The command prompts <span class="fixw">Select dimension:</span> and reads the dimension text override (DXF group 1). The measured value is represented in the override by <span class="fixw">&lt;&gt;</span>.</li>
-<li>If the qualifier is <em>not</em> present yet:<div class="unspacedbullets">
-<ul>
-<li>an empty override (plain measured value) becomes <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span>;</li>
-<li>an override that already contains <span class="fixw">&lt;&gt;</span> gets the qualifier inserted right before <span class="fixw">&lt;&gt;</span>;</li>
-<li>an override without <span class="fixw">&lt;&gt;</span> (fully typed text) is left untouched.</li>
-</ul>
-</div></li>
-<li>If the qualifier <em>is</em> present, it is removed: an override equal to <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> is cleared back to the plain measured value, otherwise <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> is replaced by <span class="fixw">&lt;&gt;</span>.</li>
-<li>The change is written with <span class="fixw">entmod</span>, so it can be undone with <span class="fixw">U</span>.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

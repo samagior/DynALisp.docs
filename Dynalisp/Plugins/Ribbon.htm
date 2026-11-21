@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Ribbon.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Plugins/Ribbon.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -25,21 +26,17 @@
 <li class="outer"><a class="outer" href="#buttons">Buttons</a></li>
 <li class="outer"><a class="outer" href="#dropdowns">Drop-downs</a></li>
 <li class="outer"><a class="outer" href="#notes">Notes</a></li>
-<li class="outer"><a class="outer" href="#build">Building The Ribbon</a></li>
+<li class="outer"><a class="outer" href="../../dev/Dynalisp/Plugins/Ribbon.htm#build">Building The Ribbon</a></li>
 </ul>
 </div>
 
 <div class="programs">
 <table>
 <tr class="alt">
-<td>Source File</td>
-<td><span class="fixw">Resources\DynALisp.cuix</span> (the tab) and <span class="fixw">Resources\DynALisp.Ribbon.dll</span> (its drop-downs)</td>
-</tr>
-<tr>
 <td>Requires</td>
 <td>AutoCAD for Windows; the drop-downs need AutoCAD 2025 or later</td>
 </tr>
-<tr class="alt">
+<tr>
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -119,18 +116,6 @@
 <li>A tool turned off in <a href="../Core/Dyl-Suite.htm">Dyl-Suite</a> answers <em>Unknown command</em> when its button is clicked.</li>
 <li>The drop-downs change only while AutoCAD is idle, with no command running: after a command, they may take a moment to show the new state.</li>
 <li>A problem of the drop-downs prints a line starting with <em>DynALisp ribbon:</em> at the command line.</li>
-</ul>
-</div>
-
-<h2 id="build">Building The Ribbon</h2>
-<p>For whoever changes DynALisp: the tab is generated, never edited in the CUI editor.</p>
-<div class="spacedbullets">
-<ul>
-<li><span class="fixw">Installer\Ribbon\BuildRibbon.py</span> writes <span class="fixw">DynALisp.cuix</span> from <span class="fixw">Installer\Ribbon\Ribbon.csv</span> (the panels and buttons), <span class="fixw">RibbonIcons.py</span> (the icons) and <span class="fixw">Resources\StartupSuite.csv</span> (the names, descriptions and children). It warns about a main command missing from the ribbon or without an icon. <span class="fixw">--sheet &lt;file.png&gt;</span> draws every icon on the light and the dark ribbon.</li>
-<li>The texts of the tab in another language are in <span class="fixw">Installer\Ribbon\Ribbon.fr.csv</span> (a panel, a command or an item of the Quick Draw gallery, its name and its tooltip); the script writes them by the id of each item in <span class="fixw">Resources\DynALisp.Ribbon.fr.csv</span>, which the plugin reads, and warns about a text missing.</li>
-<li>The drop-downs are built with <span class="fixw">dotnet build Installer\Ribbon\Plugin -c Release</span>, AutoCAD closed.</li>
-<li>The same run draws the pictures of this page from the same panels and icons (<span class="fixw">Installer\Ribbon\RibbonPanels.py</span>, into <span class="fixw">Docs\Plugins\Ribbon</span>) and writes its Panels section: they follow the ribbon, with no screenshot to take. <span class="fixw">--pictures</span> draws them only.</li>
-<li>Restart AutoCAD to see the new ribbon.</li>
 </ul>
 </div>
 

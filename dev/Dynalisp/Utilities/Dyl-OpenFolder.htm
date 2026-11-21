@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Folder &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-OpenFolder.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Open Folder</h1>
+
+<p class="note">The developer docs of Open Folder: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-OpenFolder.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-OpenFolder.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<p>The command prompts <span class="fixw">Open folder: [Repository/CurrentDrawing/Template/SheetSet/sUpport]</span> and opens the folder in Windows Explorer:</p>
+<div class="unspacedbullets">
+<ul>
+<li><em>Repository</em>: the <span class="fixw">DynALisp.bundle</span> folder;</li>
+<li><em>CurrentDrawing</em>: the folder of the current drawing;</li>
+<li><em>Template</em>: <span class="fixw">Modules\Dynalisp\Res\Templates\Model</span>;</li>
+<li><em>SheetSet</em>: the nearest folder containing a <span class="fixw">.dst</span> file, searched from the drawing folder up through its parent folders;</li>
+<li><em>sUpport</em> (type <span class="fixw">U</span>): the user Support folder of the AutoCAD running, <span class="fixw">%APPDATA%\Autodesk\&lt;product&gt;\&lt;language&gt;\Support</span> (<span class="fixw">ROAMABLEROOTPREFIX</span>): <span class="fixw">acad.cuix</span>, the copies of partial menus (<span class="fixw">.cuix</span>) AutoCAD saves there, the user's <span class="fixw">.pat</span> and <span class="fixw">.lin</span> files.</li>
+</ul>
+</div>
+<p>A missing folder is reported as <em>Folder not found</em>.</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

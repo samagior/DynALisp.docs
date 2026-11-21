@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerPenColors.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerPenColors.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-LAYERPENCOLORS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPenColors.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -71,17 +68,6 @@
 <tr><td>Screened</td><td>*-Scrn, *-Scrn-*</td><td>&ndash;</td><td>8 (dark grey)</td></tr>
 <tr><td>Existing</td><td>*-Exst, *-Exst-*</td><td>&ndash;</td><td>9 (light grey)</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>With <span class="fixw">DYL-LAYERPENCOLORS</span>, choose <span class="fixw">Pens</span> (default) or <span class="fixw">Restore</span>. The two child commands skip this question.</li>
-<li>Choose <span class="fixw">All</span> (default, every layer of the drawing) or <span class="fixw">Select</span> (the layers of the objects you select).</li>
-<li><b>Pens:</b> each layer matching a rule gets the color of the rule (or keeps its own). Any other layer gets the pen color of its current lineweight, its color is not read. A lineweight that is not in the table takes the nearest one (0.30 mm gives 3).</li>
-<li>The first time a layer changes, its color is saved in the layer itself (true colors and color books too). Running Pens again later, for example on layers added since, never replaces a color already saved.</li>
-<li><b>Restore:</b> each layer with a saved color gets it back, and the saved color is removed.</li>
-<li>The changes are one undo step. The command reports the layers changed, already matching, kept by a rule, and lists the layers not changed.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

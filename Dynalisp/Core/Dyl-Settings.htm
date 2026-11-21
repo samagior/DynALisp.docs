@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Settings.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Core/Dyl-Settings.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SETTINGS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> (Settings region) and <span class="fixw">Modules\Dynalisp\Res\Dyl-Settings.dcl</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -114,8 +111,6 @@
 </ul>
 </div>
 
-<h2 id="settings">Where The Settings Are</h2>
-<p>The settings are Windows user settings of AutoCAD (<span class="fixw">getenv</span> / <span class="fixw">setenv</span>): <span class="fixw">DynalispReactors</span>, <span class="fixw">DynalispSettingsSync</span>, <span class="fixw">DynalispSetupOn</span>, <span class="fixw">DynalispSysVarOn</span>, <span class="fixw">DynalispDisplayOn</span>, <span class="fixw">DynalispAutoUpdate</span>, <span class="fixw">DynalispCleanStartup</span>, <span class="fixw">DynalispRevisionSync</span>, <span class="fixw">DynalispLanguage</span>, <span class="fixw">DynalispShrinkGapImperial</span> / <span class="fixw">Metric</span>... A setting is on only when it is <span class="fixw">"1"</span>, so a setting never saved is off; <span class="fixw">DynalispLanguage</span> holds <span class="fixw">English</span> or <span class="fixw">French</span>. If the reactors keep AutoCAD from starting, turn them off from the command line: <span class="fixw">(setenv "DynalispReactors" "0")</span>, then open the drawings again.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
 
     </div>

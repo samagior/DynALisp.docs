@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-LayerImportFiltersFromDwg.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerImportFiltersFromDwg.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">LFIMP</span>, <span class="fixw">LFLIST</span>, <span class="fixw">IMPORTLAYERFILTER</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFiltersFromDwg.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP) avec ObjectDBX</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -48,20 +45,6 @@
 <tr><td><span class="fixw">IMPORTLAYERFILTER</span></td><td>Import Layer Filters (Alias)</td><td>Alias de LFIMP qui importe les filtres de calques d'un autre dessin.</td></tr>
 </table>
 </div>
-<h2>Fonctionnement</h2>
-<h3>LFIMP / IMPORTLAYERFILTER</h3>
-<div class="spacedbullets">
-<ol>
-<li>Choisissez le fichier source (<span class="fixw">.dwg</span>, <span class="fixw">.dwt</span> ou <span class="fixw">.dws</span>). Le dessin courant lui-même est refusé.</li>
-<li>La source est ouverte par ObjectDBX (ou utilisée directement si elle est déjà ouverte), son arborescence de filtres est lue et la source est libérée tout de suite.</li>
-<li>L'arborescence de filtres de la source est affichée à la ligne de commande. À <span class="fixw">Filters to import (name or wildcard, comma-separated) &lt;*&gt;:</span>, tapez des noms ou des caractères génériques de filtres de premier niveau, ou appuyez sur Entrée pour tous.</li>
-<li>Les noms déjà utilisés dans l'arborescence courante sont listés, et vous choisissez <span class="fixw">Overwrite</span> (remplacer le filtre existant et ses enfants), <span class="fixw">Skip</span> (par défaut) ou <span class="fixw">Rename</span> (importer avec un suffixe <span class="fixw">_1</span>, <span class="fixw">_2</span> &hellip;).</li>
-<li>Le Gestionnaire des propriétés des calques est fermé s'il est ouvert, pour qu'il ne puisse pas écraser le résultat.</li>
-<li>Les filtres sont écrits en un seul groupe d'annulation et un rapport donne le nombre de filtres importés, remplacés, renommés, sautés, non importables (filtres de groupe) et en échec.</li>
-</ol>
-</div>
-<h3>LFLIST</h3>
-<p>Affiche l'arborescence des filtres du dessin courant à la ligne de commande, avec un retrait pour les filtres imbriqués.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

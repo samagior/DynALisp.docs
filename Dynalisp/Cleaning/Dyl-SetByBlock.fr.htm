@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-SetByBlock.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Cleaning/Dyl-SetByBlock.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">FIXBLKS</span>, <span class="fixw">SL-BLOCKALL</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-SetByBlock.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>FIXBLKS : routine de Tom Beauford; SL-BLOCKALL : licence publique générale GNU v3</td>
 </tr>
@@ -47,23 +44,6 @@
 <tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Sélectionne chaque référence de bloc du dessin.</td></tr>
 </table>
 </div>
-<h2>Fonctionnement</h2>
-<h3>FIXBLKS</h3>
-<div class="spacedbullets">
-<ol>
-<li>Sélectionnez des références de blocs (la sélection est filtrée sur les objets INSERT).</li>
-<li>Pour la définition de chaque référence sélectionnée, la routine parcourt chaque entité de la définition :<div class="unspacedbullets">
-<ul>
-<li>les références de blocs imbriquées sont suivies et leurs propres définitions corrigées aussi (chaque définition une fois);</li>
-<li>les autres entités reçoivent le calque 0, la couleur DuBloc, le type de ligne DuBloc et l'épaisseur de ligne DuBloc. Les échecs (p. ex. entités en lecture seule) sont ignorés.</li>
-</ul>
-</div></li>
-<li>Les changements sont regroupés dans un seul groupe d'annulation et le dessin est régénéré.</li>
-</ol>
-</div>
-<p>Comme c'est la <em>définition</em> qui est modifiée, chaque référence du même bloc dans le dessin change, pas seulement celles sélectionnées.</p>
-<h3>SL-BLOCKALL</h3>
-<p>Construit une sélection de chaque référence de bloc du dessin (tous les espaces, xréfs comprises) et l'affiche avec ses poignées par <span class="fixw">PSELECT</span>, pour la donner à la commande suivante.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

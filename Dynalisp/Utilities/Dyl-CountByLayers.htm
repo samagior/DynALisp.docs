@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-CountByLayers.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-CountByLayers.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">COUNTBYLAYERS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-CountByLayers.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Based on <em>Total Area</em> by Lee Mac, Copyright &copy; 2013 (www.lee-mac.com)</td>
 </tr>
@@ -45,16 +42,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">COUNTBYLAYERS</span></td><td>Count by Layers</td><td>Totals the length and area of the selected curves by layer, labels each object and outputs the totals as a table or CSV file.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Select lines, arcs, circles, ellipses, polylines and splines (3D meshes and polyface meshes are excluded).</li>
-<li>For each object the length is measured; closed objects (closed flag, or start and end points at the same place) also give an area.</li>
-<li>Each object gets an Mtext label on its layer, sized to about 35% of the object:<div class="unspacedbullets"><ul><li>open objects: the length, aligned with the object just above its midpoint;</li><li>closed objects: area and perimeter, centred on the object.</li></ul></div>With <span class="fixw">INSUNITS</span> set, labels read <em>x ft (y m)</em>; in a unitless drawing they show drawing units.</li>
-<li>The totals per layer (quantity, length, area, plus metres / feet and m&sup2; / ft&sup2; when <span class="fixw">INSUNITS</span> is set) are printed at the command line, with a <em>Total</em> row.</li>
-<li>At <span class="fixw">Output [Table/Csv/None] &lt;None&gt;:</span>, <em>Table</em> inserts an AutoCAD table at a picked point in the current space (text height <span class="fixw">TEXTSIZE</span>); <em>Csv</em> writes a file, named <span class="fixw">&lt;drawing&gt;-CountByLayers.csv</span> by default.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

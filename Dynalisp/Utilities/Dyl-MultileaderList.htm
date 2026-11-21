@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-MultileaderList.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-MultileaderList.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">MLLIST</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-MultileaderList.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -45,15 +42,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td><td>Lists the selected multileaders and blocks grouped by attribute values with a count per group.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Uses the pre-selected multileaders and blocks, or prompts for a selection.</li>
-<li>Each object is keyed on its content:<div class="unspacedbullets"><ul><li>block reference: block name and every <em>TAG=value</em> pair of its attributes;</li><li>multileader with block content: block name and its attribute values;</li><li>multileader with text content: the text;</li><li>anything else: <em>&lt;no content&gt;</em>.</li></ul></div></li>
-<li>Identical keys are counted together and one line is printed per group, sorted, as <em>content [xN]</em>.</li>
-<li>A last line gives the total number of objects and of groups.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

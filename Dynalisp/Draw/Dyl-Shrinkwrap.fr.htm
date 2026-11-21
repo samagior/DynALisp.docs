@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-Shrinkwrap.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Draw/Dyl-Shrinkwrap.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-SHRINKWRAP</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Shrinkwrap.lsp</span> (commande) et <span class="fixw">Modules\Dynalisp\Remote\Dyl-Shrinkwrap.lsp</span> (contour, chargé au démarrage)</td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -51,27 +48,6 @@
 <p>Les objets qui ne ferment pas une aire (lignes ouvertes, dessin avec de petits écarts) sont traités avec une <strong>tolérance d'écart</strong>. <span class="fixw">DYL-SHRINKWRAP</span> la demande d'abord, <span class="fixw">0</span> par défaut (exact) : avec une valeur, les objets sont épaissis en bandes de cette largeur avant que le contour soit tracé, pour que les objets plus proches que l'écart soient joints et qu'un dessin ouvert soit fermé, puis le contour est décalé vers l'intérieur de la moitié de l'écart : il suit les objets à environ une demi-tolérance près. Les morceaux droits (lignes, polylignes sans arcs) gardent leurs sommets; les arcs, cercles, splines et polylignes courbes sont divisés tous les demi-écarts.</p>
 <p>Quand aucun contour n'est trouvé (ou qu'un essai échoue), Shrinkwrap réessaie de lui-même avec un écart plus grand : l'écart tapé plus un <strong>pas d'écart</strong>, puis deux, jusqu'à 10 pas, et la ligne de commande donne l'écart utilisé (<span class="fixw">Shrinkwrap: no outline with a gap of 0, found with a gap tolerance of 3 (3 step(s) of 1...)</span>). Le pas d'écart se règle dans <span class="fixw">Dyl-Settings</span>, <em>Drawing Settings</em> (son bouton <em>ouvrir</em>) : un pour les dessins impériaux (1 par défaut, pouces) et un pour les dessins métriques (25 par défaut, mm). Un écart plus grand ferme de plus grandes ouvertures mais arrondit davantage le contour.</p>
 <p>Dans Quick Draw, l'écart est un comportement du préréglage : avec <em>Gap override</em> désactivé, Shrinkwrap commence à 0 et utilise le pas d'écart de Dyl-Settings; activé, il commence avec le <em>Gap</em> du préréglage (une valeur, en unités de dessin), et demande l'écart à chaque Shrinkwrap quand cette case est vide. Les essais automatiques s'appliquent dans tous les cas.</p>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Chaque objet sélectionné est ajouté à un jeu de contours, ou remplacé par des objets temporaires que <span class="fixw">BOUNDARY</span> peut tracer :
-<ul>
-<li>textes, textes multilignes et attributs visibles &rarr; un rectangle autour du texte, qui suit sa rotation;</li>
-<li>blocs, cotes, lignes de repère multiples et tableaux &rarr; les morceaux d'une copie décomposée (les textes des morceaux reçoivent un rectangle, les définitions d'attributs sont sautées);</li>
-<li>hachures &rarr; leur contour, recréé avec <span class="fixw">-HATCHEDIT</span>;</li>
-<li>images, masques et cadres OLE &rarr; un rectangle sur leur boîte englobante;</li>
-<li>les points, lignes de construction et demi-droites sont ignorés.</li>
-</ul>
-</li>
-<li>Avec une tolérance d'écart, chaque courbe du jeu de contours est remplacée par des bandes de la largeur de l'écart (des rectangles le long de ses morceaux droits, ses morceaux courbes divisés tous les demi-écarts). Les bandes sont changées en régions et unies (<span class="fixw">UNION</span>), pour qu'elles ne se chevauchent plus, et les régions unies sont décomposées en leurs contours : <span class="fixw">BOUNDARY</span> les trace de façon fiable.</li>
-<li>Un cadre rectangulaire temporaire est dessiné autour des limites du jeu de contours, et la vue zoome dessus (<span class="fixw">BOUNDARY</span> n'analyse que ce qui est à l'écran).</li>
-<li><span class="fixw">-BOUNDARY</span> s'exécute avec la détection des îlots sur le jeu de contours, depuis un point entre les objets et le cadre. Il crée le contour du cadre et le contour de chaque îlot, c.-à-d. de chaque groupe d'objets. Avec une tolérance d'écart, chaque contour est ensuite décalé vers l'intérieur de la moitié de l'écart.</li>
-<li>Le contour du cadre et chaque objet temporaire sont supprimés, et la vue précédente est rétablie. Quand aucun contour n'a été trouvé, un nouvel essai est fait avec un écart plus grand (voir <a href="#gap">Tolérance d'écart</a>).</li>
-<li>Chaque commande AutoCAD est lancée avec <span class="fixw">command-s</span> (AutoCAD 2015 et suivants) : une commande qui échoue, p. ex. <span class="fixw">BOUNDARY</span> qui ne trouve aucune aire fermée, ne laisse rien en suspens, et les essais suivants s'exécutent quand même.</li>
-</ol>
-</div>
-<h2>L'utiliser dans une App</h2>
-<p><span class="fixw">(Remote&gt;&gt;Dyl:Shrinkwrap ss)</span> renvoie un jeu de sélection des nouvelles polylignes, ou nil (il commence avec un écart de 0). <span class="fixw">(Remote&gt;&gt;Dyl:ShrinkwrapGap ss gap)</span> commence avec la tolérance d'écart <span class="fixw">gap</span> (unités de dessin). Les deux essaient des écarts plus grands quand aucun contour n'est trouvé et affichent l'écart utilisé. Ils servent à la méthode de dessin <em>Shrinkwrap</em> de <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rebuild Patterns &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-RebuildPat.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Rebuild Patterns</h1>
+
+<p class="note">The developer docs of Rebuild Patterns: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-RebuildPat.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-RebuildPat.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Select hatches, or press Enter to use every hatch of the drawing (model space, every layout and every block definition). Xrefs and xref-dependent blocks, solid fills, gradients and user-defined hatches are skipped (they use no <span class="fixw">.pat</span> file).</li>
+<li>Every hatch keeps a copy of its pattern definition, transformed by its scale, angle and origin. The routine reverses that transformation to get the original definition (scale 1, angle 0) and writes it in the standard <span class="fixw">.pat</span> format: one pattern per file, named after the pattern. The file says the units of the pattern, those of the drawing (<span class="fixw">;%UNITS=MM</span> in a metric drawing, <span class="fixw">;%UNITS=INCH</span> in an imperial one), so the <a href="../../../Dynalisp/Draw/Dyl-HatchPresets.htm">hatch presets</a> scale it for both.</li>
+<li>A pattern is <em>missing</em> when no <span class="fixw">&lt;name&gt;.pat</span> is found and the name is not in <span class="fixw">acad.pat</span> or <span class="fixw">acadiso.pat</span>: it is always rebuilt. A pattern that exists is left as it is for the whole drawing; with selected hatches, the command asks <span class="fixw">[Replace/Rename/Cancel]</span> (<em>Replace</em> is not offered for a pattern of <span class="fixw">acad.pat</span> / <span class="fixw">acadiso.pat</span>).</li>
+<li>The folder: a folder named <span class="fixw">pats</span> already in the support file search path (e.g. the one AutoCAD Architecture installs), else <span class="fixw">&lt;ROAMABLEROOTPREFIX&gt;\Support\pats</span> (the roaming folder of the product, release and language running), created when needed. When it is not in the support file search path, it is added to the current profile. The command line gives the folder and the patterns written.</li>
+</ol>
+</div>
+<p><span class="fixw">OPENPATS</span> opens that pattern folder in Windows Explorer.</p>
+<p>The <strong>Pick hatch...</strong> button of the <a href="../../../Dynalisp/Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window rebuilds the pattern of the hatch picked the same way, when no <span class="fixw">.pat</span> file has it and you agree. It uses this program: when Rebuild Patterns is turned off in the Startup Suite, it asks to turn it on first.</p>
+<!-- dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

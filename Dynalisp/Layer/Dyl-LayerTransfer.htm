@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerTransfer.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Layer/Dyl-LayerTransfer.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-LAYERTRANSFER</span> and 58 transfers &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP) with ObjectDBX</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -53,43 +50,6 @@
 <li>The Transfer button runs <span class="fixw">Pst-TransferField</span> (alias <span class="fixw">LTF</span>, which does the same when typed). Before a To value is picked, or without the drop-downs, it asks for the level, the From value (Enter: any) and the To value (<em>None</em> to remove it).</li>
 <li>The drop-downs are added by <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, which needs AutoCAD 2025 or later (see <a href="../Plugins/Ribbon.htm">Ribbon</a>). In an older version, the Transfer button asks for the level and the values.</li>
 </ul>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Select objects. Objects whose layer contains the source field are pickable, and block references are always pickable so their content can be transferred.</li>
-<li>Each selected object is checked: its own layer, its attributes and, for blocks, every entity of the definition (nested blocks included) are tested. Objects with nothing to change are dropped.</li>
-<li>The target name of each source layer is computed (see rules below). A missing target layer is created with the linetype, lineweight, plot setting, description and transparency of the source, and a colour shifted for the phase: <span class="fixw">-D</span> &rarr; 2 + last digit, <span class="fixw">-E</span> &rarr; 20 + last digit, unphased from -D/-E &rarr; last digit only. A phase layer of a <a href="Dyl-LayerKeys.htm">layer key</a> (the target name without its phase, <span class="fixw">G-Detl-Exst-D</span> &rarr; <span class="fixw">G-Detl-Exst</span>, is the layer of that key) gets the color of its key in that phase instead: the phase color of the key color, or the key color itself when the key keeps it in every phase (<em>Keep this color in every phase</em>) or the transfer is to unphased.</li>
-<li>A target layer of a layer key that already exists is checked against its key (color in that phase, linetype, lineweight, plot), as when an App uses the key: when it differs, the same window lists the differences and asks whether to update it to its key, before the objects are moved (Yes / No, <em>Remember my answer</em>; see <a href="Dyl-LayerKeys.htm#differ">Layer Keys &ndash; Layers That Differ From Their Key</a>).</li>
-<li>If a source layer is off, frozen or locked, an alert lists it and nothing is changed.</li>
-<li>In one UNDO group, objects and attributes are moved to their target layers. A block whose content changes is copied (through ObjectDBX, which keeps dynamic block data) to a new name &ndash; <span class="fixw">2X6</span> &rarr; <span class="fixw">2X6-N</span>, <span class="fixw">2X6-E</span> &rarr; <span class="fixw">2X6-N</span> &ndash; the copy is transferred and the selected references are pointed to it, with their dynamic property values restored. A copy made by an earlier run is reused.</li>
-</ol>
-</div>
-<h3>Name Rules</h3>
-<div class="spacedbullets">
-<ul>
-<li><strong>Phase</strong> &ndash; the suffix is replaced at the end of the name (<span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span>). A name ending with a 4-character field and no phase (<span class="fixw">A-Wall-Full</span>) gets the new suffix appended. The <em>Unphased</em> commands remove the suffix.</li>
-<li><strong>Designator</strong> &ndash; the first occurrence of the discipline letter is replaced.</li>
-<li><strong>Major</strong> &ndash; the first occurrence after the designator is replaced (e.g. Detl &harr; Sect).</li>
-<li><strong>Minor</strong> &ndash; the first occurrence from the 8th character on is replaced (Line &harr; Hidd, stack numbers).</li>
-<li><strong>Level</strong> (the Transfer button of the ribbon and <span class="fixw">LTF</span>) &ndash; the name is read as an NCS name: a discipline designator of 1 or 2 letters, a major group of 4 characters, minor groups of 4 characters (none or more) and an optional status of 1 character, divided by <span class="fixw">-</span>. Only that level is replaced, so a designator transfer never touches the other levels. The layers with other names (<span class="fixw">0</span>, <span class="fixw">Defpoints</span>, the layers of the xrefs...) are left as they are.</li>
-</ul>
-</div>
-<h3>Phase Suffixes</h3>
-<div class="programs commands">
-<table>
-<tr><th>Suffix</th><th>Phase</th></tr>
-<tr><td><span class="fixw">-E</span></td><td>Existing to remain</td></tr>
-<tr><td><span class="fixw">-D</span></td><td>Existing to demolish</td></tr>
-<tr><td><span class="fixw">-N</span></td><td>New work</td></tr>
-<tr><td><span class="fixw">-R</span></td><td>Being refurbished</td></tr>
-<tr><td><span class="fixw">-M</span></td><td>Being moved</td></tr>
-<tr><td><span class="fixw">-S</span></td><td>To be saved</td></tr>
-<tr><td><span class="fixw">-A</span></td><td>Abandoned</td></tr>
-<tr><td><span class="fixw">-F</span></td><td>Future work</td></tr>
-<tr><td><span class="fixw">-T</span></td><td>Temporary work</td></tr>
-<tr><td><span class="fixw">-X</span></td><td>Not in contract</td></tr>
-</table>
 </div>
 <h2 id="commands">Commands</h2>
 <h3>Phase transfers</h3>

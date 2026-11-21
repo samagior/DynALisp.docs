@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-DataLinks.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Cleaning/Dyl-DataLinks.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">DYL-DATALINKS</span>, <span class="fixw">DLPURGE</span></td>
 </tr>
 <tr>
-<td>Fichier source</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requis</td>
 <td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
@@ -57,15 +54,6 @@
 <li><strong>Update tables</strong> &ndash; ferme la fenêtre, exécute <span class="fixw">DATALINKUPDATE</span> sur les tableaux des liaisons sélectionnées, puis rouvre la fenêtre.</li>
 <li><strong>Data Link Manager...</strong> &ndash; ferme la fenêtre et ouvre le Gestionnaire des liaisons de données d'AutoCAD, pour changer le fichier d'une liaison ou la détacher d'un tableau.</li>
 </ul>
-</div>
-<h2>Fonctionnement</h2>
-<div class="spacedbullets">
-<ol>
-<li>Les liaisons sont lues dans le dictionnaire <span class="fixw">ACAD_DATALINK</span> du dessin.</li>
-<li>Une liaison est <em>utilisée</em> quand un tableau du dessin pointe vers elle, ou quand la liaison liste parmi ses utilisateurs un tableau qui existe encore. Les deux vérifications sont faites pour qu'une liaison ne soit jamais signalée inutilisée par erreur.</li>
-<li>Le fichier source est lu dans la chaîne de connexion de la liaison. Un chemin relatif est cherché à partir du dossier du dessin.</li>
-<li>Chaque suppression se fait dans un seul groupe d'annulation : <span class="fixw">U</span> rétablit les liaisons supprimées.</li>
-</ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">

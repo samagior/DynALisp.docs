@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ViewportToPaperSpace.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-ViewportToPaperSpace.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,14 +25,10 @@
 <td><span class="fixw">VP2PS</span></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ViewportToPaperSpace.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Requires</td>
 <td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
 </tr>
-<tr>
+<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -45,22 +42,6 @@
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">VP2PS</span></td><td>Viewport To Paper Space</td><td>Recreates the model space objects seen through the selected viewports in paper space, then deletes the viewports.</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>Run the command from a layout tab (it refuses to run in model space and switches to paper space if a viewport is active).</li>
-<li>Choose the result mode at <span class="fixw">Mode de resultat [Decouper/Libre]</span>; the last choice is the default:<div class="unspacedbullets">
-<ul>
-<li><span class="fixw">Decouper</span> (clip, default) &ndash; the copies are grouped in a block (<span class="fixw">VP2PS_</span> prefix) clipped with the viewport boundary, so the result looks exactly like the viewport;</li>
-<li><span class="fixw">Libre</span> (free) &ndash; the copies are loose objects in paper space and objects crossing the viewport edge are not trimmed.</li>
-</ul>
-</div></li>
-<li>Select the viewports to convert (the paper space viewport itself is excluded).</li>
-<li>Model space objects are collected once. For each viewport the objects on visible layers are copied and transformed with the viewport scale, view centre and twist angle; rectangular and clipped viewports are supported.</li>
-<li>With <span class="fixw">PSLTSCALE</span> = 0 linetype scales are adjusted to keep dash lengths; dimensions keep their displayed value and size.</li>
-<li>Each converted viewport is deleted. Layers temporarily unlocked are relocked, the drawing is regenerated and a report gives the number of viewports and objects converted. The whole operation is one UNDO group.</li>
-</ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">

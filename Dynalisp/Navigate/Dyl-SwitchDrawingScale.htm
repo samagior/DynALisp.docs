@@ -12,6 +12,7 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SwitchDrawingScale.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Navigate/Dyl-SwitchDrawingScale.htm">Developers</a></nav>
     </div>
 
     <div id="content">
@@ -24,10 +25,6 @@
 <td><span class="fixw">DYL-SWITCHDRAWINGSCALE</span> and 39 scales &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Source File</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Navigate\Dyl-SwitchDrawingScale.lsp</span></td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3</td>
 </tr>
@@ -36,15 +33,6 @@
 <h2>Program Description</h2>
 <p><span class="fixw">DYL-SWITCHDRAWINGSCALE</span> asks for a scale ratio (<span class="fixw">100</span>, <span class="fixw">1:100</span> or <span class="fixw">1-100</span>; <span class="fixw">?</span> lists them) and sets it. The scales are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
 <p>Short commands that set the current annotation scale. Each command holds a metric scale and the closest imperial architectural scale, and applies the one that matches the drawing units, so the same keystrokes work in metric and imperial drawings. A scale missing from the drawing scale list is added automatically.</p>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li><span class="fixw">MEASUREMENT</span> = 1 (metric) selects the metric scale name, otherwise the imperial name.</li>
-<li><span class="fixw">CANNOSCALE</span> is set to that name.</li>
-<li>If the scale is not in the list, its name is parsed into paper and drawing units (feet, inches and fractions down to 1/64" are supported), the ratio is reduced, the scale is added with <span class="fixw">-SCALELISTEDIT</span>, and <span class="fixw">CANNOSCALE</span> is set again.</li>
-<li>The active viewport is regenerated quietly and the new scale is reported.</li>
-</ol>
-</div>
 <h2 id="commands">Commands</h2>
 <h3>Metric series</h3>
 <div class="programs commands wide">

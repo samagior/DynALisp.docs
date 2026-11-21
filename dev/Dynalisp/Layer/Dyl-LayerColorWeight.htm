@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Color Weight &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Layer/Dyl-LayerColorWeight.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Color Weight</h1>
+
+<p class="note">The developer docs of Layer Color Weight: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerColorWeight.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerColorWeight.lsp</span></td>
+</tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>With <span class="fixw">DYL-LAYERCOLORWEIGHT</span>, choose <span class="fixw">Lineweight</span> (default, the lineweight follows the color) or <span class="fixw">Color</span> (the color follows the lineweight). The two child commands skip this question.</li>
+<li>Choose <span class="fixw">All</span> (default, every layer of the drawing) or <span class="fixw">Select</span> (the layers of the objects you select).</li>
+<li><b>Lineweight from color:</b> each layer takes the lineweight of its color in the table above.</li>
+<li><b>Color from lineweight:</b> a color from 10 to 249 keeps its tens (its hue) and takes the last digit of its lineweight: color 11 with 0.35 mm becomes 13. A pen color 1 to 6 goes to its hue: red 1 with 0.35 mm becomes 13. Black (7) and the greys go to the pen color of the lineweight: 7 with 0.35 mm becomes 3. A lineweight that is not in the standard (0.30 mm) takes the nearest one (0.35 mm). A layer that already matches is left as is, so a dark grey ##9 layer at 0.13 mm stays dark grey.</li>
+<li>The changes are one undo step. The command reports how many layers changed, how many already matched, and lists the layers not changed.</li>
+</ol>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
