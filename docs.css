@@ -588,6 +588,60 @@ details.bundled pre {
     overflow-wrap: anywhere;
 }
 
+/* ---------- Search box of the User Guide home (BuildSite.py) ---------- */
+
+.search {
+    margin: 16px 32px 0 32px;
+}
+
+.search label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--heading);
+    margin-bottom: 6px;
+}
+
+.search input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 640px;
+    font: inherit;
+    color: var(--text);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+}
+
+.search input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+#content .search p.found {
+    margin: 6px 0 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+    min-height: 1.4em;
+}
+
+#results td:first-child {
+    white-space: normal;
+    min-width: 12em;
+}
+
+#results .where {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+[hidden] {
+    display: none !important;
+}
+
 /* ---------- Sketches (drawings of the options of a tool) ---------- */
 
 .sketches {
@@ -698,6 +752,10 @@ details.bundled pre {
     .programs table {
         margin: 16px;
         width: calc(100% - 32px);
+    }
+
+    .search {
+        margin: 16px 16px 0 16px;
     }
 
     ul.programs, .spacedbullets ul, .unspacedbullets ul, #bullets ul {
