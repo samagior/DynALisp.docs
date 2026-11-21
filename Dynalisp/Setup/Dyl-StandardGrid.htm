@@ -31,8 +31,16 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p><span class="fixw">DYL-STANDARDGRID</span> lists every grid setting with its alias: double-click one (or OK) to apply it. The grids are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
-<p>Switches the model space grid and snap between four standard configurations (inch, foot, centimetre and metre). The spacings are converted for the drawing units, so the same command works in metric and imperial drawings.</p>
+<p>Switch the grid and snap of model space between four standard spacings: inch, foot, centimeter and meter. The spacings follow the units of the drawing, so the same command works in metric and imperial drawings. DynALisp can also give every drawing the grid of its kind when it opens.</p>
+<!-- picture: images/Dyl-StandardGrid-window.png -->
+<!-- picture: images/Dyl-StandardGrid-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the grid: <span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span> or <span class="fixw">GRID-M</span>. The grid turns on, with grid snap.</li>
+<li>Or type <span class="fixw">Dyl-StandardGrid</span>: the window lists the grids with their aliases; double-click one (or OK).</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -43,13 +51,20 @@
 <tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Sets a 100 mm grid with a 1 m major grid and a 25 mm snap, converted in imperial drawings.</td></tr>
 </table>
 </div>
-<h2>Drawing Defaults</h2>
-<p>In <span class="fixw">Dyl-Settings</span>, the <em>open</em> button of <em>Drawing Settings</em> (in <em>Overrides</em>; unchecked, no drawing is checked) opens the window that picks the grid of the imperial drawings and the grid of the metric drawings (<span class="fixw">MEASUREMENT</span> 0 or 1). Each time a drawing opens, its snap spacing, grid spacing and major lines are compared with the default of its kind and the grid is set when they differ. The drawing is not marked as modified by it: save it to keep the grid in the file. <em>(Not checked)</em> leaves the drawings of that kind as they are. This works whether the commands of this page are turned on or not (the presets are in <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
+<h2 id="defaults">Grid Of Every Drawing</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>Drawing Settings</em> (in Overrides) and click its open button.</li>
+<li>Pick the grid of the imperial drawings and of the metric drawings; <em>(Not checked)</em> leaves the drawings of that kind as they are.</li>
+<li>From then on, each drawing that opens gets the grid of its kind when its own differs. The drawing is not marked as modified: save it to keep the grid in the file.</li>
+</ol>
+</div>
+<p>This works even when the commands of this page are turned off in <span class="fixw">Dyl-Suite</span>.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">AUTOSNAP</span> 15 turns object snap tracking and the tracking tooltips off, whatever they were before.</li>
-<li>Snap and grid are viewport settings: only the current viewport changes.</li>
+<li>Setting a grid turns object snap tracking and its tooltips off, and Ortho off, whatever they were before.</li>
+<li>Snap and grid belong to a viewport: only the current viewport changes.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

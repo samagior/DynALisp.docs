@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Reset Linetype Scale: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-ResetLinetypeScale.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ResetLinetypeScale.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ResetLinetypeScale.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -36,6 +33,8 @@
 <li>The change is one undo step; a <span class="fixw">REGENALL</span> runs when something changed, and the command reports the number of objects and spaces processed.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p><span class="fixw">c:Dyl-ResetLinetypeScale</span> runs <span class="fixw">rlts:process-block</span> on the block of model space and of each layout (xrefs skipped), inside one undo mark; <span class="fixw">rlts:fix-object</span> sets the <span class="fixw">LinetypeScale</span> of an object to 1.0 when it differs (layers locked, frozen or off included), <span class="fixw">rlts:fix-attributes</span> does the same for the attributes of a block reference. <span class="fixw">_.REGENALL</span> runs when something changed.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

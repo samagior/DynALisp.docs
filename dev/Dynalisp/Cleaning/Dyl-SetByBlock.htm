@@ -21,29 +21,39 @@
 <p class="note">The developer docs of Fix Blocks ByBlock: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Cleaning/Dyl-SetByBlock.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-SetByBlock.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-SetByBlock.lsp</span></td></tr>
+<tr><td>Data</td><td>None: the block definitions of the drawing are changed in place.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<h3>FIXBLKS</h3>
+<h2>The Commands</h2>
+<p>One Apps file, autoloaded: <span class="fixw">c:Dyl-SetByBlock</span> (alias <span class="fixw">FIXBLKS</span>) and its child <span class="fixw">c:Pst-SelectAllBlocks</span> (alias <span class="fixw">SL-BLOCKALL</span>).</p>
+<h3>FIXBLKS, step by step</h3>
 <div class="spacedbullets">
 <ol>
-<li>Select block references (the selection is filtered to INSERT objects).</li>
-<li>For the definition of each selected reference, the routine walks every entity of the definition:<div class="unspacedbullets">
+<li><span class="fixw">(ssget '((0 . "INSERT")))</span> takes the block references selected.</li>
+<li>The work is one undo group: <span class="fixw">(vl-cmdf "_.undo" "_BEgin")</span> &hellip; <span class="fixw">"_End"</span>.</li>
+<li>For each reference, the local function <span class="fixw">FIX1</span> gets the name of its block (code 2) and fixes the definition:
 <ul>
-<li>nested block references are followed and their own definitions fixed as well (each definition once);</li>
-<li>other entities get layer 0, colour ByBlock, linetype ByBlock and lineweight ByBlock. Failures (e.g. read-only entities) are ignored.</li>
+<li>A definition already fixed is skipped: its name is kept in <span class="fixw">FLST</span>.</li>
+<li><span class="fixw">(tblobjname "block" name)</span> gives the block record, and <span class="fixw">entnext</span> walks every entity of the definition.</li>
+<li>A nested <span class="fixw">INSERT</span> is followed: <span class="fixw">FIX1</span> runs on its own definition.</li>
+<li>Any other entity gets, through ActiveX and each in a <span class="fixw">vl-catch-all-apply</span> (an entity that refuses one is left as it is): layer <span class="fixw">"0"</span>, color 0 (ByBlock), linetype <span class="fixw">"Byblock"</span>, lineweight -2 (ByBlock).</li>
 </ul>
-</div></li>
-<li>The changes are wrapped in a single UNDO group and the drawing is regenerated.</li>
+</li>
+<li><span class="fixw">_.regen</span> shows the change on every reference.</li>
 </ol>
 </div>
-<p>Because the <em>definition</em> is edited, every reference of the same block in the drawing changes, not only the selected ones.</p>
 <h3>SL-BLOCKALL</h3>
-<p>Builds a selection of every block reference in the drawing (all spaces, xrefs included) and grips it with <span class="fixw">PSELECT</span> so it can be fed to the next command.</p>
+<p><span class="fixw">(ssget "_X" '((0 . "INSERT")))</span> takes every block reference of the drawing (every space, xrefs included), and <span class="fixw">_.PSELECT</span> makes it the current selection, with grips, for the next command.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">FLST</span> is cleared for each reference selected, so a definition shared by several selected references is fixed again for each one (the result is the same, only slower).</li>
+<li>An empty selection passes nil to <span class="fixw">sslength</span>, which stops the command with an error after the undo group has begun.</li>
+<li>The plot style is not set (<span class="fixw">vla-put-PlotStyleName</span> is commented out in the source).</li>
+<li>Attribute references (<span class="fixw">ATTRIB</span>) belong to the references, not to the definitions, so they keep their properties.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

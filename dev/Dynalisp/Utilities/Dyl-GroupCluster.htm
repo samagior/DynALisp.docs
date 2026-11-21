@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Group Cluster: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-GroupCluster.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-GroupCluster.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-GroupCluster.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -37,6 +34,8 @@
 <li>One anonymous group is created per cluster of two or more objects, and the command reports the groups created, the objects left alone and the objects skipped (no bounding box).</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p><span class="fixw">c:Dyl-GroupCluster</span> takes the bounding box of each object (<span class="fixw">vla-GetBoundingBox</span>), measures the plan gap between two boxes (<span class="fixw">GC:BBoxGap</span>: 0 when they touch), and joins the objects closer than the gap with a union-find (<span class="fixw">GC:Find</span>, <span class="fixw">GC:Union</span>) over every pair. Each cluster of two or more becomes an anonymous group of the <span class="fixw">Groups</span> collection (<span class="fixw">GC:SafearrayToList</span> turns the members into a list).</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

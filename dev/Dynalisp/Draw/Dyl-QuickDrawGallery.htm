@@ -21,13 +21,20 @@
 <p class="note">The developer docs of Quick Draw Gallery: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickDrawGallery.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (the hatch drawn in each tile)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (Gallery region), <span class="fixw">Remote\Dyl-Materials.lsp</span> (the tile images)</td></tr>
+<tr><td>Command</td><td><span class="fixw">c:Pst-QuickDrawGallery</span>, a child of <a href="Dyl-QuickDraw.htm">Quick Draw</a></td></tr>
 </table>
 </div>
-
+<h2>The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:QuickDrawGallery</span> writes its DCL to a temporary file (<span class="fixw">Dyl:QuickDrawGalleryDcl</span>): <span class="fixw">*qd:gtiles*</span> tiles a page, <span class="fixw">*qd:gcols*</span> a row. It returns the preset clicked, drawn by the caller with <span class="fixw">Dyl:QuickDrawRun</span>.</li>
+<li>Its locals: <span class="fixw">qg:all</span> (the presets, <span class="fixw">((rec . mat) ...)</span>, each material with its behaviors and border: <span class="fixw">Dyl:QuickDrawMat</span>), <span class="fixw">qg:grps</span> (the Group popup), <span class="fixw">qg:grp</span>, <span class="fixw">qg:lst</span> (the presets shown) and <span class="fixw">qg:page</span>.</li>
+<li>The group to open on: <span class="fixw">*qd:gallerygroup*</span>, set by an item of the ribbon (<span class="fixw">(setq *qd:gallerygroup* "Section")</span> then the command) and read once, else <span class="fixw">*qd:gallerylast*</span>, the group shown last in the session (the <a href="../../conventions.html#ribbon">Ribbon</a> convention on items that are not commands).</li>
+</ul>
+</div>
+<h2>A Tile</h2>
+<p><span class="fixw">Dyl:QuickDrawGalleryImage</span> draws each tile: <span class="fixw">Remote&gt;&gt;Dyl:MaterialPatImage</span> reads the pattern of the material (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatDef</span>, from its <span class="fixw">.pat</span> file), clips its lines to the tile (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatClip</span>) and draws them with <span class="fixw">vector_image</span>, the solid fills with <span class="fixw">fill_image</span> (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatFill</span>), in the colors of the material (<span class="fixw">Remote&gt;&gt;Dyl:MaterialAci</span>); a frame shows the border. <span class="fixw">Dyl:QuickDrawGalleryName</span> and <span class="fixw">GalleryCut</span> fit the name under the tile.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

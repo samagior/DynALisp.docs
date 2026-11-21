@@ -35,8 +35,17 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Draws closed polylines around the outside of the selected objects, like the AutoCAD Architecture <span class="fixw">AECLINEWORKSHRINKWRAP</span> command, in any AutoCAD. One outline is created for each group of touching or overlapping objects, on the current layer. The selected objects are not changed, and the new outlines are left selected.</p>
-<p>Unlike the <span class="fixw">BOUNDARY</span> command alone, texts are wrapped too: texts, mtexts, block attributes and the text inside blocks, dimensions, multileaders and tables.</p>
+<p>Draw a closed outline around the outside of objects, like the shrinkwrap of AutoCAD Architecture, in any AutoCAD: one outline per group of touching objects, texts and the text of blocks, dimensions and tables wrapped too. The objects are not changed.</p>
+<!-- picture: images/Dyl-Shrinkwrap-window.png -->
+<!-- picture: images/Dyl-Shrinkwrap-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">Dyl-Shrinkwrap</span> and select the objects.</li>
+<li>The outlines are drawn on the current layer and left selected, ready for the next command (a hatch, a move to another layer...).</li>
+<li>When the objects leave gaps between them, set a gap tolerance (below): the outline bridges gaps up to that width.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>

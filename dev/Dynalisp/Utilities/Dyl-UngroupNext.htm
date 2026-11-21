@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Ungroup Nested: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-UngroupNext.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-UngroupNext.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-UngroupNext.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -35,6 +32,8 @@
 <li>The scan is repeated until a full pass removes nothing more, then the command confirms that the selection is fully ungrouped.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p>One command, <span class="fixw">c:Dyl-UngroupNext</span>: it walks the <span class="fixw">ACAD_GROUP</span> dictionary, deletes each group holding one of the objects selected, and walks it again until a whole pass deletes nothing (a group nested in another is found on the next pass).</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

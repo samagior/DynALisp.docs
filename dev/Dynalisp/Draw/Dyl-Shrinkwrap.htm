@@ -21,12 +21,21 @@
 <p class="note">The developer docs of Shrinkwrap: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-Shrinkwrap.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Shrinkwrap.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Shrinkwrap.lsp</span> (outline, loaded at startup)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Shrinkwrap.lsp</span> (the outline, loaded at startup, used by Quick Draw too), <span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Shrinkwrap.lsp</span> (the command). The same technique as Lee Mac's Outline Objects (LeeMac module).</td></tr>
+<tr><td>Data</td><td>The gap step of the imperial and of the metric drawings, the user settings <span class="fixw">DynalispShrinkGapImperial</span> and <span class="fixw">DynalispShrinkGapMetric</span> (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapStep</span>, <span class="fixw">ShrinkwrapStepSet</span>)</td></tr>
 </table>
 </div>
+<h2>The Technique</h2>
+<p>A temporary frame is drawn around the selection, and <span class="fixw">BOUNDARY</span> with island detection traces the islands inside it: the outlines of the objects; the outline of the frame is then deleted. <span class="fixw">BOUNDARY</span> sees geometry only, so temporary objects are added to its boundary set first, and all deleted at the end:</p>
+<div class="spacedbullets">
+<ul>
+<li>a rectangle around each text, mtext and visible attribute (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapTextRect</span>, <span class="fixw">ShrinkwrapAttribs</span>);</li>
+<li>the pieces of exploded copies of blocks, dimensions, multileaders and tables (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapExplode</span>), so the text inside them is wrapped too;</li>
+<li>the boundary of each hatch, made again with <span class="fixw">-HATCHEDIT</span>;</li>
+<li>the bounding box of images, wipeouts and OLE frames (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapBoxRect</span>).</li>
+</ul>
+</div>
+<p>With a gap tolerance, the objects are thickened to bands of that width (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapBands</span>, <span class="fixw">ShrinkwrapBuffer</span>), traced, and the outline offset back inward (<span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapShrink</span>). <span class="fixw">Remote&gt;&gt;Dyl:Shrinkwrap</span> traces once and returns the new polylines (nil when nothing was found or something failed, the temporary objects deleted in every case); <span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapGap</span> tries again with a larger gap, by the gap step of the drawing, up to <span class="fixw">*sw:tries*</span> times, and prints the gap used. <span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapCmd</span> runs a command that never raises an error (a <span class="fixw">COMMAND</span> left unfinished by <span class="fixw">EXPLODE</span> or <span class="fixw">BOUNDARY</span> made the next one fail), <span class="fixw">Remote&gt;&gt;Dyl:ShrinkwrapNew</span> returns the entities a command made.</p>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>

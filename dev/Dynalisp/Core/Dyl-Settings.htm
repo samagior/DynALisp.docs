@@ -21,14 +21,24 @@
 <p class="note">The developer docs of Settings: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Core/Dyl-Settings.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> (Settings region) and <span class="fixw">Modules\Dynalisp\Res\Dyl-Settings.dcl</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td>The Settings region of <span class="fixw">Resources\dynalisp.mnl</span>, <span class="fixw">Modules\Dynalisp\Res\Dyl-Settings.dcl</span>; the readers and setters of each setting in the Remote file of its tool</td></tr>
+<tr><td>Follows</td><td>The <a href="../../conventions.html#settings">Settings</a> convention</td></tr>
 </table>
 </div>
 <h2 id="settings">Where The Settings Are</h2>
 <p>The settings are Windows user settings of AutoCAD (<span class="fixw">getenv</span> / <span class="fixw">setenv</span>): <span class="fixw">DynalispReactors</span>, <span class="fixw">DynalispSettingsSync</span>, <span class="fixw">DynalispSetupOn</span>, <span class="fixw">DynalispSysVarOn</span>, <span class="fixw">DynalispDisplayOn</span>, <span class="fixw">DynalispAutoUpdate</span>, <span class="fixw">DynalispCleanStartup</span>, <span class="fixw">DynalispRevisionSync</span>, <span class="fixw">DynalispLanguage</span>, <span class="fixw">DynalispShrinkGapImperial</span> / <span class="fixw">Metric</span>... A setting is on only when it is <span class="fixw">"1"</span>, so a setting never saved is off; <span class="fixw">DynalispLanguage</span> holds <span class="fixw">English</span> or <span class="fixw">French</span>. If the reactors keep AutoCAD from starting, turn them off from the command line: <span class="fixw">(setenv "DynalispReactors" "0")</span>, then open the drawings again.</p>
+<h2>The Window, In The Code</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">c:Dyl-Settings</span> reads every setting into its locals (<span class="fixw">st:aph</span> auto-phase, <span class="fixw">st:rea</span> the reactors, <span class="fixw">st:lng</span> the language...) and keeps them as they were in <span class="fixw">st:old</span>.</li>
+<li><span class="fixw">Dyl:SetDlgFill</span> shows them, <span class="fixw">Dyl:SetDlgRea</span> greys out the reactor toggles while the master switch is off, and <span class="fixw">Dyl:MoreTile</span> draws each open button, greyed out while its toggle is off or its tool is not loaded.</li>
+<li>An open button closes the window, runs its window (<span class="fixw">Dyl:SetRun</span>: <span class="fixw">Dyl:SetPhases</span>, <span class="fixw">Dyl:SetObjectKeys</span>, <span class="fixw">Dyl:SetDrawOrder</span>, <span class="fixw">Dyl:SetSysVars</span>, <span class="fixw">Dyl:SetRevBlocks</span>), then opens it again; <span class="fixw">Dyl:SetDefsDlg</span>, <span class="fixw">Dyl:SetPrefsDlg</span> and <span class="fixw">Dyl:SetDisplayDlg</span> are the sub-windows of the region itself.</li>
+<li>Save runs <span class="fixw">Dyl:SetApply</span> with <span class="fixw">st:old</span>: only what changed is written and applied to this drawing (<span class="fixw">Remote&gt;&gt;Dyl:PhaseAutoSet</span>, <span class="fixw">MAJ:RedefineSet</span>, <span class="fixw">Remote&gt;&gt;Dyl:PrefApply</span>...). Cancel writes nothing.</li>
+<li>The other open drawings follow when they become current: the settings reactor (<span class="fixw">Reactor\Dyl-SettingsSync.lsp</span>, while Settings sync is on) runs <span class="fixw">Dyl:SetSync</span>, which applies only what changed since the drawing last synced (<span class="fixw">DS:synced</span>, <span class="fixw">MAJ:synced</span>, <span class="fixw">SV:synced</span>).</li>
+</ol>
+</div>
+<h2>Adding A Setting</h2>
+<p>A new setting is a <span class="fixw">Dynalisp*</span> user setting, off on a new installation (read with <span class="fixw">(= "1" (getenv ...))</span>), a toggle of the window with its short description, a slot of <span class="fixw">st:old</span>, its line in <span class="fixw">Dyl:SetApply</span>, its check in <a href="../Troubleshooting/Dyl-Diagnostics.htm">Diagnostics</a>, and, when it means something on this computer only, a name of <span class="fixw">*dyl:setslocal*</span>.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

@@ -21,10 +21,10 @@
 <p class="note">The developer docs of Ribbon: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Plugins/Ribbon.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Resources\DynALisp.cuix</span> (the tab) and <span class="fixw">Resources\DynALisp.Ribbon.dll</span> (its drop-downs)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Installer\Ribbon\BuildRibbon.py</span>, <span class="fixw">RibbonIcons.py</span>, <span class="fixw">RibbonPanels.py</span> (the tab, its icons and the pictures of this page), <span class="fixw">Installer\Ribbon\Plugin\</span> (<span class="fixw">Plugin.cs</span>, <span class="fixw">PhaseCombos.cs</span>, <span class="fixw">TransferCombos.cs</span>, <span class="fixw">Translations.cs</span>: the drop-downs and the translation)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Installer\Ribbon\Ribbon.csv</span>, <span class="fixw">Ribbon.&lt;code&gt;.csv</span>, <span class="fixw">ContextMenus.csv</span>; the names and descriptions of <span class="fixw">StartupSuite.csv</span></td></tr>
+<tr class="alt"><td>Builds</td><td><span class="fixw">Contents\Resources\DynALisp.cuix</span>, <span class="fixw">DynALisp.Ribbon.dll</span>, <span class="fixw">DynALisp.Ribbon.&lt;code&gt;.csv</span>, <span class="fixw">Docs\Plugins\Ribbon\*.png</span></td></tr>
+<tr><td>Follows</td><td>The <a href="../../conventions.html#ribbon">Ribbon</a> convention</td></tr>
 </table>
 </div>
 <h2 id="build">Building The Ribbon</h2>
@@ -38,6 +38,16 @@
 <li>Restart AutoCAD to see the new ribbon.</li>
 </ul>
 </div>
+<h2>The Plugin</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Plugin.cs</span> &ndash; the <span class="fixw">IExtensionApplication</span> of the DLL, its <span class="fixw">[assembly: CommandClass(...)]</span> listing every class that holds a <span class="fixw">LispFunction</span> (a static class cannot be listed, and a function of a class not listed is never defined, so every <span class="fixw">(if Dyl:X ...)</span> of the Lisp side does nothing). <span class="fixw">Host</span> holds what every part shares: <span class="fixw">Host.OnIdle</span> (the ribbon is changed only when AutoCAD is idle with no command running), <span class="fixw">Host.Picks</span> (only an item the user picks runs a setter), <span class="fixw">Host.Standard</span> (the AEC lists of <span class="fixw">Res\AEC\Standard</span>), <span class="fixw">Host.Labels</span>, <span class="fixw">Host.Run</span>. <span class="fixw">Part</span> is the base of a drop-down part, <span class="fixw">Part.Later</span> asks for a change at the next idle.</li>
+<li><span class="fixw">PhaseCombos.cs</span> &ndash; the Auto-phase and Phase drop-downs: <span class="fixw">Dyl:RibbonPhase</span> records the state the Lisp side pushes (<span class="fixw">Remote&gt;&gt;Dyl:PhaseStatus</span>), each drawing keeps its own, and a pick runs <span class="fixw">Remote&gt;&gt;Dyl:PhaseSet</span> or <span class="fixw">PhaseAutoSet</span> (see <a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>).</li>
+<li><span class="fixw">TransferCombos.cs</span> &ndash; the Level, From and To drop-downs of Layer Transfer, their lists read from the drawing after each command; <span class="fixw">Dyl:RibbonTransfer</span> gives the choice to <span class="fixw">Pst-TransferField</span>. <span class="fixw">NcsName</span> reads a layer name with the rule of <span class="fixw">Dyl-LayTransfer-Ncs</span>: change both together.</li>
+<li><span class="fixw">Translations.cs</span> &ndash; the tab in the language of the AutoCAD installed: the texts of <span class="fixw">DynALisp.Ribbon.&lt;code&gt;.csv</span> put on the items by their UID, again when AutoCAD makes the ribbon again; <span class="fixw">Dyl:RibbonLang</span> and <span class="fixw">Dyl:RibbonLangInfo</span>.</li>
+</ul>
+</div>
+<p>The DLL is built with <span class="fixw">dotnet build Installer\Ribbon\Plugin -c Release</span>, AutoCAD closed (it keeps the DLL open), for .NET 8: AutoCAD 2025 and later. In an older AutoCAD, the tab is the CUIx alone, in English, without the drop-downs.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

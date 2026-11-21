@@ -21,10 +21,8 @@
 <p class="note">The developer docs of Import Layer Filters: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerImportFiltersFromDwg.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFiltersFromDwg.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFiltersFromDwg.lsp</span></td></tr>
+<tr><td>Reads and writes</td><td>The <span class="fixw">ACLYDICTIONARY</span> of the layer table of the source (through ObjectDBX) and of the current drawing</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -41,6 +39,15 @@
 </div>
 <h3>LFLIST</h3>
 <p>Prints the filter tree of the current drawing at the command line, with indentation for nested filters.</p>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Opening the source</strong> &ndash; <span class="fixw">lfi:open-source</span> uses the document when the file is open in this AutoCAD, else opens it in <span class="fixw">ObjectDBX.AxDbDocument.&lt;version&gt;</span> (released at once after the tree is read, never saved); <span class="fixw">lfi:has-legacy</span> finds a drawing with only pre-2005 filters.</li>
+<li><strong>Reading the tree</strong> &ndash; <span class="fixw">lfi:get-filter-dict</span> finds the filter dictionary, <span class="fixw">lfi:read-tree</span> walks it into nodes <span class="fixw">(class name data children)</span>, the data ready for <span class="fixw">entmakex</span>, <span class="fixw">lfi:xrec-data</span> and <span class="fixw">lfi:clean-data</span> keep the data of a filter without its handles; <span class="fixw">lfi:prop-p</span> tells a property filter (importable) from a group filter (its layers are handles of the source).</li>
+<li><strong>Writing</strong> &ndash; <span class="fixw">lfi:import-node</span> writes a node and its children with <span class="fixw">lfi:make-xrec</span> under a free key (<span class="fixw">lfi:unique-key</span>); a name taken is replaced (<span class="fixw">lfi:delete-node</span> removes the old one and its children) or renamed (<span class="fixw">lfi:unique-name</span>). <span class="fixw">lfi:dest-index</span> lists every name of the destination tree, nested ones included.</li>
+<li><span class="fixw">c:Dyl-LayerImportFiltersFromDwg</span> (<span class="fixw">LFIMP</span>) runs it in one undo group, closes the Layer Properties Manager first (it writes its own copy of the tree when it closes), and prints the counts; <span class="fixw">c:Pst-ListLayerFilters</span> (<span class="fixw">LFLIST</span>) prints the tree with <span class="fixw">lfi:print-tree</span>.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

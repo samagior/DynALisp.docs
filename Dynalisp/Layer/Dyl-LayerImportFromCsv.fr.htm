@@ -35,7 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Applique aux calques du dessin courant les propriétés de calques enregistrées dans un fichier CSV. Les commandes préréglées chargent un CSV nommé pour un type de plan et enregistrent le résultat comme état de calques nommé, pour pouvoir rétablir la configuration plus tard; IMPORTLAYERS permet de choisir n'importe quel CSV. Le format du CSV est celui qu'écrit <a href="Dyl-LayerExportToCsv.fr.htm">Export Layers To CSV</a>.</p>
+<p>Appliquez les propriétés de calques d'un fichier CSV aux calques du dessin : couleurs, épaisseurs de ligne, types de ligne, tracé, transparence, état actif et gelé. Une commande préréglée le fait pour un type de plan et enregistre le résultat comme état de calque, pour le restaurer plus tard. Le fichier est celui qu'écrit <a href="Dyl-LayerExportToCsv.fr.htm">Export Layers To CSV</a>.</p>
+<!-- picture: images/Dyl-LayerImportFromCsv-window.png -->
+<!-- picture: images/Dyl-LayerImportFromCsv-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Un fichier quelconque</strong> &ndash; tapez <span class="fixw">IMPORTLAYERS</span> et choisissez le CSV (la fenêtre s'ouvre dans Téléchargements).</li>
+<li><strong>Un préréglage de plan</strong> &ndash; tapez son alias, <span class="fixw">A-FLOR</span> pour un plan d'étage d'architecture... (le tableau ci-dessous). Son CSV est appliqué et enregistré comme état de calque.</li>
+<li>Quand l'état de calque du préréglage existe déjà, choisissez <em>U</em> pour le restaurer (le CSV n'est pas lu), <em>I</em> pour appliquer le CSV à nouveau et remplacer l'état, ou <em>C</em> pour annuler.</li>
+<li>La ligne de commande donne les calques mis à jour et ceux du fichier que le dessin n'a pas.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
@@ -57,9 +68,9 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Le dossier du programme est trouvé en cherchant <span class="fixw">import_layers_from_csv.lsp</span>, un nom de fichier absent du paquet : les préréglages sont donc cherchés dans le dossier du dessin et la boîte de dialogue de fichier s'ouvre dans la plupart des cas.</li>
-<li>Seul <span class="fixw">preset_arch_floor.csv</span> est livré (dans <span class="fixw">Modules\Dynalisp\Res</span>); les autres préréglages n'ont pas encore de CSV.</li>
-<li>Les couleurs sont lues comme couleurs d'index (<span class="fixw">Red (1)</span>, <span class="fixw">ACI 151</span>, <span class="fixw">151</span>); les couleurs vraies ne sont pas prises en charge.</li>
+<li>Les calques sont mis à jour, jamais créés : un calque du fichier que le dessin n'a pas est seulement listé.</li>
+<li>Seul le préréglage du plan d'étage d'architecture a son CSV pour l'instant; les autres préréglages ouvrent la fenêtre des fichiers.</li>
+<li>Les couleurs sont des couleurs d'index seulement.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

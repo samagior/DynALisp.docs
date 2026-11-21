@@ -21,12 +21,19 @@
 <p class="note">The developer docs of Make Layers: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerMake.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td></tr>
+<tr><td>Data</td><td>The CSV layer lists of <span class="fixw">*dyl:layerlist</span> (<span class="fixw">Res\Layer\...</span>), one folder per discipline, read through <span class="fixw">Dyl:UserFile</span></td></tr>
 </table>
 </div>
+<h2>A Layer Set</h2>
+<p>Each child command names its lists, then calls the engine:</p>
+<div class="code"><pre>(defun c:Pst-MakeBasicDrawingLayers ()
+  (setq *typ "Csv"                ; "Csv": layer lists, "Lyr": single layer names
+        *dir "Dyl//Drawing"       ; the folder under *dyl:layerlist
+        *lst '("Basic.csv"))      ; its CSV files
+  (Dyl-LayerMake *typ *dir *lst *cop)
+)</pre></div>
+<p><span class="fixw">c:Dyl-LayerMake</span> is <span class="fixw">Dyl:ChildPicker</span> of <span class="fixw">dynalisp.mnl</span>.</p>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -44,6 +51,18 @@
 </div></li>
 <li>Each layer is made or updated with <span class="fixw">-LAYER</span> and the command line shows <span class="fixw">...&lt;layer&gt; - created</span> or <span class="fixw">- updated</span>.</li>
 </ol>
+</div>
+<h2>The Engine</h2>
+<p><span class="fixw">Dyl-LayerMake</span> (a function of about 440 lines, its variables global) reads the rows of every CSV with <span class="fixw">Local&gt;&gt;LM:readcsv</span>, looks for the placeholders with <span class="fixw">Local&gt;&gt;getMatching</span>, asks for the stack and the discipline, builds the names, gets the properties from the keywords of the name, and makes each layer with <span class="fixw">_.-LAYER</span>. <span class="fixw">Local&gt;&gt;LM:*</span> are local copies of Lee Mac functions that <span class="fixw">Remote\LM-Sub.lsp</span> also has.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The discipline check passes the whole CSV data to <span class="fixw">wcmatch</span>, which takes text only: every set stops there with <em>bad argument type</em>.</li>
+<li>A row without the <span class="fixw">0000</span> placeholder makes no name: the name is built only inside the stack substitution.</li>
+<li>Several file names of the presets differ from the files shipped (<span class="fixw">A-Elev.csv</span> and <span class="fixw">A-Elevation.csv</span>, folder <span class="fixw">NCS</span> and <span class="fixw">NCSv5</span>); a file missing is skipped without a message.</li>
+<li><span class="fixw">*cop</span>, the color group option, is fixed to <span class="fixw">"MinorColor"</span>, which adds no override.</li>
+<li>The <a href="Dyl-LayerKeys.htm">Layer Keys</a> make standard layers the current way; this engine predates them.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

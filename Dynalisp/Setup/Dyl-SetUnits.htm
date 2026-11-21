@@ -31,8 +31,16 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p><span class="fixw">DYL-SETUNITS</span> lists every unit setting with its alias: double-click one (or OK) to apply it. The unit settings are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
-<p>Four shortcuts that set the drawing units format and precision in one step, for metric drawings at 1, 0.1 or 0.01 mm and for imperial drawings at 1/16&Prime;.</p>
+<p>Set the units format and precision of a drawing in one command: decimal at 1, 0.1 or 0.01 mm for metric drawings, architectural at 1/16" for imperial ones. DynALisp can also give every drawing the units of its kind when it opens.</p>
+<!-- picture: images/Dyl-SetUnits-window.png -->
+<!-- picture: images/Dyl-SetUnits-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the units: <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0.1 mm), <span class="fixw">UNITS-M2</span> (0.01 mm) or <span class="fixw">UNITS-I16</span> (1/16").</li>
+<li>Or type <span class="fixw">Dyl-SetUnits</span>: the window lists the unit settings with their aliases; double-click one (or OK).</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -43,12 +51,19 @@
 <tr><td><span class="fixw">UNITS-I16</span></td><td>Units Imperial 1/16 in</td><td>Sets the drawing units to architectural with a 1/16 in precision.</td></tr>
 </table>
 </div>
-<h2>Drawing Defaults</h2>
-<p>In <span class="fixw">Dyl-Settings</span>, the <em>open</em> button of <em>Drawing Settings</em> (in <em>Overrides</em>; unchecked, no drawing is checked) opens the window that picks the units of the imperial drawings and the units of the metric drawings (<span class="fixw">MEASUREMENT</span> 0 or 1). Each time a drawing opens, its units are compared with the default of its kind and set when they differ. The drawing is not marked as modified by it: save it to keep the units in the file. <em>(Not checked)</em> leaves the drawings of that kind as they are. This works whether the commands of this page are turned on or not (the presets are in <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
+<h2 id="defaults">Units Of Every Drawing</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>Drawing Settings</em> (in Overrides) and click its open button.</li>
+<li>Pick the units of the imperial drawings and of the metric drawings; <em>(Not checked)</em> leaves the drawings of that kind as they are.</li>
+<li>From then on, each drawing that opens gets the units of its kind when its own differ. The drawing is not marked as modified: save it to keep them in the file.</li>
+</ol>
+</div>
+<p>This works even when the commands of this page are turned off in <span class="fixw">Dyl-Suite</span>.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Only the display format and precision change: the insertion units (INSUNITS) and MEASUREMENT are not set, and the metric precisions assume one drawing unit is one millimetre.</li>
+<li>Only the display of the lengths and angles changes: the insertion units and the metric or imperial kind of the drawing do not, and the metric precisions take one drawing unit as one millimetre.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

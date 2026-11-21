@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-LAYERTRANSFER</span> liste chaque transfert avec son alias : double-cliquez-en un (ou OK), puis sélectionnez les objets. Les transferts sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
-<p>Déplace les objets sélectionnés sur le calque correspondant d'une autre phase, discipline, pile ou type de vue, en remplaçant un champ de leur nom de calque (p. ex. <span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span> avec <span class="fixw">E-D</span>). Les calques cibles manquants sont créés avec les propriétés du calque source. Les blocs sont traités sans modifier le bloc original : une copie renommée de la définition est transférée et seules les références sélectionnées passent à elle.</p>
+<p>Déplacez des objets vers le calque correspondant d'une autre phase, discipline, niveau ou genre de vue, en une commande : <span class="fixw">A-Wall-Full-E</span> devient <span class="fixw">A-Wall-Full-D</span> avec <span class="fixw">E-D</span>. Un calque manquant est créé avec les propriétés de celui d'où il vient. Les blocs sont transférés sans toucher l'original : une copie du bloc est transférée et seules les références sélectionnées l'utilisent.</p>
+<!-- picture: images/Dyl-LayerTransfer-window.png -->
+<!-- picture: images/Dyl-LayerTransfer-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez l'alias du transfert : <span class="fixw">E-D</span> (existant vers démolition), <span class="fixw">E-N</span>, <span class="fixw">N-E</span>... (le tableau ci-dessous), puis sélectionnez les objets.</li>
+<li>Ou tapez <span class="fixw">Dyl-LayerTransfer</span> : la fenêtre liste chaque transfert avec son alias; double-cliquez-en un, puis sélectionnez les objets.</li>
+<li>Dans le ruban (AutoCAD 2025 et suivants), choisissez le niveau, la valeur à transférer et la nouvelle valeur dans les listes déroulantes du groupe de fonctions <em>Transfert de calques</em>, sélectionnez les objets, puis cliquez <strong>Transférer</strong>.</li>
+<li>La ligne de commande liste les calques créés et les calques sources désactivés, verrouillés ou gelés.</li>
+</ol>
+</div>
 <h2>Ruban</h2>
 <p>Le groupe de fonctions <em>Transfert de calques</em> de l'onglet DynALisp contient le bouton <strong>Transférer</strong>, trois listes déroulantes et le bouton <strong>Gestion</strong>. Transférer et les listes déroulantes transfèrent toute valeur d'un niveau des noms de calques vers une autre, pour les calques nommés comme le fait la NCS (United States National CAD Standard) : <span class="fixw">A-Wall-Full-E</span> est la désignation de discipline <span class="fixw">A</span>, le groupe majeur <span class="fixw">Wall</span>, le groupe mineur <span class="fixw">Full</span> et le statut <span class="fixw">E</span> (voir <a href="../Conventions/LayerNaming.fr.htm">Nommage des calques</a>). Le bouton <strong>Gestion</strong> ouvre la liste des transferts (<span class="fixw">DYL-LAYERTRANSFER</span>).</p>
 <div class="spacedbullets">

@@ -21,12 +21,23 @@
 <p class="note">The developer docs of Layer Filters: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerFilter.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td></tr>
+<tr><td>Reads</td><td>The layer table, the xrefs of the drawing and the <span class="fixw">Model views</span> folder beside it</td></tr>
 </table>
 </div>
+<h2>A Preset</h2>
+<p>Each child command sets the lists of its view, then calls the engine:</p>
+<div class="code"><pre>(defun c:Pst-ArchitecturalFloorPlanFilter (/ *shw *hid *sh2 *hi2 *scn *lck *msg)
+  (setq *str "Empty"            ; the start state: "Empty" (Reset) or "Curent" (Keep)
+        *shw '("A-Flor")        ; shown, primary
+        *hid '()                ; hidden, primary
+        *sh2 '() *hi2 '()       ; shown and hidden, secondary (applied last, so they win)
+        *scn '()                ; screened at 50 % transparency
+        *lck "No"               ; "Yes": the screened layers are locked
+        *msg "Architectural floor plan")
+  (Dyl-LayerFilter *shw *hid *sh2 *hi2 *scn *lck *msg)
+)</pre></div>
+<p>A new view is one more child of that form, with its comment lines for <span class="fixw">Dyl-SuiteUpdate</span> and its alias. <span class="fixw">c:Dyl-LayerFilter</span> is <span class="fixw">Dyl:ChildPicker</span> of <span class="fixw">dynalisp.mnl</span>.</p>
 <h2>How It Works</h2>
 <p>Each command is a preset made of five pattern lists (show, hide, secondary show, secondary hide, screen), a lock flag and a start state. When the command runs:</p>
 <div class="spacedbullets">
@@ -58,6 +69,15 @@
 <tr><td><span class="fixw">N-Architectural</span></td><td>S-* , P-* , I-* , L-*</td><td>Every discipline but architecture</td></tr>
 <tr><td><span class="fixw">N-Structural</span></td><td>A-* , P-* , I-* , L-*</td><td>Every discipline but structure</td></tr>
 </table>
+</div>
+<h2>The Engine</h2>
+<p><span class="fixw">Dyl-LayerFilter</span> (a function, not a command) does the steps above: its comment block names each of its locals. It sets an <span class="fixw">UNDO</span> mark (<span class="fixw">*dyl-marked</span>) and an error handler that goes back to it (<span class="fixw">_.undo _back</span>) and restores <span class="fixw">CMDECHO</span>; expands the group tokens of <span class="fixw">*shw</span>, <span class="fixw">*hid</span>, <span class="fixw">*sh2</span>, <span class="fixw">*hi2</span> into patterns; then runs <span class="fixw">_.-LAYER</span> in model space, or <span class="fixw">_.VPLAYER</span> on the viewports of <span class="fixw">(ssget "P" '((0 . "VIEWPORT")))</span> in paper space. <span class="fixw">Local&gt;&gt;LM:lst-&gt;str</span> is a local copy of the Lee Mac function.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">*str</span> is a global variable, not a local of the presets, and its Keep value is spelled <span class="fixw">"Curent"</span>.</li>
+<li>An xref whose drawing is in the <span class="fixw">Model views</span> folder beside the drawing should get its layers screened, but the test compares the xref name with the file names of that folder, which end in <span class="fixw">.dwg</span>: it likely never matches. <span class="fixw">*rst</span>, the xrefs not found there, is built but not used.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

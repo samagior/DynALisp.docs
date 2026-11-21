@@ -21,12 +21,21 @@
 <p class="note">The developer docs of Set File Preferences: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Setup/Dyl-SetFilePrefs.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetFilePrefs.lsp</span> (command), <span class="fixw">Modules\Dynalisp\Remote\Dyl-FilePrefs.lsp</span> (profile, checked in every drawing), <span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (paths)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-FilePrefs.lsp</span> (the preferences, the profile and its paths, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetFilePrefs.lsp</span> (the command), the File Preferences window of <span class="fixw">Dyl-Settings</span> (<span class="fixw">Dyl:SetPrefsDlg</span> in <span class="fixw">dynalisp.mnl</span>)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (the paths), <span class="fixw">Res\Dictionaries</span> (the custom dictionaries); the user settings <span class="fixw">DynalispPrefClass</span>, <span class="fixw">DynalispPrefUnits</span>, <span class="fixw">DynalispPrefLanguage</span>, <span class="fixw">DynalispPrefProfile</span>, <span class="fixw">DynalispPrefCustomDict</span>, and the local ones <span class="fixw">DynalispPrefBase</span>, <span class="fixw">DynalispPrefCustomBase</span>, <span class="fixw">DynalispPrefApplied</span>; the AutoCAD profiles and the <span class="fixw">AEC\&lt;version&gt;</span> key of the registry</td></tr>
 </table>
 </div>
+
+<h2>The Preferences</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">*fp:prefs*</span> lists the three preferences, <span class="fixw">(what label ((key label) ...))</span>: <span class="fixw">"Class"</span>, <span class="fixw">"Units"</span>, <span class="fixw">"Language"</span>; the first choice is the default, the language of AutoCAD for the language. <span class="fixw">Remote&gt;&gt;Dyl:PrefGet</span> and <span class="fixw">Remote&gt;&gt;Dyl:PrefSet</span> read and write <span class="fixw">Dynalisp&lt;Pref&gt;&lt;what&gt;</span>.</li>
+<li><span class="fixw">*fp:langs*</span> maps each language to its code (<span class="fixw">enu</span>, <span class="fixw">fra</span>...: the folder of its AutoCAD Architecture content and its <span class="fixw">Support\&lt;code&gt;.dct</span>) and its lcid (the end of the product key).</li>
+<li><span class="fixw">*fp:version*</span> is raised when the way a profile is set changes: every profile is then set again (<span class="fixw">Remote&gt;&gt;Dyl:PrefStamp</span> is part of the stamp).</li>
+</ul>
+</div>
+
+<h2>Setting The Profile, Step By Step</h2>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -38,6 +47,19 @@
 <li>Turned off in <span class="fixw">Dyl-Settings</span>, the base profile is made current again. The <span class="fixw">DynALisp</span> profile is kept.</li>
 </ol>
 </div>
+<p>In the code, <span class="fixw">(Remote&gt;&gt;Dyl:PrefApply T)</span> (from <span class="fixw">Dyl-SetFilePrefs</span> and the Save of <span class="fixw">Dyl-Settings</span>):</p>
+<div class="spacedbullets">
+<ol>
+<li>When the DynALisp profile is not current: it is copied from the current one when it does not exist (<span class="fixw">vla-CopyProfile</span>), the current one is kept as its base (<span class="fixw">DynalispPrefBase</span>), and the base is made current, so that the DynALisp profile can be written while it is not.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:PrefContent</span> finds the AutoCAD Architecture content folder of the language, <span class="fixw">Remote&gt;&gt;Dyl:PrefContents</span> the content of every installed language (the chosen one first).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:PrefTargets</span> reads <span class="fixw">FilePrefs.csv</span> (the user copy first) and keeps, per setting, the first row that matches the preferences (<span class="fixw">Remote&gt;&gt;Dyl:PrefMatch-p</span>: the key, <span class="fixw">*</span> or empty) and whose path exists, after <span class="fixw">Remote&gt;&gt;Dyl:PrefExpand</span> (the tokens) and <span class="fixw">Remote&gt;&gt;Dyl:PrefResolve</span> (the wildcards). It returns the targets and the settings not found.</li>
+<li>The <span class="fixw">Reg:</span> rows are written under the key of the profile and the <span class="fixw">Aec:</span> rows under <span class="fixw">AEC\&lt;version&gt;</span> (<span class="fixw">Remote&gt;&gt;Dyl:PrefWrite</span>); a <span class="fixw">Db:</span> row gets the id of its database (<span class="fixw">Remote&gt;&gt;Dyl:PrefDbGuid</span>: the id of a database already registered, else the one written inside the file, read with PowerShell, the database then added to the list) and becomes <span class="fixw">Current</span> under <span class="fixw">Defaults\AecRcpBase80\Databases</span>.</li>
+<li>The DynALisp profile is made current; then the <span class="fixw">Files:</span> rows are put on <span class="fixw">(vla-get-Files (vla-get-Preferences acad))</span>, the custom dictionary aside.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:PrefDictionarySet</span> sets <span class="fixw">DCTMAIN</span> to the dictionary of the language (<span class="fixw">enu</span> when AutoCAD has none) and the custom dictionary of the language when it is on and DynALisp has one (<span class="fixw">{DYLU}</span>: the user copy, made from its default), or, when a DynALisp one was current, the one it replaced (<span class="fixw">DynalispPrefCustomBase</span>, else the <span class="fixw">sample.cus</span> of AutoCAD).</li>
+<li><span class="fixw">DynalispPrefApplied</span> takes the stamp of the preferences and the file, and a status line is returned (paths set, dictionaries, what was not found).</li>
+</ol>
+</div>
+<p>Without <span class="fixw">T</span>, as each drawing opens (a startup step of <span class="fixw">dynalisp.mnl</span>), it only sets the dictionaries and returns a warning when the profile is not current or its stamp differs: making a profile current while a drawing opens reloads the menus of every drawing and can stop AutoCAD.</p>
 <h2>Paths File</h2>
 <p><span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (a copy under <span class="fixw">User\</span> is used when there is one, see <span class="fixw">Dyl-UserFiles</span>), one path per row: <span class="fixw">Setting;Classification;Units;Language;Value</span>.</p>
 <div class="spacedbullets">
@@ -61,6 +83,25 @@
 <li><strong>NBS CAWS:</strong> <span class="fixw">Details (Global)</span> for Metric (falling back to <span class="fixw">Details (UK)</span>), <span class="fixw">Details (UK)</span> for Imperial (falling back to Global). Both use the CAWS groups (D - Groundwork, E - In Situ Concrete...).</li>
 <li><strong>CSI MasterFormat:</strong> <span class="fixw">Details (FR)</span> in French (falling back to <span class="fixw">Details (US)</span>), <span class="fixw">Details (US)</span> in English (falling back to <span class="fixw">Details (FR)</span>), for both units.</li>
 <li>Each one is taken from the content of the chosen language, else from the other installed language. The English 2027 content has no US or FR folder, so MasterFormat in English uses the US databases of the French content.</li>
+</ul>
+</div>
+
+<h2 id="api">Using It In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PrefGet "Units")</span></td><td><span class="fixw">"Metric"</span>, a key of the preference.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PrefOn-p)</span></td><td>T when the DynALisp profile is on.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:PrefApply T)</span></td><td>Sets the profile now, returns its status line.</td></tr>
+</table>
+</div>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The custom dictionary is set from the preferences: AutoCAD reads a changed dictionary only after a restart (see the <a href="../../conventions.html#spell-dictionaries">Spell Dictionaries</a> convention).</li>
+<li><span class="fixw">Acad (Imperial Ctb).dwt</span> is not in <span class="fixw">Res\Templates\Model</span>: Imperial falls back on <span class="fixw">Acad (Imperial Stb).dwt</span>.</li>
+<li>The English content of ACA 2027 has no Imperial or US folders, and the French one no Global folder: the fallback rows, or none, apply.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>

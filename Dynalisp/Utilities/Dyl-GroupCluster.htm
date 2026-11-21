@@ -39,7 +39,17 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Splits the objects of a window or selection into several groups by proximity: objects closer than a given gap end up in the same group, chained from neighbour to neighbour, and isolated objects are left ungrouped.</p>
+<p>Split the objects of a window or a selection into groups by how close they are: objects within a gap of each other go in the same group, chained from neighbour to neighbour, and the objects alone stay ungrouped.</p>
+<!-- picture: images/Dyl-GroupCluster-window.png -->
+<!-- picture: images/Dyl-GroupCluster-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">GROUPCLUSTER</span> and pick the two corners of a window, or press Enter to select the objects instead.</li>
+<li>Type the largest gap between two objects of one group (10 drawing units by default).</li>
+<li>One group is made for each cluster of two objects or more; the command line gives the counts.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>

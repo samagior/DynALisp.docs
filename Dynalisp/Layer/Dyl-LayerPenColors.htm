@@ -31,7 +31,18 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Switches the layers from the 255 colors of the Dyl Standard to a small set of pen colors, 1 to 7, chosen from the current lineweight of each layer. A few colors and layer names are kept or get a color of their own (rules in <span class="fixw">Res\Layer\PenColors.csv</span>). The colors of the layers are saved in the drawing, so the switch can be undone at any time with Restore.</p>
+<p>Switch the layers from the 255 colors of the Dyl Standard to a few pen colors, 1 to 7, chosen from the lineweight of each layer, for a plotter or a client that wants them. A few colors and layer names keep theirs or get one of their own. The colors are saved in the drawing: <em>Restore</em> gives them back at any time.</p>
+<!-- picture: images/Dyl-LayerPenColors-window.png -->
+<!-- picture: images/Dyl-LayerPenColors-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">Dyl-LayerPenColors</span> and choose <em>Pens</em> (the default) or <em>Restore</em>. The two child commands of the table below skip this question.</li>
+<li>Choose <em>All</em> (every layer, the default) or <em>Select</em> (the layers of the objects you select).</li>
+<li>The command line says how many layers changed, matched already or were kept by a rule, and which it left. One <span class="fixw">U</span> undoes it all.</li>
+<li>To go back, run it again with <em>Restore</em>: each layer gets its former color.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>

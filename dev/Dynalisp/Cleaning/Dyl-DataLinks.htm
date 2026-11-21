@@ -21,20 +21,69 @@
 <p class="note">The developer docs of Data Links: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Cleaning/Dyl-DataLinks.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span> (the functions, the window, the commands)</td></tr>
+<tr><td>Data</td><td>The <span class="fixw">ACAD_DATALINK</span> dictionary of the drawing and the tables (<span class="fixw">ACAD_TABLE</span>, <span class="fixw">TABLECONTENT</span>) that use its links</td></tr>
+<tr class="alt"><td>Uses</td><td><span class="fixw">MAJ:cmd-silent</span> of <span class="fixw">dynalisp.mnl</span>, <span class="fixw">Remote&gt;&gt;LM:lst-&gt;str</span></td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
+
+<h2>The Link Record</h2>
+<p>Every function works on one list per link, made by <span class="fixw">Dyl:DataLinkInfo</span>:</p>
+<div class="code"><pre>(name ename status tables file connection)</pre></div>
+<p><span class="fixw">status</span> is <span class="fixw">"OK"</span>, <span class="fixw">"Missing file"</span> or <span class="fixw">"No source"</span>; <span class="fixw">tables</span> the enames of the tables that use the link (nil: unused); <span class="fixw">connection</span> the full string, <span class="fixw">"C:\...\Book.xlsx!Sheet1!A1:D9"</span>.</p>
+
+<h2>Finding The Links And Their Tables</h2>
 <div class="spacedbullets">
 <ol>
-<li>The links are read from the <span class="fixw">ACAD_DATALINK</span> dictionary of the drawing.</li>
-<li>A link is <em>used</em> when a table of the drawing points to it, or when the link lists a table that still exists as one of its users. Both checks are made so that a link is never reported unused by mistake.</li>
-<li>The source file is read from the connection string of the link. A relative path is looked up from the drawing folder.</li>
-<li>Each delete runs in one undo group: <span class="fixw">U</span> restores the deleted links.</li>
+<li><span class="fixw">Dyl:DataLinkList</span> reads the <span class="fixw">ACAD_DATALINK</span> dictionary of <span class="fixw">(namedobjdict)</span>: each name (code 3) followed by its object (code 350 or 360), sorted by name.</li>
+<li>A link is <strong>used</strong> when either side says so, so that a link is never reported unused by mistake:
+<ul>
+<li><span class="fixw">Dyl:DataLinkPtrs</span>: every table of the drawing (<span class="fixw">(ssget "_X" '((0 . "ACAD_TABLE")))</span>) is read; an ename of a link found in its data, or in the data of its <span class="fixw">TABLECONTENT</span> objects (codes 340 and 360), counts.</li>
+<li><span class="fixw">Dyl:DataLinkUsers</span>: the users the link lists itself (its code 330), when they still exist (an erased table gives no data); a table content counts as its table, or as itself when its owner is not a table.</li>
+</ul>
+<span class="fixw">Dyl:DataLinkAdd</span> merges both into one association list, each table once.</li>
+<li><span class="fixw">Dyl:DataLinkFile</span> takes the file from the connection string (code 302), up to the first <span class="fixw">!</span>; <span class="fixw">Dyl:DataLinkFound</span> looks for it with <span class="fixw">findfile</span>, and a relative path (<span class="fixw">.\Book.xlsx</span>) from <span class="fixw">DWGPREFIX</span>.</li>
 </ol>
+</div>
+
+<h2>Deleting</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:DataLinkDelete</span> deletes the object through ActiveX (<span class="fixw">vla-delete</span>); when that fails, it removes the entry from the dictionary (<span class="fixw">dictremove</span>) and deletes the object (<span class="fixw">entdel</span>). It returns T when the link is gone.</li>
+<li><span class="fixw">Dyl:DataLinkDeleteAll</span> deletes a list of records inside one undo mark (<span class="fixw">vla-StartUndoMark</span> / <span class="fixw">vla-EndUndoMark</span>), so one <span class="fixw">U</span> restores them, and returns the count.</li>
+<li>A table is never touched: it only loses its link.</li>
+</ul>
+</div>
+
+<h2>The Data Links Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-DataLinks</span> stops at once when the drawing has no link. It writes the window to a temporary DCL file (<span class="fixw">Dyl:DataLinkDcl</span>) and runs <span class="fixw">Dyl:DataLinkDlgRun</span> in a <span class="fixw">vl-catch-all-apply</span>: an error closes the window (<span class="fixw">term_dialog</span>) and is printed, never left open.</li>
+<li>Its locals: <span class="fixw">dl:lst</span> (the records), <span class="fixw">dl:sel</span> (the names selected), <span class="fixw">dl:upd</span> (the tables to update). <span class="fixw">Dyl:DataLinkDlgShow</span> fills the list, <span class="fixw">Dyl:DataLinkDlgDetails</span> the lines under it (<span class="fixw">Dyl:DataLinkWhere</span> gives the layouts of the tables, code 410, or <em>a block definition</em>).</li>
+<li><em>Select unused</em> and <em>Select missing file</em> run <span class="fixw">Dyl:DataLinkDlgSelect</span> with a test on the records; <em>Delete selected</em> (<span class="fixw">Dyl:DataLinkDlgDelete</span>) asks first, says how many are used by tables, deletes, reads the records again.</li>
+<li>The window closes with a code: 0 Close; 2 <em>Data Link Manager...</em>, which then sends <span class="fixw">_.DATALINK</span> with <span class="fixw">vla-SendCommand</span>; 3 <em>Update tables</em>: <span class="fixw">Dyl:DataLinkDlgUpdate</span> keeps the tables of the selected links that are in a layout (code 410: the ones a selection set can hold), the command runs <span class="fixw">(MAJ:cmd-silent (list "_.DATALINKUPDATE" "_U" ss ""))</span>, which never leaves the command waiting for input, and the loop opens the window again.</li>
+</ul>
+</div>
+
+<h2>DLPURGE</h2>
+<p><span class="fixw">c:Pst-DataLinkPurge</span> reads the records, prints the names of the unused ones, asks with <span class="fixw">getkword</span> (<span class="fixw">[Yes/No] &lt;Yes&gt;</span>), deletes them with <span class="fixw">Dyl:DataLinkDeleteAll</span>, then prints the used links whose status is <em>Missing file</em>.</p>
+
+<h2 id="api">Using It In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Dyl:DataLinkInfo)</span></td><td>The records of every link of the drawing (defined once a command of the file has run).</td></tr>
+<tr><td><span class="fixw">(Dyl:DataLinkDeleteAll records)</span></td><td>Deletes them in one undo mark, returns how many.</td></tr>
+</table>
+</div>
+<p>These are functions of an Apps file: an App checks <span class="fixw">Dyl:SuiteFileOn-p</span> and loads it (<span class="fixw">Dyl:SuiteFileLoad</span>) before calling them, as the <a href="../../conventions.html#folders">Folders</a> convention says.</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The tables are found with <span class="fixw">ssget "_X"</span>, which does not reach the block definitions: a link used only there counts only when it lists the table itself.</li>
+<li>The window is written from Lisp strings to a temporary file; the <a href="../../conventions.html#folders">Folders</a> convention keeps the dialogs in <span class="fixw">Res</span>.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

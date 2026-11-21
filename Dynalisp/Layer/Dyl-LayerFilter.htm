@@ -35,9 +35,20 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p><span class="fixw">DYL-LAYERFILTER</span> lists every filter preset with its alias: double-click one (or OK) to apply it. The presets are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
-<p>One-word commands that set up the layer visibility for a type of view: show or hide a phase, isolate one level of a stacked drawing, screen the other disciplines, and so on. In model space the layers themselves are changed; in a layout the same filter is applied as viewport overrides on the viewports you select.</p>
-<p>The program works with layer names built from fields separated by hyphens, where the last field can be a phase suffix and a field can be a stack (level) number:</p>
+<p>Set up the layer visibility of a view in one word: show or hide a phase, isolate one level of a stacked drawing, screen the other disciplines... In model space the layers themselves change; in a layout the same filter applies to the viewports you select only, as viewport overrides.</p>
+<!-- picture: images/Dyl-LayerFilter-window.png -->
+<!-- picture: images/Dyl-LayerFilter-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the view: <span class="fixw">SH-EXST</span> to show the existing layers, <span class="fixw">HI-ANNO</span> to hide the annotation, <span class="fixw">N2</span> for the new work of level 2... (the table below).</li>
+<li>Or type <span class="fixw">Dyl-LayerFilter</span>: the window lists every filter with its alias; double-click one (or OK).</li>
+<li>In a layout, select the viewports to filter when asked; the other objects of the selection are left out.</li>
+<li>A filter marked <em>Reset</em> hides everything first and shows only its layers; one marked <em>Keep</em> is applied on top of what is shown now. One <span class="fixw">U</span> goes back.</li>
+</ol>
+</div>
+<h2 id="names">Layer Names</h2>
+<p>The filters read the names made of fields divided by hyphens: the last field can be a phase, and a field can be a level of a stacked drawing (<span class="fixw">0001</span> to <span class="fixw">0009</span>, as in <span class="fixw">A-Wall-0002-N</span>, for elevations or floors drawn in one file). See <a href="../Conventions/LayerNaming.htm">Layer Naming</a>.</p>
 <div class="programs commands">
 <table>
 <tr><th>Suffix</th><th>Phase</th></tr>
@@ -53,7 +64,6 @@
 <tr><td><span class="fixw">-X</span></td><td>Not in contract</td></tr>
 </table>
 </div>
-<p>Stack numbers are four-digit fields <span class="fixw">0001</span> to <span class="fixw">0009</span> (e.g. <span class="fixw">A-Wall-0002-N</span>), used for stacked elevations or floors drawn in the same file.</p>
 <h2 id="commands">Commands</h2>
 <p><em>Reset</em>: everything is hidden first and only the preset is shown. <em>Keep</em>: the current visibility is kept and the preset is applied on top of it.</p>
 <div class="programs commands wide">

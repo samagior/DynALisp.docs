@@ -21,12 +21,23 @@
 <p class="note">The developer docs of Draw Order: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-DrawOrder.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-DrawOrder.lsp</span> (commands), <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawOrder.lsp</span> (levels and the auto draw order setting, loaded at startup) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-DrawOrder.lsp</span> (auto draw order reactors, loaded at startup while the DynALisp reactors are on)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawOrder.lsp</span> (the presets, the levels and the restacking, loaded at startup), <span class="fixw">Modules\Dynalisp\Reactor\Dyl-DrawOrder.lsp</span> (auto draw order, while the reactors are on), <span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-DrawOrder.lsp</span> (the window and the commands). Based on Layer Draw Order (LDOrder) by Lee Mac.</td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\DrawOrder\&lt;preset&gt;.csv</span> (one file per preset, the folder copied to <span class="fixw">User</span> when saved); the preset of the drawing (saved in it); the user settings <span class="fixw">DynalispDrawOrderAuto</span>, <span class="fixw">DynalispDrawOrderPreset</span> (the preferred preset), <span class="fixw">DynalispDrawOrderSkip</span>, <span class="fixw">DynalispDrawOrderRefresh</span></td></tr>
 </table>
 </div>
+
+<h2>The Rules</h2>
+<p>A preset file has one rule per row:</p>
+<div class="code"><pre>Name;Level;Layers;Objects;Description;Order
+Annotation;8;*-Anno,*-Anno-[~R]*;;Annotation layers;10
+Hatch objects;-4;;HATCH;Hatches on any layer;20</pre></div>
+<div class="spacedbullets">
+<ul>
+<li>A rule matches an object when its <em>Layers</em> (layer name wildcard) and its <em>Objects</em> (DXF type wildcard) both match, an empty cell matching anything. The object takes the level of the rule with the lowest <em>Order</em> among those that match (the first row on a tie), 0 when none matches.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:DrawOrderRules</span> reads the active preset (<span class="fixw">Remote&gt;&gt;Dyl:DrawOrderPreset</span>: the one saved in the drawing, else the preferred one, else <span class="fixw">Default</span>; <span class="fixw">*do:defaults*</span> without any file). A file written before the <em>Order</em> column gets one from its levels, the highest first (<span class="fixw">Remote&gt;&gt;Dyl:DrawOrderFill</span>), so its result does not change. <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderParse</span> turns the rows into rules, <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderRule</span> / <span class="fixw">DrawOrderOf</span> give the level of an object.</li>
+</ul>
+</div>
+
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -38,6 +49,21 @@
 <li>The objects brought back by <span class="fixw">U</span>, <span class="fixw">UNDO</span>, <span class="fixw">REDO</span> and <span class="fixw">OOPS</span> are left where they are. The list can be replaced with the <span class="fixw">DynalispDrawOrderSkip</span> environment variable, and the commands that restack the current space with <span class="fixw">DynalispDrawOrderRefresh</span>, for example <span class="fixw">(setenv "DynalispDrawOrderRefresh" "LAYMCH,MATCHPROP,CHPROP")</span>.</li>
 </ol>
 </div>
+
+<h2>Restacking, In The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Remote&gt;&gt;Dyl:DrawOrderTable</span> gets the <span class="fixw">SortentsTable</span> of a block (the extension dictionary of the space or of a block definition); <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderSpace</span> the block of a layout name.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderStack tab top bot rules)</span> groups the objects of each level (<span class="fixw">Remote&gt;&gt;Dyl:DrawOrderLevels</span> in a space, <span class="fixw">DrawOrderBlockLevels</span> in a block) and moves each group with <span class="fixw">MoveToTop</span> (the lowest positive level first) or <span class="fixw">MoveToBottom</span> (the highest negative level first): every level keeps the order of its own objects.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:DrawOrderApply</span> stacks one space, or model space, every layout and every block of <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderBlocks</span> (not the xrefs, nor the anonymous blocks AutoCAD remakes itself, but the <span class="fixw">*U</span> of dynamic blocks).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:DrawOrderRebuild</span> deletes the tables first, then stacks again from the creation order.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:DrawOrderPlace</span>, used by auto draw order, moves only the new objects: right below the lowest object of the levels that must stay above them (<span class="fixw">DrawOrderAbove</span>, <span class="fixw">DrawOrderLowest</span>), or the levels around them when the table cannot be read (<span class="fixw">DrawOrderBounds</span>). <span class="fixw">DrawOrderPlaceSafe</span> catches its errors.</li>
+</ul>
+</div>
+
+<h2>Auto Draw Order</h2>
+<p><span class="fixw">Reactor\Dyl-DrawOrder.lsp</span> works as the auto-phase reactors of <a href="Dyl-LayerPhase.htm">Layer Phase</a>, with its own variables (<span class="fixw">*do:new*</span>, <span class="fixw">*do:depth*</span>, <span class="fixw">*do:lisp*</span>, <span class="fixw">*do:off*</span>, <span class="fixw">*do:busy*</span>, <span class="fixw">*do:append*</span> made only while a command runs) and one more: <span class="fixw">*do:ref*</span>, set when a command of <span class="fixw">Reactor&gt;&gt;Dyl:DrawOrderRefresh</span> ran, so that the current space is restacked when it ends. <span class="fixw">Reactor&gt;&gt;Dyl:DrawOrderRun</span> finds the space of each new object (<span class="fixw">Reactor&gt;&gt;Dyl:DrawOrderSpaceOf</span>, a block definition included) and places them, space by space. The output prep steps <span class="fixw">DRAWORDER</span> and <span class="fixw">DRAWORDERCLEAN</span> (<a href="../Output/Dyl-PrepDrawing.htm">Prep Drawing</a>) call <span class="fixw">DrawOrderApply</span> and <span class="fixw">DrawOrderRebuild</span>.</p>
+
 <h2>Using The Draw Order In An App</h2>
 <div class="spacedbullets">
 <ul>

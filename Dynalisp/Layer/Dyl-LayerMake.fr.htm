@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-LAYERMAKE</span> liste chaque jeu de calques avec son alias : double-cliquez-en un (ou OK) pour créer ses calques. Les jeux de calques sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
-<p>Construit un jeu de calques à partir de listes de calques CSV : les noms des calques sont assemblés à partir des champs de nom de chaque rangée, puis la couleur, l'épaisseur de ligne, le type de ligne et le réglage de traçage sont déduits du nom selon les règles de calques de Dynalisp. Les calques existants sont mis à jour, les manquants créés.</p>
+<p>Créez tout le jeu de calques d'un type de dessin en une commande : un dessin de base, un plan, une élévation, une coupe ou un détail d'architecture, ou les calques NCS d'un niveau. Chaque calque reçoit son nom, sa couleur, son épaisseur de ligne, son type de ligne et son réglage de tracé de la norme de calques de DynALisp; les calques déjà présents sont mis à jour.</p>
+<p class="note">Les jeux de calques ne fonctionnent pas pour l'instant : ils s'arrêtent sur une erreur avant de créer les calques (voir Limites connues). Utilisez les <a href="Dyl-LayerKeys.fr.htm">clés de calque</a> pour créer les calques de la norme un à un.</p>
+<!-- picture: images/Dyl-LayerMake-window.png -->
+<!-- picture: images/Dyl-LayerMake-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez l'alias du jeu : <span class="fixw">LL-A-FLOOR</span> pour un plan d'étage d'architecture... (le tableau ci-dessous), ou tapez <span class="fixw">Dyl-LayerMake</span> et double-cliquez un jeu.</li>
+<li>Quand le jeu est pour un dessin empilé, choisissez son niveau (<em>None</em>, <em>1-First</em>... <em>9-Ninth</em>); quand il est pour n'importe quelle discipline, choisissez la discipline.</li>
+<li>La ligne de commande liste chaque calque, créé ou mis à jour.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>

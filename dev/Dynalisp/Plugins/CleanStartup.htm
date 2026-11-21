@@ -21,13 +21,21 @@
 <p class="note">The developer docs of Clean Startup: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Plugins/CleanStartup.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Resources\DynALisp.Startup.dll</span> (AutoCAD 2025 and later) and <span class="fixw">Resources\Net48\DynALisp.Startup.dll</span> (AutoCAD 2015 to 2024)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Installer\Startup\Startup.cs</span> (<span class="fixw">DynALisp.Startup.csproj</span>), built twice and committed: <span class="fixw">Contents\Resources\DynALisp.Startup.dll</span> (.NET 8, AutoCAD 2025 and later) and <span class="fixw">Contents\Resources\Net48\DynALisp.Startup.dll</span> (.NET Framework 4.8, AutoCAD 2015 to 2024), a component of <span class="fixw">PackageContents.xml</span> each</td></tr>
+<tr><td>Data</td><td>The user setting <span class="fixw">DynalispCleanStartup</span>, read by the plugin itself from <span class="fixw">FixedProfile\General</span> of the product key</td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#versions-and-updates">Versions And Updates</a> convention on plugins every version needs</td></tr>
 </table>
 </div>
-
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The plugin reads <span class="fixw">DynalispCleanStartup</span> itself when it loads: it never relies on a Lisp call made while DynALisp loads.</li>
+<li>It waits until AutoCAD has started: DynALisp loaded, no command running, and the command line quiet for 2 seconds.</li>
+<li>AutoCAD has no API for its command line: the plugin finds, by reflection, the list the command line shows (<span class="fixw">CommandLineViewModel.HistoryCollection</span> of <span class="fixw">AcWindows.dll</span>, the same in AutoCAD 2015, 2026 and 2027). In a version where it is not found, or is not a list, it does nothing.</li>
+<li>The lines of the startup are blanked, but the <em>Drawing created using...</em> line, the lines of DynALisp (<em>DynALisp loaded...</em>, <span class="fixw">--&gt;</span>) and every line reporting an error or a warning, which are moved to the end. The F2 text window keeps the whole log.</li>
+<li><span class="fixw">Dyl:CleanStartup</span> is its Lisp function: the Settings window checks it before showing the toggle, greyed out when the plugin is not loaded.</li>
+</ol>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

@@ -21,10 +21,8 @@
 <p class="note">The developer docs of Layer Pen Colors: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerPenColors.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPenColors.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPenColors.lsp</span></td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\Layer\PenColors.csv</span> (the rules, <span class="fixw">Name;Layers;Colors;Color;Description</span>, your copy under <span class="fixw">User</span>); the <span class="fixw">dyl-pens</span> ldata of each layer (its saved color)</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -37,6 +35,16 @@
 <li><b>Restore:</b> each layer with a saved color gets it back, and the saved color is removed.</li>
 <li>The changes are one undo step. The command reports the layers changed, already matching, kept by a rule, and lists the layers not changed.</li>
 </ol>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">LPC:pens</span> &ndash; the pen color of each standard lineweight; <span class="fixw">(LPC:PenOf lw)</span> the one nearest to a lineweight, nil for Default, ByLayer, ByBlock and 2.00.</li>
+<li><span class="fixw">LPC:Rules</span> &ndash; reads <span class="fixw">PenColors.csv</span> through <span class="fixw">Dyl:UserFile</span> and <span class="fixw">Remote&gt;&gt;Dyl:CsvRead</span>, <span class="fixw">LPC:defaults</span> when it is missing; <span class="fixw">(LPC:Rule name aci rules)</span> returns the first rule whose layer pattern and color pattern match (a true color never matches a rule on colors).</li>
+<li><span class="fixw">LPC:ColorGet</span> / <span class="fixw">LPC:ColorPut</span> &ndash; the color of a layer as <span class="fixw">(method index red green blue book name)</span>, through its <span class="fixw">TrueColor</span>, and back: an RGB color and its color book are restored as they were.</li>
+<li><span class="fixw">(LPC:Run restore)</span> &ndash; asks <em>All/Select</em>, then in one undo mark: for <em>Pens</em>, a layer gets the color of its rule or of <span class="fixw">LPC:PenOf</span>, its color first saved with <span class="fixw">(vlax-ldata-put lay "dyl-pens" ...)</span> when it has none saved; for <em>Restore</em>, a layer with saved data gets it back and the data is deleted. Xref layers are left out.</li>
+<li><span class="fixw">c:Dyl-LayerPenColors</span> asks <em>Pens/Restore</em>; <span class="fixw">c:Pst-LayerColorsToPens</span> and <span class="fixw">c:Pst-LayerColorsRestore</span> run <span class="fixw">LPC:Run</span> directly.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

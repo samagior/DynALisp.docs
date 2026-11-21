@@ -11,7 +11,7 @@
 <body>
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
-        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Revisions.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
         <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Output/Dyl-Revisions.htm">Developers</a></nav>
     </div>
 
@@ -35,8 +35,20 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Manages the revisions of a project in one place, as Revit does. The project has one list of revisions, each with its date, description and who it was issued to and by. A sheet has a revision when it is given to it in the <strong>Revisions</strong> window, or when a revision cloud of that revision is drawn on it. The revision rows of each title block fill themselves, numbered per project or per sheet, and the drawings that are closed are updated without being opened.</p>
-<p>The project is the Project Navigator project of the drawing: the first folder that holds a <span class="fixw">.apj</span> file, from the folder of the drawing up. Its sheets are the drawings of its sheet folder (<em>Sheets</em> by default) and of its sub-folders, each layout a sheet.</p>
+<p>Manage the revisions of a project in one place, as Revit does: one list of revisions for the whole project, each with its date, description and who it was issued to and by. Give a revision to a sheet, or draw a revision cloud on it, and the revision rows of its title block fill themselves, numbered per project or per sheet. Closed drawings are updated without being opened.</p>
+<p>The project is the Project Navigator project of the drawing; its sheets are the drawings of its sheet folder, each layout a sheet.</p>
+<!-- picture: images/Dyl-Revisions-window.png -->
+<!-- picture: images/Dyl-Revisions-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Once per title block</strong> &ndash; open a sheet and type <span class="fixw">REVTB</span>. Click <strong>Pick...</strong> and select the title block: its revision rows and attributes are guessed from their tags. Check them, then OK. It serves every project.</li>
+<li><strong>Add a revision</strong> &ndash; type <span class="fixw">REVS</span>, click <strong>New</strong> and type its description. Select the sheets that have it and click <strong>Add Revision</strong>.</li>
+<li>Click <strong>OK</strong>: the revisions are saved in the project, and the title blocks of the sheets they change are filled.</li>
+<li><strong>Show a change on a sheet</strong> &ndash; type <span class="fixw">RCLOUD</span> on its layout and draw the cloud: it gives its revision to the sheet.</li>
+<li><strong>Once it is sent</strong> &ndash; check <em>Issued</em>: the revision is locked, and its number never changes again.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -46,15 +58,6 @@
 <tr><td><span class="fixw">REVUP</span></td><td>Update Revisions</td><td>Updates the title blocks and revision tags of this sheet with the revisions of its project.</td></tr>
 <tr><td><span class="fixw">REVTB</span></td><td>Revision Title Blocks</td><td>Opens the title blocks that show the revisions, and the attributes of their revision rows.</td></tr>
 </table>
-</div>
-<h2>Getting Started</h2>
-<div class="spacedbullets">
-<ol>
-<li>Open a sheet of the project and run <span class="fixw">REVTB</span>. Click <strong>Pick...</strong> and select the title block: its revision rows and attributes are guessed from their tags. Check them, then click <strong>OK</strong>. This is done once for each title block, for every project.</li>
-<li>Run <span class="fixw">REVS</span>. Click <strong>New</strong>, type the description of the revision, then select the sheets that have it and click <strong>Add Revision</strong>.</li>
-<li>Click <strong>OK</strong>: the revisions are saved in the project, and the title blocks of the sheets they change are filled.</li>
-<li>To show a change on a sheet, run <span class="fixw">RCLOUD</span> on its layout: the cloud gives its revision to the sheet.</li>
-</ol>
 </div>
 <h2>Revisions Window</h2>
 <p>The project, its number and its folder are shown at the top.</p>
@@ -107,7 +110,7 @@
 <li><strong>Sheet attributes</strong> &ndash; <strong>Current revision</strong> and <strong>Current date</strong>: one attribute each, given the number and date of the newest revision of the sheet.</li>
 </ul>
 </div>
-<p>An attribute left empty, or that a title block does not have, is skipped. The title blocks are saved in <span class="fixw">Modules\Dynalisp\Res\RevisionBlocks.csv</span> (your copy, see <span class="fixw">Dyl-UserFiles</span>).</p>
+<p>An attribute left empty, or that a title block does not have, is skipped. The title blocks are saved with your other DynALisp files (see <span class="fixw">Dyl-UserFiles</span>).</p>
 <h2>Revision Clouds</h2>
 <div class="spacedbullets">
 <ol>

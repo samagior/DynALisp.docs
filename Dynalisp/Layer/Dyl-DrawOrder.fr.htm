@@ -39,8 +39,20 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Empile les objets du dessin par <strong>niveau</strong>, lu dans les noms de calques Dynalisp : l'annotation toujours au-dessus, les hachures et les arrière-plans toujours en dessous, les autres lignes entre les deux. Chaque règle a un <em>nom</em> et un numéro de <em>niveau</em> : les objets qu'aucune règle ne touche sont au niveau <span class="fixw">0</span>, les niveaux positifs sont empilés au-dessus (le plus haut en haut) et les niveaux négatifs en dessous (le plus bas tout en bas).</p>
-<p>Les niveaux par défaut, de haut en bas :</p>
+<p>Empilez les objets du dessin par niveau, d'après leur calque et leur genre : l'annotation toujours au-dessus, les hachures et les fonds toujours en dessous, les autres lignes entre les deux. Avec l'ordre de tracé automatique activé, chaque objet que vous dessinez va à son niveau de lui-même : une nouvelle hachure sous les lignes, une nouvelle ligne sous l'annotation.</p>
+<!-- picture: images/Dyl-DrawOrder-window.png -->
+<!-- picture: images/Dyl-DrawOrder-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Réempilez le dessin</strong> &ndash; tapez <span class="fixw">DO-APPLY</span> : l'espace objet, chaque présentation et chaque bloc sont empilés par niveau, en une étape d'annulation.</li>
+<li><strong>Gardez-le empilé</strong> &ndash; tapez <span class="fixw">DO-AUTO</span>, ou cochez <em>Auto draw order</em> dans <span class="fixw">Dyl-Settings</span> (il demande les réacteurs de DynALisp activés). Les nouveaux objets vont à leur niveau à la fin de leur commande; les commandes qui changent les calques (<span class="fixw">LAYMCH</span>, <span class="fixw">MATCHPROP</span>...) réempilent l'espace courant.</li>
+<li><strong>Changez les niveaux</strong> &ndash; tapez <span class="fixw">DRO</span> pour ouvrir la fenêtre Draw Order : choisissez un préréglage, modifiez ses règles, choisissez le préréglage de ce dessin.</li>
+<li><strong>Quand le panoramique ralentit</strong> &ndash; <span class="fixw">DO-COUNT</span> compte les entrées des tables d'ordre de tracé, <span class="fixw">DO-REBUILD</span> les refait depuis le début.</li>
+</ol>
+</div>
+<h2>Les niveaux</h2>
+<p>Chaque règle a un nom et un niveau : les objets qu'aucune règle ne vise sont au niveau 0, les niveaux positifs au-dessus (le plus haut en dessus), les négatifs en dessous. Les niveaux par défaut, de haut en bas :</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Niveau</th><th>Nom</th><th>Calques / Objets</th></tr>
@@ -54,8 +66,7 @@
 <tr><td>-9</td><td>References</td><td><span class="fixw">*-Anno-Refr*</span> (références externes)</td></tr>
 </table>
 </div>
-<p>Les calques en phase gardent le niveau de leur calque : <span class="fixw">A-Detl-Patt-N</span> est un calque de hachures comme <span class="fixw">A-Detl-Patt</span> (voir <a href="Dyl-LayerPhase.fr.htm">Phase des calques</a>).</p>
-<p>Avec l'<strong>ordre de tracé automatique</strong> activé (désactivé par défaut, voir <a href="../Core/Dyl-Settings.fr.htm">Paramètres</a>), les objets créés par une commande sont mis à leur niveau à la fin de la commande : une nouvelle hachure va sous les lignes, une nouvelle ligne sous l'annotation. Les commandes qui changent le calque d'objets (<span class="fixw">LAYMCH</span>, <span class="fixw">MATCHPROP</span>, <span class="fixw">CHPROP</span>, <span class="fixw">LAYMRG</span>...) réempilent l'espace courant. Tant qu'il est activé, <span class="fixw">REGEN</span> réempile aussi tout le dessin avant de le régénérer, quand <a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a> est activé et que <em>Apply the draw order preset</em> est coché pour <span class="fixw">REGEN</span> dans la fenêtre de préparation des sorties (<span class="fixw">Dyl-PrepSuite</span>, ou le bouton <em>ouvrir</em> à côté de <em>Commands</em> dans <span class="fixw">Dyl-Settings</span>) (par défaut; il peut être coché pour les autres commandes de sortie aussi).</p>
+<p>Un calque en phase garde le niveau de son calque : <span class="fixw">A-Detl-Patt-N</span> est un calque de hachure comme <span class="fixw">A-Detl-Patt</span> (voir <a href="Dyl-LayerPhase.fr.htm">Layer Phase</a>). Avec <a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a> activé, <span class="fixw">REGEN</span> réempile d'abord le dessin, par défaut.</p>
 <h2>Préréglages</h2>
 <p>Les règles sont enregistrées dans des <strong>préréglages</strong>, chacun avec son nom : un fichier par préréglage dans <span class="fixw">Modules\Dynalisp\Res\DrawOrder</span>, nommé d'après lui (<span class="fixw">Default.csv</span>, <span class="fixw">Details.csv</span>...). Un préréglage est <strong>actif</strong> : l'ordre de tracé automatique et <span class="fixw">DO-APPLY</span> utilisent ses règles. Le préréglage actif est celui <strong>enregistré dans le dessin</strong>; un dessin qui n'en a pas utilise votre <strong>préréglage préféré</strong> (paramètre utilisateur <span class="fixw">DynalispDrawOrderPreset</span>, pour tous les dessins). Les deux se choisissent dans la fenêtre Draw Order. Quand aucun n'est défini ou que son fichier manque, <em>Default</em> est utilisé, et les règles par défaut ci-dessous quand il n'y a aucun fichier de préréglage.</p>
 <h2>Les règles</h2>

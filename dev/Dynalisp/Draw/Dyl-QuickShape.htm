@@ -21,13 +21,23 @@
 <p class="note">The developer docs of Quick Shape: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickShape.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickShape.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickShape.lsp</span>, <span class="fixw">Remote\Dyl-QuickShapePresets.lsp</span> (its spec), <span class="fixw">Remote\Dyl-Presets.lsp</span> (the preset engine), <span class="fixw">Remote\Dyl-Materials.lsp</span> (the hatch, the border box)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\QuickShape.csv</span> (the presets), the library drawings of <span class="fixw">Res\Shapes</span> (<span class="fixw">*qs:folder*</span>, the whole folder copied to <span class="fixw">User</span> once a shape is added, <span class="fixw">Dyl:UserDirW</span>), <span class="fixw">Res\Materials.csv</span></td></tr>
 </table>
 </div>
-
+<h2>The Libraries</h2>
+<div class="spacedbullets">
+<ul>
+<li>Every <span class="fixw">.dwg</span> of the shapes folder is a library and every block in it a shape (layouts, xrefs and anonymous blocks excepted), named <span class="fixw">&lt;Library&gt;|&lt;Block&gt;</span> (<span class="fixw">Shapes|Stud-2x4</span>). The base point of the block is the insertion point; its Block Units scale it to the drawing.</li>
+<li><span class="fixw">Dyl:QuickShapeDb</span> opens a library: the document when it is open in AutoCAD, else an ObjectDBX document (<span class="fixw">Dyl:QuickShapeRelease</span> releases it). <span class="fixw">Dyl:QuickShapeLibs</span>, <span class="fixw">Dyl:QuickShapeBlocks</span> and <span class="fixw">Dyl:QuickShapeList</span> list them.</li>
+<li><span class="fixw">Dyl:QuickShapeStarter</span> makes <span class="fixw">Shapes.dwg</span> when the folder has no library, from the outlines of <span class="fixw">*qs:starter*</span> (closed polylines in inches; an outline inside another is an island).</li>
+<li><span class="fixw">Dyl:QuickShapeAdd</span> (<em>Add shape from selection...</em>) makes a block of the objects selected in a library (<span class="fixw">Dyl:QuickShapeDefine</span>, its name asked by <span class="fixw">Dyl:QuickShapeAskName</span>); <span class="fixw">Dyl:QuickShapeOpen</span> opens a library to edit it (<em>Open library</em>).</li>
+</ul>
+</div>
+<h2>Placing A Shape</h2>
+<p><span class="fixw">(Dyl:QuickShapeRun id)</span> reads the preset (<span class="fixw">Dyl:QuickShapeGet</span>), gives its border to its material (<span class="fixw">Dyl:QuickShapeMat</span>), and <span class="fixw">Dyl:QuickShape</span> brings the block into the drawing when it does not have it, inserts it where the user drags it (point, then rotation), explodes it, fills its closed outlines with <span class="fixw">Remote&gt;&gt;Dyl:MaterialHatch</span> (islands included) and puts the outlines on the border key, in a loop until Enter or Esc.</p>
+<h2>The Window</h2>
+<p><span class="fixw">Dyl:QuickShapeDialog</span> is the preset window of the engine, as the one of <a href="Dyl-QuickDraw.htm">Quick Draw</a>, with the Shape list and the Border settings box, and no Behaviors: a shape always has its border.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

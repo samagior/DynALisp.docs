@@ -35,8 +35,17 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Le compagnon de <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> pour les formes toutes faites : montants, briques, blocs de béton, profilés d'acier&hellip; Chaque préréglage insère une forme d'un dessin de bibliothèque, glissée en place (point d'insertion, puis rotation), encore et encore jusqu'à Entrée ou Échap. Chaque forme est décomposée : ses contours fermés sont remplis de la hachure du <a href="Dyl-QuickDraw.fr.htm#materials">préréglage de hachure</a> du préréglage (un contour dans un autre est un îlot, p. ex. les alvéoles d'un bloc de béton), et tous ses objets vont sur la clé de calque du contour du préréglage de hachure. Quick Draw et Quick Shape partagent les mêmes préréglages de hachures : modifier <em>Brick</em> change les deux.</p>
-<p><span class="fixw">DYL-QUICKSHAPE</span> ouvre l'éditeur de préréglages, le même que celui de Quick Draw (liste, alias, New, Copy, Delete, Reset Selected, Reset All, Group choisi parmi les groupes (modifiés dans la fenêtre <a href="Dyl-PresetGroups.fr.htm">Preset Groups</a>, son bouton ouvrir à gauche de la liste), Hatch preset (les préréglages de hachures de ce groupe) et son bouton ouvrir vers la fenêtre Hatch Presets, plusieurs préréglages modifiés à la fois). Les préréglages sont enregistrés dans <span class="fixw">Modules\Dynalisp\Res\QuickShape.csv</span>; chaque préréglage personnalisé reçoit une commande <span class="fixw">Pst-QuickShapeCustom&lt;Name&gt;</span> à laquelle donner des alias.</p>
+<p>Placez des formes toutes faites, déjà hachurées : montants, briques, blocs de béton, profilés d'acier... Chaque préréglage insère une forme d'un dessin de bibliothèque, encore et encore jusqu'à Entrée, et remplit ses contours de la hachure de son préréglage de hachure, sur les calques de ses clés. Le compagnon de Quick Draw, avec la même fenêtre.</p>
+<!-- picture: images/Dyl-QuickShape-window.png -->
+<!-- picture: images/Dyl-QuickShape-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez l'alias de la forme : <span class="fixw">QS-STUD2X4</span>... (le tableau ci-dessous).</li>
+<li>Choisissez son point d'insertion, puis sa rotation; placez la suivante, ou appuyez sur Entrée ou Échap pour arrêter.</li>
+<li><strong>Modifiez ou ajoutez des préréglages</strong> &ndash; tapez <span class="fixw">Dyl-QuickShape</span> : choisissez un préréglage, sa forme et son préréglage de hachure, ou cliquez <strong>New</strong>. Vos propres formes sont des blocs d'un dessin de bibliothèque (ci-dessous).</li>
+</ol>
+</div>
 <h2 id="libraries">Bibliothèques de formes</h2>
 <p>Les formes sont des blocs dans des dessins de bibliothèque : <strong>chaque <span class="fixw">.dwg</span> de <span class="fixw">Modules\Dynalisp\Res\Shapes</span> est une bibliothèque, et chacun de ses blocs est une forme</strong>. Un dessin de nombreux blocs ou de nombreux dessins d'un bloc chacun fonctionnent tous deux, et les deux peuvent se mêler (p. ex. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). Une forme s'affiche comme <em>Library: Block</em>. Quand le dossier n'a aucune bibliothèque, un <span class="fixw">Shapes.dwg</span> de départ est fait avec les formes des préréglages par défaut.</p>
 <div class="spacedbullets">

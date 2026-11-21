@@ -35,21 +35,38 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Normalise les définitions de blocs pour que leur contenu suive les propriétés de la référence de bloc : chaque entité des définitions sélectionnées est placée sur le calque 0 avec couleur, type de ligne et épaisseur de ligne DuBloc. Une commande complémentaire sélectionne chaque référence de bloc du dessin.</p>
+<p>Faites suivre aux blocs les propriétés de l'endroit où ils sont insérés : tout ce qui est dans les blocs sélectionnés passe sur le calque 0, avec la couleur, le type de ligne et l'épaisseur de ligne DuBloc. Insérez le bloc sur n'importe quel calque, il prend la couleur et le type de ligne de ce calque.</p>
+<!-- picture: images/Dyl-SetByBlock-window.png -->
+<!-- picture: images/Dyl-SetByBlock-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">FIXBLKS</span> et sélectionnez une référence de chaque bloc à corriger, puis appuyez sur Entrée.</li>
+<li>Chaque référence de ces blocs dans le dessin change, celles sélectionnées et toutes les autres, ainsi que les blocs imbriqués dedans.</li>
+<li>Pour corriger chaque bloc du dessin, tapez d'abord <span class="fixw">SL-BLOCKALL</span> : il sélectionne chaque référence de bloc; lancez ensuite <span class="fixw">FIXBLKS</span>.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td><td>Place les entités des définitions de blocs sélectionnées sur le calque 0, avec couleur, type de ligne et épaisseur de ligne DuBloc.</td></tr>
+<tr><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td><td>Passe le contenu des blocs sélectionnés sur le calque 0 avec la couleur, le type de ligne et l'épaisseur de ligne DuBloc.</td></tr>
 <tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Sélectionne chaque référence de bloc du dessin.</td></tr>
 </table>
+</div>
+<h2>Bon à savoir</h2>
+<div class="spacedbullets">
+<ul>
+<li>Tout le changement est une seule étape : un <span class="fixw">U</span> l'annule.</li>
+<li>Les définitions de blocs changent, pas les références : la position, l'échelle et le calque de chaque référence restent les mêmes.</li>
+</ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les attributs déjà attachés aux références existantes gardent leurs propriétés; seules les définitions d'attributs dans le bloc changent.</li>
-<li>Appuyer sur Entrée à l'invite de sélection sans rien sélectionner termine FIXBLKS par une erreur.</li>
-<li>Les noms de styles de tracé ne sont pas changés (la ligne est en commentaire dans la source).</li>
+<li>Les attributs déjà remplis dans les références gardent leurs propriétés; seules les définitions d'attributs dans le bloc changent.</li>
+<li>Appuyer sur Entrée sans rien sélectionner termine <span class="fixw">FIXBLKS</span> par une erreur.</li>
+<li>Les styles de tracé ne sont pas modifiés.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

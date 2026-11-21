@@ -21,24 +21,50 @@
 <p class="note">The developer docs of Command Optimizer: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Output/Dyl-CmdOptimizer.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-CmdOptimizer.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-CmdOptimizer.lsp</span> (the commands redefined), the PrepBeforeOutput region of <span class="fixw">Resources\dynalisp.mnl</span> (the steps, their file, <span class="fixw">UNDEFINE</span> / <span class="fixw">REDEFINE</span>, the output prep window), <a href="Dyl-PrepDrawing.htm">Prep Drawing</a> (the steps run)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\PrepSuite.csv</span> (the steps of each column, your copy under <span class="fixw">User</span>); the user setting <span class="fixw">DynalispPrepRedefine</span></td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
+
+<h2>The Redefined Commands</h2>
+<p>Each command of <span class="fixw">MAJ:cmds</span> is a Lisp command of the same name in <span class="fixw">Dyl-CmdOptimizer.lsp</span>, turned on or off in <span class="fixw">Dyl-Suite</span> as any other:</p>
+<div class="code"><pre>(defun c:QSAVE ()
+  (if MAJ:PrepFor (MAJ:PrepFor "QSAVE"))   ; the steps of its column
+  (vl-cmdf "_.QSAVE")                        ; the native command, even undefined
+  (princ)
+)</pre></div>
+<p>The dialog commands call <span class="fixw">(initdia)</span> first, so their window opens. <span class="fixw">MAJ:groups</span> puts them in four groups that share one column of steps, named by their first command (<span class="fixw">MAJ:PrepCol</span>): <span class="fixw">SAVE</span> (SAVE, QSAVE, SAVEAS, +SAVEAS), <span class="fixw">PLOT</span> (PLOT, PUBLISH, EXPORTPDF, EXPORTDWF, EXPORTDWFX), <span class="fixw">PREVIEW</span> and <span class="fixw">REGEN</span>.</p>
+
+<h2>Redefining, Step By Step</h2>
 <div class="spacedbullets">
 <ol>
-<li><span class="fixw">Dyl-CmdOptimizer</span> shows whether the commands are redefined and prompts <span class="fixw">Command optimizer, for every drawing [On/Off] &lt;Off&gt;:</span> (Enter switches it). It is the <em>Commands</em> checkbox of the Overrides box of <span class="fixw">Dyl-Settings</span>: the user setting <span class="fixw">DynalispPrepRedefine</span>, applied right away to this drawing and to the other open drawings when they become current.</li>
-<li>At startup, when the output prep is on in <span class="fixw">Dyl-Settings</span>, the native command of each command turned on in <span class="fixw">Dyl-Suite</span> is removed with <span class="fixw">UNDEFINE</span>, so typing it (or its shortcut) runs the Lisp command. The startup log lists the commands redefined.</li>
-<li>A command turned off in <span class="fixw">Dyl-Suite</span> keeps its native definition (<span class="fixw">REDEFINE</span>): it is never left undefined without its Lisp command. Turning the commands on or off applies right away with the Suite changes (or <span class="fixw">Dyl-Reload</span>).</li>
-<li>Turning it off (<span class="fixw">Dyl-CmdOptimizer</span> or <span class="fixw">Dyl-Settings</span>) restores the native commands in every open drawing; <span class="fixw">Dyl-RestoreCommands</span> does it for the session only.</li>
-<li><span class="fixw">REGEN</span> runs its steps like the other commands: by default only <em>Apply the draw order preset</em> (a column of the output prep window (<span class="fixw">Dyl-PrepSuite</span>, or the <em>open</em> button next to <em>Commands</em> in <span class="fixw">Dyl-Settings</span>)). The draw order restacks model space, every layout and every block definition with the active preset (as <span class="fixw">DO-APPLY</span>), in one undo step, and is skipped while auto draw order is off (<span class="fixw">DO-AUTO</span> or <span class="fixw">Dyl-Settings</span>). The other commands can run it too: check it in their column.</li>
-<li>The save commands (<span class="fixw">SAVE</span>, <span class="fixw">QSAVE</span>, <span class="fixw">SAVEAS</span>, <span class="fixw">+SAVEAS</span>) always run the same steps: they share the <em>All saves</em> column of the grid. The print commands (<span class="fixw">PLOT</span>, <span class="fixw">PUBLISH</span>, <span class="fixw">EXPORTPDF</span>, <span class="fixw">EXPORTDWF</span>, <span class="fixw">EXPORTDWFX</span>) share the <em>All prints</em> column; <span class="fixw">PREVIEW</span> and <span class="fixw">REGEN</span> have their own. <span class="fixw">+SAVEAS</span> runs the native command and leaves its prompts to you, or to the menu macro that called it.</li>
-<li><span class="fixw">Dyl-PrepSuite</span> opens the output prep window: a grid of the steps (rows) and of the groups of commands (columns: <em>All saves</em>, <em>All prints</em>, <span class="fixw">PREVIEW</span>, <span class="fixw">REGEN</span>), with <em>All On</em> / <em>All Off</em>. OK saves it right away (<span class="fixw">Modules\Dynalisp\Res\PrepSuite.csv</span>, your copy under <span class="fixw">User</span>). The <em>open</em> button next to the <em>Commands</em> checkbox of <span class="fixw">Dyl-Settings</span> opens the same window, saved with the other settings.</li>
-<li>The commands call the native one with the <span class="fixw">_.</span> prefix (<span class="fixw">_.QSAVE</span>...), which always runs the AutoCAD command, undefined or not.</li>
+<li>As DynALisp loads, when <span class="fixw">DynalispPrepRedefine</span> is on (<span class="fixw">MAJ:Redefine-p</span>), <span class="fixw">(MAJ:Redefine T)</span> runs. <span class="fixw">MAJ:synced</span> keeps the setting this drawing applied.</li>
+<li><span class="fixw">MAJ:Redefine</span> loads <span class="fixw">AcPublish.crx</span> when it is not (AutoCAD loads <span class="fixw">PUBLISH</span> on demand, which would bring the native command back), then, with <span class="fixw">CMDECHO</span> 0 and <span class="fixw">NOMUTT</span> 1, runs <span class="fixw">_.UNDEFINE</span> on each command of <span class="fixw">MAJ:CmdsOn</span> (the Lisp commands defined in this drawing, their autoload stubs included) and <span class="fixw">_.REDEFINE</span> on the others: a native command is never undefined without its Lisp command.</li>
+<li><span class="fixw">MAJ:RedefineSet</span> (the <em>Commands</em> checkbox of <span class="fixw">Dyl-Settings</span>, and <span class="fixw">c:Dyl-CmdOptimizer</span>, which asks <em>[On/Off]</em>) writes the setting and redefines this drawing at once. The other open drawings follow when they become current: the settings reactor finds <span class="fixw">MAJ:synced</span> different and <span class="fixw">Dyl:SetSync</span> sends <span class="fixw">MAJ:RedefineSync</span> (<span class="fixw">UNDEFINE</span> cannot run from a reactor).</li>
+<li><span class="fixw">c:Dyl-RestoreCommands</span> runs <span class="fixw">(MAJ:Redefine nil)</span> for the session only.</li>
+<li><span class="fixw">MAJ:Status</span> gives the line of the startup summary: the commands redefined, or why they are native.</li>
 </ol>
+</div>
+
+<h2>The Steps Of A Command</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">(MAJ:PrepFor cmd)</span> does nothing while the setting is off. Otherwise <span class="fixw">MAJ:PrepLoad</span> loads <span class="fixw">Dyl-PrepDrawing.lsp</span> the first time (it is autoloaded with its own command only), and <span class="fixw">MAJ:PrepDrawing</span> runs <span class="fixw">(MAJ:PrepSteps cmd)</span>.</li>
+<li><span class="fixw">MAJ:PrepRead</span> reads <span class="fixw">PrepSuite.csv</span> again before every command, so a change applies to every open drawing at once: <span class="fixw">Step;Description;SAVE;PLOT;PREVIEW;REGEN</span>, <span class="fixw">1</span> runs the step. A file, step or column missing uses <span class="fixw">MAJ:PrepDefault</span> (REGEN: the draw order only).</li>
+<li>The steps are the rows of <span class="fixw">MAJ:steps</span>: <span class="fixw">LAYERS</span>, <span class="fixw">UNHIDE</span>, <span class="fixw">XREFS</span>, <span class="fixw">DATALINKS</span>, <span class="fixw">TABLES</span>, <span class="fixw">DRAWORDER</span>, <span class="fixw">DRAWORDERCLEAN</span>, <span class="fixw">REGEN</span> (see <a href="Dyl-PrepDrawing.htm">Prep Drawing</a>).</li>
+</ol>
+</div>
+
+<h2>The Output Prep Window</h2>
+<p><span class="fixw">MAJ:PrepDlg</span> shows the grid (a toggle per step and column, key <span class="fixw">t_&lt;step&gt;_&lt;column&gt;</span>, <span class="fixw">MAJ:PrepDlgKey</span>), with All On / All Off per column (<span class="fixw">MAJ:PrepDlgAll</span>). Opened by <span class="fixw">Dyl-PrepSuite</span>, OK saves it at once (<span class="fixw">MAJ:PrepWrite</span>, through <span class="fixw">Dyl:UserFileW</span>); opened from <span class="fixw">Dyl-Settings</span>, it is saved with the other settings (<span class="fixw">MAJ:PrepSave</span>).</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">UNDEFINE</span> lasts for the session, the Lisp commands are defined per drawing: a drawing whose startup stopped before the modules loaded has neither (<span class="fixw">_.QSAVE</span> still works).</li>
+<li><span class="fixw">-PLOT</span> and <span class="fixw">-PUBLISH</span> are left out of <span class="fixw">MAJ:groups</span>: <span class="fixw">(command "-PLOT" ...)</span> fails while a command is undefined.</li>
+<li><span class="fixw">+SAVEAS</span> leaves its prompts to the user or to the menu macro that called it.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

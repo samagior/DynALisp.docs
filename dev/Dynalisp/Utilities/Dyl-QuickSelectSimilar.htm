@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Quick Select Similar: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-QuickSelectSimilar.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickSelectSimilar.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickSelectSimilar.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -45,6 +42,8 @@
 <li><em>Visible</em> means layer on and thawed and object not invisible.</li>
 </ul>
 </div>
+<h2>The Code</h2>
+<p>One Apps file of about 950 lines: the window is written to a temporary DCL file, the object types of the space are counted with <span class="fixw">ssget "_X"</span>, the filters of the references read with <span class="fixw">entget</span> (the effective name of a dynamic block through ActiveX), and the selection built from a <span class="fixw">ssget</span> filter list (OR inside a field, AND between fields), then kept as the previous selection (<span class="fixw">_.SELECT</span>).</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

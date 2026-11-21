@@ -31,21 +31,30 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Two quick colour clean-up commands: one resets the colour of a selection to ByLayer, the other applies a colour picked in the standard AutoCAD colour dialog.</p>
+<p>Two quick color clean-ups: put a selection back to the color of its layer, or give it one color picked in the AutoCAD color window.</p>
+<!-- picture: images/Dyl-ColorByLayer-window.png -->
+<!-- picture: images/Dyl-ColorByLayer-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Back to ByLayer</strong> &ndash; type <span class="fixw">CHCOLOR</span>, select the objects (or select them first), press Enter. Their color is now ByLayer.</li>
+<li><strong>One color for all</strong> &ndash; type <span class="fixw">CC</span>, pick a color in the <em>Select Color</em> window, then select the objects and press Enter.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Name</th><th>Description</th></tr>
 <tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Sets the color of the selected objects to ByLayer.</td></tr>
-<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Sets the color of the selected objects to a color picked in the color dialog.</td></tr>
+<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Sets the color of the selected objects to a color picked in the color window.</td></tr>
 </table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>In <span class="fixw">CC</span>, cancelling the colour dialog reopens it: pick any colour, then press <kbd>Esc</kbd> at the selection prompt to abort.</li>
-<li>True colours and colour books are not available from the dialog used by CC.</li>
-<li>Objects on locked layers are skipped by CHPROP.</li>
+<li>In <span class="fixw">CC</span>, cancelling the color window opens it again: pick any color, then press Esc at the selection prompt.</li>
+<li>The color window of <span class="fixw">CC</span> has the index colors only: no true colors or color books.</li>
+<li>Objects on locked layers are not changed.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

@@ -21,27 +21,33 @@
 <p class="note">The developer docs of Color ByLayer: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Cleaning/Dyl-ColorByLayer.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-ColorByLayer.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-ColorByLayer.lsp</span></td></tr>
+<tr><td>Data</td><td>None: the commands keep no setting and write no file.</td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
-<h3>CHCOLOR</h3>
+<h2>The Commands</h2>
+<p>One Apps file, autoloaded: <span class="fixw">c:Dyl-ColorByLayer</span> (alias <span class="fixw">CHCOLOR</span>) and its child <span class="fixw">c:Pst-ChangeColor</span> (alias <span class="fixw">CC</span>). Both hand the work to AutoCAD's <span class="fixw">CHPROP</span>, called by its international name as the <a href="../../conventions.html#calling-autocad-commands">conventions</a> ask.</p>
+<h3>CHCOLOR, step by step</h3>
 <div class="spacedbullets">
 <ol>
-<li>Select the objects (any selection method, pre-selection supported).</li>
-<li>The routine runs <span class="fixw">CHPROP</span> &rarr; Color &rarr; <span class="fixw">BYLAYER</span> on the selection and reports <span class="fixw">Objects&#x27; color changed to Bylayer.</span></li>
+<li><span class="fixw">(ssget)</span> takes the selection, the objects selected first included.</li>
+<li>With a selection: <span class="fixw">(command "_.chprop" ss "" "_c" "_bylayer")</span>, then the message <em>Objects' color changed to Bylayer.</em>; without: <em>Nothing selected.</em></li>
 </ol>
 </div>
-<h3>CC</h3>
+<h3>CC, step by step</h3>
 <div class="spacedbullets">
 <ol>
-<li>The <em>Select Color</em> dialog opens (index colours only, ByLayer shown as the default).</li>
-<li>At the prompt <span class="fixw">Select all object to change to one color.</span> select the objects.</li>
-<li><span class="fixw">CHPROP</span> applies the chosen colour to the selection.</li>
+<li><span class="fixw">(acad_colordlg 256)</span> opens the color window with ByLayer (256) selected, in a <span class="fixw">while</span> loop: a cancel returns nil and opens it again.</li>
+<li><span class="fixw">(ssget)</span> takes the objects, then <span class="fixw">(command "_.ChProp" ss "" "_C" usercol "")</span> gives them the color number.</li>
 </ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The loop on <span class="fixw">acad_colordlg</span> gives no way out of the window but a color: Esc at the selection prompt ends the command.</li>
+<li><span class="fixw">acad_colordlg</span> returns an index color only; <span class="fixw">acad_truecolordlg</span> would give true colors and color books.</li>
+<li><span class="fixw">CHPROP</span> skips the objects on locked layers; no undo group is set (each command is one step of <span class="fixw">UNDO</span> anyway).</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

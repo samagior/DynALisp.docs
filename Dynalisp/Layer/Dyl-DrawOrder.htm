@@ -39,8 +39,20 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Stacks the objects of the drawing by <strong>level</strong>, read from the Dynalisp layer names: annotation is always on top, hatches and backgrounds always at the bottom, the other lines in between. Each rule has a <em>name</em> and a <em>level</em> number: the objects no rule matches are at level <span class="fixw">0</span>, the positive levels are stacked above them (the highest on top) and the negative levels below them (the lowest at the bottom).</p>
-<p>The default levels, from top to bottom:</p>
+<p>Stack the objects of the drawing by level, from their layer and their kind: annotation always on top, hatches and backgrounds always at the bottom, the other lines in between. With auto draw order on, each object you draw goes to its level by itself: a new hatch under the lines, a new line under the annotation.</p>
+<!-- picture: images/Dyl-DrawOrder-window.png -->
+<!-- picture: images/Dyl-DrawOrder-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Restack the drawing</strong> &ndash; type <span class="fixw">DO-APPLY</span>: model space, every layout and every block are stacked by level, in one undo step.</li>
+<li><strong>Keep it stacked</strong> &ndash; type <span class="fixw">DO-AUTO</span>, or check <em>Auto draw order</em> in <span class="fixw">Dyl-Settings</span> (it needs the DynALisp reactors on). New objects go to their level when their command ends; the commands that change layers (<span class="fixw">LAYMCH</span>, <span class="fixw">MATCHPROP</span>...) restack the current space.</li>
+<li><strong>Change the levels</strong> &ndash; type <span class="fixw">DRO</span> to open the Draw Order window: pick a preset, edit its rules, choose the preset of this drawing.</li>
+<li><strong>When panning slows down</strong> &ndash; <span class="fixw">DO-COUNT</span> counts the entries of the draw order tables, <span class="fixw">DO-REBUILD</span> builds them again from scratch.</li>
+</ol>
+</div>
+<h2>The Levels</h2>
+<p>Each rule has a name and a level: the objects no rule matches are at level 0, the positive levels above them (the highest on top), the negative ones below. The default levels, from top to bottom:</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Level</th><th>Name</th><th>Layers / Objects</th></tr>
@@ -54,8 +66,7 @@
 <tr><td>-9</td><td>References</td><td><span class="fixw">*-Anno-Refr*</span> (external references)</td></tr>
 </table>
 </div>
-<p>The phased layers keep the level of their layer: <span class="fixw">A-Detl-Patt-N</span> is a hatch layer like <span class="fixw">A-Detl-Patt</span> (see <a href="Dyl-LayerPhase.htm">Layer Phase</a>).</p>
-<p>With <strong>auto draw order</strong> on (off by default, see <a href="../Core/Dyl-Settings.htm">Settings</a>), the objects created by a command are put in their level when the command ends: a new hatch goes under the lines, a new line under the annotation. The commands that change the layer of objects (<span class="fixw">LAYMCH</span>, <span class="fixw">MATCHPROP</span>, <span class="fixw">CHPROP</span>, <span class="fixw">LAYMRG</span>...) restack the current space. While it is on, <span class="fixw">REGEN</span> also restacks the whole drawing before regenerating it, when <a href="../Output/Dyl-CmdOptimizer.htm">Command Optimizer</a> is on and <em>Apply the draw order preset</em> is checked for <span class="fixw">REGEN</span> in the output prep window (<span class="fixw">Dyl-PrepSuite</span>, or the <em>open</em> button next to <em>Commands</em> in <span class="fixw">Dyl-Settings</span>) (the default; it can be checked for the other output commands too).</p>
+<p>A phased layer keeps the level of its layer: <span class="fixw">A-Detl-Patt-N</span> is a hatch layer like <span class="fixw">A-Detl-Patt</span> (see <a href="Dyl-LayerPhase.htm">Layer Phase</a>). With <a href="../Output/Dyl-CmdOptimizer.htm">Command Optimizer</a> on, <span class="fixw">REGEN</span> restacks the drawing first, by default.</p>
 <h2>Presets</h2>
 <p>The rules are saved in <strong>presets</strong>, each with its own name: one file per preset in <span class="fixw">Modules\Dynalisp\Res\DrawOrder</span>, named after it (<span class="fixw">Default.csv</span>, <span class="fixw">Details.csv</span>...). One preset is <strong>active</strong>: auto draw order and <span class="fixw">DO-APPLY</span> use its rules. The active preset is the one <strong>saved in the drawing</strong>; a drawing without one uses your <strong>preferred preset</strong> (user setting <span class="fixw">DynalispDrawOrderPreset</span>, for every drawing). Both are chosen in the Draw Order dialog. When neither is set or its file is missing, <em>Default</em> is used, and the default rules below when there is no preset file at all.</p>
 <h2>The Rules</h2>

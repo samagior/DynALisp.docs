@@ -21,13 +21,31 @@
 <p class="note">The developer docs of Info And User Files: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Core/Dyl-Info.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span>, <span class="fixw">CHANGELOG.md</span>, <span class="fixw">Resources\Dyl-Info.dcl</span> and <span class="fixw">Resources\Dyl-UserFiles.dcl</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td>The Info and UserFiles regions of <span class="fixw">Resources\dynalisp.mnl</span>, <span class="fixw">Resources\Dyl-Info.dcl</span></td></tr>
+<tr><td>Data</td><td>The <span class="fixw">AppVersion</span> of <span class="fixw">PackageContents.xml</span>, <span class="fixw">CHANGELOG.md</span>, the latest release of <span class="fixw">*dyl:relrepo*</span>; the <span class="fixw">User</span> folder</td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#versions-and-updates">Versions And Updates</a> and <a href="../../conventions.html#user-files">User Files</a> conventions</td></tr>
 </table>
 </div>
-
+<h2>Versions And Updates</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:InfoVersion</span> reads <span class="fixw">AppVersion</span>, the one place the version is kept; <span class="fixw">Dyl:InfoNewer-p</span> compares two versions.</li>
+<li><span class="fixw">Dyl:InfoCheck</span> reads the latest release of the public releases repository (<span class="fixw">Dyl:InfoLatest</span> through <span class="fixw">Dyl:InfoHttp</span>, short timeouts), and keeps <span class="fixw">*dyl:latest*</span>: <span class="fixw">(VERSION PAGE-URL SETUP-URL NOTES-URL)</span>, or <span class="fixw">NONE</span> when it could not be read. Once per drawing, when the window opens.</li>
+<li><em>What's new</em> (<span class="fixw">Dyl:InfoWhatsNew</span>, <span class="fixw">Dyl:InfoNotes</span>) shows the sections of <span class="fixw">CHANGELOG.md</span> (<span class="fixw">Dyl:InfoMd</span> reads its Markdown); after an update, <span class="fixw">Dyl:UpdWhatsNew</span> shows the new ones once.</li>
+<li><em>Update to...</em> (<span class="fixw">Dyl:InfoUpdate</span>) downloads the setup (<span class="fixw">Dyl:InfoDownload</span>) and starts it (<span class="fixw">Dyl:InfoRun</span>); the setup waits for AutoCAD to close. <span class="fixw">Dyl:InfoGit-p</span> tells a git clone, which is never updated this way.</li>
+<li><span class="fixw">Dyl:UpdAuto</span>, a startup step, does it by itself while <span class="fixw">DynalispAutoUpdate</span> is on, at most once a day (<span class="fixw">DynalispUpdateChecked</span>).</li>
+</ul>
+</div>
+<h2>User Files</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Dyl:UserFile path)</span> returns the user copy of a data file when there is one (<span class="fixw">Dyl:UserPath</span>: the same path under <span class="fixw">DynALisp.bundle\User</span>), else the default; <span class="fixw">(Dyl:UserFileW path)</span> the copy to write, made from the default the first time. <span class="fixw">Dyl:UserDir</span> and <span class="fixw">Dyl:UserDirW</span> do it for a folder whose files are added and deleted, copied whole and marked by <span class="fixw">_UserFolder.txt</span>.</li>
+<li><span class="fixw">c:Dyl-UserFiles</span> lists the copies (<span class="fixw">Dyl:UserItems</span>), resets one (deletes the copy) or makes it the default (copies it under <span class="fixw">Contents</span>: how an edit is published).</li>
+<li><em>Export settings</em> and <em>Import settings</em> (<span class="fixw">Dyl:SetsExport</span>, <span class="fixw">Dyl:SetsImport</span>) write and read a <span class="fixw">DynALisp Settings &lt;date&gt;</span> folder: <span class="fixw">DynALisp-Settings.txt</span> (every <span class="fixw">Dynalisp*</span> setting as <span class="fixw">Name=Value</span>, the local ones of <span class="fixw">*dyl:setslocal*</span> left out), <span class="fixw">User\</span> and <span class="fixw">Modules\MyTools\</span>; the setup and the uninstall use the same format (<span class="fixw">Installer\DynALisp.iss</span>).</li>
+</ul>
+</div>
+<h2>The Window</h2>
+<p><span class="fixw">c:Dyl-Info</span> loads <span class="fixw">Dyl-Info.dcl</span>; its list of modules is every module with a docs index, on the website or on this computer (<span class="fixw">Dyl:DocsFind</span>), and its list of commands is <span class="fixw">*dyl:core*</span>, the core commands defined.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

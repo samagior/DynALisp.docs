@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Open Folder: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-OpenFolder.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-OpenFolder.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-OpenFolder.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -39,6 +36,8 @@
 </ul>
 </div>
 <p>A missing folder is reported as <em>Folder not found</em>.</p>
+<h2>The Code</h2>
+<p><span class="fixw">c:Dyl-OpenFolder</span> asks with <span class="fixw">getkword</span>, then opens the folder with <span class="fixw">Local>>Dyl:Explore</span> (Explorer on the path). <span class="fixw">Local>>Dyl:FindSheetSetDir</span> walks up from <span class="fixw">DWGPREFIX</span> to the first folder holding a <span class="fixw">.dst</span> file. The support folder is <span class="fixw">ROAMABLEROOTPREFIX\Support</span>. The template folder is <span class="fixw">*dyl:template</span> (<span class="fixw">*dyl:dylres\Templates\Model</span>, set by <span class="fixw">Remote\Dyl-Paths.lsp</span>).</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

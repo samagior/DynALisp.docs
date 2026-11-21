@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Finds out why DynALisp, or AutoCAD with it, does not work as it should. It reads how DynALisp is installed and started, the AutoCAD running and what else it loads, the settings and files of DynALisp, its reactors and the current drawing, and writes what it finds in a text report that opens in your text editor. The problems found are marked <span class="fixw">[!]</span> and listed again at the top of the report.</p>
-<p><span class="fixw">Dyl-Diagnostics</span> (the <em>Diagnostics</em> button of the Troubleshooting panel) writes the full report, with your settings and files, and offers to send it to the developer of DynALisp in a GitHub issue. Each part of the report is also a command of its own, to check one thing quickly.</p>
+<p>Find out why DynALisp, or AutoCAD with it, does not work as it should. Diagnostics checks how DynALisp is installed and started, the AutoCAD running and what else it loads, the settings and files of DynALisp, its reactors and the current drawing, and writes what it finds in a text report. The problems are marked <span class="fixw">[!]</span> and listed again at the top.</p>
+<!-- picture: images/Dyl-Diagnostics-window.png -->
+<!-- picture: images/Dyl-Diagnostics-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">DIAG</span> (or click <em>Diagnostics</em> in the Troubleshooting panel of the ribbon). The report opens in your text editor.</li>
+<li>Read the problems at the top: each one says what is wrong and, most of the time, what to do.</li>
+<li>To get help, answer <strong>Open issue</strong>: your browser opens a new issue for the developer of DynALisp, its summary filled in, and the folder of the zip of your report. Describe what happened, drag the zip into the issue, then submit it (see <a href="#sending">Sending A Report</a>).</li>
+<li>To check one part quickly, run its command alone (<span class="fixw">DIAG-DWG</span> for the drawing...): the commands below.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -52,17 +62,15 @@
 <tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Reports the units, spaces, draw order tables, layers, xrefs and objects of the drawing, and its regen time.</td></tr>
 </table>
 </div>
-<h2>Sending A Report</h2>
-<p><span class="fixw">Dyl-Diagnostics</span> writes every part into a <span class="fixw">DynALisp Report &lt;date&gt;</span> folder of <span class="fixw">%TEMP%</span>, with:</p>
-<div class="unspacedbullets">
+<h2 id="sending">Sending A Report</h2>
+<div class="spacedbullets">
 <ul>
-<li><span class="fixw">Report.txt</span>: the report, which opens in your text editor;</li>
-<li><span class="fixw">DynALisp-Settings.txt</span>: your DynALisp settings, as <em>Export settings</em> of <span class="fixw">Dyl-UserFiles</span> writes them;</li>
-<li><span class="fixw">User</span>: your copies of the data files (presets, aliases, layer keys...).</li>
+<li><span class="fixw">DIAG</span> puts the report, your DynALisp settings and your copies of the data files in a <em>DynALisp Report &lt;date&gt;</em> folder of your temporary folder, and zips it.</li>
+<li><strong>Open issue</strong> opens the new issue in your browser and the folder of the zip; <strong>Close</strong> keeps the report where it is.</li>
+<li>A GitHub issue is public: read the report before you send it. The report never holds your profile folder, your user name or your computer name: they are replaced by <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> and <span class="fixw">%COMPUTERNAME%</span>. Your copies of the data files (presets, aliases, layer keys...) are sent as they are. The drawing itself is never sent.</li>
+<li>Sending it needs a GitHub account; without one, send the zip by email.</li>
 </ul>
 </div>
-<p>The folder is zipped next to it. The question <em>Send it to the DynALisp developer in a GitHub issue?</em> then opens, on <em>Open issue</em>, a new issue of the DynALisp releases repository in your browser, its title and summary filled in, and the folder of the zip with the zip selected: describe what happened, drag the zip into the issue, then <em>Submit new issue</em>. <em>Close</em> keeps the report where it is.</p>
-<p>A GitHub issue is <strong>public</strong>: read the report before you send it. The report and the settings file never hold your profile folder, your user name or your computer name: they are replaced by <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> and <span class="fixw">%COMPUTERNAME%</span>. The files of the <span class="fixw">User</span> folder are sent as they are. The drawing itself is never sent, only what the report says of it.</p>
 <h2>Finding What Slows AutoCAD</h2>
 <p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) counts the events the drawing sends to the reactors: run it, work the slow way for about 20 seconds (zoom, pan, draw), then run it again. The report lists each event (an object added or changed, a command started, a system variable changed) and its count. The DynALisp reactors run only on these events: when none is counted during a slow zoom or pan, the reactors are not what slows it. It needs the DynALisp reactors on (<span class="fixw">Dyl-Settings</span>).</p>
 <p>The <em>Drawing</em> part times a regeneration of the drawing: run <span class="fixw">DIAG-DWG</span>, change one thing (the draw order table deleted with <span class="fixw">DO-RESET</span>, the reactors turned off and the drawing opened again...), run it again and compare.</p>
@@ -70,9 +78,8 @@
 <div class="spacedbullets">
 <ul>
 <li>The compiled programs of other applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) cannot be read: only their name is listed, not the commands they define.</li>
-<li>The startup records (its time, warnings and load errors) are those of the drawing the report is made in; <span class="fixw">Dyl-Reload</span> records them again.</li>
+<li>The startup part is the one of the drawing the report is made in; <span class="fixw">Dyl-Reload</span> records it again.</li>
 <li>The kinds of objects are counted up to 100&nbsp;000 objects; above, only their total is given.</li>
-<li>Sending the report needs a GitHub account; without one, send the zip by email.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

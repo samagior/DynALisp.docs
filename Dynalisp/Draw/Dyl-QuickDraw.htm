@@ -35,9 +35,17 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Thirty-five draw-and-fill commands for phase screens and section hatch presets. Each command makes a closed outline with a standard AutoCAD drawing tool (polyline, rectangle, circle&hellip; see <a href="#drawwith">Draw With</a>), puts it on the layer of the outline layer key of its <a href="#materials">hatch preset</a>, and fills it with a hatch (associative or not, as set in the hatch preset) using the pattern, scale, angle and hatch layer key of the hatch preset. The hatch scale switches automatically between imperial and metric values.</p>
-<p>The main command <span class="fixw">DYL-QUICKDRAW</span> opens a preset editor: a preset is a name, a <a href="#materials">hatch preset</a> (the hatch) and its own <a href="#behaviors">behaviors</a> (how it is drawn: its <a href="#drawwith">Draw with</a> method...). Several presets can share one hatch preset: <span class="fixw">QD-BRICK</span> (asks the method) and a <span class="fixw">PL-BRICK</span> preset drawn with a polyline both use the <em>Brick</em> hatch preset, so editing the hatch preset changes both. Presets can be edited, created, and reset to their default values. The presets are saved to <span class="fixw">Modules\Dynalisp\Res\QuickDraw.csv</span>, the hatch presets to <span class="fixw">Materials.csv</span>; the <span class="fixw">QD-*</span> commands use the values saved there, so a default preset edited in the dialog changes its command too. Each custom preset gets a command too, <span class="fixw">Pst-QuickDrawCustom&lt;Name&gt;</span> (e.g. <span class="fixw">Pst-QuickDrawCustomTest</span>): it is listed in <span class="fixw">Dyl-Suite</span> under <span class="fixw">DYL-QUICKDRAW</span>, where aliases can be added to it, and it keeps working when the preset is renamed (its id is saved in the Id column).</p>
-<p>To pick a preset by its look, the <a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a> (<span class="fixw">Pst-QuickDrawGallery</span>, alias <span class="fixw">QDG</span>, the <strong>Quick Draw</strong> button of the ribbon) shows a tile for each preset with its hatch, by group: a click draws it. On the ribbon, this window is <strong>Quick Draw Manager</strong>.</p>
+<p>Draw and hatch in one command: a preset draws its outline with the drawing tool it says (a polyline, a rectangle, a band along a line...), puts it on the right layer and fills it with its hatch, scaled for the drawing. Thirty-five presets come ready (concrete, brick, insulation, the phase screens...), and you make your own in the Quick Draw window.</p>
+<!-- picture: images/Dyl-QuickDraw-window.png -->
+<!-- picture: images/Dyl-QuickDraw-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Draw a preset</strong> &ndash; type its alias, <span class="fixw">QD-BRICK</span> or <span class="fixw">PL-BRICK</span>... (the table below), or pick its tile in the Quick Draw Gallery (<em>Quick Draw</em> on the ribbon). Draw the outline as the prompts say; the hatch follows.</li>
+<li>A <span class="fixw">QD-*</span> preset asks how to draw it (polyline, rectangle, circle, linear band...); a <span class="fixw">PL-*</span> preset always draws a polyline.</li>
+<li><strong>Change or add presets</strong> &ndash; type <span class="fixw">Dyl-QuickDraw</span> (<em>Quick Draw Manager</em> on the ribbon): pick a preset, change its hatch preset, how it is drawn and its border, or click <strong>New</strong>. A new preset gets a command of its own; give it an alias in <span class="fixw">Dyl-Suite</span>.</li>
+</ol>
+</div>
 <h2>Preset Dialog</h2>
 <div class="spacedbullets">
 <ul>

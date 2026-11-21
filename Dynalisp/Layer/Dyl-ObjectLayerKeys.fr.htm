@@ -35,7 +35,17 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Donne à chaque type d'objet courant une <a href="Dyl-LayerKeys.fr.htm">clé de calque</a> par défaut, comme le font les clés de calque d'AutoCAD Architecture : une cote dessinée avec <span class="fixw">DIM</span> va sur le calque de <span class="fixw">DIMLINE</span>, un texte sur le calque de <span class="fixw">ANNOBJ</span>, quel que soit le calque courant. Cela fonctionne tant que <strong>Auto layer keys</strong> est activé (<a href="../Core/Dyl-Settings.fr.htm#reactors">Dyl-Settings</a>, Reactors, désactivé par défaut); son bouton ouvrir y ouvre aussi cette fenêtre.</p>
+<p>Mettez chaque genre courant d'objet sur son propre calque, quel que soit le calque courant, comme le font les clés de calque d'AutoCAD Architecture : une cote va sur le calque de la clé <span class="fixw">DIMLINE</span>, un texte sur le calque d'<span class="fixw">ANNOBJ</span>, un nuage de révision sur <span class="fixw">ANNREV</span>...</p>
+<!-- picture: images/Dyl-ObjectLayerKeys-window.png -->
+<!-- picture: images/Dyl-ObjectLayerKeys-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Auto layer keys</em> (dans Reactors); il demande les réacteurs de DynALisp activés.</li>
+<li>Dessinez comme d'habitude : chaque nouvelle cote, ligne de repère, texte... va sur le calque de sa clé à la fin de sa commande.</li>
+<li>Pour changer la clé d'un genre, tapez <span class="fixw">Dyl-ObjectLayerKeys</span> (ou cliquez le bouton ouvrir d'<em>Auto layer keys</em>), choisissez le genre et sa clé, puis OK. Sans clé : les objets de ce genre restent sur le calque courant.</li>
+</ol>
+</div>
 <h2>Fenêtre Object Layer Keys</h2>
 <div class="spacedbullets">
 <ul>

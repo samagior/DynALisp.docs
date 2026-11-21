@@ -35,7 +35,25 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Redefines the AutoCAD output commands so the drawing is prepared before they run: layers turned on and thawed, hidden objects shown, xrefs reloaded, data links and tables updated, regenerated. The steps run by each command are checked in the output prep window (<span class="fixw">Dyl-PrepSuite</span>, or the <em>open</em> button next to <em>Commands</em> in <span class="fixw">Dyl-Settings</span>), then the native command runs as usual (<span class="fixw">Ctrl+S</span> runs <span class="fixw">QSAVE</span>). <span class="fixw">REGEN</span> is redefined with them: by default it applies the draw order preset to the drawing first (see <a href="../Layer/Dyl-DrawOrder.htm">Draw Order</a>).</p>
+<p>Prepare the drawing every time you save or print it, without thinking about it: with Command Optimizer on, the save and print commands of AutoCAD (and <span class="fixw">REGEN</span>) first run the output prep steps you checked &ndash; layers turned on and thawed, hidden objects shown, xrefs reloaded, data links and tables updated, draw order applied, regeneration &ndash; then do their usual job. <span class="fixw">Ctrl+S</span> still saves.</p>
+<!-- picture: images/Dyl-CmdOptimizer-window.png -->
+<!-- picture: images/Dyl-CmdOptimizer-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Turn it on: check <em>Commands</em> in the Overrides of <span class="fixw">Dyl-Settings</span>, or type <span class="fixw">Dyl-CmdOptimizer</span> and answer <em>On</em>. It applies to every drawing.</li>
+<li>Pick the steps: the open button next to <em>Commands</em> (or <span class="fixw">Dyl-PrepSuite</span>) opens the output prep window, a grid of the steps and of four columns: <em>All saves</em>, <em>All prints</em>, <em>PREVIEW</em> and <em>REGEN</em>. Check what each one runs, <em>All On</em> / <em>All Off</em> for a whole column, then OK.</li>
+<li>Save, plot, publish or export as usual: the steps of the column run first, then the command.</li>
+</ol>
+</div>
+<h2>Good To Know</h2>
+<div class="spacedbullets">
+<ul>
+<li>By default <span class="fixw">REGEN</span> only applies the draw order preset (see <a href="../Layer/Dyl-DrawOrder.htm">Draw Order</a>), and only while auto draw order is on.</li>
+<li>A command turned off in <span class="fixw">Dyl-Suite</span> keeps its AutoCAD behavior.</li>
+<li><span class="fixw">Dyl-RestoreCommands</span> gives back the AutoCAD commands for this session only; turn <em>Commands</em> off in <span class="fixw">Dyl-Settings</span> to keep them.</li>
+</ul>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -57,9 +75,8 @@
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">UNDEFINE</span> is for the whole AutoCAD session, but the Lisp commands are defined in each drawing. A drawing whose DynALisp startup stopped before the modules were loaded has no Lisp command while another drawing removed the native one: type <span class="fixw">_.QSAVE</span> (or <span class="fixw">REDEFINE</span>) there, and look for the error in its startup log.</li>
-<li><span class="fixw">-PLOT</span> and <span class="fixw">-PUBLISH</span> are not redefined: scripts and Lisp programs call them by name (<span class="fixw">(command "-PLOT" ...)</span>), which fails while a command is undefined.</li>
-<li><span class="fixw">PUBLISH</span> is loaded on demand by AutoCAD (<span class="fixw">AcPublish.crx</span>); it is loaded at startup so it can be redefined.</li>
+<li>A drawing whose DynALisp startup stopped early has none of these commands while another drawing removed the AutoCAD ones: type <span class="fixw">_.QSAVE</span> there, and look for the error in its startup lines (or run <a href="../Troubleshooting/Dyl-Diagnostics.htm">Diagnostics</a>).</li>
+<li><span class="fixw">-PLOT</span> and <span class="fixw">-PUBLISH</span> are not prepared: scripts and programs call them by name.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

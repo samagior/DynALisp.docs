@@ -39,18 +39,41 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Sets AutoCAD's paths from three file preferences, chosen in <span class="fixw">Dyl-Settings</span> (the <em>open</em> button of <em>File Preferences</em>, in <em>Overrides</em>, opens the file preferences window) or with this command:</p>
-<div class="unspacedbullets">
+<p>Set AutoCAD's paths for the way you work, from three choices: the AEC library classification, the drawing units and the language of the content. The templates, the AutoCAD Architecture content, tool catalogs and detail databases, and the spell checker dictionaries follow. Your other options are kept: DynALisp sets them in a profile of its own.</p>
+<!-- picture: images/Dyl-SetFilePrefs-window.png -->
+<!-- picture: images/Dyl-SetFilePrefs-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>File Preferences</em> (in Overrides) and click its open button.</li>
+<li>Pick the three preferences below, and whether to use the DynALisp custom dictionary of the language, then save.</li>
+<li>AutoCAD now uses the <em>DynALisp</em> profile (Options &gt; Profiles), made the first time as a copy of your current profile. It stays current for the next sessions.</li>
+<li>Or type <span class="fixw">Dyl-SetFilePrefs</span>: the same choices on the command line (Enter keeps the current one).</li>
+</ol>
+</div>
+<h2>The Preferences</h2>
+<div class="spacedbullets">
 <ul>
-<li><strong>AEC library classification:</strong> NBS CAWS (Global), CSI MasterFormat (US) or OmniClass;</li>
-<li><strong>Drawing units:</strong> Metric (Global) or Imperial (US);</li>
-<li><strong>Language:</strong> one of the languages AutoCAD is installed in &ndash; English, French, Chinese (Simplified), Chinese (Traditional), Czech, German, Hungarian, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian or Spanish. It is the language of the AutoCAD Architecture content and of the spell checker. The default is the language of AutoCAD.</li>
+<li><strong>AEC library classification</strong> &ndash; NBS CAWS (Global), CSI MasterFormat (US) or OmniClass: the detail components and keynotes of AutoCAD Architecture.</li>
+<li><strong>Drawing units</strong> &ndash; Metric (Global) or Imperial (US): the templates and the content folders.</li>
+<li><strong>Language</strong> &ndash; one of the languages AutoCAD is installed in (English, French, German, Spanish...): the AutoCAD Architecture content and the spell checker. The default is the language of AutoCAD. It is not the language of DynALisp and its docs, chosen apart in the Environment section of <span class="fixw">Dyl-Settings</span>.</li>
 </ul>
 </div>
-<p>This language is the one of the drawings (content folders, dictionaries). The language of DynALisp itself, its docs, is set apart: <em>Language</em> in the Environment section of <a href="../Core/Dyl-Settings.htm#environment">Dyl-Settings</a>.</p>
-<p>The language also sets the main dictionary of the spell checker (<em>Options &gt; Files &gt; Text Editor, Dictionary, and Font File Names &gt; Main Dictionary</em>, <span class="fixw">DCTMAIN</span>). AutoCAD has no dictionary for Chinese, Hungarian, Japanese, Korean or Polish (no <span class="fixw">&lt;code&gt;.dct</span> file in its <span class="fixw">Support</span> folder): the American English dictionary (<span class="fixw">enu</span>) is used for them.</p>
-<p>In French, the custom dictionary (<span class="fixw">DCTCUST</span>) is set to <span class="fixw">Res\Dictionaries\fra.cus</span>: about 4,450 French architecture and construction words and Roman numerals (I to C and the hundreds to M, the centuries Ier to XXIe, lowercase i to xx for numbered lists; structure, building envelope, openings, interiors, drawings and site, mechanical and electrical, materials such as néoprène, polyéthylène or géomembrane and their acronyms, stainless steels (austénitique, duplex, passivation) and metal corrosion, additives and protective treatments, architectural styles, building forms and ornaments, churches, built heritage, traditional restoration of stone, sheet metal work, heavy timber and pièce-sur-pièce log houses, compound words such as anti-rafale, pare-vapeur or sous-plancher, structural design, site work and contracts, accessibility) and the acronyms used on Quebec drawings (CNB, RBQ, CSA, ULC...). AutoCAD uses your copy of it under <span class="fixw">User\</span>, made the first time, and the words you add while checking spelling go there; <span class="fixw">Dyl-UserFiles</span> can make that copy the default. Its words, with their definition and category, are searched in the <a href="../Utilities/Dyl-Dictionary.htm">Dictionary</a> window (<span class="fixw">Res\Dictionaries\fra-def.csv</span>). Untick <em>Use the DynALisp custom dictionary of the language</em> in the File Preferences window of <span class="fixw">Dyl-Settings</span> (or answer No in <span class="fixw">DYL-SETFILEPREFS</span>) to keep your own. It is used only when the language has one: a <span class="fixw">Files:CustomDictionary</span> row of <span class="fixw">FilePrefs.csv</span> matches it and its file exists. Otherwise (turned off, or another language), a DynALisp custom dictionary that is current is replaced by the one it replaced, else by AutoCAD's <span class="fixw">sample.cus</span>; a custom dictionary of your own is left as it is. Add a <span class="fixw">Files:CustomDictionary</span> row to give another language its own.</p>
-<p>The paths are set in a <span class="fixw">DynALisp</span> profile (<em>Options &gt; Profiles</em>), made the first time as a copy of the current profile, so your other options are kept. AutoCAD keeps it current for the next sessions, and every drawing opened checks that it is still current and set from the preferences.</p>
+<h2>Spelling</h2>
+<div class="spacedbullets">
+<ul>
+<li>The spell checker uses the main dictionary of the language; AutoCAD has none for Chinese, Hungarian, Japanese, Korean or Polish, which use American English.</li>
+<li>In French, the DynALisp custom dictionary adds about 4,450 architecture and construction words, Roman numerals and the acronyms of Quebec drawings (CNB, RBQ, CSA...). The words you add while checking spelling are kept in your own copy. See <a href="../Utilities/Dyl-Dictionary.htm">Dictionary</a>.</li>
+</ul>
+</div>
+<h2>Good To Know</h2>
+<div class="spacedbullets">
+<ul>
+<li>Each drawing opened checks the profile. When it is no longer current, or the preferences changed, the last line of the startup tells you to run <span class="fixw">Dyl-SetFilePrefs</span>: a drawing never switches the profile by itself.</li>
+<li>Turn <em>File Preferences</em> off in <span class="fixw">Dyl-Settings</span> to go back to your former profile; the DynALisp profile is kept.</li>
+<li>Each AutoCAD language (English, French...) has its own profiles: the DynALisp profile is made in each one.</li>
+</ul>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
@@ -61,12 +84,10 @@
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>AutoCAD Architecture does not ship an OmniClass detail or keynote database, so OmniClass sets no database. Add <span class="fixw">Db:</span> rows for your own.</li>
-<li>Only the content installed is used. The English ACA 2027 content has no Imperial or US folders here, and the French content has no Global folder, so the fallback rows (or none) apply.</li>
-<li>The language is the language of the content folders and of the main dictionary. It does not change the language of AutoCAD itself, which is chosen when AutoCAD is started. A language whose AutoCAD Architecture content is not installed leaves the <span class="fixw">{ACA}</span> paths as they are.</li>
-<li>Each AutoCAD language (English, French...) has its own profiles: the <span class="fixw">DynALisp</span> profile is made in each one.</li>
-<li>While the profile is on and you switch to another profile by hand, each drawing opened reminds you to run <span class="fixw">DYL-SETFILEPREFS</span>. Turn it off in <span class="fixw">Dyl-Settings</span> to use another profile.</li>
-<li><span class="fixw">Acad (Imperial Ctb).dwt</span> is not in <span class="fixw">Res\Templates\Model</span>, so Imperial uses <span class="fixw">Acad (Imperial Stb).dwt</span>.</li>
+<li>AutoCAD Architecture has no OmniClass detail or keynote database, so OmniClass sets none.</li>
+<li>Only the content installed is used: a language or units whose AutoCAD Architecture content is not installed leaves those paths as they are.</li>
+<li>The language of AutoCAD itself does not change: it is chosen when AutoCAD starts.</li>
+<li>While the DynALisp profile is on, switching to another profile by hand gives a reminder in each drawing opened; turn <em>File Preferences</em> off to use another profile.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

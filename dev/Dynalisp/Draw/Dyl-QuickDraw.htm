@@ -21,12 +21,15 @@
 <p class="note">The developer docs of Quick Draw: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickDraw.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (drawing, the window, the gallery, the commands), <span class="fixw">Remote\Dyl-Presets.lsp</span> (the preset engine), <span class="fixw">Remote\Dyl-QuickDrawPresets.lsp</span> (its spec), <span class="fixw">Remote\Dyl-Materials.lsp</span> (the hatch presets, the hatch, the border and behaviors boxes), <span class="fixw">Remote\Dyl-Groups.lsp</span> (the groups)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\QuickDraw.csv</span> (the presets), <span class="fixw">Res\Materials.csv</span> (the hatch presets), <span class="fixw">Res\Groups.csv</span>, your copies under <span class="fixw">User</span>; the layer keys</td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention</td></tr>
 </table>
 </div>
+
+<h2>The Preset Engine</h2>
+<p>Quick Draw is a preset tool of <span class="fixw">Remote\Dyl-Presets.lsp</span>: a preset is a list of strings <span class="fixw">(id group name ...)</span>, the first three columns the same for every tool, then the values of the tool (the columns of <span class="fixw">*qd:tiles*</span>). <span class="fixw">Remote\Dyl-QuickDrawPresets.lsp</span> adds its spec to <span class="fixw">*dyl:presetspecs*</span> at startup (file, header, <span class="fixw">default . "QD-*"</span>, <span class="fixw">base . "Pst-QuickDraw"</span>, <span class="fixw">cmd . "Pst-QuickDrawCustom"</span>, <span class="fixw">get . Dyl:QuickDrawGet</span>, <span class="fixw">run . Dyl:QuickDrawRun</span>...), so the command of each custom preset, <span class="fixw">Pst-QuickDrawCustom&lt;Name&gt;</span>, exists before the App loads (a dynamic child, <span class="fixw">Dyl:DynList</span>). A default preset has its id (<span class="fixw">qd-Brick</span>) and a command of the App (<span class="fixw">Pst-QuickDrawBrick</span>); a custom one gets <span class="fixw">cu-&lt;Name&gt;</span> the first time it is saved, kept when it is renamed.</p>
+
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -37,6 +40,27 @@
 <li>One hatch is created on all the outlines with <span class="fixw">-HATCH</span> (Select objects), associative or not and annotative or not as set in the hatch preset, using the pattern, scale and angle of the hatch preset (the scale multiplied by the drawing scale divided by the one it was set for, when the hatch preset follows it) (<span class="fixw">SOLID</span> uses neither scale nor angle). Since the outlines are hatched together, an outline inside another one stays open (island). The hatch is then put on the layer of the hatch layer key (created if missing).</li>
 <li>Outlines and hatch are one undo step. If nothing was made, nothing is hatched.</li>
 </ol>
+</div>
+
+<h2>Drawing A Preset, In The Code</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">(Dyl:QuickDrawRun id)</span> &ndash; reads the preset (<span class="fixw">Dyl:QuickDrawGet</span>: <span class="fixw">Dyl:QuickDrawRead</span>, each row fixed by <span class="fixw">Dyl:QuickDrawFix</span>, a default filled by <span class="fixw">Dyl:QuickDrawDefault</span>), puts its behaviors and border in its material (<span class="fixw">Dyl:QuickDrawMat</span>, <span class="fixw">Remote&gt;&gt;Dyl:MaterialBorderPut</span>), and asks its method when it has none (<span class="fixw">Dyl:QuickDrawAsk</span>, the last one given kept with <span class="fixw">setenv</span>).</li>
+<li><span class="fixw">Dyl:QuickDraw</span> &ndash; draws the outline: a standard AutoCAD command run by <span class="fixw">Dyl:QuickDrawDraw</span> (the user finishes it, the entities after a mark collected by <span class="fixw">Dyl:QuickDrawAfter</span>), or the DynALisp methods: <em>Linear</em> (<span class="fixw">Dyl:QuickDrawLinear</span>, the band built from its segments with <span class="fixw">Dyl:QdBand</span>, <span class="fixw">Dyl:QdMiter</span>, <span class="fixw">Dyl:QdCorner</span>, <span class="fixw">Dyl:QdEnd</span>, a live preview with <span class="fixw">grdraw</span>: <span class="fixw">Dyl:QdGrBand</span>), <em>Offset</em> (<span class="fixw">Dyl:QuickDrawOffsetBands</span>, along a picked curve: <span class="fixw">Dyl:QuickDrawCurveBand</span>), shrinkwrap (<a href="Dyl-Shrinkwrap.htm">Shrinkwrap</a>).</li>
+<li>The hatch &ndash; <span class="fixw">Remote&gt;&gt;Dyl:MaterialHatch</span> fills each closed outline with the pattern, the scale of the drawing (<span class="fixw">Remote&gt;&gt;Dyl:MaterialScale</span>: the units of the pattern, the drawing scale), the origin and the layer key of the material; <span class="fixw">Dyl:QuickDrawBorderMake</span> puts the border on its key with its overrides.</li>
+<li>An assembly &ndash; the layers of the preset (<span class="fixw">Remote&gt;&gt;Dyl:MaterialLayers</span>, the <em>Assembly</em> column) are placed across the band (<span class="fixw">Dyl:QuickDrawLayersBand</span>, <span class="fixw">Dyl:QuickDrawCurveLayers</span>), each Hatch layer hatched as its own preset (<span class="fixw">Dyl:QuickDrawLayerHatch</span>), each Line layer drawn on its key.</li>
+</ol>
+</div>
+<p>The vector helpers <span class="fixw">Dyl:QdAdd</span>, <span class="fixw">QdSub</span>, <span class="fixw">QdMul</span>, <span class="fixw">QdCross</span>, <span class="fixw">QdDot</span>, <span class="fixw">QdInters</span>, <span class="fixw">QdBulge</span>... do the 2D geometry of the bands.</p>
+
+<h2>The Windows</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:QuickDrawDialog</span> &ndash; the preset window of the engine, with the Behaviors box (<span class="fixw">Remote&gt;&gt;Dyl:MaterialDlgBehaviorsInit</span>) and the Border settings box (<span class="fixw">Remote&gt;&gt;Dyl:MaterialBorderDcl</span>); <span class="fixw">Dyl:QuickDrawDlgState</span> greys out what the method does not use.</li>
+<li><span class="fixw">Dyl:QuickDrawBandDialog</span> &ndash; the Ends and Corners windows (<a href="Dyl-QuickDrawEndsCorners.htm">Ends And Corners</a>).</li>
+<li><span class="fixw">Dyl:QuickDrawLayersDialog</span> &ndash; the Assembly Layers window (<a href="Dyl-AssemblyLayers.htm">Assembly Layers</a>).</li>
+<li><span class="fixw">Dyl:QuickDrawGallery</span> &ndash; the gallery (<a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a>).</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

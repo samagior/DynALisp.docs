@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Layer Drawing List: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerList.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerList.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerList.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -35,6 +32,21 @@
 <li>For each layer the routine creates, on that layer: a 200-unit horizontal line, the layer name as text (height 2.25) 1 unit above the line and, if the layer has one, its description 75 units to the right.</li>
 <li>The next row starts 7.5 units below.</li>
 </ol>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-LayerList</span> asks the point and <em>Select/All</em>. <em>All</em> walks the layer table with <span class="fixw">tblnext</span>; <em>Select</em> takes the layer (code 8) of each object of <span class="fixw">(ssnamex (ssget))</span>, each once.</li>
+<li><span class="fixw">(lnd-list pt layer)</span> makes the row with <span class="fixw">entmake</span>: a <span class="fixw">LINE</span> from <span class="fixw">pt</span> to 200 units right, a <span class="fixw">TEXT</span> of height 2.25 one unit above, and a second <span class="fixw">TEXT</span> 75 units right for the description (read with <span class="fixw">getpropertyvalue</span>), all on the layer. It returns the point 7.5 units below, for the next row.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The sizes are drawing units, not scaled to the annotation scale.</li>
+<li>With <em>Select</em>, the list is built with <span class="fixw">acad_strlsort</span> but the sorted list is dropped (<span class="fixw">progn</span> returns <span class="fixw">lst</span>), so the layers come in selection order.</li>
+<li>The command uses <span class="fixw">getpropertyvalue</span> (AutoCAD 2012 and later) and the current text style.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

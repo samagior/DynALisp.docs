@@ -21,18 +21,66 @@
 <p class="note">The developer docs of System Variables: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Setup/Dyl-SysVars.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (profiles and override, loaded at startup)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (the profiles and their check in each drawing, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (the window), <span class="fixw">Modules\Dynalisp\Res\Dyl-SysVars.dcl</span></td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\SysVars\&lt;profile&gt;.csv</span> (one file per profile), <span class="fixw">Res\SysVarsProtected.csv</span>, their copies under <span class="fixw">User</span>; the user settings <span class="fixw">DynalispSysVarOn</span>, <span class="fixw">DynalispSysVarProfile</span> (the active profile) and <span class="fixw">DynalispSysVarStamp</span>; the Express Tools list <span class="fixw">Express\sysvdlg.dat</span></td></tr>
 </table>
 </div>
+
+<h2>The Profiles</h2>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ul>
 <li>A value is read as the type of the current value of its variable: a whole number (<span class="fixw">PICKADD 2</span>), a number (<span class="fixw">LTSCALE 1.5</span>), a text, or a point written <span class="fixw">x,y</span> or <span class="fixw">x,y,z</span>.</li>
 <li>Each drawing opened sets the protected variables and those of the active profile that differ, without marking the drawing as modified; the window shows what differs. A profile saved, or <em>System variables</em> turned on, in another drawing applies to the drawings already open when you switch to them, while <em>Settings sync</em> is on.</li>
 <li>The profiles are the CSV files of <span class="fixw">Modules\Dynalisp\Res\SysVars</span> (<span class="fixw">Variable;Value</span>, one variable per row). Saved profiles go to <span class="fixw">User\Modules\Dynalisp\Res\SysVars</span> (see <span class="fixw">Dyl-UserFiles</span>). The <span class="fixw">Default</span> profile is empty. The protected variables are <span class="fixw">Modules\Dynalisp\Res\SysVarsProtected.csv</span> (<span class="fixw">Variable;Value</span>, an empty value: protected only), saved to its copy under <span class="fixw">User</span>.</li>
+</ul>
+</div>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SysVarDir</span> is the folder read (the user copy when there is one, <span class="fixw">Dyl:UserDir</span>), <span class="fixw">Remote&gt;&gt;Dyl:SysVarDirW</span> the one written (the whole folder copied the first time, <span class="fixw">Dyl:UserDirW</span>): profiles are added and deleted, so the folder is a user copy as a whole (<a href="../../conventions.html#user-files">User Files</a>).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SysVarRead</span> returns the rows of a profile, <span class="fixw">(("PICKADD" "2") ...)</span>, the names in upper case; <span class="fixw">Remote&gt;&gt;Dyl:SysVarKeep</span> the protected rows.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SysVarValue</span> turns a text into the type of the current value of its variable: the text itself, a whole number (refused when it has decimals), a real (<span class="fixw">distof</span>), or a point of the same number of coordinates. nil means the value is not valid. <span class="fixw">Remote&gt;&gt;Dyl:SysVarText</span> writes a value back (a real without its trailing zeros, a point as <span class="fixw">x,y</span>).</li>
+</ul>
+</div>
+
+<h2>Setting A Drawing, Step By Step</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SysVarApply</span> runs as a startup step of each drawing (<span class="fixw">Dyl:StartupStep "System variables"</span> in <span class="fixw">dynalisp.mnl</span>, which also keeps the stamp in <span class="fixw">SV:synced</span>); nothing is done while <span class="fixw">DynalispSysVarOn</span> is off.</li>
+<li>Between <span class="fixw">acad-push-dbmod</span> and <span class="fixw">acad-pop-dbmod</span> (the drawing is not marked as modified), <span class="fixw">Remote&gt;&gt;Dyl:SysVarSetAll</span> sets first the protected rows that have a value, then the rows of the active profile, its protected variables skipped.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SysVarSet</span> skips a variable that already has its value (<span class="fixw">Remote&gt;&gt;Dyl:SysVarSame-p</span>: texts in any case, numbers and points with a fuzz of 1e-6), and sets the others in a <span class="fixw">vl-catch-all-apply</span>: an unknown variable, a value not valid or a read-only variable is listed as not set.</li>
+<li>It returns a status line, <em>Default: 3 set (PICKADD, ...), not set: ...</em>, kept by the startup.</li>
+<li>A change saved in the window (or the override turned on or off) writes a new <span class="fixw">DynalispSysVarStamp</span> (<span class="fixw">CDATE</span>): a drawing already open applies the profile again when it becomes current and its <span class="fixw">SV:synced</span> differs (<span class="fixw">Dyl:SetSync</span>, while Settings sync is on).</li>
+</ol>
+</div>
+
+<h2>The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-SysVars</span> loads <span class="fixw">Res\Dyl-SysVars.dcl</span> and works on its locals: <span class="fixw">sv:sets</span> (every profile, <span class="fixw">(name rows...)</span>), <span class="fixw">sv:pst</span> (the profile shown), <span class="fixw">sv:old</span> (the names when it opened, to delete the files of the profiles deleted), <span class="fixw">sv:keep</span> (the protected rows) and the selections <span class="fixw">sv:sel</span>, <span class="fixw">sv:ksel</span>.</li>
+<li><span class="fixw">sv:state</span> gives the mark of a row (<em>*</em>, <em>(value not valid)</em>, <em>(protected)</em>, <em>(unknown)</em>); <span class="fixw">sv:check</span> refuses a read-only variable (<span class="fixw">Remote&gt;&gt;Dyl:SysVarWritable-p</span>: its own value set back), a protected one in a profile, or a value of the wrong type.</li>
+<li><em>Reset all</em> (<span class="fixw">sv:reset</span>) runs <span class="fixw">SysVarSetAll</span> on the rows shown, at once.</li>
+<li>The list window (<span class="fixw">sv:browse</span>) reads <span class="fixw">sysvdlg.dat</span> of the Express Tools (<span class="fixw">sv:catalog</span>, from <span class="fixw">sv:catfile</span>); <em>AutoCAD Help</em> (<span class="fixw">sv:brdoc</span>) opens <span class="fixw">help.autodesk.com/view/ACD/&lt;year&gt;/&lt;LOCALE&gt;/?query=&lt;variable&gt; (System Variable)</span>, the year read from the AutoCAD folder.</li>
+<li>OK runs <span class="fixw">sv:save</span>: the user folder made, the files of the deleted profiles removed, each profile written with <span class="fixw">Remote&gt;&gt;LM:writecsv</span>, the protected rows, the active profile and the stamp; then the profile is applied when the override is on.</li>
+</ul>
+</div>
+
+<h2 id="api">Using It In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:SysVarProfile)</span></td><td>The name of the active profile (<span class="fixw">"Default"</span>), nil when there is none.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:SysVarRead "Default")</span></td><td>The rows of a profile, <span class="fixw">(("PICKADD" "2") ...)</span>.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:SysVarApply)</span></td><td>Applies the active profile, returns its status line.</td></tr>
+</table>
+</div>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Nothing watches the variables: a value changed by hand stays until the next drawing opens, a profile is saved or <em>Reset all</em>.</li>
+<li>A variable saved in the drawing is set for the session only, until the drawing is saved.</li>
+<li>Without the Express Tools there is no <span class="fixw">sysvdlg.dat</span>: the list window says so.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>

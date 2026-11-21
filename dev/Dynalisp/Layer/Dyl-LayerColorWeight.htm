@@ -21,11 +21,18 @@
 <p class="note">The developer docs of Layer Color Weight: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerColorWeight.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerColorWeight.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerColorWeight.lsp</span></td></tr>
+<tr><td>Data</td><td>The layer table of the drawing; the standard itself is <span class="fixw">Res\Layer\Dyl Standard.pdf</span> and the plot style <span class="fixw">Res\Printers\Plot Styles\Dyl Standard.ctb</span> (the code holds its rule, it reads neither file)</td></tr>
 </table>
+</div>
+<h2>The Rule In The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">LCW:weights</span> &ndash; the lineweights (1/100 mm) of the last digits 0 to 9.</li>
+<li><span class="fixw">(LCW:WeightOf aci)</span> &ndash; the lineweight of a color: 10 to 249 by their last digit, the pens 1 to 7 by their number, the greys 8, 9 and 250 to 255 at 13.</li>
+<li><span class="fixw">(LCW:Digit lw)</span> &ndash; the last digit of a lineweight, the nearest one of the standard for a lineweight it does not have; nil for Default.</li>
+<li><span class="fixw">(LCW:ColorOf aci lw)</span> &ndash; the color for a lineweight: the color itself when it already gives it; a color 10 to 249 keeps its tens and takes the digit; a pen 1 to 6 goes to its hue through <span class="fixw">(0 10 50 90 130 170 210)</span> plus the digit; black and the greys go to the pen of the digit (1 to 7), nil otherwise.</li>
+</ul>
 </div>
 <h2>How It Works</h2>
 <div class="spacedbullets">
@@ -36,6 +43,14 @@
 <li><b>Color from lineweight:</b> a color from 10 to 249 keeps its tens (its hue) and takes the last digit of its lineweight: color 11 with 0.35 mm becomes 13. A pen color 1 to 6 goes to its hue: red 1 with 0.35 mm becomes 13. Black (7) and the greys go to the pen color of the lineweight: 7 with 0.35 mm becomes 3. A lineweight that is not in the standard (0.30 mm) takes the nearest one (0.35 mm). A layer that already matches is left as is, so a dark grey ##9 layer at 0.13 mm stays dark grey.</li>
 <li>The changes are one undo step. The command reports how many layers changed, how many already matched, and lists the layers not changed.</li>
 </ol>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-LayerColorWeight</span> asks <em>Lineweight/Color</em> and runs <span class="fixw">(LCW:Run tocolor)</span>; <span class="fixw">c:Pst-LayerWeightByColor</span> and <span class="fixw">c:Pst-LayerColorByWeight</span> run it directly.</li>
+<li><span class="fixw">LCW:Run</span> asks <em>All/Select</em> (<span class="fixw">LCW:SelLayers</span>: the layers of the objects selected, upper case, each once), then walks the layer table with <span class="fixw">tblnext</span> inside one undo mark (its error handler ends the mark). A layer of an xref (bit 16 of code 70) is passed over; one in true color or a color book (codes 420, 430), or with no value for the rule, is listed as not changed; the others get code 62 (its sign kept, so a layer off stays off) or code 370 with <span class="fixw">entmod</span> when their value differs.</li>
+<li>It prints the count changed and already matching, and the layers not changed, sorted.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

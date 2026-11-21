@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Viewport To Paper Space: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-ViewportToPaperSpace.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ViewportToPaperSpace.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ViewportToPaperSpace.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -43,6 +40,8 @@
 <li>Each converted viewport is deleted. Layers temporarily unlocked are relocked, the drawing is regenerated and a report gives the number of viewports and objects converted. The whole operation is one UNDO group.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p>One Apps file of about 1,100 lines. Model space is read once; for each viewport, the objects on visible layers are copied and moved by the transformation of the view (its scale, view center and twist: model to display to paper), clipped viewports included. In <em>Decouper</em> mode the copies go into a block named <span class="fixw">VP2PS_*</span>, inserted and clipped with the boundary of the viewport. <span class="fixw">PSLTSCALE</span> 0 adjusts the linetype scales; the layers unlocked for the work are locked again; it is one <span class="fixw">UNDO</span> group.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

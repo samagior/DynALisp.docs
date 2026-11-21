@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Les clés de calque Dynalisp fonctionnent comme celles d'AutoCAD Architecture, mais dans n'importe quel AutoCAD. Une clé de calque est un nom court, comme <span class="fixw">THIN</span> ou <span class="fixw">HATCH</span>, qu'une App utilise à la place d'un nom de calque. Chaque clé donne le calque à utiliser et les propriétés avec lesquelles le créer quand le dessin ne l'a pas encore. Changer le calque d'une clé change l'endroit où dessine chaque App qui utilise la clé, sans modifier les Apps.</p>
-<p>Les clés sont enregistrées dans <span class="fixw">Modules\Dynalisp\Res\LayerKeys.csv</span>. <span class="fixw">DYL-LAYERKEYS</span> ouvre la fenêtre Layer Keys pour les créer et les modifier. La même fenêtre s'ouvre depuis le bouton <em>ouvrir</em> à côté de chaque clé de calque de la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a> : là, un double-clic sur une clé enregistre les clés (comme <em>OK</em>), ferme la fenêtre et donne cette clé au préréglage de hachure.</p>
+<p>Nommez vos calques une fois et laissez chaque outil s'en servir : une clé de calque est un nom court, comme <span class="fixw">THIN</span> ou <span class="fixw">HATCH</span>, sur lequel les outils de DynALisp dessinent au lieu d'un nom de calque. Chaque clé donne son calque et les propriétés pour le créer quand le dessin ne l'a pas. Changez le calque d'une clé, et chaque outil qui l'utilise dessine là, comme le font les clés de calque d'AutoCAD Architecture, dans n'importe quel AutoCAD.</p>
+<!-- picture: images/Dyl-LayerKeys-window.png -->
+<!-- picture: images/Dyl-LayerKeys-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-LayerKeys</span> : la fenêtre Layer Keys liste chaque clé avec son calque et ses propriétés.</li>
+<li>Sélectionnez une clé et changez son calque, sa couleur, son type de ligne, son épaisseur de ligne ou sa description; ou cliquez <strong>New</strong> pour une clé à vous.</li>
+<li>Cliquez <strong>OK</strong>. Dès lors, les outils dessinent sur les calques de leurs clés, créés avec ces propriétés quand ils manquent.</li>
+<li>La même fenêtre s'ouvre par le bouton ouvrir à côté de chaque clé de calque de la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a> : là, un double-clic sur une clé la donne au préréglage de hachure.</li>
+</ol>
+</div>
 <h2>Fenêtre Layer Keys</h2>
 <div class="spacedbullets">
 <ul>

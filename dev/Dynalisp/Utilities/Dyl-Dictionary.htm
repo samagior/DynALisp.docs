@@ -21,22 +21,10 @@
 <p class="note">The developer docs of Dictionary: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-Dictionary.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-Dictionary.lsp</span> (command), <span class="fixw">Modules\Dynalisp\Res\Dyl-Dictionary.dcl</span> (window), <span class="fixw">Modules\Dynalisp\Res\Dictionaries\&lt;code&gt;-def.csv</span> (definitions)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-Dictionary.lsp</span>, <span class="fixw">Modules\Dynalisp\Res\Dyl-Dictionary.dcl</span> (the window)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\Dictionaries\&lt;code&gt;.cus</span> (the custom dictionaries, UTF-16 BE) and <span class="fixw">&lt;code&gt;-def.csv</span> (their definitions, UTF-8 with BOM, <span class="fixw">;</span>), your copies under <span class="fixw">User</span></td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#spell-dictionaries">Spell Dictionaries</a> convention</td></tr>
 </table>
-</div>
-<h2>How It Works</h2>
-<div class="spacedbullets">
-<ol>
-<li>The window opens the definitions file of the language of the file preferences (<span class="fixw">fra-def.csv</span> in French). <em>Dictionary</em> shows the other ones of <span class="fixw">Res\Dictionaries</span>.</li>
-<li><em>Words</em>: type one or more words and press Enter or <em>Search</em>. Every word typed must be found in the word or in one of its forms (<span class="fixw">vitr</span> finds vitrage, vitrail and vitraux). Accents, ligatures and case are ignored: <span class="fixw">equarri</span> finds équarri, <span class="fixw">oeil</span> finds œil-de-bœuf. Tick <em>Also in the definitions</em> to search the definitions too (<span class="fixw">corrosion</span> then finds inhibiteur, galvanisé, galvanisation...).</li>
-<li><em>Category</em>, <em>Subcategory</em> and <em>Type</em> filter the list (n.m., n.f., adj., v., sigle, abr., n.pr., loc.n.f. for an expression...). The subcategories are the ones of the category chosen. <em>Clear</em> removes the search and the filters.</li>
-<li>Selecting a word shows its type, forms, definition and category. <em>See also</em> lists related words: <em>Go to</em> shows one, clearing the filters when it is not in the list.</li>
-<li><em>Copy word</em>, or a double-click in the list, copies the word to the clipboard, to paste it in a text.</li>
-<li><em>Edit list...</em> closes the window and opens your copy of the definitions file in Excel (made under <span class="fixw">User\</span> from the default the first time). Save it as <em>CSV UTF-8</em>, then run the command again. <span class="fixw">Dyl-UserFiles</span> can make your copy the default.</li>
-</ol>
 </div>
 <h2>Definitions File</h2>
 <p><span class="fixw">Res\Dictionaries\&lt;code&gt;-def.csv</span>, UTF-8, one word per row: <span class="fixw">Word;Forms;Type;Category;Subcategory;Definition;See also</span>.</p>
@@ -52,6 +40,15 @@
 </div>
 <p>A word added to the custom dictionary from AutoCAD (<em>Add to dictionary</em>) is not added to the definitions file: add its row with <em>Edit list...</em>.</p>
 <p>About 100 terms defined by the Quebec Construction Code (National Building Code as amended for Quebec, Division A, Article 1.4.1.2), such as <em>mur coupe-feu</em>, <em>premier étage</em> or <em>distance limitative</em>, end their definition with <em>Terme défini du code.</em>: tick <em>Also in the definitions</em> and search <span class="fixw">terme defini</span> to list them all. The ones not found elsewhere are in <em>Projet et réglementation &gt; Termes définis du code</em>. Their definitions are reworded summaries, not the text of the code: check the code before relying on one.</p>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>The files</strong> &ndash; <span class="fixw">dic:dir</span> and <span class="fixw">dic:files</span> find the definitions files of <span class="fixw">Res\Dictionaries</span>, <span class="fixw">dic:code</span> the one of the language of the file preferences; <span class="fixw">dic:read</span> reads one in UTF-8 (<span class="fixw">dic:open</span>), the fields with <span class="fixw">dic:split</span>.</li>
+<li><strong>The search</strong> &ndash; <span class="fixw">dic:fold</span> drops accents, ligatures and case from a word, so <span class="fixw">dic:match-p</span> compares folded words: every word typed must be in the word or one of its forms. <span class="fixw">dic:types</span> and <span class="fixw">dic:distinct</span> fill the filters, <span class="fixw">dic:dlgsubs</span> the subcategories of a category.</li>
+<li><strong>The window</strong> &ndash; <span class="fixw">dic:dlgload</span>, <span class="fixw">dic:dlglist</span>, <span class="fixw">dic:dlgshow</span> (the word selected, its text wrapped by <span class="fixw">dic:wrap</span>), <span class="fixw">dic:dlgsearch</span>, <span class="fixw">dic:dlgjump</span> (<em>Go to</em>), <span class="fixw">dic:dlgclear</span>.</li>
+<li><strong>Copy word</strong> &ndash; <span class="fixw">dic:clip</span> puts the word on the clipboard through the <span class="fixw">htmlfile</span> object of Windows; <em>Edit list...</em> makes the user copy (<span class="fixw">Dyl:UserFileW</span>) and opens it with <span class="fixw">dic:shell</span>.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

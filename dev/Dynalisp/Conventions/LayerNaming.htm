@@ -19,6 +19,12 @@
         <h1>Layer Naming</h1>
 
 <p class="note">The developer docs of Layer Naming: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Conventions/LayerNaming.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Lists</td><td><span class="fixw">Modules\Dynalisp\Res\AEC\Standard</span>: <span class="fixw">Dd1.csv</span>, <span class="fixw">Dd2.csv</span> (the discipline designators), <span class="fixw">Major.csv</span>, <span class="fixw">Minor.csv</span>, <span class="fixw">Phase.csv</span> (the status), UTF-8 with a BOM, a <span class="fixw">Description.&lt;code&gt;</span> column for each other language</td></tr>
+<tr><td>Read by</td><td>Layer Phase, Layer Transfer and its drop-downs, Layer Filter, Layer Groups, Draw Order, the layer keys</td></tr>
+</table>
+</div>
 <h2 id="tools">How The Tools Read A Name</h2>
 <div class="programs commands wide">
 <table>
@@ -30,6 +36,18 @@
 <tr><td><a href="../../../Dynalisp/Layer/Dyl-LayerMake.htm">Make Layers</a></td><td>Builds each name from the <span class="fixw">Designator</span>, <span class="fixw">Major</span> and <span class="fixw">Minor</span> columns of its lists, and gives the layer a color, lineweight and linetype from its codes.</td></tr>
 </table>
 </div>
+<h2>The Readers In The Code</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Function</th><th>Reads</th></tr>
+<tr><td><span class="fixw">Dyl-LayTransfer-Ncs</span> (<a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a>), <span class="fixw">NcsName</span> (<span class="fixw">TransferCombos.cs</span>)</td><td>The fields of an NCS name, <span class="fixw">(discipline major (minor ...) status)</span>: the same rule on both sides, changed together.</td></tr>
+<tr><td><span class="fixw">Remote&gt;&gt;Dyl:PhaseOf</span>, <span class="fixw">PhaseBase</span> (<a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>)</td><td>The status of a name, its last field when it is one character of <span class="fixw">Phase.csv</span>.</td></tr>
+<tr><td><span class="fixw">Remote&gt;&gt;Dyl:PhaseList</span></td><td><span class="fixw">Phase.csv</span>, the description in the language of the AutoCAD installed.</td></tr>
+<tr><td><span class="fixw">Host.Standard</span> (<span class="fixw">Plugin.cs</span>)</td><td>The lists, for the drop-downs of the ribbon (a field in quotes may hold a comma).</td></tr>
+<tr><td>The tokens of <span class="fixw">Dyl-LayerFilter</span> (<a href="../Layer/Dyl-LayerFilter.htm">Layer Filter</a>)</td><td>Wildcard patterns on the fields: <span class="fixw">*-@@??</span> for an unphased name, <span class="fixw">*-0001</span> for a stack...</td></tr>
+</table>
+</div>
+<p>The other Lisp readers of these files read their columns by position and keep the English ones (the <a href="../../conventions.html#ribbon">Ribbon</a> convention on translated data files).</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

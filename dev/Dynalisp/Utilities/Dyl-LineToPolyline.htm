@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Line To Polyline: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-LineToPolyline.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LineToPolyline.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LineToPolyline.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -36,6 +33,8 @@
 <li>With <em>Yes</em> and more than one line, <span class="fixw">JOIN</span> runs on all the new polylines: the ones that touch end to end become single polylines.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p>One command, <span class="fixw">c:Dyl-LineToPolyline</span>: <span class="fixw">ssget</span> filtered to <span class="fixw">LINE</span>, then <span class="fixw">_.PEDIT</span> on each line (answering <em>Yes</em> to <em>Do you want to turn it into one?</em>, which assumes <span class="fixw">PEDITACCEPT</span> 0), and <span class="fixw">_.JOIN</span> on the new polylines when asked.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

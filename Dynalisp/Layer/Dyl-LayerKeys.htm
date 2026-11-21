@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Dynalisp layer keys work like the AutoCAD Architecture layer keys, but in any AutoCAD. A layer key is a short name, such as <span class="fixw">THIN</span> or <span class="fixw">HATCH</span>, that an App uses instead of a layer name. Each key gives the layer to use and the properties to create that layer with when the drawing does not have it yet. Changing the layer of a key changes where every App that uses the key draws, without editing the Apps.</p>
-<p>The keys are saved to <span class="fixw">Modules\Dynalisp\Res\LayerKeys.csv</span>. <span class="fixw">DYL-LAYERKEYS</span> opens the Layer Keys dialog to create and edit them. The same dialog opens from the <em>open</em> button beside each layer key of the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window: there, a double-click on a key saves the keys (as <em>OK</em>), closes the dialog and gives that key to the hatch preset.</p>
+<p>Name your layers once and let every tool use them: a layer key is a short name, such as <span class="fixw">THIN</span> or <span class="fixw">HATCH</span>, that the DynALisp tools draw on in place of a layer name. Each key gives its layer and the properties to make it with when the drawing does not have it. Change the layer of a key, and every tool that uses it draws there, as the layer keys of AutoCAD Architecture do, in any AutoCAD.</p>
+<!-- picture: images/Dyl-LayerKeys-window.png -->
+<!-- picture: images/Dyl-LayerKeys-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">Dyl-LayerKeys</span>: the Layer Keys window lists every key with its layer and properties.</li>
+<li>Select a key and change its layer, color, linetype, lineweight or description; or click <strong>New</strong> for a key of your own.</li>
+<li>Click <strong>OK</strong>. From then on, the tools draw on the layers of their keys, made with these properties when missing.</li>
+<li>The same window opens from the open button beside each layer key of the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window: there, a double-click on a key gives it to the hatch preset.</li>
+</ol>
+</div>
 <h2>Layer Keys Dialog</h2>
 <div class="spacedbullets">
 <ul>

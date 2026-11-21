@@ -21,12 +21,12 @@
 <p class="note">The developer docs of Object Layer Keys: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-ObjectLayerKeys.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-ObjectLayerKeys.lsp</span> (window), <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (kinds, keys, setting) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-ObjectLayerKeys.lsp</span> (reactors)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (the kinds, their keys and the setting, Object layer keys region), <span class="fixw">Modules\Dynalisp\Reactor\Dyl-ObjectLayerKeys.lsp</span> (the reactors), <span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-ObjectLayerKeys.lsp</span> (the window)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\ObjectLayerKeys.csv</span> (one row per kind: its id and its key, <span class="fixw">""</span>: none; your copy under <span class="fixw">User</span>); the user setting <span class="fixw">DynalispObjectKeys</span></td></tr>
 </table>
 </div>
+<h2>The Kinds</h2>
+<p><span class="fixw">*olk:objects*</span> lists the kinds as <span class="fixw">(id label types commands key)</span>: the DXF types (a <span class="fixw">wcmatch</span> pattern), the commands that make them (nil: any; a revision cloud is a polyline made by <span class="fixw">REVCLOUD</span>), and the default key (an AEC key of <span class="fixw">*lk:aec*</span>). <span class="fixw">(Remote&gt;&gt;Dyl:ObjectKeysKind type command)</span> returns the first kind that matches. <span class="fixw">Remote&gt;&gt;Dyl:ObjectKeysRead</span> reads the keys of the file, a kind it does not have getting its default; <span class="fixw">Remote&gt;&gt;Dyl:ObjectKeysSkip</span> is <span class="fixw">*olk:skip*</span> and the skip list of auto-phase.</p>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -38,6 +38,10 @@
 <li>The keys are saved to <span class="fixw">Modules\Dynalisp\Res\ObjectLayerKeys.csv</span> (its copy under <span class="fixw">User</span>): one row per kind, its id and its key. A kind missing from the file gets its default key.</li>
 </ol>
 </div>
+<h2>The Reactors</h2>
+<p><span class="fixw">Reactor\Dyl-ObjectLayerKeys.lsp</span> works as the auto-phase reactors of <a href="Dyl-LayerPhase.htm">Layer Phase</a>: an append reactor (<span class="fixw">Reactor&gt;&gt;Dyl:ObjectKeysWatch</span>, made only while a command or a Lisp command runs), the command and Lisp events, a count reset by <span class="fixw">Dyl:CmdTop-p</span>, and <span class="fixw">Reactor&gt;&gt;Dyl:ObjectKeysRun</span> when the outer command ends: each new object in model space or a layout (<span class="fixw">Reactor&gt;&gt;Dyl:ObjectKeysInSpace-p</span>) whose kind has a key goes to <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyLayer</span> of its key. Its variables are <span class="fixw">*olk:new*</span>, <span class="fixw">*olk:depth*</span>...; <span class="fixw">Dyl-Diagnostics</span> reports them with those of auto-phase.</p>
+<h2>The Window</h2>
+<p><span class="fixw">Dyl:ObjectKeysDialog</span> writes its DCL to a temporary file (<span class="fixw">Dyl:ObjectKeysDcl</span>) and works on <span class="fixw">ol:lst</span> (the keys of the kinds), <span class="fixw">ol:sel</span> (the kinds selected), <span class="fixw">ol:keys</span> (the keys of the popup, none first) and <span class="fixw">ol:lks</span> (the layer keys). <span class="fixw">Dyl:ObjectKeysLayer</span> shows the layer a key gives; <span class="fixw">Dyl:ObjectKeysReset</span> sets the default of the kinds selected, or of all.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

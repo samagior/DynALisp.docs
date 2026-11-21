@@ -21,20 +21,56 @@
 <p class="note">The developer docs of Switch Drawing Scale: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Navigate/Dyl-SwitchDrawingScale.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Navigate\Dyl-SwitchDrawingScale.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Navigate\Dyl-SwitchDrawingScale.lsp</span></td></tr>
+<tr><td>Data</td><td>The <span class="fixw">CANNOSCALE</span> of the drawing and its scale list; the units come from <span class="fixw">MEASUREMENT</span></td></tr>
 </table>
 </div>
-<h2>How It Works</h2>
+<h2>The Presets</h2>
+<p>Each scale is a child command, <span class="fixw">c:Pst-DrawingScale1-&lt;ratio&gt;</span>, run by its alias (<span class="fixw">1-100</span>). Each one sets three global variables, then calls <span class="fixw">Dyl-SetDrawingScale</span>:</p>
+<div class="code"><pre>(defun c:Pst-DrawingScale1-100 ()
+  (setq fti "1/8\" = 1'-0\""   ; the scale name in an imperial drawing
+        meq "1:96"            ; the ratio of the imperial scale
+        met "1:100"           ; the scale name in a metric drawing
+  )
+  (Dyl-SetDrawingScale)
+)</pre></div>
+<p>The file has two regions of presets, <em>metric</em> (named after the metric ratio) and <em>imperial</em> (named after the imperial ratio, <span class="fixw">1-48</span>); a new scale is one more child command of that form.</p>
+
+<h2>Setting A Scale, Step By Step</h2>
 <div class="spacedbullets">
 <ol>
-<li><span class="fixw">MEASUREMENT</span> = 1 (metric) selects the metric scale name, otherwise the imperial name.</li>
-<li><span class="fixw">CANNOSCALE</span> is set to that name.</li>
-<li>If the scale is not in the list, its name is parsed into paper and drawing units (feet, inches and fractions down to 1/64" are supported), the ratio is reduced, the scale is added with <span class="fixw">-SCALELISTEDIT</span>, and <span class="fixw">CANNOSCALE</span> is set again.</li>
-<li>The active viewport is regenerated quietly and the new scale is reported.</li>
+<li><span class="fixw">Dyl-SetDrawingScale</span> takes <span class="fixw">met</span> when <span class="fixw">MEASUREMENT</span> is 1 (metric), else <span class="fixw">fti</span>.</li>
+<li>It sets <span class="fixw">CANNOSCALE</span> to that name, in a <span class="fixw">vl-catch-all-apply</span>: AutoCAD refuses a name that is not in the scale list of the drawing.</li>
+<li>When it is refused, <span class="fixw">Dyl-EnsureAnnoScale</span> adds the scale:
+<ul>
+<li>a name <span class="fixw">"N:M"</span> gives its two numbers; a name <span class="fixw">"paper = drawing"</span> gives two lengths read by <span class="fixw">Dyl-ParseFtInches</span> (<span class="fixw">N'</span>, <span class="fixw">N'-M"</span>, <span class="fixw">A"</span>, <span class="fixw">A/B"</span>, <span class="fixw">A B/C"</span>, in decimal inches);</li>
+<li>both are multiplied by 64, so the smallest fraction (1/64") becomes a whole number, and reduced by their greatest common divisor (Euclid);</li>
+<li><span class="fixw">(command "_.-SCALELISTEDIT" "_A" name "n1:n2" "_E")</span> adds it.</li>
+</ul>
+Then <span class="fixw">CANNOSCALE</span> is set again; when it is still refused, the command says so.</li>
+<li><span class="fixw">Dyl-QuietRegen</span> regenerates the active viewport through ActiveX with <span class="fixw">NOMUTT</span> 1 (no <em>Regenerating model</em> line), and the scale is printed.</li>
 </ol>
+</div>
+
+<h2>The Main Command</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-SwitchDrawingScale</span> prints <span class="fixw">CANNOSCALE</span> and asks for a ratio with <span class="fixw">getstring</span>; <span class="fixw">?</span> prints the list, again until another answer.</li>
+<li><span class="fixw">Dyl-DrawingScaleList</span> finds the presets defined, without a list to keep up to date: every symbol of <span class="fixw">(atoms-family 1)</span> matching <span class="fixw">C:PST-DRAWINGSCALE1-#*</span> that is a defined function, sorted by ratio.</li>
+<li><span class="fixw">Dyl-DrawingScaleCmd</span> reads <span class="fixw">100</span>, <span class="fixw">1:100</span>, <span class="fixw">1-100</span> or <span class="fixw">1/100</span>, and returns the symbol of its preset when it is defined; the command runs it with <span class="fixw">(eval (list sym))</span>.</li>
+</ul>
+</div>
+
+<h2>The Ribbon</h2>
+<p>The <em>Switch Drawing Scale</em> button of the Navigate panel lists, under its arrow, the presets picked in <span class="fixw">Installer\Ribbon\Ribbon.csv</span> (twelve of them: too many for one list), and follows the one picked last (<span class="fixw">SplitFollow</span>, see the <a href="../../conventions.html#ribbon">Ribbon</a> convention).</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">fti</span>, <span class="fixw">meq</span> and <span class="fixw">met</span> are global variables, not locals of the presets; <span class="fixw">meq</span> is set but not read.</li>
+<li>The imperial name of <span class="fixw">Pst-DrawingScale1-384</span> is <span class="fixw">1" = 1'-0"</span>, not <span class="fixw">1/32" = 1'-0"</span>.</li>
+<li><span class="fixw">CANNOSCALE</span> of a layout is the scale of paper space: the command never changes the scale of a viewport.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

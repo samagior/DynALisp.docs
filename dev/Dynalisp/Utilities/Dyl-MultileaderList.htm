@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Multileader List: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-MultileaderList.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-MultileaderList.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-MultileaderList.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -36,6 +33,8 @@
 <li>A last line gives the total number of objects and of groups.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p>One command, <span class="fixw">c:Dyl-MultileaderList</span>: the selection made first (<span class="fixw">(ssget "_I")</span>) or a new one, filtered to <span class="fixw">MULTILEADER</span> and <span class="fixw">INSERT</span>; each object is keyed on its content (the name and <span class="fixw">TAG=value</span> of a block, the block or the text of a multileader), the keys counted with an association list, then printed sorted.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

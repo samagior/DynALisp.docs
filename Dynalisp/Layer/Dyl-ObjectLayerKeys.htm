@@ -35,7 +35,17 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Gives each common kind of object a default <a href="Dyl-LayerKeys.htm">layer key</a>, as the layer keys of AutoCAD Architecture do: a dimension drawn with <span class="fixw">DIM</span> goes to the layer of <span class="fixw">DIMLINE</span>, a text to the layer of <span class="fixw">ANNOBJ</span>, whatever the current layer. It works while <strong>Auto layer keys</strong> is on (<a href="../Core/Dyl-Settings.htm#reactors">Dyl-Settings</a>, Reactors, off by default); its open button there opens this window too.</p>
+<p>Put each common kind of object on its own layer, whatever the current layer, as the layer keys of AutoCAD Architecture do: a dimension goes to the layer of the <span class="fixw">DIMLINE</span> key, a text to the layer of <span class="fixw">ANNOBJ</span>, a revision cloud to <span class="fixw">ANNREV</span>...</p>
+<!-- picture: images/Dyl-ObjectLayerKeys-window.png -->
+<!-- picture: images/Dyl-ObjectLayerKeys-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>Auto layer keys</em> (in Reactors); it needs the DynALisp reactors on.</li>
+<li>Draw as usual: each new dimension, leader, text... goes to the layer of its key when its command ends.</li>
+<li>To change which key a kind uses, type <span class="fixw">Dyl-ObjectLayerKeys</span> (or click the open button of <em>Auto layer keys</em>), pick the kind and its key, then OK. No key: the objects of that kind stay on the current layer.</li>
+</ol>
+</div>
 <h2>Object Layer Keys Window</h2>
 <div class="spacedbullets">
 <ul>

@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Add Prefix / Suffix: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-AddPrefixSuffix.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-AddPrefixSuffix.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-AddPrefixSuffix.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -36,6 +33,8 @@
 <li>The string is added to the text contents of each object and the command reports how many were updated. One <span class="fixw">U</span> undoes the whole change.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p>One command, <span class="fixw">c:Dyl-AddPrefixSuffix</span>: <span class="fixw">ssget</span> filtered to <span class="fixw">TEXT</span> and <span class="fixw">MTEXT</span>, <span class="fixw">getkword</span> for <em>Prefix/Suffix</em>, <span class="fixw">getstring</span> with spaces allowed (<span class="fixw">(getstring T ...)</span>), then the <span class="fixw">TextString</span> of each object (ActiveX) gets the string before or after it, inside one undo mark. An empty string ends the command.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

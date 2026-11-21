@@ -21,10 +21,8 @@
 <p class="note">The developer docs of Layer Transfer: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerTransfer.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span>; the ribbon drop-downs in <span class="fixw">Installer\Ribbon\Plugin\TransferCombos.cs</span></td></tr>
+<tr><td>Data</td><td>The layers and the block definitions of the drawing; the values of the drop-downs from <span class="fixw">Res\AEC\Standard</span> (<span class="fixw">Dd1.csv</span>, <span class="fixw">Dd2.csv</span>, <span class="fixw">Major.csv</span>, <span class="fixw">Phase.csv</span>)</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -63,6 +61,16 @@
 <tr><td><span class="fixw">-T</span></td><td>Temporary work</td></tr>
 <tr><td><span class="fixw">-X</span></td><td>Not in contract</td></tr>
 </table>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>A transfer</strong> &ndash; each child (<span class="fixw">c:Pst-TransferExistingToDemolition</span>...) calls <span class="fixw">(Dyl-LayTransfer pattern new)</span> with the part of the names to replace and its replacement. <span class="fixw">c:Dyl-LayerTransfer</span> is <span class="fixw">Dyl:ChildPicker</span>.</li>
+<li><strong>Names</strong> &ndash; <span class="fixw">Dyl-LayTransfer-Match</span> tells a candidate layer (the rule of the selection filter); <span class="fixw">Dyl-LayTransfer-Ncs</span> splits an NCS name into <span class="fixw">(discipline major (minor ...) status)</span> (<span class="fixw">Dyl-LayTransfer-Split</span>), nil for another name or an xref layer, the same rule as <span class="fixw">NcsName</span> of <span class="fixw">TransferCombos.cs</span>: change both together. <span class="fixw">Dyl-LayTransfer-Target</span> and <span class="fixw">Dyl-LayTransfer-FieldTarget</span> give the new name; a field transfer (the ribbon, <span class="fixw">Pst-TransferField</span>) replaces one field of the NCS name.</li>
+<li><strong>Blocks</strong> &ndash; <span class="fixw">Dyl-LayTransfer-Scan</span> finds the definitions with content to transfer (<span class="fixw">Dyl-LayTransfer-Check</span>), <span class="fixw">Dyl-LayTransfer-CopyDef</span> copies a definition under a new name (<span class="fixw">Dyl-LayTransfer-BlockName</span>, through ObjectDBX), <span class="fixw">Dyl-LayTransfer-Convert</span> transfers its content, and <span class="fixw">Dyl-LayTransfer-Swap</span> points the selected references to it, keeping the values of a dynamic block.</li>
+<li><strong>Layers</strong> &ndash; <span class="fixw">Dyl-LayTransfer-Apply</span> moves an object, its attributes and its content; a missing target layer is made from the source layer, its color derived from the source color (<span class="fixw">*src-clr</span>): <span class="fixw">2#</span> to <span class="fixw">-D</span>, <span class="fixw">20#</span> to <span class="fixw">-E</span>, back to <span class="fixw">#</span> when unphased, the color of its key for the layer of a layer key (the same rule as <span class="fixw">Remote&gt;&gt;Dyl:PhaseColor</span> of <a href="Dyl-LayerPhase.htm">Layer Phase</a>, written again here). Objects on source layers that are off, locked or frozen are not moved: they are reported.</li>
+<li><strong>The ribbon</strong> &ndash; <span class="fixw">Pst-TransferField</span>, the <em>Transfer</em> button, reads the choice of the drop-downs from the plugin (<span class="fixw">(if Dyl:RibbonTransfer ...)</span>) and asks for the values when there is none.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

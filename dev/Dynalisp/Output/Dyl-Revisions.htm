@@ -21,12 +21,12 @@
 <p class="note">The developer docs of Revisions: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Output/Dyl-Revisions.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-Revisions.lsp</span>, <span class="fixw">Modules\Dynalisp\Remote\Dyl-Revisions.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Revisions.lsp</span> (the project, its files, the numbers, the update of the sheets, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-Revisions.lsp</span> (the windows, the clouds and the commands), <span class="fixw">Modules\Dynalisp\Res\Dyl-Revisions.dcl</span></td></tr>
+<tr><td>Data</td><td>The <span class="fixw">DynALisp</span> folder of the project (below); <span class="fixw">Res\RevisionBlocks.csv</span> (the title blocks, your copy under <span class="fixw">User</span>); in each layout the XRecord <span class="fixw">DYL_REVISIONS</span> and the XData <span class="fixw">DYL_REV</span> of the clouds and tags; the user setting <span class="fixw">DynalispRevisionSync</span></td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#project-files">Project Files</a> convention</td></tr>
 </table>
 </div>
+
 <h2>Where The Revisions Are Kept</h2>
 <p>The revisions are project data, shared by everyone who works on the project: they are kept in the project itself, in its <span class="fixw">DynALisp</span> folder beside the <span class="fixw">.apj</span>, never in your DynALisp settings.</p>
 <div class="programs commands wide">
@@ -38,6 +38,83 @@
 </table>
 </div>
 <p>Each layout also keeps a copy of the revisions given to it: a sheet drawing copied or renamed keeps its revisions. When another user saves the revisions or the settings of the project while your window is open, <strong>OK</strong> and <strong>Update All Sheets</strong> are refused: cancel, then open the window again.</p>
+<p>The formats, divided by <span class="fixw">;</span>, in UTF-8 when AutoCAD can write it:</p>
+<div class="code"><pre>Revisions.csv         Id;Numbering;Date;Description;IssuedTo;IssuedBy;Issued
+RevisionSettings.csv  Setting;Value        (Numbering: Project|Sheet, Start: 1|0, LastId)
+Sheets.csv            File;Layout;Revisions;Clouds   (File relative to the project, ids by |)
+RevisionBlocks.csv    Block;Rows;First;Number;Date;Description;IssuedTo;IssuedBy;Current;CurrentDate</pre></div>
+
+<h2>The Project</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Remote&gt;&gt;Dyl:RevProject</span> walks up from the folder of the drawing to the first one holding a <span class="fixw">.apj</span>, and reads in it the name, the number and <span class="fixw">SheetLocation</span> (<span class="fixw">Remote&gt;&gt;Dyl:RevXmlText</span>, <span class="fixw">RevXmlAtt</span>). <span class="fixw">Remote&gt;&gt;Dyl:RevProjectOf</span> does it for the current drawing; the result is a list whose 5th item is the sheet folder and 6th the <span class="fixw">DynALisp</span> folder (<span class="fixw">Remote&gt;&gt;Dyl:RevPath</span>).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:RevSheetFiles</span> lists the drawings of the sheet folder and its sub-folders; <span class="fixw">RevRel</span> and <span class="fixw">RevFull</span> turn a path relative to the project and back.</li>
+</ul>
+</div>
+
+<h2>A Revision And Its Number</h2>
+<div class="spacedbullets">
+<ul>
+<li>A revision is a list of strings, <span class="fixw">(id numbering date description issuedto issuedby issued)</span>: the id is never given again (<span class="fixw">LastId</span>), the numbering one of <span class="fixw">*rev:numberings*</span>, issued <span class="fixw">"1"</span> or <span class="fixw">""</span>.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:RevNumbers revs start)</span> numbers a list in its sequence, each numbering counting on its own: <span class="fixw">Numeric</span> from <span class="fixw">start</span>, <span class="fixw">Alphabetic</span> through <span class="fixw">Remote&gt;&gt;Dyl:RevAlpha</span> (A&hellip;Z, AA...), <span class="fixw">None</span> <span class="fixw">""</span>. It returns <span class="fixw">((id . number) ...)</span>.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:RevSheetNumbers</span> gives the numbers of a sheet: per project, the numbers of the whole list; per sheet, <span class="fixw">RevNumbers</span> of the revisions the sheet has (<span class="fixw">Remote&gt;&gt;Dyl:RevOn</span>).</li>
+</ul>
+</div>
+
+<h2>What A Sheet Has</h2>
+<p>A layout has a revision given to it (the <span class="fixw">Revisions</span> column of <span class="fixw">Sheets.csv</span>, copied in its XRecord, <span class="fixw">Remote&gt;&gt;Dyl:RevXrecGet</span> / <span class="fixw">RevXrecPut</span>: <span class="fixw">(1 . "ids") (70 . flag)</span>), or the one of a cloud drawn on it. <span class="fixw">(Remote&gt;&gt;Dyl:RevScan block maps)</span> reads the paper space block of a layout once and returns <span class="fixw">(clouds tags blocks)</span>: the ids of the polylines and tags with the XData <span class="fixw">DYL_REV</span> (<span class="fixw">Remote&gt;&gt;Dyl:RevXData</span>: id and kind), and the block references whose name matches a title block (<span class="fixw">Remote&gt;&gt;Dyl:RevBlockMap</span>: the name itself first, then <span class="fixw">wcmatch</span>; the effective name of a dynamic block).</p>
+
+<h2>Updating A Drawing, Step By Step</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:RevUpdateFiles prj files)</span> reads the revisions, the settings, the title blocks and <span class="fixw">Sheets.csv</span> once, then for each drawing:
+<ul>
+<li>open in this AutoCAD (<span class="fixw">Remote&gt;&gt;Dyl:RevOpenDoc</span>): updated through its document, not saved; another open drawing that refuses the change is listed (<em>run Pst-RevisionsUpdate in it</em>);</li>
+<li>locked by another user (<span class="fixw">Remote&gt;&gt;Dyl:RevLockedBy</span> reads its <span class="fixw">.dwl</span>): skipped and listed;</li>
+<li>closed: opened in <span class="fixw">ObjectDBX.AxDbDocument.&lt;version&gt;</span>, updated, and saved with <span class="fixw">vla-SaveAs</span> only when a value changed.</li>
+</ul>
+A progress bar shows with the Express Tools (<span class="fixw">acet-ui-progress</span>).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:RevSyncDoc</span> works on each layout: its revisions (the row of <span class="fixw">Sheets.csv</span>, else its XRecord, plus its clouds), their numbers, then each title block is filled (<span class="fixw">Remote&gt;&gt;Dyl:RevFill</span>) and each tag gets its number. <span class="fixw">Remote&gt;&gt;Dyl:RevPut</span> writes an attribute only when its text differs, and returns the count of values written.</li>
+<li>ObjectDBX does not move an attribute that is not left-justified to its new text: <span class="fixw">RevPut</span> returns 100 or more for it, the layout gets flag 1 in its XRecord, and the next update in an open drawing realigns it (<span class="fixw">Remote&gt;&gt;Dyl:RevRealign</span>).</li>
+<li>The rows of the drawings updated are merged into <span class="fixw">Sheets.csv</span>, read again just before it is written (<span class="fixw">Remote&gt;&gt;Dyl:RevSheetsMerge</span>): only their rows are replaced, so another user's update is kept.</li>
+<li>It returns <span class="fixw">((file status) ...)</span>: <em>Updated</em>, <em>Up to date</em>, <em>Updated, not saved</em>, <em>Open by &lt;user&gt;</em> or an error.</li>
+</ol>
+</div>
+<p><span class="fixw">Remote&gt;&gt;Dyl:RevisionsWatch</span>, a startup step of each drawing while <span class="fixw">DynalispRevisionSync</span> is on, runs <span class="fixw">Remote&gt;&gt;Dyl:RevUpdateThis</span> when the drawing is a sheet of a project that has <span class="fixw">Revisions.csv</span>; <span class="fixw">REVUP</span> runs it by hand.</p>
+
+<h2>The Revisions Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-Revisions</span> reads the project and keeps its locals: <span class="fixw">rv:revs</span>, <span class="fixw">rv:sets</span>, <span class="fixw">rv:shts</span> and their copies as read (<span class="fixw">rv:revs0</span>...), the selections <span class="fixw">rv:sel</span> and <span class="fixw">rv:ssel</span>, and <span class="fixw">rv:stamp</span>, the times of <span class="fixw">Revisions.csv</span> and <span class="fixw">RevisionSettings.csv</span> (<span class="fixw">Dyl:RevStamps</span>).</li>
+<li><span class="fixw">Dyl:RevSheetsOf</span> reads the sheet drawings <span class="fixw">Sheets.csv</span> does not have yet (<span class="fixw">Remote&gt;&gt;Dyl:RevReadFiles</span>, without changing them).</li>
+<li><span class="fixw">Dyl:RevShow</span> greys out the fields of an issued revision, Move past an issued one, and Delete when <span class="fixw">Dyl:RevKeepsIssued-p</span> finds that an issued revision would get another number; <span class="fixw">Dyl:RevPutField</span> refuses a numbering for the same reason.</li>
+<li>OK and Update All Sheets run <span class="fixw">Dyl:RevCheck</span> first: refused when a stamp changed since the window opened (compared with <span class="fixw">equal</span>: they are lists), or a revision has no description. <span class="fixw">Dyl:RevSave</span> writes only what changed; <span class="fixw">Dyl:RevToUpdate</span> keeps the sheets whose title block would show something else (<span class="fixw">Dyl:RevRender</span> before and after), or all of them after the title blocks changed.</li>
+<li>The Revision Title Blocks window (<span class="fixw">Dyl:RevBlocksDialog</span>) edits <span class="fixw">RevisionBlocks.csv</span>; <em>Pick...</em> closes it, <span class="fixw">Dyl:RevBlocksGuess</span> reads the tags of the block picked (a numbered tag that comes for several numbers is a row, <span class="fixw">Dyl:RevGuess</span> its column from its words, English and French), and the window opens again.</li>
+</ul>
+</div>
+
+<h2>Revision Clouds</h2>
+<p><span class="fixw">c:Pst-RevisionCloud</span> works in the paper space of a layout only. <span class="fixw">Dyl:RevCloudOf</span> lists the revisions not issued and asks for a sequence; <span class="fixw">REVCLOUD</span> draws on the layer of the <span class="fixw">ANNREV</span> layer key; the new polyline gets the XData <span class="fixw">(DYL_REV id "Cloud")</span> (<span class="fixw">Dyl:RevMark</span>); the tag block <span class="fixw">DYL-REVTAG</span> is made the first time (<span class="fixw">Dyl:RevTagDef</span>: a triangle 8 mm wide, 5/16" in an imperial drawing, its attribute <span class="fixw">REV</span>), inserted and marked <span class="fixw">"Tag"</span>; then the drawing is updated. An error handler sets the current layer back when Escape stops <span class="fixw">REVCLOUD</span>.</p>
+
+<h2 id="api">Using It In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:RevProjectOf)</span></td><td>The project of the current drawing, nil when it is in none.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:RevRead prj)</span></td><td>The revisions of the project, in their sequence.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:RevUpdateFiles prj files)</span></td><td>Updates the sheet drawings, returns their status.</td></tr>
+</table>
+</div>
+<p><span class="fixw">Dyl-Diagnostics</span> checks the project in its Drawing section (<span class="fixw">dg:dwg-revisions</span>): its files, its sheet folder, and each layout with revisions but no title block set up.</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>A cloud counts only in the paper space of its layout.</li>
+<li>A drawing saved through ObjectDBX takes the format of this AutoCAD and may lose its preview image.</li>
+<li>A title block in an xref, or filled by sheet set fields, is not changed.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

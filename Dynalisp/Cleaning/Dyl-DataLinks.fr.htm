@@ -35,31 +35,42 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Une liaison de données relie des tableaux à un fichier Excel. Des liaisons restent derrière quand leurs tableaux sont effacés ou quand des tableaux sont copiés d'un autre dessin, et les liaisons dont le fichier Excel a été déplacé ou supprimé ralentissent <span class="fixw">DATALINKUPDATE</span> et l'étape de préparation de sortie <em>Update all data links</em> de <span class="fixw">Dyl-Settings</span>. Ces commandes trouvent ces liaisons et les suppriment. Les tableaux eux-mêmes ne sont jamais modifiés ni supprimés.</p>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-DATALINKS</span></td><td>Ouvre la fenêtre Data Links : chaque liaison avec son état et ses tableaux, pour les examiner et les supprimer.</td></tr>
-<tr><td><span class="fixw">DLPURGE</span></td><td>Supprime, après une seule question Oui/Non, chaque liaison qu'aucun tableau n'utilise, puis liste les liaisons utilisées dont le fichier Excel est manquant.</td></tr>
-</table>
+<p>Trouvez et supprimez les liaisons de données Excel dont un dessin n'a plus besoin. Les liaisons restent quand leurs tables sont effacées ou copiées d'un autre dessin, et une liaison dont le fichier Excel a été déplacé ralentit chaque mise à jour des liaisons de données. Les tables elles-mêmes ne sont jamais modifiées ni supprimées.</p>
+<!-- picture: images/Dyl-DataLinks-window.png -->
+<!-- picture: images/Dyl-DataLinks-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>La façon rapide</strong> &ndash; tapez <span class="fixw">DLPURGE</span> : il nomme les liaisons qu'aucune table n'utilise et propose de les supprimer (Oui par défaut), puis nomme les liaisons utilisées dont le fichier Excel est introuvable.</li>
+<li><strong>Pour les vérifier d'abord</strong> &ndash; tapez <span class="fixw">Dyl-DataLinks</span>. La fenêtre Data Links liste chaque liaison du dessin.</li>
+<li>Cliquez <strong>Select unused</strong> ou <strong>Select missing file</strong>, vérifiez la liste, puis cliquez <strong>Delete selected</strong>.</li>
+<li>Un <span class="fixw">U</span> ramène les liaisons supprimées.</li>
+</ol>
 </div>
 <h2>Fenêtre Data Links</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Liste des liaisons</strong> &ndash; nom, état, nombre de tableaux qui utilisent la liaison et fichier source. Plusieurs liaisons peuvent être sélectionnées. État : <em>OK</em> (le fichier Excel a été trouvé), <em>Missing file</em> (il est introuvable) ou <em>No source</em> (la liaison n'a pas de fichier).</li>
-<li>Sous la liste : la source complète de la liaison sélectionnée (fichier, feuille et plage) et les présentations des tableaux qui l'utilisent, ou un résumé du dessin quand rien n'est sélectionné.</li>
-<li><strong>Select unused</strong> &ndash; sélectionne chaque liaison qu'aucun tableau n'utilise. <strong>Select missing file</strong> &ndash; sélectionne chaque liaison dont le fichier Excel est introuvable.</li>
-<li><strong>Delete selected</strong> &ndash; supprime les liaisons sélectionnées après confirmation. Quand certaines sont utilisées par des tableaux, la confirmation le dit : les tableaux gardent leur contenu mais ne sont plus liés à Excel.</li>
-<li><strong>Update tables</strong> &ndash; ferme la fenêtre, exécute <span class="fixw">DATALINKUPDATE</span> sur les tableaux des liaisons sélectionnées, puis rouvre la fenêtre.</li>
-<li><strong>Data Link Manager...</strong> &ndash; ferme la fenêtre et ouvre le Gestionnaire des liaisons de données d'AutoCAD, pour changer le fichier d'une liaison ou la détacher d'un tableau.</li>
+<li><strong>La liste</strong> &ndash; chaque liaison avec son état, le nombre de tables qui l'utilisent et son fichier Excel. <em>OK</em> : le fichier a été trouvé; <em>Missing file</em> : il ne l'a pas été; <em>No source</em> : la liaison n'a pas de fichier. Sélectionnez plusieurs liaisons avec Ctrl ou Maj.</li>
+<li>Sous la liste, la source complète de la liaison sélectionnée (fichier, feuille et plage) et les présentations de ses tables, ou un résumé du dessin.</li>
+<li><strong>Select unused</strong>, <strong>Select missing file</strong> &ndash; sélectionnent chaque liaison de ce genre.</li>
+<li><strong>Delete selected</strong> &ndash; supprime les liaisons sélectionnées après une confirmation. Une table qui en utilisait une garde son contenu, sans liaison à Excel.</li>
+<li><strong>Update tables</strong> &ndash; met à jour depuis Excel les tables des liaisons sélectionnées, puis revient à la fenêtre.</li>
+<li><strong>Data Link Manager...</strong> &ndash; ouvre le Gestionnaire des liaisons de données d'AutoCAD, pour donner un autre fichier à une liaison ou la détacher d'une table.</li>
 </ul>
+</div>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Description</th></tr>
+<tr><td><span class="fixw">Dyl-DataLinks</span></td><td>Ouvre la fenêtre Data Links, pour vérifier et supprimer les liaisons.</td></tr>
+<tr><td><span class="fixw">DLPURGE</span></td><td>Supprime chaque liaison qu'aucune table n'utilise après une question Oui/Non, puis nomme les liaisons utilisées dont le fichier Excel est introuvable.</td></tr>
+</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les tableaux sont cherchés dans l'espace objet et les présentations. Une liaison utilisée seulement par un tableau dans une définition de bloc peut être signalée inutilisée si la liaison ne liste pas elle-même ce tableau; <strong>Update tables</strong> ignore ces tableaux.</li>
-<li>Un fichier sur un lecteur réseau déconnecté est signalé <em>Missing file</em>.</li>
+<li>Une liaison utilisée seulement par une table dans un bloc peut paraître inutilisée; <strong>Update tables</strong> ignore ces tables (mettez-les à jour depuis le Gestionnaire des liaisons de données).</li>
+<li>Un fichier sur un lecteur réseau déconnecté paraît <em>Missing file</em>.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

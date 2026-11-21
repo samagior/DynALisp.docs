@@ -35,7 +35,19 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Copie les filtres de <em>propriétés</em> de calques (avec leurs filtres de propriétés imbriqués) d'un autre dessin, gabarit ou fichier de normes dans le dessin courant. Le fichier source est lu en arrière-plan et n'est jamais modifié. Les calques eux-mêmes ne sont pas importés, seulement les définitions des filtres.</p>
+<p>Copiez les filtres de calques d'un autre dessin, gabarit ou fichier de normes dans le dessin courant, avec leurs filtres imbriqués. L'autre fichier est seulement lu, jamais modifié, et aucun calque n'est importé : seulement les filtres.</p>
+<!-- picture: images/Dyl-LayerImportFiltersFromDwg-window.png -->
+<!-- picture: images/Dyl-LayerImportFiltersFromDwg-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">LFIMP</span> et choisissez le dessin, le gabarit ou le fichier de normes à copier.</li>
+<li>Son arbre des filtres s'affiche à la ligne de commande. Tapez les noms des filtres à importer (caractères génériques et virgules permis), ou appuyez sur Entrée pour tous.</li>
+<li>Quand un nom est déjà utilisé dans le dessin, choisissez <em>Overwrite</em>, <em>Skip</em> (par défaut) ou <em>Rename</em> (un suffixe <span class="fixw">_1</span>, <span class="fixw">_2</span>...).</li>
+<li>La ligne de commande donne ce qui a été importé, remplacé, renommé ou sauté. Un <span class="fixw">U</span> l'annule.</li>
+<li><span class="fixw">LFLIST</span> affiche l'arbre des filtres du dessin courant.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>

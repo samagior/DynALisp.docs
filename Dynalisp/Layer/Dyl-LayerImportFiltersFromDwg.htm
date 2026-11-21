@@ -35,7 +35,19 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Copies layer <em>property</em> filters (with their nested property filters) from another drawing, template or standards file into the current drawing. The source file is read in the background and is never modified. Layers themselves are not imported, only the filter definitions.</p>
+<p>Copy the layer filters of another drawing, template or standards file into the current drawing, with their nested filters. The other file is only read, never changed, and no layer is imported: only the filters.</p>
+<!-- picture: images/Dyl-LayerImportFiltersFromDwg-window.png -->
+<!-- picture: images/Dyl-LayerImportFiltersFromDwg-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">LFIMP</span> and pick the drawing, template or standards file to copy from.</li>
+<li>Its filter tree is printed on the command line. Type the names of the filters to import (wildcards and commas allowed), or press Enter for all of them.</li>
+<li>When a name is already used in the drawing, choose <em>Overwrite</em>, <em>Skip</em> (the default) or <em>Rename</em> (a <span class="fixw">_1</span>, <span class="fixw">_2</span>... suffix).</li>
+<li>The command line gives what was imported, replaced, renamed or skipped. One <span class="fixw">U</span> undoes it.</li>
+<li><span class="fixw">LFLIST</span> prints the filter tree of the current drawing.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>

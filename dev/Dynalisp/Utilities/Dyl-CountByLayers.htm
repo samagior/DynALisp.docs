@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Count by Layers: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-CountByLayers.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-CountByLayers.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-CountByLayers.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -37,6 +34,8 @@
 <li>At <span class="fixw">Output [Table/Csv/None] &lt;None&gt;:</span>, <em>Table</em> inserts an AutoCAD table at a picked point in the current space (text height <span class="fixw">TEXTSIZE</span>); <em>Csv</em> writes a file, named <span class="fixw">&lt;drawing&gt;-CountByLayers.csv</span> by default.</li>
 </ol>
 </div>
+<h2>The Code</h2>
+<p><span class="fixw">c:Dyl-CountByLayers</span> measures each object with <span class="fixw">vlax-curve-*</span>, tells a closed one with <span class="fixw">cbl:closed-p</span> (closed flag, or the same start and end point), labels it with <span class="fixw">cbl:label</span> (<span class="fixw">cbl:extents</span>: the size and the place of the mtext, <span class="fixw">cbl:fmt</span>), totals by layer with <span class="fixw">cbl:row</span> and <span class="fixw">cbl:units</span> (the units of <span class="fixw">INSUNITS</span>, <span class="fixw">LUPREC</span>), prints them (<span class="fixw">cbl:print</span>, <span class="fixw">cbl:line</span>, <span class="fixw">cbl:pad</span>) and writes <span class="fixw">cbl:table</span> or <span class="fixw">cbl:csv</span>.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

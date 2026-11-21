@@ -39,18 +39,41 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Règle les chemins d'AutoCAD à partir de trois préférences de fichiers, choisies dans <span class="fixw">Dyl-Settings</span> (le bouton <em>ouvrir</em> de <em>File Preferences</em>, dans <em>Overrides</em>, ouvre la fenêtre des préférences de fichiers) ou avec cette commande :</p>
-<div class="unspacedbullets">
+<p>Réglez les chemins d'AutoCAD selon votre façon de travailler, à partir de trois choix : la classification de la bibliothèque AEC, les unités de dessin et la langue du contenu. Les gabarits, le contenu, les catalogues d'outils et les bases de détails d'AutoCAD Architecture, et les dictionnaires de l'orthographe suivent. Vos autres options sont gardées : DynALisp les règle dans un profil à lui.</p>
+<!-- picture: images/Dyl-SetFilePrefs-window.png -->
+<!-- picture: images/Dyl-SetFilePrefs-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>File Preferences</em> (dans Overrides) et cliquez son bouton ouvrir.</li>
+<li>Choisissez les trois préférences ci-dessous, et s'il faut utiliser le dictionnaire personnalisé DynALisp de la langue, puis enregistrez.</li>
+<li>AutoCAD utilise maintenant le profil <em>DynALisp</em> (Options &gt; Profils), créé la première fois comme copie de votre profil courant. Il reste courant pour les sessions suivantes.</li>
+<li>Ou tapez <span class="fixw">Dyl-SetFilePrefs</span> : les mêmes choix à la ligne de commande (Entrée garde le choix courant).</li>
+</ol>
+</div>
+<h2>Les préférences</h2>
+<div class="spacedbullets">
 <ul>
-<li><strong>AEC library classification :</strong> NBS CAWS (Global), CSI MasterFormat (US) ou OmniClass;</li>
-<li><strong>Drawing units :</strong> Metric (Global) ou Imperial (US);</li>
-<li><strong>Language :</strong> l'une des langues dans lesquelles AutoCAD s'installe &ndash; anglais, français, chinois (simplifié), chinois (traditionnel), tchèque, allemand, hongrois, italien, japonais, coréen, polonais, portugais (Brésil), russe ou espagnol. C'est la langue du contenu d'AutoCAD Architecture et du correcteur d'orthographe. Par défaut, la langue d'AutoCAD.</li>
+<li><strong>Classification de la bibliothèque AEC</strong> &ndash; NBS CAWS (Global), CSI MasterFormat (US) ou OmniClass : les composants de détail et les notes clés d'AutoCAD Architecture.</li>
+<li><strong>Unités de dessin</strong> &ndash; Metric (Global) ou Imperial (US) : les gabarits et les dossiers de contenu.</li>
+<li><strong>Langue</strong> &ndash; une des langues dans lesquelles AutoCAD est installé (anglais, français, allemand, espagnol...) : le contenu d'AutoCAD Architecture et l'orthographe. Par défaut, la langue d'AutoCAD. Ce n'est pas la langue de DynALisp et de ses docs, choisie à part dans la section Environment de <span class="fixw">Dyl-Settings</span>.</li>
 </ul>
 </div>
-<p>Cette langue est celle des dessins (dossiers de contenu, dictionnaires). La langue de DynALisp lui-même, ses docs, se règle à part : <em>Language</em> dans la section Environment de <a href="../Core/Dyl-Settings.fr.htm#environment">Dyl-Settings</a>.</p>
-<p>La langue règle aussi le dictionnaire principal du correcteur d'orthographe (<em>Options &gt; Fichiers &gt; Éditeur de texte, dictionnaire et noms de fichiers de polices &gt; Dictionnaire principal</em>, <span class="fixw">DCTMAIN</span>). AutoCAD n'a pas de dictionnaire pour le chinois, le hongrois, le japonais, le coréen ni le polonais (pas de fichier <span class="fixw">&lt;code&gt;.dct</span> dans son dossier <span class="fixw">Support</span>) : le dictionnaire anglais américain (<span class="fixw">enu</span>) est utilisé pour ces langues.</p>
-<p>En français, le dictionnaire personnalisé (<span class="fixw">DCTCUST</span>) est réglé sur <span class="fixw">Res\Dictionaries\fra.cus</span> : environ 4&nbsp;450 mots français d'architecture et de construction et des chiffres romains (I à C et les centaines jusqu'à M, les siècles Ier à XXIe, i à xx en minuscules pour les listes numérotées; structure, enveloppe du bâtiment, ouvertures, intérieurs, dessins et site, mécanique et électricité, matériaux comme le néoprène, le polyéthylène ou la géomembrane et leurs sigles, aciers inoxydables (austénitique, duplex, passivation) et corrosion des métaux, adjuvants et traitements de protection, styles architecturaux, formes et ornements des bâtiments, églises, patrimoine bâti, restauration traditionnelle de la pierre, ferblanterie, charpente lourde et maisons pièce-sur-pièce, mots composés comme anti-rafale, pare-vapeur ou sous-plancher, calcul des structures, chantier et contrats, accessibilité) et les sigles utilisés sur les plans québécois (CNB, RBQ, CSA, ULC...). AutoCAD utilise votre copie sous <span class="fixw">User\</span>, faite la première fois, et les mots que vous ajoutez en vérifiant l'orthographe y vont; <span class="fixw">Dyl-UserFiles</span> peut faire de cette copie le fichier par défaut. Ses mots, avec leur définition et leur catégorie, se cherchent dans la fenêtre <a href="../Utilities/Dyl-Dictionary.fr.htm">Dictionary</a> (<span class="fixw">Res\Dictionaries\fra-def.csv</span>). Décochez <em>Use the DynALisp custom dictionary of the language</em> dans la fenêtre File Preferences de <span class="fixw">Dyl-Settings</span> (ou répondez Non dans <span class="fixw">DYL-SETFILEPREFS</span>) pour garder le vôtre. Il n'est utilisé que si la langue en a un : une rangée <span class="fixw">Files:CustomDictionary</span> de <span class="fixw">FilePrefs.csv</span> y correspond et son fichier existe. Sinon (désactivé, ou autre langue), un dictionnaire personnalisé de DynALisp qui est courant est remplacé par celui qu'il avait remplacé, sinon par le <span class="fixw">sample.cus</span> d'AutoCAD; un dictionnaire personnalisé à vous est laissé tel quel. Ajoutez une rangée <span class="fixw">Files:CustomDictionary</span> pour donner le sien à une autre langue.</p>
-<p>Les chemins sont réglés dans un profil <span class="fixw">DynALisp</span> (<em>Options &gt; Profils</em>), créé la première fois comme copie du profil courant : vos autres options sont donc conservées. AutoCAD le garde courant pour les sessions suivantes, et chaque dessin ouvert vérifie qu'il est toujours courant et réglé selon les préférences.</p>
+<h2>Orthographe</h2>
+<div class="spacedbullets">
+<ul>
+<li>Le vérificateur d'orthographe utilise le dictionnaire principal de la langue; AutoCAD n'en a pas pour le chinois, le hongrois, le japonais, le coréen ni le polonais, qui utilisent l'anglais américain.</li>
+<li>En français, le dictionnaire personnalisé DynALisp ajoute environ 4 450 mots d'architecture et de construction, les chiffres romains et les sigles des plans québécois (CNB, RBQ, CSA...). Les mots que vous ajoutez en vérifiant l'orthographe sont gardés dans votre propre copie. Voir <a href="../Utilities/Dyl-Dictionary.fr.htm">Dictionary</a>.</li>
+</ul>
+</div>
+<h2>Bon à savoir</h2>
+<div class="spacedbullets">
+<ul>
+<li>Chaque dessin ouvert vérifie le profil. Quand il n'est plus courant, ou que les préférences ont changé, la dernière ligne du démarrage vous dit de lancer <span class="fixw">Dyl-SetFilePrefs</span> : un dessin ne change jamais le profil de lui-même.</li>
+<li>Désactivez <em>File Preferences</em> dans <span class="fixw">Dyl-Settings</span> pour revenir à votre profil précédent; le profil DynALisp est gardé.</li>
+<li>Chaque langue d'AutoCAD (anglais, français...) a ses propres profils : le profil DynALisp est créé dans chacune.</li>
+</ul>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
@@ -61,12 +84,10 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>AutoCAD Architecture ne fournit pas de base de composants de détail ni de notes clés OmniClass : OmniClass ne règle donc aucune base. Ajoutez des rangées <span class="fixw">Db:</span> pour les vôtres.</li>
-<li>Seul le contenu installé est utilisé. Le contenu anglais d'ACA 2027 n'a pas de dossiers Imperial ni US ici, et le contenu français n'a pas de dossier Global : les rangées de repli (ou aucune) s'appliquent donc.</li>
-<li>La langue est celle des dossiers de contenu et du dictionnaire principal. Elle ne change pas la langue d'AutoCAD lui-même, choisie au démarrage d'AutoCAD. Une langue dont le contenu d'AutoCAD Architecture n'est pas installé laisse les chemins <span class="fixw">{ACA}</span> tels quels.</li>
-<li>Chaque langue d'AutoCAD (anglais, français...) a ses propres profils : le profil <span class="fixw">DynALisp</span> est créé dans chacune.</li>
-<li>Tant que le profil est activé et que vous passez à un autre profil à la main, chaque dessin ouvert vous rappelle de lancer <span class="fixw">DYL-SETFILEPREFS</span>. Désactivez-le dans <span class="fixw">Dyl-Settings</span> pour utiliser un autre profil.</li>
-<li><span class="fixw">Acad (Imperial Ctb).dwt</span> n'est pas dans <span class="fixw">Res\Templates\Model</span> : l'impérial utilise donc <span class="fixw">Acad (Imperial Stb).dwt</span>.</li>
+<li>AutoCAD Architecture n'a pas de base de détails ni de notes clés OmniClass : OmniClass n'en règle aucune.</li>
+<li>Seul le contenu installé est utilisé : une langue ou des unités dont le contenu d'AutoCAD Architecture n'est pas installé laissent ces chemins tels qu'ils sont.</li>
+<li>La langue d'AutoCAD elle-même ne change pas : elle est choisie au démarrage d'AutoCAD.</li>
+<li>Tant que le profil DynALisp est activé, passer à la main à un autre profil donne un rappel dans chaque dessin ouvert; désactivez <em>File Preferences</em> pour utiliser un autre profil.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

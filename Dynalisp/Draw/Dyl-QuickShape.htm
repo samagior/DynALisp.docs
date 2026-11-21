@@ -35,8 +35,17 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>The companion of <a href="Dyl-QuickDraw.htm">Quick Draw</a> for premade shapes: studs, bricks, CMU, steel sections&hellip; Each preset inserts a shape from a library drawing, dragged into place (insertion point, then rotation), again and again until Enter or Esc. Each shape is exploded: its closed outlines are filled with the hatch of the preset <a href="Dyl-QuickDraw.htm#materials">hatch preset</a> (an outline inside another one is an island, e.g. the cores of a CMU), and all its objects go on the outline layer key of the hatch preset. Quick Draw and Quick Shape share the same hatch presets: editing <em>Brick</em> changes both.</p>
-<p><span class="fixw">DYL-QUICKSHAPE</span> opens the preset editor, the same as the one of Quick Draw (list, aliases, New, Copy, Delete, Reset Selected, Reset All, Group picked from the groups (edited in the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window, its open button left of the list), Hatch preset (the hatch presets of that group) and its open button to the Hatch Presets window, several presets edited at once). The presets are saved to <span class="fixw">Modules\Dynalisp\Res\QuickShape.csv</span>; each custom preset gets a command <span class="fixw">Pst-QuickShapeCustom&lt;Name&gt;</span> to give aliases to.</p>
+<p>Place premade shapes, already hatched: studs, bricks, CMU, steel sections... Each preset inserts a shape from a library drawing, again and again until Enter, and fills its outlines with the hatch of its hatch preset, on the layers of its keys. The companion of Quick Draw, with the same window.</p>
+<!-- picture: images/Dyl-QuickShape-window.png -->
+<!-- picture: images/Dyl-QuickShape-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the shape: <span class="fixw">QS-STUD2X4</span>... (the table below).</li>
+<li>Pick its insertion point, then its rotation; place the next one, or press Enter or Esc to stop.</li>
+<li><strong>Change or add presets</strong> &ndash; type <span class="fixw">Dyl-QuickShape</span>: pick a preset, its shape and its hatch preset, or click <strong>New</strong>. Your own shapes are blocks of a library drawing (below).</li>
+</ol>
+</div>
 <h2 id="libraries">Shape Libraries</h2>
 <p>The shapes are blocks in library drawings: <strong>every <span class="fixw">.dwg</span> of <span class="fixw">Modules\Dynalisp\Res\Shapes</span> is a library, and every block in it is a shape</strong>. One drawing with many blocks or many drawings with one block each both work, and both can be mixed (e.g. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). A shape is shown as <em>Library: Block</em>. When the folder has no library, a starter <span class="fixw">Shapes.dwg</span> is made with the shapes of the default presets.</p>
 <div class="spacedbullets">

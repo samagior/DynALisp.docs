@@ -21,12 +21,31 @@
 <p class="note">The developer docs of Startup Suite: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Core/Dyl-Suite.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Resources\dynalisp.mnl</span> and <span class="fixw">Resources\Dyl-Suite.dcl</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td>The Startup Suite region of <span class="fixw">Resources\dynalisp.mnl</span>, <span class="fixw">Resources\Dyl-Suite.dcl</span></td></tr>
+<tr><td>Data</td><td><span class="fixw">Resources\StartupSuite.csv</span> (<span class="fixw">Load;Command;Name;Description;File;Module;Group;Duplicate;Path</span>) and <span class="fixw">Resources\Aliases.csv</span> (<span class="fixw">Alias;Command</span>), your copies under <span class="fixw">User</span></td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#commands">Commands</a> convention</td></tr>
 </table>
 </div>
+<h2>Loading The Modules</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">Dyl:load</span>, as each drawing opens, loads the Remote folders of every module (alphabetical order), then the Reactor folders while the reactors are on, keeping the errors and times of each file for the diagnostics.</li>
+<li><span class="fixw">Dyl:autoload</span> reads <span class="fixw">StartupSuite.csv</span> and, for each command turned on, defines an autoload stub (<span class="fixw">autoload</span>): the Lisp file loads the first time one of its commands runs. A command turned off is not defined.</li>
+<li><span class="fixw">Dyl:AliasApply</span> defines each alias of <span class="fixw">Aliases.csv</span> as a command that runs its command, unless the name is taken by AutoCAD, its Express Tools, <span class="fixw">acad.pgp</span> or another program (<span class="fixw">Dyl:AliasTaken</span>, <span class="fixw">Dyl:PgpAliases</span>).</li>
+<li><span class="fixw">Dyl:DynList</span> asks each provider of <span class="fixw">*dyl:dynproviders*</span> for its dynamic children (the custom presets of Quick Draw and Quick Shape) and defines them with their main command.</li>
+</ol>
+</div>
+<h2>The Index</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-SuiteUpdate</span> scans the Apps files (<span class="fixw">Dyl:SuiteFiles</span>) and builds the index again (<span class="fixw">Dyl:SuiteBuild</span>), keeping the <em>Load</em> value of each command, and of a renamed one when its former name is one of its aliases.</li>
+<li><span class="fixw">Dyl:SuiteParse</span> reads a Lisp file as tokens: after <span class="fixw">(defun</span>, a name starting with <span class="fixw">C:</span> is a command, named and described by the last two comment lines before it (<span class="fixw">Dyl:SuiteFlush</span>). See <a href="../../LeeMac/index.htm">Making A Module</a>.</li>
+<li><span class="fixw">Dyl:SuiteStale-p</span> tells an index older than its Apps files; <span class="fixw">Dyl:SuiteRead</span> and <span class="fixw">Dyl:SuiteWrite</span> read and write it through <span class="fixw">Dyl:UserFile</span>.</li>
+</ul>
+</div>
+<h2>The Window</h2>
+<p><span class="fixw">Dyl:Suite</span> works on the locals <span class="fixw">recs</span> (every record), <span class="fixw">vis</span> (the records listed), <span class="fixw">sel</span> (the selected), <span class="fixw">als</span> (the aliases being edited). The list folds the children under their main command (<span class="fixw">Dyl:SuiteDlgFold</span>), sorts and filters (<span class="fixw">Dyl:SuiteDlgSort</span>, <span class="fixw">Dyl:SuiteDlgModules</span>, <span class="fixw">Dyl:SuiteDlgGroups</span>), and keeps its scroll when a few lines change. The aliases are checked as they are typed (<span class="fixw">Dyl:SuiteDlgAliasCheck</span>: never a long name with a command prefix, nor a name taken). <em>Docs</em> opens <span class="fixw">Dyl:SuiteDocs</span>, the page named after the Lisp file, on the website or on this computer. <span class="fixw">Dyl:SuiteSave</span> writes both files and loads the changes.</p>
+<p>Another App checks that a file is on with <span class="fixw">Dyl:SuiteFileOn-p</span>, turns it on with <span class="fixw">Dyl:SuiteFileOn</span> after asking, and loads it with <span class="fixw">Dyl:SuiteFileLoad</span>.</p>
 <h2 id="vscode">Visual Studio Code</h2>
 <p><span class="fixw">DYL-VSCODE</span> (or <em>Open in VS Code</em>) opens the DynALisp folder in Visual Studio Code, to read or edit the programs. When Visual Studio Code is not found, a window guides the install: <strong>Install (winget)</strong> installs it with the Windows package manager, <strong>Download page</strong> opens its download page, <strong>Open DynALisp</strong> checks again and opens the folder once it is installed.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>

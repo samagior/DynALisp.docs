@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p><span class="fixw">DYL-LAYERTRANSFER</span> lists every transfer with its alias: double-click one (or OK), then select the objects. The transfers are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
-<p>Moves the selected objects to the matching layer of another phase, discipline, stack or view type, by replacing one field of their layer name (e.g. <span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span> with <span class="fixw">E-D</span>). Missing target layers are created with the properties of the source layer. Blocks are handled without editing the original block: a renamed copy of the definition is transferred and only the selected references are switched to it.</p>
+<p>Move objects to the matching layer of another phase, discipline, level or kind of view, in one command: <span class="fixw">A-Wall-Full-E</span> becomes <span class="fixw">A-Wall-Full-D</span> with <span class="fixw">E-D</span>. A missing layer is made with the properties of the one it comes from. Blocks are transferred without touching the original: a copy of the block is transferred and only the references selected use it.</p>
+<!-- picture: images/Dyl-LayerTransfer-window.png -->
+<!-- picture: images/Dyl-LayerTransfer-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the transfer: <span class="fixw">E-D</span> (existing to demolition), <span class="fixw">E-N</span>, <span class="fixw">N-E</span>... (the table below), then select the objects.</li>
+<li>Or type <span class="fixw">Dyl-LayerTransfer</span>: the window lists every transfer with its alias; double-click one, then select the objects.</li>
+<li>From the ribbon (AutoCAD 2025 and later), pick the level, the value to transfer and the new value in the drop-downs of the <em>Layer Transfer</em> panel, select the objects, then click <strong>Transfer</strong>.</li>
+<li>The command line lists the layers made and the source layers that are off, locked or frozen.</li>
+</ol>
+</div>
 <h2>Ribbon</h2>
 <p>The <em>Layer Transfer</em> panel of the DynALisp tab holds the <strong>Transfer</strong> button, three drop-downs and the <strong>Manager</strong> button. Transfer and the drop-downs transfer any value of a level of the layer names to another one, for the layers named as the NCS (United States National CAD Standard) names them: <span class="fixw">A-Wall-Full-E</span> is the discipline designator <span class="fixw">A</span>, the major group <span class="fixw">Wall</span>, the minor group <span class="fixw">Full</span> and the status <span class="fixw">E</span> (see <a href="../Conventions/LayerNaming.htm">Layer Naming</a>). The <strong>Manager</strong> button opens the list of transfers (<span class="fixw">DYL-LAYERTRANSFER</span>).</p>
 <div class="spacedbullets">

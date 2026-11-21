@@ -12,13 +12,15 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><a href="Dyl-AssemblyLayers.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
-        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/index.htm">D&eacute;veloppeurs</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Draw/Dyl-AssemblyLayers.htm">D&eacute;veloppeurs</a></nav>
     </div>
 
     <div id="content">
         <h1>Couches d'assemblage (Assembly Layers)</h1>
 
 <p>Un préréglage <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> dessiné avec <em>Linear</em> ou <em>Offset</em> peut être un <strong>assemblage</strong> : sa bande est faite de plusieurs couches côte à côte, comme un mur (voir <a href="Dyl-QuickDraw.fr.htm#assembly">Dessin rapide &ndash; Assemblages</a>). Cochez <em>Assembly of layers</em> dans la zone <em>Behaviors</em> de la fenêtre Quick Draw, puis cliquez le bouton carré <em>ouvrir</em> à côté : la fenêtre Assembly Layers modifie les couches du préréglage affiché (de chaque préréglage sélectionné, avec OK). Le texte à côté du bouton donne leur nombre, et <em>Width</em> montre leur total.</p>
+<!-- picture: images/Dyl-AssemblyLayers-window.png -->
+<!-- picture: images/Dyl-AssemblyLayers-use.gif -->
 <div class="spacedbullets">
 <ul>
 <li><strong>Layers</strong> &ndash; les couches, dans l'ordre en travers de la bande : la première sur la ligne (ou l'objet), les autres vers le côté de la bande, avec <em>Justification</em> sur <em>Edge</em> et avec Offset (un mur dessiné sur sa face intérieure : sa couche intérieure d'abord); de son bord gauche à son bord droit, vu du point de départ, sur <em>Center</em>. Chaque ligne donne son type, son préréglage (ou la clé de calque d'une ligne) et son épaisseur. Sous la liste : la largeur de la bande, le total des épaisseurs. Plusieurs couches peuvent être sélectionnées (Ctrl / Maj clic) pour les retirer d'un coup.</li>
@@ -37,7 +39,6 @@
 <li><strong>OK</strong> &ndash; donne les couches aux préréglages sélectionnés (enregistrées avec eux par <em>Draw</em> ou <em>Save</em> de la fenêtre Quick Draw). <strong>Cancel</strong> annule les changements. <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
-<p>Les couches sont enregistrées dans la colonne <span class="fixw">Assembly</span> de <span class="fixw">QuickDraw.csv</span> (et <span class="fixw">AssemblyOn</span> pour la case à cocher), en un seul texte : les couches séparées par <span class="fixw">|</span>, chacune <span class="fixw">type:préréglage ou clé de calque:épaisseur</span>, le type <span class="fixw">P</span> (Hatch), <span class="fixw">S</span> (Space) ou <span class="fixw">L</span> (Line) : <span class="fixw">P:qd-Gypsum:16|P:qd-WoodFrame:140|L:THIN:|S::25|P:qd-Brick:90</span>. Une couche non valide est retirée quand le fichier est lu. Une couche Hatch dont le préréglage a été supprimé est dessinée comme un espace, avec un message à la ligne de commande.</p>
 <p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a></p>
 
     </div>

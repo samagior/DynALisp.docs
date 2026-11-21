@@ -35,9 +35,19 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Proofreads the selected texts, mtexts and multileaders with Claude (the Anthropic API) and replaces each one with its corrected version after you confirm it. Spelling, grammar, accents and punctuation are corrected in the language of the text, never translated; technical terms, abbreviations, units, numbers, dimensions, codes and standard references (e.g. CNB, CSA) are kept, and so are the AutoCAD formatting codes (<span class="fixw">\P</span>, <span class="fixw">\f...;</span>, <span class="fixw">%%c</span>...) and the line structure.</p>
-<p class="note">The text of the selected objects is sent to the Anthropic API. Do not use it on drawings whose text must not leave your computer.</p>
-
+<p>Proofread the texts of a drawing with Claude: each text, mtext and multileader you select is checked for spelling, grammar, accents and punctuation in its own language, never translated, and replaced by its corrected version once you say yes. Technical terms, abbreviations, units, dimensions and codes are left as they are.</p>
+<p class="note">The text of the objects selected is sent to the Anthropic API. Do not use it on drawings whose text must not leave your computer.</p>
+<!-- picture: images/Dyl-ClaudeTextFix-window.png -->
+<!-- picture: images/Dyl-ClaudeTextFix-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Once</strong> &ndash; sign in to Anthropic: set the Windows environment variable <span class="fixw">ANTHROPIC_API_KEY</span> to your API key (then restart AutoCAD), or sign in with the Anthropic command line tool (<span class="fixw">ant auth login</span>). Without either, the command asks for a key, kept for the session only.</li>
+<li>Select the texts, then type <span class="fixw">Dyl-ClaudeTextFix</span>.</li>
+<li>For each text that changes, the command line shows the original and the correction: answer <em>Oui</em> to replace it, <em>Non</em> to keep it, <em>Tous</em> to accept all the others, <em>Quitter</em> to stop.</li>
+<li>A summary gives the texts checked, corrected and failed. One <span class="fixw">U</span> undoes all the corrections.</li>
+</ol>
+</div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>

@@ -35,18 +35,25 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>A drawing received from someone else often uses hatch patterns that are not on your computer: the hatches show, but the pattern cannot be picked for a new hatch (e.g. in the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window, where it is marked <em>(not found on the support path)</em>). <span class="fixw">DYL-REBUILDPAT</span> rebuilds the missing <span class="fixw">.pat</span> files from the hatches of the drawing and saves them in a folder of the support file search path, so they can be reused and edited. The drawing itself is not modified.</p>
-
-<h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-RebuildPat</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
-<tr><td><span class="fixw">Dyl-RebuildPat</span></td><td><span class="fixw">RPAT</span></td><td>Rebuild Patterns</td></tr>
-<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">OPENPATS</span></td><td>&ndash;</td><td>Open Patterns Folder</td></tr>
-</table>
+<p>A drawing from someone else often uses hatch patterns your computer does not have: the hatches show, but the pattern cannot be picked for a new hatch. Rebuild Patterns writes the missing <span class="fixw">.pat</span> files back from the hatches of the drawing, into a folder AutoCAD searches, so you can use and edit them. The drawing itself is not changed.</p>
+<!-- picture: images/Dyl-RebuildPat-window.png -->
+<!-- picture: images/Dyl-RebuildPat-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">RPAT</span>. Select hatches, or press Enter for every hatch of the drawing.</li>
+<li>Each missing pattern is written; for a hatch selected whose pattern exists already, choose <em>Replace</em>, <em>Rename</em> or <em>Cancel</em>.</li>
+<li>The command line gives the folder and the patterns written. <span class="fixw">OPENPATS</span> opens that folder.</li>
+<li>The <strong>Pick hatch...</strong> button of the <a href="../Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window offers to rebuild the pattern of the hatch picked the same way.</li>
+</ol>
 </div>
-<!-- /dyl:aliases -->
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The pattern rebuilt can differ from the original: check the hatches drawn with it.</li>
+<li>Xrefs, solid fills, gradients and user-defined hatches are skipped: they use no <span class="fixw">.pat</span> file.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
 
     </div>

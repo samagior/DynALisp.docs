@@ -21,13 +21,22 @@
 <p class="note">The developer docs of Ends and Corners: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickDrawEndsCorners.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span>, <span class="fixw">Remote\Dyl-Materials.lsp</span> (<span class="fixw">*mt:ends*</span>, <span class="fixw">*mt:corners*</span>)</td></tr>
+<tr><td>Data</td><td>The behavior columns of the preset in <span class="fixw">QuickDraw.csv</span> (<span class="fixw">*qd:tiles*</span>); the last answers of the prompts, kept with <span class="fixw">setenv</span></td></tr>
 </table>
 </div>
-
+<h2>The Settings</h2>
+<p>The ends and the corners are behaviors of a preset, never of its hatch preset (<a href="../../conventions.html#presets-and-materials">Presets And Materials</a>): <span class="fixw">*mt:ends*</span> and <span class="fixw">*mt:corners*</span> of <span class="fixw">Remote\Dyl-Materials.lsp</span> list their keys, one of them <em>Ask</em> (asked when drawn); <span class="fixw">Remote&gt;&gt;Dyl:MaterialEndsDefault-p</span> and <span class="fixw">MaterialCornersDefault-p</span> tell the defaults (square, mitered, joints drawn).</p>
+<h2>The Windows</h2>
+<p><span class="fixw">(Dyl:QuickDrawBandDialog kind r)</span> shows the Ends (<span class="fixw">kind</span> ends) or the Corners window for the preset <span class="fixw">r</span>: its DCL written to a temporary file (<span class="fixw">Dyl:QuickDrawBandDcl</span>), <span class="fixw">Dyl:QuickDrawBandState</span> greying out what the choice does not use, <span class="fixw">Dyl:QuickDrawBandValues</span> checking the numbers (an extension, an angle) before OK. It returns the values, given to the presets selected.</p>
+<h2>When Drawn</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Dyl:QuickDrawBandOpts mat)</span> &ndash; the options of a band from the behaviors of its material: an <em>Ask</em> asked now (<span class="fixw">Dyl:QuickDrawAskKey</span>, the last answer by default), the extension nil for half the width, the end angle in radians.</li>
+<li><span class="fixw">Dyl:QuickDrawAskEnds</span>, <span class="fixw">Dyl:QuickDrawAskCorners</span> &ndash; the <em>Ends</em> and <em>Corners</em> options of the prompts of Linear and Offset, for the next bands (<span class="fixw">qd:opt</span>).</li>
+<li>The geometry: <span class="fixw">Dyl:QdEnd</span> and <span class="fixw">Dyl:QdEndPt</span> (the ends), <span class="fixw">Dyl:QdMiter</span>, <span class="fixw">Dyl:QdTrim</span> and <span class="fixw">Dyl:QdCorner</span> (the corners), <span class="fixw">Dyl:QdArc</span> (the rounded ones).</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

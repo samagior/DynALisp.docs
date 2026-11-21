@@ -31,21 +31,30 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Deux commandes rapides de nettoyage des couleurs : l'une ramène la couleur d'une sélection à DuCalque, l'autre applique une couleur choisie dans la boîte de dialogue des couleurs standard d'AutoCAD.</p>
+<p>Deux nettoyages rapides de couleur : remettre une sélection à la couleur de son calque, ou lui donner une seule couleur choisie dans la fenêtre des couleurs d'AutoCAD.</p>
+<!-- picture: images/Dyl-ColorByLayer-window.png -->
+<!-- picture: images/Dyl-ColorByLayer-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Revenir à DuCalque</strong> &ndash; tapez <span class="fixw">CHCOLOR</span>, sélectionnez les objets (ou sélectionnez-les d'abord), appuyez sur Entrée. Leur couleur est maintenant DuCalque.</li>
+<li><strong>Une couleur pour tous</strong> &ndash; tapez <span class="fixw">CC</span>, choisissez une couleur dans la fenêtre <em>Sélectionner une couleur</em>, puis sélectionnez les objets et appuyez sur Entrée.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Règle la couleur des objets sélectionnés sur DuCalque.</td></tr>
-<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Règle la couleur des objets sélectionnés sur une couleur choisie dans la boîte de dialogue des couleurs.</td></tr>
+<tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Met la couleur des objets sélectionnés à DuCalque.</td></tr>
+<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Donne aux objets sélectionnés une couleur choisie dans la fenêtre des couleurs.</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Dans <span class="fixw">CC</span>, annuler la boîte de dialogue des couleurs la rouvre : choisissez une couleur quelconque, puis appuyez sur <kbd>Échap</kbd> à l'invite de sélection pour abandonner.</li>
-<li>Les couleurs vraies et les carnets de couleurs ne sont pas offerts par la boîte de dialogue qu'utilise CC.</li>
-<li>CHPROP ignore les objets sur des calques verrouillés.</li>
+<li>Dans <span class="fixw">CC</span>, annuler la fenêtre des couleurs la rouvre : choisissez une couleur quelconque, puis appuyez sur Échap à l'invite de sélection.</li>
+<li>La fenêtre des couleurs de <span class="fixw">CC</span> n'a que les couleurs d'index : ni couleurs vraies ni carnets de couleurs.</li>
+<li>Les objets sur des calques verrouillés ne sont pas modifiés.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

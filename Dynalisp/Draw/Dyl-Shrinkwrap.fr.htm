@@ -35,8 +35,17 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Dessine des polylignes fermées autour de l'extérieur des objets sélectionnés, comme la commande <span class="fixw">AECLINEWORKSHRINKWRAP</span> d'AutoCAD Architecture, dans n'importe quel AutoCAD. Un contour est créé pour chaque groupe d'objets qui se touchent ou se chevauchent, sur le calque courant. Les objets sélectionnés ne changent pas, et les nouveaux contours restent sélectionnés.</p>
-<p>Contrairement à la commande <span class="fixw">BOUNDARY</span> seule, les textes sont enveloppés aussi : textes, textes multilignes, attributs de blocs et texte dans les blocs, cotes, lignes de repère multiples et tableaux.</p>
+<p>Dessinez un contour fermé autour de l'extérieur d'objets, comme le contour (shrinkwrap) d'AutoCAD Architecture, dans n'importe quel AutoCAD : un contour par groupe d'objets qui se touchent, les textes et le texte des blocs, des cotes et des tables enveloppés aussi. Les objets ne sont pas modifiés.</p>
+<!-- picture: images/Dyl-Shrinkwrap-window.png -->
+<!-- picture: images/Dyl-Shrinkwrap-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-Shrinkwrap</span> et sélectionnez les objets.</li>
+<li>Les contours sont dessinés sur le calque courant et laissés sélectionnés, prêts pour la commande suivante (une hachure, un passage à un autre calque...).</li>
+<li>Quand les objets laissent des écarts entre eux, réglez une tolérance d'écart (ci-dessous) : le contour franchit les écarts jusqu'à cette largeur.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>

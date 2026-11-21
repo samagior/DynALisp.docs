@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p><span class="fixw">DYL-LAYERMAKE</span> lists every layer set with its alias: double-click one (or OK) to create its layers. The layer sets are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
-<p>Builds a set of layers from CSV layer lists: the layer names are assembled from the name fields of each row, then the colour, lineweight, linetype and plot setting are derived from the name with the Dynalisp layer rules. Existing layers are updated, missing ones created.</p>
+<p>Make the whole set of layers of a type of drawing in one command: a basic drawing, an architectural plan, elevation, section or detail, or the NCS layers of one level. Each layer gets its name, color, lineweight, linetype and plot setting from the DynALisp layer standard; the layers already there are updated.</p>
+<p class="note">The layer sets do not work at the moment: they stop with an error before making the layers (see Known Limitations). Use the <a href="Dyl-LayerKeys.htm">Layer Keys</a> to make standard layers one at a time.</p>
+<!-- picture: images/Dyl-LayerMake-window.png -->
+<!-- picture: images/Dyl-LayerMake-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type the alias of the set: <span class="fixw">LL-A-FLOOR</span> for an architectural floor plan... (the table below), or type <span class="fixw">Dyl-LayerMake</span> and double-click a set.</li>
+<li>When the set is for a stacked drawing, choose its level (<em>None</em>, <em>1-First</em>... <em>9-Ninth</em>); when it is for any discipline, choose the discipline.</li>
+<li>The command line lists each layer, created or updated.</li>
+</ol>
+</div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>

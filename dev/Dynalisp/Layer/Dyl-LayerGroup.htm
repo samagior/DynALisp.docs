@@ -21,10 +21,8 @@
 <p class="note">The developer docs of Layer Groups: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerGroup.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerGroup.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerGroup.lsp</span></td></tr>
+<tr><td>Writes</td><td>The <span class="fixw">ACLYDICTIONARY</span> dictionary of the extension dictionary of the layer table: the layer filters of the drawing</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -52,6 +50,22 @@
 <tr><td>Plumbing</td><td><span class="fixw">P-*</span></td></tr>
 <tr><td>Structural</td><td><span class="fixw">S-*</span></td></tr>
 </table>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">c:Dyl-LayerGroup</span> runs <span class="fixw">Dyl:LayGroup</span>, a function of about 850 lines, one region per discipline.</li>
+<li>It gets (or makes) <span class="fixw">ACLYDICTIONARY</span> with <span class="fixw">vla-addobject</span>, then for each group: removes the group filter of the same name, collects the layers matching the pattern (and <span class="fixw">0</span>, <span class="fixw">Defpoints</span>), and makes an <span class="fixw">AcLyLayerGroup</span> record listing them.</li>
+<li><span class="fixw">Dyl-A</span> and its siblings set the names of a group (<span class="fixw">*dic</span>, <span class="fixw">*obj</span>, <span class="fixw">*obj2</span>) as global variables.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The Mechanical group copies the Landscape pattern (<span class="fixw">L-*</span>) in place of <span class="fixw">M-*</span>.</li>
+<li>Each discipline repeats the same code: one table of <span class="fixw">(name pattern sub-groups)</span> and a loop would make a new discipline one row.</li>
+<li>A group filter lists its layers: the layers made later are not in it until the command runs again.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

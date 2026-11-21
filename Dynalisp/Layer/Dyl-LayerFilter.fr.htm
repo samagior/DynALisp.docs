@@ -35,9 +35,20 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-LAYERFILTER</span> liste chaque préréglage de filtre avec son alias : double-cliquez-en un (ou OK) pour l'appliquer. Les préréglages sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
-<p>Des commandes d'un mot qui règlent la visibilité des calques pour un type de vue : afficher ou masquer une phase, isoler un niveau d'un dessin empilé, tramer les autres disciplines, etc. Dans l'espace objet, ce sont les calques eux-mêmes qui changent; dans une présentation, le même filtre est appliqué en dérogations de fenêtre sur les fenêtres que vous sélectionnez.</p>
-<p>Le programme travaille avec des noms de calques faits de champs séparés par des tirets, où le dernier champ peut être un suffixe de phase et un champ peut être un numéro d'empilement (niveau) :</p>
+<p>Réglez la visibilité des calques d'une vue en un mot : afficher ou masquer une phase, isoler un niveau d'un dessin empilé, tramer les autres disciplines... Dans l'espace objet, ce sont les calques eux-mêmes qui changent; dans une présentation, le même filtre s'applique aux fenêtres que vous sélectionnez seulement, comme remplacements de fenêtre.</p>
+<!-- picture: images/Dyl-LayerFilter-window.png -->
+<!-- picture: images/Dyl-LayerFilter-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez l'alias de la vue : <span class="fixw">SH-EXST</span> pour afficher les calques existants, <span class="fixw">HI-ANNO</span> pour masquer l'annotation, <span class="fixw">N2</span> pour les travaux neufs du niveau 2... (le tableau ci-dessous).</li>
+<li>Ou tapez <span class="fixw">Dyl-LayerFilter</span> : la fenêtre liste chaque filtre avec son alias; double-cliquez-en un (ou OK).</li>
+<li>Dans une présentation, sélectionnez les fenêtres à filtrer quand c'est demandé; les autres objets de la sélection sont écartés.</li>
+<li>Un filtre marqué <em>Reset</em> masque d'abord tout et n'affiche que ses calques; un filtre marqué <em>Keep</em> s'applique par-dessus ce qui est affiché. Un <span class="fixw">U</span> revient en arrière.</li>
+</ol>
+</div>
+<h2 id="names">Noms des calques</h2>
+<p>Les filtres lisent les noms faits de champs séparés par des tirets : le dernier champ peut être une phase, et un champ peut être un niveau d'un dessin empilé (<span class="fixw">0001</span> à <span class="fixw">0009</span>, comme dans <span class="fixw">A-Wall-0002-N</span>, pour des élévations ou des étages dessinés dans un fichier). Voir <a href="../Conventions/LayerNaming.fr.htm">Nommage des calques</a>.</p>
 <div class="programs commands">
 <table>
 <tr><th>Suffixe</th><th>Phase</th></tr>
@@ -53,7 +64,6 @@
 <tr><td><span class="fixw">-X</span></td><td>Hors contrat</td></tr>
 </table>
 </div>
-<p>Les numéros d'empilement sont des champs de quatre chiffres, <span class="fixw">0001</span> à <span class="fixw">0009</span> (p. ex. <span class="fixw">A-Wall-0002-N</span>), utilisés pour les élévations ou les étages empilés dessinés dans le même fichier.</p>
 <h2 id="commands">Commandes</h2>
 <p><em>Reset</em> : tout est masqué d'abord et seul le préréglage est affiché. <em>Keep</em> : la visibilité courante est gardée et le préréglage est appliqué par-dessus.</p>
 <div class="programs commands wide">

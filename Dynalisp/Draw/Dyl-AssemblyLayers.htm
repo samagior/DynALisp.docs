@@ -12,13 +12,15 @@
     <div id="header">
         <p>DynALisp <span>Docs</span></p>
         <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-AssemblyLayers.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
-        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/index.htm">Developers</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-AssemblyLayers.htm">Developers</a></nav>
     </div>
 
     <div id="content">
         <h1>Assembly Layers</h1>
 
 <p>A <a href="Dyl-QuickDraw.htm">Quick Draw</a> preset drawn with <em>Linear</em> or <em>Offset</em> can be an <strong>assembly</strong>: its band is made of several layers side by side, like a wall (see <a href="Dyl-QuickDraw.htm#assembly">Quick Draw &ndash; Assemblies</a>). Check <em>Assembly of layers</em> in the <em>Behaviors</em> box of the Quick Draw window, then click the square <em>open</em> button beside it: the Assembly Layers window edits the layers of the preset shown (of every preset selected, on OK). The text beside the button gives their number, and <em>Width</em> shows their total.</p>
+<!-- picture: images/Dyl-AssemblyLayers-window.png -->
+<!-- picture: images/Dyl-AssemblyLayers-use.gif -->
 <div class="spacedbullets">
 <ul>
 <li><strong>Layers</strong> &ndash; the layers, in order across the band: the first one on the line (or the object), the others toward the side of the band, with <em>Justification</em> on <em>Edge</em> and with Offset (a wall drawn on its inner face: its inner layer first); from its left border to its right one, looking from the start point, on <em>Center</em>. Each line gives its kind, its preset (or the layer key of a line) and its thickness. Under the list: the width of the band, the total of the thicknesses. Several layers can be selected (Ctrl / Shift click) to remove them at once.</li>
@@ -37,7 +39,6 @@
 <li><strong>OK</strong> &ndash; gives the layers to the presets selected (saved with them by <em>Draw</em> or <em>Save</em> of the Quick Draw window). <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
 </ul>
 </div>
-<p>The layers are saved in the <span class="fixw">Assembly</span> column of <span class="fixw">QuickDraw.csv</span> (and <span class="fixw">AssemblyOn</span> for the checkbox), as one text: the layers divided by <span class="fixw">|</span>, each one <span class="fixw">kind:preset or layer key:thickness</span>, the kind <span class="fixw">P</span> (Hatch), <span class="fixw">S</span> (Space) or <span class="fixw">L</span> (Line): <span class="fixw">P:qd-Gypsum:16|P:qd-WoodFrame:140|L:THIN:|S::25|P:qd-Brick:90</span>. A layer that is not valid is dropped when the file is read. A Hatch layer whose preset was deleted is drawn as a space, with a message on the command line.</p>
 <p><a href="Dyl-QuickDraw.htm">&larr; Quick Draw</a></p>
 
     </div>

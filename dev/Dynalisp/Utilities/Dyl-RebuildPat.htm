@@ -21,10 +21,9 @@
 <p class="note">The developer docs of Rebuild Patterns: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-RebuildPat.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-RebuildPat.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-RebuildPat.lsp</span></td></tr>
+<tr><td>Writes</td><td><span class="fixw">&lt;name&gt;.pat</span> files in a <span class="fixw">pats</span> folder of the support file search path, or <span class="fixw">ROAMABLEROOTPREFIX\Support\pats</span> (added to the profile), each saying its units (<span class="fixw">;%UNITS=MM</span> or <span class="fixw">;%UNITS=INCH</span>)</td></tr>
+<tr class="alt"><td>Used by</td><td><em>Pick hatch...</em> of the Hatch Presets (<span class="fixw">rpat:rebuild-hatch</span>), which turns this App on and loads it first when it is off (<a href="../../conventions.html#folders">Folders</a> convention)</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -39,6 +38,9 @@
 <p><span class="fixw">OPENPATS</span> opens that pattern folder in Windows Explorer.</p>
 <p>The <strong>Pick hatch...</strong> button of the <a href="../../../Dynalisp/Draw/Dyl-HatchPresets.htm">Hatch Presets</a> window rebuilds the pattern of the hatch picked the same way, when no <span class="fixw">.pat</span> file has it and you agree. It uses this program: when Rebuild Patterns is turned off in the Startup Suite, it asks to turn it on first.</p>
 <!-- dyl:aliases -->
+<h2>The Code</h2>
+<p>The <span class="fixw">rpat:*</span> functions of the file read the pattern stored in each hatch (its lines with codes 53, 43, 44, 45, 46, 79 and 49, already transformed by the scale, angle and origin of the hatch), reverse that transformation to the definition at scale 1 and angle 0, and write it in the <span class="fixw">.pat</span> format. <span class="fixw">rpat:rebuild-hatch</span> does it for one hatch (the Hatch Presets); <span class="fixw">c:Dyl-RebuildPat</span> for a selection or the whole drawing, model space, layouts and block definitions; <span class="fixw">c:Pst-OpenPats</span> (<span class="fixw">OPENPATS</span>) opens the folder.</p>
+<p>The units written follow the <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention: a pattern rebuilt is in the units of this drawing, and the Hatch Presets read its scale in them.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

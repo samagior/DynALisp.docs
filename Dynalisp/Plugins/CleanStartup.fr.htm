@@ -37,7 +37,15 @@
 
 <h2>Description</h2>
 <p>Une fois AutoCAD démarré, les lignes qu'il a affichées au démarrage (<em>Loading AEC...</em>, <em>Customization file loaded successfully</em>, les palettes et les commandes de démarrage de l'espace de travail...) sont retirées de la ligne de commande. Conservées : la ligne <em>Drawing created using...</em>, les lignes de DynALisp et toute ligne qui signale une erreur ou un avertissement. Activez-le dans <a href="../Core/Dyl-Settings.fr.htm">Dyl-Settings</a> : il s'applique au prochain démarrage.</p>
-
+<!-- picture: images/CleanStartup-window.png -->
+<!-- picture: images/CleanStartup-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Clean startup</em> (dans Overrides), puis Save.</li>
+<li>Redémarrez AutoCAD : une fois démarré, la ligne de commande ne garde que le dessin créé, les lignes de DynALisp et les erreurs.</li>
+</ol>
+</div>
 <h2>Notes</h2>
 <div class="spacedbullets">
 <ul>
@@ -49,7 +57,6 @@
 <li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Startup</span>, un seul projet compilé pour .NET 8 et pour .NET Framework 4.8, les deux DLL validées dans git.</li>
 </ul>
 </div>
-
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>

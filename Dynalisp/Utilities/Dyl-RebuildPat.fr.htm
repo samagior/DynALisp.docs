@@ -35,18 +35,25 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Un dessin reçu de quelqu'un d'autre utilise souvent des motifs de hachures absents de votre ordinateur : les hachures s'affichent, mais le motif ne peut pas être choisi pour une nouvelle hachure (p. ex. dans la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a>, où il est marqué <em>(not found on the support path)</em>). <span class="fixw">DYL-REBUILDPAT</span> reconstruit les fichiers <span class="fixw">.pat</span> manquants à partir des hachures du dessin et les enregistre dans un dossier du chemin de recherche des fichiers de support, pour qu'ils puissent être réutilisés et modifiés. Le dessin lui-même n'est pas modifié.</p>
-
-<h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-RebuildPat</span> : elles se lancent par leur alias (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
-<tr><td><span class="fixw">Dyl-RebuildPat</span></td><td><span class="fixw">RPAT</span></td><td>Rebuild Patterns</td></tr>
-<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">OPENPATS</span></td><td>&ndash;</td><td>Open Patterns Folder</td></tr>
-</table>
+<p>Un dessin reçu d'une autre personne utilise souvent des motifs de hachures que votre ordinateur n'a pas : les hachures s'affichent, mais le motif ne peut pas être choisi pour une nouvelle hachure. Rebuild Patterns réécrit les fichiers <span class="fixw">.pat</span> manquants d'après les hachures du dessin, dans un dossier où AutoCAD cherche, pour que vous puissiez les utiliser et les modifier. Le dessin lui-même n'est pas modifié.</p>
+<!-- picture: images/Dyl-RebuildPat-window.png -->
+<!-- picture: images/Dyl-RebuildPat-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">RPAT</span>. Sélectionnez des hachures, ou appuyez sur Entrée pour chaque hachure du dessin.</li>
+<li>Chaque motif manquant est écrit; pour une hachure sélectionnée dont le motif existe déjà, choisissez <em>Replace</em>, <em>Rename</em> ou <em>Cancel</em>.</li>
+<li>La ligne de commande donne le dossier et les motifs écrits. <span class="fixw">OPENPATS</span> ouvre ce dossier.</li>
+<li>Le bouton <strong>Pick hatch...</strong> de la fenêtre <a href="../Draw/Dyl-HatchPresets.fr.htm">Hatch Presets</a> propose de reconstruire de la même façon le motif de la hachure choisie.</li>
+</ol>
 </div>
-<!-- /dyl:aliases -->
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Le motif reconstruit peut différer de l'original : vérifiez les hachures dessinées avec lui.</li>
+<li>Les xréfs, les remplissages pleins, les dégradés et les hachures définies par l'utilisateur sont sautés : ils n'utilisent aucun fichier <span class="fixw">.pat</span>.</li>
+</ul>
+</div>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>

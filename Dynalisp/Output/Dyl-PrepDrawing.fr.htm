@@ -35,7 +35,28 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Prépare le dessin avant qu'il soit enregistré, tracé ou publié. <span class="fixw">Dyl-PrepDrawing</span> exécute maintenant chaque étape; les commandes redéfinies par <a href="Dyl-CmdOptimizer.fr.htm">Command Optimizer</a> (les commandes d'enregistrement, les commandes d'impression et <span class="fixw">REGEN</span>) exécutent les étapes cochées dans leur colonne de la fenêtre de préparation de sortie (<span class="fixw">Dyl-PrepSuite</span>, ou le bouton <em>ouvrir</em> à côté de <em>Commands</em> dans <span class="fixw">Dyl-Settings</span>).</p>
+<p>Préparez un dessin à envoyer en une commande : chaque calque activé et libéré, les objets cachés affichés, les xréfs rechargées, les liaisons de données et les tables mises à jour, l'ordre de tracé appliqué et le dessin régénéré. Les mêmes étapes passent avant chaque enregistrement ou impression quand <a href="Dyl-CmdOptimizer.fr.htm">Command Optimizer</a> est activé.</p>
+<!-- picture: images/Dyl-PrepDrawing-window.png -->
+<!-- picture: images/Dyl-PrepDrawing-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-PrepDrawing</span> : chaque étape passe maintenant, et la ligne de commande dit lesquelles.</li>
+<li>Pour qu'elles passent d'elles-mêmes avant chaque enregistrement ou impression, activez <a href="Dyl-CmdOptimizer.fr.htm">Command Optimizer</a> et choisissez les étapes de chaque commande dans la fenêtre de préparation.</li>
+</ol>
+</div>
+<h2>Les étapes</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Calques</strong> &ndash; active et libère chaque calque.</li>
+<li><strong>Afficher</strong> &ndash; montre les objets cachés et isolés.</li>
+<li><strong>Xréfs</strong> &ndash; recharge chaque xréf, quand le dessin en a.</li>
+<li><strong>Liaisons de données</strong> &ndash; met à jour les tables de chaque liaison de données, quand le dessin en a.</li>
+<li><strong>Tables</strong> &ndash; ajuste chaque rangée de chaque table à la hauteur de son texte.</li>
+<li><strong>Ordre de tracé</strong> &ndash; applique le préréglage d'ordre de tracé actif à tout le dessin, tant que l'ordre de tracé automatique est activé (voir <a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>); <strong>reconstruire l'ordre de tracé</strong> le refait depuis le début.</li>
+<li><strong>Régénération</strong> &ndash; régénère chaque fenêtre.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
@@ -46,8 +67,8 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les étapes sont des commandes exécutées sans message : celle qui échoue est sautée en silence, les suivantes s'exécutent quand même.</li>
-<li>Désactiver <span class="fixw">Dyl-PrepDrawing</span> dans <span class="fixw">Dyl-Suite</span> retire seulement la commande : les commandes redéfinies chargent encore ce fichier pour exécuter leurs étapes.</li>
+<li>Une étape qui échoue est sautée sans message; les suivantes passent quand même.</li>
+<li>Désactiver <span class="fixw">Dyl-PrepDrawing</span> dans <span class="fixw">Dyl-Suite</span> retire seulement la commande : les commandes de Command Optimizer lancent toujours les étapes.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

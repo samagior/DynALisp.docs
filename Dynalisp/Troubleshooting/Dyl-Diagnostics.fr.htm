@@ -35,8 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Trouve pourquoi DynALisp, ou AutoCAD avec lui, ne fonctionne pas comme il le devrait. Il lit comment DynALisp est installé et démarré, l'AutoCAD en cours et ce qu'il charge d'autre, les paramètres et fichiers de DynALisp, ses réacteurs et le dessin courant, et écrit ce qu'il trouve dans un rapport texte qui s'ouvre dans votre éditeur de texte. Les problèmes trouvés sont marqués <span class="fixw">[!]</span> et listés de nouveau en haut du rapport.</p>
-<p><span class="fixw">Dyl-Diagnostics</span> (le bouton <em>Diagnostics</em> du groupe de fonctions Dépannage) écrit le rapport complet, avec vos paramètres et fichiers, et offre de l'envoyer au développeur de DynALisp dans un ticket GitHub. Chaque partie du rapport est aussi une commande propre, pour vérifier une chose rapidement.</p>
+<p>Trouvez pourquoi DynALisp, ou AutoCAD avec lui, ne fonctionne pas comme il le devrait. Diagnostics vérifie comment DynALisp est installé et démarré, l'AutoCAD en cours et ce qu'il charge d'autre, les paramètres et fichiers de DynALisp, ses réacteurs et le dessin courant, et écrit ce qu'il trouve dans un rapport texte. Les problèmes sont marqués <span class="fixw">[!]</span> et repris en haut.</p>
+<!-- picture: images/Dyl-Diagnostics-window.png -->
+<!-- picture: images/Dyl-Diagnostics-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">DIAG</span> (ou cliquez <em>Diagnostics</em> dans le groupe de fonctions Dépannage du ruban). Le rapport s'ouvre dans votre éditeur de texte.</li>
+<li>Lisez les problèmes en haut : chacun dit ce qui ne va pas et, la plupart du temps, quoi faire.</li>
+<li>Pour obtenir de l'aide, répondez <strong>Open issue</strong> : votre navigateur ouvre un nouveau ticket pour le développeur de DynALisp, son résumé rempli, et le dossier du zip de votre rapport. Décrivez ce qui s'est passé, glissez le zip dans le ticket, puis envoyez-le (voir <a href="#sending">Envoyer un rapport</a>).</li>
+<li>Pour vérifier une partie rapidement, lancez sa commande seule (<span class="fixw">DIAG-DWG</span> pour le dessin...) : les commandes ci-dessous.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
@@ -52,27 +62,24 @@
 <tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Rapporte les unités, les espaces, les tables d'ordre de tracé, les calques, les xréfs et les objets du dessin, et son temps de régénération.</td></tr>
 </table>
 </div>
-<h2>Envoyer un rapport</h2>
-<p><span class="fixw">Dyl-Diagnostics</span> écrit chaque partie dans un dossier <span class="fixw">DynALisp Report &lt;date&gt;</span> de <span class="fixw">%TEMP%</span>, avec :</p>
-<div class="unspacedbullets">
+<h2 id="sending">Envoyer un rapport</h2>
+<div class="spacedbullets">
 <ul>
-<li><span class="fixw">Report.txt</span> : le rapport, qui s'ouvre dans votre éditeur de texte;</li>
-<li><span class="fixw">DynALisp-Settings.txt</span> : vos paramètres DynALisp, tels que les écrit <em>Export settings</em> de <span class="fixw">Dyl-UserFiles</span>;</li>
-<li><span class="fixw">User</span> : vos copies des fichiers de données (préréglages, alias, clés de calque...).</li>
+<li><span class="fixw">DIAG</span> met le rapport, vos paramètres DynALisp et vos copies des fichiers de données dans un dossier <em>DynALisp Report &lt;date&gt;</em> de votre dossier temporaire, et le compresse.</li>
+<li><strong>Open issue</strong> ouvre le nouveau ticket dans votre navigateur et le dossier du zip; <strong>Close</strong> garde le rapport où il est.</li>
+<li>Un ticket GitHub est public : lisez le rapport avant de l'envoyer. Le rapport ne contient jamais votre dossier de profil, votre nom d'utilisateur ni le nom de votre ordinateur : ils sont remplacés par <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> et <span class="fixw">%COMPUTERNAME%</span>. Vos copies des fichiers de données (préréglages, alias, clés de calque...) sont envoyées telles quelles. Le dessin lui-même n'est jamais envoyé.</li>
+<li>L'envoyer demande un compte GitHub; sans compte, envoyez le zip par courriel.</li>
 </ul>
 </div>
-<p>Le dossier est compressé à côté de lui. La question <em>Send it to the DynALisp developer in a GitHub issue?</em> ouvre alors, avec <em>Open issue</em>, un nouveau ticket du dépôt des versions de DynALisp dans votre navigateur, son titre et son résumé remplis, et le dossier du zip avec le zip sélectionné : décrivez ce qui s'est passé, glissez le zip dans le ticket, puis <em>Submit new issue</em>. <em>Close</em> laisse le rapport où il est.</p>
-<p>Un ticket GitHub est <strong>public</strong> : lisez le rapport avant de l'envoyer. Le rapport et le fichier des paramètres ne contiennent jamais votre dossier de profil, votre nom d'utilisateur ni le nom de votre ordinateur : ils sont remplacés par <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> et <span class="fixw">%COMPUTERNAME%</span>. Les fichiers du dossier <span class="fixw">User</span> sont envoyés tels quels. Le dessin lui-même n'est jamais envoyé, seulement ce que le rapport en dit.</p>
 <h2>Trouver ce qui ralentit AutoCAD</h2>
 <p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) compte les événements que le dessin envoie aux réacteurs : lancez-la, travaillez de la façon lente pendant environ 20 secondes (zoom, panoramique, dessin), puis lancez-la de nouveau. Le rapport liste chaque événement (un objet ajouté ou modifié, une commande lancée, une variable système modifiée) et son compte. Les réacteurs DynALisp ne s'exécutent que sur ces événements : quand aucun n'est compté pendant un zoom ou un panoramique lent, ce ne sont pas les réacteurs qui ralentissent. Elle demande que les réacteurs DynALisp soient activés (<span class="fixw">Dyl-Settings</span>).</p>
 <p>La partie <em>Drawing</em> chronomètre une régénération du dessin : lancez <span class="fixw">DIAG-DWG</span>, changez une chose (la table d'ordre de tracé supprimée avec <span class="fixw">DO-RESET</span>, les réacteurs désactivés et le dessin rouvert...), relancez-la et comparez.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les programmes compilés d'autres applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) ne peuvent pas être lus : seul leur nom est listé, pas les commandes qu'ils définissent.</li>
-<li>Les données du démarrage (sa durée, ses avertissements et erreurs de chargement) sont celles du dessin où le rapport est fait; <span class="fixw">Dyl-Reload</span> les enregistre de nouveau.</li>
+<li>Les programmes compilés des autres applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) ne peuvent pas être lus : seul leur nom est listé, pas les commandes qu'ils définissent.</li>
+<li>La partie du démarrage est celle du dessin où le rapport est fait; <span class="fixw">Dyl-Reload</span> l'enregistre à nouveau.</li>
 <li>Les types d'objets sont comptés jusqu'à 100&nbsp;000 objets; au-delà, seul leur total est donné.</li>
-<li>Envoyer le rapport demande un compte GitHub; sans compte, envoyez le zip par courriel.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

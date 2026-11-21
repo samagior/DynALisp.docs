@@ -35,8 +35,19 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-HATCHPRESETS</span> ouvre la fenêtre Hatch Presets. Un préréglage de hachure est la hachure d'un contour : motif, échelle et angle, clé de calque de la hachure, couleurs, type de ligne, épaisseur de ligne et transparence facultatifs. La façon de le dessiner (polyligne, bande linéaire, contour extérieur...) se règle dans chaque préréglage, dans la zone <a href="Dyl-QuickDraw.fr.htm#behaviors">Behaviors</a> de la fenêtre Quick Draw, et sa bordure (clé de calque, couleur, type de ligne...) dans la zone <a href="Dyl-QuickDraw.fr.htm#border">Border settings</a> des fenêtres Quick Draw et Quick Shape. Les préréglages de hachures sont partagés par chaque préréglage de Quick Draw et de <a href="Dyl-QuickShape.fr.htm">Quick Shape</a>, qui ouvrent la même fenêtre par le bouton ouvrir à côté de leur <em>Hatch preset</em> : changer un préréglage de hachure change chaque préréglage qui l'utilise.</p>
-
+<p>Gardez les hachures de vos préréglages en un seul endroit : un préréglage de hachure est la hachure d'un contour (motif, échelle, angle, clé de calque et, au choix, couleurs, type de ligne, épaisseur de ligne et transparence), partagé par chaque préréglage Quick Draw et Quick Shape qui l'utilise. Changez un préréglage de hachure, et chaque préréglage qui l'utilise dessine la nouvelle hachure.</p>
+<!-- picture: images/Dyl-HatchPresets-window.png -->
+<!-- picture: images/Dyl-HatchPresets-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-HatchPresets</span>, ou cliquez le bouton ouvrir à côté de <em>Hatch preset</em> dans la fenêtre Quick Draw ou Quick Shape.</li>
+<li>Choisissez un préréglage de hachure, ou cliquez <strong>New</strong> ou <strong>Copy</strong>; changez son motif, son échelle et sa clé de calque, et cochez les réglages optionnels voulus.</li>
+<li><strong>Pick hatch...</strong> copie les réglages d'une hachure du dessin; <strong>Draw legend...</strong> dessine une boîte de chaque préréglage de hachure sélectionné, avec son nom.</li>
+<li>Cliquez <strong>OK</strong>. Ouverte depuis un préréglage, la fenêtre donne le préréglage de hachure sélectionné à ce préréglage.</li>
+</ol>
+</div>
+<p>La façon dont un préréglage est dessiné et sa bordure se règlent dans chaque préréglage, dans les fenêtres Quick Draw et Quick Shape, jamais ici.</p>
 <h2 id="window">La fenêtre</h2>
 <div class="spacedbullets">
 <ul>
@@ -52,7 +63,6 @@
 <li>Une valeur non valide est affichée au bas de la fenêtre, et le préréglage ne peut pas être quitté tant qu'elle n'est pas corrigée.</li>
 </ul>
 </div>
-
 <h2 id="parameters">Paramètres</h2>
 <p>Le côté droit de la fenêtre montre le <strong>Name</strong> (unique), le <strong>Group</strong> et la zone <a href="#hatch">Hatch settings</a>, en deux colonnes : les réglages de base et les dérogations de clé de calque à gauche, les réglages facultatifs à droite. Les réglages de base sont toujours utilisés. Chaque autre réglage a une case à cocher : sa valeur reste grisée tant qu'elle n'est pas cochée, et tant qu'elle est décochée la propriété reste celle du calque de la clé de calque (DuCalque) ou la valeur par défaut d'AutoCAD.</p>
 <div class="spacedbullets">
@@ -90,7 +100,6 @@
 
 <h3 id="new">Nouveau préréglage de hachure</h3>
 <p><strong>New</strong> part de : motif <span class="fixw">ANSI31</span>, échelle 1.0, angle 0, clé de hachure <span class="fixw">HATCH</span>, annotatif et associatif, et chaque réglage facultatif décoché. <strong>Copy</strong> part du préréglage sélectionné.</p>
-
 <h2 id="defaults">Préréglages de hachures par défaut</h2>
 <p>Les préréglages de hachures livrés avec DynALisp (<span class="fixw">Res\Materials.csv</span>). Sauf mention, ils ne sont ni annotatifs ni associatifs, et chaque réglage facultatif est décoché. <em>Clé de bordure</em> : la clé de calque de bordure des préréglages par défaut du préréglage de hachure (la bordure se règle dans chaque préréglage). Échelle : l'échelle du préréglage de hachure, dans les unités de son motif (voir <em>Scale</em> ci-dessus). Clés de calque : <span class="fixw">FINE</span> A-Detl-Fine, <span class="fixw">THIN</span> A-Detl-Thin, <span class="fixw">MED</span> A-Detl-Medm, <span class="fixw">WIDE</span> A-Detl-Wide, <span class="fixw">XLINE</span> A-Detl-XFin, <span class="fixw">HATCH</span> A-Detl-Patt (voir <a href="../Layer/Dyl-LayerKeys.fr.htm">Clés de calque</a>).</p>
 <div class="programs commands wide">
@@ -141,16 +150,6 @@
 </table>
 </div>
 <p>Chaque préréglage par défaut de Quick Draw utilise le préréglage de hachure par défaut du même nom (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
-
-<h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
-<tr><td><span class="fixw">Dyl-HatchPresets</span></td><td>&ndash;</td><td>Hatch Presets</td></tr>
-</table>
-</div>
-<!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>

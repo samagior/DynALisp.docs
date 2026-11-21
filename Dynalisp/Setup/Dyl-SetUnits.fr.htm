@@ -31,8 +31,16 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-SETUNITS</span> liste chaque réglage d'unités avec son alias : double-cliquez-en un (ou OK) pour l'appliquer. Les réglages d'unités sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
-<p>Quatre raccourcis qui règlent en une étape le format et la précision des unités du dessin, pour les dessins métriques à 1, 0,1 ou 0,01 mm et pour les dessins impériaux à 1/16&Prime;.</p>
+<p>Réglez le format et la précision des unités d'un dessin en une commande : décimales à 1, 0,1 ou 0,01 mm pour les dessins métriques, architecturales à 1/16" pour les dessins impériaux. DynALisp peut aussi donner à chaque dessin les unités de son genre à son ouverture.</p>
+<!-- picture: images/Dyl-SetUnits-window.png -->
+<!-- picture: images/Dyl-SetUnits-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez l'alias des unités : <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0,1 mm), <span class="fixw">UNITS-M2</span> (0,01 mm) ou <span class="fixw">UNITS-I16</span> (1/16").</li>
+<li>Ou tapez <span class="fixw">Dyl-SetUnits</span> : la fenêtre liste les réglages d'unités avec leurs alias; double-cliquez-en un (ou OK).</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
@@ -43,12 +51,19 @@
 <tr><td><span class="fixw">UNITS-I16</span></td><td>Units Imperial 1/16 in</td><td>Règle les unités du dessin en architecture avec une précision de 1/16 po.</td></tr>
 </table>
 </div>
-<h2>Valeurs par défaut des dessins</h2>
-<p>Dans <span class="fixw">Dyl-Settings</span>, le bouton <em>ouvrir</em> de <em>Drawing Settings</em> (dans <em>Overrides</em>; décoché, aucun dessin n'est vérifié) ouvre la fenêtre qui choisit les unités des dessins impériaux et les unités des dessins métriques (<span class="fixw">MEASUREMENT</span> 0 ou 1). Chaque fois qu'un dessin s'ouvre, ses unités sont comparées à la valeur par défaut de son type et réglées quand elles diffèrent. Le dessin n'est pas marqué comme modifié pour autant : enregistrez-le pour garder les unités dans le fichier. <em>(Not checked)</em> laisse les dessins de ce type tels quels. Cela fonctionne que les commandes de cette page soient activées ou non (les préréglages sont dans <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
+<h2 id="defaults">Les unités de chaque dessin</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Drawing Settings</em> (dans Overrides) et cliquez son bouton ouvrir.</li>
+<li>Choisissez les unités des dessins impériaux et des dessins métriques; <em>(Not checked)</em> laisse les dessins de ce genre tels qu'ils sont.</li>
+<li>Dès lors, chaque dessin qui s'ouvre reçoit les unités de son genre quand les siennes diffèrent. Le dessin n'est pas marqué comme modifié : enregistrez-le pour garder les unités dans le fichier.</li>
+</ol>
+</div>
+<p>Cela fonctionne même quand les commandes de cette page sont désactivées dans <span class="fixw">Dyl-Suite</span>.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Seuls le format d'affichage et la précision changent : les unités d'insertion (INSUNITS) et MEASUREMENT ne sont pas réglées, et les précisions métriques supposent qu'une unité de dessin vaut un millimètre.</li>
+<li>Seul l'affichage des longueurs et des angles change : les unités d'insertion et le genre métrique ou impérial du dessin non, et les précisions métriques prennent une unité de dessin pour un millimètre.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

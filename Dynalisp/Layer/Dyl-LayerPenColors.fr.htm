@@ -31,7 +31,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Fait passer les calques des 255 couleurs de la norme Dyl à un petit jeu de couleurs de plumes, 1 à 7, choisies selon l'épaisseur de ligne courante de chaque calque. Quelques couleurs et noms de calques sont conservés ou reçoivent une couleur propre (règles dans <span class="fixw">Res\Layer\PenColors.csv</span>). Les couleurs des calques sont enregistrées dans le dessin : le passage peut donc être annulé en tout temps avec Restore.</p>
+<p>Passez les calques des 255 couleurs de la norme Dyl Standard à quelques couleurs de plumes, 1 à 7, choisies d'après l'épaisseur de ligne de chaque calque, pour un traceur ou un client qui les demande. Quelques couleurs et noms de calques gardent la leur ou en reçoivent une à eux. Les couleurs sont enregistrées dans le dessin : <em>Restore</em> les rend à tout moment.</p>
+<!-- picture: images/Dyl-LayerPenColors-window.png -->
+<!-- picture: images/Dyl-LayerPenColors-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-LayerPenColors</span> et choisissez <em>Pens</em> (par défaut) ou <em>Restore</em>. Les deux commandes enfants du tableau ci-dessous sautent cette question.</li>
+<li>Choisissez <em>All</em> (chaque calque, par défaut) ou <em>Select</em> (les calques des objets que vous sélectionnez).</li>
+<li>La ligne de commande dit combien de calques ont changé, concordaient déjà ou ont été gardés par une règle, et lesquels elle a laissés. Un <span class="fixw">U</span> annule le tout.</li>
+<li>Pour revenir en arrière, relancez-la avec <em>Restore</em> : chaque calque reprend sa couleur d'avant.</li>
+</ol>
+</div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>

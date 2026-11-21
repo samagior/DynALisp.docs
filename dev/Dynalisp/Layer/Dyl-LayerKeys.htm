@@ -21,12 +21,18 @@
 <p class="note">The developer docs of Layer Keys: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Layer/Dyl-LayerKeys.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerKeys.lsp</span> (command) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (layer keys, loaded at startup)</td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (the keys, the window and the object layer keys, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerKeys.lsp</span> (the command)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\LayerKeys.csv</span> (your copy under <span class="fixw">User</span>); the user settings <span class="fixw">DynalispLayerKeyUpdate</span> and <span class="fixw">DynalispLayerKeyKeep</span> (the answer remembered, see <a href="../Core/Dyl-Settings.htm">Dyl-Settings</a>)</td></tr>
+<tr class="alt"><td>Used by</td><td>Quick Draw, Quick Shape, the Hatch Presets, Layer Phase, Object Layer Keys, Revisions (<span class="fixw">ANNREV</span>)...</td></tr>
 </table>
 </div>
+
+<h2>A Key</h2>
+<p>A key is a list of strings, a row of <span class="fixw">LayerKeys.csv</span>:</p>
+<div class="code"><pre>(key layer color linetype lineweight plot description aec keepcolor)
+("THIN" "A-Detl-Thin" "11" "Continuous" "0.18" "1" "Thin lines" "0" "0")</pre></div>
+<p>color is an ACI 1&ndash;255, lineweight <span class="fixw">"Default"</span> or millimeters, plot, aec and keepcolor <span class="fixw">"1"</span> or <span class="fixw">"0"</span>. <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyRead</span> reads them through <span class="fixw">Dyl:UserFile</span>, each row cleaned by <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyFix</span> (a key or layer name not valid, or a key of <span class="fixw">*lk:removed*</span>, is dropped; the color, linetype and lineweight are normalized; <em>aec</em> comes from <span class="fixw">*lk:aec*</span>), then adds the default keys of <span class="fixw">*lk:defaults*</span> the file does not have. The <span class="fixw">G-DS-ANNO-STD-*</span> keys are never the key of a material (<span class="fixw">*lk:nomaterial*</span>, <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyMaterial-p</span>).</p>
+
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
@@ -40,6 +46,21 @@
 </ol>
 </div>
 <p>The new dimensions, leaders, text and other common objects can go to a layer key of their own too, whatever the current layer: see <a href="../../../Dynalisp/Layer/Dyl-ObjectLayerKeys.htm">Object Layer Keys</a> (Auto layer keys, Dyl-Settings).</p>
+
+<h2>From A Key To A Layer</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyLayer "THIN")</span> &ndash; the layer of the key, through <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyLayerOf</span>. A key that does not exist uses the layer of the same name, with the default properties; when the layer cannot be made, the current layer.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:LayerKeyName</span> gives its name: an AEC key as shipped, with AutoCAD Architecture, takes the layer of the layer key style of the drawing (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyAecLayer</span>); then, while auto-phase runs, the name in the active phase (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyInPhase</span>).</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:LayerKeyMake</span> creates a missing layer with the properties of the key (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyProps</span>), loading its linetype when needed; a phase layer gets the phase color unless the key keeps its color (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyKeepColor</span>).</li>
+<li>An existing layer whose properties differ (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDiffs</span>) is checked once per drawing and session (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyCheck</span>, <span class="fixw">LayerKeyChecked</span>): the answer remembered is used, else <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyAsk</span> asks, and <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyUpdate</span> updates it.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:LayerKeyThaw</span> turns on and thaws the layer, so the objects drawn on it are seen and can be selected (a frozen layer cannot be made current), says so, and regenerates when it thawed it.</li>
+</ol>
+</div>
+
+<h2>The Window</h2>
+<p><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog pick)</span> writes the window (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDcl</span>) and runs <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDlgRun</span>. Its functions follow the <a href="../../conventions.html#windows">Windows</a> convention: several keys selected (<span class="fixw">LayerKeyDlgSel</span>, a field given to all with <span class="fixw">LayerKeyDlgPut</span>), the filter and sort of the list (<span class="fixw">LayerKeyDlgFilter</span>, <span class="fixw">LayerKeyDlgSort</span>), New, Copy, Delete, Reset and Restore defaults. With <span class="fixw">pick</span> T (from the Hatch Presets), a double-click saves and returns the key.</p>
+
 <h2>Using Layer Keys In An App</h2>
 <div class="spacedbullets">
 <ul>

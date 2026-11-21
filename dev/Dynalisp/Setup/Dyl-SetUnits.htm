@@ -21,12 +21,14 @@
 <p class="note">The developer docs of Set Units: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Setup/Dyl-SetUnits.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetUnits.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span> (the presets and the check of each drawing, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetUnits.lsp</span> (the commands)</td></tr>
+<tr><td>Data</td><td>The unit system variables of the drawing; the user settings <span class="fixw">DynalispUnitsImperial</span>, <span class="fixw">DynalispUnitsMetric</span> (a preset key, <span class="fixw">""</span>: not checked) and <span class="fixw">DynalispSetupOn</span></td></tr>
+<tr class="alt"><td>Shared with</td><td><a href="Dyl-StandardGrid.htm">Standard Grid</a> (the same Remote file), the Drawing Settings window of <a href="../Core/Dyl-Settings.htm">Dyl-Settings</a></td></tr>
 </table>
 </div>
+
+<h2>The Presets</h2>
+<p><span class="fixw">*ds:units*</span> holds each preset as <span class="fixw">(key label ((variable . value) ...))</span>. The values are system variables, so a drawing can be compared with a preset as well as set to it:</p>
 <h2>How It Works</h2>
 <p>Each command sets the unit system variables (<span class="fixw">LUNITS</span>, <span class="fixw">LUPREC</span>, <span class="fixw">AUNITS</span>, <span class="fixw">AUPREC</span>, <span class="fixw">ANGBASE</span>, <span class="fixw">ANGDIR</span>) and prints a confirmation:</p>
 <div class="programs commands wide">
@@ -39,6 +41,45 @@
 </table>
 </div>
 <p>All four set the base angle to East (0&deg;) and angles counter-clockwise.</p>
+<p>An architectural <span class="fixw">LUPREC</span> of <span class="fixw">n</span> is a precision of 1/2<sup>n</sup> inch (4: 1/16"). A new preset is a row of <span class="fixw">*ds:units*</span> and a child command of <span class="fixw">Dyl-SetUnits.lsp</span>.</p>
+
+<h2>The Commands</h2>
+<div class="spacedbullets">
+<ul>
+<li>Each child, <span class="fixw">c:Pst-UnitsMetricMm</span> &hellip; <span class="fixw">c:Pst-UnitsImperialSixteenthIn</span>, is <span class="fixw">(su:apply key)</span>: <span class="fixw">(Remote&gt;&gt;Dyl:UnitsApply key)</span> sets every variable of the preset, then the label is printed (<span class="fixw">Remote&gt;&gt;Dyl:UnitsName</span>).</li>
+<li><span class="fixw">c:Dyl-SetUnits</span> is <span class="fixw">Dyl:ChildPicker</span> of <span class="fixw">dynalisp.mnl</span>: a window listing the children of the file turned on in the Startup Suite, with their aliases, that runs the one double-clicked; <span class="fixw">*su:last*</span> keeps the one picked last for the session.</li>
+</ul>
+</div>
+
+<h2>Every Drawing</h2>
+<p>The Remote file loads at startup, so the check runs whether the commands are turned on or not:</p>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">dynalisp.mnl</span> runs <span class="fixw">Remote&gt;&gt;Dyl:SetupWatch</span> as a startup step of each drawing (<span class="fixw">Dyl:StartupStep "Drawing settings"</span>), when the Drawing Settings window of <span class="fixw">Dyl-Settings</span> is saved, and when a drawing becomes current after a change made elsewhere (Settings sync).</li>
+<li>Nothing is done while <span class="fixw">DynalispSetupOn</span> is off.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:SetupKind</span> takes <span class="fixw">"Metric"</span> or <span class="fixw">"Imperial"</span> from <span class="fixw">MEASUREMENT</span>; <span class="fixw">Remote&gt;&gt;Dyl:SetupDefault</span> reads <span class="fixw">Dynalisp&lt;Units|Grid&gt;&lt;kind&gt;</span>, nil when it is empty or names a preset that no longer exists.</li>
+<li>Between <span class="fixw">acad-push-dbmod</span> and <span class="fixw">acad-pop-dbmod</span> (the drawing is not marked as modified, so a drawing only looked at is not asked to be saved), the units are set when <span class="fixw">Remote&gt;&gt;Dyl:Units-p</span> finds a difference (each variable compared with <span class="fixw">equal</span> and a fuzz of 1e-8), and the grid the same way.</li>
+<li>It returns a status line (<em>metric drawing: units set to Metric 1 mm</em>), kept by the startup for the command line and the diagnostics.</li>
+</ol>
+</div>
+
+<h2 id="api">Using It In An App</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Call</th><th>Does</th></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:UnitsApply "MetricMm")</span></td><td>Sets the units of a preset.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:Units-p "MetricMm")</span></td><td>T when the drawing has them.</td></tr>
+<tr><td><span class="fixw">(Remote&gt;&gt;Dyl:SetupWatch)</span></td><td>Checks the current drawing against the defaults, returns its status line.</td></tr>
+</table>
+</div>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">INSUNITS</span> and <span class="fixw">MEASUREMENT</span> are never set: the presets change how lengths and angles are shown, not what a unit is.</li>
+<li>The units are set again each time the drawing opens until it is saved with them.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

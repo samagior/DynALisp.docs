@@ -36,7 +36,16 @@
 </div>
 <h2>Description</h2>
 <p>Au chargement de DynALisp, la ligne de commande donne un bref résumé : <span class="fixw">DynALisp loaded (516 commands/453 aliases)</span>, puis <span class="fixw">Dyl-Settings to change the settings, Dyl-Info for help.</span> (les nombres sont ceux de votre installation; les avertissements, s'il y en a, suivent sur une dernière ligne qui commence par <span class="fixw">--&gt;</span>). <span class="fixw">DYL-INFO</span> est la fenêtre d'aide de DynALisp; <span class="fixw">DYL-USERFILES</span> gère les fichiers que vous avez modifiés.</p>
-
+<!-- picture: images/Dyl-Info-window.png -->
+<!-- picture: images/Dyl-Info-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">Dyl-Info</span> : la version, les mises à jour, les docs de chaque module et les commandes du noyau.</li>
+<li>Quand une nouvelle version sort, cliquez <strong>Update to...</strong> : vous voyez ce qui a changé, et elle s'installe à la fermeture d'AutoCAD.</li>
+<li>Tapez <span class="fixw">Dyl-UserFiles</span> pour voir, remettre à zéro, exporter ou importer les fichiers que vous avez modifiés (préréglages, alias, clés de calque...).</li>
+</ol>
+</div>
 <h2 id="info">Fenêtre Info</h2>
 <div class="spacedbullets">
 <ul>
@@ -63,7 +72,6 @@
 <tr><td><span class="fixw">TBLFIX</span></td><td>Ajuste maintenant chaque rangée de tableau du dessin à la hauteur de son texte.</td></tr>
 </table>
 </div>
-
 <h2 id="updates">Mises à jour</h2>
 <p>DynALisp s'installe de l'une de deux façons, et se met à jour de la même façon :</p>
 <div class="spacedbullets">
@@ -74,7 +82,6 @@
 </div>
 <p>Au premier démarrage d'AutoCAD après une mise à jour (de l'une ou l'autre façon), la fenêtre What's New montre une fois les changements depuis la version que vous aviez; <strong>What's new</strong> de Dyl-Info les montre de nouveau. Les changements sont dans <span class="fixw">CHANGELOG.md</span>, dans le dossier DynALisp. <strong>All releases</strong> ouvre la page des versions.</p>
 <p><strong>Mises à jour automatiques</strong> (<em>Install updates automatically</em>, section Updates de <a href="Dyl-Settings.fr.htm#updates">Dyl-Settings</a>, désactivé tant que vous ne l'activez pas) : une fois par jour, le premier dessin ouvert vérifie s'il existe une nouvelle version et lance son installation, qui s'effectue à la fermeture d'AutoCAD. La ligne de commande l'indique sous <span class="fixw">DynALisp loaded</span>.</p>
-
 <h2 id="userfiles">Fichiers utilisateur</h2>
 <p>Les fichiers de données de DynALisp (préréglages, matériaux, clés de calque, alias, la suite de démarrage, profils de variables système...) sont livrés sous <span class="fixw">Contents</span> et jamais modifiés par les commandes. Ce que vous modifiez est enregistré dans une copie du fichier, dans le dossier <span class="fixw">User</span> du paquet (ignoré par git), lue à la place du fichier par défaut. <span class="fixw">DYL-USERFILES</span> liste ces copies avec ce qu'est chacune :</p>
 <div class="spacedbullets">
@@ -91,7 +98,6 @@
 <h2 id="uninstall">Désinstallation</h2>
 <p>Désinstallez DynALisp depuis Paramètres Windows &gt; Applications (installé avec le programme d'installation). Il demande d'abord s'il faut <strong>enregistrer vos paramètres</strong>, et où : le même dossier <span class="fixw">DynALisp Settings &lt;date&gt;</span> qu'avec <strong>Export settings</strong> (vos propres modules inclus). Puis il retire tout : le dossier DynALisp (votre dossier <span class="fixw">User</span> et <span class="fixw">MyTools</span> aussi), les paramètres utilisateur <span class="fixw">Dynalisp*</span> de chaque AutoCAD, le profil DynALisp (le profil que vous aviez avant redevient courant) et les chemins DynALisp des profils d'AutoCAD (chemins de support et de confiance, dictionnaire personnalisé).</p>
 <p>Pour retrouver vos paramètres dans une nouvelle installation, choisissez le <span class="fixw">DynALisp-Settings.txt</span> enregistré à la page <strong>Import Saved Settings</strong> du programme d'installation (ses options sont appliquées au démarrage d'AutoCAD), ou plus tard avec <strong>Import settings</strong> ci-dessus. Un clone git se retire en supprimant son dossier; enregistrez d'abord vos paramètres avec <strong>Export settings</strong>.</p>
-
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>

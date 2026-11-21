@@ -21,10 +21,8 @@
 <p class="note">The developer docs of Claude Text Fix: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-ClaudeTextFix.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td></tr>
+<tr><td>Sends</td><td>The text of each object to the Messages API of Anthropic (<span class="fixw">https://api.anthropic.com/v1/messages</span>); nothing is saved</td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -36,6 +34,14 @@
 <li>Each object is sent on its own (model <span class="fixw">claude-haiku-5-5</span>, 30 s timeout). When the text changes, the original and the corrected text are shown (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) and the command asks <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span>: <em>Oui</em> replaces it, <em>Non</em> keeps it, <em>Tous</em> replaces it and every next correction without asking, <em>Quitter</em> stops.</li>
 <li>The corrections are written with ActiveX, so objects on locked layers are corrected too. The whole command is one undo step, and a summary gives the objects checked, corrected and failed.</li>
 </ol>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Signing in</strong> &ndash; <span class="fixw">ctf:get-auth</span> returns the key or the token: <span class="fixw">ANTHROPIC_API_KEY</span> first, else the token of the <span class="fixw">ant</span> command line tool (<span class="fixw">ctf:ant-token</span>, read again every 10 minutes), else a key typed; <span class="fixw">ctf:forget-auth</span> drops it after a refusal. A key is never written to a file (the <a href="../../index.html#working-on-dynalisp-with-claude-code">README</a> rule on keys).</li>
+<li><strong>The request</strong> &ndash; <span class="fixw">ctf:build-request-body</span> writes the JSON (the model, the instructions: correct, never translate, keep terms and codes; the text escaped by <span class="fixw">ctf:json-escape</span>); <span class="fixw">ctf:http-post</span> sends it with <span class="fixw">WinHttp.WinHttpRequest.5.1</span> (30 s timeout); <span class="fixw">ctf:send-request</span> and <span class="fixw">ctf:correct-text</span> read the answer (<span class="fixw">ctf:json-string-after</span>, <span class="fixw">ctf:unicode-to-char</span> for the <span class="fixw">\uXXXX</span> escapes).</li>
+<li><strong>The texts</strong> &ndash; <span class="fixw">ctf:get-selection</span> (the selection made first, else a new one of <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span>, <span class="fixw">MULTILEADER</span>), <span class="fixw">ctf:text-editable-p</span>, <span class="fixw">ctf:print-change</span> and <span class="fixw">ctf:ask-confirmation</span>, then <span class="fixw">ctf:apply-text</span> through ActiveX; <span class="fixw">ctf:process-selection</span> runs them in one undo mark.</li>
+</ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 

@@ -37,7 +37,16 @@
 <h2>Program Description</h2>
 <p><span class="fixw">DYL-SETTINGS</span> opens the DynALisp Settings window: the language of DynALisp, the reactors, which act on the objects as you draw, the overrides, which DynALisp sets in every drawing opened, and the updates of DynALisp. Every on/off setting is <strong>off on a new installation</strong>; once turned on it is remembered (a Windows user setting, <span class="fixw">Dynalisp*</span>) for every drawing and session. <strong>Save</strong> applies and saves the changes, <strong>Cancel</strong> discards them, <strong>Open Docs</strong> opens this page.</p>
 <p>A setting with a square <em>open</em> button beside it has its own window; the button is greyed out while the setting is off (or when the program it needs is not loaded).</p>
-
+<!-- picture: images/Dyl-Settings-window.png -->
+<!-- picture: images/Dyl-Settings-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">Dyl-Settings</span> (or click <em>Settings</em> on the DynALisp panel of the ribbon).</li>
+<li>Check what DynALisp should do for you; a square open button beside a setting opens its own window.</li>
+<li>Click <strong>Save</strong>: the settings apply to every drawing, the open ones when you switch to them.</li>
+</ol>
+</div>
 <h2 id="environment">Environment</h2>
 <p><em>The language its docs open in.</em></p>
 <div class="programs commands wide">
@@ -46,7 +55,6 @@
 <tr><td>Language</td><td><em>English</em> or <em>French</em>: the language the DynALisp docs open in (the <strong>Open Docs</strong> buttons, <span class="fixw">Dyl-Docs</span>, the docs of <span class="fixw">Dyl-Suite</span>), English for a page not translated yet; the EN | FR switch at the top right of every page changes the language of the page shown. It changes nothing else: the DynALisp tab of the <a href="../Plugins/Ribbon.htm">ribbon</a>, the phase names (status bar, <a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>) and the descriptions of the Layer Transfer lists are always in the language of the AutoCAD installed. Until it is saved, the language of the AutoCAD installed (English for a language DynALisp does not have yet). It is not the Language of the <a href="../Setup/Dyl-SetFilePrefs.htm">File Preferences</a>, which sets the content folders and the dictionaries of the drawings.</td></tr>
 </table>
 </div>
-
 <h2 id="reactors">Reactors</h2>
 <p><em>Act on new objects as you draw.</em> The reactors are in the <span class="fixw">Reactor</span> folder of each module.</p>
 <div class="programs commands wide">
@@ -59,7 +67,6 @@
 <tr><td>Settings sync</td><td>The other open drawings follow the settings saved here when they are made current (only what changed is applied). Off, a setting applies to the drawing it is changed in and to the drawings opened after.</td></tr>
 </table>
 </div>
-
 <h2 id="overrides">Overrides</h2>
 <p><em>Set in every drawing opened.</em></p>
 <div class="programs commands wide">
@@ -74,7 +81,6 @@
 <tr><td>Clean startup</td><td>Once AutoCAD has started, the lines it printed while starting (<em>Loading AEC...</em>, <em>Customization file loaded successfully</em>, the palettes and startup commands of the workspace...) are removed from the command line. Kept: the <em>Drawing created using...</em> line, the lines of DynALisp and every line that reports an error or a warning. Applies from the next startup. Greyed out in a version older than 2015. See <a href="../Plugins/CleanStartup.htm">Clean Startup</a>.</td></tr>
 </table>
 </div>
-
 <h2 id="layerkeys">Layer Keys</h2>
 <p><em>Existing layers that differ from their key.</em></p>
 <div class="programs commands wide">
@@ -93,7 +99,6 @@
 <tr><td>Install updates automatically</td><td>Once a day, the first drawing opened checks for a new version of DynALisp and starts its setup, which installs it when you close AutoCAD (<a href="Dyl-Info.htm#updates">Updates</a>). Off, Dyl-Info tells you when a new version is out. Greyed out when DynALisp is a git clone: update it with <span class="fixw">git pull</span>.</td></tr>
 </table>
 </div>
-
 <h2 id="drawing">Drawing Settings Window</h2>
 <div class="spacedbullets">
 <ul>
@@ -102,7 +107,6 @@
 <li>The values are saved when Settings is saved.</li>
 </ul>
 </div>
-
 <h2 id="display">Display Window</h2>
 <div class="spacedbullets">
 <ul>
@@ -110,7 +114,6 @@
 <li>Saved when Settings is saved.</li>
 </ul>
 </div>
-
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
 
     </div>

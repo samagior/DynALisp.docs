@@ -21,10 +21,7 @@
 <p class="note">The developer docs of Layer Color To Object: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-LayerColorToObject.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Source Files</td>
-<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td>
-</tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
@@ -45,6 +42,8 @@
 <tr><td><span class="fixw">ByLayer</span></td><td>Reverts the objects to ByLayer.</td></tr>
 </table>
 </div>
+<h2>The Code</h2>
+<p><span class="fixw">c:Dyl-LayerColorToObject</span> takes the selection (<span class="fixw">lcol:get-selection</span>: the one made first, else a new one without the locked layers), the mode (<span class="fixw">lcol:get-mode</span>, the last one kept for the session), and runs <span class="fixw">lcol:process-selection</span> in one undo mark. The color of a layer is built once (<span class="fixw">lcol:get-layer-data</span>, <span class="fixw">lcol:build-color</span>, kept by <span class="fixw">lcol:get-cached-color</span> and freed by <span class="fixw">lcol:release-cache</span>): an <span class="fixw">AcCmColor</span> object (<span class="fixw">lcol:new-color</span>, of the release running) from its <span class="fixw">TrueColor</span>, its RGB split by <span class="fixw">lcol:rgb-split</span>.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

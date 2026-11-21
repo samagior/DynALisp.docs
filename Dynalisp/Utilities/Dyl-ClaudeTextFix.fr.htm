@@ -35,9 +35,19 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Révise avec Claude (l'API d'Anthropic) les textes, textes multilignes et lignes de repère multiples sélectionnés, et remplace chacun par sa version corrigée après votre confirmation. L'orthographe, la grammaire, les accents et la ponctuation sont corrigés dans la langue du texte, jamais traduits; les termes techniques, abréviations, unités, nombres, cotes, codes et références de normes (p. ex. CNB, CSA) sont conservés, tout comme les codes de mise en forme d'AutoCAD (<span class="fixw">\P</span>, <span class="fixw">\f...;</span>, <span class="fixw">%%c</span>...) et la structure des lignes.</p>
+<p>Faites relire les textes d'un dessin par Claude : chaque texte, texte multiligne et ligne de repère multiple sélectionné est vérifié pour l'orthographe, la grammaire, les accents et la ponctuation dans sa propre langue, jamais traduit, et remplacé par sa version corrigée une fois que vous dites oui. Les termes techniques, abréviations, unités, cotes et codes restent tels quels.</p>
 <p class="note">Le texte des objets sélectionnés est envoyé à l'API d'Anthropic. Ne l'utilisez pas sur des dessins dont le texte ne doit pas quitter votre ordinateur.</p>
-
+<!-- picture: images/Dyl-ClaudeTextFix-window.png -->
+<!-- picture: images/Dyl-ClaudeTextFix-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Une fois</strong> &ndash; connectez-vous à Anthropic : réglez la variable d'environnement Windows <span class="fixw">ANTHROPIC_API_KEY</span> à votre clé d'API (puis redémarrez AutoCAD), ou connectez-vous avec l'outil en ligne de commande d'Anthropic (<span class="fixw">ant auth login</span>). Sans l'un ni l'autre, la commande demande une clé, gardée pour la session seulement.</li>
+<li>Sélectionnez les textes, puis tapez <span class="fixw">Dyl-ClaudeTextFix</span>.</li>
+<li>Pour chaque texte qui change, la ligne de commande montre l'original et la correction : répondez <em>Oui</em> pour le remplacer, <em>Non</em> pour le garder, <em>Tous</em> pour accepter tous les autres, <em>Quitter</em> pour arrêter.</li>
+<li>Un résumé donne les textes vérifiés, corrigés et en échec. Un <span class="fixw">U</span> annule toutes les corrections.</li>
+</ol>
+</div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>

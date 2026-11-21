@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assembly Layers &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Draw/Dyl-AssemblyLayers.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assembly Layers</h1>
+
+<p class="note">The developer docs of Assembly Layers: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-AssemblyLayers.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (the window, <span class="fixw">Dyl:QuickDrawLayers*</span>; drawing an assembly), <span class="fixw">Remote\Dyl-Materials.lsp</span> (reading and writing the layers)</td></tr>
+<tr><td>Data</td><td>The <span class="fixw">Assembly</span> and <span class="fixw">AssemblyOn</span> columns of <span class="fixw">Res\QuickDraw.csv</span></td></tr>
+</table>
+</div>
+<h2>How The Layers Are Kept</h2>
+<p>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention keeps a setting that is a list in one column of text, its items divided by <span class="fixw">|</span> and their fields by <span class="fixw">:</span>, never <span class="fixw">;</span> or <span class="fixw">,</span> (the separators of the CSV files):</p>
+<div class="code"><pre>P:qd-Gypsum:16|P:qd-WoodFrame:140|L:THIN:|S::25|P:qd-Brick:90
+P:qd-Brick:90:HATCH          ; a Hatch layer with its own hatch layer key</pre></div>
+<p>Each layer is <span class="fixw">kind:preset or layer key:thickness</span>, the kind <span class="fixw">P</span> (Hatch), <span class="fixw">S</span> (Space) or <span class="fixw">L</span> (Line); a Hatch layer can have a fourth field, its own hatch layer key. <span class="fixw">Remote&gt;&gt;Dyl:MaterialLayers</span> reads the text and drops the items that are not valid; <span class="fixw">Remote&gt;&gt;Dyl:MaterialLayersStr</span> writes it; <span class="fixw">Remote&gt;&gt;Dyl:MaterialLayersText</span> gives the summary shown beside the open button (<em>3 layers</em>).</p>
+<h2>The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:QuickDrawLayersDialog</span> writes its DCL (<span class="fixw">Dyl:QuickDrawLayersDcl</span>) and edits a copy of the layers; OK gives them to every preset selected in the Quick Draw window, saved with them by Draw or Save.</li>
+<li>Several layers selected (<span class="fixw">Dyl:QuickDrawLayersSel</span>): <span class="fixw">Dyl:QuickDrawLayersEditAll</span> gives a field changed to each layer it applies to (Preset and Hatch layer key to the Hatch layers, Thickness to Hatch and Space); <span class="fixw">Dyl:QuickDrawLayersEditOne</span> edits the one shown.</li>
+<li><span class="fixw">Dyl:QuickDrawLayersAdd</span>, <span class="fixw">LayersRemove</span>, <span class="fixw">LayersMove</span>, <span class="fixw">LayersFlip</span>; <span class="fixw">Dyl:QuickDrawLayersPresetWidth</span> gives a Hatch layer the width of its preset; <span class="fixw">Dyl:QuickDrawLayersTotal</span> the total under the list.</li>
+</ul>
+</div>
+<h2>Drawing An Assembly</h2>
+<p><span class="fixw">Dyl:QuickDrawLayersBand</span> (Linear) and <span class="fixw">Dyl:QuickDrawCurveLayers</span> (Offset) place the layers across the band from the line, by the justification of the preset; <span class="fixw">Dyl:QuickDrawLayerHatch</span> hatches each Hatch layer as its preset (its hatch preset, Scale by width, origin), a Space layer is left empty, a Line layer is drawn on its key and replaces the joint it falls on. A Hatch layer whose preset was deleted is drawn as a space, with a message.</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
