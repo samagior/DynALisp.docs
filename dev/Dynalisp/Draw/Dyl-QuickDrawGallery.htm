@@ -21,20 +21,28 @@
 <p class="note">The developer docs of Quick Draw Gallery: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickDrawGallery.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (Gallery region), <span class="fixw">Remote\Dyl-Materials.lsp</span> (the tile images)</td></tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (Gallery region), the window <span class="fixw">Modules\Dynalisp\Res\Dyl-QuickDrawGallery.xaml</span>, its tiles drawn by the <a href="../Plugins/Windows.htm">Windows</a> plugin (<span class="fixw">Installer\Windows\Engine\Gallery.cs</span>, <span class="fixw">Engine\Hatch.cs</span>)</td></tr>
 <tr><td>Command</td><td><span class="fixw">c:Pst-QuickDrawGallery</span>, a child of <a href="Dyl-QuickDraw.htm">Quick Draw</a></td></tr>
+<tr class="alt"><td>Picture</td><td>Its row of <span class="fixw">Installer\Windows\Shots\Shots.csv</span>, its sample values <span class="fixw">Samples\Dyl-QuickDrawGallery.txt</span> (its patterns in <span class="fixw">Samples\Sample.pat</span>, at a drawing scale of 1:48)</td></tr>
 </table>
 </div>
 <h2>The Window</h2>
 <div class="spacedbullets">
-<ul>
-<li><span class="fixw">Dyl:QuickDrawGallery</span> writes its DCL to a temporary file (<span class="fixw">Dyl:QuickDrawGalleryDcl</span>): <span class="fixw">*qd:gtiles*</span> tiles a page, <span class="fixw">*qd:gcols*</span> a row. It returns the preset clicked, drawn by the caller with <span class="fixw">Dyl:QuickDrawRun</span>.</li>
-<li>Its locals: <span class="fixw">qg:all</span> (the presets, <span class="fixw">((rec . mat) ...)</span>, each material with its behaviors and border: <span class="fixw">Dyl:QuickDrawMat</span>), <span class="fixw">qg:grps</span> (the Group popup), <span class="fixw">qg:grp</span>, <span class="fixw">qg:lst</span> (the presets shown) and <span class="fixw">qg:page</span>.</li>
-<li>The group to open on: <span class="fixw">*qd:gallerygroup*</span>, set by an item of the ribbon (<span class="fixw">(setq *qd:gallerygroup* "Section")</span> then the command) and read once, else <span class="fixw">*qd:gallerylast*</span>, the group shown last in the session (the <a href="../../conventions.html#ribbon">Ribbon</a> convention on items that are not commands).</li>
-</ul>
+<ol>
+<li><span class="fixw">Dyl:QuickDrawGallery</span> reads the hatch presets once (<span class="fixw">Remote&gt;&gt;Dyl:MaterialRead</span>) and the presets (<span class="fixw">Dyl:QuickDrawRead</span>) into <span class="fixw">qg:all</span>, <span class="fixw">((rec . mat) ...)</span>, each material with the behaviors and border of its preset (<span class="fixw">Dyl:QuickDrawMat</span>). A preset whose hatch preset is missing is left out.</li>
+<li>The groups (<span class="fixw">Dyl:QuickDrawGalleryGroups</span>): <em>All</em>, every group of <span class="fixw">Remote&gt;&gt;Dyl:Groups</span>, then a group typed in the presets file that is not one of them. The group to open on: <span class="fixw">*qd:gallerygroup*</span>, set by an item of the ribbon (<span class="fixw">(setq *qd:gallerygroup* "Section")</span> then the command) and read once, else <span class="fixw">*qd:gallerylast*</span>, the group shown last in the session (the <a href="../../conventions.html#ribbon">Ribbon</a> convention on items that are not commands), matched by <span class="fixw">Dyl:QuickDrawGalleryMatch</span> (same name in any case, else a name that starts with the other).</li>
+<li><span class="fixw">Dyl:WinShow</span> opens <span class="fixw">Dyl-QuickDrawGallery.xaml</span> with <span class="fixw">grp</span> (the groups and the one picked) and <span class="fixw">gal/list</span>, one item a preset: <span class="fixw">"name&lt;TAB&gt;group&lt;TAB&gt;spec"</span>. The group and the search box filter the tiles in the window itself: nothing calls the Lisp back.</li>
+<li>A tile clicked closes the window with 1 and <span class="fixw">gal</span> the index of its preset in <span class="fixw">qg:all</span>: the preset is returned, and drawn by the caller with <span class="fixw">Dyl:QuickDrawRun</span>. <em>Quick Draw Manager</em> closes it with 2: <span class="fixw">Dyl:QuickDrawDialog</span> opens in its place. The group shown is kept in <span class="fixw">*qd:gallerylast*</span>.</li>
+</ol>
 </div>
 <h2>A Tile</h2>
-<p><span class="fixw">Dyl:QuickDrawGalleryImage</span> draws each tile: <span class="fixw">Remote&gt;&gt;Dyl:MaterialPatImage</span> reads the pattern of the material (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatDef</span>, from its <span class="fixw">.pat</span> file), clips its lines to the tile (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatClip</span>) and draws them with <span class="fixw">vector_image</span>, the solid fills with <span class="fixw">fill_image</span> (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatFill</span>), in the colors of the material (<span class="fixw">Remote&gt;&gt;Dyl:MaterialAci</span>); a frame shows the border. <span class="fixw">Dyl:QuickDrawGalleryName</span> and <span class="fixw">GalleryCut</span> fit the name under the tile.</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl:QuickDrawGallerySpec</span> gives the spec of the <span class="fixw">HatchTile</span> of a preset (see <a href="../Plugins/Windows.htm#hatch">The Preview Of A Hatch</a>): one band, its hatch, or for an assembly (column 37 on, its layers read by <span class="fixw">Remote&gt;&gt;Dyl:MaterialLayers</span>) a band per layer, as wide as its thickness, each drawn with the hatch of its own preset (<span class="fixw">Dyl:QuickDrawGalleryMat</span>).</li>
+<li><span class="fixw">Dyl:QuickDrawGalleryBand</span> writes a band: <span class="fixw">F</span> for <span class="fixw">SOLID</span>, <span class="fixw">X</span> for a preset missing, else <span class="fixw">P</span> with the pattern, its <span class="fixw">.pat</span> file (<span class="fixw">Remote&gt;&gt;Dyl:MaterialPatUnits</span>, which also gives its units), the inches on paper of one unit of the pattern, its angle and the drawing scale it is divided by: 1 when the material is annotative or adaptive (columns 9 and 10; a Model material has both off, <span class="fixw">Remote&gt;&gt;Dyl:MaterialFix</span>), else <span class="fixw">Remote&gt;&gt;Dyl:MaterialDrawScale</span>.</li>
+<li>The plugin reads the <span class="fixw">.pat</span> file, draws the pattern 1:1 on paper and zooms out with a scale label when it does not repeat enough in the tile. The colors are those of the theme, not of the material.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fenêtres</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Windows.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Plugins/Windows.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Fenêtres</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Chargement</td>
+<td>Avec DynALisp, par AutoCAD lui-même (<span class="fixw">DynALisp.Windows.dll</span>)</td>
+</tr>
+<tr>
+<td>Requis</td>
+<td>AutoCAD 2015 ou suivant pour Windows, 64 bits</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+
+<h2>Description</h2>
+<p>Les fenêtres de DynALisp sont des fenêtres modernes affichées par un module d'extension qu'AutoCAD charge avec DynALisp : des sections en cartes, un interrupteur pour chaque paramètre activé ou désactivé, un texte lisible, les mêmes boutons dans chaque fenêtre, aux couleurs du thème d'AutoCAD. Elles remplacent une à une les boîtes de dialogue classiques d'AutoCAD, en commençant par la fenêtre <a href="../Core/Dyl-Settings.fr.htm">Settings</a> et les fenêtres qu'elle ouvre (Drawing Settings, Display, File Preferences, Output Prep), et la <a href="../Draw/Dyl-QuickDrawGallery.fr.htm">galerie Quick Draw</a>, ses hachures dessinées telles qu'elles s'impriment. Une fenêtre fonctionne comme avant : les mêmes paramètres, les mêmes boutons, le même bouton <em>Open Docs</em>.</p>
+<figure class="shot"><picture><source srcset="images/Windows-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Windows-window.png" alt="Fenêtres: window"></picture></figure>
+<!-- picture: images/Windows-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Rien à activer : les fenêtres s'ouvrent dès que DynALisp est chargé.</li>
+<li>Lancez une commande qui a une fenêtre, comme <span class="fixw">Dyl-Settings</span>.</li>
+<li>Le bouton carré d'ouverture à côté d'un paramètre ouvre sa propre fenêtre par-dessus la première. Son <em>OK</em> garde ce que vous avez changé, <em>Cancel</em> le remet comme avant ; la première fenêtre l'enregistre avec le reste.</li>
+</ol>
+</div>
+<h2>Notes</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les fenêtres prennent les couleurs d'AutoCAD : gris-bleu foncé dans son thème sombre, gris clair dans son thème clair (<em>Jeu de couleurs</em> dans l'onglet Affichage de ses Options).</li>
+<li>Un paramètre grisé ne peut pas être changé pour l'instant : son interrupteur au-dessus est désactivé, ou son outil est désactivé dans la Startup Suite.</li>
+<li>Quand une fenêtre ne s'ouvre pas, la ligne de commande en donne la raison. Lancez <span class="fixw">Dyl-Diagnostics</span> : il signale quand le module d'extension n'est pas chargé (un AutoCAD antérieur à 2015, le fichier bloqué par <span class="fixw">SECURELOAD</span>, ou absent).</li>
+<li>AutoCAD 2010 à 2014 ne sont plus pris en charge : ils ne peuvent pas charger le module d'extension.</li>
+<li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Windows</span>, un seul projet compilé pour .NET 8 et pour .NET Framework 4.8, les deux DLL validées dans git ; chaque fenêtre est un fichier <span class="fixw">.xaml</span> du dossier <span class="fixw">Res</span> de son module.</li>
+</ul>
+</div>
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

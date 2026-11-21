@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2015 or later for Windows, with the DynALisp <a href="../Plugins/Windows.htm">windows</a> plugin</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -36,14 +36,14 @@
 </div>
 <h2>Program Description</h2>
 <p><span class="fixw">DYL-SETTINGS</span> opens the DynALisp Settings window: the language of DynALisp, the reactors, which act on the objects as you draw, the overrides, which DynALisp sets in every drawing opened, and the updates of DynALisp. Every on/off setting is <strong>off on a new installation</strong>; once turned on it is remembered (a Windows user setting, <span class="fixw">Dynalisp*</span>) for every drawing and session. <strong>Save</strong> applies and saves the changes, <strong>Cancel</strong> discards them, <strong>Open Docs</strong> opens this page.</p>
-<p>A setting with a square <em>open</em> button beside it has its own window; the button is greyed out while the setting is off (or when the program it needs is not loaded).</p>
-<!-- picture: images/Dyl-Settings-window.png -->
+<p>A setting with a square <em>open</em> button beside it has its own window; the button is greyed out while the setting is off (or when the program it needs is not loaded). Each on/off setting is a switch, its short description under it; the window takes the colors of the light or dark theme of AutoCAD (see <a href="../Plugins/Windows.htm">Windows</a>).</p>
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-window.png" alt="Settings: window"></picture></figure>
 <!-- picture: images/Dyl-Settings-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
 <li>Type <span class="fixw">Dyl-Settings</span> (or click <em>Settings</em> on the DynALisp panel of the ribbon).</li>
-<li>Check what DynALisp should do for you; a square open button beside a setting opens its own window.</li>
+<li>Turn on the switches of what DynALisp should do for you; a square open button beside a setting opens its own window.</li>
 <li>Click <strong>Save</strong>: the settings apply to every drawing, the open ones when you switch to them.</li>
 </ol>
 </div>
@@ -90,7 +90,7 @@
 <tr><td>Keep them without asking</td><td>Such a layer is used as it is, without asking.</td></tr>
 </table>
 </div>
-<p>One of the two at most (checking one unchecks the other). Both off, the default: you are asked, once per layer and session. <em>Remember my answer and do not ask again</em> in that question checks one of them for you; uncheck it here to be asked again.</p>
+<p>One of the two at most (turning one on turns the other off). Both off, the default: you are asked, once per layer and session. <em>Remember my answer and do not ask again</em> in that question turns one of them on for you; turn it off here to be asked again.</p>
 <h2 id="updates">Updates</h2>
 <p><em>New versions of DynALisp.</em></p>
 <div class="programs commands wide">
@@ -100,6 +100,7 @@
 </table>
 </div>
 <h2 id="drawing">Drawing Settings Window</h2>
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-DrawingSettings-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-DrawingSettings.png" alt="Settings: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Units / Grid</strong> &ndash; for the imperial drawings and the metric drawings, the unit preset (<a href="../Setup/Dyl-SetUnits.htm">Set Units</a>) and the grid preset (<a href="../Setup/Dyl-StandardGrid.htm">Standard Grid</a>) every drawing is checked against; <em>(Not checked)</em> leaves it as it is.</li>
@@ -108,6 +109,7 @@
 </ul>
 </div>
 <h2 id="display">Display Window</h2>
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-Display-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-Display.png" alt="Settings: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Background</strong> &ndash; the model space background color set in every drawing: <em>Black</em>, <em>Default</em> (dark blue-grey, RGB 33,40,48) or <em>White</em>, the crosshairs in the opposite color; empty: not changed. More display settings will be added to this window.</li>

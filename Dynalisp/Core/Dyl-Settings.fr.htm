@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2015 ou plus récent pour Windows, avec le plug-in des <a href="../Plugins/Windows.fr.htm">fenêtres</a> de DynALisp</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,16 +35,16 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-SETTINGS</span> ouvre la fenêtre <em>Settings</em> de DynALisp : la langue de DynALisp, les réacteurs, qui agissent sur les objets pendant que vous dessinez, les dérogations, que DynALisp applique à chaque dessin ouvert, et les mises à jour de DynALisp. Chaque paramètre à cocher est <strong>désactivé à une nouvelle installation</strong>; une fois activé, il est mémorisé (un paramètre utilisateur Windows, <span class="fixw">Dynalisp*</span>) pour tous les dessins et toutes les sessions. <strong>Save</strong> applique et enregistre les changements, <strong>Cancel</strong> les annule, <strong>Open Docs</strong> ouvre cette page.</p>
-<p>Un paramètre accompagné d'un bouton carré <em>ouvrir</em> a sa propre fenêtre; le bouton est grisé tant que le paramètre est désactivé (ou quand le programme dont il a besoin n'est pas chargé).</p>
+<p><span class="fixw">DYL-SETTINGS</span> ouvre la fenêtre <em>Settings</em> de DynALisp : la langue de DynALisp, les réacteurs, qui agissent sur les objets pendant que vous dessinez, les dérogations, que DynALisp applique à chaque dessin ouvert, et les mises à jour de DynALisp. Chaque interrupteur est <strong>désactivé à une nouvelle installation</strong>; une fois activé, il est mémorisé (un paramètre utilisateur Windows, <span class="fixw">Dynalisp*</span>) pour tous les dessins et toutes les sessions. <strong>Save</strong> applique et enregistre les changements, <strong>Cancel</strong> les annule, <strong>Open Docs</strong> ouvre cette page.</p>
+<p>Un paramètre accompagné d'un bouton carré <em>ouvrir</em> a sa propre fenêtre; le bouton est grisé tant que le paramètre est désactivé (ou quand le programme dont il a besoin n'est pas chargé). Chaque paramètre activé ou désactivé est un interrupteur, sa courte description en dessous; la fenêtre prend les couleurs du thème clair ou foncé d'AutoCAD (voir <a href="../Plugins/Windows.fr.htm">Fenêtres</a>).</p>
 <p>Les libellés des fenêtres de DynALisp sont en anglais : cette page les cite tels qu'ils apparaissent.</p>
-<!-- picture: images/Dyl-Settings-window.png -->
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-window.png" alt="Paramètres: window"></picture></figure>
 <!-- picture: images/Dyl-Settings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez <span class="fixw">Dyl-Settings</span> (ou cliquez <em>Paramètres</em> dans le groupe de fonctions DynALisp du ruban).</li>
-<li>Cochez ce que DynALisp doit faire pour vous; un bouton ouvrir carré à côté d'un réglage ouvre sa propre fenêtre.</li>
+<li>Activez les interrupteurs de ce que DynALisp doit faire pour vous; un bouton ouvrir carré à côté d'un réglage ouvre sa propre fenêtre.</li>
 <li>Cliquez <strong>Save</strong> : les réglages s'appliquent à chaque dessin, ceux qui sont ouverts quand vous y revenez.</li>
 </ol>
 </div>
@@ -91,7 +91,7 @@
 <tr><td>Keep them without asking</td><td>Un tel calque est utilisé tel quel, sans le demander.</td></tr>
 </table>
 </div>
-<p>L'un des deux au plus (en cocher un décoche l'autre). Les deux désactivés, par défaut : la question vous est posée, une fois par calque et par session. <em>Remember my answer and do not ask again</em> dans cette question coche l'un d'eux pour vous; décochez-le ici pour que la question soit posée de nouveau.</p>
+<p>L'un des deux au plus (en activer un désactive l'autre). Les deux désactivés, par défaut : la question vous est posée, une fois par calque et par session. <em>Remember my answer and do not ask again</em> dans cette question active l'un d'eux pour vous; désactivez-le ici pour que la question soit posée de nouveau.</p>
 <h2 id="updates">Mises à jour (Updates)</h2>
 <p><em>Nouvelles versions de DynALisp.</em></p>
 <div class="programs commands wide">
@@ -101,6 +101,7 @@
 </table>
 </div>
 <h2 id="drawing">Fenêtre Drawing Settings</h2>
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-DrawingSettings-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-DrawingSettings.png" alt="Paramètres: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Units / Grid</strong> &ndash; pour les dessins impériaux et les dessins métriques, le préréglage d'unités (<a href="../Setup/Dyl-SetUnits.fr.htm">Set Units</a>) et le préréglage de grille (<a href="../Setup/Dyl-StandardGrid.fr.htm">Standard Grid</a>) auxquels chaque dessin est comparé; <em>(Not checked)</em> le laisse tel quel.</li>
@@ -109,6 +110,7 @@
 </ul>
 </div>
 <h2 id="display">Fenêtre Display</h2>
+<figure class="shot"><picture><source srcset="images/Dyl-Settings-Display-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-Display.png" alt="Paramètres: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Background</strong> &ndash; la couleur d'arrière-plan de l'espace objet appliquée à chaque dessin : <em>Black</em>, <em>Default</em> (gris-bleu foncé, RVB 33,40,48) ou <em>White</em>, le réticule dans la couleur opposée; vide : inchangée. D'autres paramètres d'affichage seront ajoutés à cette fenêtre.</li>

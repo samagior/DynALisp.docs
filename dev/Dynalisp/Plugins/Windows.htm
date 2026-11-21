@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Windows &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Plugins/Windows.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Windows</h1>
+
+<p class="note">The developer docs of the windows of DynALisp: the plugin that shows them, the window files, and how a DCL window is moved to it. What the user sees is in its <a href="../../../Dynalisp/Plugins/Windows.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Installer\Windows</span> (<span class="fixw">DynALisp.Windows.csproj</span>): <span class="fixw">Engine\Session.cs</span>, <span class="fixw">Engine\Win.cs</span>, <span class="fixw">Engine\OpenButton.cs</span>, <span class="fixw">Engine\Gallery.cs</span>, <span class="fixw">Engine\Hatch.cs</span>, <span class="fixw">Engine\Theme.xaml</span> (no AutoCAD in them) and <span class="fixw">Bridge.cs</span> (the Lisp function). Built twice and committed: <span class="fixw">Contents\Resources\DynALisp.Windows.dll</span> (.NET 8, AutoCAD 2025 and later) and <span class="fixw">Contents\Resources\Net48\DynALisp.Windows.dll</span> (.NET Framework 4.8, AutoCAD 2015 to 2024), a component of <span class="fixw">PackageContents.xml</span> each</td></tr>
+<tr><td>Windows</td><td>The <span class="fixw">.xaml</span> files of the <span class="fixw">Res</span> folder of each module: <span class="fixw">Dyl-Settings.xaml</span> and its <span class="fixw">Dyl-Settings-*.xaml</span> sub-windows, <span class="fixw">Dyl-QuickDrawGallery.xaml</span> so far</td></tr>
+<tr class="alt"><td>Lisp</td><td>The Windows region of <span class="fixw">Resources\dynalisp.mnl</span>: <span class="fixw">Dyl:WinShow</span> and its helpers</td></tr>
+<tr><td>Pictures</td><td><span class="fixw">Installer\Windows\Shots</span> (<span class="fixw">Shots.csv</span>, <span class="fixw">Samples\</span>), run by the <span class="fixw">Windows</span> workflow (<span class="fixw">.github\workflows\windows.yml</span>)</td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#windows">Windows</a> convention, and the <a href="../../conventions.html#versions-and-updates">Versions And Updates</a> convention on plugins every version needs</td></tr>
+</table>
+</div>
+
+<h2>Why WPF</h2>
+<p>A DCL window cannot be resized, has no real list or tab, looks like Windows 95 and can only be pictured by running AutoCAD. A WPF window looks like the rest of Windows, and its picture is drawn from its file, without AutoCAD, as the pictures of the ribbon are. DynALisp already needs .NET for the ribbon drop-downs and the clean startup; AutoCAD LT and AutoCAD for Mac were never supported (no full AutoLISP, no ActiveX). The cost: AutoCAD 2015 is now the oldest version (the first one the .NET Framework plugin loads in), and each window is rewritten once.</p>
+
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The Lisp calls <span class="fixw">(Dyl:WinShow file vals)</span>: <span class="fixw">file</span> a <span class="fixw">.xaml</span> of <span class="fixw">Modules\Dynalisp\Res</span> (or a full path), <span class="fixw">vals</span> the values of its keys, as <span class="fixw">set_tile</span> takes them. <span class="fixw">Dyl:WinDocs</span> reads the file and its sub-windows for their docs pages (<span class="fixw">dyl:Win.Docs</span>) and adds what each one opens (<span class="fixw">Dyl:DocsPage</span>, <span class="fixw">Dyl:DocsTarget</span>: the website, in the language of DynALisp).</li>
+<li><span class="fixw">Dyl:Window</span> (<span class="fixw">Bridge.cs</span>) reads the values into a <span class="fixw">Session</span> and shows the window over AutoCAD, modal (<span class="fixw">Application.ShowModalWindow</span>).</li>
+<li><span class="fixw">Session.Load</span> reads the file with the WPF reader (the <span class="fixw">dyl:</span> prefix, <span class="fixw">clr-namespace:DynALisp.Windows</span> with no assembly, is the plugin itself) and merges into its resources the styles of <span class="fixw">Theme.xaml</span> and the <span class="fixw">Dyl.*</span> brushes of the theme of AutoCAD (<span class="fixw">Theme.Brushes</span>: the grey blue of its palettes in the dark theme, <span class="fixw">COLORTHEME</span> 0, its light greys else, its blue for what is picked; a <span class="fixw">CheckBox</span> is drawn as a switch, as in the settings of Windows 11); a dark window gets the dark title bar of Windows. Its root must be a <span class="fixw">Window</span>; a file that does not read, or is missing, makes <span class="fixw">Dyl:Window</span> return nil, the reason on the command line.</li>
+<li><span class="fixw">View</span> finds every control by its name (<span class="fixw">x:Name</span>, the key), gives it its value, and puts its value back each time it changes; the rules are then checked again (<span class="fixw">Refresh</span>).</li>
+<li>A button closes the window with its number, opens a sub-window over it on the same values (its Cancel puts them back), turns every checkbox on or off, or opens the docs. When the window closes, <span class="fixw">Dyl:Window</span> returns <span class="fixw">(status (key . value) ...)</span>.</li>
+</ol>
+</div>
+
+<h2>The Window File</h2>
+<p>A window file is plain XAML, with no code: a control is named by its key, and the <span class="fixw">dyl:Win.*</span> properties (<span class="fixw">Engine\Win.cs</span>) say what it does.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Written</th><th>Does</th></tr>
+<tr><td><span class="fixw">x:Name="rea"</span></td><td>The key of a <span class="fixw">CheckBox</span> (<span class="fixw">"1"</span> / <span class="fixw">"0"</span>), <span class="fixw">ComboBox</span> or <span class="fixw">ListBox</span> (the index picked), <span class="fixw">TextBox</span> (its text), or <span class="fixw">TextBlock</span> (a text the Lisp sets, as <span class="fixw">aud</span>)</td></tr>
+<tr><td><span class="fixw">dyl:Win.Docs="Core\Dyl-Settings.htm"</span></td><td>On the <span class="fixw">Window</span>: the page its <span class="fixw">docs</span> button opens, as given to <span class="fixw">Dyl:DocsTile</span>; greyed out when the page is missing</td></tr>
+<tr><td><span class="fixw">dyl:Win.EnabledBy="rea,!lkk"</span></td><td>Enabled while every key listed is on (or off, with <span class="fixw">!</span>)</td></tr>
+<tr><td><span class="fixw">dyl:Win.VisibleBy="prp"</span></td><td>Shown while every key listed is on (or off)</td></tr>
+<tr><td><span class="fixw">dyl:Win.Excludes="lkk"</span></td><td>A checkbox turned on turns those off (one answer at most)</td></tr>
+<tr><td><span class="fixw">dyl:Win.Close="4"</span></td><td>A button that closes the window, the Lisp getting 4 (as <span class="fixw">done_dialog</span>); <span class="fixw">IsDefault</span> closes with 1, <span class="fixw">IsCancel</span> with 0</td></tr>
+<tr><td><span class="fixw">dyl:Win.Open="Dyl-Settings-Display.xaml"</span></td><td>A button that opens that window file (beside this one) over it, on the same values</td></tr>
+<tr><td><span class="fixw">dyl:Win.SetAll="1"</span></td><td>A button that turns every checkbox of the window on (<span class="fixw">"1"</span>) or off</td></tr>
+<tr><td><span class="fixw">dyl:Win.Check="positive"</span>, <span class="fixw">dyl:Win.CheckMessage="..."</span></td><td>A text box checked before the window closes (<span class="fixw">number</span>, <span class="fixw">positive</span>, <span class="fixw">integer</span>), the message shown in the text named <span class="fixw">error</span></td></tr>
+<tr><td><span class="fixw">&lt;dyl:OpenButton/&gt;</span></td><td>The square open button beside a setting (the icon of <span class="fixw">Dyl:MoreTile</span>)</td></tr>
+<tr><td><span class="fixw">&lt;dyl:Gallery x:Name="gal" Group="grp" Search="find" Count="cnt"/&gt;</span></td><td>A gallery of tiles (<span class="fixw">Engine\Gallery.cs</span>), one per item of <span class="fixw">gal/list</span>: <span class="fixw">"name&lt;TAB&gt;group&lt;TAB&gt;spec"</span>, the spec of its <span class="fixw">HatchTile</span>. The tiles are filtered in the window itself, with no call to the Lisp: by the <span class="fixw">ComboBox</span> named by <span class="fixw">Group</span> (its first item, <em>All</em>, shows every group) and the text typed in the <span class="fixw">TextBox</span> named by <span class="fixw">Search</span> (in the name or the group); the <span class="fixw">TextBlock</span> named by <span class="fixw">Count</span> says how many are shown, its <span class="fixw">Tag</span> giving the word for one and for several (<span class="fixw">"preset,presets"</span>). A tile clicked closes the window with 1, the key getting the index of its item (<span class="fixw">-1</span> when closed otherwise)</td></tr>
+<tr><td><span class="fixw">&lt;dyl:HatchTile Spec="..."/&gt;</span></td><td>The preview of a hatch as it plots (<span class="fixw">Engine\Hatch.cs</span>), see <a href="#hatch">The Preview Of A Hatch</a></td></tr>
+<tr><td><span class="fixw">&lt;TextBox Tag="Search presets"/&gt;</span></td><td>The <span class="fixw">Tag</span> of a text box is its hint, shown in grey while it is empty</td></tr>
+<tr><td><span class="fixw">{DynamicResource Dyl.Desc}</span></td><td>The styles of <span class="fixw">Theme.xaml</span>: <span class="fixw">Dyl.Desc</span> (the grey description), <span class="fixw">Dyl.Label</span>, <span class="fixw">Dyl.Error</span>; <span class="fixw">GroupBox</span> (a section), <span class="fixw">Button</span>, <span class="fixw">CheckBox</span>, <span class="fixw">ComboBox</span> and <span class="fixw">TextBox</span> take theirs on their own. Always <span class="fixw">DynamicResource</span>: the theme is merged once the file is read</td></tr>
+</table>
+</div>
+
+<h2 id="hatch">The Preview Of A Hatch</h2>
+<p><span class="fixw">HatchTile</span> draws a hatch from the line families of its pattern, read from its <span class="fixw">.pat</span> file by <span class="fixw">Pat.Read</span> (angle, origin, offset and dashes of each family; kept until the file is written again, so a pattern rebuilt by <span class="fixw">Dyl-RebuildPat</span> is read again). It follows the <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention on previews: the hatch at its size on paper, 1:1 on the screen (a WPF unit is 1/96 in).</p>
+<div class="spacedbullets">
+<ul>
+<li>Its <span class="fixw">Spec</span>, given by the Lisp, is one band or the bands of an assembly side by side, divided by <span class="fixw">*</span>, the fields of a band by <span class="fixw">?</span>: <span class="fixw">P?width?pattern?file?ppu?angle?scale</span> a hatch, <span class="fixw">F?width</span> a solid fill, <span class="fixw">S?width</span> a space, <span class="fixw">L?0</span> a line between two bands, <span class="fixw">X?width</span> a hatch preset missing (crossed out, as a pattern no file defines).</li>
+<li><span class="fixw">ppu</span> is the inches on paper of one unit of the pattern: the scale of the hatch preset (divided by 25.4 for a metric pattern), divided by the drawing scale <span class="fixw">scale</span> unless the preset keeps its size on paper (<span class="fixw">Dyl:QuickDrawGalleryBand</span>: annotative or adaptive scaling, so a Drafting hatch preset; <span class="fixw">scale</span> is then 1). The drawing scale is <span class="fixw">Remote&gt;&gt;Dyl:MaterialDrawScale</span> (<span class="fixw">CANNOSCALEVALUE</span>).</li>
+<li>When fewer than three repeats of a pattern (<span class="fixw">Pat.Repeat</span>: the widest spacing between its lines; not its dash periods, since a stipple reads as a texture at any size) fit in the height of the tile, it zooms out to the next step of 1, 2, 2.5, 4, 5, 8, 10, 16, 20, 25, 40, 50, 100... that shows them, one zoom for every band of the tile, and writes <span class="fixw">1:</span> and <span class="fixw">scale</span> times the zoom in its bottom right corner. A family whose lines would be closer than 0.8 unit, or a tile of more than 20000 segments, is drawn as a grey fill.</li>
+<li>Every segment of a band is one <span class="fixw">StreamGeometry</span>, frozen, drawn in one call: a gallery of 50 tiles draws in a few milliseconds. Its colors are the brushes of the theme (<span class="fixw">Ink</span>, <span class="fixw">Fill</span>, <span class="fixw">LabelBack</span>: <span class="fixw">Dyl.Text</span>, <span class="fixw">Dyl.Input</span>, <span class="fixw">Dyl.Surface</span> in the gallery).</li>
+</ul>
+</div>
+
+<h2>From The Lisp</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Function</th><th>Gives</th></tr>
+<tr><td><span class="fixw">(Dyl:WinShow file vals)</span></td><td><span class="fixw">(status (key . value) ...)</span>, nil when the window could not be shown (no plugin, file missing, file that does not read: the reason on the command line)</td></tr>
+<tr><td><span class="fixw">(Dyl:WinTog key on)</span></td><td><span class="fixw">(key . "1")</span> or <span class="fixw">(key . "0")</span></td></tr>
+<tr><td><span class="fixw">(Dyl:WinList key items idx)</span></td><td>The items of a list and the index picked: <span class="fixw">(("key/list" item ...) (key . "idx"))</span></td></tr>
+<tr><td><span class="fixw">(Dyl:WinOff keys off)</span></td><td><span class="fixw">(("key/off" . "1") ...)</span> when <span class="fixw">off</span> is not nil: the keys greyed out (<span class="fixw">mode_tile 1</span>), whatever their rules</td></tr>
+<tr><td><span class="fixw">(Dyl:WinGet res key)</span>, <span class="fixw">(Dyl:WinOn-p res key)</span>, <span class="fixw">(Dyl:WinIdx res key)</span></td><td>A value got back, a checkbox on, the index picked (0 when none)</td></tr>
+</table>
+</div>
+<p>The window runs alone while it is open: nothing calls the Lisp back. A button that must run Lisp (a command, a window not moved yet) closes it with its number, and the caller opens it again on the values it got: <span class="fixw">c:Dyl-Settings</span> does so for the open buttons of Auto-phase (4), Auto draw order (5), System variables (6), Auto layer keys (7) and Revisions (8).</p>
+
+<h2>Moving A DCL Window</h2>
+<div class="spacedbullets">
+<ol>
+<li>Write its <span class="fixw">.xaml</span> in the same <span class="fixw">Res</span> folder, one file per dialog, its controls named by the keys of the DCL tiles, so the Lisp keeps its names. What the actions only greyed out or turned off (<span class="fixw">mode_tile</span>, <span class="fixw">Dyl:MoreTile</span>) becomes a rule of the file; a sub-window opened by an action becomes a <span class="fixw">dyl:Win.Open</span> file on the same values.</li>
+<li>In the Lisp, the <span class="fixw">set_tile</span> / <span class="fixw">start_list</span> of the fill become a function giving the values (<span class="fixw">Dyl:SetWinVals</span>), the <span class="fixw">get_tile</span> of the OK a function reading them back (<span class="fixw">Dyl:SetWinGet</span>); <span class="fixw">load_dialog</span>, <span class="fixw">new_dialog</span>, <span class="fixw">action_tile</span> and <span class="fixw">start_dialog</span> become one <span class="fixw">Dyl:WinShow</span>.</li>
+<li>Delete the <span class="fixw">.dcl</span> and the DCL functions (no copy is kept: DynALisp needs AutoCAD 2015). Add a row and sample values for its picture to <span class="fixw">Shots.csv</span>, and update its developer docs page.</li>
+<li>Try it in AutoCAD 2025 or later and in an older one (the .NET Framework DLL).</li>
+</ol>
+</div>
+
+<h2>What Is Left</h2>
+<p>Moved: Settings (<span class="fixw">Dyl-Settings.dcl</span>: Settings, Drawing Settings, Display, File Preferences, Output Prep) and the <a href="../Draw/Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a> (written on the fly in Lisp, its tiles drawn with <span class="fixw">vector_image</span>). Left, in the order planned, the simplest first:</p>
+<div class="spacedbullets">
+<ol>
+<li>The windows of the core with a <span class="fixw">.dcl</span>: <span class="fixw">Dyl-Info.dcl</span> (Info, What's new), <span class="fixw">Dyl-UserFiles.dcl</span>, <span class="fixw">Dyl-Suite.dcl</span> (Startup Suite, its questions, the VS Code guide), and the picker of the child commands (<span class="fixw">Dyl:ChildPicker</span>, written on the fly).</li>
+<li>The Apps with a <span class="fixw">.dcl</span> of <span class="fixw">Res</span>: <span class="fixw">Dyl-SysVars.dcl</span>, <span class="fixw">Dyl-Dictionary.dcl</span>, <span class="fixw">Dyl-Revisions.dcl</span>.</li>
+<li>The windows written on the fly in Lisp: the preset engine (<span class="fixw">Remote\Dyl-Presets.lsp</span>: Quick Draw, Quick Shape, Hatch Presets), Layer Keys (<span class="fixw">Remote\Dyl-LayerKey.lsp</span>), Preset Groups, Layer Phase, Draw Order, Object Layer Keys, Data Links, Quick Select Similar. A window that lists items and edits the one selected needs its fields filled when the selection changes: the engine will need a list bound to its rows (each row a set of values) before these move.</li>
+<li>The LeeMac sample module keeps its DCL windows: they are the code of Lee Mac.</li>
+</ol>
+</div>
+
+<h2>The Pictures Of The Docs</h2>
+<p><span class="fixw">Installer\Windows\Shots</span> draws each window of <span class="fixw">Shots.csv</span> (the window file, its sample values in <span class="fixw">Samples\</span>, the picture its docs page names) with the engine of the plugin, at twice its size, under a plain title bar, in the light theme and in the dark one (<span class="fixw">&lt;Page&gt;-window-dark.png</span>, shown by the website in dark mode). It needs Windows (WPF): <span class="fixw">dotnet run -c Release</span> in that folder, then commit the pictures. The <span class="fixw">Windows</span> workflow runs it on each push that changes a window file or the plugin: on a work branch, it commits the pictures that changed to it (pull before pushing again); on <span class="fixw">main</span>, they are only an artifact of the run.</p>
+
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>No callback to the Lisp while a window is open (see above).</li>
+<li>The theme is read when a window opens (<span class="fixw">COLORTHEME</span>: 0 dark, 1 light): a window open while the theme changes keeps its own.</li>
+<li>The windows are in English, as the DCL windows were.</li>
+<li>64-bit only: a 32-bit AutoCAD (2015 to 2019 had one) does not load the plugin.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

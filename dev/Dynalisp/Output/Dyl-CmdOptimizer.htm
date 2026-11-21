@@ -56,7 +56,7 @@
 </div>
 
 <h2>The Output Prep Window</h2>
-<p><span class="fixw">MAJ:PrepDlg</span> shows the grid (a toggle per step and column, key <span class="fixw">t_&lt;step&gt;_&lt;column&gt;</span>, <span class="fixw">MAJ:PrepDlgKey</span>), with All On / All Off per column (<span class="fixw">MAJ:PrepDlgAll</span>). Opened by <span class="fixw">Dyl-PrepSuite</span>, OK saves it at once (<span class="fixw">MAJ:PrepWrite</span>, through <span class="fixw">Dyl:UserFileW</span>); opened from <span class="fixw">Dyl-Settings</span>, it is saved with the other settings (<span class="fixw">MAJ:PrepSave</span>).</p>
+<p>The window is <span class="fixw">Res\Dyl-Settings-OutputPrep.xaml</span> (a <a href="../Plugins/Windows.htm">Windows</a> file): a checkbox per step and column, key <span class="fixw">t_&lt;step&gt;_&lt;column&gt;</span> (<span class="fixw">MAJ:PrepDlgKey</span>), given by <span class="fixw">MAJ:PrepWinVals</span> and read back by <span class="fixw">MAJ:PrepWinGet</span>, with All On / All Off (<span class="fixw">dyl:Win.SetAll</span>). A step added to <span class="fixw">MAJ:steps</span> gets its row in the file. <span class="fixw">MAJ:PrepDlg</span> shows it. Opened by <span class="fixw">Dyl-PrepSuite</span>, OK saves it at once (<span class="fixw">MAJ:PrepWrite</span>, through <span class="fixw">Dyl:UserFileW</span>); opened from <span class="fixw">Dyl-Settings</span>, it is saved with the other settings (<span class="fixw">MAJ:PrepSave</span>).</p>
 
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
