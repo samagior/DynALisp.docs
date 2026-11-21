@@ -5,7 +5,8 @@ https://samagior.github.io/DynALisp.docs/
 
 This repository is **generated**: every push to the main branch of the DynALisp source
 rebuilds it (`Installer/Docs/BuildSite.py`, `.github/workflows/docs.yml`). Do not edit it
-here: a change made here is overwritten by the next publication.
+here: a change made here is overwritten by the next publication. A page the docs no longer
+have is kept, for the versions of DynALisp installed that still open it.
 
 The pages of the LeeMac sample module are copies of the help pages of Lee Mac's programs,
 delivered for consistency purposes only: the programs and their descriptions are the work
