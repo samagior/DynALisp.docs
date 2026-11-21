@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Revisions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Revisions</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">Dyl-Revisions</span>, <span class="fixw">REVS</span>, <span class="fixw">RCLOUD</span>, <span class="fixw">REVUP</span>, <span class="fixw">REVTB</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-Revisions.lsp</span>, <span class="fixw">Modules\Dynalisp\Remote\Dyl-Revisions.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP), a Project Navigator project (AutoCAD Architecture)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Manages the revisions of a project in one place, as Revit does. The project has one list of revisions, each with its date, description and who it was issued to and by. A sheet has a revision when it is given to it in the <strong>Revisions</strong> window, or when a revision cloud of that revision is drawn on it. The revision rows of each title block fill themselves, numbered per project or per sheet, and the drawings that are closed are updated without being opened.</p>
+<p>The project is the Project Navigator project of the drawing: the first folder that holds a <span class="fixw">.apj</span> file, from the folder of the drawing up. Its sheets are the drawings of its sheet folder (<em>Sheets</em> by default) and of its sub-folders, each layout a sheet.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">Dyl-Revisions</span></td><td>Revisions</td><td>Opens the revisions of the project, as in Revit: their numbering, dates and descriptions, and the sheets that have them.</td></tr>
+<tr><td><span class="fixw">RCLOUD</span></td><td>Revision Cloud</td><td>Draws a revision cloud on the layout for a revision of the project, then its tag, and updates the title block.</td></tr>
+<tr><td><span class="fixw">REVUP</span></td><td>Update Revisions</td><td>Updates the title blocks and revision tags of this sheet with the revisions of its project.</td></tr>
+<tr><td><span class="fixw">REVTB</span></td><td>Revision Title Blocks</td><td>Opens the title blocks that show the revisions, and the attributes of their revision rows.</td></tr>
+</table>
+</div>
+<h2>Getting Started</h2>
+<div class="spacedbullets">
+<ol>
+<li>Open a sheet of the project and run <span class="fixw">REVTB</span>. Click <strong>Pick...</strong> and select the title block: its revision rows and attributes are guessed from their tags. Check them, then click <strong>OK</strong>. This is done once for each title block, for every project.</li>
+<li>Run <span class="fixw">REVS</span>. Click <strong>New</strong>, type the description of the revision, then select the sheets that have it and click <strong>Add Revision</strong>.</li>
+<li>Click <strong>OK</strong>: the revisions are saved in the project, and the title blocks of the sheets they change are filled.</li>
+<li>To show a change on a sheet, run <span class="fixw">RCLOUD</span> on its layout: the cloud gives its revision to the sheet.</li>
+</ol>
+</div>
+<h2>Revisions Window</h2>
+<p>The project, its number and its folder are shown at the top.</p>
+<h3>Revisions</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Revisions list</strong> &ndash; the revisions of the project, in their sequence: sequence, number, date, description and whether it is issued. Several revisions can be selected (Ctrl or Shift click) to edit them at once. With numbering per sheet, the number column shows how they count (<em>1...</em> or <em>A...</em>): each sheet numbers its own.</li>
+<li><strong>New</strong> &ndash; adds a revision after the last one, dated today, with the numbering of the last one. A revision is never given the id of a revision deleted, so the clouds of a deleted revision never go to a new one.</li>
+<li><strong>Delete</strong> &ndash; deletes the revisions selected, after a confirmation, and takes them from every sheet. Their clouds stay in the drawings, without a revision: erase them. Greyed out when an issued revision after them would get another number.</li>
+<li><strong>Move Up</strong>, <strong>Move Down</strong> &ndash; change the sequence of the revision selected, and the numbers that follow it. A revision is never moved past an issued one.</li>
+</ul>
+</div>
+<h3>Parameters</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Numbering</strong> &ndash; <em>Numeric</em> (1, 2, 3), <em>Alphabetic</em> (A, B, C... Z, AA) or <em>None</em> (no number, a revision that is only listed). Each numbering counts on its own: revisions A and B issued for tender, then 1, 2, 3 for construction. A numbering that would give an issued revision after it another number is refused.</li>
+<li><strong>Date</strong>, <strong>Description</strong>, <strong>Issued to</strong>, <strong>Issued by</strong> &ndash; what the title blocks show. Every revision needs a description.</li>
+<li><strong>Issued</strong> &ndash; locks the revision once it is sent: its parameters, its sheets, its place in the sequence and its deletion are greyed out. Clear it to change the revision again. A cloud is drawn only for a revision that is not issued.</li>
+</ul>
+</div>
+<h3>Project</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Numbering</strong> &ndash; <em>Per project</em>: a revision has the same number on every sheet, its place among the revisions of its numbering. <em>Per sheet</em>: each sheet numbers the revisions it has, from the first one: the third revision of the project is revision 1 of a sheet that has none of the first two.</li>
+<li><strong>First number</strong> &ndash; the first number of the numeric revisions: <em>1</em> or <em>0</em>.</li>
+<li><strong>Title blocks</strong> &ndash; its open button opens the <a href="#titleblocks">Revision Title Blocks window</a>, then this window again. The number of title blocks set up is shown beside it.</li>
+</ul>
+</div>
+<h3>Sheets</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Sheets list</strong> &ndash; every sheet of the project: its drawing (in the sheet folder), its layout, whether it has the revision shown (<em>Yes</em>: given in this window, <em>Cloud</em>: by a cloud of the layout), and the numbers of its revisions as its title block shows them. Several sheets can be selected. The heading gives the number of sheets that have the revision shown.</li>
+<li><strong>Add Revision</strong> &ndash; gives the revisions selected to the sheets selected.</li>
+<li><strong>Remove Revision</strong> &ndash; takes them from the sheets selected. A sheet that has a cloud of the revision keeps it: erase the cloud to take it away.</li>
+<li><strong>Update All Sheets</strong> &ndash; saves, then updates every sheet of the project, for instance after changing a title block.</li>
+</ul>
+</div>
+<p><strong>OK</strong> saves the revisions in the project, then updates the sheets whose title block shows something else now (or every sheet with a revision, when the title blocks were changed). <strong>Cancel</strong> leaves everything as it was. The command line then gives the number of sheets updated and lists the ones that could not be.</p>
+<h2 id="titleblocks">Revision Title Blocks Window</h2>
+<p>The title blocks whose attributes show the revisions (<span class="fixw">REVTB</span>, the open button of <em>Title blocks</em>, or the open button of <em>Revisions</em> in <span class="fixw">Dyl-Settings</span>). They are a DynALisp setting, used for every project: one row per title block.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Title blocks list</strong> &ndash; each title block, its number of revision rows and the revision of its row 1. Several can be selected to edit or delete them at once.</li>
+<li><strong>New</strong>, <strong>Delete</strong> &ndash; add a title block, delete the ones selected.</li>
+<li><strong>Pick...</strong> &ndash; select a title block in the drawing: its name, its revision rows and its attributes are guessed from their tags (in English or French: <em>DATE</em>, <em>DESC</em>, <em>PAR</em>, <em>BY</em>...) and given to the title block shown, or to a new one. Check them.</li>
+<li><strong>Block</strong> &ndash; the name of the block. Wildcards can be used (<span class="fixw">*TITLE*</span>): one row for every size of a title block. Its dynamic block name for a dynamic block.</li>
+<li><strong>Rows</strong> &ndash; the number of revision rows of the block. When a sheet has more revisions, the newest ones are shown.</li>
+<li><strong>Row 1</strong> &ndash; <em>Oldest revision</em>: the rows are filled in their sequence from row 1. <em>Newest revision</em>: row 1 has the newest revision, the older ones follow.</li>
+<li><strong>Row attributes</strong> &ndash; the attribute tags of the revision rows, <span class="fixw">#</span> standing for the number of the row: <span class="fixw">REV#_DATE</span> for <span class="fixw">REV1_DATE</span>, <span class="fixw">REV2_DATE</span>... One for <strong>Number</strong>, <strong>Date</strong>, <strong>Description</strong>, <strong>Issued to</strong> and <strong>Issued by</strong>. A row with no revision is emptied.</li>
+<li><strong>Sheet attributes</strong> &ndash; <strong>Current revision</strong> and <strong>Current date</strong>: one attribute each, given the number and date of the newest revision of the sheet.</li>
+</ul>
+</div>
+<p>An attribute left empty, or that a title block does not have, is skipped. The title blocks are saved in <span class="fixw">Modules\Dynalisp\Res\RevisionBlocks.csv</span> (your copy, see <span class="fixw">Dyl-UserFiles</span>).</p>
+<h2>Revision Clouds</h2>
+<div class="spacedbullets">
+<ol>
+<li>Go to the paper space of the layout of the sheet: a cloud gives its revision to the layout it is drawn on.</li>
+<li>Run <span class="fixw">RCLOUD</span>. The revisions not issued are listed with their sequence: press Enter for the newest one, or type the sequence of another.</li>
+<li>Draw the cloud with the options of <span class="fixw">REVCLOUD</span>. It goes on the layer of the <span class="fixw">ANNREV</span> layer key (see <a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a>).</li>
+<li>Pick the location of its tag, or press Enter for none. The tag is a triangle with the number of the revision on this sheet (block <span class="fixw">DYL-REVTAG</span>, made in the drawing the first time).</li>
+<li>The title block of the sheet is updated.</li>
+</ol>
+</div>
+<h2 id="sync">Updating The Sheets</h2>
+<div class="spacedbullets">
+<ul>
+<li>Only the values that changed are written: a sheet already up to date is not modified.</li>
+<li>The sheets of the current drawing and of the other drawings open in this AutoCAD are updated, not saved: save them. A drawing open in this AutoCAD that cannot be changed from the current one is listed: run <span class="fixw">REVUP</span> in it.</li>
+<li>The drawings closed are updated with ObjectDBX, without opening them, and saved.</li>
+<li>A drawing open by another user (it has a <span class="fixw">.dwl</span> lock file) is skipped and listed. Its revisions are kept in the project: it gets them the next time it is updated. A <span class="fixw">.dwl</span> left by a crash also stops the update: delete it once nobody has the drawing open.</li>
+<li><strong>Revisions</strong> in <span class="fixw">Dyl-Settings</span> (Overrides): every sheet of a project is updated when it opens, so the drawings that were skipped catch up. Its open button opens the Revision Title Blocks window.</li>
+</ul>
+</div>
+<h2>Where The Revisions Are Kept</h2>
+<p>The revisions are project data, shared by everyone who works on the project: they are kept in the project itself, in its <span class="fixw">DynALisp</span> folder beside the <span class="fixw">.apj</span>, never in your DynALisp settings.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>File</th><th>What it holds</th></tr>
+<tr><td><span class="fixw">Revisions.csv</span></td><td>The revisions, in their sequence.</td></tr>
+<tr><td><span class="fixw">RevisionSettings.csv</span></td><td>The numbering and the first number of the project.</td></tr>
+<tr><td><span class="fixw">Sheets.csv</span></td><td>Every sheet, the revisions given to it and the ones its clouds had at its last update.</td></tr>
+</table>
+</div>
+<p>Each layout also keeps a copy of the revisions given to it: a sheet drawing copied or renamed keeps its revisions. When another user saves the revisions or the settings of the project while your window is open, <strong>OK</strong> and <strong>Update All Sheets</strong> are refused: cancel, then open the window again.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>A cloud counts only on the layout it is drawn on, in paper space: a cloud in model space, seen through a viewport, does not give its revision to the sheet.</li>
+<li>ObjectDBX does not move an attribute that is not left-justified to its new text. The sheet is marked, and its attributes are set again the next time it is updated open (with <strong>Revisions</strong> on in <span class="fixw">Dyl-Settings</span>, as soon as it opens).</li>
+<li>A drawing saved by ObjectDBX is saved in the format of this AutoCAD, and may lose its preview image until it is saved again in AutoCAD.</li>
+<li>The title block must be a block with attributes in the layout. A title block in an xref, or filled with sheet set fields, is not changed.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-Revisions</span>: they are run by their alias, or picked from <span class="fixw">Dyl-Revisions</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Revisions</span></td><td><span class="fixw">REVS</span></td><td>Revisions</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-RevisionCloud</span></td><td><span class="fixw">RCLOUD</span></td><td>Revision Cloud</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-RevisionsUpdate</span></td><td><span class="fixw">REVUP</span></td><td>Update Revisions</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-RevisionTitleBlocks</span></td><td><span class="fixw">REVTB</span></td><td>Revision Title Blocks</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

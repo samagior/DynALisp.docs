@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3-Point Rectangle</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>3-Point Rectangle</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/3pointrectangle.html" target="_blank">https://lee-mac.com/3pointrectangle.html</a></p>
+
+<p><em>See also <a href="https://lee-mac.com/grsnap.html" target="_blank">GrSnap</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ThreePointRectangle</span> &ndash; original syntax: 3PR / 3PRD (dynamic) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/3pointrectangle.html" target="_blank">lee-mac.com/3pointrectangle.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to dynamically construct a rectangle defined by three supplied points.</p>
+<p>The program offers two commands: <span class="fixw">3PR</span> and <span class="fixw">3PRD</span> which represent a
+                standard &amp; dynamic version of the program respectively.</p>
+<p>Upon issuing either command at the AutoCAD command-line, the user is first prompted to specify two points defining 
+                one of the two pairs of parallel sides of the resulting rectangle.</p>
+<p>Following valid responses to these prompts, the user is then prompted for a third point to determine the length
+                and direction of the second pair of edges, which are constructed perpendicular to the edges defined by the first two points. 
+                If the dynamic command is used (<span class="fixw">3PRD</span>) the program will display a real-time preview of the 
+                resulting rectangle whilst the user is prompted for the third point.</p>
+<p>The user may exit the program at any time by pressing
+                <span class="fixw">ENTER</span> or by right-clicking at any prompt.</p>
+<p>Following valid specification of all three points, the program will proceed to construct the defined rectangle using a
+                2D polyline (LWPolyline) object.</p>
+<p>The dynamic version of the program utilises my <a href="https://lee-mac.com/grsnap.html" target="_blank">GrSnap</a> utility to enable full Object Snap 
+                functionality during the dynamic prompt. Furthermore, this program has also been designed to perform successfully under 
+                all UCS &amp; View settings.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="3-Point Rectangle Demo" height="300" src="images/LM-3prd.gif" width="400"/>
+</div>
+<p><em>See also <a href="https://lee-mac.com/grsnap.html" target="_blank">GrSnap</a>.</em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>&lt;pre&gt;
+    &lt;code&gt;
+;;-----------------------=={ 3-Point Rectangle }==----------------------;;
+;;                                                                      ;;
+;;  This program enables the user to dynamically construct a rectangle  ;;
+;;  defined by three supplied points.                                   ;;
+;;                                                                      ;;
+;;  The program offers two commands: &#x27;3PR&#x27; and &#x27;3PRD&#x27; which represent   ;;
+;;  a standard &amp; dynamic version of the program respectively.           ;;
+;;                                                                      ;;
+;;  Upon issuing either command at the AutoCAD command-line, the user   ;;
+;;  is first prompted to specify two points defining one of the two     ;;
+;;  pairs of parallel sides of the resulting rectangle.                 ;;
+;;                                                                      ;;
+;;  Following valid responses to these prompts, the user is then        ;;
+;;  prompted for a third point to determine the length and direction    ;;
+;;  of the second pair of edges, which are constructed perpendicular    ;;
+;;  to the edges defined by the first two points.                       ;;
+;;                                                                      ;;
+;;  If the dynamic command is used (&#x27;3PRD&#x27;) the program will display a  ;;
+;;  real-time preview of the resulting rectangle whilst the user is     ;;
+;;  prompted for the third point.                                       ;;
+;;                                                                      ;;
+;;  The user may exit the program at any time by pressing &#x27;Enter&#x27; or    ;;
+;;  right-clicking at any prompt.                                       ;;
+;;                                                                      ;;
+;;  Following valid specification of all three points, the program      ;;
+;;  will proceed to construct the defined rectangle using an            ;;
+;;  LWPolyline object.                                                  ;;
+;;                                                                      ;;
+;;  The dynamic version of the program utilises my GrSnap utility to    ;;
+;;  enable full Object Snap functionality during the dynamic prompt.    ;;
+;;  The latest version and full documentation for this application may  ;;
+;;  be found at: http://www.lee-mac.com/grsnap.html                     ;;
+;;                                                                      ;;
+;;  Finally, this program has been designed to perform successfully     ;;
+;;  under all UCS &amp; View settings.                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2013-12-27                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2020-10-31                                      ;;
+;;                                                                      ;;
+;;  - Modified the dynamic version to incorporate the ability to        ;;
+;;    specify a side length when prompted for the third point.          ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2021-10-06                                      ;;
+;;                                                                      ;;
+;;  - Modified to fix LWPolyline elevation relative to the active UCS.  ;;
+;;----------------------------------------------------------------------;;
+    &lt;/code&gt;
+&lt;/pre&gt;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ThreePointRectangle</span>: they are run by their alias, or picked from <span class="fixw">LM-ThreePointRectangle</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ThreePointRectangle</span></td><td><span class="fixw">3PR</span></td><td>3-Point Rectangle</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">3PR-H</span></td><td>&ndash;</td><td>3-Point Rectangle Help</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">3PRD-H</span></td><td>&ndash;</td><td>3-Point Rectangle Dynamic Help</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">3PRD</span></td><td>&ndash;</td><td>3-Point Rectangle Dynamic</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

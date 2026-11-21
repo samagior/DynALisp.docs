@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ligne en polyligne</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LineToPolyline.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Ligne en polyligne (Line To Polyline)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">LTPL</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LineToPolyline.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Convertit les lignes sélectionnées en polylignes et, au besoin, joint celles qui se touchent en polylignes uniques.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">LTPL</span></td><td>Line To Polyline</td><td>Convertit chaque ligne sélectionnée en polyligne avec PEDIT, en joignant au besoin celles qui se touchent.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Répondez à <span class="fixw">Join touching polylines? [Yes/No] &lt;No&gt;:</span>.</li>
+<li>Sélectionnez les objets; seules les lignes sont gardées.</li>
+<li>Chaque ligne est convertie avec <span class="fixw">PEDIT</span>.</li>
+<li>Avec <em>Yes</em> et plus d'une ligne, <span class="fixw">JOIN</span> s'exécute sur toutes les nouvelles polylignes : celles qui se touchent bout à bout deviennent des polylignes uniques.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Suppose <span class="fixw">PEDITACCEPT</span> = 0 : la routine répond <em>Oui</em> à <em>Voulez-vous la transformer en polyligne?</em>. Avec <span class="fixw">PEDITACCEPT</span> = 1, cette réponse est lue comme une option de PEDIT.</li>
+<li>Les arcs et les autres courbes ne sont pas sélectionnés.</li>
+<li>Il n'y a pas d'étape d'annulation unique : chaque conversion s'annule séparément.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LineToPolyline</span></td><td><span class="fixw">LTPL</span></td><td>Line To Polyline</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

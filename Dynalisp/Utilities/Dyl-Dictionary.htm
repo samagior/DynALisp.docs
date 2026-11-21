@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dictionary</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Dictionary.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Dictionary</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-DICTIONARY</span> (DICO)</td>
+</tr>
+<tr>
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-Dictionary.lsp</span> (command), <span class="fixw">Modules\Dynalisp\Res\Dyl-Dictionary.dcl</span> (window), <span class="fixw">Modules\Dynalisp\Res\Dictionaries\&lt;code&gt;-def.csv</span> (definitions)</td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD 2021 or later for Windows (Unicode AutoLISP, ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>New &ndash; see Known Limitations</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Opens a window to search the words of the DynALisp custom dictionaries (see <a href="../Setup/Dyl-SetFilePrefs.htm">Set File Preferences</a>) with their definition, type and category. Next to each custom dictionary <span class="fixw">&lt;code&gt;.cus</span>, a definitions file <span class="fixw">&lt;code&gt;-def.csv</span> describes its words: <span class="fixw">fra-def.csv</span> gives about 2,450 French architecture and construction words and Roman numerals, with the plural, feminine and other forms of <span class="fixw">fra.cus</span>, and about 260 expressions such as <em>semelle filante</em> or <em>clé de voûte</em>.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-DICTIONARY</span></td><td>Dictionary</td><td>Searches the words of the DynALisp dictionaries, their definitions and categories, in the language of the file preferences.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The window opens the definitions file of the language of the file preferences (<span class="fixw">fra-def.csv</span> in French). <em>Dictionary</em> shows the other ones of <span class="fixw">Res\Dictionaries</span>.</li>
+<li><em>Words</em>: type one or more words and press Enter or <em>Search</em>. Every word typed must be found in the word or in one of its forms (<span class="fixw">vitr</span> finds vitrage, vitrail and vitraux). Accents, ligatures and case are ignored: <span class="fixw">equarri</span> finds équarri, <span class="fixw">oeil</span> finds œil-de-bœuf. Tick <em>Also in the definitions</em> to search the definitions too (<span class="fixw">corrosion</span> then finds inhibiteur, galvanisé, galvanisation...).</li>
+<li><em>Category</em>, <em>Subcategory</em> and <em>Type</em> filter the list (n.m., n.f., adj., v., sigle, abr., n.pr., loc.n.f. for an expression...). The subcategories are the ones of the category chosen. <em>Clear</em> removes the search and the filters.</li>
+<li>Selecting a word shows its type, forms, definition and category. <em>See also</em> lists related words: <em>Go to</em> shows one, clearing the filters when it is not in the list.</li>
+<li><em>Copy word</em>, or a double-click in the list, copies the word to the clipboard, to paste it in a text.</li>
+<li><em>Edit list...</em> closes the window and opens your copy of the definitions file in Excel (made under <span class="fixw">User\</span> from the default the first time). Save it as <em>CSV UTF-8</em>, then run the command again. <span class="fixw">Dyl-UserFiles</span> can make your copy the default.</li>
+</ol>
+</div>
+<h2>Definitions File</h2>
+<p><span class="fixw">Res\Dictionaries\&lt;code&gt;-def.csv</span>, UTF-8, one word per row: <span class="fixw">Word;Forms;Type;Category;Subcategory;Definition;See also</span>.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Word</strong>: the word as written in the custom dictionary (singular, masculine), or an expression of several words. Expressions are only in the definitions file: the spell checker checks each of their words separately.</li>
+<li><strong>Forms</strong>: its other forms in the custom dictionary (plural, feminine, other spellings), separated by commas. They are searched with the word.</li>
+<li><strong>Type</strong>: n.m., n.f., adj., v., sigle, abr., n.pr., num. (Roman numeral) or, for an expression, loc.n.m., loc.n.f., loc.adj. or loc.adv.; several separated by <span class="fixw">/</span> (<span class="fixw">n.m./adj.</span>).</li>
+<li><strong>Category</strong> and <strong>Subcategory</strong>: the theme of the word, in 10 categories: Structure, Enveloppe, Intérieur, Mécanique et électricité, Matériaux, Architecture, Patrimoine et rénovation, Projet et réglementation, Abréviations et sigles, Mots composés (Structure &gt; Pièce sur pièce, Enveloppe &gt; Ferblanterie, Architecture &gt; Églises : mobilier liturgique...).</li>
+<li><strong>Definition</strong>: one or two sentences, without the <span class="fixw">;</span> separator.</li>
+<li><strong>See also</strong>: related words of the file, separated by commas.</li>
+</ul>
+</div>
+<p>A word added to the custom dictionary from AutoCAD (<em>Add to dictionary</em>) is not added to the definitions file: add its row with <em>Edit list...</em>.</p>
+<p>About 100 terms defined by the Quebec Construction Code (National Building Code as amended for Quebec, Division A, Article 1.4.1.2), such as <em>mur coupe-feu</em>, <em>premier étage</em> or <em>distance limitative</em>, end their definition with <em>Terme défini du code.</em>: tick <em>Also in the definitions</em> and search <span class="fixw">terme defini</span> to list them all. The ones not found elsewhere are in <em>Projet et réglementation &gt; Termes définis du code</em>. Their definitions are reworded summaries, not the text of the code: check the code before relying on one.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The definitions are short working definitions written for the drawings and specifications of the firm, not an official terminology. Check the regional and heritage terms with your references (Office québécois de la langue française, Grand dictionnaire terminologique).</li>
+<li>The file is read as UTF-8: saved by Excel as a plain <em>CSV</em> (not <em>CSV UTF-8</em>), its accented letters show wrong.</li>
+<li>Copy word uses the Windows <span class="fixw">htmlfile</span> object; when Windows does not provide it, the window says the word could not be copied.</li>
+<li>Only French has a definitions file for now: another language opens the first one found.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Dictionary</span></td><td><span class="fixw">DICO</span></td><td>Dictionary</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

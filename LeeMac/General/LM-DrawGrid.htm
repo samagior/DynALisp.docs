@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Draw Grid</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Draw Grid</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/drawgrid.html" target="_blank">https://lee-mac.com/drawgrid.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DrawGrid</span> &ndash; original syntax: DGrid / DGridD (dynamic) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/drawgrid.html" target="_blank">lee-mac.com/drawgrid.html</a></td></tr></table>
+</div>
+<h3>Program Description</h3>
+<p>This program will prompt the user for a number of rows and columns then proceed to construct a grid composed of Line
+                Entities between two corner points.</p>
+<p>If called with <span class="fixw">'DGrid'</span> (<em><strong>D</strong>raw <strong>Grid</strong></em>) at the AutoCAD command-line,
+                the program will operate in standard mode, with all standard AutoCAD functionality (such as Object Snap / Tracking / Orthomode etc.) available
+                to the user.</p>
+<p>If called with <span class="fixw">'DGridD'</span> (<em><strong>D</strong>raw <strong>Grid</strong> <strong>D</strong>ynamic</em>) at the
+                AutoCAD command-line, the program will display a real-time preview of the grid constructed between the two corner points; however, Object Snap
+                is imitated during the preview, and most other AutoCAD functionality (such as Tracking / Orthomode etc.) is unavailable in this mode.</p>
+<p>The program will remember the last used number of rows and columns during the active drawing session,
+                and these values will be available as defaults for the next use.</p>
+<p>Both program modes (standard / dynamic) have been engineered to work in all UCS/Views.</p>
+<div class="cent">
+<h3>Demonstration of Dynamic Version</h3>
+<img alt="DrawGrid.gif" height="300" src="images/LM-DrawGrid.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Draw Grid }==--------------------;;
+;;                                                            ;;
+;;  Dynamically generates a grid with a specified number of   ;;
+;;  rows and columns.                                         ;;
+;;  Works in all UCS/Views.                                   ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.1    -    13-10-2011                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-DrawGrid</span>: they are run by their alias, or picked from <span class="fixw">LM-DrawGrid</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DrawGrid</span></td><td><span class="fixw">DGRID</span></td><td>Draw Grid</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DGRIDD</span></td><td>&ndash;</td><td>Draw Grid Dynamic</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diagnostics</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Diagnostics.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Diagnostics</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-DIAGNOSTICS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Troubleshooting\Dyl-Diagnostics.lsp</span>, its event count in <span class="fixw">Modules\Dynalisp\Reactor\Dyl-Diagnostics.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (PowerShell to zip the report, a GitHub account to send it)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Finds out why DynALisp, or AutoCAD with it, does not work as it should. It reads how DynALisp is installed and started, the AutoCAD running and what else it loads, the settings and files of DynALisp, its reactors and the current drawing, and writes what it finds in a text report that opens in your text editor. The problems found are marked <span class="fixw">[!]</span> and listed again at the top of the report.</p>
+<p><span class="fixw">Dyl-Diagnostics</span> (the <em>Diagnostics</em> button of the Troubleshooting panel) writes the full report, with your settings and files, and offers to send it to the developer of DynALisp in a GitHub issue. Each part of the report is also a command of its own, to check one thing quickly.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-DIAGNOSTICS</span></td><td>Diagnostics</td><td>Writes a full report of DynALisp, AutoCAD and the drawing with your settings and files, then offers to send it in a GitHub issue.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSDYNALISP</span></td><td>Diagnostics DynALisp</td><td>Reports the version and installation of DynALisp, its startup, load errors and modules.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSAUTOCAD</span></td><td>Diagnostics AutoCAD</td><td>Reports the AutoCAD product, Windows, the profile, system variables, paths, applications and bundles loaded.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSCONFLICTS</span></td><td>Diagnostics Conflicts</td><td>Looks for other programs that redefine the DynALisp commands, aliases or startup, and their reactors.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSSUITE</span></td><td>Diagnostics Startup Suite</td><td>Checks the Startup Suite and the aliases: missing files, commands not defined, aliases without a command.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSSETTINGS</span></td><td>Diagnostics Settings</td><td>Lists the DynALisp settings and your files, and checks every data file DynALisp reads.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSREACTORS</span></td><td>Diagnostics Reactors</td><td>Checks the DynALisp reactors of the drawing against their settings and lists every reactor.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSREACTOREVENTS</span></td><td>Diagnostics Reactor Events</td><td>Counts the events the drawing sends to the reactors between two runs, to find what slows AutoCAD.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Reports the units, spaces, draw order tables, layers, xrefs and objects of the drawing, and its regen time.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<p>Each part of the report checks one thing:</p>
+<div class="spacedbullets">
+<ul>
+<li><em>DynALisp</em>: the version installed and the latest release (when Dyl-Info checked it), a git clone (its branch and commit) or the setup, the folder of DynALisp, another copy of DynALisp installed, the DynALisp menu, the settings waiting to be imported and your files. Then the startup of the drawing: its time, the commands and aliases defined, its warnings, the Remote and Reactor files that failed to load and the slowest ones, and the Lisp files of each module.</li>
+<li><em>AutoCAD</em>: the product and its version, Windows, the profiles, the system variables that change how programs load and run (<span class="fixw">SECURELOAD</span>, <span class="fixw">NOMUTT</span>, <span class="fixw">FILEDIA</span>...), the support file search path (missing or repeated folders), the trusted locations, <span class="fixw">acad.lsp</span>, <span class="fixw">acaddoc.lsp</span> and <span class="fixw">acad.pgp</span>, the ARX and .NET applications loaded, the menus loaded, the application bundles installed and the AutoCAD Startup Suite (<span class="fixw">APPLOAD</span>).</li>
+<li><em>Conflicts</em>: reads the Lisp files of the other programs AutoCAD loads (<span class="fixw">acad.lsp</span>, <span class="fixw">acaddoc.lsp</span>, the AutoCAD Startup Suite, the other application bundles and the support folders outside AutoCAD itself, 300 files at most). A file that defines <span class="fixw">S::STARTUP</span> with <span class="fixw">defun</span> (the DynALisp startup may not run), or a command named as a DynALisp command or alias, is a problem; a file that undefines AutoCAD commands or makes reactors is noted. Then the aliases of <span class="fixw">acad.pgp</span> named as a DynALisp command turned on or an alias defined (one of them hides the other: rename the DynALisp one), the DynALisp aliases not defined because their name is taken, and the reactors of other programs in the drawing.</li>
+<li><em>Startup Suite</em>: the commands turned on per module, the files of the Startup Suite missing, the commands turned on but not defined, a command in two files, the main commands without a docs page, and the aliases of a command that is neither in the Startup Suite nor a custom preset (left over from a command removed or renamed: remove them in Dyl-Suite).</li>
+<li><em>Settings</em>: every <span class="fixw">Dynalisp*</span> setting, your files (the <span class="fixw">User</span> folder, those whose default is newer after an update), and every data file DynALisp reads (CSV): a file that cannot be read, the rows that do not have the fields of their header, and the time to read them all.</li>
+<li><em>Reactors</em>: the reactor settings, each reactor turned on has its reactor in the drawing (once), a count of commands stuck or objects piling up, and every reactor of the drawing.</li>
+<li><em>Drawing</em>: the file, its units and scales, the active phase and draw order preset, the objects and draw order entries of each space, the layers, the blocks and xrefs (not found or not loaded), the kinds of objects (proxy objects noted), the revisions of its project (its files and the title blocks of the layouts that have revisions, see <a href="../Output/Dyl-Revisions.htm">Revisions</a>) and the time to regenerate it.</li>
+</ul>
+</div>
+<p>A part run alone is written to <span class="fixw">%TEMP%\DynALisp Diagnostics\&lt;part&gt;.txt</span> and opens in your text editor.</p>
+<h2>Sending A Report</h2>
+<p><span class="fixw">Dyl-Diagnostics</span> writes every part into a <span class="fixw">DynALisp Report &lt;date&gt;</span> folder of <span class="fixw">%TEMP%</span>, with:</p>
+<div class="unspacedbullets">
+<ul>
+<li><span class="fixw">Report.txt</span>: the report, which opens in your text editor;</li>
+<li><span class="fixw">DynALisp-Settings.txt</span>: your DynALisp settings, as <em>Export settings</em> of <span class="fixw">Dyl-UserFiles</span> writes them;</li>
+<li><span class="fixw">User</span>: your copies of the data files (presets, aliases, layer keys...).</li>
+</ul>
+</div>
+<p>The folder is zipped next to it. The question <em>Send it to the DynALisp developer in a GitHub issue?</em> then opens, on <em>Open issue</em>, a new issue of the DynALisp releases repository in your browser, its title and summary filled in, and the folder of the zip with the zip selected: describe what happened, drag the zip into the issue, then <em>Submit new issue</em>. <em>Close</em> keeps the report where it is.</p>
+<p>A GitHub issue is <strong>public</strong>: read the report before you send it. The report and the settings file never hold your profile folder, your user name or your computer name: they are replaced by <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> and <span class="fixw">%COMPUTERNAME%</span>. The files of the <span class="fixw">User</span> folder are sent as they are. The drawing itself is never sent, only what the report says of it.</p>
+<h2>Finding What Slows AutoCAD</h2>
+<p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) counts the events the drawing sends to the reactors: run it, work the slow way for about 20 seconds (zoom, pan, draw), then run it again. The report lists each event (an object added or changed, a command started, a system variable changed) and its count. The DynALisp reactors run only on these events: when none is counted during a slow zoom or pan, the reactors are not what slows it. It needs the DynALisp reactors on (<span class="fixw">Dyl-Settings</span>).</p>
+<p>The <em>Drawing</em> part times a regeneration of the drawing: run <span class="fixw">DIAG-DWG</span>, change one thing (the draw order table deleted with <span class="fixw">DO-RESET</span>, the reactors turned off and the drawing opened again...), run it again and compare.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The compiled programs of other applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) cannot be read: only their name is listed, not the commands they define.</li>
+<li>The startup records (its time, warnings and load errors) are those of the drawing the report is made in; <span class="fixw">Dyl-Reload</span> records them again.</li>
+<li>The kinds of objects are counted up to 100&nbsp;000 objects; above, only their total is given.</li>
+<li>Sending the report needs a GitHub account; without one, send the zip by email.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Diagnostics</span></td><td>DIAG</td><td>Diagnostics</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsDynalisp</span></td><td>DIAG-INSTALL</td><td>Diagnostics DynALisp</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsAutocad</span></td><td>DIAG-ACAD</td><td>Diagnostics AutoCAD</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsConflicts</span></td><td>DIAG-CONFLICTS</td><td>Diagnostics Conflicts</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsSuite</span></td><td>DIAG-SUITE</td><td>Diagnostics Startup Suite</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsSettings</span></td><td>DIAG-SETTINGS</td><td>Diagnostics Settings</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsReactors</span></td><td>DIAG-REACTORS</td><td>Diagnostics Reactors</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsReactorEvents</span></td><td>DIAG-EVENTS</td><td>Diagnostics Reactor Events</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsDrawing</span></td><td>DIAG-DWG</td><td>Diagnostics Drawing</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

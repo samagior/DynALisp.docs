@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Color ByLayer</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ColorByLayer.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Color ByLayer</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">CHCOLOR</span>, <span class="fixw">CC</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-ColorByLayer.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Two quick colour clean-up commands: one resets the colour of a selection to ByLayer, the other applies a colour picked in the standard AutoCAD colour dialog.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Sets the color of the selected objects to ByLayer.</td></tr>
+<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Sets the color of the selected objects to a color picked in the color dialog.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<h3>CHCOLOR</h3>
+<div class="spacedbullets">
+<ol>
+<li>Select the objects (any selection method, pre-selection supported).</li>
+<li>The routine runs <span class="fixw">CHPROP</span> &rarr; Color &rarr; <span class="fixw">BYLAYER</span> on the selection and reports <span class="fixw">Objects&#x27; color changed to Bylayer.</span></li>
+</ol>
+</div>
+<h3>CC</h3>
+<div class="spacedbullets">
+<ol>
+<li>The <em>Select Color</em> dialog opens (index colours only, ByLayer shown as the default).</li>
+<li>At the prompt <span class="fixw">Select all object to change to one color.</span> select the objects.</li>
+<li><span class="fixw">CHPROP</span> applies the chosen colour to the selection.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>In <span class="fixw">CC</span>, cancelling the colour dialog reopens it: pick any colour, then press <kbd>Esc</kbd> at the selection prompt to abort.</li>
+<li>True colours and colour books are not available from the dialog used by CC.</li>
+<li>Objects on locked layers are skipped by CHPROP.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-ColorByLayer</span>: they are run by their alias, or picked from <span class="fixw">Dyl-ColorByLayer</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-ColorByLayer</span></td><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CC</span></td><td>&ndash;</td><td>Change Color</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Count by Layers</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-CountByLayers.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Count by Layers</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">COUNTBYLAYERS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-CountByLayers.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Based on <em>Total Area</em> by Lee Mac, Copyright &copy; 2013 (www.lee-mac.com)</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Totals the length of the selected curves, and the area of the closed ones, by layer. Every object is labelled with its length (or area and perimeter), and the totals can be inserted as a table or exported to a CSV file.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">COUNTBYLAYERS</span></td><td>Count by Layers</td><td>Totals the length and area of the selected curves by layer, labels each object and outputs the totals as a table or CSV file.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Select lines, arcs, circles, ellipses, polylines and splines (3D meshes and polyface meshes are excluded).</li>
+<li>For each object the length is measured; closed objects (closed flag, or start and end points at the same place) also give an area.</li>
+<li>Each object gets an Mtext label on its layer, sized to about 35% of the object:<div class="unspacedbullets"><ul><li>open objects: the length, aligned with the object just above its midpoint;</li><li>closed objects: area and perimeter, centred on the object.</li></ul></div>With <span class="fixw">INSUNITS</span> set, labels read <em>x ft (y m)</em>; in a unitless drawing they show drawing units.</li>
+<li>The totals per layer (quantity, length, area, plus metres / feet and m&sup2; / ft&sup2; when <span class="fixw">INSUNITS</span> is set) are printed at the command line, with a <em>Total</em> row.</li>
+<li>At <span class="fixw">Output [Table/Csv/None] &lt;None&gt;:</span>, <em>Table</em> inserts an AutoCAD table at a picked point in the current space (text height <span class="fixw">TEXTSIZE</span>); <em>Csv</em> writes a file, named <span class="fixw">&lt;drawing&gt;-CountByLayers.csv</span> by default.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The labels are always created, even with <em>None</em>; one <span class="fixw">U</span> removes them all.</li>
+<li>Labels always show feet and metres, whatever the drawing units (for example a millimetre drawing still reads in ft and m).</li>
+<li>Drawing-unit values follow LUPREC; converted values are rounded to 2 decimals.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-CountByLayers</span></td><td>&ndash;</td><td>Count By Layers</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------=={ Count by Layers }==-------------------;;
+;;                                                            ;;
+;;  Displays the total length of selected curves, and the     ;;
+;;  total area of the closed ones, at the command line,       ;;
+;;  grouped by layer, with conversions to meters/feet based   ;;
+;;  on INSUNITS. The precision of the drawing-unit values is  ;;
+;;  dependent on the setting of the LUPREC system variable.   ;;
+;;  Also labels each object with an MText on its layer:       ;;
+;;    - open objects: length, aligned above the midpoint      ;;
+;;    - closed objects: area and perimeter, centered          ;;
+;;  Labels are scaled to fit the object size (cbl:fill).      ;;
+;;  Optionally inserts the results as a table or exports      ;;
+;;  them to a CSV file.                                       ;;
+;;------------------------------------------------------------;;
+;;  Based on Total Area by Lee Mac, Copyright © 2013          ;;
+;;  www.lee-mac.com                                           ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, based on Total Area by Lee Mac (www.lee-mac.com)</p>
+    </div>
+</body>
+
+</html>

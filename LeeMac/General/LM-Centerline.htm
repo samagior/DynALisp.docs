@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Centerline</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Centerline</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/centreline.html" target="_blank">https://lee-mac.com/centreline.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-Centerline</span> &ndash; original syntax: CLine (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/centreline.html" target="_blank">lee-mac.com/centreline.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This relatively simple program enables the user to quickly construct a pair of center-lines for an Arc, Circle,
+                Ellipse, or Elliptical Arc object.</p>
+<p>Upon issuing the command syntax <span class="fixw">CLine</span> at the AutoCAD command-line, the user is first prompted to select
+                either an Arc, Circle, Ellipse or Elliptical Arc for which to construct a pair of center-lines. Following a valid selection, 
+                the user is then prompted to indicate the length and direction of the center-lines relative to the center of the selected 
+                object.</p>
+<p>The program will then proceed to construct two orthogonal lines, extending from the center of the selected object to the
+                point specified by the user (in all four directions), and rotated as required. The center-lines will be created on the current
+                layer, with the current settings for colour, linetype &amp; lineweight at the time of running the program.</p>
+<p>The program will furthermore perform successfully with circular &amp; elliptical objects constructed in any 
+                UCS construction plane.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Centreline.gif" height="300" src="images/LM-Centreline.gif" width="300"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Centerline }==----------------------;;
+;;                                                            ;;
+;;  Creates a pair of centerlines for Arcs, Circles, Ellipses ;;
+;;  and Elliptical arcs with a user-defined length and angle. ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2013 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.2    -    13-08-2013                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-Centerline</span></td><td><span class="fixw">CLINE</span></td><td>Centerline</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

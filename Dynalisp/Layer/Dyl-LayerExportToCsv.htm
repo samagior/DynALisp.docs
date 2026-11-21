@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Export Layers To CSV</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerExportToCsv.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Export Layers To CSV</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerExportToCsv.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Writes every layer of the current drawing and its properties to a CSV file that opens directly in Excel. The file uses the same columns as the layer presets read by <a href="Dyl-LayerImportFromCsv.htm">Import Layers From CSV</a>, so an export can be edited and imported back into another drawing.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td><td>Export Layers To CSV</td><td>Exports every layer of the drawing with its properties to a CSV file in the Downloads folder.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The output file is <span class="fixw">%USERPROFILE%\Downloads\layers_YYYYMMDD.csv</span>; if USERPROFILE is not set, HOMEDRIVE + HOMEPATH is used, and as a last resort the drawing folder.</li>
+<li>Every layer of the layer table is read (xref-dependent layers included) and its values are turned into readable text (see table below).</li>
+<li>Rows are sorted by layer name, case-insensitive.</li>
+<li>The file is written in UTF-8 with a BOM (for Excel) and a header row; values containing commas, quotes or line breaks are quoted.</li>
+<li>The command reports the number of layers and the full path of the file.</li>
+</ol>
+</div>
+<h3>CSV Columns</h3>
+<div class="programs commands">
+<table>
+<tr><th>Column</th><th>Values written</th></tr>
+<tr><td>Layer Name</td><td>Layer name</td></tr>
+<tr><td>Color</td><td><span class="fixw">Red (1)</span> &hellip; <span class="fixw">White/Black (7)</span>, <span class="fixw">ACI n</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
+<tr><td>Lineweight</td><td><span class="fixw">0.25 mm</span>, <span class="fixw">Default</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
+<tr><td>Linetype</td><td>Linetype name</td></tr>
+<tr><td>Plot</td><td><span class="fixw">Yes</span> / <span class="fixw">No</span></td></tr>
+<tr><td>Transparency</td><td><span class="fixw">0%</span> &hellip; <span class="fixw">90%</span></td></tr>
+<tr><td>On/Off</td><td><span class="fixw">On</span> / <span class="fixw">Off</span></td></tr>
+<tr><td>Freeze</td><td><span class="fixw">Frozen</span> / <span class="fixw">Thawed</span></td></tr>
+<tr><td>New VP Freeze</td><td><span class="fixw">VP Frozen</span> / <span class="fixw">VP Thawed</span></td></tr>
+<tr><td>Description</td><td>Layer description</td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The file name only contains the date: a second export on the same day overwrites the first one.</li>
+<li>True colours are exported as their nearest index colour.</li>
+<li>The load message mentions <span class="fixw">EXPORTLAYERS</span>; the command name is <span class="fixw">DYL-LAYEREXPORTTOCSV</span>.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerExportToCsv</span></td><td>&ndash;</td><td>Export Layers To CSV</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

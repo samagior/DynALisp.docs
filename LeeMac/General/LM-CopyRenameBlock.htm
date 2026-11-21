@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy or Rename Block Reference</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Copy or Rename Block Reference</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/copyblock.html" target="_blank">https://lee-mac.com/copyblock.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CopyRenameBlock</span> &ndash; original syntax: CB (Copy) /  RB (Rename) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.5</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/copyblock.html" target="_blank">lee-mac.com/copyblock.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows a user to copy and/or rename a <strong>single block reference</strong> in the working drawing.</p>
+<p>Many existing programs enable the user to rename the block definition for a given block reference, with the new name subsequently
+                reflected across all references of the block definition in the drawing. However, this program will allow a single selected
+                block reference to be renamed (or for the user to create a renamed copy of the selected block reference), by generating a 
+                duplicate renamed block definition for the selected block.</p>
+<p>The program may be called from the command-line using either <span class="fixw">CB</span> to create a renamed copy of
+                a selected block reference, or <span class="fixw">RB</span> to simply rename the selected block reference.</p>
+<p>Following selection of a block reference, the user is prompted to specify a name for the selected/copied block reference;
+                a default block name composed of the original block name concatenated with both an underscore and the minimum integer required 
+                for uniqueness within the block collection of the active drawing is offered.</p>
+<p>The program will then proceed to duplicate the block definition using the new block name. To accomplish this without 
+                resulting in a duplicate key in the block collection of the active drawing, the program utilises an ObjectDBX interface
+                to which the block definition of the selected block reference is deep-cloned, renamed, then deep-cloned back to the active 
+                drawing. This method also enables Dynamic Block definitions to be successfully copied &amp; renamed.</p>
+<p>This program will furthermore perform successfully in all UCS/Views and is also compatible with Anonymous Blocks,
+                Dynamic Blocks &amp; XRefs.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Copy Block.gif" height="300" src="images/LM-CopyBlock.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------=={ Copy/Rename Block Reference }==------------------;;
+;;                                                                      ;;
+;;  This program allows a user to copy and/or rename a single block     ;;
+;;  reference in the working drawing.                                   ;;
+;;                                                                      ;;
+;;  Many existing programs enable the user to rename the block          ;;
+;;  definition for a given block reference, with the new name           ;;
+;;  subsequently reflected across all references of the block           ;;
+;;  definition in the drawing. However, this program will allow a       ;;
+;;  single selected block reference to be renamed (or for the user to   ;;
+;;  create a renamed copy of the selected block reference), by          ;;
+;;  generating a duplicate renamed block definition for the selected    ;;
+;;  block.                                                              ;;
+;;                                                                      ;;
+;;  The program may be called from the command-line using either &#x27;CB&#x27;   ;;
+;;  to create a renamed copy of a selected block reference, or &#x27;RB&#x27; to  ;;
+;;  simply rename the selected block reference.                         ;;
+;;                                                                      ;;
+;;  Following selection of a block reference, the user is prompted to   ;;
+;;  specify a name for the selected/copied block reference; a default   ;;
+;;  block name composed of the original block name concatenated with    ;;
+;;  both an underscore and the minimum integer required for uniqueness  ;;
+;;  within the block collection of the active drawing is offered.       ;;
+;;                                                                      ;;
+;;  The program will then proceed to duplicate the block definition     ;;
+;;  using the new block name. To accomplish this without resulting in   ;;
+;;  a duplicate key in the block collection of the active drawing, the  ;;
+;;  program utilises an ObjectDBX interface to which the block          ;;
+;;  definition of the selected block reference is deep-cloned, renamed, ;;
+;;  and then deep-cloned back to the active drawing. This method also   ;;
+;;  enables Dynamic Block definitions to be successfully copied         ;;
+;;  &amp; renamed.                                                          ;;
+;;                                                                      ;;
+;;  Finally, this program will perform successfully in all UCS/Views    ;;
+;;  and is compatible with Anonymous Blocks, Dynamic Blocks &amp; XRefs.    ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    05-07-2013                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-CopyRenameBlock</span>: they are run by their alias, or picked from <span class="fixw">LM-CopyRenameBlock</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CopyRenameBlock</span></td><td>&ndash;</td><td>Copy / Rename Block</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CB</span></td><td>&ndash;</td><td>Copy Block Reference</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">RB</span></td><td>&ndash;</td><td>Rename Block Reference</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

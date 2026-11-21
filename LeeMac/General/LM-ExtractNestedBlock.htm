@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Extract Nested Block</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Extract Nested Block</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/extractnestedblock.html" target="_blank">https://lee-mac.com/extractnestedblock.html</a></p>
+
+<h2>(Convert Nested Block to Primary Block)</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ExtractNestedBlock</span> &ndash; original syntax: ENB (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/1bIZu1T" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/extractnestedblock.html" target="_blank">lee-mac.com/extractnestedblock.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to convert a nested block into a primary block inserted at the same position for each reference of
+                the nested block, retaining the same scale, rotation, orientation and all other properties possessed by the original nested block.</p>
+<p>Following selection of a nested block, the program will convert all references of the nested block and then proceed to 
+                remove the nested block from the primary block definition in which it resides.</p>
+<p>The program is compatible with uniformly-scaled nested standard blocks, nested dynamic blocks &amp; nested xrefs, nested 
+                to any depth, and will process all references of the nested block, even those for which the parent block is also nested 
+                within another reference, as the various examples below demonstrate.</p>
+<p>The program is unfortunately incompatible with blocks nested within dynamic blocks or xrefs, and the program will ignore
+                non-uniformly-scaled block references.</p>
+<h2>Examples</h2>
+<h3>Example 1</h3>
+<p>In the following demonstration, <span class="fixw">Block1</span> (green) is nested within <span class="fixw">Block2</span> (yellow),
+                which is nested within <span class="fixw">Block3</span> (red). To make things a little more complex, at each
+                level of the nesting, the references have been scaled and rotated.</p>
+<p><img alt="ExtractNestedBlock.gif" height="300" src="images/LM-ExtractNestedBlock.gif" width="500"/></p>
+<h3>Example 2</h3>
+<p>In this second example, <span class="fixw">Block1</span> (green) is nested within <span class="fixw">Block2</span> (yellow), 
+                which is nested within <span class="fixw">Block3</span> (red) and also nested within <span class="fixw">Block3-1</span> (cyan).
+                A reference of <span class="fixw">Block3</span> (red) is also nested within <span class="fixw">Block4</span> (grey). 
+                Again, at each level of the nesting, the references have been scaled and rotated.</p>
+<p><img alt="ExtractNestedBlock2.gif" height="400" src="images/LM-ExtractNestedBlock2.gif" width="500"/></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Extract Nested Block }==---------------------;;
+;;                                                                      ;;
+;;  This program allows the user to convert a nested block into a       ;;
+;;  primary block inserted at the same position for each reference of   ;;
+;;  the nested block, retaining the same scale, rotation, orientation   ;;
+;;  and all other properties possessed by the original nested block.    ;;
+;;                                                                      ;;
+;;  Upon selection of a nested block, the program will convert all      ;;
+;;  references of the nested block and then proceed to remove the       ;;
+;;  nested block from the primary block definition in which it resides. ;;
+;;                                                                      ;;
+;;  The program is compatible with uniformly-scaled nested standard     ;;
+;;  blocks, nested dynamic blocks &amp; nested xrefs, nested to any depth.  ;;
+;;                                                                      ;;
+;;  However, the program is incompatible with blocks nested within      ;;
+;;  dynamic blocks or xrefs, and the program will ignore                ;;
+;;  non-uniformly-scaled block references.                              ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    04-04-2012                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    09-09-2013                                      ;;
+;;                                                                      ;;
+;;  - Program modified to prohibit selection of nested blocks residing  ;;
+;;    on locked layers or blocks nested within dynamic blocks or xrefs. ;;
+;;                                                                      ;;
+;;  - Program will now ignore non-uniformly scaled block references     ;;
+;;    without returning an error.                                       ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    19-05-2020                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug causing program to crash during the process of          ;;
+;;    obtaining all references of the parent block when encountering    ;;
+;;    a block reference with an (102 . &quot;{ACAD_REACTORS&quot;) entry pointing ;;
+;;    to an associative dimension (DIMASSOC entity).                    ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ExtractNestedBlock</span></td><td><span class="fixw">ENB</span></td><td>Extract Nested Block</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

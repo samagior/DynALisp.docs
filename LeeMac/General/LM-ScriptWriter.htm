@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Script Writer</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Script Writer</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/scriptwriter.html" target="_blank">https://lee-mac.com/scriptwriter.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ScriptWriter</span> &ndash; original syntax: WScript (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/scriptwriter.html" target="_blank">lee-mac.com/scriptwriter.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<h3>The aim of this program is to reduce the construction of an AutoCAD Script to a single line.</h3>
+<p>The program assumes the user is conversant in writing scripts for AutoCAD, if not, refer to my tutorial: <a href="https://lee-mac.com/scriptwriting.html" target="_blank">
+                An Introduction to Script Writing</a>.</p>
+<p>This program is designed to greatly reduce the time involved in writing scripts as an alternative to the usual scripting 
+                programs available.</p>
+<p>Upon starting the program, the user is presented with a dialog interface. Near the top, the user may enter a <span class="fixw">Script
+                Line</span> - this is the list of commands that will be performed on each drawing in the selected directory (and subdirectories).</p>
+<p>The user only needs to write the first line of the script, which will be performed on every drawing in the selected directory; this is 
+                achieved through the use of a special token string to represent the drawing filename in the line of script operations.</p>
+<h2>Example</h2>
+<p>Consider the example from my script writing tutorial:</p>
+<div class="code">
+<pre>
+<span class="cmt"><span class="func">_.open</span> <span class="str">"C:\My Folder\Drawing1.dwg"</span> <span class="func">_.circle</span> 0,0,0 5 <span class="func">_.save</span>  _Y <span class="func">_.close</span></span>
+<span class="cmt"><span class="func">_.open</span> <span class="str">"C:\My Folder\Drawing2.dwg"</span> <span class="func">_.circle</span> 0,0,0 5 <span class="func">_.save</span>  _Y <span class="func">_.close</span></span>
+<span class="cmt"><span class="func">_.open</span> <span class="str">"C:\My Folder\Drawing3.dwg"</span> <span class="func">_.circle</span> 0,0,0 5 <span class="func">_.save</span>  _Y <span class="func">_.close</span></span>
+</pre>
+</div>
+<p>To avoid having to construct the whole script, we can convert the first line for use with the Script Writer program, as follows:</p>
+<div class="code">
+<pre>
+<span class="cmt"><span class="func">_.open</span> <span class="str">*file*</span> <span class="func">_.circle</span> 0,0,0 5 <span class="func">_.save</span>  _Y <span class="func">_.close</span></span>
+</pre>
+</div>
+<p>The program will then replace this token with the filename of each drawing in the selected directory (and subdirectories), and 
+                subsequently run the constructed script.</p>
+<h2>Additional Controls</h2>
+<p>The programs provides additional buttons to save even more time in writing the script line operations: the user may quickly insert 
+                the <span class="fixw">*file*</span> token or clear the existing line by pressing the 
+                <span class="fixw">Filename</span> and <span class="fixw">Clear</span> buttons respectively.</p>
+<p>Scripts may also be saved for later use, or existing scripts may be loaded into the program using the <span class="fixw">Load</span> / 
+                <span class="fixw">Save</span> buttons.</p>
+<div class="cent">
+<h2>Preview</h2>
+<img alt="WScript.png" height="266" src="images/LM-WScript.png" width="435"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------------=={  Script Writer  }==-----------------------------;;
+;;                                                                               ;;
+;;  The program will allow the user to enter a line of script operations to be   ;;
+;;  performed on a directory (and subdirectories) of drawings.                   ;;
+;;                                                                               ;;
+;;  When entering the script operations, the filename of the drawing is          ;;
+;;  represented by the *file* token.                                             ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  FUNCTION SYNTAX:  WScript                                                    ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Author: Lee Mac, Copyright © May 2010 - www.lee-mac.com                      ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Version:                                                                     ;;
+;;                                                                               ;;
+;;  1.0:  31/05/2010  -  First Release                                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.1:  01/06/2010  -  Added Filename / Load / Save / Clear buttons.           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.2:  02/06/2010  -  Added ability to import/export .scr files.              ;;
+;;-------------------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ScriptWriter</span></td><td><span class="fixw">WSCRIPT</span></td><td>Script Writer</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

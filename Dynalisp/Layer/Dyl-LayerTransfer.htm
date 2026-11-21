@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Transfer</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerTransfer.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Transfer</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERTRANSFER</span> and 58 transfers &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP) with ObjectDBX</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-LAYERTRANSFER</span> lists every transfer with its alias: double-click one (or OK), then select the objects. The transfers are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
+<p>Moves the selected objects to the matching layer of another phase, discipline, stack or view type, by replacing one field of their layer name (e.g. <span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span> with <span class="fixw">E-D</span>). Missing target layers are created with the properties of the source layer. Blocks are handled without editing the original block: a renamed copy of the definition is transferred and only the selected references are switched to it.</p>
+<h2>Ribbon</h2>
+<p>The <em>Layer Transfer</em> panel of the DynALisp tab holds the <strong>Transfer</strong> button, three drop-downs and the <strong>Manager</strong> button. Transfer and the drop-downs transfer any value of a level of the layer names to another one, for the layers named as the NCS (United States National CAD Standard) names them: <span class="fixw">A-Wall-Full-E</span> is the discipline designator <span class="fixw">A</span>, the major group <span class="fixw">Wall</span>, the minor group <span class="fixw">Full</span> and the status <span class="fixw">E</span> (see <a href="../Conventions/LayerNaming.htm">Layer Naming</a>). The <strong>Manager</strong> button opens the list of transfers (<span class="fixw">DYL-LAYERTRANSFER</span>).</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Level</strong> &ndash; <em>Discipline designator</em>, <em>Major group</em>, <em>Minor group</em> or <em>Status</em> (the phase). The other levels of the names are kept.</li>
+<li><strong>From</strong> &ndash; <em>Any</em>, or a value of the level found in the layers of the drawing. <em>None</em> (minor group) or <em>Unphased</em> (status): the layers that have no value for the level.</li>
+<li><strong>To</strong> &ndash; shows <em>Select replacement...</em> until a value is picked. The values of the drawing first, then the other values of the AEC lists of DynALisp (<span class="fixw">Res\AEC\Standard</span>: <span class="fixw">Dd1.csv</span> and <span class="fixw">Dd2.csv</span> for the discipline designators, <span class="fixw">Major.csv</span>, <span class="fixw">Phase.csv</span>; the minor groups of the drawing only, <span class="fixw">Minor.csv</span> being too long for a list). <em>None</em> or <em>Unphased</em> removes the level. A value is shown with its description when the AEC lists have it, in the language of the AutoCAD installed (<span class="fixw">Wall - Wall</span>, <span class="fixw">Wall - Mur</span> in a French AutoCAD).</li>
+<li>Picking a value only chooses it. Select the objects, then click <strong>Transfer</strong>: they are transferred with the Level, From and To shown (with none selected, you are asked to select them). The choice stays, so the next selection is transferred the same way with one click.</li>
+<li>The lists follow the layers of the current drawing: they are read again after each command and when another drawing is made current. <em>From</em> keeps its value while the drawing has it.</li>
+<li>With <em>Any</em>, a minor group transfer changes the first minor group of each name, and adds one after the major group to the names that have none (<span class="fixw">A-Detl-E</span> &rarr; <span class="fixw">A-Detl-Patt-E</span>); a status transfer gives the status to the unphased names too.</li>
+<li>The Transfer button runs <span class="fixw">Pst-TransferField</span> (alias <span class="fixw">LTF</span>, which does the same when typed). Before a To value is picked, or without the drop-downs, it asks for the level, the From value (Enter: any) and the To value (<em>None</em> to remove it).</li>
+<li>The drop-downs are added by <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, which needs AutoCAD 2025 or later (see <a href="../Plugins/Ribbon.htm">Ribbon</a>). In an older version, the Transfer button asks for the level and the values.</li>
+</ul>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Select objects. Objects whose layer contains the source field are pickable, and block references are always pickable so their content can be transferred.</li>
+<li>Each selected object is checked: its own layer, its attributes and, for blocks, every entity of the definition (nested blocks included) are tested. Objects with nothing to change are dropped.</li>
+<li>The target name of each source layer is computed (see rules below). A missing target layer is created with the linetype, lineweight, plot setting, description and transparency of the source, and a colour shifted for the phase: <span class="fixw">-D</span> &rarr; 2 + last digit, <span class="fixw">-E</span> &rarr; 20 + last digit, unphased from -D/-E &rarr; last digit only. A phase layer of a <a href="Dyl-LayerKeys.htm">layer key</a> (the target name without its phase, <span class="fixw">G-Detl-Exst-D</span> &rarr; <span class="fixw">G-Detl-Exst</span>, is the layer of that key) gets the color of its key in that phase instead: the phase color of the key color, or the key color itself when the key keeps it in every phase (<em>Keep this color in every phase</em>) or the transfer is to unphased.</li>
+<li>A target layer of a layer key that already exists is checked against its key (color in that phase, linetype, lineweight, plot), as when an App uses the key: when it differs, the same window lists the differences and asks whether to update it to its key, before the objects are moved (Yes / No, <em>Remember my answer</em>; see <a href="Dyl-LayerKeys.htm#differ">Layer Keys &ndash; Layers That Differ From Their Key</a>).</li>
+<li>If a source layer is off, frozen or locked, an alert lists it and nothing is changed.</li>
+<li>In one UNDO group, objects and attributes are moved to their target layers. A block whose content changes is copied (through ObjectDBX, which keeps dynamic block data) to a new name &ndash; <span class="fixw">2X6</span> &rarr; <span class="fixw">2X6-N</span>, <span class="fixw">2X6-E</span> &rarr; <span class="fixw">2X6-N</span> &ndash; the copy is transferred and the selected references are pointed to it, with their dynamic property values restored. A copy made by an earlier run is reused.</li>
+</ol>
+</div>
+<h3>Name Rules</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Phase</strong> &ndash; the suffix is replaced at the end of the name (<span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span>). A name ending with a 4-character field and no phase (<span class="fixw">A-Wall-Full</span>) gets the new suffix appended. The <em>Unphased</em> commands remove the suffix.</li>
+<li><strong>Designator</strong> &ndash; the first occurrence of the discipline letter is replaced.</li>
+<li><strong>Major</strong> &ndash; the first occurrence after the designator is replaced (e.g. Detl &harr; Sect).</li>
+<li><strong>Minor</strong> &ndash; the first occurrence from the 8th character on is replaced (Line &harr; Hidd, stack numbers).</li>
+<li><strong>Level</strong> (the Transfer button of the ribbon and <span class="fixw">LTF</span>) &ndash; the name is read as an NCS name: a discipline designator of 1 or 2 letters, a major group of 4 characters, minor groups of 4 characters (none or more) and an optional status of 1 character, divided by <span class="fixw">-</span>. Only that level is replaced, so a designator transfer never touches the other levels. The layers with other names (<span class="fixw">0</span>, <span class="fixw">Defpoints</span>, the layers of the xrefs...) are left as they are.</li>
+</ul>
+</div>
+<h3>Phase Suffixes</h3>
+<div class="programs commands">
+<table>
+<tr><th>Suffix</th><th>Phase</th></tr>
+<tr><td><span class="fixw">-E</span></td><td>Existing to remain</td></tr>
+<tr><td><span class="fixw">-D</span></td><td>Existing to demolish</td></tr>
+<tr><td><span class="fixw">-N</span></td><td>New work</td></tr>
+<tr><td><span class="fixw">-R</span></td><td>Being refurbished</td></tr>
+<tr><td><span class="fixw">-M</span></td><td>Being moved</td></tr>
+<tr><td><span class="fixw">-S</span></td><td>To be saved</td></tr>
+<tr><td><span class="fixw">-A</span></td><td>Abandoned</td></tr>
+<tr><td><span class="fixw">-F</span></td><td>Future work</td></tr>
+<tr><td><span class="fixw">-T</span></td><td>Temporary work</td></tr>
+<tr><td><span class="fixw">-X</span></td><td>Not in contract</td></tr>
+</table>
+</div>
+<h2 id="commands">Commands</h2>
+<h3>Phase transfers</h3>
+<p>Row: phase of the selected objects; column: target phase (<em>U</em> = unphased).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>From \ To</th><th>-E</th><th>-D</th><th>-N</th><th>-R</th><th>-M</th><th>-S</th><th>-A</th><th>-F</th><th>-T</th><th>-X</th><th>U</th></tr>
+<tr><td><strong><span class="fixw">-E</span></strong> Existing</td><td>&ndash;</td><td><span class="fixw">E-D</span></td><td><span class="fixw">E-N</span></td><td><span class="fixw">E-R</span></td><td><span class="fixw">E-M</span></td><td><span class="fixw">E-S</span></td><td><span class="fixw">E-A</span></td><td><span class="fixw">E-F</span></td><td><span class="fixw">E-T</span></td><td><span class="fixw">E-X</span></td><td><span class="fixw">E-U</span></td></tr>
+<tr><td><strong><span class="fixw">-D</span></strong> Demolition</td><td><span class="fixw">D-E</span></td><td>&ndash;</td><td><span class="fixw">D-N</span></td><td><span class="fixw">D-R</span></td><td><span class="fixw">D-M</span></td><td><span class="fixw">D-S</span></td><td><span class="fixw">D-A</span></td><td><span class="fixw">D-F</span></td><td><span class="fixw">D-T</span></td><td><span class="fixw">D-X</span></td><td><span class="fixw">D-U</span></td></tr>
+<tr><td><strong><span class="fixw">-N</span></strong> New work</td><td><span class="fixw">N-E</span></td><td><span class="fixw">N-D</span></td><td>&ndash;</td><td><span class="fixw">N-R</span></td><td><span class="fixw">N-M</span></td><td><span class="fixw">N-S</span></td><td><span class="fixw">N-A</span></td><td><span class="fixw">N-F</span></td><td><span class="fixw">N-T</span></td><td><span class="fixw">N-X</span></td><td><span class="fixw">N-U</span></td></tr>
+</table>
+</div>
+<h3>Discipline, view and stack transfers</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th><th>Type</th><th>From</th><th>To</th></tr>
+<tr><td><span class="fixw">G-ARCHITECTURAL</span></td><td>Transfer General To Architectural</td><td>Moves the selected objects from their general discipline layer to the matching architectural layer.</td><td>Designator</td><td><span class="fixw">G</span></td><td><span class="fixw">A</span></td></tr>
+<tr><td><span class="fixw">G-STRUCTURAL</span></td><td>Transfer General To Structural</td><td>Moves the selected objects from their general discipline layer to the matching structural layer.</td><td>Designator</td><td><span class="fixw">G</span></td><td><span class="fixw">S</span></td></tr>
+<tr><td><span class="fixw">S-ARCHITECTURAL</span></td><td>Transfer Structural To Architectural</td><td>Moves the selected objects from their structural discipline layer to the matching architectural layer.</td><td>Designator</td><td><span class="fixw">S</span></td><td><span class="fixw">A</span></td></tr>
+<tr><td><span class="fixw">A-STRUCTURAL</span></td><td>Transfer Architectural To Structural</td><td>Moves the selected objects from their architectural discipline layer to the matching structural layer.</td><td>Designator</td><td><span class="fixw">A</span></td><td><span class="fixw">S</span></td></tr>
+<tr><td><span class="fixw">LINE-HIDD</span></td><td>Transfer Line To Hidden</td><td>Moves the selected objects from their Line minor layer to the matching Hidd layer.</td><td>Minor</td><td><span class="fixw">Line</span></td><td><span class="fixw">Hidd</span></td></tr>
+<tr><td><span class="fixw">HIDD-LINE</span></td><td>Transfer Hidden To Line</td><td>Moves the selected objects from their Hidd minor layer to the matching Line layer.</td><td>Minor</td><td><span class="fixw">Hidd</span></td><td><span class="fixw">Line</span></td></tr>
+<tr><td><span class="fixw">0001-2</span></td><td>Transfer Stack 0001 To 0002</td><td>Moves the selected objects from their stack 0001 layer to the matching stack 0002 layer.</td><td>Minor</td><td><span class="fixw">0001</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0001-3</span></td><td>Transfer Stack 0001 To 0003</td><td>Moves the selected objects from their stack 0001 layer to the matching stack 0003 layer.</td><td>Minor</td><td><span class="fixw">0001</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0001-4</span></td><td>Transfer Stack 0001 To 0004</td><td>Moves the selected objects from their stack 0001 layer to the matching stack 0004 layer.</td><td>Minor</td><td><span class="fixw">0001</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0001-5</span></td><td>Transfer Stack 0001 To 0005</td><td>Moves the selected objects from their stack 0001 layer to the matching stack 0005 layer.</td><td>Minor</td><td><span class="fixw">0001</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0002-1</span></td><td>Transfer Stack 0002 To 0001</td><td>Moves the selected objects from their stack 0002 layer to the matching stack 0001 layer.</td><td>Minor</td><td><span class="fixw">0002</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0002-3</span></td><td>Transfer Stack 0002 To 0003</td><td>Moves the selected objects from their stack 0002 layer to the matching stack 0003 layer.</td><td>Minor</td><td><span class="fixw">0002</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0002-4</span></td><td>Transfer Stack 0002 To 0004</td><td>Moves the selected objects from their stack 0002 layer to the matching stack 0004 layer.</td><td>Minor</td><td><span class="fixw">0002</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0002-5</span></td><td>Transfer Stack 0002 To 0005</td><td>Moves the selected objects from their stack 0002 layer to the matching stack 0005 layer.</td><td>Minor</td><td><span class="fixw">0002</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0003-1</span></td><td>Transfer Stack 0003 To 0001</td><td>Moves the selected objects from their stack 0003 layer to the matching stack 0001 layer.</td><td>Minor</td><td><span class="fixw">0003</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0003-2</span></td><td>Transfer Stack 0003 To 0002</td><td>Moves the selected objects from their stack 0003 layer to the matching stack 0002 layer.</td><td>Minor</td><td><span class="fixw">0003</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0003-4</span></td><td>Transfer Stack 0003 To 0004</td><td>Moves the selected objects from their stack 0003 layer to the matching stack 0004 layer.</td><td>Minor</td><td><span class="fixw">0003</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0003-5</span></td><td>Transfer Stack 0003 To 0005</td><td>Moves the selected objects from their stack 0003 layer to the matching stack 0005 layer.</td><td>Minor</td><td><span class="fixw">0003</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0004-1</span></td><td>Transfer Stack 0004 To 0001</td><td>Moves the selected objects from their stack 0004 layer to the matching stack 0001 layer.</td><td>Minor</td><td><span class="fixw">0004</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0004-2</span></td><td>Transfer Stack 0004 To 0002</td><td>Moves the selected objects from their stack 0004 layer to the matching stack 0002 layer.</td><td>Minor</td><td><span class="fixw">0004</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0004-3</span></td><td>Transfer Stack 0004 To 0003</td><td>Moves the selected objects from their stack 0004 layer to the matching stack 0003 layer.</td><td>Minor</td><td><span class="fixw">0004</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0004-5</span></td><td>Transfer Stack 0004 To 0005</td><td>Moves the selected objects from their stack 0004 layer to the matching stack 0005 layer.</td><td>Minor</td><td><span class="fixw">0004</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0005-1</span></td><td>Transfer Stack 0005 To 0001</td><td>Moves the selected objects from their stack 0005 layer to the matching stack 0001 layer.</td><td>Minor</td><td><span class="fixw">0005</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0005-2</span></td><td>Transfer Stack 0005 To 0002</td><td>Moves the selected objects from their stack 0005 layer to the matching stack 0002 layer.</td><td>Minor</td><td><span class="fixw">0005</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0005-3</span></td><td>Transfer Stack 0005 To 0003</td><td>Moves the selected objects from their stack 0005 layer to the matching stack 0003 layer.</td><td>Minor</td><td><span class="fixw">0005</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0005-4</span></td><td>Transfer Stack 0005 To 0004</td><td>Moves the selected objects from their stack 0005 layer to the matching stack 0004 layer.</td><td>Minor</td><td><span class="fixw">0005</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">DETL-SECT</span></td><td>Transfer Detail To Section</td><td>Moves the selected objects from their Detl major layer to the matching Sect layer.</td><td>Major</td><td><span class="fixw">Detl</span></td><td><span class="fixw">Sect</span></td></tr>
+<tr><td><span class="fixw">SECT-DETL</span></td><td>Transfer Section To Detail</td><td>Moves the selected objects from their Sect major layer to the matching Detl layer.</td><td>Major</td><td><span class="fixw">Sect</span></td><td><span class="fixw">Detl</span></td></tr>
+<tr><td><span class="fixw">LTF</span></td><td>Transfer Field</td><td>Moves the selected objects to the layers with another discipline designator, major group, minor group or status, the other fields kept.</td><td>Field</td><td>asked</td><td>asked</td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Designator transfers replace the first matching letter anywhere in the name (e.g. <span class="fixw">G-ARCHITECTURAL</span> on <span class="fixw">A-Glaz</span> gives <span class="fixw">A-Alaz</span>): select only objects on layers of the source discipline.</li>
+<li>Anonymous blocks cannot be renamed and are transferred in place, which affects all their references.</li>
+<li>Command line messages for empty selections are in French.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerTransfer</span>: they are run by their alias, or picked from <span class="fixw">Dyl-LayerTransfer</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerTransfer</span></td><td>&ndash;</td><td>Layer Transfer</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-D</span></td><td>&ndash;</td><td>Transfer Existing To Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-N</span></td><td>&ndash;</td><td>Transfer Existing To New Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-R</span></td><td>&ndash;</td><td>Transfer Existing To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-M</span></td><td>&ndash;</td><td>Transfer Existing To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-S</span></td><td>&ndash;</td><td>Transfer Existing To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-A</span></td><td>&ndash;</td><td>Transfer Existing To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-F</span></td><td>&ndash;</td><td>Transfer Existing To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-T</span></td><td>&ndash;</td><td>Transfer Existing To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-X</span></td><td>&ndash;</td><td>Transfer Existing To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-E</span></td><td>&ndash;</td><td>Transfer Demolition To Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-N</span></td><td>&ndash;</td><td>Transfer Demolition To New Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-R</span></td><td>&ndash;</td><td>Transfer Demolition To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-M</span></td><td>&ndash;</td><td>Transfer Demolition To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-S</span></td><td>&ndash;</td><td>Transfer Demolition To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-A</span></td><td>&ndash;</td><td>Transfer Demolition To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-F</span></td><td>&ndash;</td><td>Transfer Demolition To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-T</span></td><td>&ndash;</td><td>Transfer Demolition To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-X</span></td><td>&ndash;</td><td>Transfer Demolition To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-D</span></td><td>&ndash;</td><td>Transfer New Work To Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-E</span></td><td>&ndash;</td><td>Transfer New Work To Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-R</span></td><td>&ndash;</td><td>Transfer New Work To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-M</span></td><td>&ndash;</td><td>Transfer New Work To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-S</span></td><td>&ndash;</td><td>Transfer New Work To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-A</span></td><td>&ndash;</td><td>Transfer New Work To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-F</span></td><td>&ndash;</td><td>Transfer New Work To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-T</span></td><td>&ndash;</td><td>Transfer New Work To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-X</span></td><td>&ndash;</td><td>Transfer New Work To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-U</span></td><td>&ndash;</td><td>Transfer New Work To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-U</span></td><td>&ndash;</td><td>Transfer Demolition To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-U</span></td><td>&ndash;</td><td>Transfer Existing To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">G-ARCHITECTURAL</span></td><td>&ndash;</td><td>Transfer General To Architectural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">G-STRUCTURAL</span></td><td>&ndash;</td><td>Transfer General To Structural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">S-ARCHITECTURAL</span></td><td>&ndash;</td><td>Transfer Structural To Architectural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">A-STRUCTURAL</span></td><td>&ndash;</td><td>Transfer Architectural To Structural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LINE-HIDD</span></td><td>&ndash;</td><td>Transfer Line To Hidden</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HIDD-LINE</span></td><td>&ndash;</td><td>Transfer Hidden To Line</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-2</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-3</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-4</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-5</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-1</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-3</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-4</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-5</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-1</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-2</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-4</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-5</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-1</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-2</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-3</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-5</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-1</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-2</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-3</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-4</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DETL-SECT</span></td><td>&ndash;</td><td>Transfer Detail To Section</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SECT-DETL</span></td><td>&ndash;</td><td>Transfer Section To Detail</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LTF</span></td><td>&ndash;</td><td>Transfer Field</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

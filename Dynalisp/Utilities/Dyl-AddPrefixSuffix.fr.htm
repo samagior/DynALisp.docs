@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Préfixe et suffixe de texte</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-AddPrefixSuffix.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Préfixe et suffixe de texte (Add Prefix / Suffix)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">TXTPS</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-AddPrefixSuffix.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Ajoute le même texte au début ou à la fin de chaque objet texte et texte multiligne sélectionné, en une seule étape d'annulation.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">TXTPS</span></td><td>Text Prefix Suffix</td><td>Ajoute un texte choisi comme préfixe ou suffixe aux textes et textes multilignes sélectionnés.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Sélectionnez les objets; seuls les textes et textes multilignes sont gardés.</li>
+<li>Choisissez <span class="fixw">Prefix</span> ou <span class="fixw">Suffix</span> (Entrée = Suffix).</li>
+<li>Tapez le texte à ajouter; les espaces sont acceptées. Un texte vide annule la commande.</li>
+<li>Le texte est ajouté au contenu de chaque objet et la commande indique combien ont été mis à jour. Un seul <span class="fixw">U</span> annule tout le changement.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Pour un texte multiligne, le texte est ajouté au contenu brut : un préfixe se place avant les codes de mise en forme du début, il peut donc ne pas prendre la mise en forme du premier mot.</li>
+<li>Les objets sur des calques verrouillés ne sont pas retirés de la sélection; en modifier un arrête la commande par une erreur.</li>
+<li>Les attributs, les cotes et les lignes de repère multiples ne sont pas traités.</li>
+<li>Le chargement du fichier affiche un message <em>loaded</em> à la ligne de commande : il apparaît donc à chaque démarrage de DynALisp.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-AddPrefixSuffix</span></td><td><span class="fixw">TXTPS</span></td><td>Text Prefix Suffix</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+        <details class="bundled">
+            <summary>Notes du programme d'origine (en anglais)</summary>
+            <pre>;;; ==============================================================
+;;; AddPrefixSuffix.lsp
+;;;
+;;; Adds a user-chosen string to the beginning (prefix) or end
+;;; (suffix) of the text content of all selected TEXT and MTEXT
+;;; entities.
+;;;
+;;; COMMAND:  TXTPS
+;;;
+;;; USAGE:
+;;;   1. Load this file (APPLOAD, or drag-and-drop onto the
+;;;      AutoCAD window).
+;;;   2. Type TXTPS at the command line.
+;;;   3. Select the TEXT / MTEXT objects to modify (other object
+;;;      types in the selection are ignored automatically).
+;;;   4. Choose whether to add the string as a Prefix or Suffix.
+;;;   5. Type the text to add.
+;;;
+;;; NOTES:
+;;;   - Works on both single-line TEXT and multiline MTEXT.
+;;;   - For MTEXT, the string is added to the raw TextString
+;;;     (including any formatting codes it may already contain),
+;;;     so existing formatting is preserved.
+;;;   - Wrapped in a single UNDO group, so one U / CTRL+Z undoes
+;;;     the whole operation.
+;;; ==============================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

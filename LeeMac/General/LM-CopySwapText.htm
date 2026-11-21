@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy or Swap Text</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Copy or Swap Text</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/copytext.html" target="_blank">https://lee-mac.com/copytext.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CopySwapText</span> &ndash; original syntax: ctx (Copy Text) / stx (Swap Text) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.9</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/copytext.html" target="_blank">lee-mac.com/copytext.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables a user to copy the text content from a multitude of 'source' objects to a selection of 'destination' objects, 
+                or swap the text content between two objects.</p>
+<p>To copy text, the program may be called with <span class="fixw">ctx</span> at the AutoCAD command line. The user may then 
+                select either a Text, MText, Attribute, Dimension, Table Cell, or Multileader object and proceed to copy the associated text content to a selection
+                of any of the aforementioned objects.</p>
+<p>The objects to which the text is copied may be selected individually or alternatively, upon selecting the 'Multiple' option,
+                the user may make a selection of multiple objects to which the text string will be copied.</p>
+<p>The program also provides functionality to allow the user to switch the text content between two objects. Upon calling the 
+                program with the <span class="fixw">stx</span> command at the command line, the user may select two objects whose text
+                content will be swapped.</p>
+<p>If the 'Settings' option is selected when running the program, the user may decide whether formatting overrides present in 
+                selected source objects (e.g. formatting which has been applied through the MText Editor) are applied to selected destination 
+                objects which permit the use of such formatting.</p>
+<div class="cent">
+<h3>Example of Copy Functionality (CTx)</h3>
+<img alt="Copy Text.gif" height="260" src="images/LM-CopyText.gif" width="580"/>
+<h3>Example of Swap Functionality (STx)</h3>
+<img alt="Swap Text.gif" height="260" src="images/LM-SwapText.gif" width="580"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Copy or Swap Text }==----------------------;;
+;;                                                                      ;;
+;;  This program enables a user to either copy the text content from    ;;
+;;  a multitude of &#x27;source&#x27; objects to a selection of &#x27;destination&#x27;     ;;
+;;  objects, or swap the text content between two objects.              ;;
+;;                                                                      ;;
+;;  To copy text, the program may be called with &#x27;ctx&#x27; at the AutoCAD   ;;
+;;  command line. The user may then select either a Text, MText,        ;;
+;;  Attribute, Dimension or Multileader object and proceed to copy the  ;;
+;;  associated text content to a selection of any of the aforementioned ;;
+;;  objects.                                                            ;;
+;;                                                                      ;;
+;;  The objects to which the text is copied may be selected             ;;
+;;  individually or, alternatively, upon selecting the &#x27;Multiple&#x27;       ;;
+;;  option, the user may make a selection of multiple objects to which  ;;
+;;  the text string will be copied.                                     ;;
+;;                                                                      ;;
+;;  The program also provides functionality to allow the user to        ;;
+;;  switch the text content between two objects. Upon calling the       ;;
+;;  program with &#x27;stx&#x27; at the command line, the user may select two     ;;
+;;  objects whose text content will be swapped.                         ;;
+;;                                                                      ;;
+;;  If the user choose the &#x27;Settings&#x27; option when running the           ;;
+;;  program, they may alter whether formatting overrides present in     ;;
+;;  selected source objects is applied to selected destination objects  ;;
+;;  which permit the use of such formatting. If the user opts to remove ;;
+;;  the formatting, the program will remove all formatting from the     ;;
+;;  text string prior to copying or swapping it.                        ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2010  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2010-12-16                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2010-12-17                                      ;;
+;;                                                                      ;;
+;;  - Added ability to retain/remove MText formatting. Setting is       ;;
+;;    stored as a global variable (*retain*)                            ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2010-12-20                                      ;;
+;;                                                                      ;;
+;;  - Entire program rewritten to include SwapText capability.          ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2011-01-05                                      ;;
+;;                                                                      ;;
+;;  - Fixed minor formatting bugs.                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2015-02-23                                      ;;
+;;                                                                      ;;
+;;  - Program entirely rewritten.                                       ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    2016-03-19                                      ;;
+;;                                                                      ;;
+;;  - Program mostly rewritten to incorporate full compatibility with   ;;
+;;    Dimensions &amp; Multileader Block Attributes.                        ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.6    -    2016-03-21                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug which reported that an MLeader with Attributed Block    ;;
+;;    content had &#x27;no editable content&#x27; if an Attribute Definition      ;;
+;;    was not the last component found within the Block Definition of   ;;
+;;    the attributed block used by the MLeader.                         ;;
+;;  - Fixed bug causing the program to crash when detecting name of     ;;
+;;    Block Container for Dimension entities.                           ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.7    -    2017-04-12                                      ;;
+;;                                                                      ;;
+;;  - Fixed a bug which resulted in an incorrect output when processing ;;
+;;    MText whose text content occupied multiple DXF group 3 entries.   ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.8    -    2020-03-07                                      ;;
+;;                                                                      ;;
+;;  - Program modified to incorporate support for table cell content.   ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-CopySwapText</span>: they are run by their alias, or picked from <span class="fixw">LM-CopySwapText</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CopySwapText</span></td><td>&ndash;</td><td>Copy / Swap Text</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CTX</span></td><td>&ndash;</td><td>Copy Text</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">STX</span></td><td>&ndash;</td><td>Swap Text</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2010 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

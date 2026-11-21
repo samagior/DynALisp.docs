@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Groups</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerGroup.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Groups</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERGROUP</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerGroup.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Creates (or refreshes) one layer <em>group</em> filter per discipline in the Layer Properties Manager, based on the discipline designator at the start of the layer names. The Architectural group also gets Detail, Elevation, Plan and Section sub-groups.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYERGROUP</span></td><td>Layer Groups</td><td>Creates the standard Dynalisp layer group filters in the Layer Properties Manager.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The routine opens the layer filter dictionary of the drawing (<span class="fixw">ACLYDICTIONARY</span> in the extension dictionary of the layer table).</li>
+<li>For each discipline, an existing group filter with the same display name is found and removed, so running the command again rebuilds the groups instead of duplicating them.</li>
+<li>Every layer whose name matches the discipline pattern, plus layers 0 and Defpoints, is added to the new group filter (<span class="fixw">AcLyLayerGroup</span> record listing the layers).</li>
+</ol>
+</div>
+<div class="programs commands">
+<table>
+<tr><th>Group</th><th>Layers included</th></tr>
+<tr><td>Architectural</td><td><span class="fixw">A-*</span></td></tr>
+<tr><td>&nbsp;&nbsp;Detail</td><td><span class="fixw">A-Detl*</span>, <span class="fixw">A-Anno*</span> (no xref layers)</td></tr>
+<tr><td>&nbsp;&nbsp;Elevation</td><td><span class="fixw">A-Elev*</span>, <span class="fixw">A-Anno*</span> (no xref layers)</td></tr>
+<tr><td>&nbsp;&nbsp;Plan</td><td><span class="fixw">A-????*</span> except <span class="fixw">?-Elev*</span>, <span class="fixw">?-Detl*</span>, <span class="fixw">?-Sect*</span></td></tr>
+<tr><td>&nbsp;&nbsp;Section</td><td><span class="fixw">A-Sect*</span>, <span class="fixw">A-Anno*</span> (no xref layers)</td></tr>
+<tr><td>Civil</td><td><span class="fixw">C-*</span></td></tr>
+<tr><td>Electrical</td><td><span class="fixw">E-*</span></td></tr>
+<tr><td>General</td><td><span class="fixw">G-*</span></td></tr>
+<tr><td>Interior</td><td><span class="fixw">I-*</span></td></tr>
+<tr><td>Landscape</td><td><span class="fixw">L-*</span></td></tr>
+<tr><td>Mechanical</td><td><span class="fixw">L-*</span> (see Known Limitations)</td></tr>
+<tr><td>Plumbing</td><td><span class="fixw">P-*</span></td></tr>
+<tr><td>Structural</td><td><span class="fixw">S-*</span></td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Group filters list layers explicitly: layers created after running the command are not added. Run it again to refresh the groups.</li>
+<li>The Mechanical group uses the Landscape pattern <span class="fixw">L-*</span> instead of <span class="fixw">M-*</span>.</li>
+<li>Close the Layer Properties Manager before running the command: when left open it can rewrite the filter tree from its own copy.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerGroup</span></td><td>&ndash;</td><td>Layer Groups</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

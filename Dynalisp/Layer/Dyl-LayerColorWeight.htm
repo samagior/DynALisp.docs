@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Color Weight</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerColorWeight.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Color Weight</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerColorWeight.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Makes the layers follow the Dyl Standard plot style (<span class="fixw">Res\Layer\Dyl Standard.pdf</span>, <span class="fixw">Dyl Standard.ctb</span>), where the color of a layer gives its plotted lineweight. It either sets the lineweight of each layer from its color, or the other way around, sets the color of each layer from its lineweight, keeping its hue.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td><td>Layer Color Weight</td><td>Matches the lineweight of the layers with their color, or their color with their lineweight (Dyl Standard).</td></tr>
+<tr><td><span class="fixw">PST-LAYERWEIGHTBYCOLOR</span></td><td>Layer Lineweight By Color</td><td>Sets the lineweight of the layers from their color (Dyl Standard: color ##0 = 0.13, ##1 = 0.18...).</td></tr>
+<tr><td><span class="fixw">PST-LAYERCOLORBYWEIGHT</span></td><td>Layer Color By Lineweight</td><td>Sets the last digit of the layer colors from their lineweight, keeping their hue (Dyl Standard).</td></tr>
+</table>
+</div>
+<h2>The Standard</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Colors</th><th>Lineweight</th></tr>
+<tr><td>##0 (10, 20 ... 240)</td><td>0.13 mm (prints black)</td></tr>
+<tr><td>1 and ##1</td><td>0.18 mm</td></tr>
+<tr><td>2 and ##2</td><td>0.25 mm</td></tr>
+<tr><td>3 and ##3</td><td>0.35 mm</td></tr>
+<tr><td>4 and ##4</td><td>0.50 mm</td></tr>
+<tr><td>5 and ##5</td><td>0.70 mm</td></tr>
+<tr><td>6 and ##6</td><td>1.00 mm</td></tr>
+<tr><td>7 and ##7</td><td>1.40 mm</td></tr>
+<tr><td>##8</td><td>2.00 mm</td></tr>
+<tr><td>##9, 8, 9, 250 to 255</td><td>0.13 mm (greys)</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>With <span class="fixw">DYL-LAYERCOLORWEIGHT</span>, choose <span class="fixw">Lineweight</span> (default, the lineweight follows the color) or <span class="fixw">Color</span> (the color follows the lineweight). The two child commands skip this question.</li>
+<li>Choose <span class="fixw">All</span> (default, every layer of the drawing) or <span class="fixw">Select</span> (the layers of the objects you select).</li>
+<li><b>Lineweight from color:</b> each layer takes the lineweight of its color in the table above.</li>
+<li><b>Color from lineweight:</b> a color from 10 to 249 keeps its tens (its hue) and takes the last digit of its lineweight: color 11 with 0.35 mm becomes 13. A pen color 1 to 6 goes to its hue: red 1 with 0.35 mm becomes 13. Black (7) and the greys go to the pen color of the lineweight: 7 with 0.35 mm becomes 3. A lineweight that is not in the standard (0.30 mm) takes the nearest one (0.35 mm). A layer that already matches is left as is, so a dark grey ##9 layer at 0.13 mm stays dark grey.</li>
+<li>The changes are one undo step. The command reports how many layers changed, how many already matched, and lists the layers not changed.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Layers in true color or from a color book are not changed, nor the layers of xrefs.</li>
+<li>Color from lineweight leaves out the layers whose lineweight is Default, and the black or grey layers at 0.13 mm or 2.00 mm (no pen color has these lineweights).</li>
+<li>Only the layers are changed: objects with their own color or lineweight are not.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerColorWeight</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerColorWeight</span></td><td><span class="fixw">LCW</span></td><td>Layer Color Weight</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LWC</span></td><td>&ndash;</td><td>Layer Lineweight By Color</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CLW</span></td><td>&ndash;</td><td>Layer Color By Lineweight</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

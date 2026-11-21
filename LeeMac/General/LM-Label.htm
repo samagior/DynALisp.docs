@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Label</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Label</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/label.html" target="_blank">https://lee-mac.com/label.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-Label</span> &ndash; original syntax: Label (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/label.html" target="_blank">lee-mac.com/label.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program is a stripped down, faster &amp; improved version of my previously published
+                <a href="LM-AlignTextToCurve.htm" title="Align Text, MText or Attribute to Curve">Align Text to Curve</a> program.</p>
+<p>Where my previous text alignment program permitted the user to align existing Text, MText or Attributes, this rather more refined 
+                program has been streamlined to allow the user to solely create MText 'labels' dynamically aligned to a selected object, 
+                with additional placement controls available at the command-line.</p>
+<p>The user is first prompted to specify the content for the label, during which the previously entered string is available as a
+                default option. The user is then prompted to select an object to be labeled.</p>
+<p>The selected object can be any object defined as a Curve Object, this includes: 
+                Lines, XLines, LWPolylines, 2D (Heavy) Polylines, 3D Polylines, Arcs, Circles, Ellipses, Elliptical Arcs &amp; Splines. The user
+                can also select objects nested within uniformly scaled Blocks, Dynamic Blocks or XRefs, nested to any level.</p>
+<p>Following valid responses to both prompts, the program will create a middle-center justified MText label with the 
+                specified content and allow the user to dynamically position the label along the selected curve.</p>
+<p>During label positioning, additional alignment controls are available at the command-line to refine the position of the label relative
+                to the curve. Such controls are described in the following table:</p>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Label Alignment Controls</th>
+</tr>
+<tr class="alt">
+<th>Key</th>
+<th>Action</th>
+</tr>
+<tr>
+<td align="center">Click</td>
+<td>(or Enter/Space/Right-Click) Place Label</td>
+</tr>
+<tr class="alt">
+<td align="center">+ / -</td>
+<td>Increase / Decrease Label Offset (by factor of text height)</td>
+</tr>
+<tr>
+<td align="center">O / o</td>
+<td>Specify exact Label Offset</td>
+</tr>
+<tr class="alt">
+<td align="center">P / p</td>
+<td>Toggle Label Perpendicularity</td>
+</tr>
+<tr>
+<td align="center">B / b</td>
+<td>Toggle Label Background Mask</td>
+</tr>
+</table>
+</div>
+<p>The program will furthermore work under all UCS &amp; View settings, and with Annotative Text Styles.</p>
+<p>This program may be useful for projects involving pipeline labeling on a P&amp;ID, labeling of electrical wiring diagrams, 
+                or in other such situations in which a label is aligned to an object and may occur multiple times along the length of an object.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Label" height="300" src="images/LM-LabelV1-0.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------------=={ Label }==-----------------------;;
+;;                                                            ;;
+;;  Allows the user to create MText labels dynamically        ;;
+;;  aligned to a selected object, with additional placement   ;;
+;;  controls available.                                       ;;
+;;                                                            ;;
+;;  Works with primary &amp; nested objects (uniformly scaled),   ;;
+;;  and in all UCS/Views.                                     ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2012 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.1    -    15-01-2012                            ;;
+;;  Fixed intermittent divide by zero error.                  ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-Label</span></td><td><span class="fixw">LABEL</span></td><td>Label</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

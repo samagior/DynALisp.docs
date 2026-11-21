@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Viewport Outline</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Viewport Outline</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/vpoutline.html" target="_blank">https://lee-mac.com/vpoutline.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ViewportOutline</span> &ndash; original syntax: VPO / VPOL / VPOA (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.3</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/vpoutline.html" target="_blank">lee-mac.com/vpoutline.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to automatically generate polylines in modelspace representing the outline of a selected paperspace viewport, 
+                all viewports in the active paperspace layout, or all viewports found in all paperspace layouts.</p>
+<p>The program offers three custom commands:</p>
+<h3><em>Outline Selected Viewport (VPO)</em></h3>
+<p>This command is only available in paperspace (that is, when a layout tab other than the Model tab is the current layout, and no viewports are active).
+                Upon issuing the command syntax <span class="fixw">VPO</span> at the AutoCAD command-line, the user is prompted to select a viewport for which to construct 
+                the viewport outline in modelspace.</p>
+<p>Following a valid selection, the boundary of the selected viewport is transformed appropriately to account for the position, scale, rotation, &amp;
+                orientation of the modelspace view displayed through the selected viewport, and a 2D polyline (LWPolyline) representing this transformed boundary is
+                constructed in modelspace.</p>
+<h3><em>Outline All Viewports in the Active Layout (VPOL)</em></h3>
+<p>This command is also only available in paperspace and, upon issuing the command syntax <span class="fixw">VPOL</span> at the AutoCAD command-line, 
+                the program will automatically acquire &amp; generate an outline for all viewports found in the active paperspace layout.</p>
+<p>The user is notified at the command-line if no viewports are found in the active paperspace layout.</p>
+<h3><em>Outline All Viewports all Layouts (VPOA)</em></h3>
+<p>Upon issuing the command syntax <span class="fixw">VPOA</span> at the AutoCAD command-line, 
+                the program will automatically acquire &amp; generate an outline for all viewports found in all paperspace layouts of the active drawing.</p>
+<p>The user is notified at the command-line if no viewports are found in any paperspace layout.</p>
+<hr/>
+<p>The program is compatible for use with all Rectangular, Polygonal &amp; Clipped Viewports (including those with Arc segments), and with all 
+                views &amp; construction planes.</p>
+<p>The program also offers the ability to optionally offset the polyline outline to the interior of the viewport boundary by a predetermined number 
+                of paperspace units specified in the 'Program Parameters' section of the program source code.</p>
+<p>The program may also be configured to automatically apply a predefined set of properties (e.g. layer, colour, linetype, etc.) to the resulting 
+                polyline outline - these properties are also listed within the 'Program Parameters' section of the source code.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<p><em>In the following demonstration, the program has been configured to offset the outline by 2 units, and place the result on a separate layer.</em></p>
+<img alt="Viewport Outline Demo" height="350" src="images/LM-vpoutlinev1-2.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Viewport Outline }==-----------------------;;
+;;                                                                      ;;
+;;  This program allows the user to automatically generate a polyline   ;;
+;;  in modelspace representing the outline of a selected paperspace     ;;
+;;  viewport.                                                           ;;
+;;                                                                      ;;
+;;  The command is only available in paperspace (that is, when a        ;;
+;;  layout tab other than the Model tab is the current layout, and no   ;;
+;;  viewports are active).                                              ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;VPO&#x27; at the AutoCAD command-line,  ;;
+;;  the user is prompted to select a viewport for which to construct    ;;
+;;  the viewport outline in modelspace.                                 ;;
+;;                                                                      ;;
+;;  Following a valid selection, the boundary of the selected viewport  ;;
+;;  is transformed appropriately to account for the position, scale,    ;;
+;;  rotation, &amp; orientation of the modelspace view displayed through    ;;
+;;  the selected viewport, and a 2D polyline (LWPolyline) representing  ;;
+;;  this transformed boundary is constructed in modelspace.             ;;
+;;                                                                      ;;
+;;  The program is compatible for use with all Rectangular, Polygonal &amp; ;;
+;;  Clipped Viewports (including those with Arc segments), and with all ;;
+;;  views &amp; construction planes.                                        ;;
+;;                                                                      ;;
+;;  The program also offers the ability to optionally offset the        ;;
+;;  polyline outline to the interior of the viewport boundary by a      ;;
+;;  predetermined number of paperspace units specified in the           ;;
+;;  &#x27;Program Parameters&#x27; section of the program source code.            ;;
+;;                                                                      ;;
+;;  The program may also be configured to automatically apply a         ;;
+;;  predefined set of properties (e.g. layer, colour, linetype, etc.)   ;;
+;;  to the resulting polyline outline - these properties are also       ;;
+;;  listed within the &#x27;Program Parameters&#x27; section of the source code.  ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2015  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2015-01-02                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2016-08-11                                      ;;
+;;                                                                      ;;
+;;  - Program modified to account for polygonal viewports represented   ;;
+;;    by 2D (Heavy) Polylines.                                          ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2017-09-03                                      ;;
+;;                                                                      ;;
+;;  - Added the ability to specify an optional interior offset          ;;
+;;    (relative to Paperspace Viewport dimensions).                     ;;
+;;  - Added default polyline properties.                                ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2019-08-12                                      ;;
+;;                                                                      ;;
+;;  - Restructured program as a main function accepting a viewport      ;;
+;;    entity argument.                                                  ;;
+;;  - Added two additional custom commands:                             ;;
+;;    - &#x27;vpol&#x27; - outlines all viewports in the active Paperspace layout ;;
+;;    - &#x27;vpoa&#x27; - outlines all viewports in all Paperspace layouts       ;;
+;;----------------------------------------------------------------------;;
+
+;;----------------------------------------------------------------------;;
+;;  VPO - Outline a selected viewport in the active Paperspace layout   ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ViewportOutline</span>: they are run by their alias, or picked from <span class="fixw">LM-ViewportOutline</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ViewportOutline</span></td><td><span class="fixw">VPO</span></td><td>Viewport Outline</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">VPOL</span></td><td>&ndash;</td><td>Viewport Outline Layout</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">VPOA</span></td><td>&ndash;</td><td>Viewport Outline All</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2015 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

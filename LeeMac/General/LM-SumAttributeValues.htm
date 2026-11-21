@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sum Attribute Values</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Sum Attribute Values</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/sumattributes.html" target="_blank">https://lee-mac.com/sumattributes.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-SumAttributeValues</span> &ndash; original syntax: attsum (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/sumattributes.html" target="_blank">lee-mac.com/sumattributes.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to sum numerical attribute values held by a selection of block references, with the results displayed in an AutoCAD table.</p>
+<p>Upon issuing the command syntax <span class="fixw">attsum</span> at the AutoCAD command-line, the user is first prompted to make a selection of
+                attributed blocks to process. This selection may include standard or dynamic attributed block references.</p>
+<p>Following a valid response, the program will iterate over the selection and will sum all numerical attribute values, grouping the 
+                values by common attribute tags.</p>
+<p>If multiple attribute tags hold numerical values, the user is presented with a dialog interface and prompted to select which attribute
+                tags should be displayed in the resulting table, before being prompted to specify an insertion point for the table.</p>
+<p>The program will then automatically construct an AutoCAD table with properties inherited from the active Table Style. Each row 
+                of the table will display an attribute tag alongside the total of all numerical values held by that tag in the selection.</p>
+<p>If the program is configured to use field expressions in the table, the various totals will be automatically updated following valid
+                modifications to the attribute values referenced by the fields. Note that this does not include the addition of new attributed 
+                blocks to the drawing, or the removal of attributed blocks referenced by the table fields.</p>
+<p>If field expressions are used, the formatting of the results will be dependent on the field formatting code set in the program; 
+                otherwise, the formatting of the totals displayed in the table will be dependent on the current unit &amp; precision settings
+                (that is, the values held by the <span class="fixw">LUNITS</span> &amp; <span class="fixw">LUPREC</span> system variables
+                respectively).</p>
+<p>Note that this program may only be run in AutoCAD versions which support a Table Object.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Sum Attributes Demo" height="300" src="images/LM-sumattributevaluesv1-1.gif" width="500"/>
+</div>
+<h2>Field Formatting</h2>
+<p>The field formatting code indicated at the top of the program source code (line 80) may be altered to display 
+                the attribute totals in a desired format:</p>
+<div class="code">
+<pre>
+<span class="cmt">;; Field formatting</span>
+fmt <span class="str">"%lu6"</span>
+</pre>
+</div>
+<p>To determine the correct formatting code to be used, perform the following steps:</p>
+<div class="spacedbullets">
+<ul>
+<li>Type <span class="fixw">FIELD</span> at the AutoCAD command-line and press 
+                        <span class="fixw">ENTER</span> to open the Field dialog.</li>
+<li>Select <span class="fixw">Objects</span> from the 'Field Category' drop-down menu.</li>
+<li>Select <span class="fixw">Formula</span> from the 'Field Names' section.</li>
+<li>Right-click in the Formula panel, and click <span class="fixw">Insert Field</span>.</li>
+<li>Select <span class="fixw">Objects</span> from the 'Field Category' drop-down menu.</li>
+<li>Select <span class="fixw">Object</span> from the 'Field Names' section.</li>
+<li>Select an attributed block (with attributes containing numerical values) from the drawing by clicking the object selection button 
+                        adjacent to the 'Object Type' box.</li>
+<li>Select the appropriate attribute tag from the 'Property' panel, set the Format to <span class="fixw">(none)</span> and click <span class="fixw">OK</span>.</li>
+<li>Click the <span class="fixw">Evaluate</span> button beneath the Formula panel.</li>
+<li>Configure the formatting options as desired.</li>
+<li>Click <span class="fixw">OK</span> and pick a point in the drawing to create a temporary MText Field.</li>
+<li>Download &amp; load my <a href="LM-FieldFormattingCode.htm" target="_blank">Field Formatting Code</a> program.</li>
+<li>Type <span class="fixw">fieldformat</span> to run the program and select the temporary MText Field created earlier.</li>
+<li>Following a valid selection, the field formatting code will be printed to the command-line, e.g.:</li>
+<div class="code">
+<pre><span class="cmt">Formatting code:</span> <span class="str">"%lu4%ds44%th39"</span></pre>
+</div>
+<li>Copy the formatting code (including the quotation marks) to the program source code where noted:</li>
+<div class="code">
+<pre>
+<span class="cmt">;; Field formatting</span>
+fmt <span class="str">"%lu6"</span>
+</pre>
+</div>
+<li>Save and load the modified program file.</li>
+</ul>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Sum Attribute Values }==---------------------;;
+;;                                                                      ;;
+;;  This program allows the user to sum numerical attribute values      ;;
+;;  held by a selection of block references, with the results displayed ;;
+;;  in an AutoCAD table.                                                ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;attsum&#x27; at the AutoCAD             ;;
+;;  command-line, the user is first prompted to make a selection of     ;;
+;;  attributed blocks to process. This selection may include standard   ;;
+;;  or dynamic attributed block references.                             ;;
+;;                                                                      ;;
+;;  Following a valid response, the program will iterate over the       ;;
+;;  selection and will sum all numerical attribute values, grouping the ;;
+;;  values by common attribute tags.                                    ;;
+;;                                                                      ;;
+;;  If multiple attribute tags hold numerical values, the user is       ;;
+;;  presented with a dialog interface and prompted to select which      ;;
+;;  attribute tags should be displayed in the resulting table, before   ;;
+;;  being prompted to specify an insertion point for the table.         ;;
+;;                                                                      ;;
+;;  The program will then automatically construct an AutoCAD table      ;;
+;;  with properties inherited from the active Table Style. Each row     ;;
+;;  of the table will display an attribute tag alongside the total of   ;;
+;;  all numerical values held by that tag in the selection.             ;;
+;;                                                                      ;;
+;;  If the program is configured to use field expressions in the table, ;;
+;;  the various totals will be automatically updated following valid    ;;
+;;  modifications to the attribute values referenced by the fields.     ;;
+;;  Note that this does not include the addition of new attributed      ;;
+;;  blocks to the drawing, or the removal of attributed blocks          ;;
+;;  referenced by the table fields.                                     ;;
+;;                                                                      ;;
+;;  If field expressions are used, the formatting of the results will   ;;
+;;  be dependent on the field formatting code set in the program;       ;;
+;;  otherwise, the formatting of the totals displayed in the table      ;;
+;;  will be dependent on the current unit &amp; precision settings          ;;
+;;  (that is, the values held by the LUNITS &amp; LUPREC system variables   ;;
+;;  respectively).                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2011  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2011-01-10                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2015-12-21                                      ;;
+;;                                                                      ;;
+;;  - Program entirely rewritten.                                       ;;
+;;  - User may choose which attribute tags to display in table.         ;;
+;;  - Numerical values of constant attributes now included.             ;;
+;;  - Fields may be used to link attribute values to table.             ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-SumAttributeValues</span></td><td><span class="fixw">ATTSUM</span></td><td>Sum Attribute Values</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

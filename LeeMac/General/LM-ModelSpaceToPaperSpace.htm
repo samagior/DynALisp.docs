@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modelspace to Paperspace</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Modelspace to Paperspace</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/ms2ps.html" target="_blank">https://lee-mac.com/ms2ps.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ModelSpaceToPaperSpace</span> &ndash; original syntax: ms2ps (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/ms2ps.html" target="_blank">lee-mac.com/ms2ps.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to copy a selection of objects from Modelspace to the current Paperspace layout 
+                through an active viewport.</p>
+<p>This functionality is similar to the standard <span class="fixw">CHSPACE</span> command, however, this program will <em>copy</em>
+                the selection of objects, as opposed to moving the objects from Modelspace to Paperspace. I realise that this functionality
+                could also be quite easily achieved by copying the selection of objects and proceeding to use the <span class="fixw">CHSPACE</span>
+                command with the copied selection, however, by avoiding the use of this standard command, this program provided an excellent
+                exercise in matrix mathematics from which others may also benefit.</p>
+<p>Upon issuing the command <span class="fixw">ms2ps</span> at the AutoCAD command-line, the user is prompted to make a
+                selection of objects to copy. Following a valid selection, the program will copy the objects to the active Paperspace layout, 
+                before performing the necessary matrix transformations to maintain the visual appearance of the objects as displayed 
+                through the active viewport.</p>
+<p>The program is compatible with rectangular &amp; polygonal viewports, under all UCS &amp; view settings, and with objects
+                constructed in any UCS construction plane.</p>
+<p>Note that the command is only available when a Paperspace Layout is set current, and with a viewport active.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Modelspace to Paperspace Demo" height="250" src="images/LM-ms2ps.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------=={ Modelspace to Paperspace }==-------------------;;
+;;                                                                      ;;
+;;  This program allows the user to copy a selection of objects from    ;;
+;;  Modelspace to Paperspace through an active viewport.                ;;
+;;                                                                      ;;
+;;  This functionality is similar to the standard CHSPACE command,      ;;
+;;  however, this program will copy the selection of objects as         ;;
+;;  opposed to moving the objects from Modelspace to Paperspace.        ;;
+;;                                                                      ;;
+;;  Upon issuing the command &#x27;ms2ps&#x27; at the AutoCAD command-line, the   ;;
+;;  user is prompted to make a selection of objects to copy.            ;;
+;;                                                                      ;;
+;;  Following a valid selection, the program will copy the objects to   ;;
+;;  the active Paperspace layout, before performing the necessary       ;;
+;;  matrix transformations to maintain the visual appearance of the     ;;
+;;  objects as displayed through the active viewport.                   ;;
+;;                                                                      ;;
+;;  The program is compatible with rectangular &amp; polygonal viewports,   ;;
+;;  under all UCS &amp; view settings, and with objects constructed in      ;;
+;;  any UCS construction plane.                                         ;;
+;;                                                                      ;;
+;;  Note that the command is only available when a Paperspace Layout    ;;
+;;  is set current, with a viewport active.                             ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2014  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2014-02-16                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ModelSpaceToPaperSpace</span></td><td><span class="fixw">MS2PS</span></td><td>Model Space To Paper Space</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

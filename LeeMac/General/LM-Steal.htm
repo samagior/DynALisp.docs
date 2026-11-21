@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Steal from Drawing</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Steal from Drawing</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/steal.html" target="_blank">https://lee-mac.com/steal.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-Steal</span> &ndash; original syntax: Steal / StealAll / StealLast / StealTemplate / StealTemplates (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.8</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/1e1taao" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/steal.html" target="_blank">lee-mac.com/steal.html</a></td></tr></table>
+</div>
+<h2>Program Overview</h2>
+<p>This program allows the user to import (humourously: <em>'steal'</em>) items from another drawing into the current drawing.</p>
+<p>Upon running the program with the command syntax <span class="fixw">'Steal'</span> at the AutoCAD command-line, the user is prompted 
+                to select a drawing file (dwg/dwt/dws) from which to steal items. Following a valid selection, if the selected drawing contains items 
+                not already present in the current drawing, a dialog will appear displaying items available for import.</p>
+<p>The user may choose multiple items from a list of:</p>
+<ul class="programs">
+<li>Blocks</li>
+<li>Layers</li>
+<li>Linetypes</li>
+<li>Dimension Styles</li>
+<li>Text Styles</li>
+<li>Table Styles</li>
+<li>MLeader Styles</li>
+<li>MLine Styles</li>
+<li>Layouts</li>
+<li>Page Setups</li>
+<li>User Coordinate Systems</li>
+<li>Named Groups</li>
+<li>Views</li>
+<li>Layer States</li>
+<li>Scales</li>
+<li>Materials</li>
+<li>Named Viewports</li>
+<li>Drawing Properties</li>
+<li>Custom Properties</li>
+</ul>
+<p>The above collections are listed in the left-hand list panel of the dialog, and items within each selected collection 
+                are listed to the right.</p>
+<p>The interface allows the user to import multiple items from several collections without exiting or restarting the program, 
+                since the dialog will remain until either the user presses the <span class="fixw">Done</span> button, or there is nothing left
+                to import from the selected drawing.</p>
+<p>The user may update the data displayed in the dialog by pressing the <span class="fixw">Refresh</span> button located in
+                the top-left corner of the dialog. A refresh of the drawing data may be required after importing items such as blocks since
+                these items may have object dependencies (such as layers, linetypes, and other block definitions dependent upon the constituent
+                objects of the imported block) which are also be imported to the active drawing.</p>
+<p>The user may also search the collections for a specific item to import using the search panel to the bottom of the dialog.
+                The search is not case-sensitive and may use wildcards.</p>
+<h2>Available Commands</h2>
+<h3>Steal</h3>
+<p>The standard program. The user is prompted to select a drawing file (dwg/dwt/dws) and may proceed to select from a list of 
+                items  to import to the active drawing.</p>
+<h3>Steal All</h3>
+<p>The program may also be called with the command <span class="fixw">StealAll</span> which will prompt the user to select a 
+                drawing file then proceed to automatically steal <u>everything</u> from the selected drawing.</p>
+<h3>Steal Last</h3>
+<p>The <span class="fixw">StealLast</span> command allows the user to steal items from the last selected drawing, if a last 
+                drawing exists and can be located, else the user is prompted to select a drawing as per the standard command.</p>
+<h3>Steal Template</h3>
+<p>Another command: <span class="fixw">StealTemplate</span> will attempt to locate and interface with the QNew template file, or,
+                if the QNew template is not set, will allow the user to select from a list of template files residing in the template drawing path. 
+                If no template files are found, the file selection dialog will appear as per the standard command.</p>
+<h3>Steal Templates</h3>
+<p>The <span class="fixw">StealTemplates</span> command allows the user to import items from a specific template file selected
+                from a list of template files found in the template drawing path. If no template files are found, the file selection dialog 
+                will appear as per the standard command.</p>
+<div class="cent">
+<h3>Dialog Preview</h3>
+<img alt="StealV1-7.png" height="431" src="images/LM-StealV1-7.png" width="400"/>
+</div>
+<h2>Calling the Program as a Subfunction</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>(Steal [dwg] [lst])</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.8</td>
+</tr>
+</table>
+</div>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Arguments</th>
+</tr>
+<tr class="alt">
+<td><strong>Symbol</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>dwg</td>
+<td>String</td>
+<td>Filename of drawing from which to import items</td>
+</tr>
+<tr class="alt">
+<td>lst</td>
+<td>List</td>
+<td>List of items or wildcard patterns to import from drawing, in the format described below</td>
+</tr>
+<tr>
+<th colspan="3">Returns</th>
+</tr>
+<tr class="alt">
+<td colspan="3">The return of this function is undefined.</td>
+</tr>
+</table>
+</div>
+<p>The program may also be called with optional parameters so that users may bypass the dialog interface or file selection dialog,
+                or perhaps call the function from other programs or from an <span class="fixw">acaddoc.lsp</span> to import items automatically.</p>
+<h2>Notes on Function Arguments</h2>
+<p>The <span class="fixw">Steal</span> subfunction takes the form:</p>
+<div class="code">
+<pre><span class="brkt">(</span><span class="func">Steal</span> <span class="cmt">&lt;Drawing Filename&gt; &lt;Item List&gt;</span><span class="brkt">)</span></pre>
+</div>
+<h3>Drawing Filename (dwg)</h3>
+<p>The full filename of the drawing from which items are to be imported.</p>
+<h3>Item List (lst)</h3>
+<p>A list of items to be imported, in the following format:</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span>
+    <span class="brkt">(</span>   <span class="str">&lt;Collection 1&gt;
+        <span class="brkt">(</span>&lt;Item 1&gt; &lt;Item 2&gt;  <span class="brkt">...</span>  &lt;Item N&gt;</span><span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span>   <span class="str">&lt;Collection 2&gt;
+        <span class="brkt">(</span>&lt;Item 1&gt; &lt;Item 2&gt;  <span class="brkt">...</span>  &lt;Item N&gt;</span><span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">...</span>
+    <span class="brkt">(</span>   <span class="str">&lt;Collection N&gt;
+        <span class="brkt">(</span>&lt;Item 1&gt; &lt;Item 2&gt;  <span class="brkt">...</span>  &lt;Item N&gt;</span><span class="brkt">)</span>
+    <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<p>Where <span class="fixw">Collection</span> is the name of a collection of items, and may be one of the following keywords:</p>
+<div class="code">
+<pre>
+<span class="str">
+"Blocks"
+"Layers"
+"Linetypes"
+"Text Styles"
+"Dimension Styles"
+"Layouts"
+"Views"
+"Materials"
+"Viewports"
+"Page Setups"
+"User Coordinate Systems"
+"Groups"
+"Drawing Properties"
+"Custom Properties"
+"Multileader Styles"
+"Multiline Styles"
+"Table Styles"
+"Scales"
+"Layer States"
+</span>
+</pre>
+</div>
+<p>Note that the collection keyword is <u>not</u> case-sensitive.</p>
+<p><span class="fixw">'Item 1' ... 'Item N'</span> are the names of specific items or wildcard patterns to match a number of 
+                items to be imported into the current drawing. Note that these are also <u>not</u> case-sensitive.</p>
+<h2>Examples</h2>
+<p>The following example will attempt to import Layers: <span class="fixw">'Layer1'</span> &amp; <span class="fixw">'Layer2'</span>,
+                and all Dimension Styles beginning with <span class="fixw">DimStyle</span> from the drawing: 
+                <span class="fixw">'C:\My Folder\MyDrawing.dwg'</span> into the current drawing.</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span>Steal <span class="str">"C:\\My Folder\\MyDrawing.dwg"</span>
+   <span class="quot">'</span><span class="brkt">(</span>
+        <span class="brkt">(</span>
+            <span class="str">"Layers"</span>
+            <span class="brkt">(</span><span class="str">"Layer1"</span> <span class="str">"Layer2"</span><span class="brkt">)</span>
+        <span class="brkt">)</span>
+        <span class="brkt">(</span>
+            <span class="str">"Dimension Styles"</span>
+            <span class="brkt">(</span><span class="str">"DimStyle*"</span><span class="brkt">)</span>
+        <span class="brkt">)</span>
+    <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<p>Note that both arguments are optional, hence the program may be called...</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span>Steal <span class="func">nil</span>
+   <span class="quot">'</span><span class="brkt">(</span>
+        <span class="brkt">(</span>
+            <span class="str">"Layers"</span>
+            <span class="brkt">(</span><span class="str">"Layer1"</span> <span class="str">"Layer2"</span><span class="brkt">)</span>
+        <span class="brkt">)</span>
+        <span class="brkt">(</span>
+            <span class="str">"Dimension Styles"</span>
+            <span class="brkt">(</span><span class="str">"DimStyle*"</span><span class="brkt">)</span>
+        <span class="brkt">)</span>
+    <span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<p>...to prompt for a drawing from which to extract specific items, or...</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span>Steal <span class="str">"C:\\My Folder\\MyDrawing.dwg"</span> <span class="func">nil</span><span class="brkt">)</span>
+</pre>
+</div>
+<p>...to prompt for items to extract from a specific drawing.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------------------------=={ Steal }==-----------------------------------------;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;                       --------------------------------------------------                      ;;
+;;                                        Program Overview                                       ;;
+;;                       --------------------------------------------------                      ;;
+;;                                                                                               ;;
+;;  Allows the user to import (humourously: &#x27;steal&#x27;) items from another drawing into the active  ;;
+;;  drawing.                                                                                     ;;
+;;                                                                                               ;;
+;;  Upon running the program with &#x27;Steal&#x27; at the AutoCAD command-line, the user is prompted to   ;;
+;;  select a drawing to steal from (dwg/dwt/dws). Upon selection, if the selected drawing        ;;
+;;  contains items not already present in the current drawing, a dialog will appear detailing    ;;
+;;  items available for import.                                                                  ;;
+;;                                                                                               ;;
+;;  The user may choose multiple items from a list of:                                           ;;
+;;                                                                                               ;;
+;;    -  Blocks                                                                                  ;;
+;;    -  Layers                                                                                  ;;
+;;    -  Linetypes                                                                               ;;
+;;    -  Dimension Styles                                                                        ;;
+;;    -  Text Styles                                                                             ;;
+;;    -  Table Styles                                                                            ;;
+;;    -  MLeader Styles                                                                          ;;
+;;    -  MLine Styles                                                                            ;;
+;;    -  Layouts                                                                                 ;;
+;;    -  Page Setups                                                                             ;;
+;;    -  User Coordinate Systems                                                                 ;;
+;;    -  Groups                                                                                  ;;
+;;    -  Views                                                                                   ;;
+;;    -  Layer States                                                                            ;;
+;;    -  Scales                                                                                  ;;
+;;    -  Materials                                                                               ;;
+;;    -  Viewports                                                                               ;;
+;;    -  Drawing Properties                                                                      ;;
+;;    -  Custom Properties                                                                       ;;
+;;                                                                                               ;;
+;;  The above collections are listed in the left-hand list panel of the dialog, and items        ;;
+;;  within each selected collection are listed to the right.                                     ;;
+;;                                                                                               ;;
+;;  The user may import multiple items from several collections without exiting or restarting    ;;
+;;  the program, since the dialog will remain until either the user presses the &#x27;Done&#x27; button,   ;;
+;;  or there is nothing left to import from the selected drawing.                                ;;
+;;                                                                                               ;;
+;;  The user may update the data displayed in the dialog by pressing the &#x27;Refresh&#x27; button        ;;
+;;  located in the top-left corner of the dialog. This may be required when importing such       ;;
+;;  items as blocks since layers, linetypes, and other block definitions dependent upon the      ;;
+;;  constituent objects of the imported block may also be imported to the active drawing.        ;;
+;;                                                                                               ;;
+;;  The user may also search the collections for a specific item to import using the search      ;;
+;;  panel to the bottom of the dialog. The search is not case-sensitive and may use wildcards.   ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;                       --------------------------------------------------                      ;;
+;;                                       Available Commands                                      ;;
+;;                       --------------------------------------------------                      ;;
+;;                                                                                               ;;
+;;  Steal                                                                                        ;;
+;;  --------------------------------------                                                       ;;
+;;  The standard program. The user is prompted to select a drawing file (dwg/dwt/dws) and may    ;;
+;;  proceed to select from a list of items  to import to the active drawing.                     ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;  Steal All                                                                                    ;;
+;;  --------------------------------------                                                       ;;
+;;  The program may also be called with the command &#x27;StealAll&#x27; which will prompt the user to     ;;
+;;  select a drawing file then proceed to automatically steal everything from the selected       ;;
+;;  drawing.                                                                                     ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;  Steal Template                                                                               ;;
+;;  --------------------------------------                                                       ;;
+;;  Another command: &#x27;StealTemplate&#x27; will attempt to locate and interface with the QNew          ;;
+;;  template file, or, if the QNew template is not set, will allow the user to select from a     ;;
+;;  list of template files residing in the template drawing path. If no template files are       ;;
+;;  found, the file selection dialog will appear as per the standard command.                    ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;  Steal Templates                                                                              ;;
+;;  --------------------------------------                                                       ;;
+;;  The &#x27;StealTemplates&#x27; command allows the user to import items from a specific template file   ;;
+;;  selected from a list of template files found in the template drawing path. If no template    ;;
+;;  files are found, the file selection dialog will appear as per the standard command.          ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;  Steal Last                                                                                   ;;
+;;  --------------------------------------                                                       ;;
+;;  The &#x27;StealLast&#x27; command allows the user to steal items from the last selected drawing, if    ;;
+;;  a last drawing exists and can be located, else the user is prompted to select a drawing as   ;;
+;;  per the standard command.                                                                    ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;                       --------------------------------------------------                      ;;
+;;                              Calling the Program as a Subfunction                             ;;
+;;                       --------------------------------------------------                      ;;
+;;                                                                                               ;;
+;;  The program may also be called with optional parameters so that users may bypass the dialog  ;;
+;;  interface or file selection dialog, or perhaps call the function from other programs or      ;;
+;;  from an ACADDOC.lsp to import items automatically.                                           ;;
+;;                                                                                               ;;
+;;  Function Format:                                                                             ;;
+;;  --------------------------------------                                                       ;;
+;;                                                                                               ;;
+;;      (Steal &lt;dwg&gt; &lt;lst&gt;)                                                                      ;;
+;;                                                                                               ;;
+;;  Arguments:                                                                                   ;;
+;;  --------------------------------------                                                       ;;
+;;                                                                                               ;;
+;;   -  dwg  [STR]  [Optional]                                                                   ;;
+;;      ----------------------------------                                                       ;;
+;;      The full filename of the drawing from which items are to be imported.                    ;;
+;;                                                                                               ;;
+;;   -  lst  [LIST]  [Optional]                                                                  ;;
+;;      ----------------------------------                                                       ;;
+;;      A list of items to be imported, in the following format:                                 ;;
+;;                                                                                               ;;
+;;      (                                                                                        ;;
+;;          (                                                                                    ;;
+;;              &lt;Collection 1&gt;                                                                   ;;
+;;              (&lt;Item 1&gt; &lt;Item 2&gt;  ...  &lt;Item N&gt;)                                               ;;
+;;          )                                                                                    ;;
+;;          (   &lt;Collection 2&gt;                                                                   ;;
+;;              (&lt;Item 1&gt; &lt;Item 2&gt;  ...  &lt;Item N&gt;)                                               ;;
+;;          )                                                                                    ;;
+;;          ...                                                                                  ;;
+;;          (   &lt;Collection N&gt;                                                                   ;;
+;;              (&lt;Item 1&gt; &lt;Item 2&gt;  ...  &lt;Item N&gt;)                                               ;;
+;;          )                                                                                    ;;
+;;      )                                                                                        ;;
+;;                                                                                               ;;
+;;      Where &#x27;Collection&#x27; is the name of a collection of items, and may be one of:              ;;
+;;                                                                                               ;;
+;;           &quot;Blocks&quot;                                                                            ;;
+;;           &quot;Layers&quot;                                                                            ;;
+;;           &quot;Linetypes&quot;                                                                         ;;
+;;           &quot;Text Styles&quot;                                                                       ;;
+;;           &quot;Dimension Styles&quot;                                                                  ;;
+;;           &quot;Layouts&quot;                                                                           ;;
+;;           &quot;Views&quot;                                                                             ;;
+;;           &quot;Materials&quot;                                                                         ;;
+;;           &quot;Viewports&quot;                                                                         ;;
+;;           &quot;Page Setups&quot;                                                                       ;;
+;;           &quot;User Coordinate Systems&quot;                                                           ;;
+;;           &quot;Groups&quot;                                                                            ;;
+;;           &quot;Drawing Properties&quot;                                                                ;;
+;;           &quot;Custom Properties&quot;                                                                 ;;
+;;           &quot;Multileader Styles&quot;                                                                ;;
+;;           &quot;Multiline Styles&quot;                                                                  ;;
+;;           &quot;Table Styles&quot;                                                                      ;;
+;;           &quot;Scales&quot;                                                                            ;;
+;;           &quot;Layer States&quot;                                                                      ;;
+;;                                                                                               ;;
+;;      Note that the collection keyword is *not* case-sensitive.                                ;;
+;;                                                                                               ;;
+;;      &#x27;Item 1&#x27; ... &#x27;Item N&#x27; are the names of specific items or wildcard patterns to match a    ;;
+;;      number of items to be imported into the current drawing.                                 ;;
+;;                                                                                               ;;
+;;      Note that these are also *not* case-sensitive.                                           ;;
+;;                                                                                               ;;
+;;                                                                                               ;;
+;;                       --------------------------------------------------                      ;;
+;;                                           Examples                                            ;;
+;;                       --------------------------------------------------                      ;;
+;;                                                                                               ;;
+;;  The following example will attempt to import Layers: &#x27;Layer1&#x27; &amp; &#x27;Layer2&#x27;, and all Dimension  ;;
+;;  Styles beginning with &#x27;DimStyle&#x27; (not case-sensitive) from the drawing:                      ;;
+;;  &#x27;C:\My Folder\MyDrawing.dwg&#x27; into the current drawing.                                       ;;
+;;                                                                                               ;;
+;;  (Steal &quot;C:\\My Folder\\MyDrawing.dwg&quot;                                                        ;;
+;;     &#x27;(                                                                                        ;;
+;;          (                                                                                    ;;
+;;              &quot;Layers&quot;                                                                         ;;
+;;              (&quot;Layer1&quot; &quot;Layer2&quot;)                                                              ;;
+;;          )                                                                                    ;;
+;;          (                                                                                    ;;
+;;              &quot;Dimension Styles&quot;                                                               ;;
+;;              (&quot;DimStyle*&quot;)                                                                    ;;
+;;          )                                                                                    ;;
+;;      )                                                                                        ;;
+;;  )                                                                                            ;;
+;;                                                                                               ;;
+;;  Note that both arguments are optional, hence the program may be called...                    ;;
+;;                                                                                               ;;
+;;  (Steal nil                                                                                   ;;
+;;     &#x27;(                                                                                        ;;
+;;          (                                                                                    ;;
+;;              &quot;Layers&quot;                                                                         ;;
+;;              (&quot;Layer1&quot; &quot;Layer2&quot;)                                                              ;;
+;;          )                                                                                    ;;
+;;          (                                                                                    ;;
+;;              &quot;Dimension Styles&quot;                                                               ;;
+;;              (&quot;DimStyle*&quot;)                                                                    ;;
+;;          )                                                                                    ;;
+;;      )                                                                                        ;;
+;;  )                                                                                            ;;
+;;                                                                                               ;;
+;;  ...to prompt for a drawing from which to extract specific items, or...                       ;;
+;;                                                                                               ;;
+;;  (Steal &quot;C:\\My Folder\\MyDrawing.dwg&quot; nil)                                                   ;;
+;;                                                                                               ;;
+;;  ...to prompt for items to extract from a specific drawing.                                   ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  Function Syntax:                                                                             ;;
+;;                                                                                               ;;
+;;      Steal                                                                                    ;;
+;;      StealAll                                                                                 ;;
+;;      StealTemplate                                                                            ;;
+;;      StealTemplates                                                                           ;;
+;;      StealLast                                                                                ;;
+;;      (Steal &lt;dwg&gt; &lt;lst&gt;)                                                                      ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  Author:                                                                                      ;;
+;;                                                                                               ;;
+;;  Copyright © 2012 Lee Mac  -  www.lee-mac.com                                                 ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  TERMS AND CONDITIONS OF USE                                                                  ;;
+;;                                                                                               ;;
+;;  This license and disclaimer statement constitutes a legal agreement between you (either as   ;;
+;;  an individual or a single entity) and Lee Mac (the &quot;Author&quot;), for this software product      ;;
+;;  (the &quot;Software&quot;).                                                                            ;;
+;;                                                                                               ;;
+;;  By downloading, installing, copying, or otherwise using the software, you agree to be bound  ;;
+;;  by all of the following terms and conditions of this license and disclaimer agreement.       ;;
+;;                                                                                               ;;
+;;  If you do not agree with all the terms and conditions of this agreement, you must            ;;
+;;  immediately cease use of the Software and destroy all copies of the Software and all of its  ;;
+;;  component or constituent parts in your possession or under your control.                     ;;
+;;                                                                                               ;;
+;;  The Software is freeware. You may use it royalty free for private use.                       ;;
+;;                                                                                               ;;
+;;  You may redistribute the Software providing you have written consent from the Author, and    ;;
+;;  that no modifications are made to the original content.                                      ;;
+;;                                                                                               ;;
+;;  You may not charge any fees for the redistribution or use of this Software.                  ;;
+;;                                                                                               ;;
+;;  The Software is provided &quot;as is&quot;, and with all faults. All warranties, expressed or implied, ;;
+;;  including, but not limited to implied warranties of fitness for a particular use or purpose  ;;
+;;  are hereby disclaimed. There is no guarantee that the operation of this Software will be     ;;
+;;  uninterrupted or error free.                                                                 ;;
+;;                                                                                               ;;
+;;  You acknowledge and agree that your use of the Software is at your own risk.                 ;;
+;;                                                                                               ;;
+;;  The Software is a copyrighted work and is protected by copyright law and international       ;;
+;;  copyright treaty.                                                                            ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  Version History:                                                                             ;;
+;;  --------------------------------------                                                       ;;
+;;                                                                                               ;;
+;;  1.0:  16/01/2011  -  First Release.                                                          ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.1:  16/01/2011  -  Added Layouts &amp; Page Setups to list of Collections.                     ;;
+;;                    -  Added ability to import multiple items until dialog is closed.          ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.2:  18/01/2011  -  Omitted XRef items from collection lists.                               ;;
+;;                    -  Added Search bar to search for specific items.                          ;;
+;;                    -  Added Named Views &amp; UCS to list of collections.                         ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.3:  18/01/2011  -  Accounted for Nested blocks.                                            ;;
+;;                    -  Added LayerStates to list of collections.                               ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.4:  19/01/2011  -  Added dwt/dws compatibility.                                            ;;
+;;                    -  Added command-line functionality.                                       ;;
+;;                    -  Added Scales to list of collections.                                    ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.5:  07/09/2011  -  Added ability to use Wildcard patterns in lst argument to import all    ;;
+;;                       items matching the pattern.                                             ;;
+;;                    -  Added Materials &amp; Viewports to list of collections.                     ;;
+;;                    -  Added &#x27;StealAll&#x27; command to quickly steal everything from a drawing.    ;;
+;;                    -  Added &#x27;StealTemplate&#x27; command to quickly steal items from the           ;;
+;;                       QNewTemplate or other Template file.                                    ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.6:  29/04/2012  -  Fixed bug causing the program to crash for versions in which some       ;;
+;;                       collections are not available.                                          ;;
+;;                    -  Expanded program header and removed local functions to improve program  ;;
+;;                       performance.                                                            ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.7:  16/09/2012  -  Steal file selection dialog will now remember the directory of the      ;;
+;;                       last selected drawing between drawing sessions.                         ;;
+;;                    -  Main error handler completely rewritten.                                ;;
+;;                    -  &#x27;ItemList&#x27; parameter renamed to &#x27;lst&#x27; and parameter list structure      ;;
+;;                       modified to separate items from collection keywords.                    ;;
+;;                    -  Added Groups to list of collections.                                    ;;
+;;                    -  Added Drawing Properties to list of collections.                        ;;
+;;                    -  Added Custom Properties to list of collections.                         ;;
+;;                    -  Incorporated a &#x27;Refresh&#x27; button to enable the user to refresh the       ;;
+;;                       drawing data upon importing items such as blocks with object            ;;
+;;                       dependencies (e.g. layers, linetypes, nested blocks).                   ;;
+;;                    -  Exchanged &#x27;Search&#x27; button for an appropriate bitmap icon and replaced   ;;
+;;                       alert dialogs with dialog error tile.                                   ;;
+;;                    -  &#x27;StealTemplate&#x27; command rewritten to call new &#x27;StealTemplates&#x27; command  ;;
+;;                       if the QNew template is not available.                                  ;;
+;;                    -  Added &#x27;StealTemplates&#x27; command to allow the user to import items from   ;;
+;;                       a selected template file from the template drawing path.                ;;
+;;                    -  Added &#x27;StealLast&#x27; command to allow the user to steal from the last      ;;
+;;                       selected drawing, if available.                                         ;;
+;;                    -  Implemented a workaround to overcome a bug pertaining to deep-cloning   ;;
+;;                       Plot Configuration objects using the CopyObjects method wherein the     ;;
+;;                       associated entry in the ACAD_PLOTSETTINGS dictionary becomes anonymous. ;;
+;;                    -  Majority of program rewritten to improve code performance and           ;;
+;;                       readability.                                                            ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+;;                                                                                               ;;
+;;  1.8:  18/09/2012  -  Fixed bug causing the program to error when all items in a collection   ;;
+;;                       are deselected using the Ctrl key, and the &#x27;Import&#x27; button is pressed.  ;;
+;;                    -  The active drawing will now only be regenerated after program           ;;
+;;                       completion when one or more items have been imported.                   ;;
+;;                                                                                               ;;
+;;-----------------------------------------------------------------------------------------------;;
+
+;;;(setq stealversionnumber &quot;1.8&quot;)
+
+;;-----------------------------------------------------------------------------------------------;;
+;;                                        Program Commands                                       ;;
+;;-----------------------------------------------------------------------------------------------;;
+
+;;-----------------------------------------------------------------------------------------------;;
+;; Steal                                                                                         ;;
+;;-----------------------------------------------------------------------------------------------;;
+;; Standard program. User is prompted to select a drawing and then select from a list of items   ;;
+;; to import to the active drawing.                                                              ;;
+;;-----------------------------------------------------------------------------------------------;;
+
+;;;(defun c:Steal nil (Steal nil nil))
+
+;;-----------------------------------------------------------------------------------------------;;
+;; Steal All                                                                                     ;;
+;;-----------------------------------------------------------------------------------------------;;
+;; Will import everything from the selected drawing.                                             ;;
+;;-----------------------------------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-Steal</span>: they are run by their alias, or picked from <span class="fixw">LM-Steal</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-Steal</span></td><td><span class="fixw">STEAL</span></td><td>Steal</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">STEALALL</span></td><td>&ndash;</td><td>Steal All</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">STEALTEMPLATE</span></td><td>&ndash;</td><td>Steal From Template</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">STEALTEMPLATES</span></td><td>&ndash;</td><td>Steal From Templates</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">STEALLAST</span></td><td>&ndash;</td><td>Steal Last</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

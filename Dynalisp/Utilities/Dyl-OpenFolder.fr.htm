@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ouvrir un dossier</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-OpenFolder.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Ouvrir un dossier (Open Folder)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-OPENFOLDER</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-OpenFolder.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (Explorateur Windows)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Ouvre un dossier de travail dans l'Explorateur Windows : le paquet DynALisp, le dossier du dessin courant, les gabarits de modèle Dynalisp, le dossier du jeu de feuilles du projet courant ou le dossier de support d'AutoCAD.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-OPENFOLDER</span></td><td>Open Folder</td><td>Ouvre dans l'Explorateur Windows le dossier du dépôt, du dessin courant, des gabarits, du jeu de feuilles ou de support d'AutoCAD.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<p>La commande demande <span class="fixw">Open folder: [Repository/CurrentDrawing/Template/SheetSet/sUpport]</span> et ouvre le dossier dans l'Explorateur Windows :</p>
+<div class="unspacedbullets">
+<ul>
+<li><em>Repository</em> : le dossier <span class="fixw">DynALisp.bundle</span>;</li>
+<li><em>CurrentDrawing</em> : le dossier du dessin courant;</li>
+<li><em>Template</em> : <span class="fixw">Modules\Dynalisp\Res\Templates\Model</span>;</li>
+<li><em>SheetSet</em> : le dossier le plus proche qui contient un fichier <span class="fixw">.dst</span>, cherché à partir du dossier du dessin en remontant ses dossiers parents;</li>
+<li><em>sUpport</em> (tapez <span class="fixw">U</span>) : le dossier Support utilisateur de l'AutoCAD en cours, <span class="fixw">%APPDATA%\Autodesk\&lt;product&gt;\&lt;language&gt;\Support</span> (<span class="fixw">ROAMABLEROOTPREFIX</span>) : <span class="fixw">acad.cuix</span>, les copies des menus partiels (<span class="fixw">.cuix</span>) qu'AutoCAD y enregistre, les fichiers <span class="fixw">.pat</span> et <span class="fixw">.lin</span> de l'utilisateur.</li>
+</ul>
+</div>
+<p>Un dossier manquant est signalé par <em>Folder not found</em>.</p>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li><em>SheetSet</em> ouvre seulement le dossier; le jeu de feuilles lui-même n'est pas ouvert dans le Gestionnaire du jeu de feuilles.</li>
+<li>Pour un dessin jamais enregistré, <em>CurrentDrawing</em> et <em>SheetSet</em> partent du dossier de dessin par défaut.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-OpenFolder</span></td><td>&ndash;</td><td>Open Folder</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2023 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

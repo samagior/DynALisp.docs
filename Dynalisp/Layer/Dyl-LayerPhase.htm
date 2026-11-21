@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Phase</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerPhase.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Phase</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERPHASE</span> (PH), <span class="fixw">PH-E</span>, <span class="fixw">PH-D</span>, <span class="fixw">PH-N</span>, <span class="fixw">PH-F</span>, <span class="fixw">PH-T</span>, <span class="fixw">PH-NONE</span>, <span class="fixw">PH-NEXT</span>, <span class="fixw">PH-AUTO</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPhase.lsp</span> (commands), <span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerPhase.lsp</span> (active phase and the auto-phase setting, loaded at startup) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-LayerPhase.lsp</span> (auto-phase reactors, loaded at startup while the DynALisp reactors are on)</td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>A phased layer ends with a dash and a phase code: <span class="fixw">A-Wall-Full-E</span> (existing to remain), <span class="fixw">A-Wall-Full-D</span> (existing to demolish), <span class="fixw">A-Wall-Full-N</span> (new work), <span class="fixw">A-Wall-Full-F</span> (future work)... The codes and their descriptions are read from <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span> (its <span class="fixw">Description.fr</span> column gives the French descriptions, shown in the status bar, the Layer Phases window, the command line and the <a href="../Plugins/Ribbon.htm">ribbon</a> in a French AutoCAD, whatever the <a href="../Core/Dyl-Settings.htm#environment">Language</a> of Dyl-Settings, which is the language of the docs only); the phase is the status field of the layer names (see <a href="../Conventions/LayerNaming.htm#status">Layer Naming</a>).</p>
+<p>Each drawing has an <strong>active phase</strong>, saved in the drawing. It is shown in the status bar (<span class="fixw">Phase: N - New Work [Auto]</span>) and switched in one command with the <span class="fixw">PH-*</span> aliases. Switching the phase also moves the current layer to the new phase (<span class="fixw">A-Wall-Full-E</span> becomes <span class="fixw">A-Wall-Full-N</span>), and while auto-phase is on, the <a href="Dyl-LayerKeys.htm">layer keys</a> marked <em>Phased</em> give their layer in the active phase: <a href="../Draw/Dyl-QuickDraw.htm">QD-BRICK</a> draws its outline on <span class="fixw">A-Detl-Medm-E</span> and its hatch on <span class="fixw">A-Detl-Patt-E</span> in existing.</p>
+<p>With <strong>auto-phase</strong> on, every object created by a command goes to the active phase: a copy of an existing wall on <span class="fixw">A-Wall-Full-E</span> lands on <span class="fixw">A-Wall-Full-N</span> while the active phase is new work. Objects on layers without a phase are not changed, except on the layers of the layer keys, which get the phase added.</p>
+<h2>Ribbon</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Layer Phase</strong> &ndash; the button of the <em>Drawing Behaviors</em> panel of the DynALisp tab opens the Layer Phases dialog.</li>
+<li><strong>Auto-phase drop-down</strong> &ndash; <em>Auto-phase On</em> or <em>Auto-phase Off</em>, as <span class="fixw">PH-AUTO</span> and the <em>Auto-phase new objects</em> setting of <span class="fixw">Dyl-Settings</span>. It reads <em>Auto-phase On (reactors off)</em> while the DynALisp reactors are off: auto-phase is on but does nothing until they are turned on.</li>
+<li><strong>Phase drop-down</strong> &ndash; the active phase of the current drawing (<em>None</em>, then every phase of <span class="fixw">Phase.csv</span>). Pick a phase to make it the active phase, as the <span class="fixw">PH-*</span> aliases do.</li>
+<li>Like the Layer drop-down of AutoCAD, both always show the current state, whatever changed it (an alias, the dialog, <span class="fixw">Dyl-Settings</span>, another drawing made current). Picking an item cancels the command running, as the buttons of the ribbon do.</li>
+<li>The drop-downs are added by <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, which needs AutoCAD 2025 or later (see <a href="../Plugins/Ribbon.htm">Ribbon</a>). In an older version, the Drawing Behaviors panel has only the Layer Phase button: use the <span class="fixw">PH-*</span> aliases and the status bar.</li>
+</ul>
+</div>
+<h2>Layer Phases Dialog</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Active phase</strong> and current layer, at the top.</li>
+<li><strong>Phase list</strong> &ndash; every phase of <span class="fixw">Phase.csv</span> with the number of layers and objects of the drawing in that phase, and whether its layers are <em>Shown</em>, <em>Hidden</em> or <em>Partial</em> (some hidden). The first line, <strong>Unphased</strong>, counts the layers without a phase (marked <span class="fixw">&gt;</span> when there is no active phase). The active phase is marked with <span class="fixw">&gt;</span>. Several phases can be selected.</li>
+<li><strong>Double-click</strong> a phase to make it the active phase (the instruction is shown above the list). Double-click <strong>Unphased</strong> to clear the active phase.</li>
+<li><strong>Show / Hide</strong> &ndash; one button that follows the selection: it reads <em>Hide</em> when every selected phase is shown, and then turns their layers off and freezes them (the current layer is only turned off); otherwise it reads <em>Show</em> and turns them on and thaws them. <strong>Hide</strong> &ndash; the opposite of <em>Show</em>: turns off and freezes the layers of the selected phases, whatever their state (disabled when they are all hidden already). <strong>Isolate phase</strong> &ndash; shows the selected phases and hides the other phases; the unphased layers are never hidden by it (they are shown when <em>Unphased</em> is selected). Show / Hide and Hide also work on the <em>Unphased</em> line. Xref layers are included. The drawing is regenerated at once, so the change shows behind the dialog without closing it.</li>
+<li><strong>Layer keys Editor</strong> &ndash; opens the Layer Keys dialog (every layer key is phased while auto-phase is on).</li>
+<li>Auto-phase is turned on or off in <span class="fixw">Dyl-Settings</span> (<em>Auto-phase new objects</em>, next to the <em>open</em> button that opens this window) or with <span class="fixw">PH-AUTO</span>. It runs only while the <em>DynALisp reactors</em> of <span class="fixw">Dyl-Settings</span> are on (greyed out there otherwise, and the status bar no longer shows <span class="fixw">[Auto]</span>).</li>
+</ul>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The active phase is saved in the drawing (dictionary <span class="fixw">dyl-layer</span>), so each drawing keeps its own phase. Auto-phase is a user setting (<span class="fixw">DynalispPhaseAuto</span>, off by default): it is on or off in every drawing, and a drawing already open follows a change when it is made current.</li>
+<li>Auto-phase watches the objects added to the drawing and moves them when the command that created them ends (an object cannot be changed while it is being added). Objects created by a Lisp command are moved when the Lisp command ends.</li>
+<li>Only objects in model space and in the layouts are moved; block definitions are never changed. The attributes of a block reference follow it.</li>
+<li>A layer of the active phase that the drawing does not have yet is created from the source layer: same linetype, lineweight, plot setting and description, and the phase colors of <a href="Dyl-LayerTransfer.htm">Layer Transfer</a> (<span class="fixw">2#</span> for existing to demolish, <span class="fixw">20#</span> for existing to remain). The layer of a layer key that keeps its color in every phase (<a href="Dyl-LayerKeys.htm">Layer Keys</a>, <em>Keep this color in every phase</em>) gets the color of its key instead.</li>
+<li>Layers <span class="fixw">0</span>, <span class="fixw">Defpoints</span> and xref layers are never phased.</li>
+<li>The objects created by commands that edit or split existing objects (<span class="fixw">BREAK</span>, <span class="fixw">TRIM</span>, <span class="fixw">FILLET</span>, <span class="fixw">PEDIT</span>, <span class="fixw">JOIN</span>, <span class="fixw">EXPLODE</span>...) or bring objects in (<span class="fixw">PASTECLIP</span>, <span class="fixw">COPYTOLAYER</span>, <span class="fixw">XBIND</span>...) and by <span class="fixw">UNDO</span> / <span class="fixw">REDO</span> are left on their layer. The list can be replaced with the <span class="fixw">DynalispPhaseSkip</span> environment variable, for example <span class="fixw">(setenv "DynalispPhaseSkip" "U,UNDO,EXPLODE,BREAK,TRIM,PASTE*")</span>.</li>
+<li>The command line says how many objects were moved, and names the target layers that are off or frozen.</li>
+</ol>
+</div>
+<h2>Using Phases In An App</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseGet)</span> &ndash; returns the active phase code (<span class="fixw">"N"</span>), or nil when there is none.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseSet "N")</span> &ndash; sets the active phase (nil: no phase).</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:PhaseLayer "A-Wall-Full-E" "N")</span> &ndash; returns <span class="fixw">"A-Wall-Full-N"</span>, created if missing.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyLayer "THIN")</span> &ndash; gives the layer of the key in the active phase while auto-phase is on.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Auto-phase moves the objects after their command, as a separate step: the first <span class="fixw">U</span> after a command puts the objects back on the layer they were created on, the second one undoes the command.</li>
+<li>The status bar shows the phase only when <span class="fixw">MODEMACRO</span> is not used by something else.</li>
+<li>The Phase drop-down follows the changes made by DynALisp. An <span class="fixw">UNDO</span> that takes the drawing back before a phase change gives the drawing its former phase, but the drop-down shows it only after the next change of phase or when the drawing is made current again (the status bar does the same).</li>
+<li><span class="fixw">MIRROR</span> with <em>Erase source objects</em> moves the mirrored objects to the active phase like any copy.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerPhase</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerPhase</span></td><td><span class="fixw">PH</span></td><td>Layer Phase</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-E</span></td><td>&ndash;</td><td>Phase Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-D</span></td><td>&ndash;</td><td>Phase Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-N</span></td><td>&ndash;</td><td>Phase New Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-F</span></td><td>&ndash;</td><td>Phase Future Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-T</span></td><td>&ndash;</td><td>Phase Temporary Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-NONE</span></td><td>&ndash;</td><td>Phase None</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-NEXT</span></td><td>&ndash;</td><td>Phase Next</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PH-AUTO</span></td><td>&ndash;</td><td>Phase Auto Toggle</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

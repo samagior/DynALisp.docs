@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Variables système</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-SysVars.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Variables système (System Variables)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-SYSVARS</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (fenêtre) et <span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (profils et dérogation, chargé au démarrage)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Garde les variables système à vos valeurs préférées, comme le <span class="fixw">Moniteur de variables système</span> d'AutoCAD, avec des profils. Chaque profil est une liste de variables système et de leurs valeurs préférées; le profil actif est appliqué à chaque dessin ouvert tant que <em>System variables</em> est activé dans <span class="fixw">Dyl-Settings</span> (<em>Overrides</em>, désactivé par défaut). Son bouton <em>ouvrir</em> ouvre cette fenêtre.</p>
+<h2>La fenêtre</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Profile</strong> &ndash; le profil affiché, qui devient le profil actif avec <strong>OK</strong>. <strong>New...</strong> crée un profil vide, <strong>Copy...</strong> une copie du profil affiché, <strong>Rename...</strong> et <strong>Delete</strong> modifient le profil affiché (le dernier profil ne peut pas être supprimé).</li>
+<li><strong>Variables du profil</strong> (sous les boutons du profil) &ndash; chaque variable avec sa valeur préférée et sa valeur courante dans ce dessin (les trois mêmes colonnes que les variables protégées). La valeur courante est marquée quand la variable n'a pas sa valeur préférée : <span class="fixw">*</span> elle diffère, <em>(value not valid)</em>, <em>(protected)</em> une variable protégée (sa valeur protégée est utilisée), <em>(unknown)</em> pas une variable de cet AutoCAD.</li>
+<li><strong>Plusieurs variables à la fois</strong> &ndash; dans les deux listes, Ctrl+clic ajoute une variable à la sélection, Maj+clic sélectionne une plage : <strong>Remove</strong> les retire toutes. Les zones de saisie montrent la première sélectionnée (une valeur vaut pour une seule variable : <em>Add</em> ajoute ou remplace celle tapée).</li>
+<li><strong>Add</strong> &ndash; ajoute la variable tapée avec sa valeur préférée, ou remplace sa valeur quand le profil l'a déjà. Les variables en lecture seule, les variables protégées (modifiez-les dans les variables protégées) et les valeurs du mauvais type sont refusées. <strong>Use current</strong> met la valeur courante de la variable tapée comme valeur préférée. <strong>Remove</strong> retire la variable sélectionnée. <strong>List...</strong> ouvre la liste de toutes les variables système (voir plus bas) pour en ajouter une au profil.</li>
+<li><strong>Reset all</strong> &ndash; ramène chaque variable à sa valeur préférée dans ce dessin, tout de suite : les variables protégées et celles du profil affiché.</li>
+<li><strong>Protected variables</strong> &ndash; les variables ramenées à leur valeur préférée dans chaque dessin, quel que soit le profil actif, et qu'aucun profil ne change (pour tous les profils), avec les trois mêmes colonnes. <strong>Add</strong>, <strong>Use current</strong>, <strong>List...</strong> et <strong>Remove</strong> fonctionnent comme pour le profil. Une variable protégée sans valeur est seulement protégée : aucun profil ne la change, elle n'est pas réglée. Une rangée de profil d'une variable protégée est marquée <em>(protected)</em> et sautée. Par défaut : <span class="fixw">CMDDIA 1</span>, <span class="fixw">FILEDIA 1</span>, <span class="fixw">LAYLOCKFADECTL 50</span>, <span class="fixw">MIRRTEXT 0</span>, <span class="fixw">PICKADD 2</span>, <span class="fixw">PICKAUTO 5</span>, <span class="fixw">PICKFIRST 1</span>.</li>
+<li><strong>OK</strong> enregistre les profils et les variables protégées, et applique le profil actif tant que <em>System variables</em> est activé; <strong>Cancel</strong> les laisse comme ils étaient (un <em>Reset all</em> reste). <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2>Liste des variables système</h2>
+<p>Les boutons <strong>List...</strong> ouvrent toutes les variables système d'AutoCAD avec leur valeur courante et une courte description. <strong>Search</strong> les filtre par nom ou description (appuyez sur Entrée). La variable sélectionnée montre son type, où elle est enregistrée, sa valeur initiale et les premiers paragraphes de sa description; <strong>AutoCAD Help</strong> ouvre sa page de la documentation d'AutoCAD (help.autodesk.com, dans la version et la langue de cet AutoCAD). Un double-clic ferme la fenêtre et met la variable dans la zone <em>Variable</em> de la liste d'où elle a été ouverte (la rangée du profil est sélectionnée quand le profil l'a), avec sa valeur courante dans la zone <em>Preferred value</em>, prête à ajouter avec son bouton <strong>Add</strong>. <strong>Add</strong> dans cette fenêtre ajoute tout de suite la variable sélectionnée, et la fenêtre reste ouverte pour en ajouter d'autres :</p>
+<div class="spacedbullets">
+<ul>
+<li>Depuis le profil : ajoutée avec sa valeur courante comme valeur préférée, à modifier dans le profil. Les variables en lecture seule, protégées et non disponibles sont refusées.</li>
+<li>Depuis les variables protégées : ajoutée avec sa valeur courante comme valeur préférée, à modifier dans les variables protégées. Les variables en lecture seule et non disponibles sont refusées.</li>
+</ul>
+</div>
+<p>La liste est celle des Express Tools (<span class="fixw">Express\sysvdlg.dat</span> de l'installation d'AutoCAD, lu sur place). Sans les Express Tools, la fenêtre le signale; les variables peuvent encore être tapées dans la fenêtre principale.</p>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ul>
+<li>Une valeur est lue selon le type de la valeur courante de sa variable : un entier (<span class="fixw">PICKADD 2</span>), un nombre (<span class="fixw">LTSCALE 1.5</span>), un texte, ou un point écrit <span class="fixw">x,y</span> ou <span class="fixw">x,y,z</span>.</li>
+<li>Chaque dessin ouvert règle les variables protégées et celles du profil actif qui diffèrent, sans marquer le dessin comme modifié; la fenêtre montre ce qui diffère. Un profil enregistré, ou <em>System variables</em> activé, dans un autre dessin s'applique aux dessins déjà ouverts quand vous y passez, tant que <em>Settings sync</em> est activé.</li>
+<li>Les profils sont les fichiers CSV de <span class="fixw">Modules\Dynalisp\Res\SysVars</span> (<span class="fixw">Variable;Value</span>, une variable par rangée). Les profils enregistrés vont dans <span class="fixw">User\Modules\Dynalisp\Res\SysVars</span> (voir <span class="fixw">Dyl-UserFiles</span>). Le profil <span class="fixw">Default</span> est vide. Les variables protégées sont <span class="fixw">Modules\Dynalisp\Res\SysVarsProtected.csv</span> (<span class="fixw">Variable;Value</span>, une valeur vide : protégée seulement), enregistré dans sa copie sous <span class="fixw">User</span>.</li>
+</ul>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les variables sont réglées à l'ouverture d'un dessin, à l'enregistrement d'un profil ou au clic sur <em>Reset all</em> : une variable modifiée ensuite le reste jusque-là (il n'y a pas d'avis comme la bulle du Moniteur de variables système).</li>
+<li>Les variables enregistrées dans le dessin sont réglées pour la session seulement : enregistrez le dessin pour les garder dans le fichier.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-SysVars</span></td><td>&ndash;</td><td>System Variables</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

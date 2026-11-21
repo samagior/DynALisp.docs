@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy to Layouts</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Copy to Layouts</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/copytolayouts.html" target="_blank">https://lee-mac.com/copytolayouts.html</a></p>
+
+<p><em>See also <a href="https://lee-mac.com/deletefromlayouts.html" target="_blank" title="Delete from Layouts">Delete from Layouts</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CopyToLayouts</span> &ndash; original syntax: C2L / C2AL (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/copytolayouts.html" target="_blank">lee-mac.com/copytolayouts.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables a user to quickly copy a selection of objects to all or selected layouts in a drawing.</p>
+<p>Upon calling the program with <span class="fixw">C2L</span> at the AutoCAD command line, the user is prompted to make a 
+                selection of objects residing in the current layout to copy. Following selection, the program calls my 
+                <a href="https://lee-mac.com/listbox.html" target="_blank" title="List Box">List Box</a> function and the user is
+                prompted via a dialog interface (illustrated below) to choose one or more layouts to which the set of objects will be copied.</p>
+<p>Alternatively, if the user issues the command syntax <span class="fixw">C2AL</span> at the AutoCAD command line, every object
+                in the selection is automatically copied to all layouts in the drawing (except the active layout), without the use of the dialog
+                interface.</p>
+<p>The program will copy the selected objects using a deep-clone method, ensuring that all information associated with the 
+                selected objects is retained.</p>
+<div class="cent">
+<h3>Dialog Preview</h3>
+<img alt="Copy to Layouts" height="266" src="images/LM-CopyToLayoutsV1-2.png" width="316"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Copy to Layouts }==------------------------;;
+;;                                                                      ;;
+;;  This program enables a user to quickly copy a selection of objects  ;;
+;;  to all or selected layouts in a drawing.                            ;;
+;;                                                                      ;;
+;;  Upon calling the program with &#x27;C2L&#x27; at the command line, the user   ;;
+;;  is prompted to make a selection of objects in the active layout to  ;;
+;;  copy. Following selection, the user is prompted, via a dialog       ;;
+;;  interface, to choose one or more layouts to which the objects will  ;;
+;;  be copied.                                                          ;;
+;;                                                                      ;;
+;;  If the program is called with &#x27;C2AL&#x27; at the command line, every     ;;
+;;  object in the selection is automatically copied to all layouts      ;;
+;;  in the drawing, without the use of the dialog interface.            ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    10-02-2011                                      ;;
+;;                                                                      ;;
+;;  First Release.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    08-07-2013                                      ;;
+;;                                                                      ;;
+;;  Entire program rewritten.                                           ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-CopyToLayouts</span>: they are run by their alias, or picked from <span class="fixw">LM-CopyToLayouts</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CopyToLayouts</span></td><td><span class="fixw">C2L</span></td><td>Copy To Layouts</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">C2AL</span></td><td>&ndash;</td><td>Copy To All Layouts</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

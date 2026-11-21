@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Delete Blocks</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Delete Blocks</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/deleteblocks.html" target="_blank">https://lee-mac.com/deleteblocks.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DeleteBlocks</span> &ndash; original syntax: delblocks (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/deleteblocks.html" target="_blank">lee-mac.com/deleteblocks.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to quickly remove multiple blocks from a drawing.</p>
+<p>After invoking the program with the command <span class="fixw">delblocks</span> at the
+                AutoCAD command-line, the user is prompted to select a block to delete. At this prompt, 
+                the user may either select a block reference from the drawing, type <span class="fixw">N</span>
+                to choose a block by name, or exit the program by typing <span class="fixw">E</span> or by dismissing
+                the prompt.</p>
+<p>By opting to choose a block by name, the user is presented with a simple dialog interface 
+                consisting of a list box and filter. The dialog provides a list of all standard &amp;
+                dynamic blocks defined in the active drawing, excluding anonymous blocks and xrefs. 
+                From this list, the user may select multiple blocks to be deleted from the active drawing.</p>
+<p>Upon the user selecting a block from the drawing or selecting one or more block names from
+                the dialog, the program will delete all primary &amp; nested references of the blocks from all
+                layouts of the active drawing, and will proceed to delete the respective block definitions, if possible.</p>
+<p>The user will be informed at the command-line of those blocks successfully deleted by the program,
+                and those blocks that the program was unable to remove.</p>
+<p>The program also defines the function <span class="fixw">LM:deleteblocks</span> so that users
+                who wish to remove multiple blocks from several drawings in a batch processing operation may bypass 
+                the dialog and call this function with a VLA Document Object and a list of block names (case-insensitive) 
+                from a Script or another LISP application. This function is also compatible with ObjectDBX and 
+                hence may be utilised in conjunction with my 
+                <a href="https://lee-mac.com/odbxbase.html" target="_blank" title="ObjectDBX Wrapper">ObjectDBX Wrapper</a> function.</p>
+<div class="cent">
+<h2>Preview</h2>
+<img alt="DeleteBlocksV1-1.png" height="299" src="images/LM-DeleteBlocksV1-1.png" width="332"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Delete Blocks }==------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to quickly remove multiple blocks     ;;
+;;  from a drawing.                                                     ;;
+;;                                                                      ;;
+;;  After invoking the program with the command &#x27;delblocks&#x27; at the      ;;
+;;  AutoCAD command-line, the user is prompted to select a block to     ;;
+;;  delete. At this prompt, the user may either select a block          ;;
+;;  reference from the drawing, type &#x27;N&#x27; to choose a block by name, or  ;;
+;;  exit the program by typing &#x27;E&#x27; or by dismissing the prompt.         ;;
+;;                                                                      ;;
+;;  By opting to choose a block by name, the user is presented with a   ;;
+;;  simple dialog interface consisting of a list box and filter. The    ;;
+;;  dialog provides a list of all standard &amp; dynamic blocks defined     ;;
+;;  in the active drawing, excluding anonymous blocks and xrefs. From   ;;
+;;  this list, the user may select multiple blocks to be deleted from   ;;
+;;  the active drawing.                                                 ;;
+;;                                                                      ;;
+;;  Upon the user selecting a block from the drawing or selecting one   ;;
+;;  or more block names from the dialog, the program will delete all    ;;
+;;  primary &amp; nested references of the blocks from all layouts of the   ;;
+;;  active drawing, and will proceed to delete the respective block     ;;
+;;  definitions, if possible.                                           ;;
+;;                                                                      ;;
+;;  The user will be informed at the command-line of those blocks       ;;
+;;  successfully deleted by the program, and those blocks that the      ;;
+;;  program was unable to remove.                                       ;;
+;;                                                                      ;;
+;;  The program also defines the function &#x27;LM:deleteblocks&#x27; so that     ;;
+;;  users who wish to remove multiple blocks from several drawings      ;;
+;;  in a batch processing operation may bypass the dialog and call      ;;
+;;  this function with a VLA Document Object and a list of block names  ;;
+;;  (case-insensitive) from a Script or another LISP application.       ;;
+;;  This function is also compatible with ObjectDBX.                    ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2012  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2012-07-14                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2016-11-05                                      ;;
+;;                                                                      ;;
+;;  - Program modified to prompt user for selection of a block to       ;;
+;;    delete, with the option of displaying a list of all blocks        ;;
+;;    defined in the drawing.                                           ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DeleteBlocks</span></td><td><span class="fixw">DELBLOCKS</span></td><td>Delete Blocks</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

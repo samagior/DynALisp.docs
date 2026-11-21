@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Double Extend</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Double Extend</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/doubleextend.html" target="_blank">https://lee-mac.com/doubleextend.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DoubleExtend</span> &ndash; original syntax: dex (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/doubleextend.html" target="_blank">lee-mac.com/doubleextend.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to extend both ends of all lines, arcs &amp; polylines in a selection by a given amount.</p>
+<p>Upon issuing the command syntax <span class="fixw">dex</span> (Double Extend) at the AutoCAD command-line, the user is first prompted to
+                specify the amount by which to extend the objects at both ends. At this prompt, the program will offer the last entered
+                extension value as a default option; this default value will also be remembered between drawing sessions.</p>
+<p>Following a valid response, the program will then prompt the user to make a selection of lines, arcs, open 2D polylines
+                (both light &amp; heavy), or open 3D polylines whose start &amp; end points (or start &amp; end segments) are to be lengthened by the given amount. 
+                As shown by the two demonstrations below, the program is compatible with all of the aforementioned
+                objects contructed in all UCS planes, and with polylines containing arc segments.</p>
+<p>The program will automatically ignore object end points for which an extension by the specified distance is not possible,
+                for example, if extending both ends of an arc by the given distance will cause the end points to meet or overlap.</p>
+<div class="cent">
+<h2>2D Demonstration</h2>
+<img alt="2D Double Extend Demo" height="300" src="images/LM-doubleextend1.gif" width="500"/>
+<h2>3D Demonstration</h2>
+<img alt="3D Double Extend Demo" height="300" src="images/LM-doubleextend2.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Double Extend }==------------------------;;
+;;                                                                      ;;
+;;  This program allows the user to extend both ends of all lines,      ;;
+;;  arcs &amp; polylines in a selection by a given amount.                  ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;dex&#x27; (Double Extend) at the        ;;
+;;  AutoCAD command-line, the user is first prompted to specify the     ;;
+;;  amount by which to extend the objects at both ends. At this prompt, ;;
+;;  the program will offer the last entered extension value as a        ;;
+;;  default option; this default value will also be remembered between  ;;
+;;  drawing sessions.                                                   ;;
+;;                                                                      ;;
+;;  Following a valid response, the program will then prompt the user   ;;
+;;  to make a selection of lines, arcs, open 2D polylines (both light   ;;
+;;  &amp; heavy), or open 3D polylines whose start &amp; end points (or start   ;;
+;;  &amp; end segments) are to be lengthened by the given amount.           ;;
+;;                                                                      ;;
+;;  The program is compatible with all of the aforementioned objects    ;;
+;;  contructed in all UCS planes, and with polylines containing arc     ;;
+;;  segments.                                                           ;;
+;;                                                                      ;;
+;;  The program will automatically ignore object end points for which   ;;
+;;  an extension by the specified distance is not possible, for         ;;
+;;  example, if extending both ends of an arc by the given distance     ;;
+;;  will cause the end points to meet or overlap.                       ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2015  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2015-05-03                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DoubleExtend</span></td><td><span class="fixw">DEX</span></td><td>Double Extend</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2015 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

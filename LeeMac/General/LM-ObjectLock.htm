@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Object Lock</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Object Lock</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/objectlock.html" target="_blank">https://lee-mac.com/objectlock.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ObjectLock</span> &ndash; original syntax: LockObjects / UnlockObjects / DisableLock (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/objectlock.html" target="_blank">lee-mac.com/objectlock.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This is a purely academic piece of code demonstrating the ability to prevent modification of a set of objects using reactors.</p>
+<p>The user can 'lock' a set of entities by typing <span class="fixw">'LockObjects'</span> at the AutoCAD command-line and making
+                a selection of objects. The program then stores the handles and DXF data of the selected entities and initiates an Editor Reactor 
+                to be triggered following command completion.</p>
+<p>When a command has ended, the callback function of the Editor Reactor is evaluated and the 'locked' entities are modified to revert
+                back to the stored DXF data.</p>
+<p>The code also demonstrates a method of saving the handles of the locked objects in a drawing dictionary, so that the reactors 
+                may be re-built upon loading the code in another drawing session.</p>
+<p>The user can unlock a selection of objects by typing <span class="fixw">'UnlockObjects'</span> at the AutoCAD command-line, or indeed
+                unlock all locked objects using the <span class="fixw">'DisableLock'</span> command.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Object Lock }==--------------------;;
+;;                                                            ;;
+;;  Purely academic code demonstrating the ability to use     ;;
+;;  reactors to prevent modification of a selection of        ;;
+;;  objects, and furthermore retain such security between     ;;
+;;  drawing sessions.                                         ;;
+;;                                                            ;;
+;;  The code is written for demonstration only since it quite ;;
+;;  clearly isn&#x27;t practical. The functionality can be         ;;
+;;  matched by simply using a Locked Layer; and moreover      ;;
+;;  don&#x27;t get your hopes up in thinking that you can use this ;;
+;;  code to prevent third party modification of your drawings ;;
+;;  since the reactors need to be loaded before the lock is   ;;
+;;  effective. And who&#x27;s going to fall for that one... ;)     ;;
+;;                                                            ;;
+;;  The program uses two reactors: an Editor Reactor - to     ;;
+;;  undo any modification of a selection of objects following ;;
+;;  the completion of a command or LISP program; and a        ;;
+;;  Drawing Reactor - to save the handles of the locked       ;;
+;;  Objects in a dictionary so that the reactors may be       ;;
+;;  rebuilt when the drawing is next opened.                  ;;
+;;                                                            ;;
+;;  The concept of &#x27;undeleting&#x27; entities following a command  ;;
+;;  was first proposed (to my knowledge) by Luis Esquivel in  ;;
+;;  the following thread at TheSwamp:                         ;;
+;;                                                            ;;
+;;  http://www.theswamp.org/index.php?topic=6455.0            ;;
+;;                                                            ;;
+;;  I have expanded on this idea to undo, not only a deletion ;;
+;;  but all changes made to an object by storing the DXF data ;;
+;;  of the entity upon locking, and continuously reverting    ;;
+;;  back to this data following modification.                 ;;
+;;                                                            ;;
+;;  I would also like to thank Gilles Chanteau, since with    ;;
+;;  aid of his &#x27;True Rectangle&#x27; program, I learnt a great     ;;
+;;  deal with regard to saving data in Drawing Dictionaries.  ;;
+;;  Merci!                                                    ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.0    -    08-05-2011                            ;;
+;;------------------------------------------------------------;;
+
+;;------------------------------------------------------------;;
+;;  Lock Objects  -  Locks Selected Unlocked Objects          ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ObjectLock</span>: they are run by their alias, or picked from <span class="fixw">LM-ObjectLock</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ObjectLock</span></td><td>&ndash;</td><td>Object Lock</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LOCKOBJECTS</span></td><td>&ndash;</td><td>Lock Objects</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">UNLOCKOBJECTS</span></td><td>&ndash;</td><td>Unlock Objects</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DISABLELOCK</span></td><td>&ndash;</td><td>Disable Object Lock</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

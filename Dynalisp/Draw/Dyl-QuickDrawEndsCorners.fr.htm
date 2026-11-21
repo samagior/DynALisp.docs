@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Extrémités et coins</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-QuickDrawEndsCorners.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Extrémités et coins (Ends and Corners)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Ouverte par</td>
+<td>Les boutons ouvrir de <em>Custom ends</em> et <em>Custom corners</em>, dans la zone Behaviors de la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>La façon dont les bandes de <a href="Dyl-QuickDraw.fr.htm#linear">Linear</a> et d'<a href="Dyl-QuickDraw.fr.htm#offset">Offset</a> se terminent et tournent leurs coins, pour le préréglage affiché dans la fenêtre Quick Draw. Cochez <em>Custom ends</em> ou <em>Custom corners</em> dans sa zone Behaviors, puis cliquez le bouton carré <em>ouvrir</em> à côté : la fenêtre <strong>Ends</strong> ou <strong>Corners</strong> s'ouvre. Décochées, les bandes finissent d'équerre, avec des coins en onglet et leurs joints dessinés; les réglages de la fenêtre sont gardés pour quand la case est cochée de nouveau. Les croquis de chaque réglage sont dans <a href="Dyl-QuickDraw.fr.htm#endscorners">Dessin rapide &ndash; Extrémités et coins</a>.</p>
+<h2>Fenêtre Ends</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Use</th></tr>
+<tr><td>Ends</td><td>La façon dont une bande ouverte se termine : <em>Ask when drawn</em>, <em>Square</em> (par défaut), <em>Open</em> (aucune ligne en travers de l'extrémité), <em>Extended</em>, <em>Round</em> ou <em>Angled</em>. Voir <a href="Dyl-QuickDraw.fr.htm#endscorners">Extrémités et coins</a>.</td></tr>
+<tr><td>Extension</td><td>Extended : la distance au-delà de chaque extrémité, en unités de dessin; vide : la moitié de la largeur de la bande.</td></tr>
+<tr><td>Angle</td><td>Angled : l'angle de la coupe par rapport à l'équerre, de -80 à 80 degrés (45 par défaut).</td></tr>
+</table>
+</div>
+<h2>Fenêtre Corners</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Use</th></tr>
+<tr><td>Corners</td><td>La façon dont deux segments se rejoignent : <em>Ask when drawn</em>, <em>Mitered</em> (par défaut), <em>Beveled</em>, <em>Round</em> ou <em>Lapped</em>.</td></tr>
+<tr><td>Miter limit</td><td>Mitered : un coin dont l'onglet est plus long que cette valeur fois la largeur est chanfreiné (4 par défaut, 1 ou plus).</td></tr>
+<tr><td>Lap</td><td>Lapped : le segment qui passe à travers chaque coin, <em>First segment</em> ou <em>Next segment</em>; l'autre s'arrête contre lui.</td></tr>
+<tr><td>Joints</td><td><em>Interrupted</em>, par défaut, ou <em>Uninterrupted</em>.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>Une valeur est grisée quand les extrémités ou les coins choisis ne l'utilisent pas : le prolongement pour <em>Extended</em>, l'angle d'extrémité pour <em>Angled</em>, la limite d'onglet pour <em>Mitered</em>, <em>Lap</em> pour <em>Lapped</em> (toutes avec <em>Ask when drawn</em> : celui choisi au dessin les utilise).</li>
+<li><strong>OK</strong> donne les valeurs à chaque préréglage sélectionné dans la fenêtre Quick Draw (enregistrées avec eux par <em>Draw</em> ou <em>Save</em>), une fois qu'elles sont valides (un message sous la zone dit quoi corriger). <strong>Cancel</strong> annule les changements, <strong>Open Docs</strong> ouvre cette page.</li>
+<li>Les extrémités et les coins peuvent aussi être changés pour une seule bande au moment de la dessiner, à la première invite de Linear ou d'Offset (<span class="fixw">Ends</span>, <span class="fixw">Corners</span>).</li>
+</ul>
+</div>
+<p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

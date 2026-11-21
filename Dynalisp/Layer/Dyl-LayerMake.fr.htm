@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Créer des calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerMake.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Créer des calques (Make Layers)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYERMAKE</span> et 11 jeux de calques &ndash; voir <a href="#commands">Commandes</a></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>État</td>
+<td>En développement &ndash; voir Limites connues</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3; fonctions CSV de Lee Mac</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-LAYERMAKE</span> liste chaque jeu de calques avec son alias : double-cliquez-en un (ou OK) pour créer ses calques. Les jeux de calques sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
+<p>Construit un jeu de calques à partir de listes de calques CSV : les noms des calques sont assemblés à partir des champs de nom de chaque rangée, puis la couleur, l'épaisseur de ligne, le type de ligne et le réglage de traçage sont déduits du nom selon les règles de calques de Dynalisp. Les calques existants sont mis à jour, les manquants créés.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Dossier CSV</th><th>Fichiers CSV</th></tr>
+<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td><span class="fixw">Dyl\Drawing</span></td><td><span class="fixw">Basic.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Drawing.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Roof.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Ceil.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Furn.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">1-Architectural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Interior.csv</span>, <span class="fixw">1-Landscape.csv</span>, <span class="fixw">1-Structural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Plumbing.csv</span>, <span class="fixw">1-Electrical.csv</span>, <span class="fixw">1-Mechanical.csv</span></td></tr>
+<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">2-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">2-Landscape.csv</span>, <span class="fixw">2-Structural.csv</span>, <span class="fixw">2-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">2-Electrical.csv</span>, <span class="fixw">2-Mechanical.csv</span></td></tr>
+<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">3-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">3-Landscape.csv</span>, <span class="fixw">3-Structural.csv</span>, <span class="fixw">3-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">3-Electrical.csv</span>, <span class="fixw">3-Mechanical.csv</span></td></tr>
+</table>
+</div>
+<p>Les dossiers CSV sont relatifs à <span class="fixw">Modules\Dynalisp\Res\Layer\List</span>. Chaque CSV a les colonnes <span class="fixw">Designator, Major, Minor1, Minor2, Minor3, Description</span>.</p>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Les rangées de chaque CSV du préréglage sont lues (en-tête sauté).</li>
+<li>Si une rangée contient le repère d'empilement <span class="fixw">0000</span>, l'empilement vous est demandé (<span class="fixw">None</span>, <span class="fixw">1-First</span> &hellip; <span class="fixw">9-Ninth</span>), qui le remplace par <span class="fixw">0001</span> &hellip; <span class="fixw">0009</span>.</li>
+<li>Si une rangée contient le repère de discipline <span class="fixw">$$</span>, la discipline vous est demandée (General, Architectural, Interior, Structural, Landscape), qui le remplace par sa lettre.</li>
+<li>Les champs de nom sont joints par des tirets pour faire le nom du calque; la colonne Description devient la description du calque.</li>
+<li>Les propriétés sont déduites du nom :<div class="unspacedbullets">
+<ul>
+<li>couleur : 151 par défaut, puis des couleurs fixes par mot clé (p. ex. <span class="fixw">Eqpm</span> 1, <span class="fixw">Plnt</span> 81, <span class="fixw">Note</span>/<span class="fixw">Mark</span> 122, <span class="fixw">Dims</span>/<span class="fixw">Grid</span> 221, <span class="fixw">Text</span> 41, <span class="fixw">Scrn</span> 8, <span class="fixw">Exst</span> 9, <span class="fixw">Redl</span> couleur vraie 255,0,0; les calques d'élévation ont leurs propres couleurs);</li>
+<li>épaisseur de ligne : selon le dernier chiffre du numéro de couleur &ndash; 0 &rarr; 0.13, 1 &rarr; 0.18, 2 &rarr; 0.25, 3 &rarr; 0.35, 4 &rarr; 0.50, 5 &rarr; 0.70, 6 &rarr; 1.00, 7 &rarr; 1.40, 8 &rarr; 2.00, 9 &rarr; 0,13 mm (couleurs grises toujours 0,13);</li>
+<li>type de ligne : Continuous, ou Center/Hidden/Phantom (et leurs variantes 2) pour <span class="fixw">Cntr</span>, <span class="fixw">Hdln</span>, <span class="fixw">Phnt</span>, <span class="fixw">Grid</span>, <span class="fixw">Labl</span>, <span class="fixw">Tags</span> &hellip;;</li>
+<li>traçage : désactivé pour les calques <span class="fixw">Nplt</span> et <span class="fixw">Rdme</span>.</li>
+</ul>
+</div></li>
+<li>Chaque calque est créé ou mis à jour avec <span class="fixw">-LAYER</span> et la ligne de commande affiche <span class="fixw">...&lt;layer&gt; - created</span> ou <span class="fixw">- updated</span>.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>La vérification de la discipline passe toute la liste des données CSV à <span class="fixw">wcmatch</span>, qui n'accepte que du texte : les commandes s'arrêtent donc pour l'instant à cette étape avec une erreur <em>bad argument type</em>.</li>
+<li>Les rangées sans le repère <span class="fixw">0000</span> ne produisent aucun nom de calque (le nom n'est construit que dans la substitution de l'empilement).</li>
+<li>Plusieurs noms de CSV ne correspondent pas aux fichiers livrés (p. ex. A-Elev.csv au lieu de A-Elevation.csv, dossier NCS au lieu de NCSv5); les fichiers manquants sont sautés en silence.</li>
+<li>L'option de groupe de couleurs (<span class="fixw">MinorColor</span>, <span class="fixw">DesignatorColor</span>, <span class="fixw">MajorColor</span>, <span class="fixw">StackColor</span>, <span class="fixw">PhaseColor</span>) est fixée à <span class="fixw">MinorColor</span>, qui n'ajoute aucune dérogation.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-LayerMake</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-LayerMake</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerMake</span></td><td>&ndash;</td><td>Make Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-BASICDRAWING</span></td><td>&ndash;</td><td>Make Basic Drawing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-ELEV</span></td><td>&ndash;</td><td>Make Architectural Elevation Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-SECT</span></td><td>&ndash;</td><td>Make Architectural Section Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-DETL</span></td><td>&ndash;</td><td>Make Architectural Detail Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-FLOOR</span></td><td>&ndash;</td><td>Make Architectural Floor Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-ROOF</span></td><td>&ndash;</td><td>Make Architectural Roof Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-CEIL</span></td><td>&ndash;</td><td>Make Architectural Ceiling Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-A-FURN</span></td><td>&ndash;</td><td>Make Architectural Furniture Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-NCS1</span></td><td>&ndash;</td><td>Make NCS Level 1 Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-NCS2</span></td><td>&ndash;</td><td>Make NCS Level 2 Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LL-NCS3</span></td><td>&ndash;</td><td>Make NCS Level 3 Layers</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2023 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

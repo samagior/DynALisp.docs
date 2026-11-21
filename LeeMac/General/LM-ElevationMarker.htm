@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elevation Marker</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Elevation Marker</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/elevationmarker.html" target="_blank">https://lee-mac.com/elevationmarker.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ElevationMarker</span> &ndash; original syntax: em (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/elevationmarker.html" target="_blank">lee-mac.com/elevationmarker.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This relatively simple program allows the user to continuously place elevation markers composed of a variable width
+                polyline and single-line text object at specific points in a drawing.</p>
+<p>The program will continuously prompt the user for a point at which to display the elevation, and proceed to create an 
+                LWPolyline marker accompanied by a single-line Text object displaying the value of the UCS Y-coordinate of the picked point.</p>
+<p>The units and precision of the value displayed are controlled by the settings of the <span class="fixw">LUNITS</span>
+                and <span class="fixw">LUPREC</span> system variables respectively.</p>
+<p>The text height, offset and size of the marker are all dependent upon the value of the 
+                <span class="fixw">TEXTSIZE</span> system variable.</p>
+<div class="cent">
+<h3>Example of Usage</h3>
+<img alt="Elevation Marker.gif" height="300" src="images/LM-ElevationMarker.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Elevation Marker }==-----------------------;;
+;;                                                                      ;;
+;;  This program continuously prompts the user to specify a point and   ;;
+;;  constructs an elevation marker composed of a variable width         ;;
+;;  polyline &amp; single-line text object at the specified point, with     ;;
+;;  the text content displaying the UCS Y-coordinate of the point.      ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ElevationMarker</span></td><td><span class="fixw">EM</span></td><td>Elevation Marker</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

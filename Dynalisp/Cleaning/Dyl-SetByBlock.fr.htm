@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blocs DuBloc</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-SetByBlock.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Blocs DuBloc (Fix Blocks ByBlock)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">FIXBLKS</span>, <span class="fixw">SL-BLOCKALL</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-SetByBlock.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>FIXBLKS : routine de Tom Beauford; SL-BLOCKALL : licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Normalise les définitions de blocs pour que leur contenu suive les propriétés de la référence de bloc : chaque entité des définitions sélectionnées est placée sur le calque 0 avec couleur, type de ligne et épaisseur de ligne DuBloc. Une commande complémentaire sélectionne chaque référence de bloc du dessin.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td><td>Place les entités des définitions de blocs sélectionnées sur le calque 0, avec couleur, type de ligne et épaisseur de ligne DuBloc.</td></tr>
+<tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Sélectionne chaque référence de bloc du dessin.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<h3>FIXBLKS</h3>
+<div class="spacedbullets">
+<ol>
+<li>Sélectionnez des références de blocs (la sélection est filtrée sur les objets INSERT).</li>
+<li>Pour la définition de chaque référence sélectionnée, la routine parcourt chaque entité de la définition :<div class="unspacedbullets">
+<ul>
+<li>les références de blocs imbriquées sont suivies et leurs propres définitions corrigées aussi (chaque définition une fois);</li>
+<li>les autres entités reçoivent le calque 0, la couleur DuBloc, le type de ligne DuBloc et l'épaisseur de ligne DuBloc. Les échecs (p. ex. entités en lecture seule) sont ignorés.</li>
+</ul>
+</div></li>
+<li>Les changements sont regroupés dans un seul groupe d'annulation et le dessin est régénéré.</li>
+</ol>
+</div>
+<p>Comme c'est la <em>définition</em> qui est modifiée, chaque référence du même bloc dans le dessin change, pas seulement celles sélectionnées.</p>
+<h3>SL-BLOCKALL</h3>
+<p>Construit une sélection de chaque référence de bloc du dessin (tous les espaces, xréfs comprises) et l'affiche avec ses poignées par <span class="fixw">PSELECT</span>, pour la donner à la commande suivante.</p>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les attributs déjà attachés aux références existantes gardent leurs propriétés; seules les définitions d'attributs dans le bloc changent.</li>
+<li>Appuyer sur Entrée à l'invite de sélection sans rien sélectionner termine FIXBLKS par une erreur.</li>
+<li>Les noms de styles de tracé ne sont pas changés (la ligne est en commentaire dans la source).</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-SetByBlock</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-SetByBlock</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-SetByBlock</span></td><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SL-BLOCKALL</span></td><td>&ndash;</td><td>Select All Blocks</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Tom Beauford (FIXBLKS), Samuel Martineau &ndash; voir la rangée Licence pour les conditions de chaque routine</p>
+    </div>
+</body>
+
+</html>

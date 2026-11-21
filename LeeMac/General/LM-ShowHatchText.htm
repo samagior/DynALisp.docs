@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show Hatch Text</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Show Hatch Text</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/showhatchtext.html" target="_blank">https://lee-mac.com/showhatchtext.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ShowHatchText</span> &ndash; original syntax: sht (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/showhatchtext.html" target="_blank">lee-mac.com/showhatchtext.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to clear the area of a hatch pattern surrounding selected single-line text (DText) and 
+                multiline text (MText) objects, or Text, MText and single-line &amp; multiline attributes contained within selected primary &amp;
+                nested block references.</p>
+<p>Upon issuing the command syntax <span class="fixw">sht</span> (Show Hatch Text) at the AutoCAD command-line, the user is 
+                first prompted to make a selection of Text, MText and/or block references for which to clear the surrounding hatch pattern,
+                and then to select the obscuring hatch to be modified.</p>
+<p>Following valid selections, the program will proceed to generate new hatch boundaries surrounding every selected 
+                Text and MText object, and furthermore for every Text, MText or attribute object found within each selected block reference,
+                and recursively any of these annotation objects encountered within any nested block references (nested to any depth).</p>
+<p>In order to generate the appropriate hatch boundary for nested Text, MText or attributes, the program will recreate the nested
+                object as a temporary primary object, before adding the new hatch boundary and finally deleting the temporary object.
+                As a consequence of this method, the hatch must become disassociative when nested objects are processed by the program.</p>
+<p>Finally, the program is compatible for use with Text, MText and single-line &amp; multiline attributes as primary objects in the
+                drawing, or found within standard or dynamic primary &amp; nested block references; furthermore, these objects may be defined 
+                in any UCS construction plane.</p>
+<div class="cent">
+<h2>Program Demonstration</h2>
+<img alt="Show Hatch Text Demo" height="350" src="images/LM-showhatchtext.gif" width="500"/>
+</div>
+<p>In the above demonstration, the program is being used with multiline text (MText), single-line text (DText), an attributed block
+                reference, and a block reference containing multiple nested block references with single-line text.</p>
+<p>The red block reference on the left has been rotated &amp; scaled, and contains the nested yellow block reference which has also
+                been rotated &amp; scaled; this yellow block reference in turn contains the nested green block reference which has been rotated
+                &amp; scaled, forming a compound scaling &amp; rotation as we traverse up the levels of nesting.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Show Hatch Text }==------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to clear the area of a hatch pattern  ;;
+;;  surrounding selected Text or MText objects, or Text, MText or       ;;
+;;  Attributes contained within selected Block References.              ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;sht&#x27; (Show Hatch Text) at the      ;;
+;;  command-line, the user is first prompted to make a selection of     ;;
+;;  Text, MText and/or Blocks for which to clear the surrounding hatch  ;;
+;;  pattern, and then to select the obscuring hatch to be modified.     ;;
+;;                                                                      ;;
+;;  Following valid selections, the program will proceed to generate    ;;
+;;  new hatch boundaries surrounding every selected Text and MText      ;;
+;;  object, and furthermore for every Text, MText or Attribute object   ;;
+;;  found within each selected block reference, including within any    ;;
+;;  nested block references (nested to any depth) found within the      ;;
+;;  selected block references.                                          ;;
+;;                                                                      ;;
+;;  In order to generate the appropriate hatch boundary for nested      ;;
+;;  Text, MText or Attributes, the program will recreate the nested     ;;
+;;  object as a temporary primary object, before adding the new hatch   ;;
+;;  boundary and deleting the temporary object. As a consequence of     ;;
+;;  this method, the hatch must become disassociative when nested       ;;
+;;  objects are processed by the program.                               ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    14-11-2013                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ShowHatchText</span></td><td><span class="fixw">SHT</span></td><td>Show Hatch Text</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

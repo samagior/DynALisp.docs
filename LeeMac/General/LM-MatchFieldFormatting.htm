@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Match Field Formatting</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Match Field Formatting</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/matchfieldformatting.html" target="_blank">https://lee-mac.com/matchfieldformatting.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-MatchFieldFormatting</span> &ndash; original syntax: MFF (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/matchfieldformatting.html" target="_blank">lee-mac.com/matchfieldformatting.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to copy the formatting from a selected source field to multiple 'destination' fields in a drawing.</p>
+<p>Upon issuing the command syntax <span class="fixw">MFF</span> at the AutoCAD command-line, the user is prompted to select 
+                an annotation object (Text, MText, Attribute, Multileader, Dimension) containing a field expression with formatting applied. 
+                If the selected object contains more than one field expression, the first field expression containing field formatting will
+                be used by the program.</p>
+<p>The user may then apply the formatting extracted from the source field to multiple selected destination fields in the 
+                drawing.</p>
+<p>The program is also compatible with nested fields and fields with no formatting applied. If a nested field has 
+                formatting applied, this formatting will be replaced by the formatting extracted from the source field expression; however, 
+                only <u>primary</u> fields which contain no formatting will have new formatting applied - this program is designed to not
+                add field formatting to <u>nested</u> fields which did not previously contain formatting (for example, to ensure that no precision
+                is lost for formula fields summing a set of object property fields).</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Match Field Formatting Demo" height="250" src="images/LM-matchfieldformatting.gif" width="440"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Match Field Formatting }==--------------------;;
+;;                                                                      ;;
+;;  This program enables the user to copy the formatting from a         ;;
+;;  selected source field to multiple destination fields in a drawing.  ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;mff&#x27; at the AutoCAD command-line,  ;;
+;;  the user is prompted to select an annotation object (Text, MText,   ;;
+;;  Attribute, Multileader, Dimension) containing a field expression    ;;
+;;  with formatting applied. If the selected object contains more than  ;;
+;;  one field, the first field expression containing formatting will    ;;
+;;  be used.                                                            ;;
+;;                                                                      ;;
+;;  The user may then apply the formatting extracted from the source    ;;
+;;  field to multiple selected destination fields in the drawing.       ;;
+;;                                                                      ;;
+;;  The program is also compatible with nested fields and fields with   ;;
+;;  no formatting applied. If a nested field has formatting applied,    ;;
+;;  this formatting will be replaced by the formatting from the source  ;;
+;;  field; however, only primary fields which contain no formatting     ;;
+;;  will have new formatting applied - this program is designed not to  ;;
+;;  add field formatting to nested fields which did not previously      ;;
+;;  contain formatting.                                                 ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2013-07-12                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2017-06-13                                      ;;
+;;                                                                      ;;
+;;  - Updated LM:fieldcode function to account for field expressions    ;;
+;;    greater than 250 characters in length.                            ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2018-01-15                                      ;;
+;;                                                                      ;;
+;;  - Updated replaceformatting function to retain any text following   ;;
+;;    the last field expression held by the selected annotation object. ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-MatchFieldFormatting</span></td><td><span class="fixw">MFF</span></td><td>Match Field Formatting</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

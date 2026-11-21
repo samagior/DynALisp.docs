@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Length Field to Attribute</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Length Field to Attribute</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/lengthfieldtoattribute.html" target="_blank">https://lee-mac.com/lengthfieldtoattribute.html</a></p>
+
+<p><em>See also <a href="LM-LengthAreaField.htm" title="Length &amp; Area Field">Length &amp; Area Field</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-LengthFieldToAttribute</span> &ndash; original syntax: L2A (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/lengthfieldtoattribute.html" target="_blank">lee-mac.com/lengthfieldtoattribute.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows a user to populate a selected attribute with a Field Expression referencing the length or perimeter,
+                (or sum of lengths or perimeters), of one or more objects.</p>
+<p>Upon issuing the command syntax <span class="fixw">L2A</span> the user is prompted to make a selection of objects for which to retrieve the length; 
+                if more than one object is selected, the cumulative length for all objects will be displayed by the resultant Field Expression.</p>
+<p>Following object selection, the user is then prompted to select either an attributed block or an attribute in which to house the Field Expression.
+                If the user directly selects an attribute, the attribute value will be populated with the Field Expression; if the user selects an attributed
+                block containing more than one attribute, the program will prompt the user via a dialog interface to choose an attribute tag to be populated
+                with the Field Expression.</p>
+<p>An optional attribute tag parameter specified at the top of the program source code also allows the user to predefine the attribute tag
+                that is to be populated with the Field Expression. If this parameter holds a valid string value, the program will automatically populate such attribute following
+                selection of an attributed block containing an attribute with a matching tag name.</p>
+<p>The Field will display the sum of the lengths of the selected objects, formatted using the Field formatting code specified at the top of the program.</p>
+<h2>Length Format</h2>
+<p>The field formatting code indicated at the top of the program source code (line 27) may be altered to display 
+                the length in a desired format:</p>
+<div class="code"><pre><span class="brkt">(</span><span class="func">setq</span> fmt <span class="str">"%lu6"</span> <span class="cmt">;; Field Formatting</span></pre></div>
+<p>To determine the correct formatting code to be used, perform the following steps:</p>
+<div class="spacedbullets">
+<ul>
+<li>Type <span class="fixw">FIELD</span> at the AutoCAD command-line and press 
+                        <span class="fixw">ENTER</span> to open the Field dialog.</li>
+<li>Select <span class="fixw">Objects</span> from the 'Field Category' drop-down menu.</li>
+<li>Select <span class="fixw">Object</span> from the 'Field Names' section.</li>
+<li>Select an object (with length) from the drawing by clicking the object selection button 
+                        adjacent to the 'Object Type' box.</li>
+<li>Select the <span class="fixw">Length</span> property from the 'Property' panel (or equivalent property for Arcs &amp; Circles).</li>
+<li>Configure the formatting options as desired.</li>
+<li>Click <span class="fixw">OK</span> and pick a point in the drawing to create a temporary MText Field.</li>
+<li>Download &amp; load my <a href="LM-FieldFormattingCode.htm" target="_blank">Field Formatting Code</a> program.</li>
+<li>Type <span class="fixw">fieldformat</span> to run the program and select the temporary MText Field created earlier.</li>
+<li>Following a valid selection, the field formatting code will be printed to the command-line, e.g.:</li>
+<div class="code">
+<pre><span class="cmt">Formatting code:</span> <span class="str">"%lu4%ds44%th39"</span></pre>
+</div>
+<li>Copy the formatting code (including the quotation marks) to the program source code where noted:</li>
+<div class="code">
+<pre><span class="brkt">(</span><span class="func">setq</span> fmt <span class="str">"%lu4%ds44%th39"</span> <span class="cmt">;; Field Formatting</span></pre>
+</div>
+<li>Save and load the modified program file.</li>
+</ul>
+</div>
+<p><em>See also <a href="LM-LengthAreaField.htm" title="Length &amp; Area Field">Length &amp; Area Field</a>.</em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------=={ Length Field to Attribute }==------------------;;
+;;                                                                      ;;
+;;  This program allows a user to populate a selected attribute with    ;;
+;;  a Field Expression referencing the length or perimeter (or sum of   ;;
+;;  lengths or perimeters), of one or more objects.                     ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;L2A&#x27; the user is prompted to       ;;
+;;  make a selection of objects for which to retrieve the length; if    ;;
+;;  more than one object is selected, the cumulative length of all      ;;
+;;  objects will be displayed by the resultant Field Expression.        ;;
+;;                                                                      ;;
+;;  Following object selection, the user is then prompted to select     ;;
+;;  either an attributed block or an attribute in which to house the    ;;
+;;  Field Expression. The Field will display the sum of the lengths of  ;;
+;;  the selected objects, formatted using the Field formatting code     ;;
+;;  specified at the top of the program.                                ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2017  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2017-03-18                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-LengthFieldToAttribute</span></td><td><span class="fixw">L2A</span></td><td>Length Field To Attribute</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2017 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

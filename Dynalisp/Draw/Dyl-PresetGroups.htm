@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preset Groups</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-PresetGroups.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Preset Groups</h1>
+
+<p>The <strong>Group</strong> list of the <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-QuickShape.htm">Quick Shape</a> and <a href="Dyl-HatchPresets.htm">Hatch Presets</a> windows shows the same groups, and the <em>Hatch preset</em> list of Quick Draw and Quick Shape shows the hatch presets of the group of the preset. The Preset Groups window edits those groups: it opens from the square <em>open</em> button just left of the <em>Group</em> list of any of these windows.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Groups</strong> &ndash; the groups, in the order of the Group lists, with the number of presets of the window it was opened from in each one. Several can be selected (Ctrl / Shift click) to remove them at once.</li>
+<li><strong>Name</strong> &ndash; the name of the group selected, or of a new one. A name is unique (any case) and has no <span class="fixw">;</span>, <span class="fixw">,</span> or <span class="fixw">"</span>.</li>
+<li><strong>Add</strong> &ndash; adds the name typed after the group selected (else last).</li>
+<li><strong>Rename</strong> &ndash; gives the name typed to the group selected. On OK, the group is renamed in every preset and hatch preset that uses it (Quick Draw, Quick Shape and the hatch presets), so they stay in the same group.</li>
+<li><strong>Remove</strong> &ndash; removes the groups selected from the lists. The presets in them keep their group: it stays in the Group list of their window as long as a preset uses it.</li>
+<li><strong>Move up / Move down</strong> &ndash; the order of the groups in the Group lists (and in <em>Show</em>).</li>
+<li><strong>Reset</strong> &ndash; the default groups: <em>Floor, Wall, Ceiling, Roof, Finish, Structural, Site</em> (plans, by their type), <em>Elevation, Section, Detail, Annotation, Phase, Area, Generic</em>.</li>
+<li><strong>OK</strong> &ndash; saves the groups and renames the groups renamed in the presets files right away, even if the window it was opened from is then cancelled (the presets being edited there are renamed too). <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<p>The groups are saved in <span class="fixw">Modules\Dynalisp\Res\Groups.csv</span> (one group per row, with the header <span class="fixw">Group</span>). Your changes go to its copy under <span class="fixw">User</span>; the shipped file gives the default groups (see <span class="fixw">Dyl-UserFiles</span>). A group typed in a presets file that is not one of them is kept and listed with the others of its window; one that differs only by its case is written as in the groups (<em>section</em> &rarr; <em>Section</em>).</p>
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

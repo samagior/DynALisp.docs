@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Folder</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-OpenFolder.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Open Folder</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-OPENFOLDER</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-OpenFolder.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (Windows Explorer)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Opens a working folder in Windows Explorer: the DynALisp bundle, the current drawing folder, the Dynalisp model templates, the sheet set folder of the current project or the AutoCAD support folder.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-OPENFOLDER</span></td><td>Open Folder</td><td>Opens the repository, current drawing, template, sheet set or AutoCAD support folder in Windows Explorer.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<p>The command prompts <span class="fixw">Open folder: [Repository/CurrentDrawing/Template/SheetSet/sUpport]</span> and opens the folder in Windows Explorer:</p>
+<div class="unspacedbullets">
+<ul>
+<li><em>Repository</em>: the <span class="fixw">DynALisp.bundle</span> folder;</li>
+<li><em>CurrentDrawing</em>: the folder of the current drawing;</li>
+<li><em>Template</em>: <span class="fixw">Modules\Dynalisp\Res\Templates\Model</span>;</li>
+<li><em>SheetSet</em>: the nearest folder containing a <span class="fixw">.dst</span> file, searched from the drawing folder up through its parent folders;</li>
+<li><em>sUpport</em> (type <span class="fixw">U</span>): the user Support folder of the AutoCAD running, <span class="fixw">%APPDATA%\Autodesk\&lt;product&gt;\&lt;language&gt;\Support</span> (<span class="fixw">ROAMABLEROOTPREFIX</span>): <span class="fixw">acad.cuix</span>, the copies of partial menus (<span class="fixw">.cuix</span>) AutoCAD saves there, the user's <span class="fixw">.pat</span> and <span class="fixw">.lin</span> files.</li>
+</ul>
+</div>
+<p>A missing folder is reported as <em>Folder not found</em>.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><em>SheetSet</em> opens the folder only; the sheet set itself is not opened in the Sheet Set Manager.</li>
+<li>For a drawing that has never been saved, <em>CurrentDrawing</em> and <em>SheetSet</em> start from the default drawing folder.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-OpenFolder</span></td><td>&ndash;</td><td>Open Folder</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

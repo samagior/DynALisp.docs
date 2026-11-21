@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy Field</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Copy Field</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/copyfield.html" target="_blank">https://lee-mac.com/copyfield.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CopyField</span> &ndash; original syntax: copyfield (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/copyfield.html" target="_blank">lee-mac.com/copyfield.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to copy a field expression from a selected source object to multiple destination objects in a
+                drawing.</p>
+<p>Upon issuing the command syntax <span class="fixw">copyfield</span> at the AutoCAD command-line, the user is prompted to 
+                select an annotation object (Text, MText, Attribute, Multileader, Dimension) containing a field expression to be copied.</p>
+<p>Following a valid response, the user may then copy the field to multiple selected destination objects in the drawing, whose
+                content will then be replaced by the field expression and any associated content from the source object.</p>
+<p>This program utilises my <a href="https://lee-mac.com/fieldcode.html" target="_blank" title="Field Code">Field Code</a> function to extract the field expression
+                associated with a selected object and is hence also compatible with
+                nested field expressions (nested to any depth).</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Copy Field Demo" height="250" src="images/LM-copyfield.gif" width="440"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------------=={ Copy Field }==--------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to copy a field expression from a     ;;
+;;  selected source object to multiple destination objects in a         ;;
+;;  drawing.                                                            ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;copyfield&#x27; at the AutoCAD          ;;
+;;  command-line, the user is prompted to select an annotation object   ;;
+;;  (Text, MText, Attribute, Multileader, Dimension) containing a       ;;
+;;  field expression to be copied.                                      ;;
+;;                                                                      ;;
+;;  Following a valid response, the user may then copy the field to     ;;
+;;  multiple selected destination objects in the drawing.               ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2013-07-14                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2017-06-13                                      ;;
+;;                                                                      ;;
+;;  - Updated LM:fieldcode function to account for field expressions    ;;
+;;    greater than 250 characters in length.                            ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CopyField</span></td><td><span class="fixw">COPYFIELD</span></td><td>Copy Field</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

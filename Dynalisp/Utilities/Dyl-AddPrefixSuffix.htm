@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Prefix / Suffix</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-AddPrefixSuffix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Add Prefix / Suffix</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">TXTPS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-AddPrefixSuffix.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Adds the same string to the beginning or the end of every selected Text and Mtext object, in one undo step.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">TXTPS</span></td><td>Text Prefix Suffix</td><td>Adds a user string as a prefix or suffix to the selected Text and Mtext objects.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Select the objects; only Text and Mtext are kept.</li>
+<li>Choose <span class="fixw">Prefix</span> or <span class="fixw">Suffix</span> (Enter = Suffix).</li>
+<li>Type the string to add; spaces are accepted. An empty string cancels the command.</li>
+<li>The string is added to the text contents of each object and the command reports how many were updated. One <span class="fixw">U</span> undoes the whole change.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>For Mtext the string is added to the raw contents: a prefix goes before any opening formatting codes, so it may not take the formatting of the first word.</li>
+<li>Objects on locked layers are not filtered out of the selection; editing one stops the command with an error.</li>
+<li>Attributes, dimensions and multileaders are not handled.</li>
+<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-AddPrefixSuffix</span></td><td><span class="fixw">TXTPS</span></td><td>Text Prefix Suffix</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ==============================================================
+;;; AddPrefixSuffix.lsp
+;;;
+;;; Adds a user-chosen string to the beginning (prefix) or end
+;;; (suffix) of the text content of all selected TEXT and MTEXT
+;;; entities.
+;;;
+;;; COMMAND:  TXTPS
+;;;
+;;; USAGE:
+;;;   1. Load this file (APPLOAD, or drag-and-drop onto the
+;;;      AutoCAD window).
+;;;   2. Type TXTPS at the command line.
+;;;   3. Select the TEXT / MTEXT objects to modify (other object
+;;;      types in the selection are ignored automatically).
+;;;   4. Choose whether to add the string as a Prefix or Suffix.
+;;;   5. Type the text to add.
+;;;
+;;; NOTES:
+;;;   - Works on both single-line TEXT and multiline MTEXT.
+;;;   - For MTEXT, the string is added to the raw TextString
+;;;     (including any formatting codes it may already contain),
+;;;     so existing formatting is preserved.
+;;;   - Wrapped in a single UNDO group, so one U / CTRL+Z undoes
+;;;     the whole operation.
+;;; ==============================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

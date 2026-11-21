@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Background Mask</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Background Mask</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/mask.html" target="_blank">https://lee-mac.com/mask.html</a></p>
+
+<div class="toc">
+<h5>Contents</h5>
+<ul>
+<li class="outer"><a class="outer" href="#desc">Program Description</a></li>
+<li class="outer"><a class="outer" href="#custom">Creating Custom Background Mask Programs</a></li>
+<li class="inner"><a class="inner" href="#maskselection">Mask Selection</a></li>
+<li class="inner"><a class="inner" href="#maskentity">Mask Entity</a></li>
+<li class="inner"><a class="inner" href="#getselection">Get Selection</a></li>
+<li class="inner"><a class="inner" href="#examples">Example Programs</a></li>
+</ul>
+</div>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-BackgroundMask</span> &ndash; original syntax: bmask (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.5</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/18HDxsH" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/mask.html" target="_blank">lee-mac.com/mask.html</a></td></tr></table>
+</div>
+<h2 id="desc">Program Description</h2>
+<p>This program allows the user to manipulate all available properties of the background mask for a selection of Multiline Text (MText), 
+                Multileader (MLeader), and Dimension objects.</p>
+<p>Upon calling the program with the syntax <span class="fixw">bmask</span>, the user is prompted to make a selection of MText,
+                MLeaders and/or Dimensions for which to alter the background mask settings.</p>
+<p>Following a valid selection, the user is presented with a dialog interface, enabling the user to toggle the use of a background 
+                mask, change the mask offset (not applicable to dimensions), and change the mask colour for all objects in the selection simultaneously.</p>
+<p>The background mask for dimensions will be applied as a dimension style override unless the settings held by the dimension style 
+                associated with the dimension match those selected by the user.</p>
+<p>The background mask offset is only applicable to MText &amp; MLeader objects and will therefore have no effect on selected Dimensions.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="MaskV1-0.gif" height="300" src="images/LM-MaskV1-0.gif" width="500"/>
+</div>
+<h2 id="custom">Creating Custom Background Mask Programs</h2>
+<p>The program is structured in such a way as to enable custom background mask programs to be created which bypass the main program dialog.</p>
+<p>The program defines the following functions which may be evaluated with parameters which manipulate the background mask for a single object
+                or for all objects in a supplied selection:</p>
+<h2 id="maskselection">Mask Selection</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>(mask:maskselection [sel] [msk] [off] [trn] [col])</td>
+</tr>
+</table>
+</div>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Arguments</th>
+</tr>
+<tr class="alt">
+<td><strong>Symbol</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>sel</td>
+<td>Selection Set</td>
+<td>Selection Set containing MText, MLeaders and/or Dimensions</td>
+</tr>
+<tr class="alt">
+<td>msk</td>
+<td>Boolean</td>
+<td>T = Enable Background Mask; nil = Disable Background Mask</td>
+</tr>
+<tr>
+<td>off</td>
+<td>Real</td>
+<td>Background Mask Offset Factor (1 ≤ off ≤ 5)</td>
+</tr>
+<tr class="alt">
+<td>trn</td>
+<td>Boolean</td>
+<td>T = Transparent Background Mask; nil = Use Colour argument</td>
+</tr>
+<tr>
+<td>col</td>
+<td>List</td>
+<td>Association list as returned by <span class="fixw">acad_truecolordlg</span> to control Background Mask colour</td>
+</tr>
+</table>
+</div>
+<h3>Notes on Function Arguments</h3>
+<h4>Selection [sel]</h4>
+<p>A selection set containing a set of objects for which to manipulate the background mask properties.</p>
+<p>This selection may contain multiline text (MText), multileaders (MLeaders), and/or Dimensions of any type. 
+                If the selection contains other objects (i.e. with object type other than those listed above), then such objects
+                will be ignored when processing the selection and will not cause the program to error. Similarly, if the 
+                selection set argument is null, the program will exit without error.</p>
+<h4>Enable/Disable Background Mask [msk]</h4>
+<p>This argument controls whether the background mask should be enabled or disabled for all objects in the supplied selection.</p>
+<p>If this argument is non-nil, a background mask with properties defined by the below parameters will be applied to all objects in the
+                supplied selection; if the argument is <span class="fixw">nil</span>, the below parameters will be ignored and any background mask
+                applied to the objects in the selection will be disabled.</p>
+<h4>Background Mask Offset Factor [off]</h4>
+<p>This numerical argument determines the offset of the background mask from the extents of the object, as a factor of the
+                text height.</p>
+<p>This argument accepts numerical values within the range 1-5: a value of 1.0 will result in a background mask which exactly
+                fits the boundary of the MText or MLeader object (note that this is not necessarily the boundary of the text content, 
+                depending on how the background mask is implemented in the host application), a factor of 1.5 extends the border by 0.5
+                times the text height etc.</p>
+<p>This argument is ignored for Dimensions, as the background mask for Dimensions does not support an offset factor.
+                The argument is also ignored if the <span class="fixw">msk</span> argument is <span class="fixw">nil</span>.</p>
+<h4>Transparent Background Mask [trn]</h4>
+<p>This boolean argument determines whether or not the applied background mask is transparent.</p>
+<p>If the <span class="fixw">msk</span> argument is non-nil and this argument is also non-nil,
+                then the background mask applied to all objects in the selection will be transparent (i.e. the background mask
+                colour will match the drawing background colour).</p>
+<p>This argument is ignored if the <span class="fixw">msk</span> argument is <span class="fixw">nil</span>.</p>
+<h4>Background Mask Colour [col]</h4>
+<p>This argument determines the colour of the background mask applied to all objects in the selection.</p>
+<p>The argument takes the form of an association list of DXF groups as returned by the 
+                <span class="fixw">acad_truecolordlg</span> function, for example: 
+                <span class="fixw">'((62 . 3))</span> or, for a true colour value: 
+                <span class="fixw">((62 . 102) (420 . 1697309))</span>.</p>
+<p>This argument will be ignored if <span class="fixw">msk</span> is 
+                <span class="fixw">nil</span>, or if <span class="fixw">trn</span> is non-nil.</p>
+<h2 id="maskentity">Mask Entity</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>(mask:maskentity [ent] [msk] [off] [trn] [col])</td>
+</tr>
+</table>
+</div>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Arguments</th>
+</tr>
+<tr class="alt">
+<td><strong>Symbol</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>ent</td>
+<td>Entity Name</td>
+<td>MText, MLeader or Dimension entity</td>
+</tr>
+<tr class="alt">
+<td>msk</td>
+<td>Boolean</td>
+<td>T = Enable Background Mask; nil = Disable Background Mask</td>
+</tr>
+<tr>
+<td>off</td>
+<td>Real</td>
+<td>Background Mask Offset Factor (1 ≤ off ≤ 5)</td>
+</tr>
+<tr class="alt">
+<td>trn</td>
+<td>Boolean</td>
+<td>T = Transparent Background Mask; nil = Use Colour argument</td>
+</tr>
+<tr>
+<td>col</td>
+<td>List</td>
+<td>Association list as returned by <span class="fixw">acad_truecolordlg</span> to control Background Mask colour</td>
+</tr>
+</table>
+</div>
+<p>This function operates in much the same way as the above <span class="fixw">mask:maskselection</span> function, 
+                however, accepting a single entity in place of a selection set as the first argument.</p>
+<h2 id="getselection">Get Selection</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>(mask:selection [msg])</td>
+</tr>
+</table>
+</div>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Arguments</th>
+</tr>
+<tr class="alt">
+<td><strong>Symbol</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>msg</td>
+<td>String</td>
+<td>Selection prompt displayed at the command-line</td>
+</tr>
+<tr class="alt">
+<th colspan="3">Returns</th>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td colspan="2"><strong>Description</strong></td>
+</tr>
+<tr class="alt">
+<td>Selection Set</td>
+<td colspan="2">A selection set containing MText, MLeaders and/or Dimensions, else <span class="fixw">nil</span></td>
+</tr>
+</table>
+</div>
+<p>This convenience function allows the user to obtain a selection set containing MText, MLeaders and/or Dimensions with
+                a custom selection prompt.</p>
+<h2 id="examples">Example Programs</h2>
+<p>The following custom background mask programs evaluate the above described functions in order to manipulate the 
+                background mask for a single object or selection of objects, whilst bypassing the main program dialog.</p>
+<h3>Example 1</h3>
+<p>The following example will apply a transparent background mask with an offset factor of 1.5 to a selection of
+                MText, MLeaders and/or Dimensions.</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:mask1 <span class="func">nil</span>
+    <span class="brkt">(</span>mask:maskselection <span class="brkt">(</span>mask:selection <span class="str">"\nSelect objects: "</span><span class="brkt">)</span> <span class="func">t</span> <span class="rea">1.5</span> <span class="func">t</span> <span class="func">nil</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<h3>Example 2</h3>
+<p>This example will apply a red (ACI colour 1) background mask with an offset factor of 3.0 to a selection of
+                MText, MLeaders and/or Dimensions.</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:mask2 <span class="func">nil</span>
+    <span class="brkt">(</span>mask:maskselection <span class="brkt">(</span>mask:selection <span class="str">"\nSelect objects: "</span><span class="brkt">)</span> <span class="func">t</span> <span class="rea">3.0</span> <span class="func">nil</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">62</span> <span class="quot">.</span> <span class="int">1</span><span class="brkt">)))</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<h3>Example 3</h3>
+<p>This example will remove any background masks present in a selection of
+                MText, MLeaders and/or Dimensions.</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:mask3 <span class="func">nil</span>
+    <span class="brkt">(</span>mask:maskselection <span class="brkt">(</span>mask:selection <span class="str">"\nSelect objects: "</span><span class="brkt">)</span> <span class="func">nil</span> <span class="func">nil</span> <span class="func">nil</span> <span class="func">nil</span><span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+<h3>Example 4</h3>
+<p>This final example will apply a background mask with colour 120,0,120 and offset factor 1.2 to a single selected
+                MText, MLeader or Dimension.</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:mask4 <span class="brkt">(</span> <span class="func">/</span> ent <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">setq</span> ent <span class="brkt">(</span><span class="func">car</span> <span class="brkt">(</span><span class="func">entsel</span><span class="brkt">)))</span>
+        <span class="brkt">(</span>mask:maskentity ent <span class="func">t</span> <span class="rea">1.2</span> <span class="func">nil</span> <span class="quot">'</span><span class="brkt">((</span><span class="int">62</span> <span class="quot">.</span> <span class="int">216</span><span class="brkt">)</span> <span class="brkt">(</span><span class="int">420</span> <span class="quot">.</span> <span class="int">7864440</span><span class="brkt">)))</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+</pre>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------------------=={ Mask }==----------------------------;;
+;;                                                                      ;;
+;;  This program allows the user to manipulate all available properties ;;
+;;  of the background mask for a selection of Multiline Text (MText),   ;;
+;;  Multileader (MLeader), and Dimension objects.                       ;;
+;;                                                                      ;;
+;;  Upon calling the program with the syntax &#x27;bmask&#x27;, the user is       ;;
+;;  prompted to make a selection of MText, MLeaders and/or Dimensions   ;;
+;;  for which to alter the background mask settings.                    ;;
+;;                                                                      ;;
+;;  Following a valid selection, the user is presented with a dialog    ;;
+;;  interface, enabling the user to toggle the use of a background      ;;
+;;  mask, change the mask offset (not applicable to dimensions), and    ;;
+;;  change the mask colour for all objects in the selection             ;;
+;;  simultaneously.                                                     ;;
+;;                                                                      ;;
+;;  The background mask for dimensions will be applied as a dimension   ;;
+;;  style override unless the settings held by the dimension style      ;;
+;;  associated with the dimension match those selected by the user.     ;;
+;;                                                                      ;;
+;;  The background mask offset is only applicable to MText &amp; MLeader    ;;
+;;  objects and will therefore have no effect on selected Dimensions.   ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2012  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2012-04-16                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2013-02-06                                      ;;
+;;                                                                      ;;
+;;  - Changed command syntax to &#x27;bmask&#x27; since &#x27;mask&#x27; is an existing     ;;
+;;    command in AutoCAD Civil 3D.                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2016-05-22                                      ;;
+;;                                                                      ;;
+;;  - Program restructured to enable dialog bypass.                     ;;
+;;  - Added ability to mask dimensions.                                 ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2016-05-23                                      ;;
+;;                                                                      ;;
+;;  - Defined dedicated mask:selection function to facilitate the       ;;
+;;    creation of custom programs which bypass the program dialog.      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2017-04-17                                      ;;
+;;                                                                      ;;
+;;  - Fixed a bug causing the program to crash when modifying the       ;;
+;;    background mask of dimensions with dimension style overrides.     ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    2018-11-10                                      ;;
+;;                                                                      ;;
+;;  - Added code to account for a bug in AutoCAD in which multileader   ;;
+;;    text spacing is altered after modifying the background mask.      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-BackgroundMask</span></td><td><span class="fixw">BMASK</span></td><td>Background Mask</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

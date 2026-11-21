@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Offset Polyline Section</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Offset Polyline Section</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/offsetpolysection.html" target="_blank">https://lee-mac.com/offsetpolysection.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-OffsetPolylineSection</span> &ndash; original syntax: offsec (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/offsetpolysection.html" target="_blank">lee-mac.com/offsetpolysection.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to offset a section of a polyline enclosed by two selected points on the polyline.</p>
+<p>Upon issuing the command syntax <span class="fixw">offsec</span> at the AutoCAD command-line, the user is first prompted
+                to specify an offset distance by which the polyline section will be offset to both sides. At this prompt, the last entered
+                offset distance is available as a default option, with an initial default of 1 unit.</p>
+<p>The user is then prompted to select a polyline to offset; the program is compatible with lightweight polylines
+                (LWPolylines) of constant or varying width, with straight and/or arc segments, and defined in any UCS construction plane.</p>
+<p>Following a valid selection, the user is then prompted to specify two points along the length of the selected polyline
+                enclosing the polyline section to be offset by the program. If either of the selected points does not lie directly on the
+                selected polyline, the program will automatically use a point on the polyline situated closest to the point selected
+                by the user.</p>
+<p>If two valid distinct points are specified, the program will proceed to offset all complete &amp; partial
+                polyline segments enclosed between the two points (in the direction of the polyline)
+                to both sides by the offset distance specified.</p>
+<p>As noted above and also demonstrated in the animation below, the program will perform successfully with all forms of 
+                LWPolyline with constant or varying width segments, straight or arc segments, and defined in any UCS construction plane.</p>
+<div class="cent">
+<h2>Program Demonstration</h2>
+<img alt="Offset Section Demo" height="300" src="images/LM-offsec.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------=={ Offset LWPolyline Section }==-------------------;;
+;;                                                                      ;;
+;;  This program prompts the user to specify an offset distance and to  ;;
+;;  select an LWPolyline. The user is then prompted to specify two      ;;
+;;  points on the LWPolyline enclosing the section to be offset. The    ;;
+;;  progam will proceed to offset all segments between the two given    ;;
+;;  points to both sides by the specified distance.                     ;;
+;;                                                                      ;;
+;;  The program is compatible with LWPolylines of constant or varying   ;;
+;;  width, with straight and/or arc segments, and defined in any UCS    ;;
+;;  construction plane.                                                 ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    27-12-2012                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    05-04-2013                                      ;;
+;;                                                                      ;;
+;;  Fixed bug when offsetting polyline arc segments.                    ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-OffsetPolylineSection</span></td><td><span class="fixw">OFFSEC</span></td><td>Offset Polyline Section</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

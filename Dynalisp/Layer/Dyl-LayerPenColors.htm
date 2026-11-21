@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Pen Colors</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerPenColors.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Pen Colors</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERPENCOLORS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerPenColors.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Switches the layers from the 255 colors of the Dyl Standard to a small set of pen colors, 1 to 7, chosen from the current lineweight of each layer. A few colors and layer names are kept or get a color of their own (rules in <span class="fixw">Res\Layer\PenColors.csv</span>). The colors of the layers are saved in the drawing, so the switch can be undone at any time with Restore.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYERPENCOLORS</span></td><td>Layer Pen Colors</td><td>Switches the layer colors to the pen colors 1 to 7 from their lineweight, or restores their saved colors.</td></tr>
+<tr><td><span class="fixw">PST-LAYERCOLORSTOPENS</span></td><td>Layer Colors To Pens</td><td>Sets the layer colors to the pen colors 1 to 7 from their lineweight (30 for 0.13), saving their colors.</td></tr>
+<tr><td><span class="fixw">PST-LAYERCOLORSRESTORE</span></td><td>Layer Colors Restore</td><td>Gives the layers back the colors saved when they were switched to the pen colors.</td></tr>
+</table>
+</div>
+<h2>Pen Colors</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Lineweight</th><th>Color</th></tr>
+<tr><td>0.13 mm</td><td>30</td></tr>
+<tr><td>0.18 mm</td><td>1</td></tr>
+<tr><td>0.25 mm</td><td>2</td></tr>
+<tr><td>0.35 mm</td><td>3</td></tr>
+<tr><td>0.50 mm</td><td>4</td></tr>
+<tr><td>0.70 mm</td><td>5</td></tr>
+<tr><td>1.00 mm</td><td>6</td></tr>
+<tr><td>1.40 mm</td><td>7</td></tr>
+</table>
+</div>
+<h2>Rules</h2>
+<p>The layers matching a rule of <span class="fixw">Res\Layer\PenColors.csv</span> are not switched by their lineweight. The first rule matching a layer applies. <span class="fixw">Layers</span> are layer names (wildcards, any case), <span class="fixw">Colors</span> the current colors (wildcards: <span class="fixw">20#</span> is 200 to 209), and <span class="fixw">Color</span> the color given to the layer, empty to keep its color as is. Edit the file in Excel. Your copy is saved in <span class="fixw">User\</span> (see <span class="fixw">Dyl-UserFiles</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Rule</th><th>Layers</th><th>Colors</th><th>Color</th></tr>
+<tr><td>Non-plotting</td><td>&ndash;</td><td>140</td><td>kept</td></tr>
+<tr><td>Text and notes</td><td>&ndash;</td><td>41</td><td>kept</td></tr>
+<tr><td>Dimensions</td><td>&ndash;</td><td>211</td><td>kept</td></tr>
+<tr><td>Existing to remain</td><td>&ndash;</td><td>20#</td><td>kept</td></tr>
+<tr><td>Patterns</td><td>*-Patt, *-Patt-*</td><td>&ndash;</td><td>40</td></tr>
+<tr><td>Screened</td><td>*-Scrn, *-Scrn-*</td><td>&ndash;</td><td>8 (dark grey)</td></tr>
+<tr><td>Existing</td><td>*-Exst, *-Exst-*</td><td>&ndash;</td><td>9 (light grey)</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>With <span class="fixw">DYL-LAYERPENCOLORS</span>, choose <span class="fixw">Pens</span> (default) or <span class="fixw">Restore</span>. The two child commands skip this question.</li>
+<li>Choose <span class="fixw">All</span> (default, every layer of the drawing) or <span class="fixw">Select</span> (the layers of the objects you select).</li>
+<li><b>Pens:</b> each layer matching a rule gets the color of the rule (or keeps its own). Any other layer gets the pen color of its current lineweight, its color is not read. A lineweight that is not in the table takes the nearest one (0.30 mm gives 3).</li>
+<li>The first time a layer changes, its color is saved in the layer itself (true colors and color books too). Running Pens again later, for example on layers added since, never replaces a color already saved.</li>
+<li><b>Restore:</b> each layer with a saved color gets it back, and the saved color is removed.</li>
+<li>The changes are one undo step. The command reports the layers changed, already matching, kept by a rule, and lists the layers not changed.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Layers with lineweight Default or 2.00 mm (no pen color) are not switched. Set their lineweight first, for example from their color with <span class="fixw">Pst-LayerWeightByColor</span> (LWC).</li>
+<li>Xref layers are not changed.</li>
+<li>Only the layers are changed: objects with their own color are not.</li>
+<li>A layer color changed by hand while on pen colors is replaced by the saved one on Restore.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerPenColors</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerPenColors</span></td><td><span class="fixw">LPC</span></td><td>Layer Pen Colors</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PENS</span></td><td>&ndash;</td><td>Layer Colors To Pens</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">UNPENS</span></td><td>&ndash;</td><td>Layer Colors Restore</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

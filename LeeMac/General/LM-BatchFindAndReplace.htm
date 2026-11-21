@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Batch Find &amp; Replace Text</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Batch Find &amp; Replace Text</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/bfind.html" target="_blank">https://lee-mac.com/bfind.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-BatchFindAndReplace</span> &ndash; original syntax: BFind (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>2.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/bfind.html" target="_blank">lee-mac.com/bfind.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program uses ObjectDBX to perform multiple text replacements in the current drawing, all open drawings, or across a complete 
+                directory (and optionally subdirectories) of drawings. The program has the ability to search Text, MText, Block Attributes, 
+                Multileader Text, Table Cell Text, Dimension Override Text and all of these items within Block Definitions.</p>
+<p>The user may replace multiple search strings, and load &amp; save lists of search strings for future use, saving time in program 
+                data entry.</p>
+<p>Users may perform a complete Find &amp; Replace operation, or merely search for potential replacements using the 
+                'Search Only' option. Following a search operation, a report is displayed informing the user of the replacements which 
+                would be performed should the user proceed with the replacement. The report also displays the object containing the text 
+                to be replaced, along with the entity handle of the object, and the drawing filename in which the object resides.</p>
+<p>The program provides the user with additional refinement options, as displayed in the Options Dialog. 
+                This enables the user to control which objects are searched, whether locked layers are included in the replacement, search
+                item case-sensitivity and whether the search item must appear as a complete word to be replaced. The user can also restrict
+                the search to Model space, Layout space or both.</p>
+<p>The generation of a report following a text replacement may also be controlled within the Options Dialog 
+                (the report will always be created following a search operation).</p>
+<h2>Dialog Preview</h2>
+<div class="cent">
+<img alt="BFindV2-0-1.png" height="554" src="images/LM-BFindV2-0-1.png" width="402"/>
+<img alt="BFindV2-0-2.png" height="554" src="images/LM-BFindV2-0-2.png" width="402"/>
+<h3>Options Dialog</h3>
+<img alt="BFindV2-0-3.png" height="405" src="images/LM-BFindV2-0-3.png" width="329"/>
+</div>
+<h2 id="knownrestrictions">Known Restrictions</h2>
+<p>Please be aware that the BFind application is not entirely bug-free, and I would advise against its usage in
+                conjunction with MText objects to which multiple style overrides have been applied through the MText Editor.
+                However, it should, in most cases, perform successfully.</p>
+<p>Below is an incomplete list of known issues:</p>
+<div class="spacedbullets">
+<ul>
+<li>
+<h3>Save Format</h3>
+<p>All drawings processed by the application will be saved to 'native' format (that is, the highest version
+                            available in the host application - i.e. running the program in AutoCAD 2011 will cause all drawings to be 
+                            saved to 2010 format, or running in AutoCAD 2013 will save drawings to 2013 format).</p>
+<p>The ActiveX <span class="fixw">save</span> method (equivalent to the AutoCAD <span class="fixw">QSAVE</span> command)
+                            is unavailable when interfacing with drawings through ObjectDBX, and so programs must use the 
+                            <span class="fixw">saveas</span> method to save any changes performed to the drawing database. 
+                            Usually this method accepts a drawing version parameter which allows the method to save the drawing in the
+                            same format as configured in the AutoCAD 'Options' menu, however, due to a bug with this method when used in
+                            conjunction with ObjectDBX, the method will not accept the version parameter.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>Position of Non-Left Justified Attributes</h3>
+<p>When using an ObjectDBX interface to modify the content of attribute references which do not have justification
+                            set to 'Left', there is a known bug which results in the attribute position not being updated following a change to
+                            the text field length (e.g. extending the text content of middle-center justified attributes will cause the attributes
+                            to become positioned off-center to the right).</p>
+<p>A function has been included in the application which attempts to adjust the attribute position to account for this
+                            issue, however, this function is not 100% effective and a slight change in attribute position may be apparent. Note that
+                            the attribute position will be correctly updated when the attribute is next edited manually.</p>
+<p>To modify attribute values without encountering this issue, please use my script-based
+                            <a href="LM-BatchAttributeEditor.htm">Batch Attribute Editor</a> program.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>Drawing Thumbnails</h3>
+<p>Due to another known bug with the ObjectDBX interface, drawing thumbnails are lost when drawings are saved by the
+                            application. Drawing file thumbnails are fully restored following the next 'manual' save.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>Curly Braces</h3>
+<p>The application is unable to search for the curly brace characters <span class="fixw">{</span> and 
+                            <span class="fixw">}</span>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>Wildcards</h3>
+<p>The program does not currently support the use of wildcard patterns in search terms.</p>
+</li>
+</ul>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={  Batch Find &amp; Replace  }==------------------------;;
+;;                                                                               ;;
+;;  Will Find and Replace multiple strings entered by the user within Text,      ;;
+;;  MText, Block Attributes, MLeader Text, Table Text and Dimensions within the  ;;
+;;  current drawing, all currently open drawings and/or a directory              ;;
+;;  (and subdirectories) of drawings.                                            ;;
+;;                                                                               ;;
+;;  If the &#x27;Block Definitions&#x27; option is selected, all instances of the          ;;
+;;  aforementioned text objects residing within block definitions are included   ;;
+;;  in the search domain.                                                        ;;
+;;                                                                               ;;
+;;  Furthermore the user may choose which objects to search, whether the find    ;;
+;;  string is case sensitive, and whether to restrict the search to whole words  ;;
+;;  only.                                                                        ;;
+;;                                                                               ;;
+;;                       ----------------------------------                      ;;
+;;  Example:                                                                     ;;
+;;  ------------                                                                 ;;
+;;  Find:         &quot;is&quot;                                                           ;;
+;;  Replace With: &quot;be&quot;                                                           ;;
+;;  String:       &quot;This Is a test&quot;                                               ;;
+;;                                                                               ;;
+;;  |  [x] Match Case        |  [ ] Match Case         |                         ;;
+;;  |  [ ] Whole words only  |  [ ] Whole words only   |                         ;;
+;;  |  This Is a test        |  This Is a test         |                         ;;
+;;  |  Thbe Is a test        |  Thbe be a test         |                         ;;
+;;  |------------------------|-------------------------|                         ;;
+;;  |  [x] Match Case        |  [ ] Match Case         |                         ;;
+;;  |  [x] Whole words only  |  [x] Whole words only   |                         ;;
+;;  |  This Is a test        |  This Is a test         |                         ;;
+;;  |  This Is a test        |  This be a test         |                         ;;
+;;                                                                               ;;
+;;                       ----------------------------------                      ;;
+;;                                                                               ;;
+;;  The user can also choose to &#x27;Ignore Locked Layers&#x27;; with this option set,    ;;
+;;  all objects residing on Locked Layers are excluded from the search.          ;;
+;;                                                                               ;;
+;;  The &#x27;Where to Search&#x27; panel offers the ability to perform the find &amp; replace ;;
+;;  operation througout the entire drawing, or restrict the search to model      ;;
+;;  space or layout space only.                                                  ;;
+;;                                                                               ;;
+;;  If &#x27;Search Only&#x27; is checked, drawings will be searched for each &#x27;Find&#x27;       ;;
+;;  string in the list, but no replacements will be made. Upon completion of     ;;
+;;  the search, a CSV report will be displayed should a match be found.          ;;
+;;                                                                               ;;
+;;  When performing replacements, the creation of a &#x27;Replacement Report&#x27; may be  ;;
+;;  toggled using the relevant setting on the &#x27;Options&#x27; dialog.                  ;;
+;;                                                                               ;;
+;;  Note that a Regen may be required to view changes to open drawings.          ;;
+;;  This could be accomplished programmatically, but has been omitted for better ;;
+;;  performance.                                                                 ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  FUNCTION SYNTAX:  BFind                                                      ;;
+;;                                                                               ;;
+;;  Notes:                                                                       ;;
+;;  ---------                                                                    ;;
+;;  As expected, the known bug with ObjectDBX arises with regards to attribute   ;;
+;;  alignment following modification. A sub-function has been included in an     ;;
+;;  attempt to correct the change in position, however, a slight shift in        ;;
+;;  position may be noticed. The attribute is realigned when the block is moved  ;;
+;;  manually.                                                                    ;;
+;;                                                                               ;;
+;;  Also, when using the Batch Find and Replace, drawing thumbnails are lost     ;;
+;;  upon saving with ObjectDBX. These return when the drawing is saved manually. ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com                          ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  With additional thanks to Joe Burke for his tremendous help towards using    ;;
+;;  Regular Expressions to eliminate the problem of MText formatting codes when  ;;
+;;  performing replacements.                                                     ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;  Version:                                                                     ;;
+;;                                                                               ;;
+;;  1.0:  24/05/2010  -  First Release                                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.1:  26/05/2010  -  Added Options Button.                                   ;;
+;;                    -  Updated String Replacement functions to allow for case  ;;
+;;                       sensitivity options.                                    ;;
+;;                    -  Upgraded StringRep function to allow replacement string ;;
+;;                       to contain find string.                                 ;;
+;;                    -  Fixed bug causing an unsaved drawing to be saved.       ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.2:  29/05/2010  -  Added ability to perform multiple replacements.         ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.3:  31/05/2010  -  Added ability to edit find and replace entry by         ;;
+;;                       double-clicking.                                        ;;
+;;                    -  Added &#x27;Table Text&#x27; object to Options Dialog.            ;;
+;;                    -  Added &#x27;Find Whole Words Only&#x27; option to Options Dialog. ;;
+;;                    -  Redesigned Options Dialog to accommodate new toggles,   ;;
+;;                       added mnemonics.                                        ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.4:  27/04/2010  -  Replaced &#x27;StringRep&#x27; function with functions utilising  ;;
+;;                       Regular Expressions to allow for MText formatting.      ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.5:  29/09/2010  -  Reformatted code.                                       ;;
+;;                    -  Drawings only saved if a replacement is made.           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.6:  03/10/2010  -  Added pick buttons to select text for Find/Replace      ;;
+;;                       strings.                                                ;;
+;;                    -  Added &#x27;Match Case&#x27; option                               ;;
+;;                    -  Added &#x27;Find Whole Words Only&#x27; option                    ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.7:  05/10/2010  -  Added &#x27;Search Only&#x27; option in which the program will    ;;
+;;                       search for multiple strings within the current drawing  ;;
+;;                       and/or a directory (and subdirectories) of drawings,    ;;
+;;                       subsequently producing a report detailing the number    ;;
+;;                       of occurrences of each string and list of possible      ;;
+;;                       changes should a replacement be performed.              ;;
+;;                    -  Added error trap to drawing processing loop to prevent  ;;
+;;                       crash should one drawing error.                         ;;
+;;                    -  Added delay to DCL creation.                            ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.8:  08/10/2010  -  Added Load &amp; Save buttons to allow a set of search      ;;
+;;                       items to be loaded and saved.                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.9:  09/10/2010  -  Fixed bug involving capital &#x27;S&#x27; being removed from      ;;
+;;                       textstring during stacking formatting code removal.     ;;
+;;                    -  Added code to allow &#x27;special&#x27; characters to be used in  ;;
+;;                       Find string.                                            ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.0:  22/07/2011  -  Majority of program rewritten and reformatted to        ;;
+;;                       include the following enhancements:                     ;;
+;;                    -  Fixed tab stops in dialog to allow the user to use the  ;;
+;;                       tab key to navigate between edit boxes.                 ;;
+;;                    -  Added &#x27;Where to Search&#x27; panel to allow the user to      ;;
+;;                       restrict the search to Modelspace, Layout space or Both.;;
+;;                    -  Added &#x27;Block Definitions&#x27; to list of objects to search  ;;
+;;                       to allow users to search text objects in blocks.        ;;
+;;                    -  Added &#x27;Current Directory&#x27; toggle to allow the user to   ;;
+;;                       quickly select the current working directory to be      ;;
+;;                       processed.                                              ;;
+;;                    -  Added ability to add items to find/replace list by      ;;
+;;                       pressing Enter from within either edit box.             ;;
+;;                    -  Added ability to press Enter after entering Save        ;;
+;;                       Reference without needing to click the OK button.       ;;
+;;                    -  Added ability to press Enter after editing entry        ;;
+;;                       without needing to click the OK button.                 ;;
+;;                    -  Changed format of Saved Searches file for easier        ;;
+;;                       manual editing.                                         ;;
+;;                    -  Added ability to process &#x27;All Open Drawings&#x27;.           ;;
+;;-------------------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-BatchFindAndReplace</span></td><td><span class="fixw">BFIND</span></td><td>Batch Find And Replace</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Links</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-DataLinks.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Data Links</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-DATALINKS</span>, <span class="fixw">DLPURGE</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>A data link connects tables to an Excel file. Links are left behind when their tables are erased or when tables are copied from another drawing, and links whose Excel file was moved or deleted slow down <span class="fixw">DATALINKUPDATE</span> and the <em>Update all data links</em> output prep step of <span class="fixw">Dyl-Settings</span>. These commands find those links and delete them. The tables themselves are never modified or deleted.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-DATALINKS</span></td><td>Opens the Data Links dialog: every link with its status and its tables, to review and delete them.</td></tr>
+<tr><td><span class="fixw">DLPURGE</span></td><td>Deletes every link that no table uses after one Yes/No prompt, then lists the used links whose Excel file is missing.</td></tr>
+</table>
+</div>
+<h2>Data Links Dialog</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Data link list</strong> &ndash; name, status, number of tables using the link and source file. Several links can be selected. Status: <em>OK</em> (the Excel file was found), <em>Missing file</em> (it was not found) or <em>No source</em> (the link has no file).</li>
+<li>Under the list: the full source of the selected link (file, sheet and range) and the layouts of the tables that use it, or a summary of the drawing when nothing is selected.</li>
+<li><strong>Select unused</strong> &ndash; selects every link no table uses. <strong>Select missing file</strong> &ndash; selects every link whose Excel file was not found.</li>
+<li><strong>Delete selected</strong> &ndash; deletes the selected links after a confirmation. When some are used by tables, the confirmation says so: the tables keep their content but are no longer linked to Excel.</li>
+<li><strong>Update tables</strong> &ndash; closes the dialog, runs <span class="fixw">DATALINKUPDATE</span> on the tables of the selected links, then reopens the dialog.</li>
+<li><strong>Data Link Manager...</strong> &ndash; closes the dialog and opens the AutoCAD Data Link Manager, to change the file of a link or detach it from a table.</li>
+</ul>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The links are read from the <span class="fixw">ACAD_DATALINK</span> dictionary of the drawing.</li>
+<li>A link is <em>used</em> when a table of the drawing points to it, or when the link lists a table that still exists as one of its users. Both checks are made so that a link is never reported unused by mistake.</li>
+<li>The source file is read from the connection string of the link. A relative path is looked up from the drawing folder.</li>
+<li>Each delete runs in one undo group: <span class="fixw">U</span> restores the deleted links.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Tables are found in model space and the layouts. A link used only by a table inside a block definition can be reported unused if the link does not list that table itself; <strong>Update tables</strong> skips those tables.</li>
+<li>A file on a disconnected network drive is reported <em>Missing file</em>.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-DataLinks</span>: they are run by their alias, or picked from <span class="fixw">Dyl-DataLinks</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-DataLinks</span></td><td>&ndash;</td><td>Data Links</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DLPURGE</span></td><td>&ndash;</td><td>Purge Data Links</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

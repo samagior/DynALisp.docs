@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text Calculator</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Text Calculator</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/textcalculator.html" target="_blank">https://lee-mac.com/textcalculator.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-TextCalculator</span> &ndash; original syntax: TextCalc / TC (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/textcalculator.html" target="_blank">lee-mac.com/textcalculator.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to perform arithmetic operations on text containing numerical data, placing the result of such
+                calculations as an MText object in the drawing.</p>
+<p>After loading, the program can be called from the AutoCAD command line with either <span class="fixw">TextCalc</span> or the
+                abbreviation <span class="fixw">TC</span>. The user is then prompted to select an object containing text with numerical data; this 
+                object may be Single-line Text, Multi-line Text, a Dimension, Multileader or Attribute.</p>
+<p>If the text of the selected object contains multiple numbers, the user is prompted to choose the number to use in subsequent
+                calculations. After selection, the user is presented with a dialog interface from which an arithmetic operation may be selected or
+                the result of the calculations so far may be placed in the drawing.</p>
+<p>This program also uses my <a href="https://lee-mac.com/gettruecontent.html" target="_blank">Get True Content</a> subfunction to facilitate calculations 
+                on formatted MText.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------=={ Text Calculator }==------------------;;
+;;                                                            ;;
+;;  Allows the user to perform arithmetical operations on     ;;
+;;  numerical data within text.                               ;;
+;;                                                            ;;
+;;  User is prompted to select text containing numerical data ;;
+;;  then either choose an arithmetical operation or place     ;;
+;;  the result of the current calculation in the form of an   ;;
+;;  MText object in the drawing.                              ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.0    -    07-04-2011                            ;;
+;;  First Release.                                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-TextCalculator</span></td><td><span class="fixw">TC</span>, <span class="fixw">TEXTCALC</span></td><td>Text Calculator</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

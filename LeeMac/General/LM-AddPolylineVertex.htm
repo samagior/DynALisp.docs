@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Polyline Vertex</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Add Polyline Vertex</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/addpolyvertex.html" target="_blank">https://lee-mac.com/addpolyvertex.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AddPolylineVertex</span> &ndash; original syntax: apv (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/addpolyvertex.html" target="_blank">lee-mac.com/addpolyvertex.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to add a new vertex to a 2D polyline (LWPolyline) object.</p>
+<p>The program has a single prompt for the user to specify the location of the new vertex along the polyline. This prompt
+                combines the specification of the location of the new vertex with the selection of the polyline to be modified; 
+                as such, the location for the new vertex must reside on the polyline that is to be modified.</p>
+<p>The program is compatible for use with 2D (LW)polylines in any orientation or plane, with varying or constant width, and with
+                straight or arc segments - or a combination of all of these properties.</p>
+<p>Although this functionality is now present in the grip menus available in AutoCAD 2012 and later versions, 
+                I hope that this program will benefit those who aren't lucky enough to have access to the latest software.</p>
+<div class="cent">
+<h2>Example of Usage</h2>
+<img alt="addvertex.gif" height="300" src="images/LM-addvertex.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Add LWPolyline Vertex }==--------------------;;
+;;                                                                      ;;
+;;  Adds a new vertex to an LWPolyline at a point specified by the      ;;
+;;  user; compatible with LWPolylines at any orientation, with varying  ;;
+;;  width and arc segments.                                             ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2012  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2012-12-17                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2022-08-29                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug where adding a vertex to the final arc segment of a     ;;
+;;    closed polyline caused the final segment to become linear.        ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AddPolylineVertex</span></td><td><span class="fixw">APV</span></td><td>Add Polyline Vertex</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

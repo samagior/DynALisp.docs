@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Couleur et épaisseur des calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerColorWeight.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Couleur et épaisseur des calques (Layer Color Weight)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerColorWeight.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Fait suivre aux calques le style de tracé Dyl Standard (<span class="fixw">Res\Layer\Dyl Standard.pdf</span>, <span class="fixw">Dyl Standard.ctb</span>), où la couleur d'un calque donne son épaisseur de ligne tracée. Elle règle soit l'épaisseur de ligne de chaque calque selon sa couleur, soit à l'inverse la couleur de chaque calque selon son épaisseur de ligne, en gardant sa teinte.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td><td>Layer Color Weight</td><td>Accorde l'épaisseur de ligne des calques à leur couleur, ou leur couleur à leur épaisseur de ligne (norme Dyl).</td></tr>
+<tr><td><span class="fixw">PST-LAYERWEIGHTBYCOLOR</span></td><td>Layer Lineweight By Color</td><td>Règle l'épaisseur de ligne des calques selon leur couleur (norme Dyl : couleur ##0 = 0,13, ##1 = 0,18...).</td></tr>
+<tr><td><span class="fixw">PST-LAYERCOLORBYWEIGHT</span></td><td>Layer Color By Lineweight</td><td>Règle le dernier chiffre de la couleur des calques selon leur épaisseur de ligne, en gardant leur teinte (norme Dyl).</td></tr>
+</table>
+</div>
+<h2>La norme</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Couleurs</th><th>Épaisseur de ligne</th></tr>
+<tr><td>##0 (10, 20 ... 240)</td><td>0,13 mm (s'imprime en noir)</td></tr>
+<tr><td>1 et ##1</td><td>0.18 mm</td></tr>
+<tr><td>2 et ##2</td><td>0.25 mm</td></tr>
+<tr><td>3 et ##3</td><td>0.35 mm</td></tr>
+<tr><td>4 et ##4</td><td>0.50 mm</td></tr>
+<tr><td>5 et ##5</td><td>0.70 mm</td></tr>
+<tr><td>6 et ##6</td><td>1.00 mm</td></tr>
+<tr><td>7 et ##7</td><td>1.40 mm</td></tr>
+<tr><td>##8</td><td>2.00 mm</td></tr>
+<tr><td>##9, 8, 9, 250 à 255</td><td>0,13 mm (gris)</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Avec <span class="fixw">DYL-LAYERCOLORWEIGHT</span>, choisissez <span class="fixw">Lineweight</span> (par défaut, l'épaisseur suit la couleur) ou <span class="fixw">Color</span> (la couleur suit l'épaisseur). Les deux commandes enfants sautent cette question.</li>
+<li>Choisissez <span class="fixw">All</span> (par défaut, chaque calque du dessin) ou <span class="fixw">Select</span> (les calques des objets que vous sélectionnez).</li>
+<li><b>Épaisseur selon la couleur :</b> chaque calque prend l'épaisseur de ligne de sa couleur dans le tableau ci-dessus.</li>
+<li><b>Couleur selon l'épaisseur :</b> une couleur de 10 à 249 garde ses dizaines (sa teinte) et prend le dernier chiffre de son épaisseur : la couleur 11 à 0,35 mm devient 13. Une couleur de plume 1 à 6 va à sa teinte : le rouge 1 à 0,35 mm devient 13. Le noir (7) et les gris vont à la couleur de plume de l'épaisseur : 7 à 0,35 mm devient 3. Une épaisseur absente de la norme (0,30 mm) prend la plus proche (0,35 mm). Un calque qui correspond déjà est laissé tel quel : un calque gris foncé ##9 à 0,13 mm reste gris foncé.</li>
+<li>Les changements forment une seule étape d'annulation. La commande indique combien de calques ont changé, combien correspondaient déjà, et liste les calques non modifiés.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les calques en couleur vraie ou d'un carnet de couleurs ne sont pas modifiés, ni les calques des xréfs.</li>
+<li>La couleur selon l'épaisseur laisse de côté les calques dont l'épaisseur est Par défaut, et les calques noirs ou gris à 0,13 mm ou 2,00 mm (aucune couleur de plume n'a ces épaisseurs).</li>
+<li>Seuls les calques changent : les objets qui ont leur propre couleur ou épaisseur ne changent pas.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-LayerColorWeight</span> : elles se lancent par leur alias (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerColorWeight</span></td><td><span class="fixw">LCW</span></td><td>Layer Color Weight</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LWC</span></td><td>&ndash;</td><td>Layer Lineweight By Color</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CLW</span></td><td>&ndash;</td><td>Layer Color By Lineweight</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

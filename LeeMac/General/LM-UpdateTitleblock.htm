@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Titleblock Attributes</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Update Titleblock Attributes</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/updatetitleblock.html" target="_blank">https://lee-mac.com/updatetitleblock.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-UpdateTitleblock</span> &ndash; original syntax: utb (to run manually) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.9</td>
+</tr>
+
+
+<tr class="alt">
+<td>Sample Drawing &amp; CSV File</td>
+<td><a href="https://lee-mac.com/files/Sample.zip" target="_blank">Sample.zip</a></td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr class="alt">
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/updatetitleblock.html" target="_blank">lee-mac.com/updatetitleblock.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program offers the ability to automatically update drawing titleblock attributes (or indeed, any attributed blocks)
+                with values sourced from a CSV file (a comma/character-separated-value file which may be opened &amp; edited as an Excel spreadsheet).</p>
+<p>The program is designed to run automatically when loaded and, after being correctly configured, may be added to the Startup Suite 
+                or <span class="fixw">acaddoc.lsp</span> to enable drawing titleblocks or other attributed blocks to be automatically updated upon
+                opening a drawing or running a script.</p>
+<p>If loaded on startup, when a drawing is opened, a CSV file may be selected or automatically read by the program from a known location, and
+                block attributes are automatically &amp; silently updated using values corresponding to the rows associated with the active drawing
+                in the CSV file.</p>
+<p>The CSV file should take the following format:</p>
+<div class="code">
+<pre>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+<span class="brkt">|</span>    <span class="str">DWG</span>     <span class="brkt">|</span>  <span class="str">Layout*</span>  <span class="brkt">|</span>  <span class="str">Block*</span>  <span class="brkt">|</span>   <span class="str">TAG1</span>   <span class="brkt">|</span>   <span class="str">TAG2</span>   <span class="brkt">|</span> <span class="str">...</span> <span class="brkt">|</span>   <span class="str">TAGN</span>   <span class="brkt">|</span>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+<span class="brkt">|</span>  <span class="cmt">Drawing1</span>  <span class="brkt">|</span>  <span class="cmt">Layout1</span>  <span class="brkt">|</span>  <span class="cmt">Block1</span>  <span class="brkt">|</span>  <span class="cmt">Value1</span>  <span class="brkt">|</span>  <span class="cmt">Value2</span>  <span class="brkt">|</span> <span class="cmt">...</span> <span class="brkt">|</span>  <span class="cmt">ValueN</span>  <span class="brkt">|</span>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+<span class="brkt">|</span>  <span class="cmt">Drawing1</span>  <span class="brkt">|</span>  <span class="cmt">Layout2</span>  <span class="brkt">|</span>  <span class="cmt">Block1</span>  <span class="brkt">|</span>  <span class="cmt">Value1</span>  <span class="brkt">|</span>  <span class="cmt">Value2</span>  <span class="brkt">|</span> <span class="cmt">...</span> <span class="brkt">|</span>  <span class="cmt">ValueN</span>  <span class="brkt">|</span>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+<span class="brkt">|</span>  <span class="cmt">Drawing2</span>  <span class="brkt">|</span>  <span class="cmt">Layout1</span>  <span class="brkt">|</span>  <span class="cmt">Block2</span>  <span class="brkt">|</span>  <span class="cmt">Value1</span>  <span class="brkt">|</span>  <span class="cmt">Value2</span>  <span class="brkt">|</span> <span class="cmt">...</span> <span class="brkt">|</span>  <span class="cmt">ValueN</span>  <span class="brkt">|</span>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+<span class="brkt">|</span>    <span class="cmt">...</span>     <span class="brkt">|</span>    <span class="cmt">...</span>    <span class="brkt">|</span>   <span class="cmt">...</span>    <span class="brkt">|</span>    <span class="cmt">...</span>   <span class="brkt">|</span>    <span class="cmt">...</span>   <span class="brkt">|</span> <span class="cmt">...</span> <span class="brkt">|</span>    <span class="cmt">...</span>   <span class="brkt">|</span>
+<span class="brkt">+------------+-----------+----------+----------+----------+-----+----------+</span>
+</pre>
+</div>
+<p><em>(*The Layout &amp; Block Name columns are optional)</em></p>
+<p>An example of a CSV file demonstrating the above format and an accompanying drawing containing a sample attributed block
+                for use with the program is available to download from the link at the top of this page.</p>
+<p>When the program is run: if the drawing name (with or without extension) appears in the first column of the CSV file
+                (not case-sensitive), attributes with tags corresponding to the column headings will be updated with values from the row in which 
+                the drawing filename resides.</p>
+<p>The <span class="fixw">Layout</span> column is optional; if present in the CSV file, the flag at the top of the 
+                code must be set, else the <span class="fixw">Layout</span> column will be treated as another attribute tag. 
+                If the <span class="fixw">Layout</span> column is used, titleblock attributes will be updated for each layout in a row associated
+                with the drawing filename.</p>
+<p>Similarly, the <span class="fixw">Block</span> column is also optional; if the <span class="fixw">Block</span> column is used
+                and the flag located near the top of the program code has been set appropriately, the program will only update attributed blocks whose
+                block name resides in this column.</p>
+<p>A block filter is also included in the settings at the top of the code so that the user may opt to update specific blocks within 
+                drawings. This block filter may use wildcards, i.e. <span class="fixw">"*BORDER"</span>. If set to 
+                <span class="fixw">nil</span> or set to <span class="fixw">"*"</span>, <strong>all</strong> blocks with 
+                attribute tags equal to the column headings in the CSV Drawing Register will be updated with the corresponding values.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="UpdateTitleblock.gif" height="350" src="images/LM-UpdateTitleblock.gif" width="800"/>
+</div>
+<h2>Notes:</h2>
+<div class="spacedbullets">
+<ul>
+<li>The program is currently set to run when loaded so that titleblocks may be automatically updated when 
+                        a drawing is opened. To disable this autorun feature, remove or comment the line of code annotated
+                        at the end of the program source code.</li>
+<li>If the block filter at the top of the code is left as <span class="fixw">nil</span> or set to <span class="fixw">"*"</span>,
+                        <strong>all</strong> attributed blocks containing attribute tags equal to the column headings in the CSV file 
+                        will be updated with the corresponding values.</li>
+<li>The filename of the CSV file may be hard-coded into the settings at the top of the code, so that the file may be
+                        automatically read without a file selection prompt. If <span class="fixw">nil</span>, the program will prompt the user 
+                        to select a CSV file to read.</li>
+<li>If the CSV file contains a Layout column (optional 2<sup>nd</sup> column), the 'Layout Column' parameter must be set to <span class="fixw">t</span>.</li>
+<li>If the CSV file contains a Block Name column (optional 3<sup>rd</sup> column, or 2<sup>nd</sup> column if no Layout column is present),
+                        the 'Block Name Column' parameter must be set to <span class="fixw">t</span>.</li>
+<li>The column headings of the <span class="fixw">Drawing</span>, <span class="fixw">Layout</span>, and <span class="fixw">Block</span>
+                        columns are <u>arbitrary</u> and will not affect the program in any way.</li>
+<li>All column headings are <u>not</u> case-sensitive.</li>
+<li>Drawing filenames (1<sup>st</sup> column), Layout names (optional 2<sup>nd</sup> column), &amp; Block names (optional 3<sup>rd</sup> column, 
+                        or 2<sup>nd</sup> column if no Layout column is present) are <u>not</u> case-sensitive.</li>
+<li>Please read the code header for more information.</li>
+</ul>
+</div>
+<h3>Instructions for Running</h3>
+<p><strong>This program is designed to run when loaded</strong>. The program may also be called from the AutoCAD command-line at any time
+                using the syntax as noted above. </p>
+<p>Refer to <a href="https://lee-mac.com/runlisp.html" target="_blank">How to Run an AutoLISP Program</a> for instructions on how to load this program.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Update Attributes }==----------------------;;
+;;                                                                      ;;
+;;  Reads a CSV file containing attribute data, and, should the drawing ;;
+;;  name of the current drawing appear in the first column of the CSV   ;;
+;;  Drawing List, the program will proceed to update block attributes.  ;;
+;;                                                                      ;;
+;;  The attributes updated will be those with tags corresponding to the ;;
+;;  CSV column headings. These will be updated with values from the     ;;
+;;  row in which the drawing file is listed.                            ;;
+;;                                                                      ;;
+;;  -------------------------------------                               ;;
+;;  Example of CSV format:                                              ;;
+;;  -------------------------------------                               ;;
+;;                                                                      ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;  |    DWG     |  Layout*  |   Block*  |   TAG1   | ... |   TAGN   |  ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;  |  Drawing1  |  Layout1  |   Block1  |  Value1  | ... |  ValueN  |  ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;  |  Drawing1  |  Layout2  |   Block1  |  Value1  | ... |  ValueN  |  ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;  |  Drawing2  |  Layout1  |   Block2  |  Value1  | ... |  ValueN  |  ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;  |    ...     |    ...    |    ...    |    ...   | ... |    ...   |  ;;
+;;  +------------+-----------+-----------+----------+-----+----------+  ;;
+;;                                                                      ;;
+;;  *Layout &amp; Block Name columns are optional.                          ;;
+;;                                                                      ;;
+;;  -------------------------------------                               ;;
+;;  Possible Warnings:                                                  ;;
+;;  -------------------------------------                               ;;
+;;  -  Without a block filter or block name column the code will        ;;
+;;     update ALL attributed blocks with tags listed in the CSV         ;;
+;;     headings.                                                        ;;
+;;                                                                      ;;
+;;  -  Currently designed to run on startup - add to either             ;;
+;;     Startup-Suite or ACADDOC.lsp to update blocks when drawing is    ;;
+;;     opened. To disable code running when loaded, remove (c:utb)      ;;
+;;     from the bottom of the code.                                     ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2011  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2011-01-12                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2011-01-13                                      ;;
+;;                                                                      ;;
+;;  - Added optional &#x27;Layout&#x27; column (next to DWG Column) to allow      ;;
+;;    multiple titleblocks to be updated with different information     ;;
+;;    within a single drawing.                                          ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2011-08-28                                      ;;
+;;                                                                      ;;
+;;  - Removed case-sensitivity of drawing file column in CSV.           ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2011-12-27                                      ;;
+;;                                                                      ;;
+;;  - Revised the code to correctly process CSV files generated using   ;;
+;;    OpenOffice software.                                              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2012-01-16                                      ;;
+;;                                                                      ;;
+;;  - Updated the &#x27;ReadCSV&#x27; local function to correctly read CSV cells  ;;
+;;    containing commas and quotes.                                     ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    2012-09-19                                      ;;
+;;                                                                      ;;
+;;  - Updated CSV file parser function to account for the use of        ;;
+;;    alternative cell delimiter characters in CSV file (such as a      ;;
+;;    semi-colon).                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.6    -    2013-05-22                                      ;;
+;;                                                                      ;;
+;;  - Removed the need for file extension in first column of CSV file.  ;;
+;;  - Updated CSV file parser function to correct bug.                  ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.7    -    2014-11-01                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug causing filenames containing ASCII character 46 (point) ;;
+;;    to not be found in the first column of the CSV file.              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.8    -    2015-04-13                                      ;;
+;;                                                                      ;;
+;;  - Added support for duplicate attribute tags.                       ;;
+;;  - Added support for optional &#x27;Block Name&#x27; column in CSV file.       ;;
+;;  - Added inclusion of anonymous block names to optional block name   ;;
+;;    filter to enable dynamic block support.                           ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.9    -    2016-09-18                                      ;;
+;;                                                                      ;;
+;;  - Fixed implementation of block filter when processing attributed   ;;
+;;    dynamic blocks.                                                   ;;
+;;----------------------------------------------------------------------;;
+
+;;; (defun c:utb (/ *error* ano bln bno csv ent flg fnb:fun inc lst sel str tag utb:blk utb:csv utb:ftr utb:lay val)
+
+  ;;----------------------------------------------------------------------;;
+  ;; Location of CSV Drawing List (set to nil for prompt)                 ;;
+  ;;                                                                      ;;
+  ;; If the CSV file resides in the same directory as the drawing, omit   ;;
+  ;; the filepath from the location of the CSV file, and only include     ;;
+  ;; the filename, e.g. &quot;myfile.csv&quot;                                      ;;
+  ;;                                                                      ;;
+  ;; If only a filename is specified, AutoCAD will first search the       ;;
+  ;; working directory for this file before searching the Support Paths.  ;;
+  ;;----------------------------------------------------------------------;;
+
+ ;;; (setq utb:csv nil) ;; e.g. (setq utb:csv &quot;C:/myfolder/myfile.csv&quot;)
+
+  ;;----------------------------------------------------------------------;;
+  ;; Block Filter (may use wildcards and may be nil)                      ;;
+  ;;----------------------------------------------------------------------;;
+
+  ;;; (setq utb:ftr nil) ;; e.g. (setq utb:ftr &quot;*BORDER&quot;)
+
+  ;;----------------------------------------------------------------------;;
+  ;; Layout Column (t or nil)                                             ;;
+  ;;----------------------------------------------------------------------;;
+
+  ;;; (setq utb:lay t) ;; set to t if CSV file contains Layout Column
+
+  ;;----------------------------------------------------------------------;;
+  ;; Block Name Column (t or nil)                                         ;;
+  ;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-UpdateTitleblock</span></td><td><span class="fixw">UTB</span></td><td>Update Titleblock</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

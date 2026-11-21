@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Copy to XRef</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Copy to XRef</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/copytoxref.html" target="_blank">https://lee-mac.com/copytoxref.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CopyToXref</span> &ndash; original syntax: C2X (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/copytoxref.html" target="_blank">lee-mac.com/copytoxref.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to copy a selection of objects to a selected xref, 
+                <strong>without opening the xref source drawing</strong>.</p>
+<p>Upon calling the program with <span class="fixw">c2x</span> at the command-line, the user is prompted to make a selection
+                of objects to copy. Following a valid response, the user is then prompted to select an External Reference (xref) to which the
+                objects are to be copied.</p>
+<p>The program will then proceed to copy the selected objects to the source drawing of the selected xref using a deep-clone 
+                method, coupled with an ObjectDBX interface should the xref source drawing be unopened in the current drawing session.</p>
+<p>Upon copying the selection, the xref source drawing is saved and the xref is reloaded in the current drawing; the selected
+                objects are then deleted from the current drawing.</p>
+<p>The program will account for the position, scale, rotation &amp; orientation of the xref relative to the selection of 
+                objects and will perform successfully under all UCS &amp; View settings.</p>
+<p><strong>Please Note:</strong> the act of copying objects to the xref source drawing involves saving the external drawing 
+                remotely - this action cannot be undone within the current drawing and changes to the external drawing must be reset 
+                manually.</p>
+<p>Note also that when saving drawings through ObjectDBX, drawing file thumbnails will be lost until the next manual save.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Copy to XRef Demo" height="250" src="images/LM-copy2xrefv1-1.gif" width="440"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Copy to XRef }==-------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to copy a selection of objects to a   ;;
+;;  selected xref, without opening the xref source drawing.             ;;
+;;                                                                      ;;
+;;  Upon calling the program with &#x27;c2x&#x27; at the command-line, the user   ;;
+;;  is prompted to make a selection of objects to copy. Following a     ;;
+;;  valid response, the user is then prompted to select an External     ;;
+;;  Reference (xref) to which the objects are to be copied.             ;;
+;;                                                                      ;;
+;;  The program will then proceed to copy the selected objects to the   ;;
+;;  source drawing of the selected xref using a deep-clone method,      ;;
+;;  coupled with an ObjectDBX interface should the xref source drawing  ;;
+;;  be unopened in the current drawing session.                         ;;
+;;                                                                      ;;
+;;  Upon copying the selection, the xref source drawing is saved and    ;;
+;;  the xref is reloaded in the current drawing; the selected objects   ;;
+;;  are then deleted from the current drawing.                          ;;
+;;                                                                      ;;
+;;  The program will account for the position, scale, rotation &amp;        ;;
+;;  orientation of the xref relative to the selection of objects and    ;;
+;;  will perform successfully under all UCS &amp; View settings.            ;;
+;;                                                                      ;;
+;;  Please Note:                                                        ;;
+;;  ------------------------------                                      ;;
+;;  The act of copying objects to the xref source drawing involves      ;;
+;;  saving the external drawing remotely - this action cannot be        ;;
+;;  undone within the current drawing and changes to the external       ;;
+;;  drawing must be reset manually.                                     ;;
+;;                                                                      ;;
+;;  Note that when saving drawings through ObjectDBX, drawing file      ;;
+;;  thumbnails will be lost until the next manual save.                 ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2014  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2014-06-21                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CopyToXref</span></td><td><span class="fixw">C2X</span></td><td>Copy To Xref</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

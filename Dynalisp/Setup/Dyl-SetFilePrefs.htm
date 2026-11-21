@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Set File Preferences</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SetFilePrefs.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Set File Preferences</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-SETFILEPREFS</span></td>
+</tr>
+<tr>
+<td>Source Files</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SetFilePrefs.lsp</span> (command), <span class="fixw">Modules\Dynalisp\Remote\Dyl-FilePrefs.lsp</span> (profile, checked in every drawing), <span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (paths)</td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP); AutoCAD Architecture for the AEC paths</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>New &ndash; see Known Limitations</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Sets AutoCAD's paths from three file preferences, chosen in <span class="fixw">Dyl-Settings</span> (the <em>open</em> button of <em>File Preferences</em>, in <em>Overrides</em>, opens the file preferences window) or with this command:</p>
+<div class="unspacedbullets">
+<ul>
+<li><strong>AEC library classification:</strong> NBS CAWS (Global), CSI MasterFormat (US) or OmniClass;</li>
+<li><strong>Drawing units:</strong> Metric (Global) or Imperial (US);</li>
+<li><strong>Language:</strong> one of the languages AutoCAD is installed in &ndash; English, French, Chinese (Simplified), Chinese (Traditional), Czech, German, Hungarian, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian or Spanish. It is the language of the AutoCAD Architecture content and of the spell checker. The default is the language of AutoCAD.</li>
+</ul>
+</div>
+<p>This language is the one of the drawings (content folders, dictionaries). The language of DynALisp itself, its docs, is set apart: <em>Language</em> in the Environment section of <a href="../Core/Dyl-Settings.htm#environment">Dyl-Settings</a>.</p>
+<p>The language also sets the main dictionary of the spell checker (<em>Options &gt; Files &gt; Text Editor, Dictionary, and Font File Names &gt; Main Dictionary</em>, <span class="fixw">DCTMAIN</span>). AutoCAD has no dictionary for Chinese, Hungarian, Japanese, Korean or Polish (no <span class="fixw">&lt;code&gt;.dct</span> file in its <span class="fixw">Support</span> folder): the American English dictionary (<span class="fixw">enu</span>) is used for them.</p>
+<p>In French, the custom dictionary (<span class="fixw">DCTCUST</span>) is set to <span class="fixw">Res\Dictionaries\fra.cus</span>: about 4,450 French architecture and construction words and Roman numerals (I to C and the hundreds to M, the centuries Ier to XXIe, lowercase i to xx for numbered lists; structure, building envelope, openings, interiors, drawings and site, mechanical and electrical, materials such as néoprène, polyéthylène or géomembrane and their acronyms, stainless steels (austénitique, duplex, passivation) and metal corrosion, additives and protective treatments, architectural styles, building forms and ornaments, churches, built heritage, traditional restoration of stone, sheet metal work, heavy timber and pièce-sur-pièce log houses, compound words such as anti-rafale, pare-vapeur or sous-plancher, structural design, site work and contracts, accessibility) and the acronyms used on Quebec drawings (CNB, RBQ, CSA, ULC...). AutoCAD uses your copy of it under <span class="fixw">User\</span>, made the first time, and the words you add while checking spelling go there; <span class="fixw">Dyl-UserFiles</span> can make that copy the default. Its words, with their definition and category, are searched in the <a href="../Utilities/Dyl-Dictionary.htm">Dictionary</a> window (<span class="fixw">Res\Dictionaries\fra-def.csv</span>). Untick <em>Use the DynALisp custom dictionary of the language</em> in the File Preferences window of <span class="fixw">Dyl-Settings</span> (or answer No in <span class="fixw">DYL-SETFILEPREFS</span>) to keep your own. It is used only when the language has one: a <span class="fixw">Files:CustomDictionary</span> row of <span class="fixw">FilePrefs.csv</span> matches it and its file exists. Otherwise (turned off, or another language), a DynALisp custom dictionary that is current is replaced by the one it replaced, else by AutoCAD's <span class="fixw">sample.cus</span>; a custom dictionary of your own is left as it is. Add a <span class="fixw">Files:CustomDictionary</span> row to give another language its own.</p>
+<p>The paths are set in a <span class="fixw">DynALisp</span> profile (<em>Options &gt; Profiles</em>), made the first time as a copy of the current profile, so your other options are kept. AutoCAD keeps it current for the next sessions, and every drawing opened checks that it is still current and set from the preferences.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-SETFILEPREFS</span></td><td>Set File Preferences</td><td>Prompts for the file preferences and sets the DynALisp profile from them.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>File Preferences</em> (Overrides), choose the preferences in its window (its <em>open</em> button) and Save. <span class="fixw">DYL-SETFILEPREFS</span> asks for the same preferences on the command line (Enter keeps the current one) and turns the profile on.</li>
+<li>The first time, the <span class="fixw">DynALisp</span> profile is made as a copy of the current profile, which is remembered as its base.</li>
+<li>The rows of <span class="fixw">Res\FilePrefs.csv</span> that match the preferences give the paths. For each setting, the first matching row whose file or folder exists is used; the next rows are fallbacks. A setting with no matching row is left as it is.</li>
+<li>The registry options of AutoCAD Architecture are written while the profile is not current, then the profile is made current. AutoCAD keeps the current profile in memory and reads a profile again when it is made current. The options of the <em>Files</em> tab are then set in the current profile, the main dictionary of the language with them.</li>
+<li>Each drawing opened only checks the profile: a warning on the last line of the startup summary (<span class="fixw">--&gt; ... run Dyl-SetFilePrefs ...</span>) tells you to run <span class="fixw">DYL-SETFILEPREFS</span> when the profile is not current, or when the preferences or <span class="fixw">FilePrefs.csv</span> changed since it was set. A drawing never makes the profile current itself: a profile made current while a drawing opens reloads the menus of every open drawing and can stop AutoCAD. It does set the main and custom dictionaries of the preferences, in whichever profile is current, so a shortcut that starts AutoCAD with another profile (<span class="fixw">/p "AutoCAD Architecture (Global)"</span>) still gets the right spelling.</li>
+<li>Turned off in <span class="fixw">Dyl-Settings</span>, the base profile is made current again. The <span class="fixw">DynALisp</span> profile is kept.</li>
+</ol>
+</div>
+<h2>Paths File</h2>
+<p><span class="fixw">Modules\Dynalisp\Res\FilePrefs.csv</span> (a copy under <span class="fixw">User\</span> is used when there is one, see <span class="fixw">Dyl-UserFiles</span>), one path per row: <span class="fixw">Setting;Classification;Units;Language;Value</span>.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Setting</strong>:
+<div class="unspacedbullets">
+<ul>
+<li><span class="fixw">Files:&lt;property&gt;</span> sets an option of the <em>Files</em> tab, for example <span class="fixw">Files:TemplateDwgPath</span> or <span class="fixw">Files:QNewTemplateFile</span>.</li>
+<li><span class="fixw">Reg:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> sets profile values in the registry, for example <span class="fixw">Reg:Preferences\AecGuiBase80|SILocationRoot</span> (the AEC style content folder).</li>
+<li><span class="fixw">Aec:&lt;key&gt;|&lt;value&gt;[,&lt;value&gt;...]</span> sets an AutoCAD Architecture option shared by every profile of this AutoCAD (under <span class="fixw">AEC\&lt;version&gt;</span>), for example <span class="fixw">Aec:General\Tools|ToolContentRoot</span> (the tool catalog content root path). AutoCAD Architecture reads it when it starts, and it stays set when the profile is turned off.</li>
+<li><span class="fixw">Db:Components</span> and <span class="fixw">Db:Keynotes</span> set the current detail component and keynote databases. A database not yet registered in AutoCAD Architecture is added to its list under the id written inside the database file (read with PowerShell), since AutoCAD Architecture knows a database by that id.</li>
+</ul>
+</div></li>
+<li><strong>Classification</strong> (<span class="fixw">CAWS</span>, <span class="fixw">MasterFormat</span>, <span class="fixw">OmniClass</span>), <strong>Units</strong> (<span class="fixw">Metric</span>, <span class="fixw">Imperial</span>), <strong>Language</strong> (<span class="fixw">English</span>, <span class="fixw">French</span>, <span class="fixw">German</span>, <span class="fixw">Chinese-Simplified</span>...) give the preference the row is for. <span class="fixw">*</span> or empty matches any.</li>
+<li><strong>Value</strong> is a path (several paths are separated by <span class="fixw">;</span>). <span class="fixw">{ACA}</span> is the AutoCAD Architecture content folder of the language (<span class="fixw">C:\ProgramData\Autodesk\ACA 2027\enu</span>, <span class="fixw">fra</span>, <span class="fixw">deu</span>..., found from the AEC content folder of the profile). <span class="fixw">{ACA*}</span> tries the content folder of each installed language, the chosen one first, so a database missing from that content is found in the other language's. <span class="fixw">{DYL}</span> is <span class="fixw">Modules\Dynalisp\Res</span>. <span class="fixw">{DYLU}</span> is its user copy under <span class="fixw">User\</span>: the file is copied there from its default the first time, for a file AutoCAD writes to, such as a custom dictionary that gets the words you add while checking spelling. A file name can use <span class="fixw">*</span> and <span class="fixw">?</span> (<span class="fixw">AecDtlComponents*.mdb</span>): the first matching file of the folder is used.</li>
+</ul>
+</div>
+<p>The default rows set the DynALisp template folder and QNEW template, the French custom dictionary, and set the AEC content, style, IFC and project template folders and the tool catalog content root path by units and language. They also set the current detail component and keynote databases (<em>Configure Detail Component / Keynote Databases</em>), searched in the installed content and added to AutoCAD Architecture's list when missing:</p>
+<div class="unspacedbullets">
+<ul>
+<li><strong>NBS CAWS:</strong> <span class="fixw">Details (Global)</span> for Metric (falling back to <span class="fixw">Details (UK)</span>), <span class="fixw">Details (UK)</span> for Imperial (falling back to Global). Both use the CAWS groups (D - Groundwork, E - In Situ Concrete...).</li>
+<li><strong>CSI MasterFormat:</strong> <span class="fixw">Details (FR)</span> in French (falling back to <span class="fixw">Details (US)</span>), <span class="fixw">Details (US)</span> in English (falling back to <span class="fixw">Details (FR)</span>), for both units.</li>
+<li>Each one is taken from the content of the chosen language, else from the other installed language. The English 2027 content has no US or FR folder, so MasterFormat in English uses the US databases of the French content.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>AutoCAD Architecture does not ship an OmniClass detail or keynote database, so OmniClass sets no database. Add <span class="fixw">Db:</span> rows for your own.</li>
+<li>Only the content installed is used. The English ACA 2027 content has no Imperial or US folders here, and the French content has no Global folder, so the fallback rows (or none) apply.</li>
+<li>The language is the language of the content folders and of the main dictionary. It does not change the language of AutoCAD itself, which is chosen when AutoCAD is started. A language whose AutoCAD Architecture content is not installed leaves the <span class="fixw">{ACA}</span> paths as they are.</li>
+<li>Each AutoCAD language (English, French...) has its own profiles: the <span class="fixw">DynALisp</span> profile is made in each one.</li>
+<li>While the profile is on and you switch to another profile by hand, each drawing opened reminds you to run <span class="fixw">DYL-SETFILEPREFS</span>. Turn it off in <span class="fixw">Dyl-Settings</span> to use another profile.</li>
+<li><span class="fixw">Acad (Imperial Ctb).dwt</span> is not in <span class="fixw">Res\Templates\Model</span>, so Imperial uses <span class="fixw">Acad (Imperial Stb).dwt</span>.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-SetFilePrefs</span></td><td>&ndash;</td><td>Set File Preferences</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

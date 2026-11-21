@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exporter les calques en CSV</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerExportToCsv.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Exporter les calques en CSV (Export Layers To CSV)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerExportToCsv.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Écrit chaque calque du dessin courant et ses propriétés dans un fichier CSV qui s'ouvre directement dans Excel. Le fichier utilise les mêmes colonnes que les préréglages de calques que lit <a href="Dyl-LayerImportFromCsv.fr.htm">Import Layers From CSV</a> : un export peut donc être modifié et réimporté dans un autre dessin.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td><td>Export Layers To CSV</td><td>Exporte chaque calque du dessin avec ses propriétés dans un fichier CSV du dossier Téléchargements.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Le fichier de sortie est <span class="fixw">%USERPROFILE%\Downloads\layers_YYYYMMDD.csv</span>; si USERPROFILE n'est pas défini, HOMEDRIVE + HOMEPATH est utilisé, et en dernier recours le dossier du dessin.</li>
+<li>Chaque calque de la table des calques est lu (calques dépendants des xréfs compris) et ses valeurs sont converties en texte lisible (voir le tableau ci-dessous).</li>
+<li>Les rangées sont triées par nom de calque, sans tenir compte de la casse.</li>
+<li>Le fichier est écrit en UTF-8 avec BOM (pour Excel) et une rangée d'en-tête; les valeurs qui contiennent des virgules, des guillemets ou des sauts de ligne sont entre guillemets.</li>
+<li>La commande indique le nombre de calques et le chemin complet du fichier.</li>
+</ol>
+</div>
+<h3>Colonnes du CSV</h3>
+<div class="programs commands">
+<table>
+<tr><th>Colonne</th><th>Valeurs écrites</th></tr>
+<tr><td>Layer Name</td><td>Nom du calque</td></tr>
+<tr><td>Color</td><td><span class="fixw">Red (1)</span> &hellip; <span class="fixw">White/Black (7)</span>, <span class="fixw">ACI n</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
+<tr><td>Lineweight</td><td><span class="fixw">0.25 mm</span>, <span class="fixw">Default</span>, <span class="fixw">ByLayer</span>, <span class="fixw">ByBlock</span></td></tr>
+<tr><td>Linetype</td><td>Nom du type de ligne</td></tr>
+<tr><td>Plot</td><td><span class="fixw">Yes</span> / <span class="fixw">No</span></td></tr>
+<tr><td>Transparency</td><td><span class="fixw">0%</span> &hellip; <span class="fixw">90%</span></td></tr>
+<tr><td>On/Off</td><td><span class="fixw">On</span> / <span class="fixw">Off</span></td></tr>
+<tr><td>Freeze</td><td><span class="fixw">Frozen</span> / <span class="fixw">Thawed</span></td></tr>
+<tr><td>New VP Freeze</td><td><span class="fixw">VP Frozen</span> / <span class="fixw">VP Thawed</span></td></tr>
+<tr><td>Description</td><td>Description du calque</td></tr>
+</table>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Le nom du fichier ne contient que la date : un second export le même jour remplace le premier.</li>
+<li>Les couleurs vraies sont exportées comme leur couleur d'index la plus proche.</li>
+<li>Le message de chargement mentionne <span class="fixw">EXPORTLAYERS</span>; le nom de la commande est <span class="fixw">DYL-LAYEREXPORTTOCSV</span>.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerExportToCsv</span></td><td>&ndash;</td><td>Export Layers To CSV</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

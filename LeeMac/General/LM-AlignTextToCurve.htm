@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Align Text to Curve</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Align Text to Curve</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/curvealignedtext.html" target="_blank">https://lee-mac.com/curvealignedtext.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AlignTextToCurve</span> &ndash; original syntax: ATC (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.5</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/1gQU7iH" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/curvealignedtext.html" target="_blank">lee-mac.com/curvealignedtext.html</a></td></tr></table>
+</div>
+<h2 id="description">Program Description</h2>
+<p>This program enables the user to dynamically align a new or existing Text or MText object to a selected curve, 
+                with intuitive placement controls available at the command-line.</p>
+<p>Upon issuing the command syntax <span class="fixw">ATC</span> at the AutoCAD command-line, the user is prompted to 
+                select a Text or MText object to align. At this prompt, the user also has the option to create a new Text or MText object,
+                or configure the program settings.</p>
+<p>If the <span class="fixw">New</span> option is chosen, the user is further prompted to enter the content for the new
+                text object, or may press <span class="fixw">Enter</span> to return to the previous prompt.</p>
+<p>If the <span class="fixw">Settings</span> option is chosen, the user is presented with a dialog interface through 
+                which several program parameters may be configured - these settings are detailed in the section below entitled:
+                <a href="#settings">Program Settings</a>.</p>
+<p>The user is then prompted to select a curve to which the text will be dynamically aligned. The program is compatible 
+                for use with Lines, LWPolylines, 2D (Heavy) Polylines, 3D Polylines, Arcs, Circles, Ellipses, Elliptical Arcs &amp; Splines;
+                furthermore, these objects may be primary or nested (to any depth) within a block or xref.</p>
+<p>Finally, the program will perform successfully under all UCS &amp; View settings and with Annotative Text Styles.</p>
+<h2 id="alignment">Dynamic Text Alignment</h2>
+<p>Following valid selection of a curve, the new or existing Text or MText object is dynamically aligned to the curve
+                based on the position of the AutoCAD cursor.</p>
+<p>During text alignment, several controls are available at the command-line to refine the text position &amp;
+                other properties, such as rotation; these controls are individually detailed below:</p>
+<div class="programs">
+<table>
+<tr>
+<th colspan="2">Text Alignment Controls</th>
+</tr>
+<tr class="alt">
+<th>Key</th>
+<th>Action</th>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td>(or Esc/Space/Right-Click) Exit program (Cancel)</td>
+</tr>
+<tr class="alt">
+<td align="center">Click</td>
+<td>Place text</td>
+</tr>
+<tr>
+<td align="center">+ / -</td>
+<td>Incrementally increase/decrease text offset</td>
+</tr>
+<tr class="alt">
+<td align="center">O / o</td>
+<td>Specify exact text offset</td>
+</tr>
+<tr>
+<td align="center">&lt; / &gt;</td>
+<td>Rotate text by 45°</td>
+</tr>
+<tr class="alt">
+<td align="center">R / r</td>
+<td>Specify exact text rotation (relative to curve)</td>
+</tr>
+<tr>
+<td align="center">Y / y</td>
+<td>Toggle text readability</td>
+</tr>
+<tr class="alt">
+<td align="center">B / b</td>
+<td>Toggle MText background mask</td>
+</tr>
+</table>
+</div>
+<h2 id="settings">Program Settings</h2>
+<p>Upon selecting the <span class="fixw">Settings</span> option when prompted, the user is presented with the following dialog
+                interface:</p>
+<div class="cent">
+<h3>Settings Menu</h3>
+<img height="349" src="images/LM-atcsettingsv1-4.png" width="188"/>
+</div>
+<p>Each of the above options are described individually below:</p>
+<h3><em>Object type for new text</em></h3>
+<p>This setting determines whether the program will create a single-line text (DText) object or multiline text
+                (MText) object when the user opts to create new text.</p>
+<h3><em>Justification for new text</em></h3>
+<p>This setting controls the justification of any new text object created by the program.</p>
+<h3><em>Text Offset Factor</em></h3>
+<p>This is the default offset factor controlling the minimum distance of the text from the selected curve,
+                as a multiple of the text height. This factor may also be zero if the text is to be positioned directly
+                over the selected curve.</p>
+<h3><em>Text Rotation</em></h3>
+<p>This setting controls the default rotation of the text relative to the selected curve.</p>
+<h3><em>Text Readability</em></h3>
+<p>This toggle determines whether the text should be rotated to preserve readability, 
+                i.e. if enabled, the text will never appear upside-down.</p>
+<h3><em>Background Mask</em></h3>
+<p>This toggle controls whether a background mask is used when aligning MText objects.</p>
+<h3><em>Background Mask Offset</em></h3>
+<p>This setting controls the background mask offset when the background mask is enabled for MText objects and accepts a value between 1 &amp; 5.</p>
+<h3><em>Multiple Text Mode</em></h3>
+<p>If this setting is enabled, the program will continuously generate text objects to align with
+                the selected curve until the user exits the program.</p>
+<h3><em>Copy Selected Text</em></h3>
+<p>If this setting is enabled, the program will align a copy of the selected text object,
+                else the selected object itself will be aligned to the selected curve.</p>
+<div class="cent">
+<h2 id="demo">Program Demonstration</h2>
+<img alt="Align Text to Curve Demonstration" height="300" src="images/LM-atc.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Align Text to Curve }==---------------------;;
+;;                                                                      ;;
+;;  -----------------------------------                                 ;;
+;;  Program Overview                                                    ;;
+;;  -----------------------------------                                 ;;
+;;  This program enables the user to dynamically align a new or         ;;
+;;  existing Text or MText object to a selected curve, with intuitive   ;;
+;;  placement controls available.                                       ;;
+;;                                                                      ;;
+;;  -----------------------------------                                 ;;
+;;  User Input                                                          ;;
+;;  -----------------------------------                                 ;;
+;;  Upon issuing the command syntax &#x27;atc&#x27; at the AutoCAD command-line,  ;;
+;;  the user is prompted to select a Text or MText object to align.     ;;
+;;  At this prompt, the user also has the option to create a new Text   ;;
+;;  or MText object, or configure the program settings.                 ;;
+;;                                                                      ;;
+;;  If the &#x27;New&#x27; option is chosen, the user is prompted to enter the    ;;
+;;  content for the new text object, or may press &#x27;Enter&#x27; to return to  ;;
+;;  the previous prompt.                                                ;;
+;;                                                                      ;;
+;;  If the &#x27;Settings&#x27; option is chosen, the user is presented with a    ;;
+;;  dialog interface through which several program parameters may be    ;;
+;;  configured - these settings are detailed in the section below.      ;;
+;;                                                                      ;;
+;;  The user is then prompted to select a curve to which the text will  ;;
+;;  be dynamically aligned. The program is compatible for use with      ;;
+;;  Lines, LWPolylines, 2D (Heavy) Polylines, 3D Polylines, Arcs,       ;;
+;;  Circles, Ellipses, Elliptical Arcs &amp; Splines; furthermore, these    ;;
+;;  objects may be primary or nested (to any depth) within a block or   ;;
+;;  xref.                                                               ;;
+;;                                                                      ;;
+;;  -----------------------------------                                 ;;
+;;  Dynamic Text Alignment                                              ;;
+;;  -----------------------------------                                 ;;
+;;  Following valid selection of a curve, the new or existing Text or   ;;
+;;  MText object is dynamically aligned to the curve based on the       ;;
+;;  position of the AutoCAD cursor.                                     ;;
+;;                                                                      ;;
+;;  During text alignment, several controls are available at the        ;;
+;;  command-line to refine the text position &amp; other properties; these  ;;
+;;  controls are individually detailed below:                           ;;
+;;                                                                      ;;
+;;  [ Enter ]  -  (or Esc/Space/Right-Click) Exit program (Cancel)      ;;
+;;  [ Click ]  -  Place text                                            ;;
+;;  [  +/-  ]  -  Incrementally increase/decrease text offset           ;;
+;;  [   O   ]  -  Specify exact text offset                             ;;
+;;  [  &lt;/&gt;  ]  -  Rotate text by 45 degrees                             ;;
+;;  [   R   ]  -  Specify exact text rotation (relative to curve)       ;;
+;;  [   Y   ]  -  Toggle text readability                               ;;
+;;  [   B   ]  -  Toggle MText Background Mask                          ;;
+;;                                                                      ;;
+;;  -----------------------------------                                 ;;
+;;  Program Settings                                                    ;;
+;;  -----------------------------------                                 ;;
+;;  Upon selecting the &#x27;Settings&#x27; option when prompted, the user is     ;;
+;;  presented with a dialog interface offering the following options:   ;;
+;;                                                                      ;;
+;;  Object type for new text: this setting determines whether the       ;;
+;;  program will create a single-line Text object or MText object when  ;;
+;;  the user opts to create a new text.                                 ;;
+;;                                                                      ;;
+;;  Justification for new text: this setting controls the justification ;;
+;;  of any new text object created by the program.                      ;;
+;;                                                                      ;;
+;;  Text Offset Factor: this is the default offset factor of the text   ;;
+;;  from the selected curve, as a multiple of the text height. This     ;;
+;;  factor may also be zero if the text is to be positioned directly    ;;
+;;  over the selected curve.                                            ;;
+;;                                                                      ;;
+;;  Text Rotation: this setting controls the default rotation of the    ;;
+;;  text relative to the selected curve.                                ;;
+;;                                                                      ;;
+;;  Text Readability: this toggle determines whether the text should    ;;
+;;  be rotated to preserve readability, i.e. the text will never appear ;;
+;;  upside-down.                                                        ;;
+;;                                                                      ;;
+;;  Background Mask: this toggle controls whether a background mask is  ;;
+;;  used when aligning MText objects.                                   ;;
+;;                                                                      ;;
+;;  Multiple Text Mode: if this setting is enabled, the program will    ;;
+;;  continuously generate text objects to align with the selected curve ;;
+;;  until the user exits the program.                                   ;;
+;;                                                                      ;;
+;;  -----------------------------------                                 ;;
+;;  Notes                                                               ;;
+;;  -----------------------------------                                 ;;
+;;  The program is compatible with all full versions of AutoCAD         ;;
+;;  supporting Visual LISP with ActiveX (COM) functionality (that is,   ;;
+;;  AutoCAD 2000 onwards on a Windows OS).                              ;;
+;;                                                                      ;;
+;;  The program will perform successfully under all UCS &amp; View          ;;
+;;  settings and with Annotative Text Styles.                           ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    12-10-2013                                      ;;
+;;                                                                      ;;
+;;  First release - previously &#x27;CurveAlignedTextV1-1.lsp&#x27;.              ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AlignTextToCurve</span></td><td><span class="fixw">ATC</span></td><td>Align Text To Curve</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

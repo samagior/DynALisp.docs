@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Add Prefix / Suffix</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickAddPrefixSuffix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Add Prefix / Suffix</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> and 7 dimension texts (<span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-MAX</span>, <span class="fixw">DT-MIN</span>, <span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>)</td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickAddPrefixSuffix.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> lists every dimension text preset with its alias: double-click one (or OK) to apply it to the dimension you select next. The presets are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
+<p>A set of seven one-pick toggles that add or remove a standard qualifier on the text of a dimension while keeping the measured value live. Running the same command on the same dimension a second time removes the qualifier again.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th><th>Text added</th></tr>
+<tr><td><span class="fixw">DT-PM</span></td><td>Dimension Text Plus-Minus</td><td>Toggles the plus-minus prefix on the text of the selected dimension.</td><td><span class="fixw">± </span></td></tr>
+<tr><td><span class="fixw">DT-DIA</span></td><td>Dimension Text Diameter</td><td>Toggles the diameter prefix on the text of the selected dimension.</td><td><span class="fixw">%%c</span> (shown as Ø)</td></tr>
+<tr><td><span class="fixw">DT-MAX</span></td><td>Dimension Text Maximum</td><td>Toggles the max. prefix on the text of the selected dimension.</td><td><span class="fixw">max. </span></td></tr>
+<tr><td><span class="fixw">DT-MIN</span></td><td>Dimension Text Minimum</td><td>Toggles the min. prefix on the text of the selected dimension.</td><td><span class="fixw">min. </span></td></tr>
+<tr><td><span class="fixw">DT-TYP</span></td><td>Dimension Text Typical</td><td>Toggles the (TYP) suffix on the text of the selected dimension.</td><td><span class="fixw"> (TYP)</span></td></tr>
+<tr><td><span class="fixw">DT-OB</span></td><td>Dimension Text OB</td><td>Toggles the (OB) suffix on the text of the selected dimension.</td><td><span class="fixw"> (OB)</span></td></tr>
+<tr><td><span class="fixw">DT-OL</span></td><td>Dimension Text OL</td><td>Toggles the (OL) suffix on the text of the selected dimension.</td><td><span class="fixw"> (OL)</span></td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The command prompts <span class="fixw">Select dimension:</span> and reads the dimension text override (DXF group 1). The measured value is represented in the override by <span class="fixw">&lt;&gt;</span>.</li>
+<li>If the qualifier is <em>not</em> present yet:<div class="unspacedbullets">
+<ul>
+<li>an empty override (plain measured value) becomes <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span>;</li>
+<li>an override that already contains <span class="fixw">&lt;&gt;</span> gets the qualifier inserted right before <span class="fixw">&lt;&gt;</span>;</li>
+<li>an override without <span class="fixw">&lt;&gt;</span> (fully typed text) is left untouched.</li>
+</ul>
+</div></li>
+<li>If the qualifier <em>is</em> present, it is removed: an override equal to <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> is cleared back to the plain measured value, otherwise <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> is replaced by <span class="fixw">&lt;&gt;</span>.</li>
+<li>The change is written with <span class="fixw">entmod</span>, so it can be undone with <span class="fixw">U</span>.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The suffix commands (<span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>) store a prefix/suffix type, but the routine always inserts the text <em>before</em> <span class="fixw">&lt;&gt;</span>, so suffixes currently display in front of the value (e.g. <span class="fixw"> (TYP)1200</span>).</li>
+<li>Only one dimension is processed per run and the pick is not filtered to dimension objects.</li>
+<li>Pressing Enter or missing the pick at the prompt ends the command with an error message.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-QuickAddPrefixSuffix</span>: they are run by their alias, or picked from <span class="fixw">Dyl-QuickAddPrefixSuffix</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-QuickAddPrefixSuffix</span></td><td>&ndash;</td><td>Quick Add Prefix / Suffix</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-PM</span></td><td>&ndash;</td><td>Dimension Text Plus-Minus</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-DIA</span></td><td>&ndash;</td><td>Dimension Text Diameter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-MAX</span></td><td>&ndash;</td><td>Dimension Text Maximum</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-MIN</span></td><td>&ndash;</td><td>Dimension Text Minimum</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-TYP</span></td><td>&ndash;</td><td>Dimension Text Typical</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-OB</span></td><td>&ndash;</td><td>Dimension Text OB</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-OL</span></td><td>&ndash;</td><td>Dimension Text OL</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

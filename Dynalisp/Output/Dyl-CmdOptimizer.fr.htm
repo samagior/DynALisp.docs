@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Optimiseur de commandes</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-CmdOptimizer.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Optimiseur de commandes (Command Optimizer)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">Dyl-CmdOptimizer</span>, <span class="fixw">SAVE</span>, <span class="fixw">QSAVE</span>, <span class="fixw">SAVEAS</span>, <span class="fixw">+SAVEAS</span>, <span class="fixw">PLOT</span>, <span class="fixw">PUBLISH</span>, <span class="fixw">PREVIEW</span>, <span class="fixw">EXPORTPDF</span>, <span class="fixw">EXPORTDWF</span>, <span class="fixw">EXPORTDWFX</span>, <span class="fixw">REGEN</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Output\Dyl-CmdOptimizer.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP), la préparation de sortie de <span class="fixw">Resources\dynalisp.mnl</span></td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Redéfinit les commandes de sortie d'AutoCAD pour que le dessin soit préparé avant qu'elles s'exécutent : calques activés et libérés, objets masqués affichés, xréfs rechargées, liaisons de données et tableaux mis à jour, régénération. Les étapes exécutées par chaque commande se cochent dans la fenêtre de préparation de sortie (<span class="fixw">Dyl-PrepSuite</span>, ou le bouton <em>ouvrir</em> à côté de <em>Commands</em> dans <span class="fixw">Dyl-Settings</span>), puis la commande native s'exécute comme d'habitude (<span class="fixw">Ctrl+S</span> lance <span class="fixw">QSAVE</span>). <span class="fixw">REGEN</span> est redéfinie avec elles : par défaut, elle applique d'abord le préréglage d'ordre de tracé au dessin (voir <a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>).</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">Dyl-CmdOptimizer</span></td><td>Command Optimizer</td><td>Active ou désactive la redéfinition des commandes d'enregistrement et d'impression et de REGEN, comme dans Dyl-Settings.</td></tr>
+<tr><td><span class="fixw">SAVE</span></td><td>Save</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la boîte de dialogue native SAVE.</td></tr>
+<tr><td><span class="fixw">QSAVE</span></td><td>Quick Save</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la commande native QSAVE.</td></tr>
+<tr><td><span class="fixw">SAVEAS</span></td><td>Save As</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la boîte de dialogue native SAVEAS.</td></tr>
+<tr><td><span class="fixw">+SAVEAS</span></td><td>Save As Options</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la commande native +SAVEAS (ses invites laissées à l'utilisateur ou à la macro de menu).</td></tr>
+<tr><td><span class="fixw">PLOT</span></td><td>Plot</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native PLOT.</td></tr>
+<tr><td><span class="fixw">PUBLISH</span></td><td>Publish</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native PUBLISH.</td></tr>
+<tr><td><span class="fixw">PREVIEW</span></td><td>Plot Preview</td><td>Exécute les étapes de préparation de sortie cochées pour PREVIEW dans Dyl-Settings, puis la commande native PREVIEW.</td></tr>
+<tr><td><span class="fixw">EXPORTPDF</span></td><td>Export PDF</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTPDF.</td></tr>
+<tr><td><span class="fixw">EXPORTDWF</span></td><td>Export DWF</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTDWF.</td></tr>
+<tr><td><span class="fixw">EXPORTDWFX</span></td><td>Export DWFx</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTDWFX.</td></tr>
+<tr><td><span class="fixw">REGEN</span></td><td>Regen</td><td>Exécute les étapes de préparation de sortie cochées pour REGEN dans Dyl-Settings (l'ordre de tracé par défaut), puis la commande native REGEN.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">Dyl-CmdOptimizer</span> indique si les commandes sont redéfinies et demande <span class="fixw">Command optimizer, for every drawing [On/Off] &lt;Off&gt;:</span> (Entrée l'inverse). C'est la case <em>Commands</em> de la boîte Overrides de <span class="fixw">Dyl-Settings</span> : le paramètre utilisateur <span class="fixw">DynalispPrepRedefine</span>, appliqué tout de suite à ce dessin et aux autres dessins ouverts lorsqu'ils deviennent courants.</li>
+<li>Au démarrage, quand la préparation de sortie est activée dans <span class="fixw">Dyl-Settings</span>, la commande native de chaque commande activée dans <span class="fixw">Dyl-Suite</span> est retirée avec <span class="fixw">UNDEFINE</span> : la taper (ou son raccourci) lance la commande Lisp. Le journal de démarrage liste les commandes redéfinies.</li>
+<li>Une commande désactivée dans <span class="fixw">Dyl-Suite</span> garde sa définition native (<span class="fixw">REDEFINE</span>) : elle n'est jamais laissée indéfinie sans sa commande Lisp. Activer ou désactiver les commandes s'applique tout de suite avec les changements de la Suite (ou <span class="fixw">Dyl-Reload</span>).</li>
+<li>Le désactiver (<span class="fixw">Dyl-CmdOptimizer</span> ou <span class="fixw">Dyl-Settings</span>) rétablit les commandes natives dans chaque dessin ouvert; <span class="fixw">Dyl-RestoreCommands</span> le fait pour la session seulement.</li>
+<li><span class="fixw">REGEN</span> exécute ses étapes comme les autres commandes : par défaut, seulement <em>Apply the draw order preset</em> (une colonne de la fenêtre de préparation de sortie (<span class="fixw">Dyl-PrepSuite</span>, ou le bouton <em>ouvrir</em> à côté de <em>Commands</em> dans <span class="fixw">Dyl-Settings</span>)). L'ordre de tracé réempile l'espace objet, chaque présentation et chaque définition de bloc selon le préréglage actif (comme <span class="fixw">DO-APPLY</span>), en une seule étape d'annulation, et il est sauté tant que l'ordre de tracé automatique est désactivé (<span class="fixw">DO-AUTO</span> ou <span class="fixw">Dyl-Settings</span>). Les autres commandes peuvent l'exécuter aussi : cochez-le dans leur colonne.</li>
+<li>Les commandes d'enregistrement (<span class="fixw">SAVE</span>, <span class="fixw">QSAVE</span>, <span class="fixw">SAVEAS</span>, <span class="fixw">+SAVEAS</span>) exécutent toujours les mêmes étapes : elles partagent la colonne <em>All saves</em> de la grille. Les commandes d'impression (<span class="fixw">PLOT</span>, <span class="fixw">PUBLISH</span>, <span class="fixw">EXPORTPDF</span>, <span class="fixw">EXPORTDWF</span>, <span class="fixw">EXPORTDWFX</span>) partagent la colonne <em>All prints</em>; <span class="fixw">PREVIEW</span> et <span class="fixw">REGEN</span> ont la leur. <span class="fixw">+SAVEAS</span> exécute la commande native et vous laisse ses invites, ou à la macro de menu qui l'a appelée.</li>
+<li><span class="fixw">Dyl-PrepSuite</span> ouvre la fenêtre de préparation de sortie : une grille des étapes (rangées) et des groupes de commandes (colonnes : <em>All saves</em>, <em>All prints</em>, <span class="fixw">PREVIEW</span>, <span class="fixw">REGEN</span>), avec <em>All On</em> / <em>All Off</em>. OK l'enregistre tout de suite (<span class="fixw">Modules\Dynalisp\Res\PrepSuite.csv</span>, votre copie sous <span class="fixw">User</span>). Le bouton <em>ouvrir</em> à côté de la case <em>Commands</em> de <span class="fixw">Dyl-Settings</span> ouvre la même fenêtre, enregistrée avec les autres paramètres.</li>
+<li>Les commandes appellent la commande native avec le préfixe <span class="fixw">_.</span> (<span class="fixw">_.QSAVE</span>...), qui lance toujours la commande d'AutoCAD, indéfinie ou non.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">UNDEFINE</span> vaut pour toute la session d'AutoCAD, mais les commandes Lisp sont définies dans chaque dessin. Un dessin dont le démarrage de DynALisp s'est arrêté avant le chargement des modules n'a pas de commande Lisp alors qu'un autre dessin a retiré la commande native : tapez-y <span class="fixw">_.QSAVE</span> (ou <span class="fixw">REDEFINE</span>), et cherchez l'erreur dans son journal de démarrage.</li>
+<li><span class="fixw">-PLOT</span> et <span class="fixw">-PUBLISH</span> ne sont pas redéfinies : les scripts et les programmes Lisp les appellent par leur nom (<span class="fixw">(command "-PLOT" ...)</span>), ce qui échoue tant qu'une commande est indéfinie.</li>
+<li><span class="fixw">PUBLISH</span> est chargée sur demande par AutoCAD (<span class="fixw">AcPublish.crx</span>); elle est chargée au démarrage pour pouvoir être redéfinie.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont les commandes AutoCAD que <span class="fixw">Dyl-CmdOptimizer</span> redéfinit (voir plus haut).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-CmdOptimizer</span></td><td>&ndash;</td><td>Command Optimizer</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PLOT</span></td><td>&ndash;</td><td>Plot</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PREVIEW</span></td><td>&ndash;</td><td>Plot Preview</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">REGEN</span></td><td>&ndash;</td><td>Regen</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PUBLISH</span></td><td>&ndash;</td><td>Publish</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QSAVE</span></td><td>&ndash;</td><td>Quick Save</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SAVEAS</span></td><td>&ndash;</td><td>Save As</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">+SAVEAS</span></td><td>&ndash;</td><td>Save As Options</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SAVE</span></td><td>&ndash;</td><td>Save</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">EXPORTPDF</span></td><td>&ndash;</td><td>Export PDF</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">EXPORTDWF</span></td><td>&ndash;</td><td>Export DWF</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">EXPORTDWFX</span></td><td>&ndash;</td><td>Export DWFx</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

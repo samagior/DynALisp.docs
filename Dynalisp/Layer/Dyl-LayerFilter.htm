@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Filters</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerFilter.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Filters</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-LAYERFILTER</span> and 46 presets &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AIA / NCS style layer names; AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-LAYERFILTER</span> lists every filter preset with its alias: double-click one (or OK) to apply it. The presets are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
+<p>One-word commands that set up the layer visibility for a type of view: show or hide a phase, isolate one level of a stacked drawing, screen the other disciplines, and so on. In model space the layers themselves are changed; in a layout the same filter is applied as viewport overrides on the viewports you select.</p>
+<p>The program works with layer names built from fields separated by hyphens, where the last field can be a phase suffix and a field can be a stack (level) number:</p>
+<div class="programs commands">
+<table>
+<tr><th>Suffix</th><th>Phase</th></tr>
+<tr><td><span class="fixw">-E</span></td><td>Existing to remain</td></tr>
+<tr><td><span class="fixw">-D</span></td><td>Existing to demolish</td></tr>
+<tr><td><span class="fixw">-N</span></td><td>New work</td></tr>
+<tr><td><span class="fixw">-R</span></td><td>Being refurbished</td></tr>
+<tr><td><span class="fixw">-M</span></td><td>Being moved</td></tr>
+<tr><td><span class="fixw">-S</span></td><td>To be saved</td></tr>
+<tr><td><span class="fixw">-A</span></td><td>Abandoned</td></tr>
+<tr><td><span class="fixw">-F</span></td><td>Future work</td></tr>
+<tr><td><span class="fixw">-T</span></td><td>Temporary work</td></tr>
+<tr><td><span class="fixw">-X</span></td><td>Not in contract</td></tr>
+</table>
+</div>
+<p>Stack numbers are four-digit fields <span class="fixw">0001</span> to <span class="fixw">0009</span> (e.g. <span class="fixw">A-Wall-0002-N</span>), used for stacked elevations or floors drawn in the same file.</p>
+<h2>How It Works</h2>
+<p>Each command is a preset made of five pattern lists (show, hide, secondary show, secondary hide, screen), a lock flag and a start state. When the command runs:</p>
+<div class="spacedbullets">
+<ol>
+<li><strong>Xrefs</strong> &ndash; xrefs inserted on a layer that has the same name as the xref (sheet set convention) have that layer added to the show list, along with layers 0 and Defpoints.</li>
+<li><strong>Tokens</strong> &ndash; group names in the lists are expanded into wildcard patterns (see table below).</li>
+<li><strong>Phases</strong> &ndash; for <em>Existing</em> views, <span class="fixw">-E</span> and <span class="fixw">-X</span> variants of the show patterns are added; <em>New</em> views also add <span class="fixw">-N</span> <span class="fixw">-R</span> <span class="fixw">-M</span>; <em>Demolition</em> views add <span class="fixw">-D</span> <span class="fixw">-S</span> <span class="fixw">-T</span>.</li>
+<li><strong>Model space</strong> &ndash; an UNDO mark is set, every layer is reset to 0% transparency and unlocked; presets with a <em>Reset</em> start state then set layer 0 current and turn off and freeze every layer. <span class="fixw">-LAYER</span> then turns on/thaws the show lists and turns off/freezes the hide lists (primary first, secondary last, so the secondary lists win), applies 50% transparency to the screen list, optionally locks it, and regenerates.</li>
+<li><strong>Paper space</strong> &ndash; select the viewports (other objects are ignored). The same lists are applied with <span class="fixw">VPLAYER</span> (freeze/thaw and 50% transparency) to the selected viewports only; the layers themselves are not changed.</li>
+<li>If the command fails, the drawing is rolled back to the UNDO mark.</li>
+</ol>
+</div>
+<h3>Tokens</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Token</th><th>Expands to</th><th>Meaning</th></tr>
+<tr><td><span class="fixw">Exst</span></td><td>*-@@?? , *-E , *-X</td><td>Unphased layers (last field is a 4-character code), existing and not in contract</td></tr>
+<tr><td><span class="fixw">Demo</span></td><td>*-D , *-S , *-T</td><td>Demolish, to be saved, temporary</td></tr>
+<tr><td><span class="fixw">Neww</span></td><td>*-N , *-M , *-R</td><td>New work, moved, refurbished</td></tr>
+<tr><td><span class="fixw">Futw</span></td><td>*-F</td><td>Future work</td></tr>
+<tr><td><span class="fixw">Abnd</span></td><td>*-A</td><td>Abandoned</td></tr>
+<tr><td><span class="fixw">Ustk</span></td><td>*-@@?? , *-@@??-?</td><td>Unstacked layers (no level number), phased or not</td></tr>
+<tr><td><span class="fixw">Fstk</span></td><td>*-0001 &hellip; *-0009</td><td>All stacks; with a trailing * when used in a hide list</td></tr>
+<tr><td><span class="fixw">Annotation</span></td><td>*-Anno* *-Tags* *-Dims* *-Text* *-Note* *-Titl* *-Symb* *-Iden* *-Mark* *-Keyn* *-Exst* *-Grid*</td><td>Annotation layers</td></tr>
+<tr><td><span class="fixw">Pattern</span></td><td>*-Patt* , *-Elev*-Mcut*</td><td>Hatch and material cut layers</td></tr>
+<tr><td><span class="fixw">Highlight</span></td><td>*-Elev*-Main* , -Otln , -Blin , -Sect , -Medm , -Wide &hellip;</td><td>Elevation line weights to emphasise</td></tr>
+<tr><td><span class="fixw">Hidden</span></td><td>*-Elev-*Hidd* , *-Elev-*Bgrd* , *-Elev-*Nplt*</td><td>Hidden, background and non-plot elevation layers</td></tr>
+<tr><td><span class="fixw">A-Flor</span></td><td>*A-Flor* , *A-Wall* , *A-Door* , *A-Glaz*</td><td>Architectural floor plan</td></tr>
+<tr><td><span class="fixw">N-Architectural</span></td><td>S-* , P-* , I-* , L-*</td><td>Every discipline but architecture</td></tr>
+<tr><td><span class="fixw">N-Structural</span></td><td>A-* , P-* , I-* , L-*</td><td>Every discipline but structure</td></tr>
+</table>
+</div>
+<h2 id="commands">Commands</h2>
+<p><em>Reset</em>: everything is hidden first and only the preset is shown. <em>Keep</em>: the current visibility is kept and the preset is applied on top of it.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th><th>Start state</th></tr>
+<tr><td><span class="fixw">LF-A-FLOR</span></td><td>Architectural Floor Plan Filter</td><td>Sets the layer visibility to show only the architectural floor plan layers.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">SH-ALL</span></td><td>Show All Layers</td><td>Turns on and thaws every layer of the drawing, xrefs included.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-NPLT</span></td><td>Show Non-Plotting Layers</td><td>Turns on and thaws the Defpoints, non-plotting and readme layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-NEWW</span></td><td>Show New Work Layers</td><td>Turns on and thaws the new work phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-DEMO</span></td><td>Show Demolition Layers</td><td>Turns on and thaws the existing to demolish phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-EXST</span></td><td>Show Existing Layers</td><td>Turns on and thaws the existing to remain phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-KEYP</span></td><td>Show Key Plan Layers</td><td>Turns on and thaws the key plan layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-ALL</span></td><td>Hide All Layers</td><td>Turns off and freezes every layer of the drawing, xrefs included.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-ANNO</span></td><td>Hide Annotation Layers</td><td>Turns off and freezes the annotation layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-MEMBRANES</span></td><td>Hide Membrane Layers</td><td>Turns off and freezes the vapour, air and water membrane layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SC-EXST</span></td><td>Screen Existing Layers</td><td>Applies a 50 percent screening transparency to the existing layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-NPLT</span></td><td>Hide Non-Plotting Layers</td><td>Turns off and freezes the Defpoints, non-plotting and readme layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-NEWW</span></td><td>Hide New Work Layers</td><td>Turns off and freezes the new work phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-DEMO</span></td><td>Hide Demolition Layers</td><td>Turns off and freezes the existing to demolish phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-EXST</span></td><td>Hide Existing Layers</td><td>Turns off and freezes the existing to remain phase layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-KEYP</span></td><td>Hide Key Plan Layers</td><td>Turns off and freezes the key plan layers.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">E1</span></td><td>Existing View Stack 0001</td><td>Shows the existing to remain layers of stack 0001 with the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E2</span></td><td>Existing View Stack 0002</td><td>Shows the existing to remain layers of stack 0002 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E3</span></td><td>Existing View Stack 0003</td><td>Shows the existing to remain layers of stack 0003 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E4</span></td><td>Existing View Stack 0004</td><td>Shows the existing to remain layers of stack 0004 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E5</span></td><td>Existing View Stack 0005</td><td>Shows the existing to remain layers of stack 0005 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E6</span></td><td>Existing View Stack 0006</td><td>Shows the existing to remain layers of stack 0006 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E7</span></td><td>Existing View Stack 0007</td><td>Shows the existing to remain layers of stack 0007 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E8</span></td><td>Existing View Stack 0008</td><td>Shows the existing to remain layers of stack 0008 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E9</span></td><td>Existing View Stack 0009</td><td>Shows the existing to remain layers of stack 0009 with the lower stacks hidden.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D-ARCH</span></td><td>Demolition View Architecture</td><td>Shows the existing and demolition layers with the new architectural group screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D1</span></td><td>Demolition View Stack 0001</td><td>Shows the existing and demolition layers of stack 0001 with the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D2</span></td><td>Demolition View Stack 0002</td><td>Shows the existing and demolition layers of stack 0002 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D3</span></td><td>Demolition View Stack 0003</td><td>Shows the existing and demolition layers of stack 0003 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D4</span></td><td>Demolition View Stack 0004</td><td>Shows the existing and demolition layers of stack 0004 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D5</span></td><td>Demolition View Stack 0005</td><td>Shows the existing and demolition layers of stack 0005 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D6</span></td><td>Demolition View Stack 0006</td><td>Shows the existing and demolition layers of stack 0006 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D7</span></td><td>Demolition View Stack 0007</td><td>Shows the existing and demolition layers of stack 0007 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D8</span></td><td>Demolition View Stack 0008</td><td>Shows the existing and demolition layers of stack 0008 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D9</span></td><td>Demolition View Stack 0009</td><td>Shows the existing and demolition layers of stack 0009 with the lower stacks hidden.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N-ARCH</span></td><td>New Work View Architecture</td><td>Shows the existing and new work layers with the new architectural group screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N-STRUC</span></td><td>New Work View Structure</td><td>Shows the existing and new work layers with the new structural group screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N1</span></td><td>New Work View Stack 0001</td><td>Shows the existing and new work layers of stack 0001 with the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N2</span></td><td>New Work View Stack 0002</td><td>Shows the existing and new work layers of stack 0002 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N3</span></td><td>New Work View Stack 0003</td><td>Shows the existing and new work layers of stack 0003 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N4</span></td><td>New Work View Stack 0004</td><td>Shows the existing and new work layers of stack 0004 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N5</span></td><td>New Work View Stack 0005</td><td>Shows the existing and new work layers of stack 0005 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N6</span></td><td>New Work View Stack 0006</td><td>Shows the existing and new work layers of stack 0006 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N7</span></td><td>New Work View Stack 0007</td><td>Shows the existing and new work layers of stack 0007 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N8</span></td><td>New Work View Stack 0008</td><td>Shows the existing and new work layers of stack 0008 with the lower stacks hidden and the upper stacks screened.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N9</span></td><td>New Work View Stack 0009</td><td>Shows the existing and new work layers of stack 0009 with the lower stacks hidden.</td><td>Reset</td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Every model space run resets the transparency and lock of <em>all</em> layers, including those screened or locked by hand.</li>
+<li>Xref layers are meant to be screened when the xref drawing is found in a <span class="fixw">Model views</span> sub-folder of the drawing folder, but the xref name is compared with the file name including <span class="fixw">.dwg</span>, so this never matches.</li>
+<li>Screening relies on layer transparency: turn on <span class="fixw">TRANSPARENCYDISPLAY</span> to see it.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerFilter</span>: they are run by their alias, or picked from <span class="fixw">Dyl-LayerFilter</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerFilter</span></td><td>&ndash;</td><td>Layer Filters</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LF-A-FLOR</span></td><td>&ndash;</td><td>Architectural Floor Plan Filter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-ALL</span></td><td>&ndash;</td><td>Show All Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-NPLT</span></td><td>&ndash;</td><td>Show Non-Plotting Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-NEWW</span></td><td>&ndash;</td><td>Show New Work Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-DEMO</span></td><td>&ndash;</td><td>Show Demolition Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-EXST</span></td><td>&ndash;</td><td>Show Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-KEYP</span></td><td>&ndash;</td><td>Show Key Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-ALL</span></td><td>&ndash;</td><td>Hide All Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-ANNO</span></td><td>&ndash;</td><td>Hide Annotation Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-MEMBRANES</span></td><td>&ndash;</td><td>Hide Membrane Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SC-EXST</span></td><td>&ndash;</td><td>Screen Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-NPLT</span></td><td>&ndash;</td><td>Hide Non-Plotting Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-NEWW</span></td><td>&ndash;</td><td>Hide New Work Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-DEMO</span></td><td>&ndash;</td><td>Hide Demolition Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-EXST</span></td><td>&ndash;</td><td>Hide Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-KEYP</span></td><td>&ndash;</td><td>Hide Key Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E1</span></td><td>&ndash;</td><td>Existing View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E2</span></td><td>&ndash;</td><td>Existing View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E3</span></td><td>&ndash;</td><td>Existing View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E4</span></td><td>&ndash;</td><td>Existing View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E5</span></td><td>&ndash;</td><td>Existing View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E6</span></td><td>&ndash;</td><td>Existing View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E7</span></td><td>&ndash;</td><td>Existing View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E8</span></td><td>&ndash;</td><td>Existing View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E9</span></td><td>&ndash;</td><td>Existing View Stack 0009</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-ARCH</span></td><td>&ndash;</td><td>Demolition View Architecture</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D1</span></td><td>&ndash;</td><td>Demolition View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D2</span></td><td>&ndash;</td><td>Demolition View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D3</span></td><td>&ndash;</td><td>Demolition View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D4</span></td><td>&ndash;</td><td>Demolition View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D5</span></td><td>&ndash;</td><td>Demolition View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D6</span></td><td>&ndash;</td><td>Demolition View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D7</span></td><td>&ndash;</td><td>Demolition View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D8</span></td><td>&ndash;</td><td>Demolition View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D9</span></td><td>&ndash;</td><td>Demolition View Stack 0009</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-ARCH</span></td><td>&ndash;</td><td>New Work View Architecture</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-STRUC</span></td><td>&ndash;</td><td>New Work View Structure</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N1</span></td><td>&ndash;</td><td>New Work View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N2</span></td><td>&ndash;</td><td>New Work View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N3</span></td><td>&ndash;</td><td>New Work View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N4</span></td><td>&ndash;</td><td>New Work View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N5</span></td><td>&ndash;</td><td>New Work View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N6</span></td><td>&ndash;</td><td>New Work View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N7</span></td><td>&ndash;</td><td>New Work View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N8</span></td><td>&ndash;</td><td>New Work View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N9</span></td><td>&ndash;</td><td>New Work View Stack 0009</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

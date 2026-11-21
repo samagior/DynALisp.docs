@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Length &amp; Area Field</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Length &amp; Area Field</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/lengthfield.html" target="_blank">https://lee-mac.com/lengthfield.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-LengthAreaField</span> &ndash; original syntax: LF (Length Field) / AF (Area Field) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/lengthfield.html" target="_blank">lee-mac.com/lengthfield.html</a></td></tr></table>
+</div>
+<div class="toc">
+<h5>Contents</h5>
+<ul>
+<li class="outer"><a class="outer" href="#desc">Program Description</a></li>
+<li class="inner"><a class="inner" href="#lf">Length Field</a></li>
+<li class="inner"><a class="inner" href="#af">Area Field</a></li>
+<li class="inner"><a class="inner" href="#output">Field Output</a></li>
+<li class="outer"><a class="outer" href="#demo">Demonstration</a></li>
+<li class="outer"><a class="outer" href="#custom">Custom Commands</a></li>
+<li class="inner"><a class="inner" href="#format">Length / Area Formatting Code</a></li>
+</ul>
+</div>
+<h2 id="desc">Program Description</h2>
+<p>This program offers two commands to allow a user to generate a field expression referencing either the area or the 
+                length/perimeter/circumference of one or more selected objects.</p>
+<p>In the case of selecting multiple objects, the field expression will reference the sum of the areas or lengths of 
+                all objects in the selection.</p>
+<p>The program will also optionally prompt the user for a selection of objects whose lengths or areas are to be
+                subtracted from the total. The user may dismiss this second prompt if no values are to be subtracted, or the prompt
+                may be disabled completely by changing the subtraction prompt parameter supplied to the main function.</p>
+<p>The user may opt to specify a point at which to create a new multiline text object housing the field expression,
+                pick a table cell in which the field should be inserted, or select an existing single-line text, multiline text, 
+                multileader, or attribute to be populated with the field expression.</p>
+<h3 id="lf">Length Field</h3>
+<p>Upon issuing the command syntax <span class="fixw">LF</span> (Length Field) at the AutoCAD command-line, the 
+                program first prompts the user to make a selection of objects for which to return the length summation.</p>
+<p>At this prompt, the user may select any number of Arcs, Circles, Lines, 2D Polylines (light or heavy), or 3D Polylines.</p>
+<h3 id="af">Area Field</h3>
+<p>Alternatively, upon issuing the command syntax <span class="fixw">AF</span> (Area Field) at the AutoCAD command-line, 
+                the program will prompt the user to make a selection of objects for which to return the area summation.</p>
+<p>At this prompt, the user may select any number of Arcs, Circles, Ellipses, Hatches, 2D Polylines (light or heavy), 
+                Regions, or Splines. If the selected object is open, the area is computed as though a straight line connects the 
+                start point and endpoint.</p>
+<h3 id="output">Field Output</h3>
+<p>The user is then prompted to specify a point or table cell to insert a field expression referencing the 
+                summation of the lengths or areas of the selected objects.</p>
+<p>At this prompt, the user may also choose the 'Object' option in order to populate the content of an 
+                existing annotation object with the field expression.</p>
+<p>Upon choosing this option, the user may select any single-line text (DText), multiline text (MText),
+                single-line or multiline attribute, attributed block, or multileader (MLeader) with either multiline text 
+                or attributed block content.</p>
+<p>If the user selects an attributed block or attributed multileader with more than one attribute, the user
+                is presented with a dialog interface listing the available attributes, and is prompted to select a destination 
+                for the field expression.</p>
+<p>The user may optionally predefine the target block/multileader attribute by specifying the attribute tag 
+                where noted at the top of the program source code.</p>
+<p>The resulting field expression will display the sum of the lengths or areas of the selected objects, formatted using the field 
+                formatting code specified at the top of each command definition.</p>
+<div class="cent">
+<h2 id="demo">Demonstration</h2>
+<img alt="Length Field Demo?" height="300" src="images/LM-lengthfield.gif" width="600"/>
+</div>
+<h2 id="custom">Custom Commands</h2>
+<p>The available commands offered by the program are defined at the very top of the program source code.
+                Additional custom commands which target specific attribute tags, or which employ varying field formatting codes
+                may be defined by the user to accommodate drawings in which lengths or areas must be expressed in
+                a variety of formats.</p>
+<p>Four custom commands are already defined as examples:</p>
+<div class="code">
+<pre>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+<span class="cmt">;; Length Field Commands                                                ;;</span>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+ 
+<span class="brkt">(</span><span class="func">defun</span> c:lf  <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>lengthfield <span class="func">nil</span> <span class="func"> t </span> <span class="str">"%lu6"</span><span class="brkt">))</span>             <span class="cmt">;; Current units, subtraction prompt</span>
+<span class="brkt">(</span><span class="func">defun</span> c:lfm <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>lengthfield <span class="func">nil</span> <span class="func">nil</span> <span class="str">"%lu6%ct8[0.001]"</span><span class="brkt">))</span>  <span class="cmt">;; Current units with 0.001 conversion factor (mm-&gt;m), no subtraction prompt</span>
+ 
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+<span class="cmt">;; Area Field Commands                                                  ;;</span>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+ 
+<span class="brkt">(</span><span class="func">defun</span> c:af  <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>areafield <span class="func">nil</span> <span class="func"> t </span> <span class="str">"%lu6%qf1"</span><span class="brkt">))</span>           <span class="cmt">;; Current units, subtraction prompt</span>
+<span class="brkt">(</span><span class="func">defun</span> c:afm <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>areafield <span class="func">nil</span> <span class="func">nil</span> <span class="str">"%lu6%qf1%ct8[1e-6]"</span><span class="brkt">))</span> <span class="cmt">;; Current units with 1e-6 (0.000001) conversion factor (mm2-&gt;m2), no subtraction prompt</span>
+</pre>
+</div>
+<p>Here, the general format of the definition of a command is:</p>
+<div class="code">
+<pre><span class="brkt">(</span><span class="func">defun</span> c:<span class="cmt">&lt;Command-Name&gt;</span> <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>lengthfield <span class="str">&lt;Target-Attribute-Tag&gt;</span> <span class="func">&lt;Subtraction-Prompt&gt;</span> <span class="str">&lt;Field-Formatting-Code&gt;</span><span class="brkt">))</span></pre>
+</div>
+<p>Here, the <span class="fixw">&lt;Target-Attribute-Tag&gt;</span> may be the tag name of an attribute reference
+                to be populated with the field expression (such tag is <u>not</u> case-sensitive), or <span class="fixw">nil</span> 
+                if the user is permitted to select any attribute.</p>
+<h3><em>For example:</em></h3>
+<div class="code">
+<pre><span class="brkt">(</span><span class="func">defun</span> c:myaf <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>areafield <span class="str">"TAG1"</span> <span class="func">t</span> <span class="str">"%lu2%pr3%ps[Area:,]%ct8[0.1]"</span><span class="brkt">))</span></pre>
+</div>
+<p>The above custom command may be invoked at the AutoCAD command-line using the syntax
+                <span class="fixw">myaf</span> and targets an attribute with tag name <span class="fixw">"TAG1"</span>, 
+                prompting the user for a selection of objects whose areas are to be added to the total, followed by a selection 
+                of objects whose areas are to be subtracted from the total, with the resulting area formatted:</p>
+<div class="unspacedbullets">
+<ul>
+<li>in Decimal Units (<span class="fixw">%lu2</span>)</li>
+<li>to a Precision of 3 d.p. (<span class="fixw">%pr3</span>)</li>
+<li>with a Prefix of "Area:"  (<span class="fixw">%ps[Area:,]</span>)</li>
+<li>with a Conversion Factor of 0.1  (<span class="fixw">%ct8[0.1]</span>)</li>
+</ul>
+</div>
+<h3 id="format">Length / Area Formatting Code</h3>
+<p>The field formatting code supplied as the second parameter for each custom command may be altered to display 
+                the length or area in a desired format:</p>
+<p>To determine the correct formatting code to be used, perform the following steps:</p>
+<div class="spacedbullets">
+<ul>
+<li>Type <span class="fixw">FIELD</span> at the AutoCAD command-line and press 
+                        <span class="fixw">ENTER</span> to open the Field dialog.</li>
+<li>Select <span class="fixw">Objects</span> from the 'Field Category' drop-down menu.</li>
+<li>Select <span class="fixw">Object</span> from the 'Field Names' section.</li>
+<li>Select an object (with length or area) from the drawing by clicking the object selection button 
+                        adjacent to the 'Object Type' box.</li>
+<li>Select the <span class="fixw">Length</span> or <span class="fixw">Area</span> property from the 'Property' panel (or equivalent property for Arcs &amp; Circles).</li>
+<li>Configure the formatting options as desired.</li>
+<li>Click <span class="fixw">OK</span> and pick a point in the drawing to create a temporary MText Field.</li>
+<li>Download &amp; load my <a href="LM-FieldFormattingCode.htm" target="_blank">Field Formatting Code</a> program.</li>
+<li>Type <span class="fixw">fieldformat</span> to run the program and select the temporary MText Field created earlier.</li>
+<li>Following a valid selection, the field formatting code will be printed to the command-line, e.g.:</li>
+<div class="code">
+<pre><span class="cmt">Formatting code:</span> <span class="str">"%lu4%ds44%th39"</span></pre>
+</div>
+</ul>
+</div>
+<p>For more examples &amp; information on how to supply a field formatting code to a custom command, please refer to the program page for my <a href="LM-QuickField.htm">Quick Field</a> program.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Length &amp; Area Field }==---------------------;;
+;;                                                                      ;;
+;;  This program offers two commands to allow a user to generate a      ;;
+;;  field expression referencing either the area or the                 ;;
+;;  length/perimeter/circumference of one or more selected objects.     ;;
+;;  In the case of selecting multiple objects, the field expression     ;;
+;;  will reference the sum of the areas or lengths of all objects in    ;;
+;;  the selection.                                                      ;;
+;;                                                                      ;;
+;;  The user may opt to specify a point at which to create a new        ;;
+;;  multiline text object housing the field expression, pick a table    ;;
+;;  cell in which the field should be inserted, or select an existing   ;;
+;;  single-line text, multiline text, multileader, or attribute to      ;;
+;;  be populated with the field expression.                             ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;LF&#x27; (Length Field) at the AutoCAD  ;;
+;;  command-line, the program first prompts the user to make a          ;;
+;;  selection of objects for which to return the length summation.      ;;
+;;                                                                      ;;
+;;  At this prompt, the user may select any number of Arcs, Circles,    ;;
+;;  Lines, 2D Polylines (light or heavy), or 3D Polylines.              ;;
+;;                                                                      ;;
+;;  Alternatively, upon issuing the command syntax &#x27;AF&#x27; (Area Field)    ;;
+;;  at the AutoCAD command-line, the program will prompt the user to    ;;
+;;  make a selection of objects for which to return the area summation. ;;
+;;                                                                      ;;
+;;  At this prompt, the user may select any number of Arcs, Circles,    ;;
+;;  Ellipses, Hatches, 2D Polylines (light or heavy), Regions, or       ;;
+;;  Splines. If the selected object is open, the area is computed as    ;;
+;;  though a straight line connects the start point and endpoint.       ;;
+;;                                                                      ;;
+;;  The user is then prompted to specify a point or table cell to       ;;
+;;  insert a field expression referencing the summation of the lengths  ;;
+;;  or areas of the selected objects.                                   ;;
+;;                                                                      ;;
+;;  At this prompt, the user may also choose the &#x27;Object&#x27; option in     ;;
+;;  order to populate the content of an existing annotation object      ;;
+;;  with the field expression.                                          ;;
+;;                                                                      ;;
+;;  Upon choosing this option, the user may select any single-line      ;;
+;;  text (DText), multiline text (MText), single-line or multiline      ;;
+;;  attribute, attributed block, or multileader (MLeader) with either   ;;
+;;  multiline text or attributed block content.                         ;;
+;;                                                                      ;;
+;;  If the user selects an attributed block or attributed multileader   ;;
+;;  with more than one attribute, the user is presented with a dialog   ;;
+;;  interface listing the available attributes, and is prompted to      ;;
+;;  select a destination for the field expression.                      ;;
+;;                                                                      ;;
+;;  The user may optionally predefine the target block/multileader      ;;
+;;  attribute by specifying the attribute tag where noted at the top    ;;
+;;  of the program source code.                                         ;;
+;;                                                                      ;;
+;;  The resulting field expression will display the sum of the lengths  ;;
+;;  or areas of the selected objects, formatted using the field         ;;
+;;  formatting code specified at the top of each command definition.    ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2017  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2017-08-06                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2017-08-06                                      ;;
+;;                                                                      ;;
+;;  - Program modified to account for selection of existing annotation  ;;
+;;    objects which already contain a field expression.                 ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2018-10-29                                      ;;
+;;                                                                      ;;
+;;  - Restructured program to use standard LM:outputtext function.      ;;
+;;  - Incorporated Area Field functionality and added new &#x27;AF&#x27; command. ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2018-11-04                                      ;;
+;;                                                                      ;;
+;;  - Changed &#x27;c:lf&#x27; and &#x27;c:af&#x27; commands to functions accepting an      ;;
+;;    optional attribute tag and field formatting argument to enable    ;;
+;;    the user to create multiple commands with varying parameters.     ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2022-09-05                                      ;;
+;;                                                                      ;;
+;;  - Added optional prompt for lengths &amp; areas to be subtracted.       ;;
+;;----------------------------------------------------------------------;;
+
+;; tag - [str] Optional target attribute tag (nil for none)
+;; sub - [bol] Optional subtraction prompt (t/nil)
+;; fmt - [str] Optional field formatting string (nil for none)</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-LengthAreaField</span>: they are run by their alias, or picked from <span class="fixw">LM-LengthAreaField</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-LengthAreaField</span></td><td>&ndash;</td><td>Length / Area Field</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LF</span></td><td>&ndash;</td><td>Length Field</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LFM</span></td><td>&ndash;</td><td>Length Field Meters</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; (no alias)</td><td>&ndash;</td><td>Area Field</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">AFM</span></td><td>&ndash;</td><td>Area Field Square Meters</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2017 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

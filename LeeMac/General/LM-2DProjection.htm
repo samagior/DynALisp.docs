@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2D Projection</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>2D Projection</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/2dprojection.html" target="_blank">https://lee-mac.com/2dprojection.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-2DProjection</span> &ndash; original syntax: 2dpro (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/2dprojection.html" target="_blank">lee-mac.com/2dprojection.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>Inspired by the superb <a href="http://bit.ly/1skIKV8" target="_blank" title="STSC_Projective2D">Projective2D</a> 
+                application published by the talented programmer Sean Tessier, here I present an open-source AutoLISP program 
+                offering similar functionality.</p>
+<p>This program provides the user with a means of applying a projective transformation (also known as a homography, collineation, or
+                less technically, a 'perspective' transformation), projecting a selected set of planar objects from one reference frame
+                (or projective space) to another.</p>
+<p>Upon issuing the command syntax <span class="fixw">2dpro</span> at the AutoCAD command-line, the user is prompted to select a
+                set of 2D coplanar objects to be projected. This selection is restricted to Arcs, Circles, Elipses, Lines, LWPolylines, 2D (Heavy)
+                Polylines, 2D Splines &amp; Points.</p>
+<p>The user is then prompted to select a source reference frame &amp; a destination reference frame. For each of these prompts, the
+                program requires the user to select a closed planar polyline (LWPolyline) with four non-collinear vertices. Following each selection,
+                the program will ensure the points defining the reference frame are counter-clockwise oriented with the points ordered such 
+                that the lower-left vertex appears first.</p>
+<p>Following valid user responses, the program will then convert the four 2D points defining each reference frame into homogeneous
+                coordinates, and will calculate the transformation matrix to map from the source reference frame (or projective space) to the
+                destination reference frame.</p>
+<p>The program will then iterate over the set of selected objects and, for each object, will calculate a 2D point set describing
+                or (in the case of curved objects) approximating the object. Each point is then converted to homogeneous coordinates and mapped
+                to the destination reference frame using the tranformation matrix, before being converted back to cartesian coordinates.</p>
+<p>The program will then generate either a Point, Line or LWPolyline from the mapped point(s) with properties matching those 
+                of the original object.</p>
+<h2>Demonstrations</h2>
+<p>Below are two examples demonstrating the use of the program to project a set of objects from an orthogonal reference frame to a
+                skewed perspective, and then from one skewed perspective to another. Please note that the text in the following example was created
+                using the Express Tools <span class="fixw">TXTEXP</span> command and is hence composed of lines &amp; polylines.</p>
+<h3>Example 1</h3>
+<p><img alt="2D Projection Example 1" height="350" src="images/LM-2dprojection.gif" width="600"/></p>
+<h3>Example 2</h3>
+<p><img alt="2D Projection Example 2" height="350" src="images/LM-2dprojection2.gif" width="600"/></p>
+<h3>Example 3 <em>(for fun!)</em></h3>
+<p><img alt="2D Projection Example 3" height="300" src="images/LM-2dprojection3.gif" width="600"/></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>Tool description
+
+ This program provides the user with a means of projecting a
+        selected set of planar objects from one reference frame to another.
+
+        Upon issuing the command syntax &#x27;2dpro&#x27; at the AutoCAD
+        command-line, the user is prompted to select a set of 2D planar
+        objects to be projected. This selection is restricted to Arcs,
+        Circles, Elipses, Lines, LWPolylines, 2D (Heavy) Polylines,
+        2D Splines &amp; Points.
+
+        The user is then prompted to select a source reference frame &amp;
+        a destination reference frame. For each of these prompts, the
+        program requires the user to select a closed LWPolyline with four
+        non-collinear vertices. Following each selection, the program
+        will ensure the points are counter-clockwise oriented with the
+        points ordered such that the lower-left vertex appears first.
+
+        Following valid user responses, the program will then convert the
+        four 2D points defining each reference frame into homogeneous
+        coordinates, and will calculate the transformation matrix to map
+        from the source reference frame (or projective space) to the
+        destination reference frame.
+
+        The program will then iterate over the set of selected objects
+        and, for each object, will calculate a 2D point set describing or
+        (in the case of curved objects) approximating the object.
+
+        Each point is then converted to homogeneous coordinates and mapped
+        to the destination reference frame using the tranformation matrix,
+        before being converted back to cartesian coordinates.
+
+        The program will then generate either a Point, Line or LWPolyline
+        from the mapped point(s) with properties matching those of the
+        original object.
+
+Author
+
+ Author: Lee Mac, Copyright © 2014 - www.lee-mac.com
+
+Releases
+
+ Version 1.0 - 2014-10-10
+
+        First release.</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-2DProjection</span>: they are run by their alias, or picked from <span class="fixw">LM-2DProjection</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-2DProjection</span></td><td><span class="fixw">2DPRO</span></td><td>2D Projection</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">2DPRO-H</span></td><td>&ndash;</td><td>2D Projection Help</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nested Block Counter</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Nested Block Counter</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/nestedblockcounter.html" target="_blank">https://lee-mac.com/nestedblockcounter.html</a></p>
+
+<p><em>See also <a href="LM-AdvancedBlockCount.htm" title="Block Counter">Block Counter</a> &amp; 
+                <a href="LM-DynamicBlockCount.htm" title="Dynamic Block Counter">Dynamic Block Counter</a></em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-BlockCount</span> &ndash; original syntax: BlockCount (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.5</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/nestedblockcounter.html" target="_blank">lee-mac.com/nestedblockcounter.html</a></td></tr></table>
+</div>
+<p><em>"Not another block counter!"</em> I hear you say...</p>
+<p>...Well, this counter is slightly different to my previously uploaded 
+                <a href="LM-AdvancedBlockCount.htm" title="Block Counter">Block Counter</a>
+                and <a href="LM-DynamicBlockCount.htm" title="Dynamic Block Counter">Dynamic Block Counter</a> programs.</p>
+<h2>Program Description</h2>
+<p>This program will generate a report detailing the individual quantities of primary and <em>nested</em> blocks, 
+                dynamic blocks &amp; xrefs in a selection or an entire drawing.</p>
+<p>The program will correctly count the number of nested blocks, nested dynamic blocks and nested xrefs, nested to any level,
+                and with any number of instances of the same block at each level.</p>
+<p>Of course, the program may be used as a standard block counter, since the nested block count data is displayed separately from 
+                the primary block count data, and the nested block report will not be shown if there are no nested blocks in the drawing.</p>
+<p>The report is printed to the command-line and separately details the number of primary and nested blocks with a break-down of the
+                quantities for each individual block name, together with the total number of primary and nested blocks located adjacent to the report
+                headings. The printed report may subsequently be extracted to either a Text or CSV file.</p>
+<h2>Example of Output</h2>
+<div class="code">
+<pre>
+<span class="cmt">=====================================================================</span>
+<span class="int"> Block Count</span>
+<span class="cmt">=====================================================================</span>
+<span class="int"> Primary Blocks (21)                                            Count</span>
+<span class="cmt">---------------------------------------------------------------------</span>
+<span class="int"> Block1............................................................16</span>
+<span class="int"> Block2.............................................................2</span>
+<span class="int"> Block3.............................................................3</span>
+<span class="cmt">=====================================================================</span>
+<span class="int"> Nested Blocks (8)                                              Count</span>
+<span class="cmt">---------------------------------------------------------------------</span>
+<span class="int"> Block1.............................................................5</span>
+<span class="int"> Block2.............................................................3</span>
+<span class="cmt">=====================================================================</span>
+</pre>
+</div>
+<p><em>See also <a href="LM-AdvancedBlockCount.htm" title="Block Counter">Block Counter</a> &amp; 
+                <a href="LM-DynamicBlockCount.htm" title="Dynamic Block Counter">Dynamic Block Counter</a></em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------------=={ Block Count }==-------------------------;;
+;;                                                                      ;;
+;;  This program will generate a report detailing the individual        ;;
+;;  quantities of primary and nested blocks, dynamic blocks &amp; xrefs in  ;;
+;;  a selection or an entire drawing.                                   ;;
+;;                                                                      ;;
+;;  The program will correctly count the number of nested blocks,       ;;
+;;  nested dynamic blocks and nested xrefs; nested to any level; and    ;;
+;;  with any number of instances of the same block at each level.       ;;
+;;                                                                      ;;
+;;  Of course, the program may be used as a standard block counter,     ;;
+;;  since the nested block count data is displayed separately from the  ;;
+;;  primary block count data, and the nested report will not be shown   ;;
+;;  if there are no nested blocks in the drawing.                       ;;
+;;                                                                      ;;
+;;  The report is printed to the command-line and separately details    ;;
+;;  the number of primary and nested blocks with a break-down of the    ;;
+;;  quantities for each individual block name, together with the total  ;;
+;;  number of primary and nested blocks located adjacent to the report  ;;
+;;  headings. The printed report may subsequently be extracted to       ;;
+;;  either a Text or CSV file.                                          ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2014  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    2014-02-02                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-BlockCount</span></td><td><span class="fixw">BLOCKCOUNT</span></td><td>Block Count</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

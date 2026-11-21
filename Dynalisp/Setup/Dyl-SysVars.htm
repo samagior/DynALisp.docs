@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>System Variables</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SysVars.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>System Variables</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-SYSVARS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-SysVars.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-SysVars.lsp</span> (profiles and override, loaded at startup)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Keeps system variables at your preferred values, like the AutoCAD <span class="fixw">System Variable Monitor</span>, with profiles. Each profile is a list of system variables and their preferred values; the active profile is set in every drawing opened while <em>System variables</em> is on in <span class="fixw">Dyl-Settings</span> (<em>Overrides</em>, off by default). Its <em>open</em> button opens this window.</p>
+<h2>The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Profile</strong> &ndash; the profile shown, which becomes the active profile on <strong>OK</strong>. <strong>New...</strong> creates an empty profile, <strong>Copy...</strong> a copy of the profile shown, <strong>Rename...</strong> and <strong>Delete</strong> change the profile shown (the last profile cannot be deleted).</li>
+<li><strong>Variables of the profile</strong> (under the profile buttons) &ndash; each variable with its preferred value and its current value in this drawing (the same three columns as the protected variables). The current value is marked when the variable does not have its preferred value: <span class="fixw">*</span> it differs, <em>(value not valid)</em>, <em>(protected)</em> a protected variable (its protected value is used), <em>(unknown)</em> not a variable of this AutoCAD.</li>
+<li><strong>Several variables at once</strong> &ndash; in both lists, Ctrl+click adds a variable to the selection, Shift+click selects a range: <strong>Remove</strong> removes them all. The edit boxes show the first one selected (a value is for one variable: <em>Add</em> adds or replaces the one typed).</li>
+<li><strong>Add</strong> &ndash; adds the variable typed with its preferred value, or replaces its value when the profile has it. Read-only variables, protected variables (change them in the protected variables) and values of the wrong type are refused. <strong>Use current</strong> puts the current value of the variable typed as its preferred value. <strong>Remove</strong> removes the variable selected. <strong>List...</strong> opens the list of every system variable (see below) to add one to the profile.</li>
+<li><strong>Reset all</strong> &ndash; sets every variable to its preferred value in this drawing, right away: the protected variables and those of the profile shown.</li>
+<li><strong>Protected variables</strong> &ndash; the variables set to their preferred value in every drawing, whatever the active profile, and that no profile changes (for every profile), with the same three columns. <strong>Add</strong>, <strong>Use current</strong>, <strong>List...</strong> and <strong>Remove</strong> work as for the profile. A protected variable without a value is protected only: no profile changes it, it is not set. A profile row of a protected variable is marked <em>(protected)</em> and skipped. By default: <span class="fixw">CMDDIA 1</span>, <span class="fixw">FILEDIA 1</span>, <span class="fixw">LAYLOCKFADECTL 50</span>, <span class="fixw">MIRRTEXT 0</span>, <span class="fixw">PICKADD 2</span>, <span class="fixw">PICKAUTO 5</span>, <span class="fixw">PICKFIRST 1</span>.</li>
+<li><strong>OK</strong> saves the profiles and the protected variables, and applies the active one while <em>System variables</em> is on; <strong>Cancel</strong> leaves them as they were (a <em>Reset all</em> stays). <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>System Variable List</h2>
+<p>The <strong>List...</strong> buttons open every system variable of AutoCAD with its current value and a short description. <strong>Search</strong> filters them by name or description (press Enter). The variable selected shows its type, where it is saved, its initial value and the first paragraphs of its description; <strong>AutoCAD Help</strong> opens its page of the AutoCAD documentation (help.autodesk.com, in the release and language of this AutoCAD). A double-click closes the window and puts the variable in the <em>Variable</em> box of the list it was opened from (the profile row is selected when the profile has it), with its current value in the <em>Preferred value</em> box, ready to add with its <strong>Add</strong> button. <strong>Add</strong> in this window adds the variable selected right away, and the window stays open to add others:</p>
+<div class="spacedbullets">
+<ul>
+<li>From the profile: added with its current value as preferred value, to change in the profile. Read-only, protected and unavailable variables are refused.</li>
+<li>From the protected variables: added with its current value as preferred value, to change in the protected variables. Read-only and unavailable variables are refused.</li>
+</ul>
+</div>
+<p>The list is the one of the Express Tools (<span class="fixw">Express\sysvdlg.dat</span> of the AutoCAD installation, read where it is). Without the Express Tools, the window says so; variables can still be typed in the main window.</p>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ul>
+<li>A value is read as the type of the current value of its variable: a whole number (<span class="fixw">PICKADD 2</span>), a number (<span class="fixw">LTSCALE 1.5</span>), a text, or a point written <span class="fixw">x,y</span> or <span class="fixw">x,y,z</span>.</li>
+<li>Each drawing opened sets the protected variables and those of the active profile that differ, without marking the drawing as modified; the window shows what differs. A profile saved, or <em>System variables</em> turned on, in another drawing applies to the drawings already open when you switch to them, while <em>Settings sync</em> is on.</li>
+<li>The profiles are the CSV files of <span class="fixw">Modules\Dynalisp\Res\SysVars</span> (<span class="fixw">Variable;Value</span>, one variable per row). Saved profiles go to <span class="fixw">User\Modules\Dynalisp\Res\SysVars</span> (see <span class="fixw">Dyl-UserFiles</span>). The <span class="fixw">Default</span> profile is empty. The protected variables are <span class="fixw">Modules\Dynalisp\Res\SysVarsProtected.csv</span> (<span class="fixw">Variable;Value</span>, an empty value: protected only), saved to its copy under <span class="fixw">User</span>.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The variables are set when a drawing opens, a profile is saved or <em>Reset all</em> is clicked: a variable changed afterwards stays changed until then (there is no notification like the System Variable Monitor balloon).</li>
+<li>Variables saved in the drawing are set in the session only: save the drawing to keep them in the file.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-SysVars</span></td><td>&ndash;</td><td>System Variables</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

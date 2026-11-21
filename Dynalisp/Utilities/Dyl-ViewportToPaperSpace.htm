@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Viewport To Paper Space</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ViewportToPaperSpace.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Viewport To Paper Space</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">VP2PS</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ViewportToPaperSpace.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Recreates the model space objects visible through the selected viewports directly in the layout, at 1:1 and exactly where they appeared on the sheet, then deletes the viewports. The sheet looks the same but no longer depends on model space. Prompts and messages are in French.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">VP2PS</span></td><td>Viewport To Paper Space</td><td>Recreates the model space objects seen through the selected viewports in paper space, then deletes the viewports.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Run the command from a layout tab (it refuses to run in model space and switches to paper space if a viewport is active).</li>
+<li>Choose the result mode at <span class="fixw">Mode de resultat [Decouper/Libre]</span>; the last choice is the default:<div class="unspacedbullets">
+<ul>
+<li><span class="fixw">Decouper</span> (clip, default) &ndash; the copies are grouped in a block (<span class="fixw">VP2PS_</span> prefix) clipped with the viewport boundary, so the result looks exactly like the viewport;</li>
+<li><span class="fixw">Libre</span> (free) &ndash; the copies are loose objects in paper space and objects crossing the viewport edge are not trimmed.</li>
+</ul>
+</div></li>
+<li>Select the viewports to convert (the paper space viewport itself is excluded).</li>
+<li>Model space objects are collected once. For each viewport the objects on visible layers are copied and transformed with the viewport scale, view centre and twist angle; rectangular and clipped viewports are supported.</li>
+<li>With <span class="fixw">PSLTSCALE</span> = 0 linetype scales are adjusted to keep dash lengths; dimensions keep their displayed value and size.</li>
+<li>Each converted viewport is deleted. Layers temporarily unlocked are relocked, the drawing is regenerated and a report gives the number of viewports and objects converted. The whole operation is one UNDO group.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Perspective viewports are skipped; 3D (non-plan) views keep their depth &ndash; use FLATTEN afterwards.</li>
+<li>Viewport layer overrides (VP colour, linetype&hellip;) are not transferred.</li>
+<li>Copies are no longer associative (dimensions, hatches); check annotative objects and multileaders visually.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-ViewportToPaperSpace</span></td><td><span class="fixw">VP2PS</span></td><td>Viewport To Paper Space</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ==========================================================================
+;;; VP2PS.lsp  -  Viewport To Paper Space
+;;;
+;;; Purpose :
+;;;   Recreates the model space objects visible through the selected
+;;;   viewports directly in the current layout (paper space) at a 1:1
+;;;   scale. Each copy is placed exactly where it appeared on the sheet,
+;;;   so the sheet layout is preserved. The source viewports are then
+;;;   deleted.
+;;;
+;;; Commands :
+;;;   VP2PS   - Run the conversion on the selected viewports.
+;;;
+;;; Result modes :
+;;;   Decouper (Clip)  - Copies are grouped in a block and clipped (XCLIP)
+;;;                      with the viewport boundary. The result is visually
+;;;                      identical to the viewport. (default)
+;;;   Libre (Free)     - Copies are placed as loose objects in paper space.
+;;;                      Objects crossing the viewport edge are NOT trimmed.
+;;;
+;;; What is handled :
+;;;   - Any viewport scale, view center and twist angle.
+;;;   - Rectangular and non-rectangular (clipped) viewports.
+;;;   - Layers that are off, frozen, or frozen in the viewport are skipped.
+;;;   - Objects on locked layers are copied normally.
+;;;   - PSLTSCALE = 0 : linetype scales are adjusted to keep dash lengths.
+;;;   - Dimensions keep their displayed value and their visual size.
+;;;
+;;; Limitations :
+;;;   - Perspective viewports are skipped.
+;;;   - 3D (non-plan) views keep their depth : use FLATTEN afterwards.
+;;;   - Viewport layer overrides (VP color, linetype...) are not transferred.
+;;;   - Annotative objects and multileaders should be checked visually.
+;;;   - Copies are no longer associative (dimensions, hatches).
+;;;
+;;; The whole operation is recorded as a single UNDO group.
+;;; ==========================================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

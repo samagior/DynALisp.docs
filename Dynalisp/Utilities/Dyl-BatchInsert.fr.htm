@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Insertion par lot</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-BatchInsert.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Insertion par lot (Batch Insert)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">BATCH-INSERT</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-BatchInsert.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (sélecteur de dossier Shell)</td>
+</tr>
+<tr>
+<td>État</td>
+<td>En développement &ndash; voir Limites connues</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Destiné à insérer chaque dessin d'un dossier dans le dessin courant comme blocs, placés côte à côte le long de l'axe X, pour examiner ou vérifier un jeu de dessins d'un coup d'œil.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">BATCH-INSERT</span></td><td>Batch Insert</td><td>Insère chaque dessin d'un dossier côte à côte comme blocs dans le dessin courant.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Un sélecteur de dossier Windows s'ouvre (<em>Select a folder</em>); le chemin peut être tapé dans la boîte de dialogue.</li>
+<li>La routine liste les fichiers <span class="fixw">*.dwg</span> du dossier.</li>
+<li>Chaque fichier est inséré avec <span class="fixw">-INSERT</span> à l'échelle 1 et à la rotation 0, la position X devant avancer de 100 unités de dessin pour chaque dessin.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Le dossier choisi dans le sélecteur n'est pas utilisé : les fichiers sont listés depuis le dossier codé en dur <span class="fixw">C:/Users/My folder/</span>.</li>
+<li>Le point d'insertion est envoyé comme le texte littéral <span class="fixw">x,0,0</span> au lieu de la valeur du compteur X : AutoCAD refuse donc le point.</li>
+<li>Les noms de fichiers sont passés sans leur dossier : <span class="fixw">-INSERT</span> ne les trouve donc que si le dossier est dans le chemin de recherche des fichiers de support.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-BatchInsert</span></td><td><span class="fixw">BATCH-INSERT</span></td><td>Batch Insert</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filtres de calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerFilter.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Filtres de calques (Layer Filters)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYERFILTER</span> et 46 préréglages &ndash; voir <a href="#commands">Commandes</a></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerFilter.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>Noms de calques de style AIA / NCS; AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-LAYERFILTER</span> liste chaque préréglage de filtre avec son alias : double-cliquez-en un (ou OK) pour l'appliquer. Les préréglages sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
+<p>Des commandes d'un mot qui règlent la visibilité des calques pour un type de vue : afficher ou masquer une phase, isoler un niveau d'un dessin empilé, tramer les autres disciplines, etc. Dans l'espace objet, ce sont les calques eux-mêmes qui changent; dans une présentation, le même filtre est appliqué en dérogations de fenêtre sur les fenêtres que vous sélectionnez.</p>
+<p>Le programme travaille avec des noms de calques faits de champs séparés par des tirets, où le dernier champ peut être un suffixe de phase et un champ peut être un numéro d'empilement (niveau) :</p>
+<div class="programs commands">
+<table>
+<tr><th>Suffixe</th><th>Phase</th></tr>
+<tr><td><span class="fixw">-E</span></td><td>Existant à conserver</td></tr>
+<tr><td><span class="fixw">-D</span></td><td>Existant à démolir</td></tr>
+<tr><td><span class="fixw">-N</span></td><td>Travaux neufs</td></tr>
+<tr><td><span class="fixw">-R</span></td><td>En rénovation</td></tr>
+<tr><td><span class="fixw">-M</span></td><td>En déplacement</td></tr>
+<tr><td><span class="fixw">-S</span></td><td>À récupérer</td></tr>
+<tr><td><span class="fixw">-A</span></td><td>Abandonné</td></tr>
+<tr><td><span class="fixw">-F</span></td><td>Travaux futurs</td></tr>
+<tr><td><span class="fixw">-T</span></td><td>Travaux temporaires</td></tr>
+<tr><td><span class="fixw">-X</span></td><td>Hors contrat</td></tr>
+</table>
+</div>
+<p>Les numéros d'empilement sont des champs de quatre chiffres, <span class="fixw">0001</span> à <span class="fixw">0009</span> (p. ex. <span class="fixw">A-Wall-0002-N</span>), utilisés pour les élévations ou les étages empilés dessinés dans le même fichier.</p>
+<h2>Fonctionnement</h2>
+<p>Chaque commande est un préréglage fait de cinq listes de motifs (afficher, masquer, afficher secondaire, masquer secondaire, tramer), d'un indicateur de verrouillage et d'un état de départ. Quand la commande s'exécute :</p>
+<div class="spacedbullets">
+<ol>
+<li><strong>Xréfs</strong> &ndash; les xréfs insérées sur un calque du même nom que la xréf (convention des jeux de feuilles) ont ce calque ajouté à la liste à afficher, avec les calques 0 et Defpoints.</li>
+<li><strong>Jetons</strong> &ndash; les noms de groupes des listes sont développés en motifs génériques (voir le tableau ci-dessous).</li>
+<li><strong>Phases</strong> &ndash; pour les vues <em>Existant</em>, les variantes <span class="fixw">-E</span> et <span class="fixw">-X</span> des motifs à afficher sont ajoutées; les vues <em>Neuf</em> ajoutent aussi <span class="fixw">-N</span> <span class="fixw">-R</span> <span class="fixw">-M</span>; les vues <em>Démolition</em> ajoutent <span class="fixw">-D</span> <span class="fixw">-S</span> <span class="fixw">-T</span>.</li>
+<li><strong>Espace objet</strong> &ndash; une marque d'annulation est posée, chaque calque est remis à 0 % de transparence et déverrouillé; les préréglages à l'état de départ <em>Reset</em> rendent ensuite le calque 0 courant et désactivent et gèlent tous les calques. <span class="fixw">-LAYER</span> active/libère ensuite les listes à afficher et désactive/gèle les listes à masquer (les principales d'abord, les secondaires en dernier : les listes secondaires l'emportent), applique 50 % de transparence à la liste à tramer, la verrouille au besoin, et régénère.</li>
+<li><strong>Espace papier</strong> &ndash; sélectionnez les fenêtres (les autres objets sont ignorés). Les mêmes listes sont appliquées avec <span class="fixw">VPLAYER</span> (gel/libération et 50 % de transparence) aux fenêtres sélectionnées seulement; les calques eux-mêmes ne changent pas.</li>
+<li>Si la commande échoue, le dessin est ramené à la marque d'annulation.</li>
+</ol>
+</div>
+<h3>Jetons</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Jeton</th><th>Se développe en</th><th>Signification</th></tr>
+<tr><td><span class="fixw">Exst</span></td><td>*-@@?? , *-E , *-X</td><td>Calques sans phase (le dernier champ est un code de 4 caractères), existants et hors contrat</td></tr>
+<tr><td><span class="fixw">Demo</span></td><td>*-D , *-S , *-T</td><td>À démolir, à récupérer, temporaire</td></tr>
+<tr><td><span class="fixw">Neww</span></td><td>*-N , *-M , *-R</td><td>Travaux neufs, déplacé, rénové</td></tr>
+<tr><td><span class="fixw">Futw</span></td><td>*-F</td><td>Travaux futurs</td></tr>
+<tr><td><span class="fixw">Abnd</span></td><td>*-A</td><td>Abandonné</td></tr>
+<tr><td><span class="fixw">Ustk</span></td><td>*-@@?? , *-@@??-?</td><td>Calques non empilés (sans numéro de niveau), en phase ou non</td></tr>
+<tr><td><span class="fixw">Fstk</span></td><td>*-0001 &hellip; *-0009</td><td>Tous les empilements; avec un * final quand il sert dans une liste à masquer</td></tr>
+<tr><td><span class="fixw">Annotation</span></td><td>*-Anno* *-Tags* *-Dims* *-Text* *-Note* *-Titl* *-Symb* *-Iden* *-Mark* *-Keyn* *-Exst* *-Grid*</td><td>Calques d'annotation</td></tr>
+<tr><td><span class="fixw">Pattern</span></td><td>*-Patt* , *-Elev*-Mcut*</td><td>Calques de hachures et de matériaux coupés</td></tr>
+<tr><td><span class="fixw">Highlight</span></td><td>*-Elev*-Main* , -Otln , -Blin , -Sect , -Medm , -Wide &hellip;</td><td>Épaisseurs de ligne d'élévation à faire ressortir</td></tr>
+<tr><td><span class="fixw">Hidden</span></td><td>*-Elev-*Hidd* , *-Elev-*Bgrd* , *-Elev-*Nplt*</td><td>Calques d'élévation cachés, d'arrière-plan et non tracés</td></tr>
+<tr><td><span class="fixw">A-Flor</span></td><td>*A-Flor* , *A-Wall* , *A-Door* , *A-Glaz*</td><td>Plan d'étage architectural</td></tr>
+<tr><td><span class="fixw">N-Architectural</span></td><td>S-* , P-* , I-* , L-*</td><td>Toutes les disciplines sauf l'architecture</td></tr>
+<tr><td><span class="fixw">N-Structural</span></td><td>A-* , P-* , I-* , L-*</td><td>Toutes les disciplines sauf la structure</td></tr>
+</table>
+</div>
+<h2 id="commands">Commandes</h2>
+<p><em>Reset</em> : tout est masqué d'abord et seul le préréglage est affiché. <em>Keep</em> : la visibilité courante est gardée et le préréglage est appliqué par-dessus.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th><th>État de départ</th></tr>
+<tr><td><span class="fixw">LF-A-FLOR</span></td><td>Architectural Floor Plan Filter</td><td>Règle la visibilité des calques pour n'afficher que les calques du plan d'étage architectural.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">SH-ALL</span></td><td>Show All Layers</td><td>Active et libère tous les calques du dessin, xréfs comprises.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-NPLT</span></td><td>Show Non-Plotting Layers</td><td>Active et libère les calques Defpoints, non tracés et de notes de lecture.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-NEWW</span></td><td>Show New Work Layers</td><td>Active et libère les calques de la phase travaux neufs.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-DEMO</span></td><td>Show Demolition Layers</td><td>Active et libère les calques de la phase existant à démolir.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-EXST</span></td><td>Show Existing Layers</td><td>Active et libère les calques de la phase existant à conserver.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SH-KEYP</span></td><td>Show Key Plan Layers</td><td>Active et libère les calques du plan clé.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-ALL</span></td><td>Hide All Layers</td><td>Désactive et gèle tous les calques du dessin, xréfs comprises.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-ANNO</span></td><td>Hide Annotation Layers</td><td>Désactive et gèle les calques d'annotation.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-MEMBRANES</span></td><td>Hide Membrane Layers</td><td>Désactive et gèle les calques des membranes pare-vapeur, pare-air et d'étanchéité.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">SC-EXST</span></td><td>Screen Existing Layers</td><td>Applique une transparence de trame de 50 pour cent aux calques existants.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-NPLT</span></td><td>Hide Non-Plotting Layers</td><td>Désactive et gèle les calques Defpoints, non tracés et de notes de lecture.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-NEWW</span></td><td>Hide New Work Layers</td><td>Désactive et gèle les calques de la phase travaux neufs.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-DEMO</span></td><td>Hide Demolition Layers</td><td>Désactive et gèle les calques de la phase existant à démolir.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-EXST</span></td><td>Hide Existing Layers</td><td>Désactive et gèle les calques de la phase existant à conserver.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">HI-KEYP</span></td><td>Hide Key Plan Layers</td><td>Désactive et gèle les calques du plan clé.</td><td>Keep</td></tr>
+<tr><td><span class="fixw">E1</span></td><td>Existing View Stack 0001</td><td>Affiche les calques existants à conserver de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E2</span></td><td>Existing View Stack 0002</td><td>Affiche les calques existants à conserver de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E3</span></td><td>Existing View Stack 0003</td><td>Affiche les calques existants à conserver de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E4</span></td><td>Existing View Stack 0004</td><td>Affiche les calques existants à conserver de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E5</span></td><td>Existing View Stack 0005</td><td>Affiche les calques existants à conserver de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E6</span></td><td>Existing View Stack 0006</td><td>Affiche les calques existants à conserver de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E7</span></td><td>Existing View Stack 0007</td><td>Affiche les calques existants à conserver de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E8</span></td><td>Existing View Stack 0008</td><td>Affiche les calques existants à conserver de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">E9</span></td><td>Existing View Stack 0009</td><td>Affiche les calques existants à conserver de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D-ARCH</span></td><td>Demolition View Architecture</td><td>Affiche les calques existants et de démolition avec le groupe architectural neuf tramé.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D1</span></td><td>Demolition View Stack 0001</td><td>Affiche les calques existants et de démolition de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D2</span></td><td>Demolition View Stack 0002</td><td>Affiche les calques existants et de démolition de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D3</span></td><td>Demolition View Stack 0003</td><td>Affiche les calques existants et de démolition de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D4</span></td><td>Demolition View Stack 0004</td><td>Affiche les calques existants et de démolition de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D5</span></td><td>Demolition View Stack 0005</td><td>Affiche les calques existants et de démolition de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D6</span></td><td>Demolition View Stack 0006</td><td>Affiche les calques existants et de démolition de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D7</span></td><td>Demolition View Stack 0007</td><td>Affiche les calques existants et de démolition de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D8</span></td><td>Demolition View Stack 0008</td><td>Affiche les calques existants et de démolition de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">D9</span></td><td>Demolition View Stack 0009</td><td>Affiche les calques existants et de démolition de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N-ARCH</span></td><td>New Work View Architecture</td><td>Affiche les calques existants et de travaux neufs avec le groupe architectural neuf tramé.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N-STRUC</span></td><td>New Work View Structure</td><td>Affiche les calques existants et de travaux neufs avec le groupe structural neuf tramé.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N1</span></td><td>New Work View Stack 0001</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N2</span></td><td>New Work View Stack 0002</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N3</span></td><td>New Work View Stack 0003</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N4</span></td><td>New Work View Stack 0004</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N5</span></td><td>New Work View Stack 0005</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N6</span></td><td>New Work View Stack 0006</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N7</span></td><td>New Work View Stack 0007</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N8</span></td><td>New Work View Stack 0008</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
+<tr><td><span class="fixw">N9</span></td><td>New Work View Stack 0009</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
+</table>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Chaque exécution dans l'espace objet remet à zéro la transparence et le verrouillage de <em>tous</em> les calques, y compris ceux tramés ou verrouillés à la main.</li>
+<li>Les calques des xréfs devraient être tramés quand le dessin de la xréf se trouve dans un sous-dossier <span class="fixw">Model views</span> du dossier du dessin, mais le nom de la xréf est comparé au nom de fichier avec <span class="fixw">.dwg</span> : cela ne correspond donc jamais.</li>
+<li>Le tramage repose sur la transparence des calques : activez <span class="fixw">TRANSPARENCYDISPLAY</span> pour le voir.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-LayerFilter</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-LayerFilter</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerFilter</span></td><td>&ndash;</td><td>Layer Filters</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LF-A-FLOR</span></td><td>&ndash;</td><td>Architectural Floor Plan Filter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-ALL</span></td><td>&ndash;</td><td>Show All Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-NPLT</span></td><td>&ndash;</td><td>Show Non-Plotting Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-NEWW</span></td><td>&ndash;</td><td>Show New Work Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-DEMO</span></td><td>&ndash;</td><td>Show Demolition Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-EXST</span></td><td>&ndash;</td><td>Show Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SH-KEYP</span></td><td>&ndash;</td><td>Show Key Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-ALL</span></td><td>&ndash;</td><td>Hide All Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-ANNO</span></td><td>&ndash;</td><td>Hide Annotation Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-MEMBRANES</span></td><td>&ndash;</td><td>Hide Membrane Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SC-EXST</span></td><td>&ndash;</td><td>Screen Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-NPLT</span></td><td>&ndash;</td><td>Hide Non-Plotting Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-NEWW</span></td><td>&ndash;</td><td>Hide New Work Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-DEMO</span></td><td>&ndash;</td><td>Hide Demolition Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-EXST</span></td><td>&ndash;</td><td>Hide Existing Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HI-KEYP</span></td><td>&ndash;</td><td>Hide Key Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E1</span></td><td>&ndash;</td><td>Existing View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E2</span></td><td>&ndash;</td><td>Existing View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E3</span></td><td>&ndash;</td><td>Existing View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E4</span></td><td>&ndash;</td><td>Existing View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E5</span></td><td>&ndash;</td><td>Existing View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E6</span></td><td>&ndash;</td><td>Existing View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E7</span></td><td>&ndash;</td><td>Existing View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E8</span></td><td>&ndash;</td><td>Existing View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E9</span></td><td>&ndash;</td><td>Existing View Stack 0009</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-ARCH</span></td><td>&ndash;</td><td>Demolition View Architecture</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D1</span></td><td>&ndash;</td><td>Demolition View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D2</span></td><td>&ndash;</td><td>Demolition View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D3</span></td><td>&ndash;</td><td>Demolition View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D4</span></td><td>&ndash;</td><td>Demolition View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D5</span></td><td>&ndash;</td><td>Demolition View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D6</span></td><td>&ndash;</td><td>Demolition View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D7</span></td><td>&ndash;</td><td>Demolition View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D8</span></td><td>&ndash;</td><td>Demolition View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D9</span></td><td>&ndash;</td><td>Demolition View Stack 0009</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-ARCH</span></td><td>&ndash;</td><td>New Work View Architecture</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-STRUC</span></td><td>&ndash;</td><td>New Work View Structure</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N1</span></td><td>&ndash;</td><td>New Work View Stack 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N2</span></td><td>&ndash;</td><td>New Work View Stack 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N3</span></td><td>&ndash;</td><td>New Work View Stack 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N4</span></td><td>&ndash;</td><td>New Work View Stack 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N5</span></td><td>&ndash;</td><td>New Work View Stack 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N6</span></td><td>&ndash;</td><td>New Work View Stack 0006</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N7</span></td><td>&ndash;</td><td>New Work View Stack 0007</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N8</span></td><td>&ndash;</td><td>New Work View Stack 0008</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N9</span></td><td>&ndash;</td><td>New Work View Stack 0009</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2023 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

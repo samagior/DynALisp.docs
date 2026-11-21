@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynamic Text Alignment</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Dynamic Text Alignment</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/dynamictextalignment.html" target="_blank">https://lee-mac.com/dynamictextalignment.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DynamicTextAlign</span> &ndash; original syntax: TxAlign (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.6</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/dynamictextalignment.html" target="_blank">lee-mac.com/dynamictextalignment.html</a></td></tr></table>
+</div>
+<h3>Program Description</h3>
+<p>This was one of my earlier programs, and more of an experiment into pushing the envelope of the use of input tracking functions such as
+                <span class="fixw">GrRead</span>. Whilst visually pleasing, in my opinion, this program is not as practical an application as it could be, 
+                but then, I shall let you be the judge of that.</p>
+<p>This program will allow the user to dynamically align multiple MText and DText objects simultaneously to any angle, or along an object.
+                The user is prompted for a selection of text objects and an alignment point or text object to use as a base point relative to which the text
+                is aligned.</p>
+<p>The user may then switch between different modes using the <span class="fixw">Tab</span> key, 
+                depending upon how the text needs to be aligned, these modes are described below.</p>
+<div class="programs">
+<table>
+<tr>
+<th>Mode</th>
+<th>Functionality</th>
+</tr>
+<tr class="alt">
+<td>Horizontal Mode</td>
+<td>For aligning multiple lines of text</td>
+</tr>
+<tr>
+<td>Vertical Mode</td>
+<td>For aligning a single line</td>
+</tr>
+<tr class="alt">
+<td>Stretch Mode</td>
+<td>Will evenly space text from the first text object in the selection.</td>
+</tr>
+</table>
+</div>
+<p>When operating within these mode, other alignment options become available to the user, including:</p>
+<div class="programs">
+<table>
+<tr>
+<th>Key</th>
+<th>Functionality</th>
+</tr>
+<tr class="alt">
+<td>R / r</td>
+<td>Alter Text Rotation</td>
+</tr>
+<tr>
+<td>Shift</td>
+<td>Hold Shift to Rotate Text Perpendicular to the Angle of Alignment</td>
+</tr>
+<tr class="alt">
+<td>J / j </td>
+<td>Alter Text Justification</td>
+</tr>
+<tr>
+<td>S / s</td>
+<td>Space Text to a Specified Distance (Available in Horizontal/Vertical Mode)</td>
+</tr>
+<tr class="alt">
+<td>O / o</td>
+<td>(Object Alignment Mode) Align Text to an Object</td>
+</tr>
+</table>
+</div>
+<div class="cent">
+<h3>Example of Usage</h3>
+<img alt="" height="300" src="images/LM-TxAlign1.gif" width="628"/>
+</div>
+<h3>Object Alignment Mode</h3>
+<p>Upon pressing <span class="fixw">O</span> during text alignment, the user is prompted to select an object along which 
+                to align text.</p>
+<p>Text may be aligned to any Curve Object (Spline/Arc/Ellipse/Line/Polyline/Circle.. etc), and the user is provided 
+                with additional refinement options, including the following:</p>
+<div class="programs">
+<table>
+<tr>
+<th>Key</th>
+<th>Functionality</th>
+</tr>
+<tr class="alt">
+<td>V / v</td>
+<td>Reverse the order of the text objects along the curve</td>
+</tr>
+<tr>
+<td>O / o</td>
+<td>Dynamically Alter Text Offset from Curve</td>
+</tr>
+<tr class="alt">
+<td>S / s</td>
+<td>Dynamically Alter Text Spacing along Curve</td>
+</tr>
+<tr>
+<td>R / r</td>
+<td>Alter Text Rotation</td>
+</tr>
+<tr class="alt">
+<td>Shift</td>
+<td>Hold Shift to Align Text Rotation to Curve</td>
+</tr>
+<tr>
+<td>E / e</td>
+<td>Exit Object Alignment Mode</td>
+</tr>
+</table>
+</div>
+<div class="cent">
+<h3>Example of Object Alignment Mode</h3>
+<img alt="" height="360" src="images/LM-TxAlign2.gif" width="800"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------------=={  Dynamic Text Align  }==---------------------------;;
+;;                                                                               ;;
+;;  Allows the user to dynamically align text to any angle. User is prompted to  ;;
+;;  make a selection of Text or MText objects to align, and pick an alignment    ;;
+;;  point, or select a text object to use for alignment. The selection of text   ;;
+;;  is then aligned by either x or y coordinate, or dynamically stretched        ;;
+;;  depending on the mode chosen.                                                ;;
+;;                                                                               ;;
+;;  The mode can be switched upon pressing TAB during alignment. Text and MText  ;;
+;;  entities will be aligned in accordance with their respective justifications. ;;
+;;                                                                               ;;
+;;  The user can also specify a fixed text spacing, by pressing &#x27;S&#x27; during text  ;;
+;;  alignment. Holding Shift whilst aligning Text will alter Text Rotation, the  ;;
+;;  user can also refine Rotation by pressing &#x27;R&#x27; during text alignment. Text    ;;
+;;  Justfication can be altered by pressing &#x27;J&#x27; during text alignment.           ;;
+;;                                                                               ;;
+;;                                                                               ;;
+;;  Object Alignment Mode:-                                                      ;;
+;;  --------------------------                                                   ;;
+;;  Text can be aligned to an object by pressing &#x27;O&#x27; during text alignment. In   ;;
+;;  this mode, the text spacing along the object can be adjusted by pressing     ;;
+;;  &#x27;S&#x27; and the text offset from the object can also be altered by pressing &#x27;O&#x27;. ;;
+;;                                                                               ;;
+;;  Text Rotation can be aligned to the tangent vector of the object at the      ;;
+;;  point of alignment by holding Shift during text placement. The user can      ;;
+;;  furthermore specify a text rotation by pressing &#x27;R&#x27;.                         ;;
+;;                                                                               ;;
+;;  The order of the text entities along the object can be Reversed by pressing  ;;
+;;  &#x27;V&#x27; during Text placement. The original order of these entities is           ;;
+;;  determined by the drawing direction of the object.                           ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  FUNCTION SYNTAX:  TXALIGN                                                    ;;
+;;                                                                               ;;
+;;  Notes:-                                                                      ;;
+;;  ---------                                                                    ;;
+;;  Shift Functionality requires the user to have Express Tools installed.       ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Author: Lee Mac, Copyright © October 2009 - www.lee-mac.com                  ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Version:                                                                     ;;
+;;                                                                               ;;
+;;  1.0:  12/10/2009  -  First Release                                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.1:  14/10/2009  -  Added ability to Specify fixed text spacing             ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.2:  15/10/2009  -  Added Stretch Mode                                      ;;
+;;                    -  Upgraded User messaging                                 ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.3:  18/10/2009  -  Added Rotation Functionality                            ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.4:  20/10/2009  -  Added functionality to align text to object.            ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.5:  23/10/2009  -  Added Justification Options.                            ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.6:  28/10/2009  -  Added Option to Select Text object at Alignment Point   ;;
+;;                       prompt                                                  ;;
+;;-------------------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DynamicTextAlign</span></td><td><span class="fixw">TXALIGN</span></td><td>Dynamic Text Align</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

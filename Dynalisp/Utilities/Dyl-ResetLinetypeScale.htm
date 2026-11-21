@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset Linetype Scale</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ResetLinetypeScale.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Reset Linetype Scale</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LTS1</span>, <span class="fixw">RESETLTSCALE</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ResetLinetypeScale.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Resets the linetype scale of every object of the drawing to 1.0, in model space and all layouts, block attributes included. No selection is needed.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">LTS1</span></td><td>Reset Linetype Scale</td><td>Resets the linetype scale of every object in model space and all layouts to 1.0.</td></tr>
+<tr><td><span class="fixw">RESETLTSCALE</span></td><td>Reset Linetype Scale (Alias)</td><td>Alias of LTS1 that resets the linetype scale of every drawing object to 1.0.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The routine goes through model space and every layout (external references are skipped).</li>
+<li>Each object whose linetype scale (DXF 48) is not 1.0 is set to 1.0, as well as the attributes of block references.</li>
+<li>Objects on locked, frozen or off layers are processed too.</li>
+<li>The change is one undo step; a <span class="fixw">REGENALL</span> runs when something changed, and the command reports the number of objects and spaces processed.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Block definitions are not processed: objects inside blocks keep their own linetype scale.</li>
+<li>The <span class="fixw">LTSCALE</span>, <span class="fixw">CELTSCALE</span> and <span class="fixw">PSLTSCALE</span> system variables are not changed.</li>
+<li>Command line messages are in French.</li>
+<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-ResetLinetypeScale</span></td><td><span class="fixw">LTS1</span>, <span class="fixw">RESETLTSCALE</span></td><td>Reset Linetype Scale</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ==========================================================================
+;;; ResetLtScale.lsp
+;;;
+;;; Remet l&#x27;echelle de type de ligne (LinetypeScale / code DXF 48) a 1.0 sur
+;;; tous les objets du dessin : espace objet + tous les onglets de
+;;; presentation, y compris les attributs des references de blocs.
+;;;
+;;; Portee : objets du dessin uniquement.
+;;;   - Les definitions de blocs ne sont PAS parcourues.
+;;;   - Les variables systeme LTSCALE / CELTSCALE ne sont PAS modifiees.
+;;;   - Les references externes (xrefs) sont ignorees.
+;;;
+;;; Commandes :
+;;;   LTS1            - execute la remise a 1.0
+;;;   RESETLTSCALE    - alias de LTS1
+;;;
+;;; Notes :
+;;;   Utilise ActiveX : les objets sur des calques verrouilles, geles ou
+;;;   desactives sont egalement traites.
+;;;   L&#x27;operation est enregistree comme une seule transaction UNDO.
+;;; ==========================================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Isometric Polygon</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Isometric Polygon</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/isopoly.html" target="_blank">https://lee-mac.com/isopoly.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-IsometricPolygon</span> &ndash; original syntax: isopoly (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/isopoly.html" target="_blank">lee-mac.com/isopoly.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to construct a regular polygon projected in the active isometric plane.</p>
+<p>Upon calling the program with the command syntax <span class="fixw">isopoly</span> at the AutoCAD command-line, the user is
+                first prompted to specify the number of sides for the polygon (with the last entered value available as a default option, and with an 
+                initial default of 6 sides if the program has not yet been used in the current drawing session). The user is then prompted to specify the 
+                center of the polygon and the radius of the circle (or rather ellipse when projected) circumscribing the polygon vertices.</p>
+<p>Following valid responses to these prompts, the program will construct the specified polygon in either the active isometric plane
+                (if the Snap type is set to Isometric Snap), or the WCS plane (if the Snap type is set to Rectangular Snap). With the Snap Type set
+                to Rectangular Snap, the result will be identical to the standard <span class="fixw">polygon</span> command.</p>
+<p>If the Snap type is set to Isometric Snap, the resultant polygon will be the equivalent of constructing an <em>Isocircle</em>
+                (an option of the <span class="fixw">Ellipse</span>
+                command, available when the Snap Type is set to Isometric), and then using the <span class="fixw">Divide</span> command to generate
+                points along the circumference of the ellipse which may then be joined to form the projected polygon.</p>
+<div class="cent">
+<h2>Example of Usage</h2>
+<img alt="IsoPoly.gif" height="300" src="images/LM-IsoPoly.gif" width="300"/>
+</div>
+<p>For those who don't know, the active isometric plane (or <em>isoplane</em>) may be toggled between <em>left</em>, <em>right</em>, and
+                <em>top</em> using the <span class="fixw">F5</span> key when the Snap type is set to Isometric Snap (i.e. when the
+                <span class="fixw">SNAPSTYL</span> System Variable is set to <span class="fixw">1</span>).</p>
+<p>As a bonus program, the following code will toggle the Snap type between <em>rectangular</em> and <em>isometric</em>:</p>
+<div class="code">
+
+<pre><span class="brkt">(</span><span class="func">defun</span> c:ss <span class="brkt">( )</span>
+    <span class="brkt">(</span><span class="func">setvar</span> <span class="quot">'</span>snapstyl <span class="brkt">(</span><span class="func">-</span> <span class="int">1</span> <span class="brkt">(</span><span class="func">getvar</span> <span class="quot">'</span>snapstyl<span class="brkt">)))</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span></pre>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------=={ Isometric Polygon }==-----------------;;
+;;                                                            ;;
+;;  Enables the user to construct a regular polygon projected ;;
+;;  in the active isometric plane.                            ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2012 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-IsometricPolygon</span></td><td><span class="fixw">ISOPOLY</span></td><td>Isometric Polygon</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

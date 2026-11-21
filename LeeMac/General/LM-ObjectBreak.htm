@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Object Break</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Object Break</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/objectbreak.html" target="_blank">https://lee-mac.com/objectbreak.html</a></p>
+
+<p><em>See also <a href="LM-CircleBreak.htm" title="Circle Break">Circle Break</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ObjectBreak</span> &ndash; original syntax: brk / brko (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/objectbreak.html" target="_blank">lee-mac.com/objectbreak.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>A generalisation and enhancement of my <a href="LM-CircleBreak.htm" title="Circle Break">Circle Break</a> program, this program
+                enables the user to break a selected object either at two specified points, or at two points of intersection with another
+                selected object, and apply a set of properties to the selected portion of the object.</p>
+<p>As per my <a href="LM-CircleBreak.htm" title="Circle Break">Circle Break</a> program, the motivation for creating this program 
+                was to streamline the procedure of displaying hidden sections of geometry. Previously, an object would need to be broken 
+                separately at two points (perhaps using the AutoCAD <span class="fixw">break</span> command), before selecting the resulting 
+                section and applying a set of properties to indicate hidden detail.</p>
+<p>This manual method is suitable for polylines and open objects (such as lines, arcs &amp; elliptical arcs); however, since 
+                an arc or elliptical arc cannot span a full circle, circles &amp; ellipses cannot be broken at a single point and hence the 
+                hidden section would need to be manually recreated.</p>
+<p>This program offers two commands to facilitate this operation:</p>
+<h3><em>brko: Break with Object</em></h3>
+<p>This command will prompt the user to select either a Line, Circle, Arc, Ellipse, Elliptical Arc or LWPolyline
+                at the section to be broken, and then to select a second object which intersects the first in at least two places.</p>
+<p>The program will then break the first selected object at the two closest points of intersection located either side of 
+                the point of selection, before applying the set of properties to the selected section.</p>
+<div class="cent">
+<h3>Demonstration of <em>brko</em> Command</h3>
+<img alt="Object Break Demo 1" height="300" src="images/LM-objectbreak1.gif" width="500"/>
+</div>
+<h3><em>brk: Break at two points</em></h3>
+<p>Upon issuing this command, the user may select a compatible object (as listed above) at the section
+                to be hidden, and then select two break points. The selected object is then broken between the two points and a set of 
+                properties are applied to the selected section.</p>
+<p><em>And now to challenge the program...</em></p>
+<div class="cent">
+<h3>Demonstration of <em>brk</em> Command</h3>
+<img alt="Object Break Demo 2" height="300" src="images/LM-objectbreak2.gif" width="500"/>
+</div>
+<p> </p>
+<p>Furthermore, both of the above described commands as offered by this program will operate successfully under all UCS &amp; Views,
+                and with objects constructed in any UCS plane.</p>
+<h3>Properties of Broken Section</h3>
+<p>The set of properties (Layer, Linetype, Lineweight etc.) to be applied to the hidden section of geometry are listed 
+                at the top of the program source code (beneath the code header) and may be altered to suit the requirements of the user.
+                If properties are omitted from the list, the 'hidden' section of geometry will inherit these properties from the 
+                selected source object.</p>
+<p> </p>
+<p><em>See also <a href="LM-CircleBreak.htm" title="Circle Break">Circle Break</a>.</em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Object Break }==-------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to break a selected object at two     ;;
+;;  specified points or at two points of intersection with another      ;;
+;;  selected object, and apply a set of properties to the selected      ;;
+;;  portion of the object.                                              ;;
+;;                                                                      ;;
+;;  The motivation for creating the program was to streamline the       ;;
+;;  procedure of displaying hidden sections of geometry. Previously,    ;;
+;;  an object would need to be broken separately at two points, before  ;;
+;;  selecting the resulting section and applying a set of properties    ;;
+;;  to indicate hidden detail.                                          ;;
+;;                                                                      ;;
+;;  This manual method is suitable for polylines and open objects       ;;
+;;  (such as lines, arcs &amp; elliptical arcs); however, since an arc or   ;;
+;;  elliptical arc cannot span a full circle, circles &amp; ellipses        ;;
+;;  cannot be broken at a single point and hence the hidden section     ;;
+;;  would need to be recreated.                                         ;;
+;;                                                                      ;;
+;;  This program offers two commands to facilitate this operation:      ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;  BRK    -    Break at two points                                     ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  Upon issuing this command, the user may select either a Line,       ;;
+;;  Circle, Arc, Elliptical Arc or LWPolyline at the section to be      ;;
+;;  hidden, and then select two break points. The selected object is    ;;
+;;  then broken between the two points and a set of properties are      ;;
+;;  applied to the selected section.                                    ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;  BRKO   -    Break with object                                       ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  This command will prompt the user to select a compatible object     ;;
+;;  at the section to be broken, and then to select a second object     ;;
+;;  which intersects the first in at least two places.                  ;;
+;;                                                                      ;;
+;;  The program will then break the first selected object at the two    ;;
+;;  closest points of intersection located either side of the point of  ;;
+;;  selection, before applying the set of properties to the selected    ;;
+;;  section.                                                            ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  The set of properties (Layer, Linetype, Lineweight etc.) to be      ;;
+;;  applied to the hidden section of geometry are listed below and may  ;;
+;;  be altered to suit the requirements of the user. If properties      ;;
+;;  are omitted from the list, the hidden geometry will inherit these   ;;
+;;  properties from the selected object.                                ;;
+;;                                                                      ;;
+;;  Finally, this program will operate successfully in all UCS &amp; Views, ;;
+;;  with objects constructed in any UCS plane.                          ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    02-06-2013                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;
+
+;;----------------------------------------------------------------------;;
+;;                      Hidden Section Properties                       ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ObjectBreak</span>: they are run by their alias, or picked from <span class="fixw">LM-ObjectBreak</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ObjectBreak</span></td><td><span class="fixw">BRK</span></td><td>Object Break</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">BRKO</span></td><td>&ndash;</td><td>Object Break At Intersections</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

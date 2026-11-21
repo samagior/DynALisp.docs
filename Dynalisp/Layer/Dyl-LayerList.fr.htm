@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liste des calques dessinée</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerList.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Liste des calques dessinée (Layer Drawing List)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYERLIST</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerList.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Dessine une légende des calques dans le dessin : pour chaque calque, une ligne tracée sur ce calque avec son nom et sa description écrits au-dessus. Utile pour archiver une norme de calques ou monter une feuille de normes.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-LAYERLIST</span></td><td>Layer Drawing List</td><td>Dessine une ligne et une étiquette avec la description de chaque calque du dessin ou de la sélection.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Choisissez le point d'insertion de la première rangée.</li>
+<li>Choisissez <span class="fixw">All</span> (par défaut, chaque calque du dessin dans l'ordre de la table des calques) ou <span class="fixw">Select</span> (les calques des objets que vous sélectionnez, chacun une fois).</li>
+<li>Pour chaque calque, la routine crée sur ce calque : une ligne horizontale de 200 unités, le nom du calque en texte (hauteur 2,25) 1 unité au-dessus de la ligne et, si le calque en a une, sa description 75 unités à droite.</li>
+<li>La rangée suivante commence 7,5 unités plus bas.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les tailles sont des unités de dessin fixes, non mises à l'échelle d'annotation.</li>
+<li>Avec Select, les calques sont listés dans l'ordre de sélection, non triés.</li>
+<li>Le texte utilise le style de texte courant.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerList</span></td><td>&ndash;</td><td>Layer Drawing List</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2024 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

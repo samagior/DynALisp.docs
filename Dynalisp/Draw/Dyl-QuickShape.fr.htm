@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forme rapide</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-QuickShape.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Forme rapide (Quick Shape)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-QUICKSHAPE</span> (fenêtre des préréglages) + 6 commandes préréglées &ndash; voir <a href="#commands">Commandes</a></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickShape.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / ObjectDBX); les bibliothèques de formes de <span class="fixw">Modules\Dynalisp\Res\Shapes</span>; moteur de préréglages Dynalisp, <a href="Dyl-QuickDraw.fr.htm#materials">préréglages de hachures</a> et <a href="../Layer/Dyl-LayerKeys.fr.htm">clés de calque</a> (chargés au démarrage)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Le compagnon de <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> pour les formes toutes faites : montants, briques, blocs de béton, profilés d'acier&hellip; Chaque préréglage insère une forme d'un dessin de bibliothèque, glissée en place (point d'insertion, puis rotation), encore et encore jusqu'à Entrée ou Échap. Chaque forme est décomposée : ses contours fermés sont remplis de la hachure du <a href="Dyl-QuickDraw.fr.htm#materials">préréglage de hachure</a> du préréglage (un contour dans un autre est un îlot, p. ex. les alvéoles d'un bloc de béton), et tous ses objets vont sur la clé de calque du contour du préréglage de hachure. Quick Draw et Quick Shape partagent les mêmes préréglages de hachures : modifier <em>Brick</em> change les deux.</p>
+<p><span class="fixw">DYL-QUICKSHAPE</span> ouvre l'éditeur de préréglages, le même que celui de Quick Draw (liste, alias, New, Copy, Delete, Reset Selected, Reset All, Group choisi parmi les groupes (modifiés dans la fenêtre <a href="Dyl-PresetGroups.fr.htm">Preset Groups</a>, son bouton ouvrir à gauche de la liste), Hatch preset (les préréglages de hachures de ce groupe) et son bouton ouvrir vers la fenêtre Hatch Presets, plusieurs préréglages modifiés à la fois). Les préréglages sont enregistrés dans <span class="fixw">Modules\Dynalisp\Res\QuickShape.csv</span>; chaque préréglage personnalisé reçoit une commande <span class="fixw">Pst-QuickShapeCustom&lt;Name&gt;</span> à laquelle donner des alias.</p>
+<h2 id="libraries">Bibliothèques de formes</h2>
+<p>Les formes sont des blocs dans des dessins de bibliothèque : <strong>chaque <span class="fixw">.dwg</span> de <span class="fixw">Modules\Dynalisp\Res\Shapes</span> est une bibliothèque, et chacun de ses blocs est une forme</strong>. Un dessin de nombreux blocs ou de nombreux dessins d'un bloc chacun fonctionnent tous deux, et les deux peuvent se mêler (p. ex. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). Une forme s'affiche comme <em>Library: Block</em>. Quand le dossier n'a aucune bibliothèque, un <span class="fixw">Shapes.dwg</span> de départ est fait avec les formes des préréglages par défaut.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Point de base</strong> &ndash; le point de base du bloc est le point d'insertion de la forme.</li>
+<li><strong>Unités</strong> &ndash; les unités du bloc (<em>Unité du bloc</em> dans la définition du bloc, <span class="fixw">INSUNITS</span> quand il est fait) mettent la forme à l'échelle des unités du dessin : une forme dessinée en pouces est insérée à la bonne taille dans un dessin en millimètres. Les formes de départ sont en pouces. L'échelle (Scale) du préréglage la multiplie.</li>
+<li><strong>Objets</strong> &ndash; dessinez les formes avec des polylignes fermées, des cercles, des ellipses ou des splines pour les parties à remplir; les autres objets (lignes, arcs, polylignes ouvertes) sont gardés comme traits, non remplis. Dessinez-les sur le calque 0 avec des propriétés DuCalque : ils vont sur la clé de calque du contour une fois insérés.</li>
+</ul>
+</div>
+<p>Les bibliothèques sont lues sans les ouvrir (ObjectDBX), seule la forme insérée est copiée, et elle ne laisse aucune définition de bloc dans le dessin. La liste des formes d'une bibliothèque est gardée jusqu'à ce que son fichier change : la fenêtre reste rapide avec de grandes bibliothèques. Une bibliothèque ouverte dans AutoCAD est lue depuis le dessin ouvert, enregistré ou non.</p>
+<h2>Créer et modifier des formes</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Add shape from selection...</strong> &ndash; ferme la fenêtre, puis : sélectionnez les objets de la forme, choisissez son point de base et tapez son nom. La forme est ajoutée à la bibliothèque de la forme du préréglage (remplacée après confirmation quand le nom existe), la bibliothèque est enregistrée, et la nouvelle forme est donnée au préréglage. Les unités de la forme sont celles du dessin courant.</li>
+<li><strong>Open library</strong> &ndash; enregistre les préréglages, ferme la fenêtre et ouvre la bibliothèque de la forme du préréglage, pour modifier ses blocs (<span class="fixw">BEDIT</span>, <span class="fixw">BLOCK</span>, <span class="fixw">BASE</span>&hellip;). Enregistrez-la : l'insertion suivante utilise la forme modifiée.</li>
+<li><strong>Nouvelle bibliothèque</strong> &ndash; enregistrez n'importe quel dessin avec des blocs dans le dossier Shapes.</li>
+</ul>
+</div>
+<h2>Fenêtre des préréglages</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Hatch preset</strong> &ndash; le <a href="Dyl-QuickDraw.fr.htm#materials">préréglage de hachure</a> qui remplit la forme; le bouton carré ouvrir juste à sa gauche ouvre la fenêtre Hatch Presets.</li>
+<li><strong>Shape</strong> &ndash; choisie parmi les formes de toutes les bibliothèques. Une forme utilisée par un préréglage mais introuvable reste dans la liste, marquée <em>(missing shape)</em>, jusqu'à ce qu'une autre soit choisie.</li>
+<li><strong>Scale</strong> &ndash; échelle d'insertion, en plus des unités du bloc (&gt; 0).</li>
+<li><strong>Border settings</strong> &ndash; la bordure de la forme : la clé de calque sur laquelle vont ses contours fermés et ses traits, et les dérogations de ses <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> et <em>Transparency</em>, comme dans les <a href="Dyl-QuickDraw.fr.htm#border">Border settings</a> de Quick Draw. Une forme est toujours dessinée avec sa bordure : il n'y a pas de <em>Has a border</em>. Enregistrée avec le préréglage (colonnes de bordure de <span class="fixw">QuickShape.csv</span>); un préréglage d'un fichier plus ancien reçoit la bordure de son préréglage de hachure.</li>
+<li><strong>Draw</strong> enregistre les préréglages et insère celui sélectionné, <strong>Save</strong> enregistre sans insérer, <strong>Cancel</strong> annule les changements. <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2 id="commands">Commandes</h2>
+<p>Préréglages par défaut (rétablis par <em>Reset Selected</em> / <em>Reset All</em>). Leurs formes sont dans la bibliothèque de départ <span class="fixw">Shapes.dwg</span> (pouces).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Alias</th><th>Préréglage</th><th>Forme</th><th>Préréglage de hachure</th></tr>
+<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>3.5 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>5.5 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>7.25 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-BRICK</span></td><td>Brick Modular</td><td>3.625 x 2.25</td><td>Brick</td></tr>
+<tr><td><span class="fixw">QS-CMU8</span></td><td>CMU 8 in</td><td>15.625 x 7.625, deux alvéoles</td><td>CMU</td></tr>
+<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>tube 4 x 4, paroi 1/4</td><td>Steel</td></tr>
+</table>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Une bibliothèque enregistrée par <em>Add shape from selection</em> (ObjectDBX) n'a pas d'aperçu tant qu'elle n'est pas enregistrée de nouveau dans AutoCAD.</li>
+<li>Les attributs de blocs ne sont pas demandés; les paramètres des blocs dynamiques sont perdus quand la forme est décomposée.</li>
+<li>Un bloc imbriqué d'une forme dont le nom existe dans le dessin utilise la définition du dessin.</li>
+<li><span class="fixw">QuickShape.csv</span> ne peut pas être enregistré pendant qu'il est ouvert dans Excel.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-QuickShape</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-QuickShape</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-QuickShape</span></td><td>&ndash;</td><td>Quick Shape</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X4</span></td><td>&ndash;</td><td>Quick Shape Stud 2x4</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X6</span></td><td>&ndash;</td><td>Quick Shape Stud 2x6</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X8</span></td><td>&ndash;</td><td>Quick Shape Stud 2x8</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-BRICK</span></td><td>&ndash;</td><td>Quick Shape Brick Modular</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-CMU8</span></td><td>&ndash;</td><td>Quick Shape CMU 8 in</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-HSS4X4</span></td><td>&ndash;</td><td>Quick Shape HSS 4x4</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

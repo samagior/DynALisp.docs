@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Objects to Block</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Add Objects to Block</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/addobjectstoblock.html" target="_blank">https://lee-mac.com/addobjectstoblock.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AddObjectsToBlock</span> &ndash; original syntax: addtoblock (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/addobjectstoblock.html" target="_blank">lee-mac.com/addobjectstoblock.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to add a selection of objects to the definition of a selected block.</p>
+<p>Upon issuing the command syntax <span class="fixw">addtoblock</span> at the AutoCAD command line, 
+                the program prompts the user for a selection of objects residing on unlocked layers to be added to 
+                a chosen block definition.</p>
+<p>Following a valid selection, the program prompts the user to select a reference of a block whose
+                definition is to be modified to incorporate all objects in the selection. At this prompt, the 
+                program will permit selection of any standard (non-dynamic) uniformly scaled block reference 
+                which is not referenced within the selection (as a block reference cannot be added to its own definition).</p>
+<p>Every object in the selection is then transformed relative to the position, scale, rotation,
+                and orientation of the selected block reference, before being copied to the definition of the 
+                block and removed from the drawing.</p>
+<div class="cent">
+<h3>Example of Usage</h3>
+<img alt="Add2Block.gif" height="200" src="images/LM-Add2Block.gif" width="400"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Add Objects to Block }==--------------------;;
+;;                                                                      ;;
+;;  This program enables the user to add a selection of objects to the  ;;
+;;  definition of a selected block.                                     ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;addtoblock&#x27; at the AutoCAD         ;;
+;;  command line, the program prompts the user for a selection of       ;;
+;;  objects residing on unlocked layers to be added to a chosen block   ;;
+;;  definition.                                                         ;;
+;;                                                                      ;;
+;;  Following a valid selection, the program prompts the user to select ;;
+;;  a reference of a block whose definition is to be modified to        ;;
+;;  incorporate all objects in the selection.                           ;;
+;;                                                                      ;;
+;;  At this prompt, the program will permit selection of any standard   ;;
+;;  (non-dynamic) uniformly scaled block reference which is not         ;;
+;;  referenced within the selection (as a block reference cannot be     ;;
+;;  added to its own definition).                                       ;;
+;;                                                                      ;;
+;;  Every object in the selection will then be transformed relative to  ;;
+;;  the position, scale, rotation, and orientation of the selected      ;;
+;;  block reference, before being copied to the definition of the       ;;
+;;  block and removed from the drawing.                                 ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2011  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2011-05-31                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2020-11-15                                      ;;
+;;                                                                      ;;
+;;  - Program completely rewritten to incorporate a check for           ;;
+;;    references of the target block within the selected objects.       ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AddObjectsToBlock</span></td><td><span class="fixw">ADDTOBLOCK</span></td><td>Add Objects To Block</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

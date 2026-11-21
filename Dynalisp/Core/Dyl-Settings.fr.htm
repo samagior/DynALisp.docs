@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paramètres</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-Settings.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Paramètres</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-SETTINGS</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Resources\dynalisp.mnl</span> (région Settings) et <span class="fixw">Modules\Dynalisp\Res\Dyl-Settings.dcl</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-SETTINGS</span> ouvre la fenêtre <em>Settings</em> de DynALisp : la langue de DynALisp, les réacteurs, qui agissent sur les objets pendant que vous dessinez, les dérogations, que DynALisp applique à chaque dessin ouvert, et les mises à jour de DynALisp. Chaque paramètre à cocher est <strong>désactivé à une nouvelle installation</strong>; une fois activé, il est mémorisé (un paramètre utilisateur Windows, <span class="fixw">Dynalisp*</span>) pour tous les dessins et toutes les sessions. <strong>Save</strong> applique et enregistre les changements, <strong>Cancel</strong> les annule, <strong>Open Docs</strong> ouvre cette page.</p>
+<p>Un paramètre accompagné d'un bouton carré <em>ouvrir</em> a sa propre fenêtre; le bouton est grisé tant que le paramètre est désactivé (ou quand le programme dont il a besoin n'est pas chargé).</p>
+<p>Les libellés des fenêtres de DynALisp sont en anglais : cette page les cite tels qu'ils apparaissent.</p>
+
+<h2 id="environment">Environnement (Environment)</h2>
+<p><em>La langue dans laquelle s'ouvrent ses docs.</em></p>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
+<tr><td>Language</td><td><em>English</em> ou <em>French</em> : la langue dans laquelle s'ouvrent les docs de DynALisp (les boutons <strong>Open Docs</strong>, <span class="fixw">Dyl-Docs</span>, les docs de <span class="fixw">Dyl-Suite</span>), l'anglais pour une page pas encore traduite; le sélecteur EN | FR en haut à droite de chaque page change la langue de la page affichée. Il ne change rien d'autre : l'onglet DynALisp du <a href="../Plugins/Ribbon.fr.htm">ruban</a>, les noms des phases (barre d'état, <a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>) et les descriptions des listes de Layer Transfer sont toujours dans la langue de l'AutoCAD installé. Tant qu'il n'est pas enregistré, la langue de l'AutoCAD installé (l'anglais pour une langue que DynALisp n'a pas encore). Ce n'est pas la langue (Language) des <a href="../Setup/Dyl-SetFilePrefs.fr.htm">File Preferences</a>, qui règle les dossiers de contenu et les dictionnaires des dessins.</td></tr>
+</table>
+</div>
+
+<h2 id="reactors">Réacteurs (Reactors)</h2>
+<p><em>Agissent sur les nouveaux objets pendant que vous dessinez.</em> Les réacteurs sont dans le dossier <span class="fixw">Reactor</span> de chaque module.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
+<tr><td>DynALisp reactors</td><td>L'interrupteur général. Désactivé, les dossiers <span class="fixw">Reactor</span> ne sont pas chargés du tout et aucun réacteur ne tourne (les paramètres de réacteurs ci-dessous sont grisés). À sa désactivation, les réacteurs des dessins ouverts sont retirés.</td></tr>
+<tr><td>Auto-phase new objects</td><td>Place les nouveaux objets sur le calque de la phase active (<a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>, <span class="fixw">PH-AUTO</span>). Son bouton ouvre Layer Phase.</td></tr>
+<tr><td>Auto layer keys</td><td>Place les nouvelles cotes, lignes de repère, textes, tableaux et autres objets courants créés par une commande sur la clé de calque de leur type (<a href="../Layer/Dyl-ObjectLayerKeys.fr.htm">Object Layer Keys</a>). Son bouton ouvre Object Layer Keys.</td></tr>
+<tr><td>Auto draw order</td><td>Empile les nouveaux objets selon le niveau de leur calque (<a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>). Son bouton ouvre Draw Order.</td></tr>
+<tr><td>Settings sync</td><td>Les autres dessins ouverts suivent les paramètres enregistrés ici lorsqu'ils deviennent courants (seul ce qui a changé est appliqué). Désactivé, un paramètre s'applique au dessin où il est changé et aux dessins ouverts ensuite.</td></tr>
+</table>
+</div>
+
+<h2 id="overrides">Dérogations (Overrides)</h2>
+<p><em>Appliquées à chaque dessin ouvert.</em></p>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
+<tr><td>Drawing Settings</td><td>Chaque dessin ouvert est comparé aux unités et à la grille par défaut de son type (impérial ou métrique); un dessin qui en diffère y est ramené. Son bouton ouvre la fenêtre <a href="#drawing">Drawing Settings</a>, offerte même quand la vérification est désactivée (pour le pas d'écart de Shrinkwrap).</td></tr>
+<tr><td>Commands</td><td>Redéfinit les commandes d'enregistrement et d'impression ainsi que <span class="fixw">REGEN</span> (<a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a>) pour qu'elles préparent d'abord le dessin. Son bouton ouvre la fenêtre Output Prep (<a href="../Output/Dyl-PrepDrawing.fr.htm">Prep Drawing</a>, aussi <span class="fixw">DYL-PREPSUITE</span>) : les étapes exécutées avant chaque commande.</td></tr>
+<tr><td>File Preferences</td><td>Le profil DynALisp : les chemins d'AutoCAD réglés selon la classification de la bibliothèque AEC, les unités de dessin et la langue. Son bouton ouvre la fenêtre File Preferences (<a href="../Setup/Dyl-SetFilePrefs.fr.htm">Set File Preferences</a>).</td></tr>
+<tr><td>System variables</td><td>Les valeurs préférées du profil de variables système actif, et les variables protégées, appliquées à chaque dessin ouvert (<a href="../Setup/Dyl-SysVars.fr.htm">System Variables</a>). Son bouton ouvre Dyl-SysVars.</td></tr>
+<tr><td>Display</td><td>Les paramètres d'affichage appliqués à chaque dessin ouvert. Son bouton ouvre la fenêtre <a href="#display">Display</a>.</td></tr>
+<tr><td>Revisions</td><td>Chaque feuille d'un projet du Navigateur de projets est mise à jour avec les révisions du projet à son ouverture : ses cartouches et ses étiquettes de révision (voir <a href="../Output/Dyl-Revisions.htm#sync">Revisions</a>). Son bouton ouvre la fenêtre <a href="../Output/Dyl-Revisions.htm#titleblocks">Revision Title Blocks</a>. Grisé quand <span class="fixw">Dyl-Revisions</span> est désactivé.</td></tr>
+<tr><td>Clean startup</td><td>Une fois AutoCAD démarré, les lignes qu'il a affichées au démarrage (<em>Loading AEC...</em>, <em>Customization file loaded successfully</em>, les palettes et les commandes de démarrage de l'espace de travail...) sont retirées de la ligne de commande. Conservées : la ligne <em>Drawing created using...</em>, les lignes de DynALisp et toute ligne qui signale une erreur ou un avertissement. S'applique au prochain démarrage. Grisé dans une version antérieure à 2015. Voir <a href="../Plugins/CleanStartup.fr.htm">Démarrage épuré</a>.</td></tr>
+</table>
+</div>
+
+<h2 id="layerkeys">Clés de calque (Layer Keys)</h2>
+<p><em>Calques existants qui diffèrent de leur clé.</em></p>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
+<tr><td>Update them without asking</td><td>Un calque d'une clé de calque qui existe dans le dessin avec une couleur, un type de ligne, une épaisseur de ligne ou un réglage de traçage autre que celui de sa clé est mis à jour selon sa clé, sans le demander (<a href="../Layer/Dyl-LayerKeys.fr.htm#differ">Layer Keys</a>).</td></tr>
+<tr><td>Keep them without asking</td><td>Un tel calque est utilisé tel quel, sans le demander.</td></tr>
+</table>
+</div>
+<p>L'un des deux au plus (en cocher un décoche l'autre). Les deux désactivés, par défaut : la question vous est posée, une fois par calque et par session. <em>Remember my answer and do not ask again</em> dans cette question coche l'un d'eux pour vous; décochez-le ici pour que la question soit posée de nouveau.</p>
+<h2 id="updates">Mises à jour (Updates)</h2>
+<p><em>Nouvelles versions de DynALisp.</em></p>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
+<tr><td>Install updates automatically</td><td>Une fois par jour, le premier dessin ouvert vérifie s'il existe une nouvelle version de DynALisp et lance son installation, qui s'effectue à la fermeture d'AutoCAD (<a href="Dyl-Info.fr.htm#updates">Mises à jour</a>). Désactivé, Dyl-Info vous signale qu'une nouvelle version est sortie. Grisé quand DynALisp est un clone git : mettez-le à jour avec <span class="fixw">git pull</span>.</td></tr>
+</table>
+</div>
+
+<h2 id="drawing">Fenêtre Drawing Settings</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Units / Grid</strong> &ndash; pour les dessins impériaux et les dessins métriques, le préréglage d'unités (<a href="../Setup/Dyl-SetUnits.fr.htm">Set Units</a>) et le préréglage de grille (<a href="../Setup/Dyl-StandardGrid.fr.htm">Standard Grid</a>) auxquels chaque dessin est comparé; <em>(Not checked)</em> le laisse tel quel.</li>
+<li><strong>Shrinkwrap gap step</strong> &ndash; pour les dessins impériaux (1 par défaut) et métriques (25 par défaut), le pas dont <a href="../Draw/Dyl-Shrinkwrap.fr.htm">Shrinkwrap</a> augmente sa tolérance d'écart quand aucun contour n'est trouvé, jusqu'à 10 fois. Un nombre supérieur à 0, en unités de dessin. Utilisé même quand Drawing Settings est désactivé.</li>
+<li>Les valeurs sont enregistrées quand Settings est enregistré.</li>
+</ul>
+</div>
+
+<h2 id="display">Fenêtre Display</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Background</strong> &ndash; la couleur d'arrière-plan de l'espace objet appliquée à chaque dessin : <em>Black</em>, <em>Default</em> (gris-bleu foncé, RVB 33,40,48) ou <em>White</em>, le réticule dans la couleur opposée; vide : inchangée. D'autres paramètres d'affichage seront ajoutés à cette fenêtre.</li>
+<li>Enregistré quand Settings est enregistré.</li>
+</ul>
+</div>
+
+<h2 id="settings">Où sont les paramètres</h2>
+<p>Les paramètres sont des paramètres utilisateur Windows d'AutoCAD (<span class="fixw">getenv</span> / <span class="fixw">setenv</span>) : <span class="fixw">DynalispReactors</span>, <span class="fixw">DynalispSettingsSync</span>, <span class="fixw">DynalispSetupOn</span>, <span class="fixw">DynalispSysVarOn</span>, <span class="fixw">DynalispDisplayOn</span>, <span class="fixw">DynalispAutoUpdate</span>, <span class="fixw">DynalispCleanStartup</span>, <span class="fixw">DynalispRevisionSync</span>, <span class="fixw">DynalispLanguage</span>, <span class="fixw">DynalispShrinkGapImperial</span> / <span class="fixw">Metric</span>... Un paramètre n'est activé que s'il vaut <span class="fixw">"1"</span> : un paramètre jamais enregistré est donc désactivé; <span class="fixw">DynalispLanguage</span> vaut <span class="fixw">English</span> ou <span class="fixw">French</span>. Si les réacteurs empêchent AutoCAD de démarrer, désactivez-les depuis la ligne de commande : <span class="fixw">(setenv "DynalispReactors" "0")</span>, puis rouvrez les dessins.</p>
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

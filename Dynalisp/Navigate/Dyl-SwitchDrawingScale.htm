@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Switch Drawing Scale</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SwitchDrawingScale.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Switch Drawing Scale</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-SWITCHDRAWINGSCALE</span> and 39 scales &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Navigate\Dyl-SwitchDrawingScale.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-SWITCHDRAWINGSCALE</span> asks for a scale ratio (<span class="fixw">100</span>, <span class="fixw">1:100</span> or <span class="fixw">1-100</span>; <span class="fixw">?</span> lists them) and sets it. The scales are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
+<p>Short commands that set the current annotation scale. Each command holds a metric scale and the closest imperial architectural scale, and applies the one that matches the drawing units, so the same keystrokes work in metric and imperial drawings. A scale missing from the drawing scale list is added automatically.</p>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">MEASUREMENT</span> = 1 (metric) selects the metric scale name, otherwise the imperial name.</li>
+<li><span class="fixw">CANNOSCALE</span> is set to that name.</li>
+<li>If the scale is not in the list, its name is parsed into paper and drawing units (feet, inches and fractions down to 1/64" are supported), the ratio is reduced, the scale is added with <span class="fixw">-SCALELISTEDIT</span>, and <span class="fixw">CANNOSCALE</span> is set again.</li>
+<li>The active viewport is regenerated quietly and the new scale is reported.</li>
+</ol>
+</div>
+<h2 id="commands">Commands</h2>
+<h3>Metric series</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Metric drawing</th><th>Imperial drawing</th></tr>
+<tr><td><span class="fixw">1-1</span></td><td><span class="fixw">1:1</span></td><td><span class="fixw">1&#x27;-0&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-2</span></td><td><span class="fixw">1:2</span></td><td><span class="fixw">6&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-5</span></td><td><span class="fixw">1:5</span></td><td><span class="fixw">3&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-10</span></td><td><span class="fixw">1:10</span></td><td><span class="fixw">1 1/2&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-20</span></td><td><span class="fixw">1:20</span></td><td><span class="fixw">3/4&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-25</span></td><td><span class="fixw">1:25</span></td><td><span class="fixw">1/2&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-40</span></td><td><span class="fixw">1:40</span></td><td><span class="fixw">3/8&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-50</span></td><td><span class="fixw">1:50</span></td><td><span class="fixw">1/4&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-75</span></td><td><span class="fixw">1:75</span></td><td><span class="fixw">3/16&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-100</span></td><td><span class="fixw">1:100</span></td><td><span class="fixw">1/8&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-125</span></td><td><span class="fixw">1:125</span></td><td><span class="fixw">3/32&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-150</span></td><td><span class="fixw">1:150</span></td><td><span class="fixw">5/64&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-200</span></td><td><span class="fixw">1:200</span></td><td><span class="fixw">1/16&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-250</span></td><td><span class="fixw">1:250</span></td><td><span class="fixw">3/64&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-500</span></td><td><span class="fixw">1:500</span></td><td><span class="fixw">1/32&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-750</span></td><td><span class="fixw">1:750</span></td><td><span class="fixw">1/64&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-1000</span></td><td><span class="fixw">1:1000</span></td><td><span class="fixw">1&quot; = 80&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-1250</span></td><td><span class="fixw">1:1250</span></td><td><span class="fixw">1&quot; = 100&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-2000</span></td><td><span class="fixw">1:2000</span></td><td><span class="fixw">1&quot; = 160&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-2500</span></td><td><span class="fixw">1:2500</span></td><td><span class="fixw">1&quot; = 200&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-5000</span></td><td><span class="fixw">1:5000</span></td><td><span class="fixw">1&quot; = 400&#x27;</span></td></tr>
+</table>
+</div>
+<h3>Imperial series</h3>
+<p>Named after the imperial ratio; in metric drawings the closest metric scale is used.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Metric drawing</th><th>Imperial drawing</th></tr>
+<tr><td><span class="fixw">1-4</span></td><td><span class="fixw">1:5</span></td><td><span class="fixw">3&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-8</span></td><td><span class="fixw">1:10</span></td><td><span class="fixw">1 1/2&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-12</span></td><td><span class="fixw">1:10</span></td><td><span class="fixw">1&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-16</span></td><td><span class="fixw">1:20</span></td><td><span class="fixw">3/4&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-24</span></td><td><span class="fixw">1:25</span></td><td><span class="fixw">1/2&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-32</span></td><td><span class="fixw">1:40</span></td><td><span class="fixw">3/8&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-48</span></td><td><span class="fixw">1:50</span></td><td><span class="fixw">1/4&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-64</span></td><td><span class="fixw">1:75</span></td><td><span class="fixw">3/16&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-96</span></td><td><span class="fixw">1:100</span></td><td><span class="fixw">1/8&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-128</span></td><td><span class="fixw">1:125</span></td><td><span class="fixw">3/32&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-192</span></td><td><span class="fixw">1:200</span></td><td><span class="fixw">1/16&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-384</span></td><td><span class="fixw">1:500</span></td><td><span class="fixw">1&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-768</span></td><td><span class="fixw">1:750</span></td><td><span class="fixw">1/64&quot; = 1&#x27;-0&quot;</span></td></tr>
+<tr><td><span class="fixw">1-960</span></td><td><span class="fixw">1:1000</span></td><td><span class="fixw">1&quot; = 80&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-1200</span></td><td><span class="fixw">1:1250</span></td><td><span class="fixw">1&quot; = 100&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-1920</span></td><td><span class="fixw">1:2000</span></td><td><span class="fixw">1&quot; = 160&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-2400</span></td><td><span class="fixw">1:2500</span></td><td><span class="fixw">1&quot; = 200&#x27;</span></td></tr>
+<tr><td><span class="fixw">1-4800</span></td><td><span class="fixw">1:5000</span></td><td><span class="fixw">1&quot; = 400&#x27;</span></td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">1-384</span> sets <span class="fixw">1&quot; = 1&#x27;-0&quot;</span> in imperial drawings; the 1:384 scale is <span class="fixw">1/32&quot; = 1&#x27;-0&quot;</span>.</li>
+<li>In a layout, the command changes the annotation scale of paper space, not the scale of a viewport.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-SwitchDrawingScale</span>: they are run by their alias, or picked from <span class="fixw">Dyl-SwitchDrawingScale</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-SwitchDrawingScale</span></td><td>&ndash;</td><td>Switch Drawing Scale</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-1</span></td><td>&ndash;</td><td>Drawing Scale 1:1</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-2</span></td><td>&ndash;</td><td>Drawing Scale 1:2</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-5</span></td><td>&ndash;</td><td>Drawing Scale 1:5</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-10</span></td><td>&ndash;</td><td>Drawing Scale 1:10</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-20</span></td><td>&ndash;</td><td>Drawing Scale 1:20</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-25</span></td><td>&ndash;</td><td>Drawing Scale 1:25</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-40</span></td><td>&ndash;</td><td>Drawing Scale 1:40</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-50</span></td><td>&ndash;</td><td>Drawing Scale 1:50</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-75</span></td><td>&ndash;</td><td>Drawing Scale 1:75</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-100</span></td><td>&ndash;</td><td>Drawing Scale 1:100</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-125</span></td><td>&ndash;</td><td>Drawing Scale 1:125</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-150</span></td><td>&ndash;</td><td>Drawing Scale 1:150</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-200</span></td><td>&ndash;</td><td>Drawing Scale 1:200</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-250</span></td><td>&ndash;</td><td>Drawing Scale 1:250</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-500</span></td><td>&ndash;</td><td>Drawing Scale 1:500</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-750</span></td><td>&ndash;</td><td>Drawing Scale 1:750</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-1000</span></td><td>&ndash;</td><td>Drawing Scale 1:1000</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-1250</span></td><td>&ndash;</td><td>Drawing Scale 1:1250</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-2000</span></td><td>&ndash;</td><td>Drawing Scale 1:2000</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-2500</span></td><td>&ndash;</td><td>Drawing Scale 1:2500</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-5000</span></td><td>&ndash;</td><td>Drawing Scale 1:5000</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-4</span></td><td>&ndash;</td><td>Drawing Scale 3 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-8</span></td><td>&ndash;</td><td>Drawing Scale 1 1/2 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-12</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-16</span></td><td>&ndash;</td><td>Drawing Scale 3/4 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-24</span></td><td>&ndash;</td><td>Drawing Scale 1/2 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-32</span></td><td>&ndash;</td><td>Drawing Scale 3/8 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-48</span></td><td>&ndash;</td><td>Drawing Scale 1/4 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-64</span></td><td>&ndash;</td><td>Drawing Scale 3/16 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-96</span></td><td>&ndash;</td><td>Drawing Scale 1/8 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-128</span></td><td>&ndash;</td><td>Drawing Scale 3/32 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-192</span></td><td>&ndash;</td><td>Drawing Scale 1/16 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-384</span></td><td>&ndash;</td><td>Drawing Scale 1/32 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-768</span></td><td>&ndash;</td><td>Drawing Scale 1/64 in = 1 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-960</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 80 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-1200</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 100 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-1920</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 160 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-2400</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 200 ft</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">1-4800</span></td><td>&ndash;</td><td>Drawing Scale 1 in = 400 ft</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

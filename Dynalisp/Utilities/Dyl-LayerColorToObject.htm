@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Color To Object</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerColorToObject.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Color To Object</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LCOL</span>, <span class="fixw">LAYCOLTOOBJ</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-LayerColorToObject.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Applies the color of each object's layer directly to the object, replacing ByLayer, ByBlock or any explicit color, as an exact copy, an index color or a true color. It can also revert objects to ByLayer.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">LCOL</span></td><td>Layer Color To Object</td><td>Applies the color of each selected object's layer directly to the object.</td></tr>
+<tr><td><span class="fixw">LAYCOLTOOBJ</span></td><td>Layer Color To Object (Alias)</td><td>Alias of LCOL.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Uses the pre-selected objects, or prompts for a selection (objects on locked layers are left out).</li>
+<li>Choose the color mode at <span class="fixw">Color mode [AsIs/Index/TrueColor/ByLayer]</span>; Enter keeps the last mode of the session (<em>AsIs</em> at first).</li>
+<li>Each object gets the color built from its layer (built once per layer), all in one undo step.</li>
+<li>The command reports how many objects were changed and how many could not be.</li>
+</ol>
+</div>
+<div class="programs commands wide">
+<table>
+<tr><th>Mode</th><th>Color applied</th></tr>
+<tr><td><span class="fixw">AsIs</span></td><td>The layer color exactly as defined: index, true color or color book color.</td></tr>
+<tr><td><span class="fixw">Index</span></td><td>An index (ACI) color; for a true color layer, the closest index color stored with the layer.</td></tr>
+<tr><td><span class="fixw">TrueColor</span></td><td>An RGB true color; index layer colors are converted to their RGB values.</td></tr>
+<tr><td><span class="fixw">ByLayer</span></td><td>Reverts the objects to ByLayer.</td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Pre-selected objects on locked layers are not filtered out; they are counted as <em>could not be modified</em>.</li>
+<li>Only the selected objects change: objects inside block definitions keep their own colors.</li>
+<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerColorToObject</span></td><td><span class="fixw">LCOL</span>, <span class="fixw">LAYCOLTOOBJ</span></td><td>Layer Color To Object</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ==========================================================================
+;;; LayerColorToObject.lsp
+;;;
+;;; Reads the color of each selected object&#x27;s layer and applies it directly
+;;; to the object (replacing ByLayer / ByBlock / any explicit color).
+;;;
+;;; Color modes:
+;;;   AsIs       - Copies the layer color exactly as defined on the layer
+;;;                (ACI, true color or color book color).
+;;;   Index      - Applies the layer color as an ACI index color. For layers
+;;;                using a true color, the closest ACI stored by AutoCAD in
+;;;                the layer record (DXF 62) is used.
+;;;   TrueColor  - Applies the layer color as an RGB true color. ACI layer
+;;;                colors are converted to their RGB equivalent.
+;;;   ByLayer    - Reverts the selected objects to the ByLayer color.
+;;;
+;;; Commands:
+;;;   LCOL         - Main command
+;;;   LAYCOLTOOBJ  - Alias of LCOL
+;;;
+;;; Notes:
+;;;   - Supports pre-selection (pickfirst).
+;;;   - Objects on locked layers are filtered out of the selection.
+;;;   - The last chosen mode is remembered for the current session.
+;;;   - The whole operation is recorded as a single UNDO step.
+;;; ==========================================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

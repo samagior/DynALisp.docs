@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multiline Justification</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Multiline Justification</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/mljust.html" target="_blank">https://lee-mac.com/mljust.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-MultilineJustification</span> &ndash; original syntax: mljust (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/mljust.html" target="_blank">lee-mac.com/mljust.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to change the justification of a selection of multilines, without changing their position.
+                Analogous to the Express Tools' <span class="fixw">TJUST</span> command, however targeting mlines instead of text.</p>
+<p>On issuing the command syntax <span class="fixw">MLJUST</span> at the AutoCAD command-line, the user is first prompted to
+                specify the new mline justification, with the choice of Top, Zero, or Bottom, per the options offered by the
+                standard <span class="fixw">MLINE</span> command.</p>
+<p>The user may then select multiple mlines to be modified, with the program changing the justification of each selected multiline
+                to that specified by the user, without changing the visual position of the multiline in the drawing.</p>
+<p>The program will perform successfully under all UCS &amp; View settings, and is compatible with multilines drawn
+                in any UCS construction plane, using any multiline style, and with any multiline scale.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Multiline Justification" height="400" src="images/LM-mljust.gif" width="600"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Multiline Justification }==-------------------;;
+;;                                                                      ;;
+;;  This program enables the user to change the justification of a      ;;
+;;  selection of multilines, without changing their position.           ;;
+;;                                                                      ;;
+;;  This is analogous to the Express Tools&#x27; &#x27;TJUST&#x27; command, however    ;;
+;;  targeting mlines instead of text.                                   ;;
+;;                                                                      ;;
+;;  On issuing the command syntax &#x27;MLJUST&#x27; at the AutoCAD command-line, ;;
+;;  the user is first prompted to specify the new mline justification,  ;;
+;;  with the choice of Top, Zero, or Bottom, per the options offered by ;;
+;;  the standard &#x27;MLINE&#x27; command.                                       ;;
+;;                                                                      ;;
+;;  The user may then select multiple mlines to be modified, with the   ;;
+;;  program changing the justification of each selected multiline to    ;;
+;;  that specified by the user, without changing the visual position    ;;
+;;  of the multiline in the drawing.                                    ;;
+;;                                                                      ;;
+;;  The program will perform successfully under all UCS &amp; View          ;;
+;;  settings, and is compatible with multilines drawn in any UCS        ;;
+;;  construction plane, using any multiline style, and with any         ;;
+;;  multiline scale.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2018  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2018-10-17                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-MultilineJustification</span></td><td><span class="fixw">MLJUST</span></td><td>Multiline Justification</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2018 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Shape</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickShape.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Shape</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-QUICKSHAPE</span> (preset dialog) + 6 preset commands &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickShape.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / ObjectDBX); the shape libraries of <span class="fixw">Modules\Dynalisp\Res\Shapes</span>; Dynalisp preset engine, <a href="Dyl-QuickDraw.htm#materials">hatch presets</a> and <a href="../Layer/Dyl-LayerKeys.htm">layer keys</a> (loaded at startup)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>The companion of <a href="Dyl-QuickDraw.htm">Quick Draw</a> for premade shapes: studs, bricks, CMU, steel sections&hellip; Each preset inserts a shape from a library drawing, dragged into place (insertion point, then rotation), again and again until Enter or Esc. Each shape is exploded: its closed outlines are filled with the hatch of the preset <a href="Dyl-QuickDraw.htm#materials">hatch preset</a> (an outline inside another one is an island, e.g. the cores of a CMU), and all its objects go on the outline layer key of the hatch preset. Quick Draw and Quick Shape share the same hatch presets: editing <em>Brick</em> changes both.</p>
+<p><span class="fixw">DYL-QUICKSHAPE</span> opens the preset editor, the same as the one of Quick Draw (list, aliases, New, Copy, Delete, Reset Selected, Reset All, Group picked from the groups (edited in the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window, its open button left of the list), Hatch preset (the hatch presets of that group) and its open button to the Hatch Presets window, several presets edited at once). The presets are saved to <span class="fixw">Modules\Dynalisp\Res\QuickShape.csv</span>; each custom preset gets a command <span class="fixw">Pst-QuickShapeCustom&lt;Name&gt;</span> to give aliases to.</p>
+<h2 id="libraries">Shape Libraries</h2>
+<p>The shapes are blocks in library drawings: <strong>every <span class="fixw">.dwg</span> of <span class="fixw">Modules\Dynalisp\Res\Shapes</span> is a library, and every block in it is a shape</strong>. One drawing with many blocks or many drawings with one block each both work, and both can be mixed (e.g. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). A shape is shown as <em>Library: Block</em>. When the folder has no library, a starter <span class="fixw">Shapes.dwg</span> is made with the shapes of the default presets.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Base point</strong> &ndash; the block base point is the insertion point of the shape.</li>
+<li><strong>Units</strong> &ndash; the block units (<em>Block unit</em> in the block definition, <span class="fixw">INSUNITS</span> when it is made) scale the shape to the units of the drawing: a shape drawn in inches is inserted at the right size in a drawing in millimeters. The starter shapes are in inches. The preset Scale multiplies it.</li>
+<li><strong>Objects</strong> &ndash; draw the shapes with closed polylines, circles, ellipses or splines for the parts to fill; other objects (lines, arcs, open polylines) are kept as linework, not filled. Draw them on layer 0 with ByLayer properties: they go on the outline layer key when inserted.</li>
+</ul>
+</div>
+<p>The libraries are read without opening them (ObjectDBX), only the shape inserted is copied, and it leaves no block definition in the drawing. The list of shapes of a library is kept until its file changes, so the dialog stays fast with large libraries. A library open in AutoCAD is read from the open drawing, saved or not.</p>
+<h2>Making And Editing Shapes</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Add shape from selection...</strong> &ndash; closes the dialog, then: select the objects of the shape, pick its base point and type its name. The shape is added to the library of the shape of the preset (replaced after confirmation when the name exists), the library is saved, and the new shape is given to the preset. The units of the shape are the units of the current drawing.</li>
+<li><strong>Open library</strong> &ndash; saves the presets, closes the dialog and opens the library of the shape of the preset, to edit its blocks (<span class="fixw">BEDIT</span>, <span class="fixw">BLOCK</span>, <span class="fixw">BASE</span>&hellip;). Save it: the next insertion uses the edited shape.</li>
+<li><strong>New library</strong> &ndash; save any drawing with blocks to the Shapes folder.</li>
+</ul>
+</div>
+<h2>Preset Dialog</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Hatch preset</strong> &ndash; the <a href="Dyl-QuickDraw.htm#materials">hatch preset</a> that fills the shape; the square open button just left of it opens the Hatch Presets window.</li>
+<li><strong>Shape</strong> &ndash; picked from the shapes of every library. A shape used by a preset but no longer found stays in the list, marked <em>(missing shape)</em>, until another one is picked.</li>
+<li><strong>Scale</strong> &ndash; insertion scale, on top of the block units (&gt; 0).</li>
+<li><strong>Border settings</strong> &ndash; the border of the shape: the layer key its closed outlines and linework go on, and the overrides of its <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> and <em>Transparency</em>, as in the <a href="Dyl-QuickDraw.htm#border">Border settings</a> of Quick Draw. A shape is always drawn with its border: there is no <em>Has a border</em>. Saved with the preset (border columns of <span class="fixw">QuickShape.csv</span>); a preset of an older file gets the border of its hatch preset.</li>
+<li><strong>Draw</strong> saves the presets and inserts the selected one, <strong>Save</strong> saves without inserting, <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2 id="commands">Commands</h2>
+<p>Default presets (restored by <em>Reset Selected</em> / <em>Reset All</em>). Their shapes are in the starter library <span class="fixw">Shapes.dwg</span> (inches).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Alias</th><th>Preset</th><th>Shape</th><th>Hatch preset</th></tr>
+<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>3.5 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>5.5 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>7.25 x 1.5</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-BRICK</span></td><td>Brick Modular</td><td>3.625 x 2.25</td><td>Brick</td></tr>
+<tr><td><span class="fixw">QS-CMU8</span></td><td>CMU 8 in</td><td>15.625 x 7.625, two cores</td><td>CMU</td></tr>
+<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>4 x 4 tube, 1/4 wall</td><td>Steel</td></tr>
+</table>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>A library saved by <em>Add shape from selection</em> (ObjectDBX) has no thumbnail preview until it is saved again in AutoCAD.</li>
+<li>Block attributes are not prompted for; dynamic block parameters are lost when the shape is exploded.</li>
+<li>A nested block of a shape whose name exists in the drawing uses the definition of the drawing.</li>
+<li><span class="fixw">QuickShape.csv</span> cannot be saved while it is open in Excel.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-QuickShape</span>: they are run by their alias, or picked from <span class="fixw">Dyl-QuickShape</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-QuickShape</span></td><td>&ndash;</td><td>Quick Shape</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X4</span></td><td>&ndash;</td><td>Quick Shape Stud 2x4</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X6</span></td><td>&ndash;</td><td>Quick Shape Stud 2x6</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-STUD2X8</span></td><td>&ndash;</td><td>Quick Shape Stud 2x8</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-BRICK</span></td><td>&ndash;</td><td>Quick Shape Brick Modular</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-CMU8</span></td><td>&ndash;</td><td>Quick Shape CMU 8 in</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QS-HSS4X4</span></td><td>&ndash;</td><td>Quick Shape HSS 4x4</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

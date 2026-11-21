@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Draw Gallery</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickDrawGallery.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Draw Gallery</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">PST-QUICKDRAWGALLERY</span> (alias <span class="fixw">QDG</span>)</td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (window) and <span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (the hatch drawn in each tile)</td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Picks a <a href="Dyl-QuickDraw.htm">Quick Draw</a> preset by its look: a tile for each preset, its hatch drawn in it, by group. A click draws the preset, as its command would (<span class="fixw">QD-BRICK</span>...). The presets are edited in the <strong>Quick Draw Manager</strong> (<span class="fixw">Dyl-QuickDraw</span>).</p>
+<p>On the DynALisp tab of the ribbon, the <strong>Quick Draw</strong> button opens the gallery; its arrow lists <em>All</em> and the groups, to open it on one group, and the button then opens the group picked last. <strong>Quick Draw Manager</strong> beside it opens the Quick Draw window.</p>
+<h2>Quick Draw Gallery Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Group</strong> &ndash; <em>All</em>, or one of the <a href="Dyl-PresetGroups.htm">Preset Groups</a>, in their order, also a group without a preset yet (its page is empty), with the number of presets shown beside it. The window opens on the group picked on the ribbon, else on the group shown last.</li>
+<li><strong>Tiles</strong> &ndash; 24 a page, in the order of the presets file: the hatch of the preset and its name under it. Click one to draw it: the window closes and Quick Draw starts with that preset (its method, its behaviors and its border).</li>
+<li><strong>&lt; Previous</strong> / <strong>Next &gt;</strong> &ndash; the other pages of a group of more than 24 presets.</li>
+<li><strong>Quick Draw Manager...</strong> &ndash; closes the gallery and opens the Quick Draw window, to edit the presets or create one. <strong>Cancel</strong> closes the gallery, <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>The Hatch Of A Tile</h2>
+<div class="spacedbullets">
+<ul>
+<li>Each tile draws the pattern of the <a href="Dyl-HatchPresets.htm">hatch preset</a> of the preset, read from the <span class="fixw">.pat</span> file that defines it (<span class="fixw">acad.pat</span> or <span class="fixw">acadiso.pat</span>, else its own file on the support path), turned by its angle, on its background color (white without one). Default and custom presets are drawn the same way, so a custom preset shows what it draws.</li>
+<li>The scale of the tile is not the scale of the hatch: every pattern is drawn about as dense, so a fine stipple and a large brick both read at a glance. Two presets with the same pattern look the same (Brick and Iron are both <span class="fixw">ANSI31</span>).</li>
+<li>An <a href="Dyl-QuickDraw.htm#assembly">assembly</a> (a Linear preset with <em>Assembly of layers</em> checked) shows its layers side by side, from left to right as in the <a href="Dyl-AssemblyLayers.htm">Assembly Layers</a> window: each band as wide as its thickness (a thin layer still a few pixels wide) and drawn with the hatch of its own preset, a space left white, a line in the color of its layer key.</li>
+<li>A <span class="fixw">SOLID</span> hatch is a grey tile. A pattern that no <span class="fixw">.pat</span> file defines is crossed out in red: its hatch preset needs a pattern file (see <span class="fixw">Dyl-RebuildPat</span>).</li>
+<li>The patterns are read once per AutoCAD session: a <span class="fixw">.pat</span> file edited meanwhile shows its new lines after AutoCAD restarts.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The groups under the arrow of the ribbon button are the default groups: a group renamed or added in Preset Groups is not in that list, but it is in the Group list of the window. A group picked on the ribbon opens on the group of the nearest name (<em>Floor</em> &rarr; <em>Floors</em>), else, when it was renamed or deleted, on <em>All</em>.</li>
+<li>A long name is cut on two lines of about 17 characters.</li>
+</ul>
+</div>
+<p><a href="Dyl-QuickDraw.htm">&larr; Quick Draw</a> &nbsp; <a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

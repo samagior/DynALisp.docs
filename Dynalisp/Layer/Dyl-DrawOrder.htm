@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Draw Order</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-DrawOrder.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Draw Order</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-DRAWORDER</span> (DRO), <span class="fixw">DO-APPLY</span>, <span class="fixw">DO-AUTO</span>, <span class="fixw">DO-COUNT</span>, <span class="fixw">DO-REBUILD</span>, <span class="fixw">DO-RESET</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-DrawOrder.lsp</span> (commands), <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawOrder.lsp</span> (levels and the auto draw order setting, loaded at startup) and <span class="fixw">Modules\Dynalisp\Reactor\Dyl-DrawOrder.lsp</span> (auto draw order reactors, loaded at startup while the DynALisp reactors are on)</td>
+</tr>
+<tr class="alt">
+<td>Rules</td>
+<td><span class="fixw">Modules\Dynalisp\Res\DrawOrder\&lt;preset&gt;.csv</span> (one file per preset, <span class="fixw">Default.csv</span>...)</td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3. Based on Layer Draw Order (LDOrder) by Lee Mac.</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Stacks the objects of the drawing by <strong>level</strong>, read from the Dynalisp layer names: annotation is always on top, hatches and backgrounds always at the bottom, the other lines in between. Each rule has a <em>name</em> and a <em>level</em> number: the objects no rule matches are at level <span class="fixw">0</span>, the positive levels are stacked above them (the highest on top) and the negative levels below them (the lowest at the bottom).</p>
+<p>The default levels, from top to bottom:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Level</th><th>Name</th><th>Layers / Objects</th></tr>
+<tr><td>9</td><td>Redlines</td><td><span class="fixw">*-Anno-Redl*</span>, <span class="fixw">*-Anno-Revc*</span>, <span class="fixw">*-Anno-Revs*</span>, <span class="fixw">*-Anno-Rdme*</span>, <span class="fixw">*-Anno-Nplt*</span>, <span class="fixw">*-Nplt</span></td></tr>
+<tr><td>8</td><td>Annotation</td><td><span class="fixw">*-Anno-[~R]*</span> (A-Anno-Text, A-Anno-Dims, G-Anno-Ttlb...: every Anno minor except those starting with R, so that <span class="fixw">*-Anno-Refr</span> stays with the references), <span class="fixw">*-Tags</span></td></tr>
+<tr><td>7</td><td>Annotation objects</td><td>Text, Mtext, dimensions, leaders, multileaders, tables and attribute definitions on any other layer</td></tr>
+<tr><td>0</td><td>Other objects</td><td>Everything no rule matches: walls, doors, detail lines (<span class="fixw">A-Detl-Medm</span>)...</td></tr>
+<tr><td>-4</td><td>Hatch layers / Hatch objects</td><td><span class="fixw">*-Patt</span> (A-Detl-Patt, A-Wall-Patt...), and hatches on any other layer</td></tr>
+<tr><td>-7</td><td>Background</td><td><span class="fixw">*-Scrn</span>, <span class="fixw">*-Bgrd</span>, <span class="fixw">*-Exst</span> (screened coordination lines, background solid fills)</td></tr>
+<tr><td>-8</td><td>Images</td><td>Raster images and PDF / DWF / DGN underlays on any other layer</td></tr>
+<tr><td>-9</td><td>References</td><td><span class="fixw">*-Anno-Refr*</span> (external references)</td></tr>
+</table>
+</div>
+<p>The phased layers keep the level of their layer: <span class="fixw">A-Detl-Patt-N</span> is a hatch layer like <span class="fixw">A-Detl-Patt</span> (see <a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>).</p>
+<p>With <strong>auto draw order</strong> on (off by default, see <a href="../Core/Dyl-Settings.htm">Settings</a>), the objects created by a command are put in their level when the command ends: a new hatch goes under the lines, a new line under the annotation. The commands that change the layer of objects (<span class="fixw">LAYMCH</span>, <span class="fixw">MATCHPROP</span>, <span class="fixw">CHPROP</span>, <span class="fixw">LAYMRG</span>...) restack the current space. While it is on, <span class="fixw">REGEN</span> also restacks the whole drawing before regenerating it, when <a href="../Output/Dyl-CmdOptimizer.htm">Command Optimizer</a> is on and <em>Apply the draw order preset</em> is checked for <span class="fixw">REGEN</span> in the output prep window (<span class="fixw">Dyl-PrepSuite</span>, or the <em>open</em> button next to <em>Commands</em> in <span class="fixw">Dyl-Settings</span>) (the default; it can be checked for the other output commands too).</p>
+<h2>Presets</h2>
+<p>The rules are saved in <strong>presets</strong>, each with its own name: one file per preset in <span class="fixw">Modules\Dynalisp\Res\DrawOrder</span>, named after it (<span class="fixw">Default.csv</span>, <span class="fixw">Details.csv</span>...). One preset is <strong>active</strong>: auto draw order and <span class="fixw">DO-APPLY</span> use its rules. The active preset is the one <strong>saved in the drawing</strong>; a drawing without one uses your <strong>preferred preset</strong> (user setting <span class="fixw">DynalispDrawOrderPreset</span>, for every drawing). Both are chosen in the Draw Order dialog. When neither is set or its file is missing, <em>Default</em> is used, and the default rules below when there is no preset file at all.</p>
+<h2>The Rules</h2>
+<p>One rule per row, separated by semicolons: <span class="fixw">Name;Level;Layers;Objects;Description;Order</span>.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Layers</strong> &ndash; layer name wildcards, separated by commas (<span class="fixw">*-Anno,*-Anno-*</span>). Empty: any layer.</li>
+<li><strong>Objects</strong> &ndash; DXF object types, separated by commas (<span class="fixw">HATCH,MPOLYGON</span>). Empty: any object.</li>
+<li><strong>Order</strong> &ndash; a whole number from 1 to 999. When several rules match an object, the rule with the <strong>lowest order</strong> gives it its level (the first row of them when their orders are equal), whatever their levels: the order of the rows in the file does not matter otherwise. With the default rules, a hatch on <span class="fixw">A-Anno-Symb</span> matches <em>Annotation</em> (order 20, level 8) and <em>Hatch objects</em> (order 50, level -4) and stays with the annotation; a text on <span class="fixw">A-Detl-Patt</span> matches <em>Annotation objects</em> (order 30) before <em>Hatch layers</em> (order 40) and goes up with the annotation objects (7). Give a rule a lower order to make it win over a wider one: the Annotation layers leave out the <span class="fixw">Refr</span> minor so that xrefs stay at the bottom, giving <em>References</em> a lower order than <em>Annotation</em> would do the same.</li>
+<li>A preset file written before the Order column gets one when it is read: the highest level first, 10 apart, so that its rules still give an object the highest level of the rules matching it, as they did. It is saved with the column the next time OK is clicked in the Draw Order dialog.</li>
+<li>A rule at level <span class="fixw">0</span> brings the objects it matches back with the other objects.</li>
+<li>Rules with the same level number are stacked together.</li>
+</ul>
+</div>
+<p>The rules are edited in the <strong>Draw Order</strong> dialog (<span class="fixw">DRO</span>), which saves them to the preset files.</p>
+<h2>Draw Order Dialog</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Presets</strong> &ndash; <em>Edit</em> is the preset whose rules are shown, the active one marked <em>(active)</em>. The rules edited in each preset are kept while the dialog is open. <strong>New...</strong> makes a copy of the selected preset under a new name, <strong>Rename...</strong> renames it and <strong>Delete</strong> removes it (the last one cannot be deleted). A preset name cannot contain <span class="fixw">\ / : * ? " &lt; &gt; |</span> and two presets cannot have the same name.</li>
+<li><strong>Preferred (every drawing)</strong> &ndash; your preferred preset, used by every drawing without its own (user setting <span class="fixw">DynalispDrawOrderPreset</span>).</li>
+<li><strong>This drawing</strong> &ndash; <em>Preferred preset (...)</em>, or a preset saved in the drawing as its own, over the preferred one. The active preset is this one.</li>
+<li><strong>Sort by</strong> &ndash; sorts the rule list by <em>Level</em> (highest first, the default), <em>Order</em> (lowest first: the rules in the order they win), <em>Type</em> (then by level) or <em>Name</em>. Sorting only changes the display.</li>
+<li><strong>Move up</strong> / <strong>Move down</strong> &ndash; move the selected rule one line in the list, by changing the value it is sorted by. Sorted by <em>Level</em>, the rule trades its level with the rule shown above or below it (up: a higher level, drawn above); when both have the same level, its level changes by 1 instead, and moving past the <span class="fixw">=== OTHER OBJECTS ===</span> line gives it level 1 (up) or 0 (down). Sorted by <em>Order</em>, it trades its order the same way (up: a lower order, the rule wins first; the same order changes by 1). The buttons are disabled in the other sorts and on the first or last rule.</li>
+<li><strong>Rule list</strong> &ndash; the rules, under a header naming the columns: <em>Order</em>, <em>Level</em>, <em>Type</em> (what the rule matches: <em>Layers</em>, <em>Objects</em>, <em>Layers + objects</em> or <em>All objects</em>), <em>Name</em>, <em>Objects in drawing</em> (the objects the rule gives its level to, counted again after each change) and <em>Description</em> (the layers and objects of each rule are shown in the Rule section when it is selected). The <span class="fixw">=== OTHER OBJECTS ===</span> line is always shown, in capitals so it stands out: it counts the objects no rule matches, at level <span class="fixw">0</span>. Sorted by level, it sits between the positive levels and the others, which is where those objects are stacked; with the other sorts it is the last line. It is not a rule: selecting it shows its content and disables the Rule section.</li>
+<li><strong>Several rules at once</strong> &ndash; Ctrl+click adds a rule to the selection (or removes it), Shift+click selects a range. The section reads <em>Rule (3 selected)</em> and shows the rule clicked first: a <em>Description</em>, <em>Level</em>, <em>Order</em> or <em>Type</em> changed is given to <em>every</em> rule selected (a new Type keeps the layers or objects of each rule when it uses them), their other values are left as they are. The name, the <em>Layers</em> and <em>Objects</em> lists, <em>Copy</em> and <em>Move up / down</em> are for one rule only (greyed out); <em>Delete</em> removes them all. The line of the other objects is selected alone.</li>
+<li><strong>Rule</strong> &ndash; the <em>Name</em>, <em>Description</em>, <em>Level</em> (a whole number from -99 to 99), <em>Order</em> (a whole number from 1 to 999, the lowest wins), <em>Type</em>, <em>Layers</em> and <em>Objects</em> of the selected rule. The type comes from the fields used and only those are enabled: <em>Layers</em> lists one layer name or wildcard per line (<span class="fixw">*-Anno</span>, <span class="fixw">*-Anno-*</span>...) &ndash; type one in the box under it and click <strong>Add</strong>, select a line to <strong>Replace</strong> or <strong>Remove</strong> it (the last line cannot be removed: change the type instead); the commas are added when the rules are saved. <em>Objects</em> is picked in a list, after choosing the <em>Product</em> whose objects it lists. Only the objects whose stacking shows in a 2D view are listed: annotation, linework, fills and masks, images and underlays, blocks (construction lines, cameras, lights, section planes or single surface types are left out). <em>AutoCAD</em>: groups (Annotation, Text, Dimensions, All leaders, Fills and masks, Hatches and gradients, Images and underlays, Lineworks, 3D objects), then, after an <span class="fixw">Object types</span> separator line (it cannot be picked), each object type on its own (Mtext, Wipeouts, PDF underlays, Single-line text...). <em>AutoCAD Architecture</em> (<span class="fixw">AEC_*</span>), grouped by the cut plane of the plan views: <em>Cut objects</em> (walls, curtain walls, structural members), <em>Openings</em> (doors, windows, openings in the cut walls), <em>Below cut plane objects</em> (stairs, railings, slabs), <em>Above cut plane objects</em> (roofs, roof slabs, ceilings), <em>Spaces and zones</em>, <em>Mass elements</em>, <em>Annotation objects</em> (tags, schedules, AEC dimensions, grids), <em>Sections and elevations</em>. Draw order moves a whole object: the components of an Architecture object (its cut lines, hatch, lines above the cut plane) are drawn by its display representation, set in its display properties. <em>AutoCAD MEP</em> (<span class="fixw">AECB_*</span>: Ducts, Pipes and plumbing, Trays and conduits, Equipment, Electrical objects for devices panels and wires, Schematics), <em>Civil 3D</em> (<span class="fixw">AECC_*</span>: Surfaces, Points, Alignments, Profiles, Sections, Corridors, Parcels, Grading objects for feature lines gradings and survey figures, Pipe networks, Labels and tables), <em>Plant 3D P&amp;ID</em> (<span class="fixw">ACPP*</span>), <em>AutoCAD Mechanical</em> (<span class="fixw">ACM*</span>: Annotation objects), each with an <em>All ... objects</em> item first, or <em>In this drawing</em>: the exact object types the drawing has, whatever product made them. The groups of the other products match the prefix of their object names with wildcards (<span class="fixw">AEC_*DOOR*</span>), since these names change between releases; use <em>In this drawing</em> to pick an exact one. Without the product or its object enabler, its objects are proxies (<span class="fixw">ACAD_PROXY_ENTITY</span>, in the AutoCAD list). A value that is in none of the lists (written by hand in a preset file) shows as <em>Custom</em>. The line under the Objects list shows the AutoCAD names (DXF object types) the selected item stands for: <span class="fixw">AutoCAD names: HATCH, MPOLYGON</span> for <em>Hatches and gradients</em>, <span class="fixw">AutoCAD name: MTEXT</span> for <em>Mtext</em>. Choosing another type clears the field it does not use and fills the one it needs when empty (placeholder layers <span class="fixw">*-Name,*-Name-*</span>, first item of the Objects list). <em>All objects</em> matches every object (every object takes at least its level). A wrong value is reported under the buttons and must be fixed before another rule is selected.</li>
+<li><strong>Content</strong> &ndash; under the Rule section: the objects of the drawing that the selected rule gives its level to (the objects it matches and no rule with a lower order matches), one line per object type and layer with the number of objects (<span class="fixw">MTEXT / A-ANNO-TEXT&nbsp;&nbsp;100</span>), sorted by type then layer. The line above it gives the total. With the <span class="fixw">=== OTHER OBJECTS ===</span> line selected, it lists the objects no rule matches: the layers to add to a rule. Counted again after each change of the rules. <strong>Search</strong> filters the lines: type part of an object type or layer name and press Enter (the <span class="fixw">*</span> and <span class="fixw">?</span> wildcards work, an empty search shows every line). Select one or more lines and click <strong>Select and zoom</strong> to close the dialog, select their objects and zoom on them: in the current space when it has some of them, else in the layout that has the most (the command line says how many are in other layouts). When changes are not saved yet, a warning asks to <em>Save and close</em>, <em>Close without saving</em> or <em>Cancel</em> (the dialog stays open).</li>
+<li><strong>New</strong> / <strong>Copy</strong> &ndash; adds a rule after the selected one: a new one (on the placeholder layers <span class="fixw">*-Name,*-Name-*</span>, to replace, its order 10 after the highest one: it wins last) or a copy of the selected rule (same order: the original, first in the file, wins on a tie). <strong>Delete</strong> removes the selected rule.</li>
+<li><strong>Restore defaults</strong> &ndash; replaces the rules of the selected preset with the default ones.</li>
+<li><strong>Auto draw order</strong> &ndash; turns auto draw order on or off at once. It is a user setting (<span class="fixw">DynalispDrawOrderAuto</span>), so it applies to every drawing. It is also in <span class="fixw">Dyl-Settings</span> (<em>Auto draw order</em>), next to the <em>open</em> button that opens this window. It runs only while the <em>DynALisp reactors</em> of <span class="fixw">Dyl-Settings</span> are on (greyed out there otherwise).</li>
+<li><strong>Apply to drawing</strong> &ndash; restacks model space, every layout and every block definition with the rules shown, saved or not, as one undo step, and regenerates the drawing.</li>
+<li><strong>OK</strong> saves every preset (the files of the presets deleted or renamed are removed), then the preferred preset and the preset of this drawing when they were changed: the next command uses the rules of the active preset, <span class="fixw">DO-APPLY</span> restacks the drawing with them. <strong>Cancel</strong> leaves the presets as they were: a restacking done with <em>Apply to drawing</em> stays, <span class="fixw">U</span> undoes it. <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Each level keeps the draw order of its own objects: restacking moves whole levels to the top (the lowest positive level first) or to the bottom (the highest negative level first) with the draw order table of the space.</li>
+<li>Auto draw order watches the objects added to the drawing and restacks when the command that created them ends, like <a href="../Layer/Dyl-LayerPhase.htm">auto-phase</a>. Objects created by a Lisp command are restacked when the Lisp command ends.</li>
+<li>Only the new objects are moved, right below the lowest object of the levels that must stay above them: a new line goes under the annotation, a new hatch under the lines, a new text on the top level moves nothing. The levels already stacked are left alone. When the draw order cannot be read, the levels above or below the new objects are restacked instead.</li>
+<li>Each restack adds entries to the draw order table of the space, and a large table slows down panning and zooming. <span class="fixw">DO-REBUILD</span> deletes the tables of model space, the layouts and the block definitions, then stacks the levels again from the creation order, as one undo step. The output prep step <em>Rebuild the draw order</em> (<span class="fixw">Dyl-PrepSuite</span>, off by default) does the same before the commands it is checked for, in place of <em>Apply the draw order</em>. A <span class="fixw">DRAWORDER</span> set by hand within a level is lost by a rebuild.</li>
+<li>The objects of model space, of the layouts and of the block definitions are restacked: a hatch inside a block goes below the lines of that block, like in the drawing. The levels are those of the objects in the block (often layer <span class="fixw">0</span>, so the rules by object type are the ones that apply). Auto draw order restacks a block definition when objects are added to it (<span class="fixw">BLOCK</span>, <span class="fixw">BEDIT</span>, <span class="fixw">REFEDIT</span>...) and regenerates the drawing so its references show it. Xrefs and their blocks are never changed, nor the anonymous blocks AutoCAD makes again itself (dimensions, tables...); the ones of the dynamic blocks are restacked. Viewports are left out.</li>
+<li>The objects brought back by <span class="fixw">U</span>, <span class="fixw">UNDO</span>, <span class="fixw">REDO</span> and <span class="fixw">OOPS</span> are left where they are. The list can be replaced with the <span class="fixw">DynalispDrawOrderSkip</span> environment variable, and the commands that restack the current space with <span class="fixw">DynalispDrawOrderRefresh</span>, for example <span class="fixw">(setenv "DynalispDrawOrderRefresh" "LAYMCH,MATCHPROP,CHPROP")</span>.</li>
+</ol>
+</div>
+<h2>Using The Draw Order In An App</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply nil nil)</span> &ndash; restacks model space, every layout and every block definition with the rules of the active preset, returns the number of objects moved.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderApply "Model" nil)</span> &ndash; restacks one space, given by its layout name. The second argument can give other rules (see <span class="fixw">Remote&gt;&gt;Dyl:DrawOrderParse</span>).</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderRebuild nil nil)</span> &ndash; deletes the draw order tables of model space, every layout and every block definition, then restacks them; a layout name in place of the first <span class="fixw">nil</span> rebuilds one space.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPreset)</span> &ndash; returns the name of the active preset, <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetSet "Details")</span> saves another one in the drawing (<span class="fixw">nil</span>: the drawing uses the preferred preset), <span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderPresetDefault)</span> returns the preferred preset.</li>
+<li><span class="fixw">(Remote&gt;&gt;Dyl:DrawOrderAutoSet T)</span> &ndash; turns auto draw order on (nil: off).</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Auto draw order restacks after the command, as a separate step: the first <span class="fixw">U</span> after a command undoes the restacking, the second one undoes the command.</li>
+<li>A layer changed in the Properties palette (no command) does not restack: use <span class="fixw">DO-APPLY</span>.</li>
+<li>Restacking overrides a <span class="fixw">DRAWORDER</span> set by hand between objects of different levels; within a level, it is kept.</li>
+<li>The commands that change layers restack only the current space; <span class="fixw">DO-APPLY</span> restacks every layout.</li>
+<li>If the screen does not show the new order after a command, <span class="fixw">REGEN</span> (plotting always uses it).</li>
+<li><span class="fixw">DO-COUNT</span> compares the entries of the model space draw order table with its objects; <span class="fixw">DO-RESET</span> deletes that table, putting model space back in creation order (<span class="fixw">U</span> undoes it). Both work on model space only; with auto draw order on, the next command restacks the levels again.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-DrawOrder</span>: they are run by their alias (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-DrawOrder</span></td><td><span class="fixw">DRO</span></td><td>Draw Order</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DO-APPLY</span></td><td>&ndash;</td><td>Draw Order Apply</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DO-AUTO</span></td><td>&ndash;</td><td>Draw Order Auto Toggle</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DO-COUNT</span></td><td>&ndash;</td><td>Draw Order Count</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DO-RESET</span></td><td>&ndash;</td><td>Draw Order Reset</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DO-REBUILD</span></td><td>&ndash;</td><td>Draw Order Rebuild</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

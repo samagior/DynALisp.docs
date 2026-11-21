@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset XRef Layers</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Reset XRef Layers</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/resetxreflayers.html" target="_blank">https://lee-mac.com/resetxreflayers.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ResetXrefLayers</span> &ndash; original syntax: RXL (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/resetxreflayers.html" target="_blank">lee-mac.com/resetxreflayers.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to reset all or specific layer properties of xref dependent layers to match the
+                properties present in the xref source drawing file.</p>
+<p>Upon starting the program, the user is prompted to select an xref whose layers are to be reset. Following a valid
+                selection, the properties of all layers dependent on the selected xref are reset to match the values found in the source
+                drawing for the selected xref.</p>
+<p>From the selection prompt, the user may also choose <span class="fixw">Multiple</span>, <span class="fixw">All</span>, 
+                or <span class="fixw">Settings</span>. If <span class="fixw">Multiple</span> is selected, the user may select several
+                xrefs using the standard selection interface (e.g. via window selection). If <span class="fixw">All</span> is selected, 
+                the layer properties of every xref found in the 
+                active drawing is reset to match the original values found in the respective source drawings.</p>
+<p>Finally, if the <span class="fixw">Settings</span> option is selected, a dialog interface is displayed allowing the user
+                to choose which layer properties are to be reset.</p>
+<p>The user may select multiple properties to be reset from the following list of layer properties:</p>
+<div class="unspacedbullets">
+<ul>
+<li>Colour</li>
+<li>Linetype</li>
+<li>Lineweight</li>
+<li>Plot</li>
+<li>Plot Style</li>
+<li>Frozen in Viewports</li>
+<li>On</li>
+<li>Locked</li>
+<li>Frozen</li>
+<li>Description</li>
+</ul>
+</div>
+<div class="cent">
+<h2>Dialog Preview</h2>
+<img alt="Reset XRef Layers Dialog" height="185" src="images/LM-ResetXRefLayersDialog.png" width="432"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Reset XRef Layers }==-----------------------;;
+;;                                                                      ;;
+;;  This program enables the user to reset all or specific layer        ;;
+;;  properties of xref dependent layers to match the properties         ;;
+;;  present in the xref source drawing file.                            ;;
+;;                                                                      ;;
+;;  Upon starting the program, the user is prompted to select an xref   ;;
+;;  whose layers are to be reset. Following a valid selection, the      ;;
+;;  properties of all layers dependent on the selected xref are reset   ;;
+;;  to match the values found in the source drawing for the selected    ;;
+;;  xref.                                                               ;;
+;;                                                                      ;;
+;;  From the selection prompt, the user may also choose &#x27;Multiple&#x27;,     ;;
+;;  &#x27;All&#x27;, or &#x27;Settings&#x27;.                                               ;;
+;;                                                                      ;;
+;;  If &#x27;Multiple&#x27; is selected, the user may select several xrefs using  ;;
+;;  the standard selection interface (e.g. via window selection).       ;;
+;;                                                                      ;;
+;;  If &#x27;All&#x27; is selected, the layer properties of every xref found in   ;;
+;;  the active drawing is reset to match the original values found in   ;;
+;;  the respective source drawings.                                     ;;
+;;                                                                      ;;
+;;  Finally, if the &#x27;Settings&#x27; option is selected, a dialog interface   ;;
+;;  is displayed allowing the user to choose which layer properties     ;;
+;;  are to be reset.                                                    ;;
+;;                                                                      ;;
+;;  The user may select multiple properties to be reset from: Colour,   ;;
+;;  Linetype, Lineweight, Plot, Plot Style, Frozen in Viewports, On,    ;;
+;;  Locked, Frozen, &amp; Description.                                      ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2014  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2011-11-19                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2011-11-27                                      ;;
+;;                                                                      ;;
+;;  - Added code to search for XRef Source File in working directory &amp;  ;;
+;;    support directories if not found at XRef Path.                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2014-04-13                                      ;;
+;;                                                                      ;;
+;;  - Program entirely rewritten.                                       ;;
+;;  - Modified program to account for layers whose colour property      ;;
+;;    uses a True Colour or Colour Book colour.                         ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ResetXrefLayers</span></td><td><span class="fixw">RXL</span></td><td>Reset Xref Layers</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

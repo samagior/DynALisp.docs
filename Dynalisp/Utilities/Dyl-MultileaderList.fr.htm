@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liste des lignes de repère et blocs</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-MultileaderList.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Liste des lignes de repère et blocs (Multileader List)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">MLLIST</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-MultileaderList.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Liste à la ligne de commande les lignes de repère multiples et les blocs sélectionnés, groupés par contenu (nom de bloc et valeurs d'attributs, ou texte de la ligne de repère), avec un compte par groupe.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td><td>Liste les lignes de repère multiples et les blocs sélectionnés, groupés par valeurs d'attributs, avec un compte par groupe.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Utilise les lignes de repère multiples et les blocs présélectionnés, ou demande une sélection.</li>
+<li>Chaque objet est classé selon son contenu :<div class="unspacedbullets"><ul><li>référence de bloc : nom du bloc et chaque paire <em>ÉTIQUETTE=valeur</em> de ses attributs;</li><li>ligne de repère multiple à contenu de bloc : nom du bloc et ses valeurs d'attributs;</li><li>ligne de repère multiple à contenu texte : le texte;</li><li>tout le reste : <em>&lt;no content&gt;</em>.</li></ul></div></li>
+<li>Les clés identiques sont comptées ensemble et une ligne est affichée par groupe, triée, sous la forme <em>contenu [xN]</em>.</li>
+<li>Une dernière ligne donne le nombre total d'objets et de groupes.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les blocs dynamiques sont listés sous leur nom anonyme (<em>*U&hellip;</em>), pas sous leur nom de bloc.</li>
+<li>Pour les blocs avec attributs, seules les paires <em>ÉTIQUETTE=valeur</em> sont affichées : deux blocs différents avec les mêmes valeurs d'attributs donnent donc des lignes identiques.</li>
+<li>Le texte des lignes de repère multiples est affiché avec ses codes de mise en forme Mtext bruts.</li>
+<li>Un bloc MINSERT sélectionné arrête la commande par une erreur.</li>
+<li>La liste est affichée à la ligne de commande seulement (ni tableau ni fichier).</li>
+<li>Le chargement du fichier affiche un message <em>loaded</em> à la ligne de commande : il apparaît donc à chaque démarrage de DynALisp.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-MultileaderList</span></td><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+        <details class="bundled">
+            <summary>Notes du programme d'origine (en anglais)</summary>
+            <pre>;;; ===========================================================
+;;; MLLIST - List selected multileaders and/or block inserts
+;;;          grouped by attribute values, with count per group
+;;;
+;;; Usage : MLLIST -&gt; runs on pre-selected entities, or
+;;;                   prompts for selection if none selected
+;;; Output: one compact line per unique group + count
+;;; ===========================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

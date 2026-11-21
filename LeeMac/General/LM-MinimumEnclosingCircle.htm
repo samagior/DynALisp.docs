@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minimum Enclosing Circle</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Minimum Enclosing Circle</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/minimumenclosingcircle.html" target="_blank">https://lee-mac.com/minimumenclosingcircle.html</a></p>
+
+<p><em>See also <a href="https://lee-mac.com/mecfunction.html" target="_blank" title="Minimum Enclosing Circle">Minimum Enclosing Circle</a> function,
+                <a href="https://lee-mac.com/entitytopointlist" target="_blank" title="Entity to Point List">Entity to Point List</a> &amp; 
+                <a href="https://lee-mac.com/convexhull.html" target="_blank" title="Convex Hull">Convex Hull</a></em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-MinimumEnclosingCircle</span> &ndash; original syntax: MEC / MECM (Multiple) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/minimumenclosingcircle.html" target="_blank">lee-mac.com/minimumenclosingcircle.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program will prompt the user make a selection of one or more objects, then proceed to construct the unique 
+                minimum enclosing circle containing all objects in the selection.</p>
+<p>The program offers two commands: <span class="fixw">'MEC'</span>
+<em>(<strong>M</strong>inimum <strong>E</strong>nclosing <strong>C</strong>ircle)</em> 
+                will prompt the user to select a single object, then construct the smallest circle containing the selected object;
+                <span class="fixw">'MECM'</span>
+<em>(<strong>M</strong>inimum <strong>E</strong>nclosing <strong>C</strong>ircle <strong>M</strong>ultiple)</em> will allow the
+                user to make a selection of multiple objects, then construct the minimum circle containing all objects in the selection.</p>
+<p>Upon object selection, the program first utilises my 
+                <a href="https://lee-mac.com/entitytopointlist" target="_blank" title="Entity to Point List">Entity to Point List</a> function to convert the selected object(s) into
+                a list of points. The convex hull of these points is then computed using my
+                <a href="https://lee-mac.com/convexhull.html" target="_blank" title="Convex Hull">Convex Hull</a> function, and finally the minimum enclosing circle is ascertained
+                by my <a href="https://lee-mac.com/mecfunction.html" target="_blank" title="Minimum Enclosing Circle">Minimum Enclosing Circle</a> function. More information about these
+                functions and the various algorithms used can be found on their respective program pages.</p>
+<div class="cent">
+<h3>Demonstration of Single Object Selection</h3>
+<img alt="mec.gif" height="300" src="images/LM-mec.gif" width="500"/>
+<h3>Demonstration of Multiple Object Selection</h3>
+<img alt="mecm.gif" height="300" src="images/LM-mecm.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------=={ Minimum Enclosing Circle }==--------------;;
+;;                                                            ;;
+;; Prompts the user to select an object, then constructs the  ;;
+;; Minimum Enclosing Circle containing the selected object.   ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-MinimumEnclosingCircle</span>: they are run by their alias, or picked from <span class="fixw">LM-MinimumEnclosingCircle</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-MinimumEnclosingCircle</span></td><td><span class="fixw">MEC</span></td><td>Minimum Enclosing Circle</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">MECM</span></td><td>&ndash;</td><td>Minimum Enclosing Circle Multiple</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

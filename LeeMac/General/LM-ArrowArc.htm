@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arrow Arc</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Arrow Arc</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/arrowarc.html" target="_blank">https://lee-mac.com/arrowarc.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ArrowArc</span> &ndash; original syntax: aarc / aarcsettings (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/arrowarc.html" target="_blank">lee-mac.com/arrowarc.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to construct an arc with arrowheads at each end point or at both end points, 
+                with the arrowheads aligned with the arc.</p>
+<p>Upon issuing the command syntax <span class="fixw">aarc</span> (Arrow Arc) at the AutoCAD command-line, the user may
+                construct an arc with the same options available as the standard in-built AutoCAD <span class="fixw">ARC</span> command.</p>
+<p>If the constructed arc is long enough to accommodate one or two arrowheads, the program will proceed to generate a
+                2D Polyline (LWPolyline) arc segment with additional segments of varying width at the start and/or end point
+                forming the arrowheads.</p>
+<p>The dimensions of the resulting arrowheads and the option to determine whether the arrowheads are created at the start of the arc,
+                end of the arc, or at both the start &amp; end, may be altered using the <span class="fixw">aarcsettings</span> command;
+                these parameters will be remembered between drawing sessions.</p>
+<p>This program will also perform successfully under all UCS &amp; View configurations.</p>
+<div class="cent">
+<h2>Example of Usage</h2>
+<img alt="arrowarc.gif" height="300" src="images/LM-arrowarc.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------------=={ Arrow Arc }==--------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to construct an arc with arrowheads   ;;
+;;  at each end point or at both end points, with the arrowheads        ;;
+;;  aligned with the arc.                                               ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;aarc&#x27; (Arrow Arc) at the AutoCAD   ;;
+;;  command-line, the user may construct an arc with the same options   ;;
+;;  available as the standard in-built AutoCAD ARC command.             ;;
+;;                                                                      ;;
+;;  If the constructed arc is long enough to accommodate one or two     ;;
+;;  arrowheads, the program will proceed to generate a 2D Polyline      ;;
+;;  (LWPolyline) arc segment with additional segments of varying width  ;;
+;;  at the start and/or end point forming the arrowheads.               ;;
+;;                                                                      ;;
+;;  The dimensions of the resulting arrowheads and the option to        ;;
+;;  determine whether the arrowheads are created at the start of the    ;;
+;;  arc, end of the arc, or at both the start &amp; end, may be altered     ;;
+;;  using the &#x27;aarcsettings&#x27; command; these parameters will be          ;;
+;;  remembered between drawing sessions.                                ;;
+;;                                                                      ;;
+;;  This program will also perform successfully under all UCS &amp; View    ;;
+;;  configurations.                                                     ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2016  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2012-07-17                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2013-05-26                                      ;;
+;;                                                                      ;;
+;;  - Added &#x27;aarcsettings&#x27; command to enable the user to alter the      ;;
+;;    arrow length &amp; width without modifying the code.                  ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2016-02-27                                      ;;
+;;                                                                      ;;
+;;  - Program modified to allow the user to specify whether to create   ;;
+;;    an arrowhead at the start or end of the arc, or at both.          ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ArrowArc</span>: they are run by their alias, or picked from <span class="fixw">LM-ArrowArc</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ArrowArc</span></td><td><span class="fixw">AARC</span></td><td>Arrow Arc</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">AARCSETTINGS</span></td><td>&ndash;</td><td>Arrow Arc Settings</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2016 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dimension Overlap</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Dimension Overlap</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/dimoverlap.html" target="_blank">https://lee-mac.com/dimoverlap.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DimensionOverlap</span> &ndash; original syntax: dimoverlap (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.3</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/dimoverlap.html" target="_blank">lee-mac.com/dimoverlap.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program will automatically detect overlapping linear dimensions in either a selection or in all layouts and blocks in a drawing, and 
+                will move such dimensions to a separate layer specified in the code.</p>
+<p>Upon issuing the command syntax <span class="fixw">dimoverlap</span> at the AutoCAD command-line, the program will prompt the user for a
+                selection of linear dimensions (rotated or aligned) to check; alternatively, the user may press <kbd>ENTER</kbd> at this prompt to automatically 
+                iterate over all linear dimensions (rotated or aligned) found in all layouts &amp; blocks in the active drawing. The program will then 
+                test whether each dimension in the selection/drawing overlaps any other dimensions in the selection/drawing - note that this process 
+                may take some time to complete for large drawings.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Dimension Overlap Demo" height="400" src="images/LM-dimoverlap.gif" width="600"/>
+</div>
+<h2>Configuring Program Parameters</h2>
+<p>The following parameters are defined near the top of the program file and may be adjusted to suit the user's requirements:</p>
+<div class="code">
+<pre>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+<span class="cmt">;;                          Program Parameters                          ;;</span>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+
+        <span class="cmt">;; Tolerance within which dimensions are deemed to overlap</span>
+        tol <span class="rea">0.01</span>
+
+        <span class="cmt">;; Layer properties for overlapping dimensions</span>
+        lay
+       <span class="quot">'</span><span class="brkt">(</span>
+            <span class="brkt">(</span><span class="int">002</span> <span class="quot">.</span> <span class="str">"DIMOVERLAP"</span><span class="brkt">)</span> <span class="cmt">;; Layer Name</span>
+            <span class="brkt">(</span><span class="int">062</span> <span class="quot">.</span>  <span class="int">1</span><span class="brkt">)</span>           <span class="cmt">;; Layer Colour (1-255)</span>
+            <span class="brkt">(</span><span class="int">006</span> <span class="quot">.</span> <span class="str">"Continuous"</span><span class="brkt">)</span> <span class="cmt">;; Layer Linetype (Must be loaded in drawing)</span>
+            <span class="brkt">(</span><span class="int">370</span> <span class="quot">.</span> <span class="int">-3</span><span class="brkt">)</span>           <span class="cmt">;; Layer Lineweight (Default = -3, else lineweight*100 e.g. 2.11 = 211)</span>
+        <span class="brkt">)</span>
+
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+</pre>
+</div>
+<p>The tolerance parameter determines the number of drawing units within which dimensions are deemed to overlap.
+                With the current configuration, if two dimensions are not located directly above each other, but are within
+                0.01 drawing units of each other, they will be tested for overlapping extension lines.</p>
+<p>The subsequent list of layer properties defines the name of the layer to be assigned to overlapping dimensions
+                and the list of properties which will be applied to such layer. This layer will be automatically
+                created if not already present in the active drawing. Note that the linetype assigned to the
+                layer must be already loaded in the active drawing.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-----------------------=={ Dimension Overlap }==----------------------;;
+;;                                                                      ;;
+;;  This program will automatically detect overlapping dimensions in    ;;
+;;  all layouts and all blocks in a drawing, and will move such         ;;
+;;  dimensions to a separate layer specified in the code.               ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2015  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2015-12-12                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2015-12-31                                      ;;
+;;                                                                      ;;
+;;  - dimoverlap:processblock function rewritten to detect dimensions   ;;
+;;    which overlap on both sides.                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2017-04-25                                      ;;
+;;                                                                      ;;
+;;  - Added parameter to allow the user to alter the tolerance for      ;;
+;;    dimension comparison.                                             ;;
+;;  - Added list of layer properties to be applied to layer assigned    ;;
+;;    to overlapping dimensions.                                        ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DimensionOverlap</span></td><td><span class="fixw">DIMOVERLAP</span></td><td>Dimension Overlap</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2015 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

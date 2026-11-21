@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multi-Polyline</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Multi-Polyline</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/mpline.html" target="_blank">https://lee-mac.com/mpline.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-MultiPolyline</span> &ndash; original syntax: mpl (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/mpline.html" target="_blank">lee-mac.com/mpline.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This simple program enables the user to create objects with the appearance of multilines, however, which are composed of standard polylines.</p>
+<p>Upon issuing the command syntax <span class="fixw">MPL</span> at the AutoCAD command-line, the program will invoke the standard AutoCAD
+                <span class="fixw">MLINE</span> command, allowing the user to construct the object with the real-time dynamic preview afforded by the 
+                <span class="fixw">MLINE</span> command, however with the resulting multiline automatically exploded &amp; joined to form standard 2D polylines.</p>
+<p>Such a command could be useful for quickly drafting of the cross-section of a pipeline, duct or wall.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<p><img alt="MPL Demo 1" height="300" src="images/LM-mpldemo1.gif" width="500"/></p>
+<p><img alt="MPL Demo 2" height="300" src="images/LM-mpldemo2.gif" width="500"/></p>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;------------------------=={ Multi-Polyline  }==-----------------------;;
+;;                                                                      ;;
+;;  This program enables the user to create objects with the appearance ;;
+;;  of multilines, however, which are composed of standard polylines.   ;;
+;;                                                                      ;;
+;;  The program will invoke the standard AutoCAD MLINE command,         ;;
+;;  allowing the user to construct the object with the real-time        ;;
+;;  dynamic preview afforded by the MLINE command, with the resulting   ;;
+;;  multiline automatically exploded &amp; joined to form standard 2D       ;;
+;;  polylines.                                                          ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2010  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2010-06-19                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2015-09-12                                      ;;
+;;                                                                      ;;
+;;  Program rewritten.                                                  ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-MultiPolyline</span></td><td><span class="fixw">MPL</span></td><td>Multi-Polyline</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2010 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

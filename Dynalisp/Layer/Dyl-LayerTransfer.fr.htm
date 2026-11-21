@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transfert de calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerTransfer.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Transfert de calques (Layer Transfer)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-LAYERTRANSFER</span> et 58 transferts &ndash; voir <a href="#commands">Commandes</a></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerTransfer.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP) avec ObjectDBX</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-LAYERTRANSFER</span> liste chaque transfert avec son alias : double-cliquez-en un (ou OK), puis sélectionnez les objets. Les transferts sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
+<p>Déplace les objets sélectionnés sur le calque correspondant d'une autre phase, discipline, pile ou type de vue, en remplaçant un champ de leur nom de calque (p. ex. <span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span> avec <span class="fixw">E-D</span>). Les calques cibles manquants sont créés avec les propriétés du calque source. Les blocs sont traités sans modifier le bloc original : une copie renommée de la définition est transférée et seules les références sélectionnées passent à elle.</p>
+<h2>Ruban</h2>
+<p>Le groupe de fonctions <em>Transfert de calques</em> de l'onglet DynALisp contient le bouton <strong>Transférer</strong>, trois listes déroulantes et le bouton <strong>Gestion</strong>. Transférer et les listes déroulantes transfèrent toute valeur d'un niveau des noms de calques vers une autre, pour les calques nommés comme le fait la NCS (United States National CAD Standard) : <span class="fixw">A-Wall-Full-E</span> est la désignation de discipline <span class="fixw">A</span>, le groupe majeur <span class="fixw">Wall</span>, le groupe mineur <span class="fixw">Full</span> et le statut <span class="fixw">E</span> (voir <a href="../Conventions/LayerNaming.fr.htm">Nommage des calques</a>). Le bouton <strong>Gestion</strong> ouvre la liste des transferts (<span class="fixw">DYL-LAYERTRANSFER</span>).</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Niveau</strong> &ndash; <em>Désignation de discipline</em>, <em>Groupe principal</em>, <em>Groupe secondaire</em> ou <em>Statut</em> (la phase). Les autres niveaux des noms sont gardés.</li>
+<li><strong>De</strong> &ndash; <em>Toutes</em>, ou une valeur du niveau trouvée dans les calques du dessin. <em>Aucune</em> (groupe secondaire) ou <em>Sans phase</em> (statut) : les calques qui n'ont pas de valeur pour ce niveau.</li>
+<li><strong>À</strong> &ndash; affiche <em>Choisir la valeur...</em> tant qu'aucune valeur n'est choisie. Les valeurs du dessin d'abord, puis les autres valeurs des listes AEC de DynALisp (<span class="fixw">Res\AEC\Standard</span> : <span class="fixw">Dd1.csv</span> et <span class="fixw">Dd2.csv</span> pour les désignations de discipline, <span class="fixw">Major.csv</span>, <span class="fixw">Phase.csv</span>; seulement les groupes mineurs du dessin, <span class="fixw">Minor.csv</span> étant trop long pour une liste). <em>Aucune</em> ou <em>Sans phase</em> retire le niveau. Une valeur est affichée avec sa description quand les listes AEC l'ont, dans la langue de l'AutoCAD installé (<span class="fixw">Wall - Mur</span> dans un AutoCAD français).</li>
+<li>Choisir une valeur ne fait que la choisir. Sélectionnez les objets, puis cliquez <strong>Transférer</strong> : ils sont transférés avec le Niveau, le De et le À affichés (si aucun n'est sélectionné, vous êtes invité à les sélectionner). Le choix reste : la sélection suivante est transférée de la même façon d'un clic.</li>
+<li>Les listes suivent les calques du dessin courant : elles sont relues après chaque commande et quand un autre dessin devient courant. <em>De</em> garde sa valeur tant que le dessin l'a.</li>
+<li>Avec <em>Toutes</em>, un transfert de groupe mineur change le premier groupe mineur de chaque nom, et en ajoute un après le groupe majeur aux noms qui n'en ont pas (<span class="fixw">A-Detl-E</span> &rarr; <span class="fixw">A-Detl-Patt-E</span>); un transfert de statut donne le statut aux noms sans phase aussi.</li>
+<li>Le bouton Transférer lance <span class="fixw">Pst-TransferField</span> (alias <span class="fixw">LTF</span>, qui fait de même quand il est tapé). Avant qu'une valeur À soit choisie, ou sans les listes déroulantes, il demande le niveau, la valeur De (Entrée : toutes) et la valeur À (<em>None</em> pour la retirer).</li>
+<li>Les listes déroulantes sont ajoutées par <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, qui demande AutoCAD 2025 ou suivant (voir <a href="../Plugins/Ribbon.fr.htm">Ruban</a>). Dans une version antérieure, le bouton Transférer demande le niveau et les valeurs.</li>
+</ul>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Sélectionnez les objets. Les objets dont le calque contient le champ source peuvent être choisis, et les références de blocs le peuvent toujours pour que leur contenu puisse être transféré.</li>
+<li>Chaque objet sélectionné est vérifié : son propre calque, ses attributs et, pour les blocs, chaque entité de la définition (blocs imbriqués compris) sont testés. Les objets sans rien à changer sont retirés.</li>
+<li>Le nom cible de chaque calque source est calculé (voir les règles ci-dessous). Un calque cible manquant est créé avec le type de ligne, l'épaisseur de ligne, le réglage de traçage, la description et la transparence de la source, et une couleur décalée selon la phase : <span class="fixw">-D</span> &rarr; 2 + dernier chiffre, <span class="fixw">-E</span> &rarr; 20 + dernier chiffre, sans phase depuis -D/-E &rarr; dernier chiffre seulement. Un calque de phase d'une <a href="Dyl-LayerKeys.fr.htm">clé de calque</a> (le nom cible sans sa phase, <span class="fixw">G-Detl-Exst-D</span> &rarr; <span class="fixw">G-Detl-Exst</span>, est le calque de cette clé) reçoit plutôt la couleur de sa clé dans cette phase : la couleur de phase de la couleur de la clé, ou la couleur de la clé elle-même quand la clé la garde dans chaque phase (<em>Keep this color in every phase</em>) ou que le transfert est vers sans phase.</li>
+<li>Un calque cible d'une clé de calque qui existe déjà est comparé à sa clé (couleur dans cette phase, type de ligne, épaisseur de ligne, traçage), comme quand une App utilise la clé : s'il diffère, la même fenêtre liste les différences et demande s'il faut le mettre à jour selon sa clé, avant que les objets soient déplacés (Yes / No, <em>Remember my answer</em>; voir <a href="Dyl-LayerKeys.fr.htm#differ">Layer Keys &ndash; Layers That Differ From Their Key</a>).</li>
+<li>Si un calque source est désactivé, gelé ou verrouillé, une alerte le liste et rien ne change.</li>
+<li>En un seul groupe d'annulation, les objets et les attributs sont déplacés sur leurs calques cibles. Un bloc dont le contenu change est copié (par ObjectDBX, qui garde les données des blocs dynamiques) sous un nouveau nom &ndash; <span class="fixw">2X6</span> &rarr; <span class="fixw">2X6-N</span>, <span class="fixw">2X6-E</span> &rarr; <span class="fixw">2X6-N</span> &ndash; la copie est transférée et les références sélectionnées pointent vers elle, avec leurs valeurs de propriétés dynamiques rétablies. Une copie faite par une exécution antérieure est réutilisée.</li>
+</ol>
+</div>
+<h3>Règles de nom</h3>
+<div class="spacedbullets">
+<ul>
+<li><strong>Phase</strong> &ndash; le suffixe est remplacé à la fin du nom (<span class="fixw">A-Wall-E</span> &rarr; <span class="fixw">A-Wall-D</span>). Un nom qui finit par un champ de 4 caractères sans phase (<span class="fixw">A-Wall-Full</span>) reçoit le nouveau suffixe à la fin. Les commandes <em>Unphased</em> retirent le suffixe.</li>
+<li><strong>Désignation</strong> &ndash; la première occurrence de la lettre de discipline est remplacée.</li>
+<li><strong>Majeur</strong> &ndash; la première occurrence après la désignation est remplacée (p. ex. Detl &harr; Sect).</li>
+<li><strong>Mineur</strong> &ndash; la première occurrence à partir du 8<sup>e</sup> caractère est remplacée (Line &harr; Hidd, numéros de pile).</li>
+<li><strong>Niveau</strong> (le bouton Transférer du ruban et <span class="fixw">LTF</span>) &ndash; le nom est lu comme un nom NCS : une désignation de discipline de 1 ou 2 lettres, un groupe majeur de 4 caractères, des groupes mineurs de 4 caractères (aucun ou plusieurs) et un statut facultatif de 1 caractère, séparés par <span class="fixw">-</span>. Seul ce niveau est remplacé : un transfert de désignation ne touche donc jamais les autres niveaux. Les calques aux autres noms (<span class="fixw">0</span>, <span class="fixw">Defpoints</span>, les calques des xréfs...) restent tels quels.</li>
+</ul>
+</div>
+<h3>Suffixes de phase</h3>
+<div class="programs commands">
+<table>
+<tr><th>Suffixe</th><th>Phase</th></tr>
+<tr><td><span class="fixw">-E</span></td><td>Existant à conserver</td></tr>
+<tr><td><span class="fixw">-D</span></td><td>Existant à démolir</td></tr>
+<tr><td><span class="fixw">-N</span></td><td>Travaux neufs</td></tr>
+<tr><td><span class="fixw">-R</span></td><td>En rénovation</td></tr>
+<tr><td><span class="fixw">-M</span></td><td>En déplacement</td></tr>
+<tr><td><span class="fixw">-S</span></td><td>À récupérer</td></tr>
+<tr><td><span class="fixw">-A</span></td><td>Abandonné</td></tr>
+<tr><td><span class="fixw">-F</span></td><td>Travaux futurs</td></tr>
+<tr><td><span class="fixw">-T</span></td><td>Travaux temporaires</td></tr>
+<tr><td><span class="fixw">-X</span></td><td>Hors contrat</td></tr>
+</table>
+</div>
+<h2 id="commands">Commandes</h2>
+<h3>Transferts de phase</h3>
+<p>Rangée : phase des objets sélectionnés; colonne : phase cible (<em>U</em> = sans phase).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>De \ À</th><th>-E</th><th>-D</th><th>-N</th><th>-R</th><th>-M</th><th>-S</th><th>-A</th><th>-F</th><th>-T</th><th>-X</th><th>U</th></tr>
+<tr><td><strong><span class="fixw">-E</span></strong> Existant</td><td>&ndash;</td><td><span class="fixw">E-D</span></td><td><span class="fixw">E-N</span></td><td><span class="fixw">E-R</span></td><td><span class="fixw">E-M</span></td><td><span class="fixw">E-S</span></td><td><span class="fixw">E-A</span></td><td><span class="fixw">E-F</span></td><td><span class="fixw">E-T</span></td><td><span class="fixw">E-X</span></td><td><span class="fixw">E-U</span></td></tr>
+<tr><td><strong><span class="fixw">-D</span></strong> Démolition</td><td><span class="fixw">D-E</span></td><td>&ndash;</td><td><span class="fixw">D-N</span></td><td><span class="fixw">D-R</span></td><td><span class="fixw">D-M</span></td><td><span class="fixw">D-S</span></td><td><span class="fixw">D-A</span></td><td><span class="fixw">D-F</span></td><td><span class="fixw">D-T</span></td><td><span class="fixw">D-X</span></td><td><span class="fixw">D-U</span></td></tr>
+<tr><td><strong><span class="fixw">-N</span></strong> Travaux neufs</td><td><span class="fixw">N-E</span></td><td><span class="fixw">N-D</span></td><td>&ndash;</td><td><span class="fixw">N-R</span></td><td><span class="fixw">N-M</span></td><td><span class="fixw">N-S</span></td><td><span class="fixw">N-A</span></td><td><span class="fixw">N-F</span></td><td><span class="fixw">N-T</span></td><td><span class="fixw">N-X</span></td><td><span class="fixw">N-U</span></td></tr>
+</table>
+</div>
+<h3>Transferts de discipline, de vue et de pile</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th><th>Type</th><th>De</th><th>À</th></tr>
+<tr><td><span class="fixw">G-ARCHITECTURAL</span></td><td>Transfer General To Architectural</td><td>Déplace les objets sélectionnés de leur calque de discipline générale vers le calque architecturale correspondant.</td><td>Désignation</td><td><span class="fixw">G</span></td><td><span class="fixw">A</span></td></tr>
+<tr><td><span class="fixw">G-STRUCTURAL</span></td><td>Transfer General To Structural</td><td>Déplace les objets sélectionnés de leur calque de discipline générale vers le calque structurale correspondant.</td><td>Désignation</td><td><span class="fixw">G</span></td><td><span class="fixw">S</span></td></tr>
+<tr><td><span class="fixw">S-ARCHITECTURAL</span></td><td>Transfer Structural To Architectural</td><td>Déplace les objets sélectionnés de leur calque de discipline structurale vers le calque architecturale correspondant.</td><td>Désignation</td><td><span class="fixw">S</span></td><td><span class="fixw">A</span></td></tr>
+<tr><td><span class="fixw">A-STRUCTURAL</span></td><td>Transfer Architectural To Structural</td><td>Déplace les objets sélectionnés de leur calque de discipline architecturale vers le calque structurale correspondant.</td><td>Désignation</td><td><span class="fixw">A</span></td><td><span class="fixw">S</span></td></tr>
+<tr><td><span class="fixw">LINE-HIDD</span></td><td>Transfer Line To Hidden</td><td>Déplace les objets sélectionnés de leur calque mineur Line vers le calque Hidd correspondant.</td><td>Mineur</td><td><span class="fixw">Line</span></td><td><span class="fixw">Hidd</span></td></tr>
+<tr><td><span class="fixw">HIDD-LINE</span></td><td>Transfer Hidden To Line</td><td>Déplace les objets sélectionnés de leur calque mineur Hidd vers le calque Line correspondant.</td><td>Mineur</td><td><span class="fixw">Hidd</span></td><td><span class="fixw">Line</span></td></tr>
+<tr><td><span class="fixw">0001-2</span></td><td>Transfer Stack 0001 To 0002</td><td>Déplace les objets sélectionnés de leur calque de pile 0001 vers le calque de pile 0002 correspondant.</td><td>Mineur</td><td><span class="fixw">0001</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0001-3</span></td><td>Transfer Stack 0001 To 0003</td><td>Déplace les objets sélectionnés de leur calque de pile 0001 vers le calque de pile 0003 correspondant.</td><td>Mineur</td><td><span class="fixw">0001</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0001-4</span></td><td>Transfer Stack 0001 To 0004</td><td>Déplace les objets sélectionnés de leur calque de pile 0001 vers le calque de pile 0004 correspondant.</td><td>Mineur</td><td><span class="fixw">0001</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0001-5</span></td><td>Transfer Stack 0001 To 0005</td><td>Déplace les objets sélectionnés de leur calque de pile 0001 vers le calque de pile 0005 correspondant.</td><td>Mineur</td><td><span class="fixw">0001</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0002-1</span></td><td>Transfer Stack 0002 To 0001</td><td>Déplace les objets sélectionnés de leur calque de pile 0002 vers le calque de pile 0001 correspondant.</td><td>Mineur</td><td><span class="fixw">0002</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0002-3</span></td><td>Transfer Stack 0002 To 0003</td><td>Déplace les objets sélectionnés de leur calque de pile 0002 vers le calque de pile 0003 correspondant.</td><td>Mineur</td><td><span class="fixw">0002</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0002-4</span></td><td>Transfer Stack 0002 To 0004</td><td>Déplace les objets sélectionnés de leur calque de pile 0002 vers le calque de pile 0004 correspondant.</td><td>Mineur</td><td><span class="fixw">0002</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0002-5</span></td><td>Transfer Stack 0002 To 0005</td><td>Déplace les objets sélectionnés de leur calque de pile 0002 vers le calque de pile 0005 correspondant.</td><td>Mineur</td><td><span class="fixw">0002</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0003-1</span></td><td>Transfer Stack 0003 To 0001</td><td>Déplace les objets sélectionnés de leur calque de pile 0003 vers le calque de pile 0001 correspondant.</td><td>Mineur</td><td><span class="fixw">0003</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0003-2</span></td><td>Transfer Stack 0003 To 0002</td><td>Déplace les objets sélectionnés de leur calque de pile 0003 vers le calque de pile 0002 correspondant.</td><td>Mineur</td><td><span class="fixw">0003</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0003-4</span></td><td>Transfer Stack 0003 To 0004</td><td>Déplace les objets sélectionnés de leur calque de pile 0003 vers le calque de pile 0004 correspondant.</td><td>Mineur</td><td><span class="fixw">0003</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">0003-5</span></td><td>Transfer Stack 0003 To 0005</td><td>Déplace les objets sélectionnés de leur calque de pile 0003 vers le calque de pile 0005 correspondant.</td><td>Mineur</td><td><span class="fixw">0003</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0004-1</span></td><td>Transfer Stack 0004 To 0001</td><td>Déplace les objets sélectionnés de leur calque de pile 0004 vers le calque de pile 0001 correspondant.</td><td>Mineur</td><td><span class="fixw">0004</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0004-2</span></td><td>Transfer Stack 0004 To 0002</td><td>Déplace les objets sélectionnés de leur calque de pile 0004 vers le calque de pile 0002 correspondant.</td><td>Mineur</td><td><span class="fixw">0004</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0004-3</span></td><td>Transfer Stack 0004 To 0003</td><td>Déplace les objets sélectionnés de leur calque de pile 0004 vers le calque de pile 0003 correspondant.</td><td>Mineur</td><td><span class="fixw">0004</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0004-5</span></td><td>Transfer Stack 0004 To 0005</td><td>Déplace les objets sélectionnés de leur calque de pile 0004 vers le calque de pile 0005 correspondant.</td><td>Mineur</td><td><span class="fixw">0004</span></td><td><span class="fixw">0005</span></td></tr>
+<tr><td><span class="fixw">0005-1</span></td><td>Transfer Stack 0005 To 0001</td><td>Déplace les objets sélectionnés de leur calque de pile 0005 vers le calque de pile 0001 correspondant.</td><td>Mineur</td><td><span class="fixw">0005</span></td><td><span class="fixw">0001</span></td></tr>
+<tr><td><span class="fixw">0005-2</span></td><td>Transfer Stack 0005 To 0002</td><td>Déplace les objets sélectionnés de leur calque de pile 0005 vers le calque de pile 0002 correspondant.</td><td>Mineur</td><td><span class="fixw">0005</span></td><td><span class="fixw">0002</span></td></tr>
+<tr><td><span class="fixw">0005-3</span></td><td>Transfer Stack 0005 To 0003</td><td>Déplace les objets sélectionnés de leur calque de pile 0005 vers le calque de pile 0003 correspondant.</td><td>Mineur</td><td><span class="fixw">0005</span></td><td><span class="fixw">0003</span></td></tr>
+<tr><td><span class="fixw">0005-4</span></td><td>Transfer Stack 0005 To 0004</td><td>Déplace les objets sélectionnés de leur calque de pile 0005 vers le calque de pile 0004 correspondant.</td><td>Mineur</td><td><span class="fixw">0005</span></td><td><span class="fixw">0004</span></td></tr>
+<tr><td><span class="fixw">DETL-SECT</span></td><td>Transfer Detail To Section</td><td>Déplace les objets sélectionnés de leur calque majeur Detl vers le calque Sect correspondant.</td><td>Majeur</td><td><span class="fixw">Detl</span></td><td><span class="fixw">Sect</span></td></tr>
+<tr><td><span class="fixw">SECT-DETL</span></td><td>Transfer Section To Detail</td><td>Déplace les objets sélectionnés de leur calque majeur Sect vers le calque Detl correspondant.</td><td>Majeur</td><td><span class="fixw">Sect</span></td><td><span class="fixw">Detl</span></td></tr>
+<tr><td><span class="fixw">LTF</span></td><td>Transfer Field</td><td>Déplace les objets sélectionnés sur les calques d'une autre désignation de discipline, d'un autre groupe majeur ou mineur ou d'un autre statut, les autres champs gardés.</td><td>Champ</td><td>demandé</td><td>demandé</td></tr>
+</table>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les transferts de désignation remplacent la première lettre correspondante n'importe où dans le nom (p. ex. <span class="fixw">G-ARCHITECTURAL</span> sur <span class="fixw">A-Glaz</span> donne <span class="fixw">A-Alaz</span>) : ne sélectionnez que des objets sur des calques de la discipline source.</li>
+<li>Les blocs anonymes ne peuvent pas être renommés et sont transférés sur place, ce qui touche toutes leurs références.</li>
+<li>Les messages de la ligne de commande pour les sélections vides sont en français.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-LayerTransfer</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-LayerTransfer</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerTransfer</span></td><td>&ndash;</td><td>Layer Transfer</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-D</span></td><td>&ndash;</td><td>Transfer Existing To Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-N</span></td><td>&ndash;</td><td>Transfer Existing To New Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-R</span></td><td>&ndash;</td><td>Transfer Existing To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-M</span></td><td>&ndash;</td><td>Transfer Existing To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-S</span></td><td>&ndash;</td><td>Transfer Existing To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-A</span></td><td>&ndash;</td><td>Transfer Existing To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-F</span></td><td>&ndash;</td><td>Transfer Existing To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-T</span></td><td>&ndash;</td><td>Transfer Existing To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-X</span></td><td>&ndash;</td><td>Transfer Existing To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-E</span></td><td>&ndash;</td><td>Transfer Demolition To Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-N</span></td><td>&ndash;</td><td>Transfer Demolition To New Work</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-R</span></td><td>&ndash;</td><td>Transfer Demolition To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-M</span></td><td>&ndash;</td><td>Transfer Demolition To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-S</span></td><td>&ndash;</td><td>Transfer Demolition To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-A</span></td><td>&ndash;</td><td>Transfer Demolition To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-F</span></td><td>&ndash;</td><td>Transfer Demolition To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-T</span></td><td>&ndash;</td><td>Transfer Demolition To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-X</span></td><td>&ndash;</td><td>Transfer Demolition To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-D</span></td><td>&ndash;</td><td>Transfer New Work To Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-E</span></td><td>&ndash;</td><td>Transfer New Work To Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-R</span></td><td>&ndash;</td><td>Transfer New Work To Refurbished</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-M</span></td><td>&ndash;</td><td>Transfer New Work To Moved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-S</span></td><td>&ndash;</td><td>Transfer New Work To Saved</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-A</span></td><td>&ndash;</td><td>Transfer New Work To Abandoned</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-F</span></td><td>&ndash;</td><td>Transfer New Work To Future</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-T</span></td><td>&ndash;</td><td>Transfer New Work To Temporary</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-X</span></td><td>&ndash;</td><td>Transfer New Work To Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">N-U</span></td><td>&ndash;</td><td>Transfer New Work To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">D-U</span></td><td>&ndash;</td><td>Transfer Demolition To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-U</span></td><td>&ndash;</td><td>Transfer Existing To Unphased</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">G-ARCHITECTURAL</span></td><td>&ndash;</td><td>Transfer General To Architectural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">G-STRUCTURAL</span></td><td>&ndash;</td><td>Transfer General To Structural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">S-ARCHITECTURAL</span></td><td>&ndash;</td><td>Transfer Structural To Architectural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">A-STRUCTURAL</span></td><td>&ndash;</td><td>Transfer Architectural To Structural</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LINE-HIDD</span></td><td>&ndash;</td><td>Transfer Line To Hidden</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">HIDD-LINE</span></td><td>&ndash;</td><td>Transfer Hidden To Line</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-2</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-3</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-4</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0001-5</span></td><td>&ndash;</td><td>Transfer Stack 0001 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-1</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-3</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-4</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0002-5</span></td><td>&ndash;</td><td>Transfer Stack 0002 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-1</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-2</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-4</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0003-5</span></td><td>&ndash;</td><td>Transfer Stack 0003 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-1</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-2</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-3</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0004-5</span></td><td>&ndash;</td><td>Transfer Stack 0004 To 0005</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-1</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0001</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-2</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0002</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-3</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0003</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">0005-4</span></td><td>&ndash;</td><td>Transfer Stack 0005 To 0004</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DETL-SECT</span></td><td>&ndash;</td><td>Transfer Detail To Section</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">SECT-DETL</span></td><td>&ndash;</td><td>Transfer Section To Detail</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LTF</span></td><td>&ndash;</td><td>Transfer Field</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2023 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

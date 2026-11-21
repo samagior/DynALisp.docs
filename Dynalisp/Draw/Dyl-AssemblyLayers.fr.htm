@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Couches d'assemblage</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-AssemblyLayers.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Couches d'assemblage (Assembly Layers)</h1>
+
+<p>Un préréglage <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> dessiné avec <em>Linear</em> ou <em>Offset</em> peut être un <strong>assemblage</strong> : sa bande est faite de plusieurs couches côte à côte, comme un mur (voir <a href="Dyl-QuickDraw.fr.htm#assembly">Dessin rapide &ndash; Assemblages</a>). Cochez <em>Assembly of layers</em> dans la zone <em>Behaviors</em> de la fenêtre Quick Draw, puis cliquez le bouton carré <em>ouvrir</em> à côté : la fenêtre Assembly Layers modifie les couches du préréglage affiché (de chaque préréglage sélectionné, avec OK). Le texte à côté du bouton donne leur nombre, et <em>Width</em> montre leur total.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Layers</strong> &ndash; les couches, dans l'ordre en travers de la bande : la première sur la ligne (ou l'objet), les autres vers le côté de la bande, avec <em>Justification</em> sur <em>Edge</em> et avec Offset (un mur dessiné sur sa face intérieure : sa couche intérieure d'abord); de son bord gauche à son bord droit, vu du point de départ, sur <em>Center</em>. Chaque ligne donne son type, son préréglage (ou la clé de calque d'une ligne) et son épaisseur. Sous la liste : la largeur de la bande, le total des épaisseurs. Plusieurs couches peuvent être sélectionnées (Ctrl / Maj clic) pour les retirer d'un coup.</li>
+<li><strong>Kind</strong> &ndash; <em>Hatch</em> : une bande de son épaisseur hachurée comme le dit un préréglage Quick Draw; <em>Space</em> : une bande de son épaisseur sans hachure (une lame d'air, une cavité); <em>Line</em> : une ligne le long de la bande, là où elle est dans la liste (un pare-vapeur, une membrane). Une ligne changée en Hatch ou en Space reçoit tout de suite une épaisseur : la largeur du préréglage choisi, sinon l'épaisseur qu'elle avait avant, sinon celle d'une autre couche (10 s'il n'y en a pas); changez-la dans <em>Thickness</em>.</li>
+<li><strong>Preset</strong> &ndash; le préréglage Quick Draw d'une couche Hatch, par groupe et par nom. Il donne la hachure de la couche : son préréglage de hachure, son <em>Scale by width</em> (l'épaisseur de la couche comme largeur), son <em>Origin on line</em> et son <em>Origin X / Y</em> (depuis le centre de la couche quand sa propre <em>Justification</em> est <em>Center</em>, sinon depuis son bord le plus proche de la ligne, vers l'intérieur de la couche). Sa méthode, sa largeur, ses extrémités et sa bordure ne sont pas utilisées. Les préréglages listés sont ceux enregistrés (un nouveau préréglage reçoit son identifiant une fois enregistré) qui ne sont pas eux-mêmes des assemblages.</li>
+<li><strong>Hatch layer key</strong> &ndash; d'une couche Hatch : <em>From preset</em>, ou une autre <a href="../Layer/Dyl-LayerKeys.fr.htm">clé de calque</a> pour la hachure de cette couche seulement (le préréglage lui-même ne change pas), affichée entre crochets après le préréglage dans la liste. Enregistrée dans la colonne Assembly comme quatrième champ de la couche (<span class="fixw">P:qd-Brick:90:HATCH</span>), seulement quand elle est définie.</li>
+<li><strong>Thickness</strong> &ndash; d'une couche Hatch ou Space, en unités de dessin (plus grande que 0). Choisir un préréglage y met sa largeur (la première quand il en a plusieurs), à moins qu'une autre épaisseur ait été tapée.</li>
+<li><strong>Line layer key</strong> &ndash; la clé de calque d'une couche Line (la clé de calque du contour du préréglage pour une nouvelle). La ligne reçoit le calque de la clé, ses propriétés DuCalque. Une ligne entre deux couches prend la place de la ligne de leur joint.</li>
+<li><strong>Add</strong> &ndash; ajoute la couche des champs après les couches sélectionnées (sinon en dernier), et la sélectionne.</li>
+<li><strong>Modifier une couche</strong> &ndash; avec une couche sélectionnée, les champs la montrent, et un champ changé la change.</li>
+<li><strong>Modifier plusieurs couches</strong> &ndash; sélectionnez-les avec Ctrl ou Maj clic : les champs montrent la première, le titre de la zone donne leur nombre (<em>Layer (3 selected)</em>), et un champ changé est donné à chacune de celles auxquelles il s'applique, leurs autres valeurs gardées : <em>Kind</em> les change toutes en ce type (une Hatch reçoit le préréglage affiché et garde son épaisseur, une ligne changée en Hatch ou en Space en reçoit une, une Line reçoit la clé de calque affichée); <em>Preset</em> et <em>Hatch layer key</em> vont aux couches Hatch, <em>Thickness</em> aux couches Hatch et Space, <em>Line layer key</em> aux couches Line. Un message sous la fenêtre dit combien ont changé. <em>Move up</em> et <em>Move down</em> sont pour une seule couche.</li>
+<li><strong>Ajouter une couche d'un autre type</strong> &ndash; ajoutez (<em>Add</em>) une copie de celle sélectionnée, puis changez ses champs.</li>
+<li><strong>Remove</strong> &ndash; retire les couches sélectionnées.</li>
+<li><strong>Move up / Move down</strong> &ndash; la place de la couche sélectionnée, vers le bord gauche ou le bord droit de la bande.</li>
+<li><strong>Flip</strong> &ndash; met les couches dans l'autre sens, la dernière d'abord. Au point de départ de Linear (ou à l'invite de sélection d'Offset), <span class="fixw">Flip</span> fait de même pour une seule bande.</li>
+<li><strong>OK</strong> &ndash; donne les couches aux préréglages sélectionnés (enregistrées avec eux par <em>Draw</em> ou <em>Save</em> de la fenêtre Quick Draw). <strong>Cancel</strong> annule les changements. <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<p>Les couches sont enregistrées dans la colonne <span class="fixw">Assembly</span> de <span class="fixw">QuickDraw.csv</span> (et <span class="fixw">AssemblyOn</span> pour la case à cocher), en un seul texte : les couches séparées par <span class="fixw">|</span>, chacune <span class="fixw">type:préréglage ou clé de calque:épaisseur</span>, le type <span class="fixw">P</span> (Hatch), <span class="fixw">S</span> (Space) ou <span class="fixw">L</span> (Line) : <span class="fixw">P:qd-Gypsum:16|P:qd-WoodFrame:140|L:THIN:|S::25|P:qd-Brick:90</span>. Une couche non valide est retirée quand le fichier est lu. Une couche Hatch dont le préréglage a été supprimé est dessinée comme un espace, avec un message à la ligne de commande.</p>
+<p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

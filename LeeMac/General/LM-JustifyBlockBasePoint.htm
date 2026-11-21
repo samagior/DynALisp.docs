@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Justify Block Base Point</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Justify Block Base Point</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/justifybasepoint.html" target="_blank">https://lee-mac.com/justifybasepoint.html</a></p>
+
+<p><em>See also <a href="LM-ChangeBlockBasePoint.htm">Change Block Base Point</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-JustifyBlockBasePoint</span> &ndash; original syntax: JBP (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/justifybasepoint.html" target="_blank">lee-mac.com/justifybasepoint.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to change the base point location for multiple blocks to one of nine standard justifications.</p>
+<p>Upon issuing the command syntax <span class="fixw">JBP</span> (Justify Base Point) at the AutoCAD command-line, the user is prompted
+                to make a selection of blocks for which to modify the base point location. As the program will modify the block definition for each
+                distinct block in the selection, the user is only required to select one reference of a given block in order to change the base point
+                for all other references of the block - the program will automatically ignore multiple references of the same block in the selection.</p>
+<p>Following a valid selection, the user is presented with a dialog interface through which one of nine standard justification positions
+                may be selected (Top Left, Top Center, Top Right, Middle Left, Middle Center, Middle Right, Bottom Left, Bottom Center, Bottom Right). The
+                user may also choose whether the modification to the base point should retain the visual position of the block references, or retain the 
+                coordinates of the block insertion points.</p>
+<p>Upon clicking the <span class="fixw">OK</span> button to submit the selections, the program will modify the block definition of each
+                distinct block in the selection accordingly. If one or more of the selected blocks is attributed, an <span class="fixw">ATTSYNC</span> operation
+                will be performed to ensure all attributes are in the correct positions relative to the new base points.</p>
+<p>Finally, the drawing is regenerated to reflect the changes across all references of the modified blocks.</p>
+<p><strong>Please Note:</strong> A <span class="fixw">REGEN</span> is required if the <span class="fixw">UNDO</span> command is used to
+                undo the operations performed by this program.</p>
+<div class="cent">
+<h2>Program Interface</h2>
+<img alt="Justify Base Point Dialog" height="362" src="images/LM-jbpv1-0.png" width="261"/>
+<h2>Demonstration</h2>
+<img alt="Justify Base Point Demo" height="400" src="images/LM-jbpv1-0.gif" width="500"/>
+</div>
+<p><em>See also <a href="LM-ChangeBlockBasePoint.htm">Change Block Base Point</a>.</em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------=={ Justify Block Base Point  }==------------------;;
+;;                                                                      ;;
+;;  This program allows the user to change the base point location      ;;
+;;  for multiple blocks to one of nine standard justifications.         ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;JBP&#x27; (Justify Base Point) at the   ;;
+;;  AutoCAD command-line, the user is prompted to make a selection of   ;;
+;;  blocks for which to modify the base point location.                 ;;
+;;                                                                      ;;
+;;  As the program will modify the block definition for each distinct   ;;
+;;  block in the selection, the user is only required to select one     ;;
+;;  reference of a given block in order to change the base point for    ;;
+;;  all other references of the block - the program will automatically  ;;
+;;  ignore multiple references of the same block in the selection.      ;;
+;;                                                                      ;;
+;;  Following a valid selection, the user is presented with a dialog    ;;
+;;  interface through which one of nine standard justification          ;;
+;;  positions may be selected (Top Left, Top Center, Top Right,         ;;
+;;  Middle Left, Middle Center, Middle Right, Bottom Left,              ;;
+;;  Bottom Center, Bottom Right).                                       ;;
+;;                                                                      ;;
+;;  The user may also choose whether the modification to the base       ;;
+;;  point should retain the visual position of the block references,    ;;
+;;  or retain the coordinates of the block insertion points.            ;;
+;;                                                                      ;;
+;;  Upon clicking the &#x27;OK&#x27; button to submit the selections, the         ;;
+;;  program will modify the block definition of each distinct block in  ;;
+;;  the selection accordingly. If one or more of the selected blocks    ;;
+;;  is attributed, an ATTSYNC operation will be performed to ensure     ;;
+;;  all attributes are in the correct positions relative to the new     ;;
+;;  base points.                                                        ;;
+;;                                                                      ;;
+;;  Finally, the drawing is regenerated to reflect the changes across   ;;
+;;  all references of the modified blocks.                              ;;
+;;                                                                      ;;
+;;  Please Note: A REGEN is required if the UNDO command is used to     ;;
+;;  undo the operations performed by this program.                      ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2015  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2015-08-01                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2019-09-08                                      ;;
+;;                                                                      ;;
+;;  Program updated to account for blocks nested within nested xrefs.   ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-JustifyBlockBasePoint</span></td><td><span class="fixw">JBP</span></td><td>Justify Block Base Point</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2015 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

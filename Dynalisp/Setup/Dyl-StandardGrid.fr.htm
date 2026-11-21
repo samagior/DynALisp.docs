@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grille standard</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-StandardGrid.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Grille standard (Standard Grid)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-STANDARDGRID</span> et 4 grilles (<span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span>, <span class="fixw">GRID-M</span>)</td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-StandardGrid.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-STANDARDGRID</span> liste chaque réglage de grille avec son alias : double-cliquez-en un (ou OK) pour l'appliquer. Les grilles sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
+<p>Fait passer la grille et l'accrochage de l'espace objet entre quatre configurations standard (pouce, pied, centimètre et mètre). Les espacements sont convertis selon les unités du dessin : la même commande fonctionne donc dans les dessins métriques et impériaux.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>Grid Inch</td><td>Règle une grille de 1/4 po avec une grille principale de 1 po et un accrochage de 1/8 po, convertis dans les dessins métriques.</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>Grid Foot</td><td>Règle une grille de 1 po avec une grille principale de 1 pi et un accrochage de 1/8 po, convertis dans les dessins métriques.</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>Grid Centimeter</td><td>Règle une grille de 2 mm avec une grille principale de 1 cm et un accrochage de 1 mm, convertis dans les dessins impériaux.</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Règle une grille de 100 mm avec une grille principale de 1 m et un accrochage de 25 mm, convertis dans les dessins impériaux.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<p>La commande lit <span class="fixw">MEASUREMENT</span> (0 = impérial, 1 = métrique), règle l'espacement de l'accrochage, l'espacement de la grille et le nombre de lignes de grille par ligne principale, puis active la grille :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Accrochage / grille impériaux</th><th>Accrochage / grille métriques</th><th>Ligne principale aux</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>1/8&Prime; / 1/4&Prime;</td><td>3.175 / 6.35</td><td>4 lignes (1&Prime;)</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>1/8&Prime; / 1&Prime;</td><td>3.175 / 25.4</td><td>12 lignes (1&prime;)</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>0.0394 / 0.0787</td><td>1 / 2</td><td>5 lignes (1 cm)</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>0.9843 / 3.9370</td><td>25 / 100</td><td>10 lignes (1 m)</td></tr>
+</table>
+</div>
+<p>Elle règle aussi <span class="fixw">SNAPTYPE</span> sur l'accrochage à la grille, <span class="fixw">AUTOSNAP</span> à 15 et désactive <span class="fixw">ORTHOMODE</span>.</p>
+<h2>Valeurs par défaut des dessins</h2>
+<p>Dans <span class="fixw">Dyl-Settings</span>, le bouton <em>ouvrir</em> de <em>Drawing Settings</em> (dans <em>Overrides</em>; décoché, aucun dessin n'est vérifié) ouvre la fenêtre qui choisit la grille des dessins impériaux et la grille des dessins métriques (<span class="fixw">MEASUREMENT</span> 0 ou 1). Chaque fois qu'un dessin s'ouvre, l'espacement de son accrochage, l'espacement de sa grille et ses lignes principales sont comparés à la valeur par défaut de son type et la grille est réglée quand ils diffèrent. Le dessin n'est pas marqué comme modifié pour autant : enregistrez-le pour garder la grille dans le fichier. <em>(Not checked)</em> laisse les dessins de ce type tels quels. Cela fonctionne que les commandes de cette page soient activées ou non (les préréglages sont dans <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">AUTOSNAP</span> 15 désactive le repérage par accrochage aux objets et ses infobulles, quel que soit leur état précédent.</li>
+<li>L'accrochage et la grille sont des réglages de fenêtre : seule la fenêtre courante change.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-StandardGrid</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-StandardGrid</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-StandardGrid</span></td><td>&ndash;</td><td>Standard Grid</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-IN</span></td><td>&ndash;</td><td>Grid Inch</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-FT</span></td><td>&ndash;</td><td>Grid Foot</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-CM</span></td><td>&ndash;</td><td>Grid Centimeter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-M</span></td><td>&ndash;</td><td>Grid Meter</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

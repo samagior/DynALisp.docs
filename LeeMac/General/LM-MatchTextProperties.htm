@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Match Text Properties</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Match Text Properties</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/matchtextprops.html" target="_blank">https://lee-mac.com/matchtextprops.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-MatchTextProperties</span> &ndash; original syntax: MatchTextProps / MTP (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/matchtextprops.html" target="_blank">lee-mac.com/matchtextprops.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables a user to match selective properties of Text, MText, Attribute and Attribute Definition objects.</p>
+<p>Upon invoking the program with <span class="fixw">MTP</span> at the AutoCAD command line, the user is prompted to select a 
+                'source' object from which property values will be retrieved. The user is furthermore prompted to make a selection of 'destination' 
+                objects which are of the same object type as the source. Following selection, the property values held by the source object 
+                are inherited by the selected destination objects, as demonstrated by the graphic below.</p>
+<p>Very similar to my <a href="LM-MatchAttributes.htm">Match Attributes</a> program, the user has complete control over which properties are 
+                to be inherited by selected 'destination' objects. The list of properties located at the top of the program correspond to the ActiveX 
+                properties of Text, MText, Attribute or Attribute Definition VLA-Objects and may be edited to suit the user's requirements.</p>
+<p>To query the available properties of VLA-Objects, refer to my <a href="https://lee-mac.com/dumpobject.html" target="_blank">Dump Object</a> Utility.</p>
+<div class="cent">
+<h2>Example of Usage</h2>
+<img alt="Match Text Props.gif" height="352" src="images/LM-MatchTextProps.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------=={ Match Text Properties }==----------------;;
+;;                                                            ;;
+;;  Prompts for a selection of Text, MText, Attribute, or     ;;
+;;  Attribute Definition object to use as property source,    ;;
+;;  then proceed to match those properties listed for similar ;;
+;;  objects selected thereafter.                              ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2010 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-MatchTextProperties</span></td><td><span class="fixw">MTP</span>, <span class="fixw">MATCHTEXTPROPS</span></td><td>Match Text Properties</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2010 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,585 @@
+/* Shared style for DynALisp module docs pages */
+
+:root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface-alt: #f8fafc;
+    --border:      #e3e8ef;
+    --text:        #1f2937;
+    --text-muted:  #5b6577;
+    --heading:     #0f172a;
+    --accent:      #2563eb;
+    --accent-hov:  #1d4ed8;
+    --accent-soft: #eff4ff;
+    --inline-code: #b4235a;
+    --inline-bg:   #f3f4f6;
+    --header-bg:   #0f172a;
+    --header-text: #f8fafc;
+    --code-bg:     #0f172a;
+    --code-text:   #d6deeb;
+    --radius:      10px;
+    --shadow:      0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.06);
+    --font-sans:   "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-mono:   "Cascadia Code", Consolas, "SF Mono", Menlo, "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg:          #0b1120;
+        --surface:     #111827;
+        --surface-alt: #162033;
+        --border:      #243045;
+        --text:        #d1d9e6;
+        --text-muted:  #8b97ab;
+        --heading:     #f1f5f9;
+        --accent:      #60a5fa;
+        --accent-hov:  #93c5fd;
+        --accent-soft: #15243d;
+        --inline-code: #f472b6;
+        --inline-bg:   #1c2638;
+        --header-bg:   #060a14;
+        --code-bg:     #0a0f1c;
+        --shadow:      0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* ---------- Header ---------- */
+
+#header {
+    background-color: var(--header-bg);
+    border-bottom: 3px solid var(--accent);
+    padding: 16px 32px;
+}
+
+#header p {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--header-text);
+}
+
+#header p span {
+    font-weight: 300;
+    color: var(--accent);
+}
+
+/* The language switch at the top right (Installer\Docs\BuildDocs.py writes it) */
+#header {
+    position: relative;
+}
+
+#header .lang {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid rgba(248, 250, 252, 0.25);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+#header .lang a,
+#header .lang span {
+    padding: 3px 9px;
+    border-radius: 5px;
+    color: var(--header-text);
+    text-decoration: none;
+}
+
+#header .lang a:hover {
+    background-color: rgba(248, 250, 252, 0.12);
+}
+
+#header .lang .on {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+#header .lang .off {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* ---------- Content ---------- */
+
+#content {
+    background-color: var(--surface);
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 8px 0 32px 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-height: calc(100vh - 180px);
+}
+
+#content h1, #content h2, #content h3, #content h4 {
+    font-family: var(--font-sans);
+    color: var(--heading);
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+}
+
+#content h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 28px 32px 20px 32px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+#content h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 36px 32px 12px 32px;
+}
+
+#content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 28px 32px 10px 32px;
+}
+
+#content h3 em {
+    font-size: 80%;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+#content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 32px 10px 32px;
+}
+
+#content p {
+    margin: 10px 32px 14px 32px;
+    color: var(--text);
+}
+
+#content a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+#content a:hover {
+    color: var(--accent-hov);
+    text-decoration: underline;
+}
+
+#content p.note {
+    background-color: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.fixw {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    color: var(--inline-code);
+    background-color: var(--inline-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+}
+
+.code .fixw, pre .fixw {
+    background: none;
+    padding: 0;
+}
+
+.cent {
+    text-align: center;
+}
+
+.cent h2, .cent h3 {
+    text-align: left;
+}
+
+.cent img {
+    margin: 6px 4px;
+    border: 1px solid var(--border);
+}
+
+.side {
+    display: inline-block;
+    text-align: center;
+    margin: 0 15px;
+}
+
+hr {
+    margin: 32px;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+kbd {
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.1em 0.5em;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text);
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* ---------- Lists ---------- */
+
+ul.programs, .spacedbullets ul, .unspacedbullets ul, #bullets ul {
+    list-style-type: disc;
+    color: var(--text);
+    margin: 12px 32px 12px 56px;
+}
+
+.spacedbullets ol, .unspacedbullets ol {
+    list-style-type: decimal;
+    color: var(--text);
+    margin: 12px 32px 12px 56px;
+}
+
+ul.programs li::marker, .spacedbullets li::marker,
+.unspacedbullets li::marker, #bullets li::marker {
+    color: var(--accent);
+}
+
+.spacedbullets li, #bullets li {
+    margin-top: 0.75em;
+}
+
+.spacedbullets li ul, .spacedbullets li ol {
+    margin: 6px 0 0 24px;
+}
+
+/* ---------- Table of contents ---------- */
+
+.toc {
+    display: inline-block;
+    margin: 12px 32px;
+    padding: 18px 28px 18px 24px;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.toc h5 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0 0 8px 0;
+}
+
+.toc ul {
+    list-style-type: none;
+}
+
+.toc li.outer {
+    font-size: 15px;
+    padding: 4px 0;
+}
+
+.toc li.inner {
+    font-size: 14px;
+    margin-left: 1.25em;
+    padding: 2px 0;
+}
+
+#content .toc a.outer {
+    color: var(--text);
+    font-weight: 500;
+}
+
+#content .toc a.inner {
+    color: var(--text-muted);
+}
+
+#content .toc a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ---------- Code ---------- */
+
+.code pre {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.55;
+    max-height: 420px;
+    overflow: auto;
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 14px 18px;
+    margin: 8px 32px 14px 32px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+span.func { color: #82aaff; }
+span.str  { color: #c3e88d; }
+span.cmt  { color: #697098; font-style: italic; }
+span.quot { color: #c792ea; }
+span.brkt { color: #89ddff; }
+span.int  { color: #f78c6c; }
+span.rea  { color: #ffcb6b; }
+
+details.bundled {
+    margin: 36px 32px 12px 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--surface-alt);
+}
+
+details.bundled summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--heading);
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+details.bundled summary:hover {
+    color: var(--accent);
+}
+
+details.bundled[open] summary {
+    border-bottom: 1px solid var(--border);
+}
+
+details.bundled pre {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text);
+    padding: 14px 16px;
+    overflow: auto;
+}
+
+/* ---------- Tables ---------- */
+
+.programs table {
+    margin: 16px 32px;
+    width: calc(100% - 64px);
+    max-width: 640px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.programs th {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    color: var(--heading);
+    background-color: var(--surface-alt);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.programs td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.programs tr:last-child td {
+    border-bottom: none;
+}
+
+.programs td:first-child {
+    color: var(--text-muted);
+}
+
+.programs td.right {
+    text-align: right;
+}
+
+.programs tr,
+.programs tr.alt td {
+    background-color: transparent;
+}
+
+.programs tr:hover td {
+    background-color: var(--accent-soft);
+}
+
+.releases td:first-child {
+    white-space: nowrap;
+}
+
+/* Command tables: full width, scroll sideways on narrow screens */
+.programs.wide {
+    overflow-x: auto;
+}
+
+.programs.wide table {
+    max-width: none;
+}
+
+.commands td:first-child {
+    white-space: nowrap;
+}
+
+.commands td:not(:first-child) .fixw {
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Sketches (drawings of the options of a tool) ---------- */
+
+.sketches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 12px 32px 18px 32px;
+}
+
+.sketches figure {
+    margin: 0;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.sketches svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+}
+
+.sketches figcaption {
+    padding: 8px 12px 10px 12px;
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.sketches figcaption strong {
+    color: var(--heading);
+}
+
+.sk-now {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+}
+
+.sk-ol  { stroke: var(--heading); stroke-width: 1.6; fill: none; }
+.sk-cl  { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 9 4 2 4; fill: none; }
+.sk-sp  { stroke: var(--heading); stroke-width: 0.9; stroke-dasharray: 3 3; fill: none; }
+.sk-gh  { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 4 3; fill: none; }
+.sk-dim { stroke: var(--text-muted); stroke-width: 0.9; fill: none; }
+.sk-dt  { fill: var(--text-muted); font: 10px Consolas, monospace; }
+.sk-pt  { fill: var(--accent); }
+.sk-hl  { stroke: var(--text-muted); stroke-width: 0.8; }
+.sk-hA  { fill: url(#skA); }
+.sk-hB  { fill: url(#skB); }
+.sk-hC  { fill: url(#skC); }
+.sk-hD  { fill: url(#skD); }
+.sk-dot { fill: var(--text-muted); }
+
+/* ---------- Footer ---------- */
+
+#footer {
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 32px 32px 32px;
+}
+
+#footer a {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+}
+
+#footer a:hover {
+    color: var(--accent);
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 940px) {
+    #content {
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    #header {
+        padding: 14px 16px;
+    }
+
+    #header .lang {
+        right: 16px;
+    }
+
+    #content h1, #content h2, #content h3, #content h4,
+    #content p, .code pre, details.bundled, .toc, hr {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .programs table {
+        margin: 16px;
+        width: calc(100% - 32px);
+    }
+
+    ul.programs, .spacedbullets ul, .unspacedbullets ul, #bullets ul {
+        margin-left: 40px;
+        margin-right: 16px;
+    }
+
+    .sketches {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}

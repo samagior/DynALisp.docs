@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Area Label</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Area Label</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/arealabel.html" target="_blank">https://lee-mac.com/arealabel.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AreaLabel</span> &ndash; original syntax: AT (Table)  /  AF (File) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.9</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/arealabel.html" target="_blank">lee-mac.com/arealabel.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to annotate picked areas or selected objects with custom labels and either display the labels 
+                and associated areas in an AutoCAD Table Object, or write the data to file.</p>
+<p>The program offers two modes of operation: <span class="fixw">Area to Table</span> (AT) or 
+                <span class="fixw">Area to File</span> (AF), depending upon the output desired by the user.</p>
+<h2>Area to Table</h2>
+<p>Upon calling the program with '<span class="fixw">AT</span>' at the AutoCAD command-line, the user is prompted to 
+                specify a starting number at which to begin labelling the selected areas. Following this, the user may either pick
+                a point to create a new AutoCAD Table, or opt to select an existing table to which new data is to be appended.</p>
+<p>Area selection may be accomplished in two ways: by picking bounded regions, or by selecting closed objects.
+                Following the selection of an area, a label is placed in the centre of the selected area and a new row is added 
+                to the AutoCAD Table, displaying both the label and measurement of the selected area.</p>
+<p>If an incorrect area is selected, the user can type 'Undo' to undo previous selections without exiting the
+                program or needing to start over.</p>
+<p>Furthermore, if desired, the program can use Fields to link the area labels and selected objects to ensure
+                the table data will automatically update should a change be made.</p>
+<div class="cent">
+<h3>Preview</h3>
+<img alt="AreaLabelV1-5.gif" height="300" src="images/LM-AreaLabelV1-5.gif" width="500"/>
+</div>
+<h2>Area to File</h2>
+<p>If the program is called with '<span class="fixw">AF</span>' at the AutoCAD command-line, the user is 
+                once again prompted to specify a starting number at which to begin labelling the selected areas; however, following
+                this prompt, the user is prompted to create an output file to which the labels and associated area measurement
+                data will be written. The file may be of Text, CSV or Excel format.</p>
+<p>Upon exiting the area selection process, the output file is automatically opened so that the user may
+                inspect the results.</p>
+<h2>Additional Features</h2>
+<p>An adjustment menu is included at the top of the program code to enable the user to make custom refinements
+                to various elements of the program.</p>
+<p>This menu allows the user to customise the table &amp; file headings and titles and furthermore add optional 
+                prefixes and/or suffixes to the area labels (as demonstrated in the animation above) and area measurement data.</p>
+<p>An arbitrary conversion factor may also be applied to the area measurement to enable conversion 
+                between square millimetres and square metres, for example.</p>
+<p>Additionally, the option of whether to use Fields to link area and labels to those displayed in the Table
+                may also be set, and formatting applied to the area Field for selected objects may be changed.</p>
+<div class="cent">
+<h3>Preview</h3>
+<img alt="AreaLabelV1-3.gif" height="300" src="images/LM-AreaLabelV1-3.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Area Label }==---------------------;;
+;;                                                            ;;
+;;  Allows the user to label picked areas or objects and      ;;
+;;  either display the area in an ACAD Table (if available),  ;;
+;;  optionally using fields to link area numbers and objects; ;;
+;;  or write it to file.                                      ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.9    -    29-10-2011                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-AreaLabel</span>: they are run by their alias, or picked from <span class="fixw">LM-AreaLabel</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AreaLabel</span></td><td>&ndash;</td><td>Area Label</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; (no alias)</td><td>&ndash;</td><td>Area Label To Table</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; (no alias)</td><td>&ndash;</td><td>Area Label To File</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

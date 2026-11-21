@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Naming</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="LayerNaming.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Naming</h1>
+
+<div class="toc">
+<h5>Contents</h5>
+<ul>
+<li class="outer"><a class="outer" href="#desc">Description</a></li>
+<li class="outer"><a class="outer" href="#format">Layer Name Format</a></li>
+<li class="inner"><a class="inner" href="#spelling">Spelling In DynALisp</a></li>
+<li class="outer"><a class="outer" href="#discipline">Discipline Designator</a></li>
+<li class="outer"><a class="outer" href="#major">Major Group</a></li>
+<li class="outer"><a class="outer" href="#minor">Minor Groups</a></li>
+<li class="inner"><a class="inner" href="#annotation">Annotation</a></li>
+<li class="inner"><a class="inner" href="#view">Drawing Views</a></li>
+<li class="inner"><a class="inner" href="#dylminor">DynALisp Minor Groups</a></li>
+<li class="outer"><a class="outer" href="#status">Status (Phase)</a></li>
+<li class="outer"><a class="outer" href="#other">Other Names</a></li>
+<li class="outer"><a class="outer" href="#tools">How The Tools Read A Name</a></li>
+<li class="outer"><a class="outer" href="#iso">ISO 13567</a></li>
+<li class="outer"><a class="outer" href="#source">Source</a></li>
+</ul>
+</div>
+
+<h2 id="desc">Description</h2>
+<p>DynALisp names its layers as the <strong>AIA CAD Layer Guidelines</strong> of the <strong>United States National CAD Standard</strong> (NCS), version 5, name them. A layer name is made of fields divided by dashes: who the content belongs to (the discipline), what it is (the major and minor groups) and its phase (the status). <span class="fixw">A-Wall-Full-E</span> is an architectural wall, full height, existing to remain.</p>
+<p>The layer tools read the names that way: <a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a> replaces one field of a name, <a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a> reads and changes the status, the <a href="../Layer/Dyl-LayerKeys.htm">layer keys</a> add the active phase to their layer, the <a href="../Layer/Dyl-LayerFilter.htm">layer filters</a> group the layers by field, and <a href="../Layer/Dyl-LayerMake.htm">Make Layers</a> builds the names from their fields. A layer named another way still works in AutoCAD, but these tools leave it as it is.</p>
+
+<h2 id="format">Layer Name Format</h2>
+<p>A name has up to five fields, always in this order, each one divided from the next by a dash (<span class="fixw">-</span>):</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Field</th><th>Characters</th><th>Required</th><th>Example</th><th>What it says</th></tr>
+<tr><td>Discipline designator</td><td>1 or 2</td><td>Yes</td><td><span class="fixw">A</span>, <span class="fixw">AD</span></td><td>The subject of the layer: architectural, structural, electrical...</td></tr>
+<tr><td>Major group</td><td>4</td><td>Yes</td><td><span class="fixw">Wall</span></td><td>The building system or element</td></tr>
+<tr><td>Minor group 1</td><td>4</td><td>No</td><td><span class="fixw">Full</span></td><td>Defines the major group further</td></tr>
+<tr><td>Minor group 2</td><td>4</td><td>No</td><td><span class="fixw">Dims</span></td><td>Defines the minor group further</td></tr>
+<tr><td>Status</td><td>1</td><td>No</td><td><span class="fixw">N</span></td><td>The phase of the work</td></tr>
+</table>
+</div>
+<p>From the shortest name to the longest:</p>
+<div class="programs commands">
+<table>
+<tr><th>Name</th><th>Fields</th></tr>
+<tr><td><span class="fixw">A-Wall</span></td><td>Discipline, major group</td></tr>
+<tr><td><span class="fixw">AD-Wall</span></td><td>Discipline of two letters (architectural demolition), major group</td></tr>
+<tr><td><span class="fixw">A-Wall-Full</span></td><td>&hellip; one minor group</td></tr>
+<tr><td><span class="fixw">A-Wall-Full-Dims</span></td><td>&hellip; two minor groups</td></tr>
+<tr><td><span class="fixw">A-Wall-Full-Dims-N</span></td><td>&hellip; and the status</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>The discipline designator and the major group are always there; the minor groups and the status are optional. A minor group that defines the major group comes right after it.</li>
+<li>Any major group can follow any discipline designator, and any minor group any major group, as long as each code keeps its meaning: <span class="fixw">S-Wall-Conc</span> and <span class="fixw">A-Wall-Conc</span> are both valid.</li>
+<li>Pick the fields a project uses and keep them the same for every layer of the project.</li>
+</ul>
+</div>
+
+<h3 id="spelling">Spelling In DynALisp</h3>
+<div class="spacedbullets">
+<ul>
+<li>The NCS writes its names in capitals (<span class="fixw">A-WALL-FULL-N</span>). DynALisp writes the discipline designator in capitals and each group with a capital and then lower case: <span class="fixw">A-Wall-Full-N</span>, <span class="fixw">AS-Ctrl</span>, <span class="fixw">A-Detl-Thin</span>. It reads better in the layer list and on the command line.</li>
+<li>AutoCAD does not tell the case of a layer name apart: <span class="fixw">A-WALL-FULL-N</span> and <span class="fixw">A-Wall-Full-N</span> are the same layer, and the DynALisp tools compare the fields without their case. A drawing named in capitals works as it is.</li>
+<li>A group always has 4 characters. A shorter code is filled with <span class="fixw">~</span> (<span class="fixw">Air~</span>, <span class="fixw">Gas~</span>, <span class="fixw">Top~</span>), never with spaces.</li>
+<li>A code of your own (one the lists do not have) is 4 letters, digits or <span class="fixw">~</span>, and must not take a meaning that the lists already give to another code. Note it in the standards of the project.</li>
+</ul>
+</div>
+
+<h2 id="discipline">Discipline Designator</h2>
+<p>The first letter gives the discipline (level 1). A second letter, optional, divides it further (level 2): <span class="fixw">AD</span> is architectural demolition, <span class="fixw">AS</span> architectural site. The second letters <span class="fixw">J</span> and <span class="fixw">K</span> are kept for codes of your own in every discipline (<span class="fixw">AJ</span>, <span class="fixw">AK</span>, <span class="fixw">EJ</span>...).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Letter</th><th>Discipline</th><th>Letter</th><th>Discipline</th></tr>
+<tr><td><span class="fixw">A</span></td><td>Architectural</td><td><span class="fixw">M</span></td><td>Mechanical</td></tr>
+<tr><td><span class="fixw">B</span></td><td>Geotechnical</td><td><span class="fixw">O</span></td><td>Operations</td></tr>
+<tr><td><span class="fixw">C</span></td><td>Civil</td><td><span class="fixw">P</span></td><td>Plumbing</td></tr>
+<tr><td><span class="fixw">D</span></td><td>Process</td><td><span class="fixw">Q</span></td><td>Equipment</td></tr>
+<tr><td><span class="fixw">E</span></td><td>Electrical</td><td><span class="fixw">R</span></td><td>Resource</td></tr>
+<tr><td><span class="fixw">F</span></td><td>Fire protection</td><td><span class="fixw">S</span></td><td>Structural</td></tr>
+<tr><td><span class="fixw">G</span></td><td>General</td><td><span class="fixw">T</span></td><td>Telecommunications</td></tr>
+<tr><td><span class="fixw">H</span></td><td>Hazardous materials</td><td><span class="fixw">V</span></td><td>Survey / mapping</td></tr>
+<tr><td><span class="fixw">I</span></td><td>Interiors</td><td><span class="fixw">W</span></td><td>Distributed energy</td></tr>
+<tr><td><span class="fixw">L</span></td><td>Landscape</td><td><span class="fixw">X</span></td><td>Other disciplines</td></tr>
+<tr><td></td><td></td><td><span class="fixw">Z</span></td><td>Contractor / shop drawings</td></tr>
+</table>
+</div>
+<p>The designator says what the layer holds, not who drew it: a structural wall drawn by the architect is on <span class="fixw">S-Wall</span>. The level 2 designators of architecture are:</p>
+<div class="programs commands">
+<table>
+<tr><th>Designator</th><th>Discipline</th></tr>
+<tr><td><span class="fixw">AD</span></td><td>Architectural demolition</td></tr>
+<tr><td><span class="fixw">AE</span></td><td>Architectural elements</td></tr>
+<tr><td><span class="fixw">AF</span></td><td>Architectural finishes</td></tr>
+<tr><td><span class="fixw">AG</span></td><td>Architectural graphics</td></tr>
+<tr><td><span class="fixw">AI</span></td><td>Architectural interiors</td></tr>
+<tr><td><span class="fixw">AS</span></td><td>Architectural site</td></tr>
+</table>
+</div>
+<p>The lists DynALisp reads are <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Dd1.csv</span> (level 1) and <span class="fixw">Dd2.csv</span> (level 2). The level 2 designators of the other disciplines are in the NCS (see <a href="#source">Source</a>).</p>
+
+<h2 id="major">Major Group</h2>
+<p>Four characters that name a building system or a major element. The ones used most in DynALisp:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Meaning</th><th>Code</th><th>Meaning</th></tr>
+<tr><td><span class="fixw">Anno</span></td><td>Annotation</td><td><span class="fixw">Flor</span></td><td>Floor (casework, stairs, fixtures...)</td></tr>
+<tr><td><span class="fixw">Area</span></td><td>Areas</td><td><span class="fixw">Furn</span></td><td>Furnishings</td></tr>
+<tr><td><span class="fixw">Clng</span></td><td>Ceiling</td><td><span class="fixw">Glaz</span></td><td>Glazing</td></tr>
+<tr><td><span class="fixw">Cols</span></td><td>Columns</td><td><span class="fixw">Grid</span></td><td>Grids</td></tr>
+<tr><td><span class="fixw">Detl</span></td><td>Detail</td><td><span class="fixw">Roof</span></td><td>Roof</td></tr>
+<tr><td><span class="fixw">Door</span></td><td>Doors</td><td><span class="fixw">Sect</span></td><td>Section</td></tr>
+<tr><td><span class="fixw">Elev</span></td><td>Elevation</td><td><span class="fixw">Slab</span></td><td>Slab</td></tr>
+<tr><td><span class="fixw">Eqpm</span></td><td>Equipment</td><td><span class="fixw">Wall</span></td><td>Walls</td></tr>
+</table>
+</div>
+<p>The list DynALisp reads is <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Major.csv</span>; the Layer Transfer drop-downs show its codes with their meaning (<span class="fixw">Wall - Walls</span>).</p>
+
+<h2 id="minor">Minor Groups</h2>
+<p>Four characters each, at most two in a name, that define the major group further: <span class="fixw">A-Wall-Full</span> (full height), <span class="fixw">A-Wall-Prht</span> (partial height), <span class="fixw">A-Door-Iden</span> (door tags), <span class="fixw">A-Wall-Full-Patt</span> (the hatch of the full height walls). The list DynALisp reads is <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Minor.csv</span>; <span class="fixw">Res\Layer\Standard\Minor.csv</span> holds the same codes with the color and lineweight Make Layers gives them.</p>
+
+<h3 id="annotation">Annotation</h3>
+<p>Annotation is what does not stand for a part of the building: text, dimensions, tags, titles, the title block. It goes on the major group <span class="fixw">Anno</span> (<span class="fixw">G-Anno-Dims</span>), or on one of these minor groups after any other group (<span class="fixw">A-Wall-Iden</span>, <span class="fixw">A-Flor-Text</span>):</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Meaning</th><th>Code</th><th>Meaning</th></tr>
+<tr><td><span class="fixw">Dims</span></td><td>Dimensions</td><td><span class="fixw">Nplt</span></td><td>Not plotted</td></tr>
+<tr><td><span class="fixw">Iden</span></td><td>Identification tags</td><td><span class="fixw">Rdme</span></td><td>Read-me notes, not plotted</td></tr>
+<tr><td><span class="fixw">Keyn</span></td><td>Keynotes</td><td><span class="fixw">Redl</span></td><td>Redlines</td></tr>
+<tr><td><span class="fixw">Labl</span></td><td>Labels</td><td><span class="fixw">Revc</span></td><td>Revision clouds</td></tr>
+<tr><td><span class="fixw">Legn</span></td><td>Legends, symbol keys</td><td><span class="fixw">Revs</span></td><td>Revision indicators and text</td></tr>
+<tr><td><span class="fixw">Mark</span></td><td>Markers, break marks, leaders</td><td><span class="fixw">Schd</span></td><td>Schedules</td></tr>
+<tr><td><span class="fixw">Matc</span></td><td>Match lines</td><td><span class="fixw">Symb</span></td><td>Reference symbols</td></tr>
+<tr><td><span class="fixw">Note</span></td><td>Notes</td><td><span class="fixw">Text</span></td><td>Text</td></tr>
+<tr><td><span class="fixw">Refr</span></td><td>References, external files</td><td><span class="fixw">Titl</span></td><td>Drawing or detail titles</td></tr>
+<tr><td><span class="fixw">Tabl</span></td><td>Data tables</td><td><span class="fixw">Ttlb</span></td><td>Border and title block</td></tr>
+</table>
+</div>
+<p>Make Layers does not plot the <span class="fixw">Nplt</span> and <span class="fixw">Rdme</span> layers.</p>
+
+<h3 id="view">Drawing Views</h3>
+<p>The layers of a drawing organised by view rather than by building system use the major groups <span class="fixw">Detl</span> (detail), <span class="fixw">Elev</span> (elevation) and <span class="fixw">Sect</span> (section), which can also be minor groups (<span class="fixw">A-Wall-Elev</span>). Their minor groups:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td><span class="fixw">Mcut</span></td><td>Material cut by the view</td></tr>
+<tr><td><span class="fixw">Mbnd</span></td><td>Material beyond the cut</td></tr>
+<tr><td><span class="fixw">Otln</span></td><td>Outline</td></tr>
+<tr><td><span class="fixw">Patt</span></td><td>Textures and hatch patterns</td></tr>
+<tr><td><span class="fixw">Iden</span></td><td>Identification tags</td></tr>
+<tr><td><span class="fixw">A001</span> &hellip; <span class="fixw">Z999</span></td><td>A number of the view: one letter and three digits, after a view major group only (<span class="fixw">A-Detl-A001-Mcut</span>)</td></tr>
+</table>
+</div>
+
+<h3 id="dylminor">DynALisp Minor Groups</h3>
+<p>DynALisp draws its details on minor groups that give the line weight. <span class="fixw">Fine</span> and <span class="fixw">Medm</span> are NCS codes; the others are added by DynALisp, as the codes of <span class="fixw">Res\Layer\Standard\Dyl-Minor.csv</span> (<span class="fixw">Crak</span> cracking lines, <span class="fixw">Thrm</span> thermal, <span class="fixw">Vapr</span> vapor, <span class="fixw">Rfrc</span> reinforcement...).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Layer</th><th>Lines</th><th>Layer key</th></tr>
+<tr><td><span class="fixw">A-Detl-XFin</span></td><td>Extra fine</td><td><span class="fixw">XLINE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Fine</span></td><td>Fine</td><td><span class="fixw">FINE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Thin</span></td><td>Thin</td><td><span class="fixw">THIN</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Medm</span></td><td>Medium</td><td><span class="fixw">MED</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Wide</span></td><td>Wide</td><td><span class="fixw">WIDE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Patt</span></td><td>Textures and hatch patterns</td><td><span class="fixw">HATCH</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Scrn</span></td><td>Screened backgrounds</td><td><span class="fixw">G-DS-ANNO-STD-BACKGROUND_SCREEN</span></td></tr>
+</table>
+</div>
+<p>The stacks (the elevations or floors drawn in the same file) are numbered with the minor groups <span class="fixw">0001</span> to <span class="fixw">0009</span>: <span class="fixw">A-Wall-0002-N</span>. Make Layers asks for the stack, and the layer filters show or hide them.</p>
+
+<h2 id="status">Status (Phase)</h2>
+<p>The last field, one character, gives the phase of the work. A layer without it is <em>unphased</em>. The codes DynALisp knows are those of <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span>:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Phase</th><th>From</th></tr>
+<tr><td><span class="fixw">E</span></td><td>Existing to remain</td><td>NCS</td></tr>
+<tr><td><span class="fixw">D</span></td><td>Existing to demolish</td><td>NCS</td></tr>
+<tr><td><span class="fixw">N</span></td><td>New work</td><td>NCS</td></tr>
+<tr><td><span class="fixw">T</span></td><td>Temporary work</td><td>NCS</td></tr>
+<tr><td><span class="fixw">M</span></td><td>Items to be moved</td><td>NCS</td></tr>
+<tr><td><span class="fixw">A</span></td><td>Abandoned</td><td>NCS</td></tr>
+<tr><td><span class="fixw">F</span></td><td>Future work</td><td>NCS</td></tr>
+<tr><td><span class="fixw">X</span></td><td>Not in contract</td><td>NCS</td></tr>
+<tr><td><span class="fixw">1</span> &hellip; <span class="fixw">9</span></td><td>Phase numbers 1 to 9</td><td>NCS</td></tr>
+<tr><td><span class="fixw">S</span></td><td>Existing to be saved</td><td>DynALisp</td></tr>
+<tr><td><span class="fixw">R</span></td><td>Existing to be refurbished</td><td>DynALisp</td></tr>
+<tr><td><span class="fixw">P</span></td><td>Proposed work</td><td>DynALisp</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>The same object keeps its name in every phase, only the status changes: <span class="fixw">A-Wall-Full-E</span>, <span class="fixw">A-Wall-Full-D</span>, <span class="fixw">A-Wall-Full-N</span>. That is what lets <a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a> move objects from one phase to another, and <a href="../Layer/Dyl-LayerPhase.htm">auto-phase</a> put the new objects in the active phase.</li>
+<li>A phase layer that DynALisp creates gets the phase color: <span class="fixw">2#</span> for existing to demolish, <span class="fixw">20#</span> for existing to remain (the last digit of the color of the unphased layer, which gives the lineweight of the pen table, is kept).</li>
+<li>Use the letters or the numbers in a project, not both.</li>
+</ul>
+</div>
+
+<h2 id="other">Other Names</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">0</span>, <span class="fixw">Defpoints</span> and the layers of the xrefs (<span class="fixw">Plan|A-Wall</span>) are never phased or transferred.</li>
+<li>Some layers of the AutoCAD Architecture layer key style that DynALisp follows have three minor groups (<span class="fixw">G-Anno-Stnd-Nplt-Scrn</span>, see <a href="../Layer/Dyl-LayerKeys.htm#aec">AEC Layer Overrides</a>). The NCS allows two, but the tools read them all the same: every 4-character field between the major group and the status is a minor group.</li>
+<li>A name with a field of another length (<span class="fixw">A-Walls</span>, <span class="fixw">Hatch</span>) is not read as an NCS name: the Level transfers of Layer Transfer leave it as it is, and the wildcards of the layer filters may miss it.</li>
+</ul>
+</div>
+
+<h2 id="tools">How The Tools Read A Name</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Tool</th><th>What it reads</th></tr>
+<tr><td><a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a></td><td>The Level transfers (the ribbon drop-downs and <span class="fixw">LTF</span>) split the name into a designator of 1 or 2 letters, a major group, its minor groups and a status of 1 character, and replace one of them. The phase transfers (<span class="fixw">E-D</span>, <span class="fixw">D-N</span>...) replace or add the status.</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a></td><td>The status: counts the layers of each phase, shows or hides them, and moves the current layer and the new objects to the active phase.</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a></td><td>The unphased layer of each key, to which the active phase is added (<span class="fixw">A-Detl-Thin</span> &rarr; <span class="fixw">A-Detl-Thin-E</span>).</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerFilter.htm">Layer Filters</a></td><td>Wildcards on the fields: <span class="fixw">A-*</span> for architecture, <span class="fixw">*-E</span> and <span class="fixw">*-X</span> for existing, <span class="fixw">*-@@??</span> for the unphased layers (a name ending with a group), <span class="fixw">*-0001</span> &hellip; <span class="fixw">*-0009</span> for the stacks, <span class="fixw">*-Dims*</span>, <span class="fixw">*-Text*</span>... for the annotation (see its <em>Tokens</em>).</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerMake.htm">Make Layers</a></td><td>Builds each name from the <span class="fixw">Designator</span>, <span class="fixw">Major</span> and <span class="fixw">Minor</span> columns of its lists, and gives the layer a color, lineweight and linetype from its codes.</td></tr>
+</table>
+</div>
+
+<h2 id="iso">ISO 13567</h2>
+<p>The NCS can be used in <em>conceptual conformance</em> with ISO 13567 (<em>Organization and naming of layers for CAD</em>). DynALisp does not check it; a project that needs it also follows these rules:</p>
+<div class="spacedbullets">
+<ul>
+<li>No major group <span class="fixw">Anno</span>: annotation goes in a minor group kept for the annotation codes only (<span class="fixw">A-Wall-Text-N</span>).</li>
+<li>A minor group used for the drawing views (<span class="fixw">Elev</span>, <span class="fixw">Sect</span>...) holds no other code.</li>
+<li>Every name of the project has the same fields and the same length: a field not used is filled with underscores (<span class="fixw">A-Wall-Elev-____-N</span>).</li>
+<li>The status holds the letters or the phase numbers, not both.</li>
+<li>The format of the project is described in a layer naming definition file, as ISO 13567-3 asks.</li>
+</ul>
+</div>
+
+<h2 id="source">Source</h2>
+<p><em>AIA CAD Layer Guidelines</em>, United States National CAD Standard, version 5, National Institute of Building Sciences, 2011. Its appendices list every discipline designator, major group, minor group and status, and the layers most used by each discipline.</p>
+
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

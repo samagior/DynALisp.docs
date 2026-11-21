@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeeMac Sample Module Docs</title>
+    <link rel="stylesheet" href="../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>LeeMac Sample Module</h1>
+
+        <p>The LeeMac module is a <strong>sample module</strong>: it showcases what DynALisp does with a collection
+            of existing AutoLISP programs, here programs by Lee Mac (<a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a>).
+            It holds 115 programs and 196 commands: 115 main commands and 81 child commands. Use it as a model
+            for a module of your own (a folder of <span class="fixw">Contents\Modules</span>, with the same
+            <span class="fixw">Apps</span>, <span class="fixw">Remote</span> and <span class="fixw">Docs</span> folders):</p>
+        <ul>
+            <li><strong>Startup Suite</strong> &ndash; every program is indexed in <span class="fixw">Dyl-Suite</span>
+                (<span class="fixw">Dyl-SuiteUpdate</span> reads the Lisp files): turned on or off, loaded at startup,
+                its aliases edited and its docs page opened, without touching its code.</li>
+            <li><strong>Main and child commands</strong> &ndash; one <span class="fixw">LM-*</span> main command per
+                program, its presets and variants as <span class="fixw">Pst-*</span> child commands, and the original
+                command names kept as aliases.</li>
+            <li><strong>Shared subfunctions</strong> &ndash; the Lee Mac subfunctions are loaded once at startup
+                (<span class="fixw">Remote\LM-Sub.lsp</span>, <span class="fixw">Remote&gt;&gt;</span> prefix) and
+                offered in VS Code as snippets (<span class="fixw">LM-LocalSub</span>, <span class="fixw">LM-RemoteSub</span>).</li>
+            <li><strong>Docs</strong> &ndash; one page per program, with its commands and aliases, opened from
+                <span class="fixw">Dyl-Suite</span>; this index opens with <span class="fixw">LM-Docs</span>.</li>
+        </ul>
+
+        <p class="note">Each program has one main command named <span class="fixw">LM-*</span>. Its presets and variants are child commands (<span class="fixw">Pst-*</span>), run by their aliases (the short names, e.g. <span class="fixw">AT</span>) or picked from the main command. In <span class="fixw">Dyl-Suite</span>, a main command with children shows <span class="fixw">[+]</span> / <span class="fixw">[-]</span>: double-click it (or Fold/Unfold) to show or hide its children; double-click any other command (or Docs) to open its page, the commands without a page of their own opening this index. The list is sorted by command, aliases, name, module or group with <span class="fixw">Sort by</span>, each main command keeping its children under it. Aliases are added, renamed or removed in Dyl-Suite (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+        <p class="note">The help pages are delivered for consistency purposes only, as the docs of this sample module: they
+            are copies of Lee Mac's pages, and the programs and their descriptions are the work of Lee Mac, who keeps all
+            the credit for them. Each page links to its original on his website, <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a>,
+            for the latest version. They name the commands by their original names, kept as aliases. The programs
+            without a help page of their own open this index. The programs keep their author and their licence
+            (<span class="fixw">Licences\LEE-MAC-LICENCE.md</span>).</p>
+
+<h2>General</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Program</th><th>Commands</th><th>Syntax</th></tr>
+<tr><td><a href="General/LM-2DProjection.htm">2D Projection</a></td><td>2</td><td><span class="fixw">LM-2DProjection</span> (2DPRO), <span class="fixw">2DPRO-H</span></td></tr>
+<tr><td><a href="General/LM-ThreePointRectangle.htm">3-Point Rectangle</a></td><td>4</td><td><span class="fixw">LM-ThreePointRectangle</span> (3PR), <span class="fixw">3PR-H</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-AddObjectsToBlock.htm">Add Objects to Block</a></td><td>1</td><td><span class="fixw">LM-AddObjectsToBlock</span> (ADDTOBLOCK)</td></tr>
+<tr><td><a href="General/LM-AddPolylineVertex.htm">Add Polyline Vertex</a></td><td>1</td><td><span class="fixw">LM-AddPolylineVertex</span> (APV)</td></tr>
+<tr><td><a href="General/LM-ObjectAlign.htm">Align Objects to Curve</a></td><td>1</td><td><span class="fixw">LM-ObjectAlign</span> (OA)</td></tr>
+<tr><td><a href="General/LM-AlignText.htm">Align Text</a></td><td>1</td><td><span class="fixw">LM-AlignText</span> (AT)</td></tr>
+<tr><td><a href="General/LM-AlignTextToCurve.htm">Align Text to Curve</a></td><td>1</td><td><span class="fixw">LM-AlignTextToCurve</span> (ATC)</td></tr>
+<tr><td><a href="General/LM-DynamicTextCurveAlign.htm">Align Text, MText or Attribute to Curve</a></td><td>2</td><td><span class="fixw">LM-DynamicTextCurveAlign</span> (DTCURVE), <span class="fixw">DTREMOVE</span></td></tr>
+<tr><td><a href="General/LM-AreaFieldToAttribute.htm">Area Field to Attribute</a></td><td>1</td><td><span class="fixw">LM-AreaFieldToAttribute</span> (A2A)</td></tr>
+<tr><td><a href="General/LM-AreaLabel.htm">Area Label</a></td><td>3</td><td><span class="fixw">LM-AreaLabel</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-AreaFieldToMtext.htm">Areas to Field</a></td><td>1</td><td><span class="fixw">LM-AreaFieldToMtext</span> (A2F)</td></tr>
+<tr><td><a href="General/LM-ArrowArc.htm">Arrow Arc</a></td><td>2</td><td><span class="fixw">LM-ArrowArc</span> (AARC), <span class="fixw">AARCSETTINGS</span></td></tr>
+<tr><td><a href="General/LM-AssociativeCenterline.htm">Associative Centerlines</a></td><td>2</td><td><span class="fixw">LM-AssociativeCenterline</span> (ACL), <span class="fixw">CLREMOVE</span></td></tr>
+<tr><td><a href="General/LM-AssociativeTextbox.htm">Associative Textbox</a></td><td>2</td><td><span class="fixw">LM-AssociativeTextbox</span> (TBOX), <span class="fixw">RTBOX</span></td></tr>
+<tr><td><a href="General/LM-AttributeColour.htm">Attribute Colour</a></td><td>1</td><td><span class="fixw">LM-AttributeColour</span> (ATTCOL)</td></tr>
+<tr><td><a href="General/LM-AttributeModificationSuite.htm">Attribute Modification Suite</a></td><td>4</td><td><span class="fixw">LM-AttributeModificationSuite</span>, <span class="fixw">MVATT</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-AutoBlockBreak.htm">Automatic Block Break</a></td><td>3</td><td><span class="fixw">LM-AutoBlockBreak</span> (ABB), <span class="fixw">ABBE</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-BackgroundMask.htm">Background Mask</a></td><td>1</td><td><span class="fixw">LM-BackgroundMask</span> (BMASK)</td></tr>
+<tr><td><a href="General/LM-BatchAttributeEditor.htm">Batch Attribute Editor</a></td><td>1</td><td><span class="fixw">LM-BatchAttributeEditor</span> (BATTE)</td></tr>
+<tr><td><a href="General/LM-BatchFindAndReplace.htm">Batch Find &amp; Replace Text</a></td><td>1</td><td><span class="fixw">LM-BatchFindAndReplace</span> (BFIND)</td></tr>
+<tr><td><a href="General/LM-AdvancedBlockCount.htm">Block Counter</a></td><td>2</td><td><span class="fixw">LM-AdvancedBlockCount</span> (BLKCOUNT), <span class="fixw">BLKCOUNTSETTINGS</span></td></tr>
+<tr><td><a href="General/LM-BoundingBoxReactor.htm">Bounding Box Reactor</a></td><td>4</td><td><span class="fixw">LM-BoundingBoxReactor</span>, <span class="fixw">BBRN</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-BoxText.htm">Box Text</a></td><td>1</td><td><span class="fixw">LM-BoxText</span> (BT)</td></tr>
+<tr><td><a href="General/LM-BurstUpgraded.htm">Burst Upgraded</a></td><td>3</td><td><span class="fixw">LM-BurstUpgraded</span>, <span class="fixw">PBURST</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-CenteredMeasure.htm">Centered Measure</a></td><td>1</td><td><span class="fixw">LM-CenteredMeasure</span> (CMEASURE)</td></tr>
+<tr><td><a href="General/LM-Centerline.htm">Centerline</a></td><td>1</td><td><span class="fixw">LM-Centerline</span> (CLINE)</td></tr>
+<tr><td><a href="General/LM-ChainLength.htm">Chain Length</a></td><td>1</td><td><span class="fixw">LM-ChainLength</span> (CHAINLEN)</td></tr>
+<tr><td><a href="General/LM-ChainSelection.htm">Chain Selection</a></td><td>1</td><td><span class="fixw">LM-ChainSelection</span> (CS)</td></tr>
+<tr><td><a href="General/LM-ChangeBlockBasePoint.htm">Change Block Base Point</a></td><td>2</td><td><span class="fixw">LM-ChangeBlockBasePoint</span> (CBP), <span class="fixw">CBPR</span></td></tr>
+<tr><td><a href="General/LM-CircleBreak.htm">Circle Break</a></td><td>1</td><td><span class="fixw">LM-CircleBreak</span> (CBRK)</td></tr>
+<tr><td><a href="General/LM-CircleTangents.htm">Circle Tangents</a></td><td>1</td><td><span class="fixw">LM-CircleTangents</span> (CTAN)</td></tr>
+<tr><td><a href="General/LM-CircularWipeout.htm">Circular Wipeout</a></td><td>2</td><td><span class="fixw">LM-CircularWipeout</span> (CWIPE), <span class="fixw">C2WIPE</span></td></tr>
+<tr><td><a href="General/LM-CopyField.htm">Copy Field</a></td><td>1</td><td><span class="fixw">LM-CopyField</span> (COPYFIELD)</td></tr>
+<tr><td><a href="General/LM-CopyRenameBlock.htm">Copy or Rename Block Reference</a></td><td>3</td><td><span class="fixw">LM-CopyRenameBlock</span>, <span class="fixw">CB</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-CopySwapText.htm">Copy or Swap Text</a></td><td>3</td><td><span class="fixw">LM-CopySwapText</span>, <span class="fixw">CTX</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-CopyToDrawings.htm">Copy to Drawings</a></td><td>1</td><td><span class="fixw">LM-CopyToDrawings</span> (C2DWG)</td></tr>
+<tr><td><a href="General/LM-CopyToLayouts.htm">Copy to Layouts</a></td><td>2</td><td><span class="fixw">LM-CopyToLayouts</span> (C2L), <span class="fixw">C2AL</span></td></tr>
+<tr><td><a href="General/LM-CopyToXref.htm">Copy to XRef</a></td><td>1</td><td><span class="fixw">LM-CopyToXref</span> (C2X)</td></tr>
+<tr><td><a href="General/LM-CountAttributeValues.htm">Count Attribute Values</a></td><td>1</td><td><span class="fixw">LM-CountAttributeValues</span> (CAV)</td></tr>
+<tr><td><a href="General/LM-CursorRotate.htm">Cursor Rotate</a></td><td>1</td><td><span class="fixw">LM-CursorRotate</span> (CR)</td></tr>
+<tr><td><a href="General/LM-DeleteBlocks.htm">Delete Blocks</a></td><td>1</td><td><span class="fixw">LM-DeleteBlocks</span> (DELBLOCKS)</td></tr>
+<tr><td><a href="General/LM-DimensionOverlap.htm">Dimension Overlap</a></td><td>1</td><td><span class="fixw">LM-DimensionOverlap</span> (DIMOVERLAP)</td></tr>
+<tr><td><a href="General/LM-DoubleExtend.htm">Double Extend</a></td><td>1</td><td><span class="fixw">LM-DoubleExtend</span> (DEX)</td></tr>
+<tr><td><a href="General/LM-DoubleOffset.htm">Double Offset</a></td><td>1</td><td><span class="fixw">LM-DoubleOffset</span> (DOFF)</td></tr>
+<tr><td><a href="General/LM-DrawGrid.htm">Draw Grid</a></td><td>2</td><td><span class="fixw">LM-DrawGrid</span> (DGRID), <span class="fixw">DGRIDD</span></td></tr>
+<tr><td><a href="General/LM-DynamicAttributeWidth.htm">Dynamic Attribute Width</a></td><td>1</td><td><span class="fixw">LM-DynamicAttributeWidth</span> (ATTW)</td></tr>
+<tr><td><a href="General/LM-DynamicBlockCount.htm">Dynamic Block Counter</a></td><td>1</td><td><span class="fixw">LM-DynamicBlockCount</span> (DBCOUNT)</td></tr>
+<tr><td><a href="General/LM-DynamicInformation.htm">Dynamic Information Tool</a></td><td>1</td><td><span class="fixw">LM-DynamicInformation</span> (DINFO)</td></tr>
+<tr><td><a href="General/LM-DynamicTextAlign.htm">Dynamic Text Alignment</a></td><td>1</td><td><span class="fixw">LM-DynamicTextAlign</span> (TXALIGN)</td></tr>
+<tr><td><a href="General/LM-ElevationMarker.htm">Elevation Marker</a></td><td>1</td><td><span class="fixw">LM-ElevationMarker</span> (EM)</td></tr>
+<tr><td><a href="General/LM-EllipseToArc.htm">Ellipse to Arc</a></td><td>1</td><td><span class="fixw">LM-EllipseToArc</span> (E2A)</td></tr>
+<tr><td><a href="General/LM-ExtractNestedBlock.htm">Extract Nested Block</a></td><td>1</td><td><span class="fixw">LM-ExtractNestedBlock</span> (ENB)</td></tr>
+<tr><td><a href="General/LM-FieldArithmetic.htm">Field Arithmetic</a></td><td>1</td><td><span class="fixw">LM-FieldArithmetic</span> (FIELDMATH)</td></tr>
+<tr><td><a href="General/LM-FieldFormattingCode.htm">Field Formatting Code</a></td><td>1</td><td><span class="fixw">LM-FieldFormattingCode</span> (FIELDFORMAT)</td></tr>
+<tr><td><a href="General/LM-FieldObjects.htm">Field Objects</a></td><td>1</td><td><span class="fixw">LM-FieldObjects</span> (FIELDOBJECTS)</td></tr>
+<tr><td><a href="General/LM-GlobalAttributes.htm">Global Attribute Extractor &amp; Editor</a></td><td>3</td><td><span class="fixw">LM-GlobalAttributes</span> (MACATT), <span class="fixw">MACATTEXT</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-ImportBlock.htm">Import Block</a></td><td>1</td><td><span class="fixw">LM-ImportBlock</span> (IB)</td></tr>
+<tr><td><a href="General/LM-IncrementalArray.htm">Incremental Array</a></td><td>2</td><td><span class="fixw">LM-IncrementalArray</span> (INCARRAY), <span class="fixw">INCARRAYD</span></td></tr>
+<tr><td><a href="General/LM-IncrementalNumbering.htm">Incremental Numbering Suite</a></td><td>1</td><td><span class="fixw">LM-IncrementalNumbering</span> (NUMINC)</td></tr>
+<tr><td><a href="General/LM-IsometricPolygon.htm">Isometric Polygon</a></td><td>1</td><td><span class="fixw">LM-IsometricPolygon</span> (ISOPOLY)</td></tr>
+<tr><td><a href="General/LM-JustifyBlockBasePoint.htm">Justify Block Base Point</a></td><td>1</td><td><span class="fixw">LM-JustifyBlockBasePoint</span> (JBP)</td></tr>
+<tr><td><a href="General/LM-Label.htm">Label</a></td><td>1</td><td><span class="fixw">LM-Label</span> (LABEL)</td></tr>
+<tr><td><a href="General/LM-LDOrder.htm">Layer Draw Order</a></td><td>1</td><td><span class="fixw">LM-LayerDrawOrder</span> (LDORDER)</td></tr>
+<tr><td><a href="General/LM-LayerExtractor.htm">Layer Extractor</a></td><td>1</td><td><span class="fixw">LM-LayerExtractor</span> (LX)</td></tr>
+<tr><td><a href="General/LM-PrefixSuffixLayer.htm">Layer Prefix/Suffix</a></td><td>2</td><td><span class="fixw">LM-PrefixSuffixLayer</span> (PSLAY), <span class="fixw">RPSLAY</span></td></tr>
+<tr><td><a href="General/LM-LayersToDrawings.htm">Layers to Drawings</a></td><td>1</td><td><span class="fixw">LM-LayersToDrawings</span> (LAYERS2DWGS)</td></tr>
+<tr><td><a href="General/LM-LayoutField.htm">Layout Field</a></td><td>4</td><td><span class="fixw">LM-LayoutField</span>, <span class="fixw">LFNAME</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-LengthAreaField.htm">Length &amp; Area Field</a></td><td>5</td><td><span class="fixw">LM-LengthAreaField</span>, <span class="fixw">LF</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-LengthAtMidpoint.htm">Length at Midpoint</a></td><td>1</td><td><span class="fixw">LM-LengthAtMidpoint</span> (MIDLEN)</td></tr>
+<tr><td><a href="General/LM-LengthBetweenIntersections.htm">Length Between Intersections</a></td><td>2</td><td><span class="fixw">LM-LengthBetweenIntersections</span> (INTLEN), <span class="fixw">INTLENM</span></td></tr>
+<tr><td><a href="General/LM-LengthFieldToAttribute.htm">Length Field to Attribute</a></td><td>1</td><td><span class="fixw">LM-LengthFieldToAttribute</span> (L2A)</td></tr>
+<tr><td><a href="General/LM-TotalLengthPolyline.htm">Limited Length Polyline</a></td><td>1</td><td><span class="fixw">LM-TotalLengthPolyline</span> (TLPLINE)</td></tr>
+<tr><td><a href="General/LM-MatchAttributes.htm">Match Attributes</a></td><td>1</td><td><span class="fixw">LM-MatchAttributes</span> (MATCHATTRIBS)</td></tr>
+<tr><td><a href="General/LM-MatchFieldFormatting.htm">Match Field Formatting</a></td><td>1</td><td><span class="fixw">LM-MatchFieldFormatting</span> (MFF)</td></tr>
+<tr><td><a href="General/LM-MatchTextProperties.htm">Match Text Properties</a></td><td>1</td><td><span class="fixw">LM-MatchTextProperties</span> (MTP)</td></tr>
+<tr><td><a href="General/LM-MinimumEnclosingCircle.htm">Minimum Enclosing Circle</a></td><td>2</td><td><span class="fixw">LM-MinimumEnclosingCircle</span> (MEC), <span class="fixw">MECM</span></td></tr>
+<tr><td><a href="General/LM-ModelSpaceToPaperSpace.htm">Modelspace to Paperspace</a></td><td>1</td><td><span class="fixw">LM-ModelSpaceToPaperSpace</span> (MS2PS)</td></tr>
+<tr><td>Mtext Edit Reactor</td><td>3</td><td><span class="fixw">LM-MtextEditReactor</span>, <span class="fixw">MTEDITREACTORON</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-MultiPolyline.htm">Multi-Polyline</a></td><td>1</td><td><span class="fixw">LM-MultiPolyline</span> (MPL)</td></tr>
+<tr><td><a href="General/LM-MultilineJustification.htm">Multiline Justification</a></td><td>1</td><td><span class="fixw">LM-MultilineJustification</span> (MLJUST)</td></tr>
+<tr><td><a href="General/LM-MultilinesToPolylines.htm">Multilines to Polylines</a></td><td>1</td><td><span class="fixw">LM-MultilinesToPolylines</span> (ML2PL)</td></tr>
+<tr><td><a href="General/LM-BlockCount.htm">Nested Block Counter</a></td><td>1</td><td><span class="fixw">LM-BlockCount</span> (BLOCKCOUNT)</td></tr>
+<tr><td><a href="General/LM-NestedMove.htm">Nested Move</a></td><td>1</td><td><span class="fixw">LM-NestedMove</span> (NMOVE)</td></tr>
+<tr><td><a href="General/LM-ObjectBreak.htm">Object Break</a></td><td>2</td><td><span class="fixw">LM-ObjectBreak</span> (BRK), <span class="fixw">BRKO</span></td></tr>
+<tr><td><a href="General/LM-ObjectLock.htm">Object Lock</a></td><td>4</td><td><span class="fixw">LM-ObjectLock</span>, <span class="fixw">LOCKOBJECTS</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-OffsetPolylineSection.htm">Offset Polyline Section</a></td><td>1</td><td><span class="fixw">LM-OffsetPolylineSection</span> (OFFSEC)</td></tr>
+<tr><td><a href="General/LM-OutlineObjects.htm">Outline Objects</a></td><td>1</td><td><span class="fixw">LM-OutlineObjects</span> (OUTLINE)</td></tr>
+<tr><td><a href="General/LM-PointManager.htm">Point Manager</a></td><td>2</td><td><span class="fixw">LM-PointManager</span> (PTM), <span class="fixw">PTM_CLEAR</span></td></tr>
+<tr><td>Polyline Outline</td><td>2</td><td><span class="fixw">LM-PolylineOutline</span> (POLYOUT), <span class="fixw">MPOLYOUT</span></td></tr>
+<tr><td><a href="General/LM-PolylineTools.htm">Polyline Programs</a></td><td>4</td><td><span class="fixw">LM-PolylineTools</span>, <span class="fixw">PC</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-PolylineTaper.htm">Polyline Taper</a></td><td>1</td><td><span class="fixw">LM-PolylineTaper</span> (PTAPER)</td></tr>
+<tr><td><a href="General/LM-QuickField.htm">Quick Field</a></td><td>4</td><td><span class="fixw">LM-QuickField</span>, <span class="fixw">TEST1</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-QuickMirror.htm">Quick Mirror</a></td><td>4</td><td><span class="fixw">LM-QuickMirror</span> (QM), <span class="fixw">QMD</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-RenumberLayouts.htm">Renumber Layouts</a></td><td>1</td><td><span class="fixw">LM-RenumberLayouts</span> (RL)</td></tr>
+<tr><td><a href="General/LM-ResetXrefLayers.htm">Reset XRef Layers</a></td><td>1</td><td><span class="fixw">LM-ResetXrefLayers</span> (RXL)</td></tr>
+<tr><td><a href="General/LM-ScriptWriter.htm">Script Writer</a></td><td>1</td><td><span class="fixw">LM-ScriptWriter</span> (WSCRIPT)</td></tr>
+<tr><td><a href="General/LM-SegmentCurve.htm">Segment Curve</a></td><td>1</td><td><span class="fixw">LM-SegmentCurve</span> (SEGS)</td></tr>
+<tr><td><a href="General/LM-ShowHatchText.htm">Show Hatch Text</a></td><td>1</td><td><span class="fixw">LM-ShowHatchText</span> (SHT)</td></tr>
+<tr><td><a href="General/LM-CurveText.htm">Slinky Text</a></td><td>1</td><td><span class="fixw">LM-CurveText</span> (CURVETEXT)</td></tr>
+<tr><td><a href="General/LM-Steal.htm">Steal from Drawing</a></td><td>5</td><td><span class="fixw">LM-Steal</span> (STEAL), <span class="fixw">STEALALL</span> &hellip;</td></tr>
+<tr><td>Strikethrough</td><td>13</td><td><span class="fixw">LM-Strikethrough</span>, <span class="fixw">STRIKE</span> &hellip;</td></tr>
+<tr><td><a href="General/LM-SumAttributeValues.htm">Sum Attribute Values</a></td><td>1</td><td><span class="fixw">LM-SumAttributeValues</span> (ATTSUM)</td></tr>
+<tr><td><a href="General/LM-TabSort.htm">TabSort</a></td><td>1</td><td><span class="fixw">LM-TabSort</span> (TABSORT)</td></tr>
+<tr><td><a href="General/LM-TextCalculator.htm">Text Calculator</a></td><td>1</td><td><span class="fixw">LM-TextCalculator</span> (TC)</td></tr>
+<tr><td><a href="General/LM-TextCount.htm">Text Counter</a></td><td>1</td><td><span class="fixw">LM-TextCount</span> (TXTCOUNT)</td></tr>
+<tr><td><a href="General/LM-TextToWords.htm">Text to Words</a></td><td>1</td><td><span class="fixw">LM-TextToWords</span> (T2W)</td></tr>
+<tr><td><a href="General/LM-TextToMtext.htm">Text2MText Upgraded</a></td><td>1</td><td><span class="fixw">LM-TextToMtext</span> (T2M)</td></tr>
+<tr><td><a href="General/LM-TotalArea.htm">Total Length &amp; Area Programs</a></td><td>1</td><td><span class="fixw">LM-TotalArea</span> (TAREA)</td></tr>
+<tr><td><a href="General/LM-TotalLength.htm">Total Length &amp; Area Programs</a></td><td>1</td><td><span class="fixw">LM-TotalLength</span> (TLEN)</td></tr>
+<tr><td><a href="General/LM-UpdateTitleblock.htm">Update Titleblock Attributes</a></td><td>1</td><td><span class="fixw">LM-UpdateTitleblock</span> (UTB)</td></tr>
+<tr><td><a href="General/LM-ViewportOutline.htm">Viewport Outline</a></td><td>3</td><td><span class="fixw">LM-ViewportOutline</span> (VPO), <span class="fixw">VPOL</span> &hellip;</td></tr>
+</table>
+</div>
+<h2>Utilities</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Program</th><th>Commands</th><th>Syntax</th></tr>
+<tr><td>Dump Object</td><td>2</td><td><span class="fixw">LM-DumpObject</span> (DUMP), <span class="fixw">DUMPN</span></td></tr>
+<tr><td>Entity List</td><td>2</td><td><span class="fixw">LM-EntityList</span> (EE), <span class="fixw">EEX</span></td></tr>
+<tr><td>Format DCL</td><td>1</td><td><span class="fixw">LM-FormatDCL</span> (FORMATDCL)</td></tr>
+</table>
+</div>
+    </div>
+
+    <div id="footer">
+        <p>Programs by Lee Mac &ndash; <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

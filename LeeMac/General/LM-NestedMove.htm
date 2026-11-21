@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nested Move</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Nested Move</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/nestedmove.html" target="_blank">https://lee-mac.com/nestedmove.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-NestedMove</span> &ndash; original syntax: nmove (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/nestedmove.html" target="_blank">lee-mac.com/nestedmove.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to move multiple selected objects nested within a block or xref (nested to any depth), without 
+                opening the xref source drawing.</p>
+<p>Upon calling the program with <span class="fixw">nmove</span> at the command-line, the user is continuously prompted to select
+                one or more objects nested within a block or xref to be moved. Similar to the standard AutoCAD move command, the user is
+                then prompted to specify a base point &amp; displacement for the move operation.</p>
+<p>The program will then proceed to move the selected object within the parent block definition or xref source drawing,
+                utilising an ObjectDBX interface should the xref source drawing be unopened in the current drawing session.</p>
+<p>Upon moving the object: in the case of a block parent, the active drawing is regenerated to reflect the modification 
+                to the block definition across all block references in the drawing; for xrefs, the xref source drawing is saved and the 
+                xref is reloaded in the active drawing.</p>
+<p>The program will account for the position, scale, rotation &amp; orientation of the parent block or xref relative to 
+                the base point and displacement vector and will perform successfully under all UCS &amp; View settings.</p>
+<p><strong>Please Note:</strong> The act of modifying objects within an xref source drawing involves saving the external drawing 
+                remotely - this action cannot be undone within the current drawing and any changes to the external drawing must be reset manually.</p>
+<p>Note also that when saving drawings through ObjectDBX, drawing files will be saved to the highest version available and 
+                drawing file thumbnails will be lost until the next manual save.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Nested Move Demo" height="250" src="images/LM-nmovev1-1.gif" width="440"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Nested Move }==--------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to move multiple selected objects     ;;
+;;  nested within a block or xref (nested to any depth), without        ;;
+;;  opening the xref source drawing.                                    ;;
+;;                                                                      ;;
+;;  Upon calling the program with &#x27;nmove&#x27; at the command-line, the      ;;
+;;  user is continuously prompted to select objects nested within a     ;;
+;;  block or xref to be moved. Similar to the standard move command,    ;;
+;;  the user is then prompted to specify a base point &amp; displacement    ;;
+;;  for the move operation.                                             ;;
+;;                                                                      ;;
+;;  The program will then proceed to move the selected object within    ;;
+;;  the parent block definition or the xref source drawing, utilising   ;;
+;;  an ObjectDBX interface should the xref source drawing be unopened   ;;
+;;  in the current drawing session.                                     ;;
+;;                                                                      ;;
+;;  Upon moving the object: in the case of a block parent, the active   ;;
+;;  drawing is regenerated to reflect the modification to the block     ;;
+;;  definition across all block references in the drawing; for xrefs,   ;;
+;;  the xref source drawing is saved and the xref is reloaded in the    ;;
+;;  active drawing.                                                     ;;
+;;                                                                      ;;
+;;  The program will account for the position, scale, rotation &amp;        ;;
+;;  orientation of the parent block or xref relative to the base point  ;;
+;;  and displacement vector and will perform successfully under all     ;;
+;;  UCS &amp; View settings.                                                ;;
+;;                                                                      ;;
+;;  Please Note:                                                        ;;
+;;  ------------------------------                                      ;;
+;;  The act of modifying objects within an xref source drawing involves ;;
+;;  saving the external drawing remotely - this action cannot be        ;;
+;;  undone within the current drawing and any changes to the external   ;;
+;;  drawing must be reset manually.                                     ;;
+;;                                                                      ;;
+;;  Note that when saving drawings through ObjectDBX, drawing files     ;;
+;;  will be saved to the highest version available and drawing file     ;;
+;;  thumbnails will be lost until the next manual save.                 ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    10-08-2013                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    26-08-2013                                      ;;
+;;                                                                      ;;
+;;  - Modified program to move the &#x27;outermost&#x27; nested object within     ;;
+;;    the parent block or xref.                                         ;;
+;;  - Added ability to select multiple nested objects to be moved.      ;;
+;;  - Added selection highlighting for visual feedback of selected      ;;
+;;    nested objects.                                                   ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    31-08-2013                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug causing the program to crash when a nested attributed   ;;
+;;    block or nested polyline is selected.                             ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-NestedMove</span></td><td><span class="fixw">NMOVE</span></td><td>Nested Move</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

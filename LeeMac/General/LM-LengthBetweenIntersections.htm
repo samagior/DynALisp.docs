@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Length Between Intersections</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Length Between Intersections</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/intersectionslength.html" target="_blank">https://lee-mac.com/intersectionslength.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-LengthBetweenIntersections</span> &ndash; original syntax: IntLen  /  IntLenM (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/intersectionslength.html" target="_blank">lee-mac.com/intersectionslength.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program will display the length of segments of a curve divided at points of intersection with other objects.</p>
+<p>The program may be called at the AutoCAD command line with the syntax: <span class="fixw">IntLen</span> for single selection, 
+                or <span class="fixw">IntLenM</span> for multiple object selection.</p>
+<p>Following selection, the length of segments of the curve between intersections with surrounding objects is displayed with a text object
+                at the midpoint of each segment, rotated to align with the segment.</p>
+<p>If no intersections are found, the length of the selected curve is displayed at its midpoint.</p>
+<div class="cent">
+<h3>Examples of Usage</h3>
+<p><img alt="IntLen2.gif" height="300" src="images/LM-IntLen2.gif" width="500"/></p>
+<p><img alt="IntLen1.gif" height="300" src="images/LM-IntLen1.gif" width="500"/></p>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------=={ Length Between Intersections }==-----------;;
+;;                                                            ;;
+;;  Displays the length of segments of a curve divided at     ;;
+;;  intersections with other objects.                         ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.4    -    26-04-2011                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-LengthBetweenIntersections</span>: they are run by their alias, or picked from <span class="fixw">LM-LengthBetweenIntersections</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-LengthBetweenIntersections</span></td><td><span class="fixw">INTLEN</span></td><td>Length Between Intersections</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">INTLENM</span></td><td>&ndash;</td><td>Length Between Intersections Multiple</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

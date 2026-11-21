@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Claude Text Fix</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-ClaudeTextFix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Claude Text Fix</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-CLAUDETEXTFIX</span> (<span class="fixw">CLAUDETEXT</span>)</td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-ClaudeTextFix.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (WinHttp COM object), an Anthropic login (the <span class="fixw">ant</span> CLI, <span class="fixw">ant auth login</span> run once) or an Anthropic API key, an internet connection</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Proofreads the selected texts, mtexts and multileaders with Claude (the Anthropic API) and replaces each one with its corrected version after you confirm it. Spelling, grammar, accents and punctuation are corrected in the language of the text, never translated; technical terms, abbreviations, units, numbers, dimensions, codes and standard references (e.g. CNB, CSA) are kept, and so are the AutoCAD formatting codes (<span class="fixw">\P</span>, <span class="fixw">\f...;</span>, <span class="fixw">%%c</span>...) and the line structure.</p>
+<p class="note">The text of the selected objects is sent to the Anthropic API. Do not use it on drawings whose text must not leave your computer.</p>
+
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Sign-in: the <span class="fixw">ANTHROPIC_API_KEY</span> environment variable when set (it wins), else the Anthropic login of the user (the <span class="fixw">ant</span> CLI: run <span class="fixw">ant auth login</span> once; its short-lived token is read again every 10 minutes), else a key asked on the command line.</li>
+<li>The API key is taken from the <span class="fixw">ANTHROPIC_API_KEY</span> Windows environment variable (restart AutoCAD after creating it), else asked on the command line; a key typed is kept for the session only, never saved.</li>
+<li>The objects selected before the command are used (right-click menu), else the command asks for a selection: <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span> and <span class="fixw">MULTILEADER</span>.</li>
+<li>Each object is sent on its own (model <span class="fixw">claude-haiku-5-5</span>, 30 s timeout). When the text changes, the original and the corrected text are shown (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) and the command asks <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span>: <em>Oui</em> replaces it, <em>Non</em> keeps it, <em>Tous</em> replaces it and every next correction without asking, <em>Quitter</em> stops.</li>
+<li>The corrections are written with ActiveX, so objects on locked layers are corrected too. The whole command is one undo step, and a summary gives the objects checked, corrected and failed.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Block attributes are not processed (they cannot be selected with the selection prompt).</li>
+<li>Characters outside the AutoLISP code page (codes above 255) in the reply are replaced by <span class="fixw">?</span>.</li>
+<li>The prompts of the command line are in French.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-ClaudeTextFix</span></td><td><span class="fixw">CLAUDETEXT</span></td><td>Claude Text Fix</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

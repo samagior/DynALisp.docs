@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ends and Corners</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickDrawEndsCorners.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Ends and Corners</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Opened by</td>
+<td>The open buttons of <em>Custom ends</em> and <em>Custom corners</em>, in the Behaviors box of the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window</td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>How the bands of <a href="Dyl-QuickDraw.htm#linear">Linear</a> and <a href="Dyl-QuickDraw.htm#offset">Offset</a> end and turn their corners, for the preset shown in the Quick Draw window. Check <em>Custom ends</em> or <em>Custom corners</em> in its Behaviors box, then click the square <em>open</em> button beside it: the <strong>Ends</strong> or the <strong>Corners</strong> window opens. Unchecked, the bands end square, with mitered corners and their joints drawn; the settings of the window are kept for when it is checked again. The sketches of each setting are in <a href="Dyl-QuickDraw.htm#endscorners">Quick Draw &ndash; Ends and Corners</a>.</p>
+<h2>Ends Window</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Ends</td><td>How an open band ends: <em>Ask when drawn</em>, <em>Square</em> (the default), <em>Open</em> (no line across the end), <em>Extended</em>, <em>Round</em> or <em>Angled</em>. See <a href="Dyl-QuickDraw.htm#endscorners">Ends and Corners</a>.</td></tr>
+<tr><td>Extension</td><td>Extended: the distance past each end, in drawing units; empty: half the width of the band.</td></tr>
+<tr><td>Angle</td><td>Angled: the angle of the cut from square, -80 to 80 degrees (45 by default).</td></tr>
+</table>
+</div>
+<h2>Corners Window</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Corners</td><td>How two segments meet: <em>Ask when drawn</em>, <em>Mitered</em> (the default), <em>Beveled</em>, <em>Round</em> or <em>Lapped</em>.</td></tr>
+<tr><td>Miter limit</td><td>Mitered: a corner whose miter is longer than this times the width is beveled (4 by default, 1 or more).</td></tr>
+<tr><td>Lap</td><td>Lapped: the segment that runs through each corner, <em>First segment</em> or <em>Next segment</em>; the other one stops against it.</td></tr>
+<tr><td>Joints</td><td><em>Interrupted</em>, the default, or <em>Uninterrupted</em>.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>A value is greyed out when the ends or corners picked do not use it: the extension for <em>Extended</em>, the end angle for <em>Angled</em>, the miter limit for <em>Mitered</em>, <em>Lap</em> for <em>Lapped</em> (all of them with <em>Ask when drawn</em>: the one picked when drawn uses them).</li>
+<li><strong>OK</strong> gives the values to every preset selected in the Quick Draw window (saved with them by <em>Draw</em> or <em>Save</em>), once they are valid (a message under the box says what to fix). <strong>Cancel</strong> discards the changes, <strong>Open Docs</strong> opens this page.</li>
+<li>The ends and corners can also be changed for one band when it is drawn, at the first prompt of Linear or Offset (<span class="fixw">Ends</span>, <span class="fixw">Corners</span>).</li>
+</ul>
+</div>
+<p><a href="Dyl-QuickDraw.htm">&larr; Quick Draw</a> &nbsp; <a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

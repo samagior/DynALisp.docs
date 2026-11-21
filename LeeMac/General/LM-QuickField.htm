@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Field</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Field</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/quickfield.html" target="_blank">https://lee-mac.com/quickfield.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-QuickField</span> &ndash; original syntax: (LM:quickfield &lt;prop&gt; &lt;format&gt; &lt;mode&gt;) (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.3</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/quickfield.html" target="_blank">lee-mac.com/quickfield.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This function is designed to enable the user to quickly and easily create custom programs for inserting multiple fields 
+                into a drawing.</p>
+<p>This could be for use in situations in which the user is required to create many fields in a drawing, with each field 
+                referencing the same object property, and continued use of the Field Command Dialog can become tedious.</p>
+<p>Custom programs can be created by calling the <span class="fixw">'LM:quickfield'</span> function with a string describing the 
+                object property to be referenced by the field; a string describing the field formatting; and an integer to determine how the
+                field will be created.</p>
+<p>For example, say I need to create several MText fields referencing the length of Lines in my drawing, furthermore displaying the length 
+                of each line in Decimal Units to a Precision of 3 decimal places.</p>
+<p>Usually, I would need to open the Field Command Dialog, ensure all the settings are correct for the field I wish to create, 
+                and insert the field into the drawing; then repeat this procedure for every field I need to create.</p>
+<p>However, using <em>QuickField</em> I can quickly create a custom field program to avoid the need to set up the field everytime:</p>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:test <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>LM:QuickField <span class="str">"Length"</span> <span class="str">"%lu2%pr3"</span> <span class="int">3</span><span class="brkt">))</span>
+</pre>
+</div>
+<p>In fact, using the above custom command, I can bypass the Field Command Dialog completely.</p>
+<p>Now to explain what the parameters mean.</p>
+<h2>QuickField Function Parameters</h2>
+<div class="programs">
+<table>
+<tr>
+<th colspan="3">Arguments</th>
+</tr>
+<tr class="alt">
+<td><strong>Symbol</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>prop</td>
+<td>String</td>
+<td>Object Property to link to field (e.g. <span class="fixw">"Area"</span>)</td>
+</tr>
+<tr class="alt">
+<td>format</td>
+<td>String</td>
+<td>Field formatting string (use <span class="fixw">""</span> for none)</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>Integer</td>
+<td>Integer to determine how the field is created (available modes shown below)</td>
+</tr>
+<tr class="alt">
+<th colspan="3">Returns</th>
+</tr>
+<tr>
+<td align="center" colspan="3">- None -</td>
+</tr>
+</table>
+</div>
+<p>When creating the custom field programs, the user is advised to first use the Field Command dialog with all settings set to 
+                create the desired field, then make note of the Field Expression displayed at the bottom of the dialog. The required <em>QuickField</em> 
+                parameters may then be read directly from this Field Expression.</p>
+<h3>'Prop' parameter</h3>
+<p><em><strong>Type: String</strong></em></p>
+<p>This parameter is a string describing the object property to be referenced by the field.</p>
+<p><em><strong>Example</strong></em></p>
+<p>Field Expression displayed in Field Command Dialog:</p>
+<div class="code">
+<pre>%&lt;\AcObjProp Object(%&lt;\_ObjId 2129673136&gt;%).<span class="cmt">Area</span> \f "%lu6%qf1"&gt;%</pre>
+</div>
+<p>For the above expression, the object property is <span class="fixw">"Area"</span></p>
+<h3>'Format' parameter</h3>
+<p><em><strong>Type: String</strong></em></p>
+<p>This parameter is a string describing the field formatting for the object property that is to be displayed.</p>
+<p>If no formatting is to be used, <span class="fixw">'format'</span> should be an empty string (<span class="fixw">""</span>).</p>
+<p><em><strong>Example</strong></em></p>
+<p>Field Expression displayed in Field Command Dialog:</p>
+<div class="code">
+<pre>%&lt;\AcObjProp Object(%&lt;\_ObjId 2129673136&gt;%).Area \f <span class="cmt">"%lu6%qf1"</span>&gt;%</pre>
+</div>
+<p>For the above expression, the object property is <span class="fixw">"%lu6%qf1"</span>. This formatting string indicates that the 
+                <span class="fixw">"Area"</span> property of the 
+                object will be displayed using the current units and precision in the drawing.</p>
+<h3>'Mode' parameter</h3>
+<p><em><strong>Type: Integer</strong></em></p>
+<p>This integer parameter determines how the field should be created in the drawing.</p>
+<div class="programs">
+<table>
+<tr>
+<th> Mode </th>
+<th>Description</th>
+</tr>
+<tr class="alt">
+<td>1</td>
+<td><strong>Replace Existing Text / MText / Attribute string</strong><br/>
+                            This mode will prompt the user to select an existing object to contain the field.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Create Text Object</strong><br/>
+                            The user will be prompted to pick a point at which a Text Object containing the field will be created.</td>
+</tr>
+<tr class="alt">
+<td>3</td>
+<td><strong>Create MText Object</strong><br/>
+                            This user will be prompted to pick a point at which an MText Object containing the field will be created.</td>
+</tr>
+</table>
+</div>
+<h2>Example Custom Field Programs</h2>
+<h3>Example Program #1</h3>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:test1 <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>LM:QuickField <span class="str">"Area"</span> <span class="str">"%lu6%qf1"</span> <span class="int">2</span><span class="brkt">))</span>
+</pre>
+</div>
+<p>Here,</p>
+<div class="code">
+<pre>
+prop    =  <span class="str">"Area"</span>
+format  =  <span class="str">"%lu6%qf1"</span>
+mode    =  <span class="int">2</span>
+</pre>
+</div>
+<p>This program will hence prompt the user to select an object with the <span class="fixw">"Area"</span> property, then prompt 
+                for a point at which to create a Text Object (<span class="fixw">mode=2</span>) containing the field.</p>
+<p>The displayed Area will be formatted using the current settings for Units and Precision (<span class="fixw">"%lu6%qf1"</span>)</p>
+<h3>Example Program #2</h3>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:test2 <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>LM:QuickField <span class="str">"Length"</span> <span class="str">"%lu2%pr3%ps[Length:,]%ct8[0.1]"</span> <span class="int">3</span><span class="brkt">))</span>
+</pre>
+</div>
+<p>Here,</p>
+<div class="code">
+<pre>
+prop    =  <span class="str">"Length"</span>
+format  =  <span class="str">"%lu2%pr3%ps[Length:,]%ct8[0.1]"</span>
+mode    =  <span class="int">3</span>
+</pre>
+</div>
+<p>This program will prompt the user to select an object with the <span class="fixw">"Length"</span> property 
+                (Lines / LWPolylines / Polylines), then prompt for a point at which to create an MText Object 
+                (<span class="fixw">mode=3</span>) containing the field.</p>
+<p>The Length value will be formatted...</p>
+<div class="unspacedbullets">
+<ul>
+<li>in Decimal Units (<span class="fixw">%lu2</span>)</li>
+<li>to a Precision of 3 d.p. (<span class="fixw">%pr3</span>)</li>
+<li>with a Prefix of "Length:"  (<span class="fixw">%ps[Length:,]</span>)</li>
+<li>with a Conversion Factor of 0.1  (<span class="fixw">%ct8[0.1]</span>)</li>
+</ul>
+</div>
+<h3>Example Program #3</h3>
+<div class="code">
+<pre>
+<span class="brkt">(</span><span class="func">defun</span> c:test3 <span class="brkt">(</span> <span class="brkt">)</span> <span class="brkt">(</span>LM:QuickField <span class="str">"StyleName"</span> <span class="str">"%tc1"</span> <span class="int">1</span><span class="brkt">))</span>
+</pre>
+</div>
+<p>Here,</p>
+<div class="code">
+<pre>
+prop    =  <span class="str">"StyleName"</span>
+format  =  <span class="str">"%tc1"</span>
+mode    =  <span class="int">1</span>
+</pre>
+</div>
+<p>This program will prompt the user to select an object with the <span class="fixw">"StyleName"</span> property 
+                (Text / MText / ...anything with a Style), then prompt for an existing object (<span class="fixw">mode=1</span>) to house the field.</p>
+<p>The referenced StyleName property will be displayed in uppercase (<span class="fixw">%tc1</span>).</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;======================================================================;;
+;;  Quick Field Program  -  Lee Mac                                     ;;
+;;======================================================================;;
+;;                                                                      ;;
+;;  Program Description                                                 ;;
+;;  -------------------------------                                     ;;
+;;                                                                      ;;
+;;  This function is designed to enable the user to quickly create      ;;
+;;  custom  programs for inserting multiple fields into a drawing.      ;;
+;;                                                                      ;;
+;;  This could be for use in situations in which the user is required   ;;
+;;  to create many fields in a drawing, with each field referencing     ;;
+;;  the same object property, and continued use of the Field Command    ;;
+;;  Dialog can become tedious.                                          ;;
+;;                                                                      ;;
+;;  Custom programs can be created by calling the &#x27;LM:quickfield&#x27;       ;;
+;;  function with a string describing the object property to be         ;;
+;;  referenced by the field; a string describing the field formatting;  ;;
+;;  and an integer to determine how the field will be created.          ;;
+;;                                                                      ;;
+;;  When creating the custom field programs, the user is advised to     ;;
+;;  first use the Field Command dialog with all settings set to create  ;;
+;;  the desired field, then make note of the Field Expression           ;;
+;;  displayed at the bottom of the dialog. The required QuickField      ;;
+;;  parameters may then be read directly from this Field Expression.    ;;
+;;                                                                      ;;
+;;  Each parameter is described in more detail below.                   ;;
+;;                                                                      ;;
+;;======================================================================;;
+;;  Notes on QuickField Parameters                                      ;;
+;;======================================================================;;
+;;                                                                      ;;
+;;  &#x27;prop&#x27;    [STR]                                                     ;;
+;;                                                                      ;;
+;;  This parameter is a string describing the object property to be     ;;
+;;  referenced by the field.                                            ;;
+;;                                                                      ;;
+;;  Example:                                                            ;;
+;;  ------------------                                                  ;;
+;;  Field Expression displayed in Field Command Dialog:                 ;;
+;;                                                                      ;;
+;;  %&lt;\AcObjProp Object(%&lt;\_ObjId 2129673136&gt;%).Area \f &quot;%lu6%qf1&quot;&gt;%    ;;
+;;                                                                      ;;
+;;  For the above expression, the object property is &quot;Area&quot;             ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;                                                                      ;;
+;;  &#x27;format&#x27;  [STR]                                                     ;;
+;;                                                                      ;;
+;;  This parameter is a string describing the field formatting for the  ;;
+;;  object property that is to be displayed.                            ;;
+;;                                                                      ;;
+;;  If no formatting is to be used, &#x27;format&#x27; should be an empty         ;;
+;;  string (&quot;&quot;).                                                        ;;
+;;                                                                      ;;
+;;  Example:                                                            ;;
+;;  ------------------                                                  ;;
+;;  Field Expression displayed in Field Command Dialog:                 ;;
+;;                                                                      ;;
+;;  %&lt;\AcObjProp Object(%&lt;\_ObjId 2129673136&gt;%).Area \f &quot;%lu6%qf1&quot;&gt;%    ;;
+;;                                                                      ;;
+;;  For the above expression, the field formatting is &quot;%lu6%qf1&quot;        ;;
+;;  This formatting string indicates that the Area property of the      ;;
+;;  object will be displayed using the current units and precision in   ;;
+;;  the drawing.                                                        ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;                                                                      ;;
+;;  &#x27;mode&#x27;    [INT]                                                     ;;
+;;                                                                      ;;
+;;  This integer parameter determines how the field should be created   ;;
+;;  in the drawing.                                                     ;;
+;;                                                                      ;;
+;;  mode = 1  :  Replace Existing Text / MText / Attribute string.      ;;
+;;                                                                      ;;
+;;               This mode will prompt the user to select an existing   ;;
+;;               object to contain the field.                           ;;
+;;                                                                      ;;
+;;  mode = 2  :  Create Text Object                                     ;;
+;;                                                                      ;;
+;;               The user will be prompted to pick a point at which a   ;;
+;;               Text Object containing the field will be created.      ;;
+;;                                                                      ;;
+;;  mode = 3  :  Create MText Object                                    ;;
+;;                                                                      ;;
+;;               This user will be prompted to pick a point at which    ;;
+;;               an MText Object containing the field will be created.  ;;
+;;                                                                      ;;
+;;                                                                      ;;
+;;======================================================================;;
+;;  Example Custom Field Programs                                       ;;
+;;======================================================================;;
+;;                                                                      ;;
+;;  Example Program #1:                                                 ;;
+;;  -----------------------------------                                 ;;
+;;                                                                      ;;
+
+;;;    (defun c:test1 ( ) (LM:QuickField &quot;Area&quot; &quot;%lu6%qf1&quot; 2))
+
+;;                                                                      ;;
+;;  Here,                                                               ;;
+;;                                                                      ;;
+;;     prop   =  &quot;Area&quot;                                                 ;;
+;;     format =  &quot;%lu6%qf1&quot;                                             ;;
+;;     mode   =  2                                                      ;;
+;;                                                                      ;;
+;;  This program will hence prompt the user to select an object with    ;;
+;;  the &quot;Area&quot; property, then prompt for a point at which to create a   ;;
+;;  Text Object (mode=2) containing the field.                          ;;
+;;                                                                      ;;
+;;  The displayed Area will be formatted using the current settings     ;;
+;;  for Units and Precision.                                            ;;
+;;                                                                      ;;
+;;======================================================================;;
+;;                                                                      ;;
+;;  Example Program #2:                                                 ;;
+;;  -----------------------------------                                 ;;
+;;                                                                      ;;
+
+;;;    (defun c:test2 ( ) (LM:QuickField &quot;Length&quot; &quot;%lu2%pr3%ps[Length:,]%ct8[0.1]&quot; 3))
+
+;;                                                                      ;;
+;;  Here,                                                               ;;
+;;                                                                      ;;
+;;     prop   =  &quot;Length&quot;                                               ;;
+;;     format =  &quot;%lu2%pr3%ps[Length:,]%ct8[0.1]&quot;                       ;;
+;;     mode   =  3                                                      ;;
+;;                                                                      ;;
+;;  This program will prompt the user to select an object with the      ;;
+;;  &quot;Length&quot; property (Lines / LWPolylines / Polylines), then prompt    ;;
+;;  for a point at which to create an MText Object (mode=3) containing  ;;
+;;  the field.                                                          ;;
+;;                                                                      ;;
+;;  The Length value will be formatted...                               ;;
+;;                                                                      ;;
+;;     -  in Decimal Units (%lu2)                                       ;;
+;;     -  to a Precision of 3 d.p. (%pr3)                               ;;
+;;     -  with a Prefix of &quot;Length:&quot;  (%ps[Length:,])                   ;;
+;;     -  with a Conversion Factor of 0.1  (%ct8[0.1])                  ;;
+;;                                                                      ;;
+;;======================================================================;;
+;;                                                                      ;;
+;;  Example Program #3:                                                 ;;
+;;  -----------------------------------                                 ;;
+;;                                                                      ;;
+
+;;;    (defun c:test3 ( ) (LM:QuickField &quot;StyleName&quot; &quot;%tc1&quot; 1))
+
+;;                                                                      ;;
+;;  Here,                                                               ;;
+;;                                                                      ;;
+;;     prop   =  &quot;StyleName&quot;                                            ;;
+;;     format =  &quot;%tc1&quot;                                                 ;;
+;;     mode   =  1                                                      ;;
+;;                                                                      ;;
+;;  This program will prompt the user to select an object with the      ;;
+;;  &quot;StyleName&quot; property (Text / MText / ...anything with a Style),     ;;
+;;  then prompt for an existing object (mode=1) to house the field.     ;;
+;;                                                                      ;;
+;;  The referenced StyleName property will be displayed as              ;;
+;;  uppercase (%tc1).                                                   ;;
+;;                                                                      ;;
+;;======================================================================;;
+
+;;--------------------------=={ Quick Field }==-------------------------;;
+;;                                                                      ;;
+;;  Creates a field using the method encoded by the &#x27;mode&#x27; argument,    ;;
+;;  using the supplied field property and format strings.               ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2011  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Arguments:                                                          ;;
+;;  prop    -  Object Property to link to field (e.g. &quot;Area&quot;)           ;;
+;;  format  -  Field formatting string (use &quot;&quot; for none)                ;;
+;;  mode    -  Integer to determine how the field is created            ;;
+;;                                                                      ;;
+;;             mode=1 : Replace Existing Text, MText, Attribute         ;;
+;;             mode=2 : Create Text Object                              ;;
+;;             mode=3 : Create MText Object                             ;;
+;;----------------------------------------------------------------------;;
+;;  Returns:  -None-                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2012-04-20                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2015-10-10                                      ;;
+;;                                                                      ;;
+;;  - Program updated to account for selection of annotation objects    ;;
+;;    which already contain a field expression.                         ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2016-04-10                                      ;;
+;;                                                                      ;;
+;;  - Program updated to incorporate UPDATEFIELD command when inserting ;;
+;;    a field into attribute content.                                   ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-QuickField</span>: they are run by their alias, or picked from <span class="fixw">LM-QuickField</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-QuickField</span></td><td>&ndash;</td><td>Quick Field</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">TEST1</span></td><td>&ndash;</td><td>Quick Field Area</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">TEST2</span></td><td>&ndash;</td><td>Quick Field Length</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">TEST3</span></td><td>&ndash;</td><td>Quick Field Style Name</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

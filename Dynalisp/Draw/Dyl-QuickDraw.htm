@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Draw</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickDraw.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Draw</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-QUICKDRAW</span> (preset dialog) + 35 preset commands &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP); the hatch patterns listed below on the support path; Dynalisp layer keys (<a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a>) and preset engine (<span class="fixw">Remote\Dyl-Presets.lsp</span>) and hatch presets (<span class="fixw">Remote\Dyl-Materials.lsp</span>), loaded at startup</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Thirty-five draw-and-fill commands for phase screens and section hatch presets. Each command makes a closed outline with a standard AutoCAD drawing tool (polyline, rectangle, circle&hellip; see <a href="#drawwith">Draw With</a>), puts it on the layer of the outline layer key of its <a href="#materials">hatch preset</a>, and fills it with a hatch (associative or not, as set in the hatch preset) using the pattern, scale, angle and hatch layer key of the hatch preset. The hatch scale switches automatically between imperial and metric values.</p>
+<p>The main command <span class="fixw">DYL-QUICKDRAW</span> opens a preset editor: a preset is a name, a <a href="#materials">hatch preset</a> (the hatch) and its own <a href="#behaviors">behaviors</a> (how it is drawn: its <a href="#drawwith">Draw with</a> method...). Several presets can share one hatch preset: <span class="fixw">QD-BRICK</span> (asks the method) and a <span class="fixw">PL-BRICK</span> preset drawn with a polyline both use the <em>Brick</em> hatch preset, so editing the hatch preset changes both. Presets can be edited, created, and reset to their default values. The presets are saved to <span class="fixw">Modules\Dynalisp\Res\QuickDraw.csv</span>, the hatch presets to <span class="fixw">Materials.csv</span>; the <span class="fixw">QD-*</span> commands use the values saved there, so a default preset edited in the dialog changes its command too. Each custom preset gets a command too, <span class="fixw">Pst-QuickDrawCustom&lt;Name&gt;</span> (e.g. <span class="fixw">Pst-QuickDrawCustomTest</span>): it is listed in <span class="fixw">Dyl-Suite</span> under <span class="fixw">DYL-QUICKDRAW</span>, where aliases can be added to it, and it keeps working when the preset is renamed (its id is saved in the Id column).</p>
+<p>To pick a preset by its look, the <a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a> (<span class="fixw">Pst-QuickDrawGallery</span>, alias <span class="fixw">QDG</span>, the <strong>Quick Draw</strong> button of the ribbon) shows a tile for each preset with its hatch, by group: a click draws it. On the ribbon, this window is <strong>Quick Draw Manager</strong>.</p>
+<h2>Preset Dialog</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Filter</strong> / <strong>Sort by</strong> &ndash; above the list (same in the Hatch Presets and Quick Shape windows): type a part of a group, name, alias or hatch preset (in the Hatch Presets window: a group, name or pattern) and press Enter to list only the presets that have it (any case; empty: every preset), the number listed shown next to it. The selected preset stays listed; when it does not match, the first one that does is selected. <em>Sort by</em> lists them by name (the default), or by group then name, kept for the session.</li>
+<li><strong>Show / Set default</strong> &ndash; under the filter (same in the Hatch Presets and Quick Shape windows): <em>Show</em> lists only the presets of one group (<em>All</em>: every group); the filter and the sort apply within it, and the count gives the presets listed. When the selected preset is not in the group picked, the first one of the group is selected. <strong>Set default</strong> makes the group shown the one the window opens on, every time and in every drawing (each tool keeps its own: Quick Draw, Quick Shape, Hatch Presets); set <em>All</em> as the default to open on every group again. A default group without any preset any more opens on <em>All</em>.</li>
+<li><strong>Preset list</strong> &ndash; one column each, titled at the top: group, name and aliases (the short names that run the preset). The status of the preset shown (modified, custom) is in the heading of the Parameters, see below. Double-click a preset to draw it.</li>
+<li><strong>Several presets at once</strong> &ndash; (also in the Hatch Presets and Quick Shape windows) Ctrl+click adds a preset to the selection (or removes it), Shift+click selects a range. The heading reads <em>Parameters (3 selected)</em> and the fields show the values of the preset clicked first: a value changed (the hatch preset too, also through its open button, and the origin found with <em>Pick...</em>) is given to <em>every</em> preset selected, their other values are left as they are. The name, <em>Copy</em> and the aliases are for one preset only (greyed out); <em>Delete</em> removes them all (only when they are all custom, with their aliases), <em>Reset Selected</em> resets the default ones among them; <em>Draw</em> draws the preset shown. A new filter keeps only the preset shown selected.</li>
+<li><strong>Parameters</strong> &ndash; its heading gives the status of the selected preset: <em>Parameters (modified)</em> for an edited default preset, <em>Parameters (custom)</em> for one created by the user, just <em>Parameters</em> for a default preset as shipped; the command of the preset is shown at the bottom (<em>Command: PST-QUICKDRAWBRICK</em>). Then name, <strong>Group</strong> (picked from the groups, the same in the Quick Draw, Quick Shape and Hatch Presets windows; the square <em>open</em> button just left of it opens the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window to add, rename, remove or order them; a group typed in <span class="fixw">QuickDraw.csv</span> that is not in this list stays selectable, and the case of a listed group is corrected), <strong>Hatch preset</strong> (in the <strong>Behaviors</strong> box, under <em>Draw with</em>, greyed out while the preset is an <a href="#assembly">assembly</a>: each layer is then hatched as its own preset says; the <a href="#materials">hatch presets</a> of the <em>Group</em> of the preset, by name; the hatch preset of the preset stays in the list when it is in another group, shown <em>group - name</em>, and a group without hatch preset lists them all. Picking another group lists its hatch presets: when the hatch preset of the preset is not one of them, the first one is given to the presets selected, to pick another one of the group), and the <strong>Behaviors</strong> box (see <a href="#behaviors">Behaviors</a>). Each value is checked when the field is left (unique name, no empty field, existing hatch preset); an invalid value must be fixed before another preset can be selected. A hatch preset that was deleted stays in the list, marked <em>(missing hatch preset)</em>, until another one is picked.</li>
+<li><strong>Open button</strong> (the square button just left of <em>Hatch preset</em>) &ndash; opens the <a href="#materials">Hatch Presets</a> dialog on the hatch preset of the preset. The hatch preset selected there when it is closed with OK is given to the preset, so a new hatch preset can be made and picked in one go. The Hatch Presets dialog saves <span class="fixw">Materials.csv</span> on its own OK, even if the preset dialog is then cancelled.</li>
+<li><strong>New</strong> &ndash; adds a custom preset after the selected one, in the same group. <strong>Copy</strong> &ndash; adds a custom preset with the values of the selected one.</li>
+<li><strong>Delete</strong> &ndash; removes the selected custom preset and its aliases (default presets cannot be deleted, only reset).</li>
+<li><strong>Aliases of the preset command</strong> &ndash; the aliases of the selected preset (the short names that run it, e.g. <span class="fixw">QD-BRICK</span>), as in <span class="fixw">Dyl-Suite</span>: <strong>Add</strong> creates the alias typed, <strong>Rename</strong> gives the alias picked the name typed, <strong>Remove</strong> deletes the alias picked. The box starts with <span class="fixw">PL-</span> for a preset drawn with a polyline, <span class="fixw">QD-</span> otherwise. An alias cannot be the name of a command, another alias or an AutoCAD command. A new custom preset gets its command (from its name) with its first alias. The aliases are saved to <span class="fixw">Resources\Aliases.csv</span> with Draw or Save, and Cancel discards them.</li>
+<li><strong>Reset Selected</strong> &ndash; (bottom left) restores the default values of the selected default preset. <strong>Reset All</strong> &ndash; restores the default values of every default preset; custom presets are kept (renamed if a restored name is already used).</li>
+<li><strong>Draw</strong> saves the presets and draws the selected one, <strong>Save</strong> saves without drawing, <strong>Cancel</strong> discards every change made in the dialog.</li>
+<li><strong>Open Docs</strong> &ndash; opens the docs page of the tool (this page for Quick Draw, the Hatch Presets page in the Hatch Presets window); the dialog stays open.</li>
+</ul>
+</div>
+<p>The dialog reopens on the last preset used during the session.</p>
+<h2 id="materials">Hatch Presets</h2>
+<p>Every parameter of a hatch preset, and the list of the default hatch presets, is described on the <a href="Dyl-HatchPresets.htm">Hatch Presets</a> page.</p>
+<p>A hatch preset is the hatch of an outline, shared by every preset that uses it, of Quick Draw and of <a href="Dyl-QuickShape.htm">Quick Shape</a>. The Hatch Presets dialog has the same list and buttons as the preset dialog (New, Copy, Delete, Reset Selected, Reset All), without aliases: <strong>OK</strong> saves the hatch presets and gives the selected one to the preset, <strong>Cancel</strong> discards the changes. Each default preset uses the default hatch preset of the same name (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Group</strong> &ndash; picked from a list, by the kind of drawing the hatch preset is used in, the groups of the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window (the same as the Group list of the presets; its open button, left of the list, opens that window). A group typed in <span class="fixw">Materials.csv</span> that is not in this list stays selectable (the case of a listed group is corrected, e.g. <em>section</em> &rarr; <em>Section</em>).</li>
+<li><strong>Parameters</strong> &ndash; name and group, then the <em>Hatch settings</em> group (the border is set in each preset, see <a href="#border">Border Settings</a>). The basic settings are always used; every other setting has a checkbox and its value stays greyed out until it is checked (unchecked: the layer of the layer key, or the AutoCAD default, is kept):
+<ul>
+<li><strong>Hatch settings</strong> &ndash; pattern, scale (one value, in the units of the pattern), angle and hatch layer key (basic); then, under <em>Layer key overrides</em>, <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em> and <em>Lineweight</em>; under <em>Optional settings</em>, <em>Background color</em>, <em>Existing phase background</em> (used in place of the background color while <a href="../Layer/Dyl-LayerPhase.htm">auto-phase</a> is on and the active phase is <span class="fixw">E</span>, existing to remain; <span class="fixw">PH-AUTO</span>, with the DynALisp reactors on) and <em>Transparency</em>. A color is an AutoCAD color number (1-255) or a true color <span class="fixw">r,g,b</span>; the square <em>open</em> button beside it opens the AutoCAD color dialog. Then how the hatch is scaled and made: <em>Annotative</em>; <em>Adaptive scaling</em> (follow the drawing scale) with the drawing scale its scales were set for (see <a href="#drawscale">Drawing Scale</a>); <em>Associative</em> (checked by default). The hatch is always drawn behind its border (draw order). Scales must be &gt; 0 and the angle numeric. For <span class="fixw">SOLID</span>, the scales, the angle, the background colors, the linetype and its scale, the lineweight, annotative, the drawing scale and the Linear hatch scale and origin are greyed out and not used.</li>
+</ul>
+</li>
+<li><strong>Pattern</strong> &ndash; picked from a list of every pattern defined in the <span class="fixw">.pat</span> files of the support path (<span class="fixw">acad.pat</span>, <span class="fixw">acadiso.pat</span> and custom pattern files). A pattern used by a hatch preset but not found in any file stays in the list, marked <em>(not found on the support path)</em>.</li>
+<li><strong>Hatch layer key</strong> &ndash; picked from the Dynalisp <a href="../Layer/Dyl-LayerKeys.htm">layer keys</a>, sorted by key. A key used by a hatch preset but not defined stays in the list, marked <em>(not defined)</em>: it draws on a layer of the same name. The square <em>open</em> button beside each one opens the Layer Keys dialog on that key, to create or edit keys; it saves <span class="fixw">LayerKeys.csv</span> on its own OK.</li>
+<li><strong>Delete</strong> &ndash; removes a custom hatch preset. The presets that use it stay, marked <em>(missing hatch preset)</em>: drawing them shows an alert until another hatch preset is picked.</li>
+</ul>
+</div>
+<h2 id="drawscale">Drawing Scale</h2>
+<p>A hatch that is not annotative keeps the scale of its hatch preset in every drawing. With <em>Adaptive scaling</em> (follow the drawing scale) checked (in the <strong>Hatch scale</strong> box, greyed out while <em>Annotative</em> is checked), its scale follows the drawing scale: the annotation scale of the drawing (<span class="fixw">CANNOSCALE</span>, set by <span class="fixw">Dyl-SwitchDrawingScale</span>).</p>
+<p>The scale of a hatch preset is always set for a drawing scale of 1:1. When the hatch is drawn, its scale is multiplied by the drawing scale: drawn at 1:50, by 50; at 1:5, by 5. The line under the checkbox gives the factor in the current drawing (<em>This drawing is at 1:50: hatch scale x50.</em>). A hatch preset of an older file set for another drawing scale gets its scale converted to 1:1 when it is read, so it draws at the same size.</p>
+<p>The hatch is not updated when the drawing scale changes afterwards: it keeps the scale it was drawn with. The preset summary shows <em>follows the drawing scale</em> for such a hatch preset.</p>
+<h2 id="behaviors">Behaviors</h2>
+<p>How a preset is drawn is set in the preset itself, in the <strong>Behaviors</strong> box of the Quick Draw window: on its left, the method, the hatch preset, <em>Assembly of layers</em> and the settings of Polygon and Shrinkwrap; on its right, the bands of Linear and Offset (the width, where the line is in the band, <em>Custom ends</em> and <em>Custom corners</em>, set in the <a href="Dyl-QuickDrawEndsCorners.htm">Ends and Corners</a> windows, and the hatch along the line). The <strong>Border settings</strong> box is under it (the hatch presets hold only the hatch: the <a href="Dyl-HatchPresets.htm">Hatch Presets</a> window has no behaviors). A setting is greyed out unless <em>Draw with</em> is its method or <em>Ask when drawn</em> (the method picked when drawn uses them too). Two presets can share a hatch preset and draw it differently: <span class="fixw">QD-BRICK</span> asks the method, <span class="fixw">PL-BRICK</span> is the same <em>Brick</em> hatch preset with <em>Draw with</em> set to <em>Polyline</em>.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Draw with</td><td>The input method: <em>Ask when drawn</em> (asked on the command line, the default), <em>Polyline, Rectangle, Circle, Polygon, Ellipse, Shrinkwrap, Pick internal points, Select closed objects</em>, <em>Linear</em>, <em>Offset</em> or <em>Replace hatches</em>. See <a href="#drawwith">Draw With</a>.</td></tr>
+<tr><td>Width</td><td>Width of the band, in drawing units: <span class="fixw">100</span>; several widths divided by commas, <span class="fixw">100,150,200</span>, are offered on the command line each time; empty: the last width used (asked the first time).</td></tr>
+<tr><td>Assembly of layers</td><td>Optional. The band is made of several layers side by side (a wall: gypsum, studs and insulation, sheathing, brick...), set in the <a href="Dyl-AssemblyLayers.htm">Assembly Layers</a> window that the open button beside it opens (greyed out until it is checked); the text beside it gives their number. <em>Width</em> then shows their total (greyed out: the width of the band), and the hatch settings of each layer come from its own preset (the <em>Hatch</em> settings of this preset are greyed out). See <a href="#assembly">Assemblies</a>.</td></tr>
+<tr><td>Justification</td><td>Where the line drawn is in the band: <em>Ask when drawn</em>, <em>Center</em> or <em>Edge</em>: the line is a border of the band, and the band goes on the side picked once the line is drawn, as with Offset (see <a href="#linear">Linear</a>). A preset of an older version on <em>Left border</em> or <em>Right border</em> is on <em>Edge</em>.</td></tr>
+<tr><td>Custom ends</td><td>Optional. Unchecked: the bands end square (the default). Checked: they end as set in the <a href="Dyl-QuickDrawEndsCorners.htm">Ends</a> window that the open button beside it opens (<em>Square, Open, Extended, Round, Angled</em> or <em>Ask when drawn</em>, the extension, the end angle); the text beside it sums them up. The settings are kept when it is unchecked. See <a href="#endscorners">Ends and Corners</a>.</td></tr>
+<tr><td>Custom corners</td><td>Optional. Unchecked: mitered corners (miter limit 4) and joints drawn (the defaults). Checked: as set in the <a href="Dyl-QuickDrawEndsCorners.htm">Corners</a> window that the open button beside it opens (<em>Mitered, Beveled, Round, Lapped</em> or <em>Ask when drawn</em>, the miter limit, the segment running through a lap, the joints). A preset of an older version whose ends or corners are not the defaults has its checkbox checked, so it draws as before.</td></tr>
+<tr><td>Align to</td><td><em>Line</em> (each segment along it, the default) or <em>Drawing origin</em> (the angle of the hatch preset and the origin of the drawing, the pattern continuous across the corners).</td></tr>
+<tr><td>Scale by width</td><td>Optional (Linear, Offset). The hatch scale is the band width times this factor, in place of the scale above (its units factor and the drawing scale included): a factor of 0.01 hatches a 100 wide band at 1 and a 200 wide band at 2, so the pattern fits the band. The band is then never annotative, even with <em>Annotative</em> checked: its scale is a size in the drawing, which the annotation scale would multiply (a 25 wide band at 1:50 would be hatched at 1250).</td></tr>
+<tr><td>Origin on line, Offset X, Offset Y</td><td>Optional (Linear, Offset). The pattern of each segment starts on the line at the start of the segment, moved along the line by <em>X</em> (0: at the start of the segment) and across it by <em>Y</em> (0: on the line; positive: into the band), e.g. to line up an insulation pattern with the border. With <em>Scale by width</em> checked, <em>X</em> and <em>Y</em> are in pattern units: they are multiplied by the hatch scale (width x factor), so the pattern stays lined up at every width (with a factor of 1, Y = 0.5 is half the width of the band).</td></tr>
+<tr><td>Pick...</td><td>(Linear) Finds <em>X</em> and <em>Y</em> for you. The window closes and a sample band of the hatch preset is drawn in the middle of the view, with the values being edited (its width, the first one when there are several, else the last one used, else asked; its <em>Justification</em>, the band above the line for <em>Edge</em>; its current origin), along the X axis of the UCS: the red line is the line drawn, starting at the red circle, and the magenta cross is the origin used now (its current <em>X</em> and <em>Y</em>). The sample is long enough, and wide enough, to show the whole pattern at least twice (2.5 repeats); when that makes it wider than the band, the real borders of the band are shown in green. Pick the point of the pattern to put on the line (object snaps work, e.g. on the edge of an insulation in the hatch): the pattern is moved so that point lands at the start of the line (the red circle), on the chosen border or center line of <em>Justification</em>, and the new <em>X</em> and <em>Y</em> are filled in and <em>Origin on line</em> is checked, then the window opens again. The sample is erased and the view restored; Enter or Esc changes nothing. The sample uses the layer keys of the hatch preset, so their layers are created if missing.</td></tr>
+<tr><td>Sides</td><td>Number of sides of the Polygon method; empty: asked by <span class="fixw">POLYGON</span>.</td></tr>
+<tr><td>Gap override</td><td>Optional (Shrinkwrap). Unchecked: Shrinkwrap starts with a gap of 0 and, when no outline is found, tries larger gaps by the gap step of <span class="fixw">Dyl-Settings</span> (Drawing Settings). Checked: it starts with the <em>Gap</em> below; an empty gap is asked each time. The larger gaps are tried in every case. See <a href="Dyl-Shrinkwrap.htm#gap">Shrinkwrap &ndash; Gap Tolerance</a>.</td></tr>
+<tr><td>Gap</td><td>The gap tolerance of the override, one value in the units of the drawing, whatever they are (no unit conversion): objects closer than the gap are joined into one outline. A preset of an older version that had an imperial and a metric gap keeps the imperial one (the metric one when it had only that).</td></tr>
+</table>
+</div>
+<p>They are saved with the preset (behavior columns of <span class="fixw">QuickDraw.csv</span>, the same values as the behavior columns of <span class="fixw">Materials.csv</span>, which are no longer edited). A preset of an older file that was drawn with the behaviors of its hatch preset (<em>Override the behaviors</em> unchecked) gets those behaviors when it is read, so it draws the same way; a preset saved before the presets had behaviors keeps the <em>Draw with</em> method it had. <a href="Dyl-QuickShape.htm">Quick Shape</a> presets insert shapes: they have no behaviors.</p>
+<h2 id="border">Border Settings</h2>
+<p>The border of a preset is set in the preset itself, in the <strong>Border settings</strong> box beside <em>Behaviors</em> (the hatch presets hold only the hatch: the <a href="Dyl-HatchPresets.htm">Hatch Presets</a> window has no border settings). The border is the outline drawn or selected around the hatch. Color, linetype and lineweight, under <em>Layer key overrides</em>, replace the properties of its layer key for the border; transparency is under <em>Optional settings</em>. Each optional setting has a checkbox: its value stays greyed out until it is checked. With several presets selected, a setting changed is given to all of them. <a href="Dyl-QuickShape.htm">Quick Shape</a> has the same box, without <em>Has a border</em>: a shape is always drawn with its border.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Has a border</td><td>Checked: the outlines are kept as the border of the hatch. Unchecked: they are erased once hatched, only the hatch is left (it is then not associative); the rest of the box (its layer key and its open button included) is greyed out, and the <em>Associative</em> setting of the hatch preset is not used. Objects picked with <em>Select closed objects</em> are kept.</td></tr>
+<tr><td>Layer key</td><td>The layer key of the border: the outlines go on its layer. The square <em>open</em> button beside it opens the Layer Keys window on that key, to create or edit keys (saved on its own OK); double-click a key there to use it as the border layer key of the presets selected.</td></tr>
+<tr><td>Color</td><td>Optional. Color of the border.</td></tr>
+<tr><td>Linetype</td><td>Optional. Linetype of the border, loaded from <span class="fixw">acad.lin</span> or <span class="fixw">acadiso.lin</span> when the drawing does not have it (<span class="fixw">ByLayer</span> and <span class="fixw">ByBlock</span> are accepted).</td></tr>
+<tr><td>Linetype scale</td><td>Optional. Linetype scale of the border.</td></tr>
+<tr><td>Lineweight</td><td>Optional. Lineweight of the border.</td></tr>
+<tr><td>Transparency</td><td>Optional. Transparency of the border.</td></tr>
+</table>
+</div>
+<p>They are saved with the preset (border columns of <span class="fixw">QuickDraw.csv</span>, the same values as the border columns of <span class="fixw">Materials.csv</span>, which are no longer edited). A preset of an older file, saved before the presets had a border, gets the border of its hatch preset when it is read, so it draws the same way; a default preset gets the border of its default hatch preset.</p>
+<h2 id="drawwith">Draw With</h2>
+<p>A preset draws with its <em>Draw with</em> method (see <a href="#behaviors">Behaviors</a>). With no method (<em>Ask when drawn</em>), the method is asked on the command line each time the preset is drawn: <span class="fixw">Draw with [Polyline/Rectangle/Circle/pOlygon/Ellipse/sHrinkwrap/pIck/Select/Linear/oFfset/replAce] &lt;Polyline&gt;:</span>. Enter keeps the method given last time (saved for the next sessions).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Draw with</th><th>Outline</th></tr>
+<tr><td>Ask when drawn</td><td>Ask for one of the methods below on the command line.</td></tr>
+<tr><td>Polyline</td><td>Draw a polyline with <span class="fixw">PLINE</span> and close it.</td></tr>
+<tr><td>Rectangle</td><td>Draw a rectangle with <span class="fixw">RECTANG</span>.</td></tr>
+<tr><td>Circle</td><td>Draw a circle with <span class="fixw">CIRCLE</span>.</td></tr>
+<tr><td>Polygon</td><td>Draw a regular polygon with <span class="fixw">POLYGON</span>, with the number of sides of the preset (asked when it has none).</td></tr>
+<tr><td>Ellipse</td><td>Draw an ellipse with <span class="fixw">ELLIPSE</span> (an elliptical arc is open and is erased).</td></tr>
+<tr><td>Shrinkwrap</td><td>Select objects: closed polylines are drawn around their outside with the Dynalisp <a href="Dyl-Shrinkwrap.htm">Shrinkwrap</a> (texts included), one per group of touching objects. Replaces the former Shrink-Wrap Hatch tool (<span class="fixw">SW-SOLIDSCREEN</span>): the <em>Existing</em> preset with Shrinkwrap gives the same background screen.</td></tr>
+<tr><td>Pick internal points</td><td>Pick points inside closed areas with <span class="fixw">-BOUNDARY</span>: one polyline per area, plus its islands (island detection as set in <span class="fixw">BOUNDARY</span>).</td></tr>
+<tr><td>Select closed objects</td><td>Select existing closed polylines, circles, ellipses or splines: they are used as the outlines, moved to the outline layer key. Open objects are skipped, not erased.</td></tr>
+<tr><td>Linear (band along a line)</td><td>Draw a line: a band of the width of the preset is made along it, one closed outline per segment, each hatched along its segment (see <a href="#linear">Linear</a>).</td></tr>
+<tr><td>Offset (band along objects)</td><td>Select existing objects and, as OFFSET, a point on the side of each band: the band of Linear is made along each one, with the same behaviors but the justification (see <a href="#offset">Offset</a>). The objects are kept.</td></tr>
+<tr><td>Replace hatches</td><td>No outline is drawn: the hatches selected before running the preset get its hatch preset, or, with none selected, the hatches selected then (not on a locked layer). Each hatch keeps its boundary, associativity, origin and draw order, and gets the pattern, scale, angle and <em>Annotative</em> of the hatch preset, the layer of its hatch layer key and its optional settings (color, background, linetype, lineweight, transparency); its former overrides are reset to ByLayer first, and a gradient becomes a pattern hatch. The border settings of the preset are not used. A hatch that cannot be changed (pattern not found on the support path...) is skipped with a message; the command line gives the number replaced.</td></tr>
+</table>
+</div>
+<h2 id="linear">Linear</h2>
+<p>The <em>Linear</em> method draws a band of a given width from a line, like a wall, a strip of insulation or a curb, and turns its hatch to follow the line. The preset gives (<em>Behaviors</em>) the default <strong>Width</strong> (drawing units; empty: the last width used, asked the first time; several widths divided by commas, <span class="fixw">100,150,200</span>: asked each time among them, <span class="fixw">Width [100/150/200] &lt;100&gt;:</span>, the last width used by default) and where the line is in the band, <strong>Justification</strong>: <em>Ask when drawn</em> (asked before the start point, the last one given by default), <em>Center</em> (on the line) or <em>Edge</em> (the line is a border of the band, the band on the side picked once the line is drawn).</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Start point or [Width/Justification/Ends/Corners]</span> &ndash; pick the start of the line, or change the width, the justification, the <a href="#endscorners">ends or the corners</a> for this band only (the preset keeps its own; the width typed becomes the last width used). An <a href="#assembly">assembly</a> offers <span class="fixw">Flip</span> in place of <span class="fixw">Width</span>: <span class="fixw">Start point or [Justification/Flip/Ends/Corners]</span>.</li>
+<li><span class="fixw">Next point or [Undo]</span> &ndash; pick the next points: the line and the borders of the band are shown while they are picked (with <em>Edge</em>, on the side picked last). <span class="fixw">Undo</span> removes the last point, Enter ends the line.</li>
+<li><span class="fixw">Side of the band: pick a point on its side or [Center]</span> &ndash; <em>Edge</em> only, once the line is drawn: as with Offset, the band is previewed on the side of the cursor while it moves; click on the side where the band goes (Enter, Space or a right click: the side of the cursor), or <span class="fixw">C</span> to center it on the line for this band. The side picked is the one shown while the next band is drawn.</li>
+<li>Each segment becomes a closed outline, mitered with the next one at the corners, with its own hatch: its angle is the angle of the hatch preset plus the angle of the segment, so the pattern follows the line (a straight band is one outline and one hatch).</li>
+<li><em>Scale by width</em> (Behaviors, checked) &ndash; the hatch scale is the width of the band times the factor typed (1: the width), in place of the scales of the hatch preset and of the drawing scale: a 100 wide band with a factor of 0.01 is hatched at the scale 1, a 200 wide one at 2, so the pattern fits the band whatever its width. The hatch of the band is then not annotative, even when the hatch preset is.</li>
+<li><em>Origin on line</em> (Behaviors, checked) &ndash; the pattern of each segment starts at the start of the segment on the line, moved along the line by <em>Origin X</em> and across it by <em>Y</em> (0: on the line; positive: into the band, to the left of the line for <em>Center</em>), so the pattern lines up with the line (e.g. the edge of an insulation pattern on the border of the band). With <em>Scale by width</em> checked, the offsets are multiplied by the hatch scale, so the pattern scales from the same point of the band at every width. <em>Pick...</em> finds both offsets: on a sample band drawn with the hatch preset, pick the point of the pattern to put at the start of the line (the chosen border or center line), and they are filled in (see <a href="Dyl-QuickDraw.htm#behaviors">Hatch Presets</a>).</li>
+</ul>
+</div>
+<h2 id="offset">Offset</h2>
+<p>The <em>Offset</em> method makes the band of <a href="#linear">Linear</a> along objects already drawn, in place of a line picked point by point: lines, polylines, rectangles, polygons, circles, arcs, ellipses and splines. As the OFFSET command of AutoCAD, the side of the band is picked: the object is one border of the band, and the band goes toward the point picked. It uses the behaviors of Linear: <strong>Width</strong> (one, several asked among, or the last one used), <em>Scale by width</em> and <em>Origin on line</em>; <em>Justification</em> is not used (greyed out). The objects stay as they are; the band gets the outline layer key and border settings of the preset, as Linear. An <a href="#assembly">assembly</a> is offset too, its first layer on the object.</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Select an object to offset or [Width/Ends/Corners]</span> &ndash; pick an object, or change the width (an assembly: <span class="fixw">Flip</span> its layers), the ends or the corners for the next objects picked; Enter ends and makes the bands. The objects selected before running the preset are used in place of this prompt (their side is asked for each one, highlighted).</li>
+<li><span class="fixw">Specify point on side to offset or [Both sides]</span> &ndash; as OFFSET, the band is previewed on the side of the cursor while it moves (the object highlighted): click on the side where the band goes (inside or outside a closed object); Enter, Space, a right click or <span class="fixw">B</span> (Both sides) centers the band on the object. The point is the cursor itself (no object snap, no coordinates typed).</li>
+<li>The outline of each band is made as soon as its side is picked, so the bands already made show while the next objects are picked; their hatches are made when the selection ends (Enter). Esc stops there: the outlines made stay, without hatch (Undo removes them).</li>
+<li><strong>Straight segments</strong> (a line, a polyline without arcs, a rectangle, a polygon) &ndash; exactly as Linear: one closed outline per segment, mitered with the next one (at every corner of a closed polyline too), each hatched along its segment, with the hatch origin on the object (its offset across goes into the band). The side is the one of the point from the segment nearest to it.</li>
+<li><strong>Curves</strong> (a circle, an arc, an ellipse, a spline, a polyline with arcs) &ndash; the band is the object and its offset by the width toward the point (both sides: its offsets by half the width): around a closed object, its two borders (the inner one an island of the hatch); along an open one, one closed outline (the two borders joined at their ends). Its hatch has the angle of the hatch preset and its usual origin: <em>Origin on line</em> and the angle of the segments do not apply to a curve; <em>Scale by width</em> does. An object that cannot be offset by the width on that side (a small arc on its inner side...) is skipped with a message.</li>
+</ul>
+</div>
+<h2 id="endscorners">Ends and Corners</h2>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="skA" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" class="sk-hl"/></pattern><pattern id="skB" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="7" class="sk-hl"/></pattern><pattern id="skC" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="0.8" class="sk-dot"/></pattern><pattern id="skD" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" class="sk-hl"/><line x1="0" y1="3.5" x2="7" y2="3.5" class="sk-hl"/></pattern></defs></svg>
+<p>The bands of <a href="#linear">Linear</a> and <a href="#offset">Offset</a> end, turn their corners, draw their joints and lay their hatch as the preset says: <em>Custom ends</em> and <em>Custom corners</em> in the <strong>Behaviors</strong> box, set in the <a href="Dyl-QuickDrawEndsCorners.htm">Ends and Corners</a> windows (see <a href="#behaviors">Behaviors</a>); unchecked, the defaults. The defaults draw as before these settings: square ends, mitered corners, joints drawn, the hatch following the line. Ends and corners can also be changed for one band at the first prompt (<span class="fixw">Ends</span>, <span class="fixw">Corners</span>), and asked each time with <em>Ask when drawn</em>. The line, dashed in the sketches, is the center of the band here; it can be either border (<em>Justification</em>, or the side picked with Offset).</p>
+<h3>Ends</h3>
+<p>The start and the end of an open band (a closed polyline, a rectangle or a circle has none):</p>
+<div class="sketches"><figure><svg viewBox="0 0 240 120" role="img" aria-label="Square end: the band stops square at the end point">
+        <polygon class="sk-hA" points="40,40 200,40 200,80 40,80"/>
+        <polygon class="sk-ol" points="40,40 200,40 200,80 40,80"/>
+        <line class="sk-cl" x1="25" y1="60" x2="215" y2="60"/>
+        <circle class="sk-pt" cx="40" cy="60" r="3"/><circle class="sk-pt" cx="200" cy="60" r="3"/>
+      </svg><figcaption><strong>Square</strong> <span class="sk-now">default</span> The band stops at the end point, cut square to the segment.</figcaption></figure><figure><svg viewBox="0 0 240 120" role="img" aria-label="Open end: the band stops square, with no border line across the end">
+        <polygon class="sk-hA" points="40,40 200,40 200,80 40,80"/>
+        <line class="sk-ol" x1="40" y1="40" x2="200" y2="40"/>
+        <line class="sk-ol" x1="40" y1="80" x2="200" y2="80"/>
+        <line class="sk-gh" x1="40" y1="40" x2="40" y2="80"/>
+        <line class="sk-gh" x1="200" y1="40" x2="200" y2="80"/>
+        <line class="sk-cl" x1="25" y1="60" x2="215" y2="60"/>
+        <circle class="sk-pt" cx="40" cy="60" r="3"/><circle class="sk-pt" cx="200" cy="60" r="3"/>
+      </svg><figcaption><strong>Open</strong> The hatch stops square at the end point, but no border line closes the end: only the two sides of the band are drawn.</figcaption></figure><figure><svg viewBox="0 0 240 120" role="img" aria-label="Extended end: the band goes past the end point by a distance">
+        <polygon class="sk-hA" points="18,40 222,40 222,80 18,80"/>
+        <polygon class="sk-ol" points="18,40 222,40 222,80 18,80"/>
+        <line class="sk-cl" x1="10" y1="60" x2="230" y2="60"/>
+        <circle class="sk-pt" cx="40" cy="60" r="3"/><circle class="sk-pt" cx="200" cy="60" r="3"/>
+        <line class="sk-dim" x1="200" y1="96" x2="222" y2="96"/><line class="sk-dim" x1="200" y1="90" x2="200" y2="102"/><line class="sk-dim" x1="222" y1="90" x2="222" y2="102"/>
+        <text class="sk-dt" x="196" y="114">ext</text>
+      </svg><figcaption><strong>Extended</strong> The band goes past each end by a distance: half the width by default, or a value of the preset.</figcaption></figure><figure><svg viewBox="0 0 240 120" role="img" aria-label="Round end: a half circle at each end">
+        <path class="sk-hA" d="M40,40 H200 A20,20 0 0 1 200,80 H40 A20,20 0 0 1 40,40 Z"/>
+        <path class="sk-ol" d="M40,40 H200 A20,20 0 0 1 200,80 H40 A20,20 0 0 1 40,40 Z"/>
+        <line class="sk-cl" x1="10" y1="60" x2="230" y2="60"/>
+        <circle class="sk-pt" cx="40" cy="60" r="3"/><circle class="sk-pt" cx="200" cy="60" r="3"/>
+      </svg><figcaption><strong>Round</strong> A half circle of the band width at each end, centered on the end point.</figcaption></figure><figure><svg viewBox="0 0 240 120" role="img" aria-label="Angled end: the end is cut at an angle">
+        <polygon class="sk-hA" points="52,40 212,40 188,80 28,80"/>
+        <polygon class="sk-ol" points="52,40 212,40 188,80 28,80"/>
+        <line class="sk-cl" x1="20" y1="60" x2="220" y2="60"/>
+        <circle class="sk-pt" cx="40" cy="60" r="3"/><circle class="sk-pt" cx="200" cy="60" r="3"/>
+        <line class="sk-gh" x1="200" y1="40" x2="200" y2="80"/>
+        <path class="sk-dim" d="M200,46 A14,14 0 0 1 208,47"/>
+        <text class="sk-dt" x="206" y="30">angle</text>
+      </svg><figcaption><strong>Angled</strong> The end is cut at an angle to the segment (45&deg; by default), turning around the end point.</figcaption></figure></div>
+<p><em>Extension</em> (Extended): the distance past each end, in drawing units; empty: half the width. <em>End angle</em> (Angled): the angle of the cut from square, -80 to 80 degrees (45 by default).</p>
+<h3>Corners</h3>
+<p>Where two segments meet. Each segment keeps its own outline and its hatch along it; the corner decides the shape of the outer corner and where one outline stops and the next one starts (dotted line):</p>
+<div class="sketches"><figure><svg viewBox="0 0 220 160" role="img" aria-label="Mitered corner: a sharp corner, split on the diagonal">
+        <polygon class="sk-hA" points="30,105 145,105 175,135 30,135"/>
+        <polygon class="sk-hB" points="145,105 145,20 175,20 175,135"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <line class="sk-sp" x1="145" y1="105" x2="175" y2="135"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+        <circle class="sk-pt" cx="160" cy="120" r="3"/>
+      </svg><figcaption><strong>Mitered</strong> <span class="sk-now">default</span> A sharp outer corner. The two outlines meet on the diagonal.</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Beveled corner: the outer corner cut flat">
+        <polygon class="sk-hA" points="30,105 145,105 167.5,127.5 160,135 30,135"/>
+        <polygon class="sk-hB" points="145,105 145,20 175,20 175,120 167.5,127.5"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,120 160,135 30,135"/>
+        <line class="sk-sp" x1="145" y1="105" x2="167.5" y2="127.5"/>
+        <polyline class="sk-gh" points="160,135 175,135 175,120"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+        <circle class="sk-pt" cx="160" cy="120" r="3"/>
+      </svg><figcaption><strong>Beveled</strong> The outer corner is cut flat between the two segments, at the corner point.</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Round corner: the outer corner rounded around the corner point">
+        <path class="sk-hA" d="M30,105 H145 L170.6,130.6 A15,15 0 0 1 160,135 H30 Z"/>
+        <path class="sk-hB" d="M145,105 V20 H175 V120 A15,15 0 0 1 170.6,130.6 Z"/>
+        <path class="sk-ol" d="M30,105 H145 V20 H175 V120 A15,15 0 0 1 160,135 H30 Z"/>
+        <line class="sk-sp" x1="145" y1="105" x2="170.6" y2="130.6"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+        <circle class="sk-pt" cx="160" cy="120" r="3"/>
+      </svg><figcaption><strong>Round</strong> The outer corner is an arc centered on the corner point, radius half the width (inner corner stays sharp).</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Lapped corner: one segment runs through the corner, the next stops against it">
+        <polygon class="sk-hA" points="30,105 175,105 175,135 30,135"/>
+        <polygon class="sk-hB" points="145,105 145,20 175,20 175,105"/>
+        <polygon class="sk-ol" points="30,105 175,105 175,135 30,135"/>
+        <polygon class="sk-ol" points="145,105 145,20 175,20 175,105"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+        <circle class="sk-pt" cx="160" cy="120" r="3"/>
+      </svg><figcaption><strong>Lapped</strong> One segment runs through the corner, square; the next one stops against it. Two plain rectangles, no diagonal.</figcaption></figure></div>
+<p><strong>Miter limit</strong> (Mitered): a sharp angle makes a mitered corner spike far past the corner point (a 20&deg; corner reaches almost 3 times the width). A corner whose miter is longer than the limit, times the width, is beveled instead (4 by default). <strong>Runs through</strong> (Lapped): the segment that runs through each corner, the first one or the next one; the other one stops against it.</p>
+<h3>Joints and Hatch</h3>
+<p>They work with every corner. <strong>Joints</strong>: <em>Interrupted</em> draws the joint between two segments; <em>Uninterrupted</em> draws one border around the whole band, with no line at the corners. <strong>Hatch</strong>: <em>Line</em> turns the hatch of each segment along it and starts it on the line; <em>Drawing origin</em> uses the angle of the hatch preset and the origin of the drawing everywhere, so the pattern runs on across the corners as one:</p>
+<div class="sketches"><figure><svg viewBox="0 0 220 160" role="img" aria-label="Interrupted joints, hatch following the line">
+        <polygon class="sk-hA" points="30,105 145,105 175,135 30,135"/>
+        <polygon class="sk-hB" points="145,105 145,20 175,20 175,135"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <line class="sk-ol" x1="145" y1="105" x2="175" y2="135"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+      </svg><figcaption><strong>Interrupted, following</strong> <span class="sk-now">default</span> One outline and one hatch per segment, the joint drawn, each hatch along its segment.</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Interrupted joints, hatch on the drawing origin">
+        <polygon class="sk-hA" points="30,105 145,105 175,135 30,135"/>
+        <polygon class="sk-hA" points="145,105 145,20 175,20 175,135"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <line class="sk-ol" x1="145" y1="105" x2="175" y2="135"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+      </svg><figcaption><strong>Interrupted, drawing origin</strong> The joints are drawn, but every hatch has the same angle and origin: the pattern lines up across them.</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Uninterrupted joints, hatch following the line">
+        <polygon class="sk-hA" points="30,105 145,105 175,135 30,135"/>
+        <polygon class="sk-hB" points="145,105 145,20 175,20 175,135"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <line class="sk-gh" x1="145" y1="105" x2="175" y2="135"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+      </svg><figcaption><strong>Uninterrupted, following</strong> One border around the band, no joint line; each segment's hatch still turns along it, the change of direction at the hidden joint.</figcaption></figure><figure><svg viewBox="0 0 220 160" role="img" aria-label="Uninterrupted joints, hatch on the drawing origin">
+        <polygon class="sk-hA" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <polygon class="sk-ol" points="30,105 145,105 145,20 175,20 175,135 30,135"/>
+        <polyline class="sk-cl" points="20,120 160,120 160,10"/>
+      </svg><figcaption><strong>Uninterrupted, drawing origin</strong> One outline and one hatch for the whole band, as if it were drawn as a single closed polyline.</figcaption></figure></div>
+<div class="programs commands wide">
+<table>
+<tr><th>Corner</th><th>Interrupted, following</th><th>Interrupted, drawing origin</th><th>Uninterrupted, following</th><th>Uninterrupted, drawing origin</th></tr>
+<tr><td>Mitered</td><td>As before</td><td>Diagonal drawn, one pattern</td><td>Diagonal hidden, the angle changes there</td><td>One outline, one hatch</td></tr>
+<tr><td>Beveled</td><td>Diagonal drawn, flat outer corner</td><td>Diagonal drawn, one pattern</td><td>Diagonal hidden</td><td>One outline, one hatch</td></tr>
+<tr><td>Round</td><td>Diagonal drawn, round outer corner</td><td>Diagonal drawn, one pattern</td><td>Diagonal hidden</td><td>One outline, one hatch</td></tr>
+<tr><td>Lapped</td><td>Butt line drawn, the segment that runs through whole</td><td>Butt line drawn, one pattern</td><td>Butt line hidden, the angle changes there</td><td>Same outline as Mitered, one hatch</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li><strong>How they are made</strong> &ndash; joints drawn and the ends not open: each segment is a closed outline, its border, hatched (associative when the hatch preset says so), as before. Uninterrupted from the drawing origin: one closed outline for the whole band (two around a closed object, the inner one an island of the hatch). Otherwise (<em>Open</em> ends, or one border around hatches that follow each segment): the outlines are only used to make the hatches, then erased (the hatches are not associative), and the border is drawn apart, over the hatches: the border of the band (its two sides, open polylines, with Open ends) and the joints when they are drawn.</li>
+<li><strong>Hatch origin on the line</strong> and <em>Pick...</em> only apply with <em>Line</em> (greyed out with <em>Drawing origin</em>); <em>Scale by width</em> applies to both.</li>
+<li><strong>Offset of curves</strong> (an arc, a circle, a spline, a polyline with arcs): the band is made by the offset of AutoCAD, its corners set with <span class="fixw">OFFSETGAPTYPE</span> during the offset (Mitered and Lapped: extended, Round: filleted, Beveled: chamfered; restored after). Its ends: Square, Round (a half circle) and Open; Extended and Angled are square on a curve. A curved band is one outline, hatched with the angle of the hatch preset (from the drawing origin with <em>Drawing origin</em>).</li>
+</ul>
+</div>
+<h2 id="assembly">Assemblies</h2>
+<p>An <strong>assembly</strong> makes the band of <a href="#linear">Linear</a> and <a href="#offset">Offset</a> of several layers side by side, like a wall: gypsum, studs and insulation, sheathing, a membrane, an air space, brick. Check <em>Assembly of layers</em> in the <strong>Behaviors</strong> box (the <em>Hatch preset</em> above it is then greyed out) and set its layers in the <a href="Dyl-AssemblyLayers.htm">Assembly Layers</a> window (the open button beside it): the first layer on the line (or the object) and the others toward the side of the band with <em>Edge</em> and Offset; from the left border to the right one, looking from the start point, with <em>Center</em> (a wall drawn on its inner face, gypsum first, goes outward toward the side picked). The width of the band is the total of the layers (shown in <em>Width</em>, greyed out), and <em>Justification</em> puts the line on the center of the whole assembly or on its edge, as for one band.</p>
+<div class="sketches"><figure><svg viewBox="0 0 320 160" role="img" aria-label="An assembly: five layers and a membrane line side by side along a straight line">
+        <rect class="sk-hC" x="30" y="30" width="200" height="10"/>
+        <rect class="sk-hB" x="30" y="40" width="200" height="36"/>
+        <rect class="sk-hA" x="30" y="76" width="200" height="10"/>
+        <rect class="sk-hD" x="30" y="110" width="200" height="26"/>
+        <rect class="sk-ol" x="30" y="30" width="200" height="106"/>
+        <line class="sk-ol" x1="30" y1="40" x2="230" y2="40"/>
+        <line class="sk-ol" x1="30" y1="76" x2="230" y2="76"/>
+        <line class="sk-sp" x1="30" y1="86" x2="230" y2="86"/>
+        <line class="sk-ol" x1="30" y1="110" x2="230" y2="110"/>
+        <line class="sk-cl" x1="15" y1="30" x2="245" y2="30"/>
+        <circle class="sk-pt" cx="30" cy="30" r="3"/>
+        <text class="sk-dt" x="250" y="38">Gypsum</text>
+        <text class="sk-dt" x="250" y="61">Studs</text>
+        <text class="sk-dt" x="250" y="84">Sheathing</text>
+        <text class="sk-dt" x="250" y="96">Line</text>
+        <text class="sk-dt" x="250" y="108">Space</text>
+        <text class="sk-dt" x="250" y="127">Brick</text>
+        <text class="sk-dt" x="24" y="152">Edge: the first layer on the line</text>
+      </svg><figcaption><strong>Layers</strong> Each Hatch layer hatched by its own preset, a Space layer without hatch, a Line layer (dashed) on its own layer key; one line at each join, the border around the whole band. Here on <em>Edge</em>, the band on the side picked: the first layer on the line.</figcaption></figure><figure><svg viewBox="0 0 240 240" role="img" aria-label="An assembly turning a mitered corner: every layer meets on the same diagonal">
+        <polygon class="sk-hC" points="20,170 150,170 156,176 20,176"/>
+        <polygon class="sk-hC" points="150,170 150,20 156,20 156,176"/>
+        <polygon class="sk-hB" points="20,176 156,176 186,206 20,206"/>
+        <polygon class="sk-hA" points="156,176 156,20 186,20 186,206"/>
+        <polygon class="sk-hD" points="20,206 186,206 206,226 20,226"/>
+        <polygon class="sk-hD" points="186,206 186,20 206,20 206,226"/>
+        <polygon class="sk-ol" points="20,170 150,170 150,20 206,20 206,226 20,226"/>
+        <polyline class="sk-ol" points="20,176 156,176 156,20"/>
+        <polyline class="sk-ol" points="20,206 186,206 186,20"/>
+        <line class="sk-ol" x1="150" y1="170" x2="206" y2="226"/>
+        <polyline class="sk-cl" points="8,170 150,170 150,8"/>
+        <circle class="sk-pt" cx="20" cy="170" r="3"/>
+      </svg><figcaption><strong>Corners</strong> Every layer ends and turns its corners with the whole band (here Mitered, joints drawn, the hatch following the line), so the layers meet on one diagonal.</figcaption></figure></div>
+<div class="spacedbullets">
+<ul>
+<li><strong>Hatch layer</strong> &ndash; a band of its thickness hatched as a Quick Draw preset says: its hatch preset (pattern, scale, hatch layer key), its <em>Scale by width</em> with the thickness of the layer as the width, its <em>Origin on line</em> from the center of the layer (its preset on <em>Center</em>) or from the border of the layer nearer to the line (on <em>Edge</em>), into the layer (so a preset lined up with <em>Pick...</em> stays lined up in the assembly). Its method, width, ends and border are not used.</li>
+<li><strong>Space layer</strong> &ndash; a band of its thickness without hatch. <strong>Line layer</strong> &ndash; a line along the band where it is in the list, on its own layer key, its properties ByLayer, drawn even when the preset has no border; it takes the place of the line of the join it is on.</li>
+<li><strong>Ends, corners, joints and hatch</strong> &ndash; those of the preset (<a href="#endscorners">Ends and Corners</a>), for the whole band: every layer ends and turns with it, so the layers meet. Round ends cut every layer by one half circle across the band; Round and Beveled corners round or bevel each join on the outer side of the turn; Lapped corners lap each layer. <em>Drawing origin</em> hatches each layer from the origin of the drawing, at the angle of its hatch preset.</li>
+<li><strong>The borders</strong> are drawn once, after the hatches and over them, with the border settings of the preset: the border of the band, a line at each join of two layers, and the joints when they are drawn (<em>Interrupted</em>). The outlines of the hatches are only used to make them, then erased, so the hatches are not associative.</li>
+<li><span class="fixw">Flip</span> at the start point (Offset: at the selection prompt) puts the layers the other way for this band (the last one first), e.g. to draw the same wall from its other face.</li>
+<li><strong>Offset</strong> &ndash; straight objects as Linear, the first layer on the object. Along a curve (an arc, a circle, a spline, a polyline with arcs), a curve is made at every join of two layers by the offset of AutoCAD, and each Hatch layer is the outline between its two curves, hatched with the angle of its hatch preset; the curves are kept as the borders (the edges and joins of the band, the Line layers on their layer key), with a line across each end. On a curve, the ends of an assembly are Square or Open (Round, Extended and Angled are square). <span class="fixw">Both sides</span> centers the assembly on the object, its first layer on the left looking along the object.</li>
+<li>Drawn with another method than Linear and Offset, an assembly preset is one outline of its own hatch preset. A preset that is an assembly cannot be a layer of another one.</li>
+</ul>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The hatch scale is the scale of the hatch preset, in the units of its pattern: multiplied by 25.4 for an imperial pattern (<span class="fixw">acad.pat</span>, most pattern files of their own) in a metric drawing (<span class="fixw">MEASUREMENT</span> = 1), divided by 25.4 for a metric pattern in an imperial drawing (see <a href="Dyl-HatchPresets.htm#hatch">Hatch Presets</a>).</li>
+<li>The layer of the outline layer key is made current (created first with the key properties when the drawing does not have it), then the outlines are made with the <a href="#drawwith">Draw with</a> method of the preset (asked first when the preset has none). The current layer is restored afterwards, also when the command is cancelled.</li>
+<li>Only closed polylines, circles, ellipses and splines are kept: an open outline that was drawn is erased (a selected one is skipped) and an alert is shown.</li>
+<li>The outlines are put on the layer of the outline layer key.</li>
+<li>One hatch is created on all the outlines with <span class="fixw">-HATCH</span> (Select objects), associative or not and annotative or not as set in the hatch preset, using the pattern, scale and angle of the hatch preset (the scale multiplied by the drawing scale divided by the one it was set for, when the hatch preset follows it) (<span class="fixw">SOLID</span> uses neither scale nor angle). Since the outlines are hatched together, an outline inside another one stays open (island). The hatch is then put on the layer of the hatch layer key (created if missing).</li>
+<li>Outlines and hatch are one undo step. If nothing was made, nothing is hatched.</li>
+</ol>
+</div>
+<h2 id="commands">Commands</h2>
+<p>Default presets and the default values of their hatch preset (restored by <em>Reset Selected</em> / <em>Reset All</em> of the Hatch Presets dialog). Scale is the scale of the hatch preset, in the units of its pattern. <em>Anno.</em> = annotative hatch. Every default preset draws with <em>Ask when drawn</em>, except <span class="fixw">QD-RIGIDINSULATION</span> (Linear, widths 25, 50, 75 and 100 asked, line asked, hatch scale = width x 1). See <a href="Dyl-HatchPresets.htm#defaults">Hatch Presets &ndash; Default Hatch Presets</a> for the other settings of each hatch preset.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Hatch preset / Phase</th><th>Pattern</th><th>Scale</th><th>Angle</th><th>Outline key</th><th>Hatch key</th><th>Anno.</th></tr>
+<tr><td><span class="fixw">QD-DEMO</span></td><td>Demolition</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>90.0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-XNOT</span></td><td>Not In Contract</td><td><span class="fixw">ANSI31</span></td><td>1.5</td><td>90.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-EXST</span></td><td>Existing</td><td><span class="fixw">SOLID</span></td><td>&ndash;</td><td>&ndash;</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>No</td></tr>
+<tr><td><span class="fixw">QD-CONCRETE</span></td><td>Concrete</td><td><span class="fixw">CONCRETE_C</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-LIGHTCONCRETE</span></td><td>Lightweight Concrete</td><td><span class="fixw">CONCRETE</span></td><td>1.0</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-MORTAR</span></td><td>Mortar</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>1.0</td><td>0</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-BRICK</span></td><td>Brick</td><td><span class="fixw">ANSI31</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-STONE</span></td><td>Stone</td><td><span class="fixw">ANSI33</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-CMU</span></td><td>CMU</td><td><span class="fixw">ANSI37</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-FIREBRIC</span></td><td>Firebrick</td><td><span class="fixw">ANSI35</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-MARBLE</span></td><td>Marble</td><td><span class="fixw">ANSI36</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-GROUT</span></td><td>Grout</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>2.0</td><td>0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-IRON</span></td><td>Iron</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-STEEL</span></td><td>Steel</td><td><span class="fixw">ANSI32</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-BRONZE</span></td><td>Bronze</td><td><span class="fixw">ANSI33</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-LEAD</span></td><td>Lead</td><td><span class="fixw">ANSI37</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-ALUMINIUM</span></td><td>Aluminium</td><td><span class="fixw">ANSI38</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-PLYWOOD</span></td><td>Plywood</td><td><span class="fixw">WOOD_GLU-LAMBEAM</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-WOODPLANK</span></td><td>Wood Plank</td><td><span class="fixw">WOOD_2</span></td><td>0.1875</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-WOODFRAME</span></td><td>Wood Frame</td><td><span class="fixw">WOOD_1</span></td><td>0.75</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-PARTICLEBOARD</span></td><td>Particleboard</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>3.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-HARDBOARD</span></td><td>Hardboard</td><td><span class="fixw">ANSI31</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-PLASTIC</span></td><td>Plastic</td><td><span class="fixw">ANSI34</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-LOOSEINSULATION</span></td><td>Loose Insulation</td><td><span class="fixw">NET3</span></td><td>1.0</td><td>0</td><td><span class="fixw">HATCH</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-SPRAYINSULATION</span></td><td>Spray Insulation</td><td><span class="fixw">HONEY</span></td><td>0.5</td><td>0</td><td><span class="fixw">HATCH</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-RIGIDINSULATION</span></td><td>Rigid Insulation</td><td><span class="fixw">THERMAL_INSULATION</span></td><td>0.5</td><td>90</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>No</td></tr>
+<tr><td><span class="fixw">QD-GYPSUM</span></td><td>Gypsum</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-PLASTER</span></td><td>Plaster</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>3.0</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-COMPACTEDSOIL</span></td><td>Compacted Soil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>45.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-TOPSOIL</span></td><td>Topsoil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-UNDISTURBEDSOIL</span></td><td>Undisturbed Soil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-SAND</span></td><td>Sand</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-ASPHALT</span></td><td>Asphalt</td><td><span class="fixw">SITEWORK_ASPHALT</span></td><td>1</td><td>90.0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Yes</td></tr>
+<tr><td><span class="fixw">QD-GRAVEL</span></td><td>Gravel</td><td><span class="fixw">SITEWORK_GRAVEL</span></td><td>3.0</td><td>22.5</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>No</td></tr>
+<tr><td><span class="fixw">QD-CRUSHEDSTONE</span></td><td>Crushed Stone</td><td><span class="fixw">SITEWORK_GRAVEL</span></td><td>3.0</td><td>22.5</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>No</td></tr>
+</table>
+</div>
+<p><span class="fixw">QD-DEMO</span>, <span class="fixw">QD-XNOT</span> and <span class="fixw">QD-EXST</span> are the phase commands (demolition, not in contract, existing background screen); the others are section hatch presets.</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Patterns such as CONCRETE_C, WOOD_*, SITEWORK_* and GENERAL_* are not part of acad.pat: they must be available in a folder of the support path.</li>
+<li>Patterns are only listed from the folders of the support path.</li>
+<li>A layer that already exists in the drawing is used as is: the layer key properties only apply when the layer is created (an existing layer that differs from its key is updated only if you say so, see <a href="../Layer/Dyl-LayerKeys.htm#differ">Layer Keys</a>). A layer of a key that is frozen or off is thawed and turned on when the preset draws on it (a message says so), so its objects are seen and can be hatched.</li>
+<li><span class="fixw">QuickDraw.csv</span> and <span class="fixw">Materials.csv</span> cannot be saved while they are open in Excel: an alert is shown and the changes are lost.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-QuickDraw</span>: they are run by their alias, or picked from <span class="fixw">Dyl-QuickDraw</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-QuickDraw</span></td><td>&ndash;</td><td>Quick Draw</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QDG</span></td><td>&ndash;</td><td>Quick Draw Gallery</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-DEMO</span></td><td>&ndash;</td><td>Quick Draw Demolition</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-XNOT</span></td><td>&ndash;</td><td>Quick Draw Not In Contract</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-EXST</span></td><td>&ndash;</td><td>Quick Draw Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-CONCRETE</span></td><td>&ndash;</td><td>Quick Draw Concrete</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-LIGHTCONCRETE</span></td><td>&ndash;</td><td>Quick Draw Lightweight Concrete</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-MORTAR</span></td><td>&ndash;</td><td>Quick Draw Mortar</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-BRICK</span></td><td>&ndash;</td><td>Quick Draw Brick</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-STONE</span></td><td>&ndash;</td><td>Quick Draw Stone</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-CMU</span></td><td>&ndash;</td><td>Quick Draw CMU</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-FIREBRIC</span></td><td>&ndash;</td><td>Quick Draw Firebrick</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-MARBLE</span></td><td>&ndash;</td><td>Quick Draw Marble</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-GROUT</span></td><td>&ndash;</td><td>Quick Draw Grout</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-IRON</span></td><td>&ndash;</td><td>Quick Draw Iron</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-STEEL</span></td><td>&ndash;</td><td>Quick Draw Steel</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-BRONZE</span></td><td>&ndash;</td><td>Quick Draw Bronze</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-LEAD</span></td><td>&ndash;</td><td>Quick Draw Lead</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-ALUMINIUM</span></td><td>&ndash;</td><td>Quick Draw Aluminium</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-PLYWOOD</span></td><td>&ndash;</td><td>Quick Draw Plywood</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-WOODPLANK</span></td><td>&ndash;</td><td>Quick Draw Wood Plank</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-WOODFRAME</span></td><td>&ndash;</td><td>Quick Draw Wood Frame</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-PARTICLEBOARD</span></td><td>&ndash;</td><td>Quick Draw Particleboard</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-HARDBOARD</span></td><td>&ndash;</td><td>Quick Draw Hardboard</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-PLASTIC</span></td><td>&ndash;</td><td>Quick Draw Plastic</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-LOOSEINSULATION</span></td><td>&ndash;</td><td>Quick Draw Loose Insulation</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-SPRAYINSULATION</span></td><td>&ndash;</td><td>Quick Draw Spray Insulation</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-RIGIDINSULATION</span></td><td>&ndash;</td><td>Quick Draw Rigid Insulation</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-GYPSUM</span></td><td>&ndash;</td><td>Quick Draw Gypsum</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-PLASTER</span></td><td>&ndash;</td><td>Quick Draw Plaster</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-COMPACTEDSOIL</span></td><td>&ndash;</td><td>Quick Draw Compacted Soil</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-TOPSOIL</span></td><td>&ndash;</td><td>Quick Draw Topsoil</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-UNDISTURBEDSOIL</span></td><td>&ndash;</td><td>Quick Draw Undisturbed Soil</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-SAND</span></td><td>&ndash;</td><td>Quick Draw Sand</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-ASPHALT</span></td><td>&ndash;</td><td>Quick Draw Asphalt</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-GRAVEL</span></td><td>&ndash;</td><td>Quick Draw Gravel</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">QD-CRUSHEDSTONE</span></td><td>&ndash;</td><td>Quick Draw Crushed Stone</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2023 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

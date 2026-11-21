@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Slinky Text</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Slinky Text</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/slinkytext.html" target="_blank">https://lee-mac.com/slinkytext.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-CurveText</span> &ndash; original syntax: CurveText (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/slinkytext.html" target="_blank">lee-mac.com/slinkytext.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>I suppose this program should really be listed under the <em>'Novelty Programs'</em> section, however, 
+                perhaps some users may regard it as a practical solution.</p>
+<p>The program will create individual text objects for each character in a selected/specified string, and, following selection of a curve 
+                object (line, arc, ellipse, circle, spline, lwpolyline etc), will proceed to dynamically space &amp; rotate each character to align 
+                with the curve - creating a visual appearance similar to that produced by the Express Tools' Arc Aligned Text command.</p>
+<p>The user is provided with additional refinement controls: character offset may be altered using the <span class="fixw">+/-</span>
+                keys, and furthermore, character spacing along the curve may be adjusted using the <span class="fixw">&lt;/&gt;</span> keys.</p>
+<p>If the program is run in AutoCAD2000 or later, the resultant text items form an anonymous group, and hence may be selected as one
+                item.</p>
+<div class="cent">
+<h2>Preview</h2>
+<img alt="" height="220" src="images/LM-SlinkyText.gif" width="700"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ CurveText.lsp }==-------------------;;
+;;                                                            ;;
+;;  Positions Text along a curve object (arc, circle, spline, ;;
+;;  ellipse, line, lwpolyline, polyline), and rotates text    ;;
+;;  to fit to the curve accordingly.                          ;;
+;;                                                            ;;
+;;  If run in versions &gt; AutoCAD2000, the resultant text will ;;
+;;  form an anonymous group.                                  ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2012 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version:  1.4    -    22-02-2012                          ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-CurveText</span></td><td><span class="fixw">CURVETEXT</span></td><td>Curve Text</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2012 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

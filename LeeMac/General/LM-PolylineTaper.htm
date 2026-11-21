@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Polyline Taper</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Polyline Taper</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/polytaper.html" target="_blank">https://lee-mac.com/polytaper.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-PolylineTaper</span> &ndash; original syntax: ptaper (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/polytaper.html" target="_blank">lee-mac.com/polytaper.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to apply a tapered width across all vertices of a selected polyline or 
+                multiple polylines in a selection.</p>
+<p>Upon issuing the command syntax <span class="fixw">ptaper</span> at the AutoCAD command-line, the user 
+                may specify a starting width and an ending width for the taper. At these prompts, the last entered value
+                in the current drawing session will be offered as a default option which may be selected by pressing
+                <span class="fixw">ENTER</span> at the prompt.</p>
+<p>The program will then continuously prompt the user to select a 2D polyline (LWPolyline) to which to
+                apply the taper. Following a valid selection, the program will modify the selected polyline such that
+                the polyline segment width at the first vertex is equal to the specified starting width, and the 
+                segment width at the final vertex is equal to the specified ending width, with the segment width
+                increasing uniformly along all vertices of the polyline.</p>
+<p>At this prompt, the program also offers the user a <span class="fixw">Multiple</span> option, which,
+                when activated, will allow the user to select multiple 2D polylines using any standard selection method
+                (window, crossing, polygon, fence, group etc.) and, following a valid selection, will proceed to apply 
+                the taper simultaneously to all polylines in the selection.</p>
+<p>The user may exit the program by pressing <span class="fixw">ENTER</span>, typing <span class="fixw">X</span>, 
+                or right-clicking at the selection prompt.</p>
+<p>The taper direction may be reversed by either reversing the relevant polyline prior to using
+                this program (using the <span class="fixw">Reverse</span> option of the <span class="fixw">PEDIT</span>
+                command, for example), or by specifying the taper widths in reverse order.</p>
+<p>The program is compatible with 2D polylines containing linear segments and/or arc segments,
+                constructed in any UCS.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Polyline Taper Demo" height="400" src="images/LM-polylinetaper.gif" width="600"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;-------------------------=={ Polyline Taper }==-----------------------;;
+;;                                                                      ;;
+;;  This program allows the user to apply a tapered width across all    ;;
+;;  vertices of a selected polyline or all polylines in a selection.    ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;ptaper&#x27; at the AutoCAD             ;;
+;;  command-line the user may specify a starting width and an ending    ;;
+;;  width, with the width increasing uniformly along all vertices of    ;;
+;;  the selected polyline.                                              ;;
+;;                                                                      ;;
+;;  The program is compatible with 2D polylines containing linear       ;;
+;;  segments and/or arc segments, constructed in any UCS.               ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2016  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2016-01-01                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2018-03-11                                      ;;
+;;                                                                      ;;
+;;  - Restructured program to perform taper operation using a separate  ;;
+;;    function, allowing an option for multiple selection to be added.  ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-PolylineTaper</span></td><td><span class="fixw">PTAPER</span></td><td>Polyline Taper</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2016 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

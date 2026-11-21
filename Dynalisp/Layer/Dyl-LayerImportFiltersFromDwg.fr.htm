@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Importer des filtres de calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-LayerImportFiltersFromDwg.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Importer des filtres de calques (Import Layer Filters)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">LFIMP</span>, <span class="fixw">LFLIST</span>, <span class="fixw">IMPORTLAYERFILTER</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFiltersFromDwg.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP) avec ObjectDBX</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Copie les filtres de <em>propriétés</em> de calques (avec leurs filtres de propriétés imbriqués) d'un autre dessin, gabarit ou fichier de normes dans le dessin courant. Le fichier source est lu en arrière-plan et n'est jamais modifié. Les calques eux-mêmes ne sont pas importés, seulement les définitions des filtres.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">LFIMP</span></td><td>Import Layer Filters</td><td>Importe les filtres de calques d'un autre dessin dans le dessin courant.</td></tr>
+<tr><td><span class="fixw">LFLIST</span></td><td>List Layer Filters</td><td>Liste l'arborescence des filtres de calques du dessin courant à la ligne de commande.</td></tr>
+<tr><td><span class="fixw">IMPORTLAYERFILTER</span></td><td>Import Layer Filters (Alias)</td><td>Alias de LFIMP qui importe les filtres de calques d'un autre dessin.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<h3>LFIMP / IMPORTLAYERFILTER</h3>
+<div class="spacedbullets">
+<ol>
+<li>Choisissez le fichier source (<span class="fixw">.dwg</span>, <span class="fixw">.dwt</span> ou <span class="fixw">.dws</span>). Le dessin courant lui-même est refusé.</li>
+<li>La source est ouverte par ObjectDBX (ou utilisée directement si elle est déjà ouverte), son arborescence de filtres est lue et la source est libérée tout de suite.</li>
+<li>L'arborescence de filtres de la source est affichée à la ligne de commande. À <span class="fixw">Filters to import (name or wildcard, comma-separated) &lt;*&gt;:</span>, tapez des noms ou des caractères génériques de filtres de premier niveau, ou appuyez sur Entrée pour tous.</li>
+<li>Les noms déjà utilisés dans l'arborescence courante sont listés, et vous choisissez <span class="fixw">Overwrite</span> (remplacer le filtre existant et ses enfants), <span class="fixw">Skip</span> (par défaut) ou <span class="fixw">Rename</span> (importer avec un suffixe <span class="fixw">_1</span>, <span class="fixw">_2</span> &hellip;).</li>
+<li>Le Gestionnaire des propriétés des calques est fermé s'il est ouvert, pour qu'il ne puisse pas écraser le résultat.</li>
+<li>Les filtres sont écrits en un seul groupe d'annulation et un rapport donne le nombre de filtres importés, remplacés, renommés, sautés, non importables (filtres de groupe) et en échec.</li>
+</ol>
+</div>
+<h3>LFLIST</h3>
+<p>Affiche l'arborescence des filtres du dessin courant à la ligne de commande, avec un retrait pour les filtres imbriqués.</p>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les filtres de groupe ne sont pas importés (ils désignent les calques par leur identificateur, qui n'existe que dans la source); tout ce qui est imbriqué sous un filtre de groupe est sauté aussi.</li>
+<li>Les dessins qui ne contiennent que des filtres de calques antérieurs à 2005 doivent d'abord être ouverts et enregistrés dans un AutoCAD récent.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-LayerImportFiltersFromDwg</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-LayerImportFiltersFromDwg</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-LayerImportFiltersFromDwg</span></td><td><span class="fixw">LFIMP</span>, <span class="fixw">IMPORTLAYERFILTER</span></td><td>Import Layer Filters</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">LFLIST</span></td><td>&ndash;</td><td>List Layer Filters</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+        <details class="bundled">
+            <summary>Notes du programme d'origine (en anglais)</summary>
+            <pre>;;; ==========================================================================
+;;; ImportLayerFilters.lsp
+;;;
+;;; Imports layer property filters from a selected source drawing into the
+;;; current drawing.
+;;;
+;;; Scope:
+;;;   - Layer property filters (AcLyLayerFilter), including their nested
+;;;     property filters (hierarchy is preserved).
+;;;   - Layer group filters (AcLyLayerGroup) are NOT imported: they reference
+;;;     layers by handle, which only make sense in the source drawing. Anything
+;;;     nested under a group filter is therefore skipped as well.
+;;;   - Layers themselves are NOT imported, only the filter definitions.
+;;;   - The source drawing is never modified.
+;;;
+;;; Commands:
+;;;   LFIMP              - import filters from a source drawing
+;;;   IMPORTLAYERFILTER  - alias of LFIMP
+;;;   LFLIST             - list the filter tree of the current drawing
+;;;
+;;; Storage (undocumented by Autodesk, observed):
+;;;   Layer table &gt; extension dictionary &gt; ACLYDICTIONARY
+;;;     XRECORD: (1 . &quot;AcLyLayerFilter&quot;) (90 . 1) (300 . name) (301 . expr)
+;;;   Nested filters: extension dictionary of the parent XRECORD
+;;;     &gt; ACLYDICTIONARY &gt; XRECORD ...
+;;;   Data is copied as-is (minus pointers), so any extra group codes used
+;;;   by a given AutoCAD version are preserved.
+;;;
+;;; Duplicate names (checked against the whole current filter tree):
+;;;   Overwrite - the existing filter (and its nested filters) is deleted,
+;;;               then replaced by the source filter.
+;;;   Skip      - the source filter (and its nested filters) is not imported.
+;;;   Rename    - the source filter is imported with a _1, _2, ... suffix.
+;;;
+;;; Notes:
+;;;   The source is read through ObjectDBX, or directly if the drawing is
+;;;   already open in the session.
+;;;   The Layer Properties Manager is closed before writing: if left open,
+;;;   it could rewrite the filter tree from its in-memory copy and wipe out
+;;;   the imported filters.
+;;;   The operation is recorded as a single UNDO group.
+;;; ==========================================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Startup Suite</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Suite.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Startup Suite</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-SUITE</span>, <span class="fixw">DYL-VSCODE</span>, <span class="fixw">DYL-SUITEUPDATE</span>, <span class="fixw">DYL-RELOAD</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Resources\dynalisp.mnl</span> and <span class="fixw">Resources\Dyl-Suite.dcl</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-SUITE</span> opens the Startup Suite window: every command of the DynALisp modules, with its aliases, name, module and group. It turns the commands on or off (the commands turned on are autoloaded: their Lisp file loads the first time one of them is run; a command turned off is not defined), edits their aliases and opens their docs or their Lisp file. The list is the command index <span class="fixw">Resources\StartupSuite.csv</span> (a new command is off until it is turned on).</p>
+
+<h2 id="window">The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Module / Group / Show / Sort by</strong> &ndash; list the commands of a module and of a group. Dyl-Suite opens on the <em>Dynalisp</em> module: pick another module (LeeMac, MyTools...) or <em>All</em> to list its commands; <em>Show</em>: <em>All</em>, <em>On</em>, <em>Off</em> or <em>With aliases</em>; <em>Sort by</em>: <em>Command</em>, <em>Aliases</em>, <em>Name</em>, <em>Module</em> or <em>Group</em> (each main command keeps its children under it). <strong>Search (Enter)</strong> lists the commands that contain the text typed, <strong>Clear</strong> empties it.</li>
+<li><strong>List</strong> &ndash; state, command, aliases, name, module and group. A main command with children (presets, <span class="fixw">Pst-*</span>) shows <span class="fixw">[+]</span> / <span class="fixw">[-]</span>: double-click it, or <strong>Fold/Unfold</strong> (<strong>Fold/Unfold All</strong>), to show or hide them. <em>Show unloaded commands</em> and <em>Show child commands</em> add them to the list; both are unchecked each time Dyl-Suite opens, so the list starts with the main commands turned on (check <em>Show child commands</em> to fold and unfold the children). Double-click another command to open its docs page.</li>
+<li><strong>Selection</strong> &ndash; the name, description and file of the commands selected. <strong>Command docs</strong> opens their docs pages (the commands without a page of their own open the docs index of their module), <strong>Open Lisp</strong> their Lisp files (10 at most).</li>
+<li><strong>Aliases of the command</strong> &ndash; the short names that run the command selected: <strong>Add</strong> creates the alias typed, <strong>Rename</strong> gives the alias picked the name typed, <strong>Remove</strong> deletes it. An alias is a short name: it cannot start with <span class="fixw">Dyl-</span>, <span class="fixw">LM-</span> or <span class="fixw">Pst-</span> (the long names are the commands), nor be the name of a command, another alias, an AutoCAD command, the command of another program loaded in AutoCAD (an Express Tools command such as <span class="fixw">TCOUNT</span>, a Lisp file of your own...) or an alias of <span class="fixw">acad.pgp</span> (<span class="fixw">DO</span> for <span class="fixw">DONUT</span>), which it would take from AutoCAD: the message under the list says which one has it. An alias saved before that name was taken (Express Tools installed later...) never runs, since a command always wins: the message under the list tells it when its command is selected (<em>TCOUNT is already a command of another program: rename it.</em>), and Dyl-Reload and the save of Dyl-Suite list it at the command line, with its command and what has its name. Saved to <span class="fixw">Resources\Aliases.csv</span> (your copy under <span class="fixw">User</span>).</li>
+<li><strong>On/Off</strong> &ndash; turns the commands selected on or off; <strong>All Listed On/Off</strong> all the commands listed.</li>
+<li><strong>Open in VS Code</strong> &ndash; opens the DynALisp folder in Visual Studio Code (<a href="#vscode">below</a>).</li>
+<li><strong>Save</strong> &ndash; saves the commands turned on and off (<span class="fixw">StartupSuite.csv</span>) and the aliases, then asks whether to apply them to the current drawing now (else they apply to the drawings opened from now on, or after <span class="fixw">Dyl-Reload</span>); a file open in Excel can be closed and retried. <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+
+<h2 id="vscode">Visual Studio Code</h2>
+<p><span class="fixw">DYL-VSCODE</span> (or <em>Open in VS Code</em>) opens the DynALisp folder in Visual Studio Code, to read or edit the programs. When Visual Studio Code is not found, a window guides the install: <strong>Install (winget)</strong> installs it with the Windows package manager, <strong>Download page</strong> opens its download page, <strong>Open DynALisp</strong> checks again and opens the folder once it is installed.</p>
+
+<h2 id="other">Other Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>What it does</th></tr>
+<tr><td><span class="fixw">Dyl-Reload</span></td><td>Loads the module commands again, as turned on in Dyl-Suite (after editing a Lisp file, or turning commands on).</td></tr>
+<tr><td><span class="fixw">Dyl-SuiteUpdate</span></td><td>Rebuilds the command index (<span class="fixw">StartupSuite.csv</span>) from the Lisp files; it runs by itself at startup when a Lisp file changed.</td></tr>
+</table>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

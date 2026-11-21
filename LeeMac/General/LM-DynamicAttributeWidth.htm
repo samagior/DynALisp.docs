@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynamic Attribute Width</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Dynamic Attribute Width</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/dynattwidth.html" target="_blank">https://lee-mac.com/dynattwidth.html</a></p>
+
+<p><em>See also: <a href="https://lee-mac.com/grtext.html" target="_blank" title="GrText">GrText</a>.</em></p>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-DynamicAttributeWidth</span> &ndash; original syntax: attw (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/dynattwidth.html" target="_blank">lee-mac.com/dynattwidth.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to dynamically alter the width factor of a selected attribute, with a real-time preview as the 
+                cursor is moved relative to the attribute.</p>
+<p>Upon issuing the command syntax <span class="fixw">attw</span> at the command-line, the user is prompted to select a 
+                single-line attribute for which to change the width factor. Following a valid selection, the attribute width factor is
+                dynamically updated based on the position of the cursor relative to the attribute, and the user is presented with various
+                options at the command-line.</p>
+<p>The user may press <span class="fixw">TAB</span> to toggle between a continuous &amp; incremental width factor modification.
+                When the incremental mode is enabled, the user may specify the width factor increment by pressing <span class="fixw">I</span>
+                or <span class="fixw">i</span> and entering any value greater than zero. Both of these settings will be remembered between 
+                drawing sessions.</p>
+<p>The program also allows the user to reset the attribute width factor to that of its associated attribute definition by pressing
+                <span class="fixw">R</span> or <span class="fixw">r</span>; and the program may be cancelled to restore the previous 
+                width factor by pressing <span class="fixw">C</span> or <span class="fixw">c</span> or by pressing <span class="fixw">Esc</span>.</p>
+<p>The program is restricted to single-line attributes, but will perform successfully with attributes at any rotation and
+                inserted in any construction plane.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Dynamic Attribute Width Demo" height="300" src="images/LM-dynattwidth.gif" width="500"/>
+</div>
+<p><em>See also: <a href="https://lee-mac.com/grtext.html" target="_blank" title="GrText">GrText</a>.</em></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Dynamic Attribute Width }==-------------------;;
+;;                                                                      ;;
+;;  This program enables the user to dynamically alter the width        ;;
+;;  factor of a selected attribute, with a real-time preview as the     ;;
+;;  cursor is moved relative to the attribute.                          ;;
+;;                                                                      ;;
+;;  Upon issuing the command syntax &#x27;attw&#x27; at the command-line, the     ;;
+;;  user is prompted to select a single-line attribute for which to     ;;
+;;  change the width factor.                                            ;;
+;;                                                                      ;;
+;;  Following a valid selection, the attribute width factor is          ;;
+;;  dynamically updated based on the position of the cursor relative    ;;
+;;  to the attribute, and the user is presented with various options    ;;
+;;  at the command-line.                                                ;;
+;;                                                                      ;;
+;;  The user may press &#x27;TAB&#x27; to toggle between a continuous &amp;           ;;
+;;  incremental width factor modification. When the incremental mode    ;;
+;;  is enabled, the user may specify the width factor increment by      ;;
+;;  pressing &#x27;I&#x27; or &#x27;i&#x27; and entering any value greater than zero. Each  ;;
+;;  of these settings will be remembered between drawing sessions.      ;;
+;;                                                                      ;;
+;;  The program also allows the user to reset the attribute width       ;;
+;;  factor to that of the attribute definition by pressing &#x27;R&#x27; or &#x27;r&#x27;;  ;;
+;;  and the program may be cancelled to restore the previous width      ;;
+;;  factor by pressing &#x27;C&#x27; or &#x27;c&#x27; or by pressing &#x27;Esc&#x27;.                 ;;
+;;                                                                      ;;
+;;  The program is restricted to single-line attributes, but will       ;;
+;;  perform successfully with attributes at any rotation and inserted   ;;
+;;  in any construction plane.                                          ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2014  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2014-06-08                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2014-06-21                                      ;;
+;;                                                                      ;;
+;;  - &#x27;Reset&#x27; option now resets the attribute width to match the width  ;;
+;;    factor of the attribute definition for the block.                 ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2014-08-05                                      ;;
+;;                                                                      ;;
+;;  - Right-clicking acts as &#x27;Cancel&#x27; and resets the attribute width.   ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-DynamicAttributeWidth</span></td><td><span class="fixw">ATTW</span></td><td>Dynamic Attribute Width</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2014 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

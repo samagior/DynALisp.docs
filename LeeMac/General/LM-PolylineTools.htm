@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Polyline Programs</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Polyline Programs</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/polylineprograms.html" target="_blank">https://lee-mac.com/polylineprograms.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-PolylineTools</span> &ndash; original syntax: PJ / PC / PW (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/polylineprograms.html" target="_blank">lee-mac.com/polylineprograms.html</a></td></tr></table>
+</div>
+<p>Here I offer a selection of short, useful programs for manipulating polylines in AutoCAD.</p>
+<p>The program available for download above defines three custom commands which enable the user to manipulate a set of
+                selected polylines in various ways.</p>
+<p>Each command is described in more detail below, with an accompanying animation to demonstrate the program.</p>
+<div class="toc">
+<h5>Contents</h5>
+<ul>
+<li class="outer"><a class="outer" href="#polyjoin">Polyline Join</a></li>
+<li class="outer"><a class="outer" href="#polyclose">Polyline Close</a></li>
+<li class="outer"><a class="outer" href="#polywidth">Polyline Width</a></li>
+</ul>
+</div>
+<h2 id="polyjoin">Polyline Join</h2>
+<p>This program is effectively a wrapper for the standard AutoCAD <span class="fixw">PEDIT</span> command, allowing
+                the user to join multiple sets of lines, arcs &amp; polylines without needing to traverse the various prompts
+                issued by the standard command.</p>
+<p>Upon issuing the command syntax <span class="fixw">PJ</span> at the AutoCAD command-line, the program will 
+                prompt the user for a selection of lines, arcs and/or polylines; following any necessary conversion to polylines, the
+                program will attempt to join the selected objects to form continuous polylines.
+
+                <p>The progam is configured to use the <span class="fixw">JOIN</span> option of the <span class="fixw">PEDIT</span>
+                command with a zero fuzz distance, however, this may be easily altered if necessary.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Polyline Join Demo" height="300" src="images/LM-polyjoin.gif" width="500"/>
+</div>
+<h2 id="polyclose">Polyline Close</h2>
+<p>Upon issuing the command syntax <span class="fixw">PC</span> at the AutoCAD command-line, this
+                simple program will prompt the user for a selection of open polylines and will proceed
+                to close all polylines in the selection.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Polyline Close Demo" height="300" src="images/LM-polyclose.gif" width="500"/>
+</div>
+<h2 id="polywidth">Polyline Width</h2>
+<p>Upon issuing the command syntax <span class="fixw">PW</span> at the AutoCAD command-line, this program will first
+                prompt the user for a selection of polylines, followed by a width to be applied to all segments of each polyline in
+                the selection.</p>
+<p>At this prompt, a default zero-width value is offered.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Polyline Width Demo" height="300" src="images/LM-polywidth.gif" width="500"/>
+</div>
+
+
+
+</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;; Polyline Close  -  Lee Mac
+;; Closes all polylines in a selection.
+
+;; Polyline Join  -  Lee Mac
+;; Attempts to join all lines, arcs and polylines in a selection.
+
+;; Polyline Width  -  Lee Mac
+;; Applies a given constant width to all segments in a selection of polylines.</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-PolylineTools</span>: they are run by their alias, or picked from <span class="fixw">LM-PolylineTools</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-PolylineTools</span></td><td>&ndash;</td><td>Polyline Tools</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PC</span></td><td>&ndash;</td><td>Polyline Close</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PJ</span></td><td>&ndash;</td><td>Polyline Join</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PW</span></td><td>&ndash;</td><td>Polyline Width</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

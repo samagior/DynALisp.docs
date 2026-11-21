@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Layer Prefix/Suffix</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Layer Prefix/Suffix</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/pslay.html" target="_blank">https://lee-mac.com/pslay.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-PrefixSuffixLayer</span> &ndash; original syntax: pslay / rpslay (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/pslay.html" target="_blank">lee-mac.com/pslay.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to apply or remove a prefix and/or suffix to all layers found in a selection of objects.</p>
+<p>The command <span class="fixw">pslay</span> prompts the user to specify a prefix and/or suffix and a selection of 
+                objects residing on layers whose layer names are to be modified. Following a valid response, the program renamed the
+                layers accordingly, notifying the user of any layers which could not be renamed.</p>
+<p>Similarly, the command <span class="fixw">rpslay</span> enables the user to remove a layer prefix and/or suffix
+                from the layer names of all layers found in a selection of objects.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Prefix/Suffix Layer  }==--------------------;;
+;;                                                                      ;;
+;;  This program allows the user to apply or remove a prefix and/or     ;;
+;;  suffix to all layers found in a selection of objects.               ;;
+;;                                                                      ;;
+;;  The command &#x27;pslay&#x27; prompts the user to specify a prefix and/or     ;;
+;;  suffix and a selection of objects residing on layers whose layer    ;;
+;;  names are to be modified. Following a valid response, the program   ;;
+;;  renamed the layers accordingly, notifying the user of any layers    ;;
+;;  which could not be renamed.                                         ;;
+;;                                                                      ;;
+;;  Similarly, the command &#x27;rpslay&#x27; enables the user to remove a layer  ;;
+;;  prefix and/or suffix from the layer names of all layers found in a  ;;
+;;  selection of objects.                                               ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2016  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2016-11-08                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2017-01-15                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug causing the prefix/suffix to be applied a number of     ;;
+;;    times equal to the number of objects in the selection.            ;;
+;;                                                                      ;;
+;;  - Removed the restriction preventing layers which start/end with    ;;
+;;    the same character as the prefix/suffix from being selected.      ;;
+;;                                                                      ;;
+;;  - Added more verbose output to indicate which layers have been      ;;
+;;    renamed and the result of the rename.                             ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-PrefixSuffixLayer</span>: they are run by their alias, or picked from <span class="fixw">LM-PrefixSuffixLayer</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-PrefixSuffixLayer</span></td><td><span class="fixw">PSLAY</span></td><td>Prefix Suffix Layer</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">RPSLAY</span></td><td>&ndash;</td><td>Remove Prefix Suffix Layer</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2016 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

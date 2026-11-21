@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TabSort</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>TabSort</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/tabsort.html" target="_blank">https://lee-mac.com/tabsort.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-TabSort</span> &ndash; original syntax: TabSort (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>2.2</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/tabsort.html" target="_blank">lee-mac.com/tabsort.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>A program designed with the intention to aid in the organisation of layout tabs in a drawing, the program enables the user to 
+                organise each layout tab using intuitively engineered buttons to move selected tabs up/down or to the top/bottom of the tab order.</p>
+<p>The program also offers the ability to rename a layout tab by double-clicking on its entry in the list displayed, and furthermore 
+                add a prefix and/or suffix to selected/every layout tab.</p>
+<p>A facility is also provided to add &amp; delete layout tabs, and also sort the tabs into alphabetical, numerical, or 
+                architectural order; or reverse the order currently displayed.</p>
+<p>A Find &amp; Replace functionality is also offered to allow the user to quickly replace a text string in multiple layout tabs.</p>
+<p>The user may also copy selected layout tabs, or set the selected entry as the current drawing layout.</p>
+<p>A Help Dialog may be shown upon pressing <span class="fixw">H</span> at the Main Dialog interface.</p>
+<div class="cent">
+<p><img alt="" height="319" src="images/LM-TabSort15.png" width="368"/></p>
+</div>
+<p>Each item is further detailed in the table below.</p>
+<div class="programs">
+<table>
+<tr>
+<th>Button</th>
+<th>Functionality</th>
+</tr>
+<tr class="alt">
+<td><img alt="Top" height="22" src="images/LM-TabSort1.png" width="64"/></td>
+<td>Move selected Tabs to the top of the list</td>
+</tr>
+<tr>
+<td><img alt="Up" height="20" src="images/LM-TabSort2.png" width="64"/></td>
+<td>Move selected Tabs up one notch in the list</td>
+</tr>
+<tr class="alt">
+<td><img alt="Down" height="20" src="images/LM-TabSort3.png" width="64"/></td>
+<td>Move selected Tabs down one notch in the list</td>
+</tr>
+<tr>
+<td><img alt="Bottom" height="20" src="images/LM-TabSort4.png" width="66"/></td>
+<td>Move selected Tabs to the bottom of the list</td>
+</tr>
+<tr class="alt">
+<td><img alt="Sort" height="20" src="images/LM-TabSort5.png" width="76"/></td>
+<td>Opens the Sort Dialog (detailed below)</td>
+</tr>
+<tr>
+<td><img alt="Reverse" height="20" src="images/LM-TabSort6.png" width="75"/></td>
+<td>Reverse the Tab order of Selected Tabs</td>
+</tr>
+<tr class="alt">
+<td><img alt="Pref/Suff" height="20" src="images/LM-TabSort7.png" width="75"/></td>
+<td>Opens the Prefix/Suffix Dialog</td>
+</tr>
+<tr>
+<td><img alt="Add" height="20" src="images/LM-TabSort8.png" width="64"/></td>
+<td>Adds a new layout Tab</td>
+</tr>
+<tr class="alt">
+<td><img alt="Delete" height="20" src="images/LM-TabSort9.png" width="64"/></td>
+<td>Deletes selected Tabs (this action cannot be undone)</td>
+</tr>
+<tr>
+<td><img alt="Copy" height="20" src="images/LM-TabSort10.png" width="76"/></td>
+<td>Copies selected Tabs</td>
+</tr>
+<tr class="alt">
+<td><img alt="Current" height="20" src="images/LM-TabSort11.png" width="76"/></td>
+<td>Makes the selected Tab the Current Drawing Layout</td>
+</tr>
+<tr>
+<td><img alt="Find" height="20" src="images/LM-TabSort12.png" width="76"/></td>
+<td>Allows the user to perform a Find &amp; Replace operation</td>
+</tr>
+<tr class="alt">
+<td><img alt="Done" height="20" src="images/LM-TabSort13.png" width="64"/></td>
+<td>Finished sorting Tabs, will implement sorting</td>
+</tr>
+<tr>
+<td><img alt="Reset" height="20" src="images/LM-TabSort14.png" width="64"/></td>
+<td>Will reset Tab names and Tab order<br/>(will <strong>not</strong> reset deleted/added Tabs)</td>
+</tr>
+</table>
+</div>
+<h2>Sorting</h2>
+<p><img alt="Sort Dialog" height="172" src="images/LM-TabSort16.png" width="234"/></p>
+<p>This program offers three sorting options: Alphabetical, Numerical &amp; Architectural. Examples of their usage are shown below:</p>
+<h3>Alphabetical</h3>
+<div class="code">
+<pre><span class="brkt">(</span> <span class="str">"A23" "C22" "B3" "E7"</span> <span class="brkt">)</span> ==&gt; <span class="brkt">(</span> <span class="str">"A23" "B3" "C22" "E7"</span> <span class="brkt">)</span></pre>
+</div>
+<h3>Numerical</h3>
+<div class="code">
+<pre><span class="brkt">(</span> <span class="str">"A23" "C22" "B3" "E7"</span> <span class="brkt">)</span> ==&gt; <span class="brkt">(</span> <span class="str">"B3" "E7" "C22" "A23"</span> <span class="brkt">)</span></pre>
+</div>
+<h3>Architectural</h3>
+<div class="code">
+<pre><span class="brkt">(</span> <span class="str">"A-1A" "B-3" "A-10C" "B-1.2" "B-1"</span> <span class="brkt">)</span> ==&gt; <span class="brkt">(</span> <span class="str">"A-1A" "A-10C" "B-1" "B-1.2" "B-3"</span> <span class="brkt">)</span></pre>
+</div>
+<h2>Dialog Previews</h2>
+<div class="cent">
+<h3>Main Dialog</h3>
+<p><img alt="" height="319" src="images/LM-TabSort15.png" width="368"/></p>
+<h3>Prefix/Suffix Dialog</h3>
+<p><img alt="" height="166" src="images/LM-TabSort17.png" width="344"/></p>
+<h3>Find &amp; Replace Dialog</h3>
+<p><img alt="" height="200" src="images/LM-TabSort18.png" width="360"/></p>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ TabSort.lsp }==---------------------;;
+;;                                                            ;;
+;;  A program designed with the intention to aid in the       ;;
+;;  organisation of layout tabs in a drawing.                 ;;
+;;                                                            ;;
+;;  The program enables the user to organise each layout tab  ;;
+;;  using buttons to move the tabs up, down, to the top, and  ;;
+;;  to the bottom of a list.                                  ;;
+;;                                                            ;;
+;;  The user may rename any layout by double clicking on it,  ;;
+;;  and can also add a Prefix and/or Suffix to selected/every ;;
+;;  layout tab.                                               ;;
+;;                                                            ;;
+;;  The program offers the facility to add and delete a       ;;
+;;  layout tab, and also sort the tabs alphabetically,        ;;
+;;  numerically, architecturally; or reverse the order in     ;;
+;;  which they appear.                                        ;;
+;;                                                            ;;
+;;  A Find and Replace function is incorporated to allow the  ;;
+;;  user to quickly replace a text string in multiple tabs.   ;;
+;;                                                            ;;
+;;  The user can also Copy a layout tab, and set the Selected ;;
+;;  layout tab as the current tab.                            ;;
+;;                                                            ;;
+;;  The Help Dialog can be access by pressing &quot;H&quot; at the Main ;;
+;;  Dialog.                                                   ;;
+;;                                                            ;;
+;;------------------------------------------------------------;;
+;;                                                            ;;
+;;  FUNCTION SYNTAX:  TABSORT                                 ;;
+;;                                                            ;;
+;;  Notes:-                                                   ;;
+;;  The Reset button will reset Tab Order and Tab Names, but  ;;
+;;  will not affect newly created tabs and will not recreate  ;;
+;;  deleted tabs.                                             ;;
+;;                                                            ;;
+;;  In the case that multiple tabs are selected, the Current  ;;
+;;  button will set the tab with the lowest index (highest in ;;
+;;  the list) as the current tab.                             ;;
+;;                                                            ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;                                                            ;;
+;;  With Thanks To:                                           ;;
+;;  --------------------                                      ;;
+;;  Gilles Chanteau (Gile)                                    ;;
+;;                                                            ;;
+;;  For his fantastic contribution to the list manipulation   ;;
+;;  required for multiple DCL selections, and effort towards  ;;
+;;  the Architectural Sort functions.                         ;;
+;;                                                            ;;
+;;------------------------------------------------------------;;
+;;  Charles Alan Butler (CAB)                                 ;;
+;;                                                            ;;
+;;  For his excellent idea to incorporate the Help button for ;;
+;;  those who need it.                                        ;;
+;;                                                            ;;
+;;------------------------------------------------------------;;
+;;  Version:                                                  ;;
+;;                                                            ;;
+;;  1.0    -  13th September 2009                             ;;
+;;                                                            ;;
+;;  First Release                                             ;;
+;;------------------------------------------------------------;;
+;;  1.1    -  14th September 2009                             ;;
+;;                                                            ;;
+;;  Added Mnemonics to Tiles                                  ;;
+;;  Added text to notify of double-click availability         ;;
+;;  Added option to only pref/suff selected tab               ;;
+;;------------------------------------------------------------;;
+;;  1.2    -  15th September 2009                             ;;
+;;                                                            ;;
+;;  Added Numerical Sort                                      ;;
+;;  General Bug Fixes                                         ;;
+;;------------------------------------------------------------;;
+;;  1.3    -  15th September 2009                             ;;
+;;                                                            ;;
+;;  Multi-tab Selection Functionality                         ;;
+;;------------------------------------------------------------;;
+;;  1.4    -  16th September 2009                             ;;
+;;                                                            ;;
+;;  Added Button to Set Current Tab                           ;;
+;;  Added Copy Tab Functionality                              ;;
+;;------------------------------------------------------------;;
+;;  1.5    -  17th September 2009                             ;;
+;;                                                            ;;
+;;  Fixed Bug to Copy Layout Plot Settings                    ;;
+;;------------------------------------------------------------;;
+;;  1.6    -  18th September 2009                             ;;
+;;                                                            ;;
+;;  Modified Action_Tile Stmts ~ Thanks VovKa                 ;;
+;;  Added Architectural Sort Button                           ;;
+;;------------------------------------------------------------;;
+;;  1.6.1  -  19th September 2009                             ;;
+;;                                                            ;;
+;;  Fixed Bugs ~ Thanks for feedback CAB                      ;;
+;;------------------------------------------------------------;;
+;;  1.7    -  20th September 2009                             ;;
+;;                                                            ;;
+;;  Added Find &amp; Replace Functionality                        ;;
+;;  Organised buttons/Added Sort Dialog                       ;;
+;;------------------------------------------------------------;;
+;;  1.7.1  -  20th September 2009                             ;;
+;;                                                            ;;
+;;  Replaced StrBrk sub with SplitStr (Gile)                  ;;
+;;------------------------------------------------------------;;
+;;  1.8    -  21st September 2009                             ;;
+;;                                                            ;;
+;;  Added hidden Help Button (CAB)                            ;;
+;;  Added Help Dialog Definition                              ;;
+;;------------------------------------------------------------;;
+;;  1.8.1  -  22nd September 2009                             ;;
+;;                                                            ;;
+;;  General Bug Fixes                                         ;;
+;;------------------------------------------------------------;;
+;;  1.8.2  -  23rd September 2009                             ;;
+;;                                                            ;;
+;;  Fixed Bug causing crash when Deleting all                 ;;
+;;  Tabs ~ thanks VovKa                                       ;;
+;;------------------------------------------------------------;;
+;;  1.9    -     2nd October 2009                             ;;
+;;                                                            ;;
+;;  Modified Reverse function to only apply to selected Tabs. ;;
+;;  Altered Help Dialog to ok_only button                     ;;
+;;------------------------------------------------------------;;
+;;  2.0    -       22nd July 2010                             ;;
+;;                                                            ;;
+;;  Fixed Bug with Find/Replace.                              ;;
+;;------------------------------------------------------------;;
+;;  2.1    -    9th December 2010                             ;;
+;;                                                            ;;
+;;  Fixed Bug with Double Reversal                            ;;
+;;------------------------------------------------------------;;
+;;  2.2    -        16th May 2011                             ;;
+;;                                                            ;;
+;;  Program completely rewritten to update formatting.        ;;
+;;  Upgraded Find &amp; Replace engine to allow for               ;;
+;;  self-referencing find and replace terms and improved      ;;
+;;  visual feedback.                                          ;;
+;;  Updated list manipulation subfunctions.                   ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-TabSort</span></td><td><span class="fixw">TABSORT</span></td><td>Tab Sort</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

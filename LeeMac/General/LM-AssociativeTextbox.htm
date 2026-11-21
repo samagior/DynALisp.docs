@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Associative Textbox</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Associative Textbox</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/assoctextbox.html" target="_blank">https://lee-mac.com/assoctextbox.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AssociativeTextbox</span> &ndash; original syntax: tbox / rtbox (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.3</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/15QOCwM" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/assoctextbox.html" target="_blank">lee-mac.com/assoctextbox.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to create an associative textbox surrounding a Text or MText object in the drawing. The size,
+                position, orientation &amp; rotation of the resulting textbox is automatically updated following modification to the associated
+                Text or MText object.</p>
+<p>The user may create an associative textbox by issuing the <span class="fixw">tbox</span> command at the AutoCAD command-line.
+                Upon calling the program, the user is prompted to specify an Offset Factor for the textbox, and indicate the shape of the 
+                textbox to be created.</p>
+<p>The Offset Factor controls the dimensions of the textbox relative to the size of the associated annotation object and is 
+                a function of the text height. To provide an example, specifying an Offset Factor of <span class="fixw">0.35</span> will result
+                in a textbox which is offset from the text object by <span class="fixw">0.35</span> multiplied by the text height of the object.</p>
+<p>Upon entering a valid Offset Factor, the user may choose from four types of textbox: Circle, Rectangle, Slot, or Filleted Rectangle. 
+                The circular textbox will have diameter equal to the length of the diagonal of the rectangular textbox. The Slot textbox will have
+                dimensions equal to the rectangular textbox, however, the vertical edges (relative to the text object) will be semi-circular.
+                The Filleted Rectangle textbox will also have dimensions equal to the rectangular textbox, but all four corners will be filleted
+                to a radius equal to the offset factor multiplied by the text height of the associated text object.</p>
+<p>The program will remember the previously used settings for both the offset factor &amp; textbox type, and these settings will
+                be available as default options at both prompts throughout the active drawing session.</p>
+<p>The user will then be prompted to select either a Text or MText object to enclose with the textbox. At this prompt the user
+                will be notified if the selected Text or MText object already possesses an associative textbox.</p>
+<p>Textbox associativity may be removed at any time by issuing the <span class="fixw">rtbox</span> (Remove Textbox) command
+                at the AutoCAD command-line. When called, the user is prompted to select either a text or textbox object to remove the
+                associativity between the pair. At this prompt the user also has the option to remove associativity from all textboxes in the
+                drawing.</p>
+<p>Note that this program will only remove the associative nature of the textbox - the user may subsequently delete the text or 
+                textbox object if required.</p>
+<h3>Associative Behaviour</h3>
+<p>The program utilises a combination of Object Reactors &amp; Command Reactors to monitor modification events to either the 
+                annotation object or surrounding textbox and will update either object accordingly.</p>
+<p>If the annotation object (Text or MText) is modified, the surrounding textbox will be automatically updated to reflect
+                the modifications.</p>
+<p>If the textbox is modified, the program will automatically revert all modifications applied to the textbox so as to
+                retain the correct size &amp; position relative to the associated annotation object.</p>
+<p>If the annotation object is copied, the associative textbox will also be copied and will form a new pair of associative 
+                text &amp; textbox objects.</p>
+<p>If either annotation object or textbox are erased during the drawing session, the textbox associativity will not be
+                lost until the drawing is closed. This enables the user to retain textbox associativity following an undo of the 
+                erase operation.</p>
+<p>All associative data is stored within the Extended Entity Data (xData) of both the annotation object and associated 
+                textbox object. This xData is removed upon using the <span class="fixw">rtbox</span> command on a text &amp; textbox pair.</p>
+<p>The use of xData enables the retention of textbox associativity between drawing sessions by rebuilding the required
+                reactors based on the available xData when the program is loaded.</p>
+<p>Please note that this program will need to be loaded to enable associative behaviour for existing textbox objects
+                in a drawing.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Associative Textbox" height="300" src="images/LM-assoctbox.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Associative Textbox }==---------------------;;
+;;                                                                      ;;
+;;  ----------------------------------                                  ;;
+;;  Program Overview                                                    ;;
+;;  ----------------------------------                                  ;;
+;;                                                                      ;;
+;;  This program enables the user to create an associative textbox      ;;
+;;  surrounding a Text or MText object in the drawing. The size,        ;;
+;;  position, orientation &amp; rotation of the resulting textbox will      ;;
+;;  be automatically updated following modification to the associated   ;;
+;;  Text or MText object.                                               ;;
+;;                                                                      ;;
+;;  The user may create an associative textbox by issuing the &#x27;tbox&#x27;    ;;
+;;  command at the AutoCAD command-line. Upon calling the program, the  ;;
+;;  user is prompted to specify an Offset Factor for the textbox, and   ;;
+;;  the shape of the textbox to be created.                             ;;
+;;                                                                      ;;
+;;  The Offset Factor controls the dimensions of the textbox relative   ;;
+;;  to the size of the associated annotation object and is a function   ;;
+;;  of the text height. To provide an example, specifying an Offset     ;;
+;;  Factor of 0.35 will result in a textbox which is offset from the    ;;
+;;  text object by 0.35 multiplied by the text height of the object.    ;;
+;;                                                                      ;;
+;;  Upon entering a valid Offset Factor, the user may choose from       ;;
+;;  three types of textbox: Circle, Rectangle or Slot. The circular     ;;
+;;  textbox will have diameter equal to the length of the diagonal of   ;;
+;;  the rectangular textbox. The Slot textbox will have dimensions      ;;
+;;  equal to the rectangular textbox, however, the vertical edges       ;;
+;;  (relative to the text object) will be semi-circular.                ;;
+;;                                                                      ;;
+;;  The program will remember the previously used settings for both     ;;
+;;  the offset factor &amp; textbox type, and these settings will be        ;;
+;;  available as default options at both prompts throughout the active  ;;
+;;  drawing session.                                                    ;;
+;;                                                                      ;;
+;;  The user will then be prompted to select either a Text or MText     ;;
+;;  object to enclose with the textbox. At this prompt the user will    ;;
+;;  be notified if the selected Text or MText object already possesses  ;;
+;;  an associative textbox.                                             ;;
+;;                                                                      ;;
+;;  Textbox associativity may be removed at any time using by issuing   ;;
+;;  the &#x27;rtbox&#x27; (Remove Textbox) command at the AutoCAD command-line.   ;;
+;;  When called, the user is prompted to select either a text or        ;;
+;;  textbox object to remove the associativity between the pair. At     ;;
+;;  this prompt the user also has the option to remove associativity    ;;
+;;  from all textboxes in the drawing.                                  ;;
+;;                                                                      ;;
+;;  Note that this program will only remove the associative nature of   ;;
+;;  the textbox - the user may subsequently delete the text or textbox  ;;
+;;  object if required.                                                 ;;
+;;                                                                      ;;
+;;  ----------------------------------                                  ;;
+;;  Associative Behaviour                                               ;;
+;;  ----------------------------------                                  ;;
+;;                                                                      ;;
+;;  The program utilises a combination of Object Reactors &amp; Command     ;;
+;;  Reactors to monitor modification events to either the annotation    ;;
+;;  object or surrounding textbox and will update either object         ;;
+;;  accordingly.                                                        ;;
+;;                                                                      ;;
+;;  If the annotation object (Text or MText) is modified, the           ;;
+;;  surrounding textbox will be automatically updated to reflect the    ;;
+;;  modifications.                                                      ;;
+;;                                                                      ;;
+;;  If the textbox is modified the program will automatically revert    ;;
+;;  all modifications applied to the textbox so as to retain the        ;;
+;;  correct size &amp; position relative to the associated annotation       ;;
+;;  object.                                                             ;;
+;;                                                                      ;;
+;;  If the annotation object is copied, the associative textbox will    ;;
+;;  also be copied and will form a new pair of associative text &amp;       ;;
+;;  textbox objects.                                                    ;;
+;;                                                                      ;;
+;;  If either annotation object or textbox are erased during the        ;;
+;;  drawing session, the textbox associativity will not be lost until   ;;
+;;  the drawing is closed. This enables the user to retain textbox      ;;
+;;  associativity following an undo of the erase operation.             ;;
+;;                                                                      ;;
+;;  All associative data is stored within the Extended Entity Data      ;;
+;;  (xData) of both the annotation object and associated textbox        ;;
+;;  object. This xData is removed upon using the &#x27;rtbox&#x27; command on a   ;;
+;;  text &amp; textbox pair.                                                ;;
+;;                                                                      ;;
+;;  The use of xData enables the retention of textbox associativity     ;;
+;;  between drawing sessions by rebuilding the required reactors        ;;
+;;  based on the available xData when the program is loaded.            ;;
+;;                                                                      ;;
+;;  Please note that this program will need to be loaded to enable      ;;
+;;  associative behaviour for existing textbox objects in a drawing.    ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    30-04-2013                                      ;;
+;;                                                                      ;;
+;;  First release.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    30-04-2013                                      ;;
+;;                                                                      ;;
+;;  Fixed bug causing the program to crash during loading if reactors   ;;
+;;  whose reactor data is of a data type other than string are already  ;;
+;;  running in the active drawing session.                              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    01-05-2013                                      ;;
+;;                                                                      ;;
+;;  Fixed bug causing MText &amp; LWPolyline objects residing in Paperspace ;;
+;;  layouts to be transferred to Modelspace.                            ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-AssociativeTextbox</span>: they are run by their alias, or picked from <span class="fixw">LM-AssociativeTextbox</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AssociativeTextbox</span></td><td><span class="fixw">TBOX</span></td><td>Associative Textbox</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">RTBOX</span></td><td>&ndash;</td><td>Remove Associative Textbox</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

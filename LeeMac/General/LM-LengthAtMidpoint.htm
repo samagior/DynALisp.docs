@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Length at Midpoint</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Length at Midpoint</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/midlen.html" target="_blank">https://lee-mac.com/midlen.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-LengthAtMidpoint</span> &ndash; original syntax: midlen (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/midlen.html" target="_blank">lee-mac.com/midlen.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program automatically generates multiline text (MText) objects positioned over the midpoint of every object in a user selection, 
+                with each item of MText containing a field expression referencing the length of the object.</p>
+<p>Upon issuing the command syntax <span class="fixw">midlen</span> at the AutoCAD command-line, the program will prompt
+                the user for a selection of objects for which to display the length. Following a valid selection, the program will
+                proceed to generate an MText object located at the midpoint of each selected object, and containing a field expression 
+                referencing the length of the object.</p>
+<p>The program is compatible for use with Arcs, Circles, Lines, LWPolylines, 2D &amp; 3D Polylines, and will perform
+                successfully with objects constructed in any UCS plane, and under all active UCS &amp; View settings.</p>
+<p>The program will generate MText objects positioned directly over the midpoint of each object, and aligned with 
+                the object whilst preserving text readability. The MText will have a background mask enabled and will use the 
+                active Text Style and Text Height settings at the time of running the program.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<img alt="Length at Midpoint Demo" height="300" src="images/LM-midlen.gif" width="500"/>
+</div>
+<p>In the above demonstration, the <span class="fixw">FIELDDISPLAY</span> system variable is set to <span class="fixw">0</span>.</p>
+<h2>Length Format</h2>
+<p>The field formatting code indicated at the top of the program source code (line 26) may be altered to display 
+                the length in a desired format:</p>
+<div class="code"><pre><span class="brkt">(</span><span class="func">setq</span> fmt <span class="str">"%lu6"</span><span class="brkt">)</span> <span class="cmt">;; Field Formatting</span></pre></div>
+<p>To determine the correct formatting code to be used, perform the following steps:</p>
+<div class="spacedbullets">
+<ul>
+<li>Type <span class="fixw">FIELD</span> at the AutoCAD command-line and press 
+                        <span class="fixw">ENTER</span> to open the Field dialog.</li>
+<li>Select <span class="fixw">Objects</span> from the 'Field Category' drop-down menu.</li>
+<li>Select <span class="fixw">Object</span> from the 'Field Names' section.</li>
+<li>Select an object (with length) from the drawing by clicking the object selection button 
+                        adjacent to the 'Object Type' box.</li>
+<li>Select the <span class="fixw">Length</span> property from the 'Property' panel.</li>
+<li>Configure the formatting options as desired.</li>
+<li>Click <span class="fixw">OK</span> and pick a point in the drawing to create a temporary MText Field.</li>
+<li>Download &amp; load my <a href="LM-FieldFormattingCode.htm" target="_blank">Field Formatting Code</a> program.</li>
+<li>Type <span class="fixw">fieldformat</span> to run the program and select the temporary MText Field created earlier.</li>
+<li>Following a valid selection, the field formatting code will be printed to the command-line, e.g.:</li>
+<div class="code">
+<pre><span class="cmt">Formatting code:</span> <span class="str">"%lu4%ds44%th39"</span></pre>
+</div>
+<li>Copy the formatting code (including the quotation marks) to the program source code where noted:</li>
+<div class="code">
+<pre><span class="brkt">(</span><span class="func">setq</span> fmt <span class="str">"%lu4%ds44%th39"</span><span class="brkt">)</span> <span class="cmt">;; Field Formatting</span></pre>
+</div>
+<li>Save and load the modified program file.</li>
+</ul>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------=={ Length at Midpoint }==----------------------;;
+;;                                                                      ;;
+;;  This program prompts the user for a selection of objects to be      ;;
+;;  labelled and proceeds to generate an MText object located at        ;;
+;;  the midpoint of each object displaying a Field Expression           ;;
+;;  referencing the length of the object.                               ;;
+;;                                                                      ;;
+;;  The program is compatible for use with Arcs, Circles, Lines,        ;;
+;;  LWPolylines, 2D &amp; 3D Polylines, and under all UCS &amp; View settings.  ;;
+;;                                                                      ;;
+;;  The program will generate MText objects positioned directly over    ;;
+;;  the midpoint of each object, and aligned with the object whilst     ;;
+;;  preserving text readability. The MText will have a background mask  ;;
+;;  enabled and will use the active Text Style and Text Height settings ;;
+;;  at the time of running the program.                                 ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2013-11-12                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2016-01-16                                      ;;
+;;                                                                      ;;
+;;  - Modified LM:objectid function to account for 64-bit AutoCAD 2008. ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-LengthAtMidpoint</span></td><td><span class="fixw">MIDLEN</span></td><td>Length At Midpoint</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

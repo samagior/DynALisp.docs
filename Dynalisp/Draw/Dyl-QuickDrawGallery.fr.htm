@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Galerie de dessin rapide</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-QuickDrawGallery.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Galerie de dessin rapide (Quick Draw Gallery)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">PST-QUICKDRAWGALLERY</span> (alias <span class="fixw">QDG</span>)</td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (fenêtre) et <span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (la hachure dessinée dans chaque vignette)</td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Choisit un préréglage <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> par son apparence : une vignette par préréglage, sa hachure dessinée dedans, par groupe. Un clic dessine le préréglage, comme le ferait sa commande (<span class="fixw">QD-BRICK</span>...). Les préréglages se modifient dans le <strong>Gestion du dessin rapide</strong> (<span class="fixw">Dyl-QuickDraw</span>).</p>
+<p>Dans l'onglet DynALisp du ruban, le bouton <strong>Dessin rapide</strong> ouvre la galerie; sa flèche liste <em>Tous</em> et les groupes, pour l'ouvrir sur un groupe, et le bouton ouvre ensuite le dernier groupe choisi. <strong>Gestion du dessin rapide</strong> à côté ouvre la fenêtre Quick Draw.</p>
+<h2>Fenêtre Quick Draw Gallery</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Group</strong> &ndash; <em>All</em>, ou l'un des <a href="Dyl-PresetGroups.fr.htm">groupes de préréglages</a>, dans leur ordre, même un groupe encore sans préréglage (sa page est vide), avec le nombre de préréglages affiché à côté. La fenêtre s'ouvre sur le groupe choisi dans le ruban, sinon sur le dernier groupe affiché.</li>
+<li><strong>Vignettes</strong> &ndash; 24 par page, dans l'ordre du fichier de préréglages : la hachure du préréglage et son nom en dessous. Cliquez-en une pour la dessiner : la fenêtre se ferme et Quick Draw démarre avec ce préréglage (sa méthode, ses comportements et sa bordure).</li>
+<li><strong>&lt; Previous</strong> / <strong>Next &gt;</strong> &ndash; les autres pages d'un groupe de plus de 24 préréglages.</li>
+<li><strong>Quick Draw Manager...</strong> &ndash; ferme la galerie et ouvre la fenêtre Quick Draw, pour modifier les préréglages ou en créer un. <strong>Cancel</strong> ferme la galerie, <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2>La hachure d'une vignette</h2>
+<div class="spacedbullets">
+<ul>
+<li>Chaque vignette dessine le motif du <a href="Dyl-HatchPresets.fr.htm">préréglage de hachure</a> du préréglage, lu dans le fichier <span class="fixw">.pat</span> qui le définit (<span class="fixw">acad.pat</span> ou <span class="fixw">acadiso.pat</span>, sinon son propre fichier du chemin de recherche), tourné de son angle, sur sa couleur d'arrière-plan (blanc s'il n'en a pas). Les préréglages par défaut et personnalisés sont dessinés de la même façon : un préréglage personnalisé montre ce qu'il dessine.</li>
+<li>L'échelle de la vignette n'est pas celle de la hachure : chaque motif est dessiné à peu près aussi dense, pour qu'un pointillé fin et une grosse brique se lisent tous deux d'un coup d'œil. Deux préréglages au même motif se ressemblent (Brick et Iron sont tous deux <span class="fixw">ANSI31</span>).</li>
+<li>Un <a href="Dyl-QuickDraw.fr.htm#assembly">assemblage</a> (un préréglage Linear avec <em>Assembly of layers</em> coché) montre ses couches côte à côte, de gauche à droite comme dans la fenêtre <a href="Dyl-AssemblyLayers.fr.htm">Assembly Layers</a> : chaque bande aussi large que son épaisseur (une couche mince garde quelques pixels de large) et dessinée avec la hachure de son propre préréglage, un espace laissé blanc, une ligne dans la couleur de sa clé de calque.</li>
+<li>Une hachure <span class="fixw">SOLID</span> est une vignette grise. Un motif qu'aucun fichier <span class="fixw">.pat</span> ne définit est barré en rouge : son préréglage de hachure a besoin d'un fichier de motifs (voir <span class="fixw">Dyl-RebuildPat</span>).</li>
+<li>Les motifs sont lus une fois par session d'AutoCAD : un fichier <span class="fixw">.pat</span> modifié entre-temps montre ses nouvelles lignes après le redémarrage d'AutoCAD.</li>
+</ul>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les groupes sous la flèche du bouton du ruban sont les groupes par défaut : un groupe renommé ou ajouté dans Preset Groups n'est pas dans cette liste, mais il est dans la liste Group de la fenêtre. Un groupe choisi dans le ruban ouvre le groupe au nom le plus proche (<em>Floor</em> &rarr; <em>Floors</em>), sinon, quand il a été renommé ou supprimé, <em>All</em>.</li>
+<li>Un nom long est coupé sur deux lignes d'environ 17 caractères.</li>
+</ul>
+</div>
+<p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

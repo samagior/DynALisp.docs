@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quick Select Similar</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-QuickSelectSimilar.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Quick Select Similar</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">QSS</span>, <span class="fixw">QSELECTSIMILAR</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickSelectSimilar.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (DCL dialog generated at run time)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>A customisable SELECTSIMILAR: it selects every visible object of the current space that matches object types and property filters chosen in a dialog box, pre-filled from reference objects. The dialog is in French.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">QSS</span></td><td>Quick Select Similar</td><td>Selects the visible objects matching the types and properties chosen in a dialog.</td></tr>
+<tr><td><span class="fixw">QSELECTSIMILAR</span></td><td>Quick Select Similar (Alias)</td><td>Alias of QSS.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Pre-select one or more reference objects, or pick them at the prompt. Press Enter without a selection to reopen the dialog with the last settings.</li>
+<li>The dialog <em>Selection rapide d'objets similaires</em> lists the object types visible in the current space with live counts; the reference types are selected.</li>
+<li>Property filters are pre-filled from the references: layer, colour (ACI), linetype, lineweight, text style, dimension style and block name (effective name, dynamic blocks included). Tick the filters to use and edit the values: comma-separated values and the <span class="fixw">*</span> <span class="fixw">?</span> wildcards are allowed.</li>
+<li>Set the scope (whole current space, or current view only) and the options (exclude locked layers, add to the current selection). <em>Choisir reference &lt;</em> picks new references without losing the settings.</li>
+<li>On OK the matching objects are gripped and stored as the <em>Previous</em> selection, and a count by type is printed.</li>
+</ol>
+</div>
+<h3>Filter logic</h3>
+<div class="spacedbullets">
+<ul>
+<li>Values inside one field are combined with OR; checked fields are combined with AND.</li>
+<li>Text style, dimension style and block name only restrict their own object types; the other selected types are not affected by them.</li>
+<li><em>Visible</em> means layer on and thawed and object not invisible.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Layers frozen only in a paper space viewport are not detected as hidden.</li>
+<li>The colour filter compares index colours (true colours use their ACI).</li>
+<li>The settings are remembered for the drawing session only.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-QuickSelectSimilar</span></td><td><span class="fixw">QSS</span>, <span class="fixw">QSELECTSIMILAR</span></td><td>Quick Select Similar</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ==========================================================================
+;;; QuickSelectSimilar.lsp
+;;;
+;;; Customizable &quot;Select Similar&quot; for AutoCAD / AutoCAD Architecture.
+;;;
+;;; Selects every visible object of the current space that matches criteria
+;;; chosen on the fly in a dialog box:
+;;;   - one or many object types (DXF names, shown with live counts);
+;;;   - optional property filters, combined with a logical AND:
+;;;       Layer, Color, Linetype, Lineweight,
+;;;       Text style (TEXT / MTEXT / ATTDEF), Dim style (dimensions),
+;;;       Block name (block references, dynamic blocks supported);
+;;;   - scope: whole current space or current view only;
+;;;   - options: exclude locked layers, add to the current selection.
+;;;
+;;; Filter syntax:
+;;;   Each field accepts comma-separated values and the * ? wildcards.
+;;;   Within one field, values are combined with OR.
+;;;   Type-specific filters (text style, dim style, block name) only restrict
+;;;   their own object types; other selected types are not affected by them.
+;;;
+;;; Commands:
+;;;   QSS              - run the command
+;;;   QSELECTSIMILAR   - alias of QSS
+;;;
+;;; Workflow:
+;;;   1. Pre-select reference object(s), or pick them at the prompt
+;;;      (press Enter to skip and open the dialog with the last settings).
+;;;   2. The dialog is pre-filled with the reference types and properties.
+;;;      Check the filters to apply, edit values as needed.
+;;;   3. &quot;Choisir reference &lt;&quot; lets you pick new reference objects without
+;;;      losing the dialog settings.
+;;;   4. OK: the result is gripped (PICKFIRST) and stored as &quot;Previous&quot;.
+;;;
+;;; Notes:
+;;;   - &quot;Visible&quot; means: layer on and thawed, object not invisible (DXF 60).
+;;;     Layers frozen only in a paper space viewport (VP freeze) are not
+;;;     detected.
+;;;   - The color filter compares ACI values (true colors use their ACI).
+;;;   - Dialog settings are remembered for the current drawing session.
+;;;   - The dialog definition (DCL) is generated at run time, so this single
+;;;     .lsp file is all that is needed.
+;;; ==========================================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

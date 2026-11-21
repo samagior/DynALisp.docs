@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Associative Centerlines</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Associative Centerlines</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/associativecenterlines.html" target="_blank">https://lee-mac.com/associativecenterlines.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AssociativeCenterline</span> &ndash; original syntax: CL / CLRemove (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.0</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/associativecenterlines.html" target="_blank">lee-mac.com/associativecenterlines.html</a></td></tr></table>
+</div>
+<h3>Program Description</h3>
+<p>This reactor based program enables the user to create associative circle centerlines which will automatically update following
+                modification of the associated circle.</p>
+<p>Upon calling the program with '<span class="fixw">ACL</span>' at the AutoCAD command-line, the user is prompted to make a selection of
+                circles for which to create associative centerlines.</p>
+<p>For each set of circle and centerlines, the program uses two Object Reactors to monitor modification events for both the 
+                circle object and pair of centerlines. Upon modification of the circle, the associated centerlines are moved or scaled accordingly to
+                remain in the correct position.</p>
+<p>The pair of centerlines are also monitored for modification using an Object Reactor, however, following modification of such lines,
+                the callback function for the Object Reactor cannot be used to reposition the lines since this would trigger a recursive evaluation of
+                the same callback function, and the program would take a dive into a recursive black hole, eventually resulting in a stack overflow.</p>
+<p>To avoid the recursive call, the Object Reactor is temporarily disabled following the centerline modification event and a Command 
+                Reactor is created to detect the event of the command completion. When the active command is completed, the centerlines are updated, 
+                Command Reactor disabled and Object Reactor re-enabled.</p>
+<p>The handles of the centerlines are stored in the associated circle entity XData, and similarly the handle of the circle is stored in
+                the line entity XData of both centerlines. This enables the program to rebuild the reactors upon loading, allowing retention of the
+                centerline associativity between drawing sessions.</p>
+<p>The user can remove the centerline associativity at any time by typing '<span class="fixw">CLRemove</span>' at the AutoCAD command-line
+                and selecting circles with associative centerlines.</p>
+<div class="cent">
+<h3>Program Preview</h3>
+<img alt="AssociativeCL.gif" height="300" src="images/LM-AssociativeCL.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------=={ Associative Centerlines }==---------------;;
+;;                                                            ;;
+;;  Uses reactors to update centerlines following             ;;
+;;  modification of associated circles. Stores entity handles ;;
+;;  in entity xData to enable reactor rebuild upon loading,   ;;
+;;  allowing retention of associativity between sessions.     ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;
+;;  Version 1.0    -    12-05-2011                            ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-AssociativeCenterline</span>: they are run by their alias, or picked from <span class="fixw">LM-AssociativeCenterline</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AssociativeCenterline</span></td><td><span class="fixw">ACL</span></td><td>Associative Centerline</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CLREMOVE</span></td><td>&ndash;</td><td>Remove Associative Centerline</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ruban</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Ribbon.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Ruban</h1>
+
+<div class="toc">
+<h5>Sommaire</h5>
+<ul>
+<li class="outer"><a class="outer" href="#desc">Description</a></li>
+<li class="outer"><a class="outer" href="#panels">Groupes de fonctions</a></li>
+<li class="outer"><a class="outer" href="#buttons">Boutons</a></li>
+<li class="outer"><a class="outer" href="#dropdowns">Listes déroulantes</a></li>
+<li class="outer"><a class="outer" href="#notes">Notes</a></li>
+<li class="outer"><a class="outer" href="#build">Construire le ruban</a></li>
+</ul>
+</div>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Fichier source</td>
+<td><span class="fixw">Resources\DynALisp.cuix</span> (l'onglet) et <span class="fixw">Resources\DynALisp.Ribbon.dll</span> (ses listes déroulantes)</td>
+</tr>
+<tr>
+<td>Requis</td>
+<td>AutoCAD pour Windows; les listes déroulantes demandent AutoCAD 2025 ou suivant</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+
+<h2 id="desc">Description</h2>
+<p>L'onglet <strong>DynALisp</strong> du ruban a un bouton pour chaque outil du module Dynalisp, avec son icône propre, dans un groupe de fonctions par groupe d'outils, et les commandes du noyau dans le groupe DynALisp. AutoCAD le charge avec DynALisp : il n'y a rien à configurer. Il est dans la langue de l'AutoCAD installé, quelle que soit la langue (<a href="../Core/Dyl-Settings.fr.htm#environment">Language</a>) de Dyl-Settings, qui est celle des docs seulement : dans un AutoCAD français, ses groupes de fonctions, boutons, info-bulles et listes déroulantes (AutoCAD 2025 et suivants; en anglais dans une version antérieure). Cette page cite les libellés français; les images ci-dessous montrent l'onglet en français.</p>
+
+<h2 id="panels">Groupes de fonctions</h2>
+<!-- BuildRibbon: panels -->
+<p>L'onglet entier, puis chaque groupe de fonctions avec sa partie déroulante ouverte sous son titre. Les listes déroulantes montrent des valeurs d'exemple.</p>
+<p><picture><source srcset="Ribbon/Tab-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Tab-fr.png" width="3059" alt="L&#x27;onglet DynALisp du ruban"></picture></p>
+<h3 id="panel-draw">Dessin</h3>
+<p><picture><source srcset="Ribbon/Draw-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Draw-fr.png" width="276" alt="Le groupe de fonctions Dessin"></picture></p>
+<p><a href="../Draw/Dyl-QuickDrawGallery.fr.htm">Dessin rapide</a>, <a href="../Draw/Dyl-QuickShape.fr.htm">Forme rapide</a>, <a href="../Draw/Dyl-QuickDraw.fr.htm">Gestion du dessin rapide</a>, <a href="../Draw/Dyl-HatchPresets.fr.htm">Préréglages de hachures</a>, <a href="../Draw/Dyl-Shrinkwrap.fr.htm">Contour extérieur</a>.</p>
+<h3 id="panel-drawingbehaviors">Comportements du dessin</h3>
+<p><picture><source srcset="Ribbon/DrawingBehaviors-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/DrawingBehaviors-fr.png" width="436" alt="Le groupe de fonctions Comportements du dessin"></picture></p>
+<p><a href="../Layer/Dyl-LayerPhase.fr.htm">Phase des calques</a> et ses listes déroulantes Auto-phase et Phase, <a href="../Layer/Dyl-ObjectLayerKeys.fr.htm">Clés de calque des objets</a>, <a href="../Layer/Dyl-DrawOrder.fr.htm">Ordre de tracé</a>.</p>
+<h3 id="panel-layertransfer">Transfert de calques</h3>
+<p><picture><source srcset="Ribbon/LayerTransfer-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/LayerTransfer-fr.png" width="372" alt="Le groupe de fonctions Transfert de calques"></picture></p>
+<p><a href="../Layer/Dyl-LayerTransfer.fr.htm">Transférer</a> et ses listes déroulantes Niveau, De et À, <a href="../Layer/Dyl-LayerTransfer.fr.htm">Gestion</a>.</p>
+<h3 id="panel-layertools">Outils de calques</h3>
+<p><picture><source srcset="Ribbon/LayerTools-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/LayerTools-fr.png" width="462" alt="Le groupe de fonctions Outils de calques"></picture></p>
+<p><a href="../Layer/Dyl-LayerKeys.fr.htm">Clés de calque</a>, <a href="../Layer/Dyl-LayerMake.fr.htm">Créer des calques</a>, <a href="../Layer/Dyl-LayerImportFromCsv.fr.htm">Importer des calques d&#x27;un CSV</a>, <a href="../Layer/Dyl-LayerFilter.fr.htm">Filtres de calques</a>, <a href="../Layer/Dyl-LayerGroup.fr.htm">Groupes de calques</a>, <a href="../Layer/Dyl-LayerImportFiltersFromDwg.fr.htm">Importer des filtres de calques</a>. Dans la partie déroulante : <a href="../Layer/Dyl-LayerList.fr.htm">Liste des calques dessinée</a>, <a href="../Layer/Dyl-LayerExportToCsv.fr.htm">Exporter les calques en CSV</a>, <a href="../Layer/Dyl-LayerPenColors.fr.htm">Couleurs de plumes des calques</a>, <a href="../Layer/Dyl-LayerColorWeight.fr.htm">Couleur et épaisseur des calques</a>.</p>
+<h3 id="panel-text">Texte</h3>
+<p><picture><source srcset="Ribbon/Text-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Text-fr.png" width="315" alt="Le groupe de fonctions Texte"></picture></p>
+<p><a href="../Utilities/Dyl-AddPrefixSuffix.fr.htm">Préfixe et suffixe de texte</a>, <a href="../Utilities/Dyl-QuickAddPrefixSuffix.fr.htm">Préfixe / suffixe rapide</a>, <a href="../Utilities/Dyl-ClaudeTextFix.fr.htm">Correction de texte Claude</a>. Dans la partie déroulante : <a href="../Utilities/Dyl-Dictionary.fr.htm">Dictionnaire</a>, <a href="../Utilities/Dyl-MultileaderList.fr.htm">Liste des lignes de repère et blocs</a>.</p>
+<h3 id="panel-cleaning">Nettoyage</h3>
+<p><picture><source srcset="Ribbon/Cleaning-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Cleaning-fr.png" width="156" alt="Le groupe de fonctions Nettoyage"></picture></p>
+<p><a href="../Cleaning/Dyl-ColorByLayer.fr.htm">Couleur DuCalque</a>, <a href="../Cleaning/Dyl-DataLinks.fr.htm">Liaisons de données</a>, <a href="../Cleaning/Dyl-SetByBlock.fr.htm">Blocs DuBloc</a>.</p>
+<h3 id="panel-navigate">Navigation</h3>
+<p><picture><source srcset="Ribbon/Navigate-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Navigate-fr.png" width="119" alt="Le groupe de fonctions Navigation"></picture></p>
+<p><a href="../Navigate/Dyl-SwitchDrawingScale.fr.htm">Changer l&#x27;échelle du dessin</a>.</p>
+<h3 id="panel-output">Sortie</h3>
+<p><picture><source srcset="Ribbon/Output-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Output-fr.png" width="183" alt="Le groupe de fonctions Sortie"></picture></p>
+<p><a href="../Output/Dyl-PrepDrawing.fr.htm">Préparer le dessin</a>, <a href="../Output/Dyl-Revisions.htm">Révisions</a>. Dans la partie déroulante : <a href="../Output/Dyl-CmdOptimizer.fr.htm">Optimiseur de commandes</a>.</p>
+<h3 id="panel-setup">Configuration</h3>
+<p><picture><source srcset="Ribbon/Setup-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Setup-fr.png" width="159" alt="Le groupe de fonctions Configuration"></picture></p>
+<p><a href="../Setup/Dyl-SetUnits.fr.htm">Régler les unités</a>, <a href="../Setup/Dyl-StandardGrid.fr.htm">Grille standard</a>, <a href="../Setup/Dyl-SysVars.fr.htm">Variables système</a>. Dans la partie déroulante : <a href="../Setup/Dyl-SetFilePrefs.fr.htm">Préférences de fichiers</a>.</p>
+<h3 id="panel-utilities">Utilitaires</h3>
+<p><picture><source srcset="Ribbon/Utilities-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Utilities-fr.png" width="440" alt="Le groupe de fonctions Utilitaires"></picture></p>
+<p><a href="../Utilities/Dyl-QuickSelectSimilar.fr.htm">Sélection rapide semblable</a>, <a href="../Utilities/Dyl-GroupCluster.fr.htm">Groupes par proximité</a>, <a href="../Utilities/Dyl-UngroupNext.fr.htm">Dégrouper l&#x27;imbriqué</a>, <a href="../Utilities/Dyl-LineToPolyline.fr.htm">Ligne en polyligne</a>, <a href="../Utilities/Dyl-LayerColorToObject.fr.htm">Couleur du calque à l&#x27;objet</a>, <a href="../Utilities/Dyl-ResetLinetypeScale.fr.htm">Réinitialiser l&#x27;échelle des types de ligne</a>. Dans la partie déroulante : <a href="../Utilities/Dyl-ViewportToPaperSpace.fr.htm">Fenêtre vers l&#x27;espace papier</a>, <a href="../Utilities/Dyl-BatchInsert.fr.htm">Insertion par lot</a>, <a href="../Utilities/Dyl-CountByLayers.fr.htm">Compte par calques</a>, <a href="../Utilities/Dyl-RebuildPat.fr.htm">Reconstruire les motifs</a>, <a href="../Utilities/Dyl-OpenFolder.fr.htm">Ouvrir un dossier</a>.</p>
+<h3 id="panel-troubleshooting">Dépannage</h3>
+<p><picture><source srcset="Ribbon/Troubleshooting-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/Troubleshooting-fr.png" width="91" alt="Le groupe de fonctions Dépannage"></picture></p>
+<p><a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Diagnostics</a>.</p>
+<h3 id="panel-dynalisp">DynALisp</h3>
+<p><picture><source srcset="Ribbon/DynALisp-fr-dark.png" media="(prefers-color-scheme: dark)"><img src="Ribbon/DynALisp-fr.png" width="244" alt="Le groupe de fonctions DynALisp"></picture></p>
+<p><a href="../Core/Dyl-Settings.fr.htm">Paramètres</a>, <a href="../Core/Dyl-Suite.fr.htm">Suite</a>, <a href="../Core/Dyl-Info.fr.htm">Fichiers utilisateur</a>, <a href="../Core/Dyl-Info.fr.htm">Info</a>, <a href="../Core/Dyl-Info.fr.htm">Docs</a>. Dans la partie déroulante : <a href="../Core/Dyl-Suite.fr.htm">Recharger</a>.</p>
+<!-- /BuildRibbon: panels -->
+
+<h2 id="buttons">Boutons</h2>
+<div class="spacedbullets">
+<ul>
+<li>La flèche d'un bouton liste les préréglages de son outil (les phases, les échelles de dessin, les unités...), sa commande principale en premier. Le bouton lance ensuite le dernier élément choisi, comme le bouton Cercle d'AutoCAD.</li>
+<li>La flèche du bouton <strong>Dessin rapide</strong> liste <em>Tous</em> et les groupes des préréglages : la galerie s'ouvre sur le groupe choisi.</li>
+<li>Les outils moins utilisés sont dans la partie déroulante de leur groupe de fonctions : la flèche à côté de son titre.</li>
+<li>Un bouton dont l'outil agit sur les objets sélectionnés (<strong>Transférer</strong>) garde la sélection; les autres boutons annulent d'abord la commande en cours.</li>
+<li>Survolez un bouton pour voir sa description.</li>
+</ul>
+</div>
+
+<h2 id="dropdowns">Listes déroulantes</h2>
+<p>Deux groupes de fonctions ont des listes déroulantes qui montrent le réglage du dessin, comme la liste déroulante Calque d'AutoCAD :</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Comportements du dessin</strong> &ndash; l'auto-phase et la phase active du dessin courant (voir <a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>). Choisir un élément l'applique.</li>
+<li><strong>Transfert de calques</strong> &ndash; le niveau (<em>Niveau</em>), la valeur d'origine (<em>De</em>) et la valeur visée (<em>À</em>) du transfert (voir <a href="../Layer/Dyl-LayerTransfer.fr.htm">Layer Transfer</a>). Leurs listes suivent les calques du dessin. Choisir une valeur ne fait que la retenir : le bouton <strong>Transférer</strong> l'exécute. Les choix sont gardés pour la session.</li>
+</ul>
+</div>
+<p>Elles montrent toujours l'état courant, quoi qui l'ait changé (un alias, une fenêtre, un autre dessin devenu courant).</p>
+
+<h2 id="notes">Notes</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les listes déroulantes et la traduction de l'onglet sont faites par <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, qui demande AutoCAD 2025 ou suivant. Dans une version antérieure, l'onglet est en anglais et n'a que ses boutons : le bouton Layer Phase ouvre sa fenêtre, et le bouton Transfer demande le niveau et les valeurs.</li>
+<li>Un outil désactivé dans <a href="../Core/Dyl-Suite.fr.htm">Dyl-Suite</a> répond <em>Unknown command</em> quand on clique son bouton.</li>
+<li>Les listes déroulantes ne changent que quand AutoCAD est inactif, sans commande en cours : après une commande, elles peuvent prendre un moment à montrer le nouvel état.</li>
+<li>Un problème des listes déroulantes affiche à la ligne de commande une ligne qui commence par <em>DynALisp ribbon:</em>.</li>
+</ul>
+</div>
+
+<h2 id="build">Construire le ruban</h2>
+<p>Pour qui modifie DynALisp : l'onglet est généré, jamais modifié dans l'éditeur CUI.</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Installer\Ribbon\BuildRibbon.py</span> écrit <span class="fixw">DynALisp.cuix</span> à partir de <span class="fixw">Installer\Ribbon\Ribbon.csv</span> (les groupes de fonctions et les boutons), de <span class="fixw">RibbonIcons.py</span> (les icônes) et de <span class="fixw">Resources\StartupSuite.csv</span> (les noms, descriptions et commandes enfants). Il signale une commande principale absente du ruban ou sans icône. <span class="fixw">--sheet &lt;fichier.png&gt;</span> dessine chaque icône sur le ruban clair et le ruban foncé.</li>
+<li>Les textes de l'onglet en français sont dans <span class="fixw">Installer\Ribbon\Ribbon.fr.csv</span> (un groupe de fonctions, une commande ou un élément de la galerie Dessin rapide, son nom et son info-bulle); le script les écrit par l'identifiant de chaque élément dans <span class="fixw">Resources\DynALisp.Ribbon.fr.csv</span>, que lit le module d'extension, et signale un texte manquant. Les descriptions des phases viennent de la colonne <span class="fixw">Description.fr</span> de <span class="fixw">Phase.csv</span>.</li>
+<li>Les listes déroulantes se compilent avec <span class="fixw">dotnet build Installer\Ribbon\Plugin -c Release</span>, AutoCAD fermé.</li>
+<li>La même exécution dessine les images de cette page à partir des mêmes groupes de fonctions et icônes (<span class="fixw">Installer\Ribbon\RibbonPanels.py</span>, dans <span class="fixw">Docs\Plugins\Ribbon</span>) et écrit sa section Groupes de fonctions, en anglais et en français : elles suivent le ruban, sans capture d'écran à faire. <span class="fixw">--pictures</span> ne dessine qu'elles.</li>
+<li>Redémarrez AutoCAD pour voir le nouveau ruban.</li>
+</ul>
+</div>
+
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

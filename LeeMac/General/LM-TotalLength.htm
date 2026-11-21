@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Total Length &amp; Area Programs</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Total Length &amp; Area Programs</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/totallengthandarea.html" target="_blank">https://lee-mac.com/totallengthandarea.html</a></p>
+
+<p>Here I offer a couple of simple programs to display the total length or area of selected objects at the AutoCAD command line.</p>
+<p>I realise that this functionality does already exist in most versions of AutoCAD, however these programs may offer both a faster 
+                approach to retrieving the result and are furthermore a good learning aid for those aiming to write their own programs of a 
+                similar nature.</p>
+<h2>Total Length</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-TotalLength</span> &ndash; original syntax: tlen (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/totallengthandarea.html" target="_blank">lee-mac.com/totallengthandarea.html</a></td></tr></table>
+</div>
+<p>This program displays the total length of selected objects at the command line.</p>
+<p>The units and precision format of the printed result is dependent upon the settings of the 
+                <span class="fixw">LUNITS</span> &amp; <span class="fixw">LUPREC</span> system variables respectively.</p>
+<div class="code">
+
+<pre>
+<span class="cmt">;;--------------------=={ Total Length }==--------------------;;</span>
+<span class="cmt">;;                                                            ;;</span>
+<span class="cmt">;;  Displays the total length of selected objects at the      ;;</span>
+<span class="cmt">;;  command line. The units and precision format of the       ;;</span>
+<span class="cmt">;;  printed result is dependent upon the settings of the      ;;</span>
+<span class="cmt">;;  LUNITS &amp; LUPREC system variables respectively.            ;;</span>
+<span class="cmt">;;------------------------------------------------------------;;</span>
+<span class="cmt">;;  Author: Lee Mac, Copyright © 2013 - www.lee-mac.com       ;;</span>
+<span class="cmt">;;------------------------------------------------------------;;</span>
+
+<span class="brkt">(</span><span class="func">defun</span> c:tlen <span class="brkt">(</span> <span class="func">/</span> e i l s <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">setq</span> s
+            <span class="brkt">(</span><span class="func">ssget</span>
+               <span class="quot">'</span><span class="brkt">(</span>   <span class="brkt">(</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"ARC,CIRCLE,ELLIPSE,LINE,*POLYLINE,SPLINE"</span><span class="brkt">)</span>
+                    <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&lt;NOT"</span><span class="brkt">)</span>
+                        <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&lt;AND"</span><span class="brkt">)</span>
+                            <span class="brkt">(</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"POLYLINE"</span><span class="brkt">)</span> <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&amp;"</span><span class="brkt">)</span> <span class="brkt">(</span><span class="int">70</span> <span class="quot">.</span> <span class="int">80</span><span class="brkt">)</span>
+                        <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"AND&gt;"</span><span class="brkt">)</span>
+                    <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"NOT&gt;"</span><span class="brkt">)</span>
+                <span class="brkt">)</span>
+            <span class="brkt">)</span>
+        <span class="brkt">)</span>
+        <span class="brkt">(</span><span class="func">progn</span>
+            <span class="brkt">(</span><span class="func">setq</span> l <span class="rea">0.0</span><span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> i <span class="brkt">(</span><span class="func">sslength</span> s<span class="brkt">))</span>
+                <span class="brkt">(</span><span class="func">setq</span> e <span class="brkt">(</span><span class="func">ssname</span> s <span class="brkt">(</span><span class="func">setq</span> i <span class="brkt">(</span><span class="func">1-</span> i<span class="brkt">)))</span>
+                      l <span class="brkt">(</span><span class="func">+</span> l <span class="brkt">(</span><span class="func">vlax-curve-getdistatparam</span> e <span class="brkt">(</span><span class="func">vlax-curve-getendparam</span> e<span class="brkt">)))</span>
+                <span class="brkt">)</span>
+            <span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">princ</span> <span class="str">"\nTotal Length: "</span><span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">princ</span> <span class="brkt">(</span><span class="func">rtos</span> l<span class="brkt">))</span>
+        <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">vl-load-com</span><span class="brkt">)</span> <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+</pre>
+</div>
+<h2>Total Area</h2>
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>tarea</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+</table>
+</div>
+<p>This program displays the total area of selected objects at the command line.</p>
+<p>The precision of the printed result is dependent on the setting of the <span class="fixw">LUPREC</span> system variable.</p>
+<div class="code">
+
+<pre>
+<span class="cmt">;;---------------------=={ Total Area }==---------------------;;</span>
+<span class="cmt">;;                                                            ;;</span>
+<span class="cmt">;;  Displays the total area of selected objects at the        ;;</span>
+<span class="cmt">;;  command line. The precision of the printed result is      ;;</span>
+<span class="cmt">;;  dependent on the setting of the LUPREC system variable.   ;;</span>
+<span class="cmt">;;------------------------------------------------------------;;</span>
+<span class="cmt">;;  Author: Lee Mac, Copyright © 2013 - www.lee-mac.com       ;;</span>
+<span class="cmt">;;------------------------------------------------------------;;</span>
+
+<span class="brkt">(</span><span class="func">defun</span> c:tarea <span class="brkt">(</span> <span class="func">/</span> a i s <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">if</span> <span class="brkt">(</span><span class="func">setq</span> s
+            <span class="brkt">(</span><span class="func">ssget</span>
+               <span class="quot">'</span><span class="brkt">(</span>   <span class="brkt">(</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"CIRCLE,ELLIPSE,*POLYLINE,SPLINE"</span><span class="brkt">)</span>
+                    <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&lt;NOT"</span><span class="brkt">)</span>
+                        <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&lt;AND"</span><span class="brkt">)</span>
+                            <span class="brkt">(</span><span class="int">0</span> <span class="quot">.</span> <span class="str">"POLYLINE"</span><span class="brkt">)</span> <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"&amp;"</span><span class="brkt">)</span> <span class="brkt">(</span><span class="int">70</span> <span class="quot">.</span> <span class="int">80</span><span class="brkt">)</span>
+                        <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"AND&gt;"</span><span class="brkt">)</span>
+                    <span class="brkt">(</span><span class="int">-4</span> <span class="quot">.</span> <span class="str">"NOT&gt;"</span><span class="brkt">)</span>
+                <span class="brkt">)</span>
+            <span class="brkt">)</span>
+        <span class="brkt">)</span>
+        <span class="brkt">(</span><span class="func">progn</span>
+            <span class="brkt">(</span><span class="func">setq</span> a <span class="rea">0.0</span><span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">repeat</span> <span class="brkt">(</span><span class="func">setq</span> i <span class="brkt">(</span><span class="func">sslength</span> s<span class="brkt">))</span>
+                <span class="brkt">(</span><span class="func">setq</span> a <span class="brkt">(</span><span class="func">+</span> a <span class="brkt">(</span><span class="func">vlax-curve-getarea</span> <span class="brkt">(</span><span class="func">ssname</span> s <span class="brkt">(</span><span class="func">setq</span> i <span class="brkt">(</span><span class="func">1-</span> i<span class="brkt">))))))</span>
+            <span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">princ</span> <span class="str">"\nTotal Area: "</span><span class="brkt">)</span>
+            <span class="brkt">(</span><span class="func">princ</span> <span class="brkt">(</span><span class="func">rtos</span> a <span class="int">2</span><span class="brkt">))</span>
+        <span class="brkt">)</span>
+    <span class="brkt">)</span>
+    <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+<span class="brkt">)</span>
+<span class="brkt">(</span><span class="func">vl-load-com</span><span class="brkt">)</span> <span class="brkt">(</span><span class="func">princ</span><span class="brkt">)</span>
+</pre>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Total Length }==--------------------;;
+;;                                                            ;;
+;;  Displays the total length of selected objects at the      ;;
+;;  command line. The units and precision format of the       ;;
+;;  printed result is dependent upon the settings of the      ;;
+;;  LUNITS &amp; LUPREC system variables respectively.            ;;
+;;------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2013 - www.lee-mac.com       ;;
+;;------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-TotalLength</span></td><td><span class="fixw">TLEN</span></td><td>Total Length</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

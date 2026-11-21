@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Standard Grid</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-StandardGrid.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Standard Grid</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-STANDARDGRID</span> and 4 grids (<span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span>, <span class="fixw">GRID-M</span>)</td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Setup\Dyl-StandardGrid.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p><span class="fixw">DYL-STANDARDGRID</span> lists every grid setting with its alias: double-click one (or OK) to apply it. The grids are child commands (<span class="fixw">Pst-*</span>) run by their aliases, which can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (see <a href="#aliases">Command Names And Aliases</a>).</p>
+<p>Switches the model space grid and snap between four standard configurations (inch, foot, centimetre and metre). The spacings are converted for the drawing units, so the same command works in metric and imperial drawings.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>Grid Inch</td><td>Sets a 1/4 in grid with a 1 in major grid and a 1/8 in snap, converted in metric drawings.</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>Grid Foot</td><td>Sets a 1 in grid with a 1 ft major grid and a 1/8 in snap, converted in metric drawings.</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>Grid Centimeter</td><td>Sets a 2 mm grid with a 1 cm major grid and a 1 mm snap, converted in imperial drawings.</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Sets a 100 mm grid with a 1 m major grid and a 25 mm snap, converted in imperial drawings.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<p>The command reads <span class="fixw">MEASUREMENT</span> (0 = imperial, 1 = metric), sets the snap spacing, the grid spacing and the number of grid lines per major line, then turns the grid on:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Imperial snap / grid</th><th>Metric snap / grid</th><th>Major line every</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>1/8&Prime; / 1/4&Prime;</td><td>3.175 / 6.35</td><td>4 lines (1&Prime;)</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>1/8&Prime; / 1&Prime;</td><td>3.175 / 25.4</td><td>12 lines (1&prime;)</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>0.0394 / 0.0787</td><td>1 / 2</td><td>5 lines (1 cm)</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>0.9843 / 3.9370</td><td>25 / 100</td><td>10 lines (1 m)</td></tr>
+</table>
+</div>
+<p>It also sets <span class="fixw">SNAPTYPE</span> to grid snap, <span class="fixw">AUTOSNAP</span> to 15 and turns <span class="fixw">ORTHOMODE</span> off.</p>
+<h2>Drawing Defaults</h2>
+<p>In <span class="fixw">Dyl-Settings</span>, the <em>open</em> button of <em>Drawing Settings</em> (in <em>Overrides</em>; unchecked, no drawing is checked) opens the window that picks the grid of the imperial drawings and the grid of the metric drawings (<span class="fixw">MEASUREMENT</span> 0 or 1). Each time a drawing opens, its snap spacing, grid spacing and major lines are compared with the default of its kind and the grid is set when they differ. The drawing is not marked as modified by it: save it to keep the grid in the file. <em>(Not checked)</em> leaves the drawings of that kind as they are. This works whether the commands of this page are turned on or not (the presets are in <span class="fixw">Modules\Dynalisp\Remote\Dyl-DrawingSetup.lsp</span>).</p>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">AUTOSNAP</span> 15 turns object snap tracking and the tracking tooltips off, whatever they were before.</li>
+<li>Snap and grid are viewport settings: only the current viewport changes.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-StandardGrid</span>: they are run by their alias, or picked from <span class="fixw">Dyl-StandardGrid</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-StandardGrid</span></td><td>&ndash;</td><td>Standard Grid</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-IN</span></td><td>&ndash;</td><td>Grid Inch</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-FT</span></td><td>&ndash;</td><td>Grid Foot</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-CM</span></td><td>&ndash;</td><td>Grid Centimeter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">GRID-M</span></td><td>&ndash;</td><td>Grid Meter</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

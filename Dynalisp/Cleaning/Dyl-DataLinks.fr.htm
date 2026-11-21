@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liaisons de données</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-DataLinks.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Liaisons de données (Data Links)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-DATALINKS</span>, <span class="fixw">DLPURGE</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Cleaning\Dyl-DataLinks.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Une liaison de données relie des tableaux à un fichier Excel. Des liaisons restent derrière quand leurs tableaux sont effacés ou quand des tableaux sont copiés d'un autre dessin, et les liaisons dont le fichier Excel a été déplacé ou supprimé ralentissent <span class="fixw">DATALINKUPDATE</span> et l'étape de préparation de sortie <em>Update all data links</em> de <span class="fixw">Dyl-Settings</span>. Ces commandes trouvent ces liaisons et les suppriment. Les tableaux eux-mêmes ne sont jamais modifiés ni supprimés.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-DATALINKS</span></td><td>Ouvre la fenêtre Data Links : chaque liaison avec son état et ses tableaux, pour les examiner et les supprimer.</td></tr>
+<tr><td><span class="fixw">DLPURGE</span></td><td>Supprime, après une seule question Oui/Non, chaque liaison qu'aucun tableau n'utilise, puis liste les liaisons utilisées dont le fichier Excel est manquant.</td></tr>
+</table>
+</div>
+<h2>Fenêtre Data Links</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Liste des liaisons</strong> &ndash; nom, état, nombre de tableaux qui utilisent la liaison et fichier source. Plusieurs liaisons peuvent être sélectionnées. État : <em>OK</em> (le fichier Excel a été trouvé), <em>Missing file</em> (il est introuvable) ou <em>No source</em> (la liaison n'a pas de fichier).</li>
+<li>Sous la liste : la source complète de la liaison sélectionnée (fichier, feuille et plage) et les présentations des tableaux qui l'utilisent, ou un résumé du dessin quand rien n'est sélectionné.</li>
+<li><strong>Select unused</strong> &ndash; sélectionne chaque liaison qu'aucun tableau n'utilise. <strong>Select missing file</strong> &ndash; sélectionne chaque liaison dont le fichier Excel est introuvable.</li>
+<li><strong>Delete selected</strong> &ndash; supprime les liaisons sélectionnées après confirmation. Quand certaines sont utilisées par des tableaux, la confirmation le dit : les tableaux gardent leur contenu mais ne sont plus liés à Excel.</li>
+<li><strong>Update tables</strong> &ndash; ferme la fenêtre, exécute <span class="fixw">DATALINKUPDATE</span> sur les tableaux des liaisons sélectionnées, puis rouvre la fenêtre.</li>
+<li><strong>Data Link Manager...</strong> &ndash; ferme la fenêtre et ouvre le Gestionnaire des liaisons de données d'AutoCAD, pour changer le fichier d'une liaison ou la détacher d'un tableau.</li>
+</ul>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Les liaisons sont lues dans le dictionnaire <span class="fixw">ACAD_DATALINK</span> du dessin.</li>
+<li>Une liaison est <em>utilisée</em> quand un tableau du dessin pointe vers elle, ou quand la liaison liste parmi ses utilisateurs un tableau qui existe encore. Les deux vérifications sont faites pour qu'une liaison ne soit jamais signalée inutilisée par erreur.</li>
+<li>Le fichier source est lu dans la chaîne de connexion de la liaison. Un chemin relatif est cherché à partir du dossier du dessin.</li>
+<li>Chaque suppression se fait dans un seul groupe d'annulation : <span class="fixw">U</span> rétablit les liaisons supprimées.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les tableaux sont cherchés dans l'espace objet et les présentations. Une liaison utilisée seulement par un tableau dans une définition de bloc peut être signalée inutilisée si la liaison ne liste pas elle-même ce tableau; <strong>Update tables</strong> ignore ces tableaux.</li>
+<li>Un fichier sur un lecteur réseau déconnecté est signalé <em>Missing file</em>.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-DataLinks</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-DataLinks</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-DataLinks</span></td><td>&ndash;</td><td>Data Links</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DLPURGE</span></td><td>&ndash;</td><td>Purge Data Links</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

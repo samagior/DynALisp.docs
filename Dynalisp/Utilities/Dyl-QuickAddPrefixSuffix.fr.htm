@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Préfixe / suffixe rapide</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-QuickAddPrefixSuffix.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Préfixe / suffixe rapide (Quick Add Prefix / Suffix)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> et 7 textes de cote (<span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-MAX</span>, <span class="fixw">DT-MIN</span>, <span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>)</td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-QuickAddPrefixSuffix.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p><span class="fixw">DYL-QUICKADDPREFIXSUFFIX</span> liste chaque préréglage de texte de cote avec son alias : double-cliquez-en un (ou OK) pour l'appliquer à la cote que vous sélectionnez ensuite. Les préréglages sont des commandes enfants (<span class="fixw">Pst-*</span>) lancées par leurs alias, qui s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (voir <a href="#aliases">Noms des commandes et alias</a>).</p>
+<p>Sept bascules en un clic qui ajoutent ou retirent un qualificatif standard sur le texte d'une cote tout en gardant la valeur mesurée dynamique. Relancer la même commande sur la même cote retire de nouveau le qualificatif.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th><th>Texte ajouté</th></tr>
+<tr><td><span class="fixw">DT-PM</span></td><td>Dimension Text Plus-Minus</td><td>Ajoute ou retire le préfixe plus-moins du texte de la cote sélectionnée.</td><td><span class="fixw">± </span></td></tr>
+<tr><td><span class="fixw">DT-DIA</span></td><td>Dimension Text Diameter</td><td>Ajoute ou retire le préfixe de diamètre du texte de la cote sélectionnée.</td><td><span class="fixw">%%c</span> (affiché Ø)</td></tr>
+<tr><td><span class="fixw">DT-MAX</span></td><td>Dimension Text Maximum</td><td>Ajoute ou retire le préfixe max. du texte de la cote sélectionnée.</td><td><span class="fixw">max. </span></td></tr>
+<tr><td><span class="fixw">DT-MIN</span></td><td>Dimension Text Minimum</td><td>Ajoute ou retire le préfixe min. du texte de la cote sélectionnée.</td><td><span class="fixw">min. </span></td></tr>
+<tr><td><span class="fixw">DT-TYP</span></td><td>Dimension Text Typical</td><td>Ajoute ou retire le suffixe (TYP) du texte de la cote sélectionnée.</td><td><span class="fixw"> (TYP)</span></td></tr>
+<tr><td><span class="fixw">DT-OB</span></td><td>Dimension Text OB</td><td>Ajoute ou retire le suffixe (OB) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OB)</span></td></tr>
+<tr><td><span class="fixw">DT-OL</span></td><td>Dimension Text OL</td><td>Ajoute ou retire le suffixe (OL) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OL)</span></td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>La commande demande <span class="fixw">Select dimension:</span> et lit le texte de remplacement de la cote (code DXF 1). La valeur mesurée y est représentée par <span class="fixw">&lt;&gt;</span>.</li>
+<li>Si le qualificatif n'est <em>pas</em> encore présent :<div class="unspacedbullets">
+<ul>
+<li>un texte de remplacement vide (valeur mesurée seule) devient <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span>;</li>
+<li>un texte de remplacement qui contient déjà <span class="fixw">&lt;&gt;</span> reçoit le qualificatif juste avant <span class="fixw">&lt;&gt;</span>;</li>
+<li>un texte de remplacement sans <span class="fixw">&lt;&gt;</span> (texte entièrement tapé) est laissé tel quel.</li>
+</ul>
+</div></li>
+<li>Si le qualificatif <em>est</em> présent, il est retiré : un texte de remplacement égal à <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> est vidé pour revenir à la valeur mesurée seule, sinon <span class="fixw">&lt;qualifier&gt;&lt;&gt;</span> est remplacé par <span class="fixw">&lt;&gt;</span>.</li>
+<li>Le changement est écrit avec <span class="fixw">entmod</span> : il s'annule donc avec <span class="fixw">U</span>.</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les commandes de suffixe (<span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>) gardent un type préfixe/suffixe, mais la routine insère toujours le texte <em>avant</em> <span class="fixw">&lt;&gt;</span> : les suffixes s'affichent donc pour l'instant devant la valeur (p. ex. <span class="fixw"> (TYP)1200</span>).</li>
+<li>Une seule cote est traitée par exécution et le choix n'est pas filtré sur les objets cotes.</li>
+<li>Appuyer sur Entrée ou rater le choix à l'invite termine la commande par un message d'erreur.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-QuickAddPrefixSuffix</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-QuickAddPrefixSuffix</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-QuickAddPrefixSuffix</span></td><td>&ndash;</td><td>Quick Add Prefix / Suffix</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-PM</span></td><td>&ndash;</td><td>Dimension Text Plus-Minus</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-DIA</span></td><td>&ndash;</td><td>Dimension Text Diameter</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-MAX</span></td><td>&ndash;</td><td>Dimension Text Maximum</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-MIN</span></td><td>&ndash;</td><td>Dimension Text Minimum</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-TYP</span></td><td>&ndash;</td><td>Dimension Text Typical</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-OB</span></td><td>&ndash;</td><td>Dimension Text OB</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">DT-OL</span></td><td>&ndash;</td><td>Dimension Text OL</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2023 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

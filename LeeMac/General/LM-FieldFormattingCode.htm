@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Field Formatting Code</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Field Formatting Code</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/fieldformat.html" target="_blank">https://lee-mac.com/fieldformat.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-FieldFormattingCode</span> &ndash; original syntax: fieldformat (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.1</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/fieldformat.html" target="_blank">lee-mac.com/fieldformat.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program enables the user to determine the field formatting code associated with the field expression held by a 
+                selected object.</p>
+<p>Upon issuing the command syntax <span class="fixw">fieldformat</span> at the AutoCAD command-line, the user will be prompted
+                to select an annotation object containing one or more field expressions with formatting applied. 
+                Following a valid selection, the program will print the outermost (i.e. non-nested) formatting code applied to the last
+                field expression held by the selected object to the command-line.</p>
+<p>For a list of all formatting codes associated with every field expression held by the selected object, the user may consult the
+                return of the <em>LM:fieldformatting</em> function defined in this program.</p>
+<p>The program is compatible for use with Single-line Text (DText), Multiline Text (MText), Attributes, Multileaders &amp; 
+                Dimensions containing one or more field expressions with formatting applied.</p>
+<h2>Example of Output</h2>
+<p>Upon selecting the following MText object containing a field expression referencing the length of an object, with
+                several formatting options applied:</p>
+<p><img alt="Field Example" height="" src="images/LM-fieldformat.png" width=""/></p>
+<p>The program may display the following output at the command-line:</p>
+<div class="code">
+<pre><span class="cmt">Command: FIELDFORMAT
+Select field:
+Formatting code: </span><span class="str">"%lu2%pr2%ct8[1000]%th44"</span>
+</pre>
+</div>
+<p>The formatting code associated with the selected field is highlighted in cyan above.</p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Field Formatting Code }==---------------------;;
+;;                                                                      ;;
+;;  This program will prompt the user to select an annotation object    ;;
+;;  containing one or more field expressions with formatting applied;   ;;
+;;  following a valid selection, will proceed to print the outermost    ;;
+;;  formatting code associated with the last formatted field            ;;
+;;  expression held by the object to the command-line.                  ;;
+;;                                                                      ;;
+;;  The program is compatible for use with Text, MText, Attributes,     ;;
+;;  Multileaders &amp; Dimensions containing one or more field expressions  ;;
+;;  with formatting applied.                                            ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2013-11-12                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2017-06-13                                      ;;
+;;                                                                      ;;
+;;  - Updated LM:fieldcode function to account for field expressions    ;;
+;;    greater than 250 characters in length.                            ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-FieldFormattingCode</span></td><td><span class="fixw">FIELDFORMAT</span></td><td>Field Formatting Code</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automatic Block Break</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Automatic Block Break</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/autoblockbreak.html" target="_blank">https://lee-mac.com/autoblockbreak.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AutoBlockBreak</span> &ndash; original syntax: ABB / ABBE / ABBS (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.9</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/autoblockbreak.html" target="_blank">lee-mac.com/autoblockbreak.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>I've seen quite a few programs of this nature, enabling the user to automatically break an object onto which a block is inserted, 
+                and so I decided to write my own.</p>
+<p>The program will allow a user to insert (or copy) a block at a specified point with all objects surrounding the block 
+                trimmed to the rectangular block outline as demonstrated in the animation below. In addition, with the <em>Automatic Block Rotation</em>
+                option set to <em>On</em>, if a curve object is detected at the block insertion point, the block will be automatically rotated
+                to align with the curve.</p>
+<p>The method utilised by the program to trim the objects surrounding the block is to obtain the dimensions of the bounding box of 
+                the selected block at zero rotation, and, following transformation of such bounding box to account for block rotation, scale and
+                orientation, the program tests for intersections between an LWPolyline (constructed from the bounding box coordinates), and a
+                selection set of the surrounding objects.</p>
+<p>This method, although accurate in most cases, makes the assumption that the points of intersection between the block and surrounding 
+                objects are the extremeties of the block.</p>
+<p>The program offers three commands:</p>
+<h3><em>ABB: <strong>A</strong>uto <strong>B</strong>lock<strong> B</strong>reak</em></h3>
+<p>Upon calling the program with <span class="fixw">ABB</span>, the program first prompts the user to select a block to insert. At
+                this prompt the user may select a block from the drawing, or type <span class="fixw">Browse</span> to browse for a drawing file to 
+                insert. The user may also alter the program rotation setting by typing <span class="fixw">Rotation</span> when prompted.</p>
+<p>Following a valid response, the program prompts the user to specify an insertion point for the block.</p>
+<p>If a curve object (Arc, Elliptical Arc, Ellipse, Circle, Line, XLine, Spline, LWPolyline or Polyline) is detected at the block
+                insertion point and the program rotation setting is enabled, the inserted block will be automatically rotated to align with the curve
+                at an angle providing maximum readability of any attributes which may be present.</p>
+<p>Finally, all surrounding compatible objects found to intersect with the inserted block are then trimmed to the
+                rectangular block outline.</p>
+<div class="cent">
+<h3>Example</h3>
+<p><img alt="abb.gif" height="300" src="images/LM-abb.gif" width="500"/></p>
+</div>
+<h3><em>ABBE: <strong>A</strong>uto <strong>B</strong>lock <strong>B</strong>reak <strong>E</strong>xisting</em></h3>
+<p>Upon calling the program with <span class="fixw">ABBE</span>, the user is prompted to select an existing block in the drawing. At
+                this prompt, the user may also alter the program rotation setting by typing <span class="fixw">Rotation</span> at the prompt.</p>
+<p>Following a valid selection, If a curve object is detected at the insertion point of the selected block and the program rotation 
+                setting is enabled, the block will be automatically rotated to align with the curve, again at an angle retaining maximum readability.</p>
+<p>All surrounding compatible objects found to intersect with the selected block are then trimmed to the rectangular block outline.</p>
+<div class="cent">
+<h3>Example</h3>
+<p><img alt="abbe.gif" height="300" src="images/LM-abbe.gif" width="500"/></p>
+</div>
+<h3><em>ABBS: <strong>A</strong>uto <strong>B</strong>lock <strong>B</strong>reak <strong>S</strong>election</em></h3>
+<p>This third command enables the user to select multiple existing blocks and automatically trim all surrounding geometry to the 
+                rectangular outline of each block.</p>
+<p>Optionally, the program will automatically rotate each block in the selection to align with curve objects detected to pass 
+                through the block insertion point.</p>
+<div class="cent">
+<h3>Example</h3>
+<p><img alt="abbs.gif" height="300" src="images/LM-abbs.gif" width="500"/></p>
+</div>
+<h3><em>Custom Programs</em></h3>
+<p>Users that are proficient in AutoLISP may also design &amp; create their own Automatic Block Break custom programs by calling the
+                <em>LM:AutoBlockBreak</em> function which is the core engine of the programs described above.</p>
+<p>This function requires two arguments: the entity name of the block reference to be processed, and a boolean flag determining whether
+                or not the supplied block reference should be automatically rotated to align with any objects passing through the block insertion point.</p>
+<p>Examples of how to correctly call this function from another program may be found by studying the code for the above commands offered
+                by this program.</p>
+<div class="cent">
+<h3>Example</h3>
+<p><img alt="abb2.gif" height="300" src="images/LM-abb2.gif" width="500"/></p>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ Automatic Block Break }==--------------------;;
+;;                                                                      ;;
+;;  This program enables the user to insert a block at a specified      ;;
+;;  point, with surrounding geometry trimmed to the rectangular outline ;;
+;;  of the block. Optionally, the program will automatically rotate     ;;
+;;  the block to align with a curve object passing through the block    ;;
+;;  insertion point.                                                    ;;
+;;                                                                      ;;
+;;  The program first prompts the user to select a block to insert. At  ;;
+;;  this prompt the user may select a block from the drawing, or type   ;;
+;;  &#x27;Browse&#x27; to browse for a drawing file to insert. The user may also  ;;
+;;  alter the program rotation setting by typing &#x27;Rotation&#x27; at the      ;;
+;;  prompt.                                                             ;;
+;;                                                                      ;;
+;;  Following a valid response, the program prompts the user to specify ;;
+;;  an insertion point for the block.                                   ;;
+;;                                                                      ;;
+;;  If a curve object (Arc, Elliptical Arc, Ellipse, Circle, Line,      ;;
+;;  XLine, Spline, LWPolyline or Polyline) is detected at the block     ;;
+;;  insertion point and the program rotation setting is enabled, the    ;;
+;;  inserted block is automatically rotated to align with the curve.    ;;
+;;                                                                      ;;
+;;  All surrounding compatible objects found to intersect with the      ;;
+;;  inserted block are then trimmed to the rectangular block outline.   ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2010  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2010-11-22                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2011-02-07                                      ;;
+;;                                                                      ;;
+;;  - Entire program rewritten to allow subfunction to be called with   ;;
+;;    block object argument.                                            ;;
+;;  - Multiple intersecting objects are now trimmed.                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2011-02-08                                      ;;
+;;                                                                      ;;
+;;  - Changed block insertion to Visual LISP InsertBlock method.        ;;
+;;  - Added calling functions to trim blocks in-situ (ABBE / ABBS).     ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2011-08-03                                      ;;
+;;                                                                      ;;
+;;  - Altered method used to create bounding polyline to exclude        ;;
+;;    attributes when trimming objects surrounding block.               ;;
+;;  - Objects surrounding blocks whose insertion point does not lie on  ;;
+;;    a curve are now also trimmed.                                     ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2011-09-30                                      ;;
+;;                                                                      ;;
+;;  - Added option to enable/disable automatic block rotation.          ;;
+;;  - Updated code formatting.                                          ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    2013-03-04                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug causing program to attempt to break MLines.             ;;
+;;  - Added new LM:blockboundingbox function to correctly calculate     ;;
+;;    the bounding box of Dynamic Block references.                     ;;
+;;  - Entire program rewritten.                                         ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.6    -    2013-10-01                                      ;;
+;;                                                                      ;;
+;;  - Fixed a bug causing the program to return an error if an object   ;;
+;;    intersects the block bounding box at only one point.              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.7    -    2014-11-22                                      ;;
+;;                                                                      ;;
+;;  - Changed the method used to detect objects located at the block    ;;
+;;    insertion point when determining the angle for automatic          ;;
+;;    block rotation.                                                   ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.8    -    2017-10-09                                      ;;
+;;                                                                      ;;
+;;  - Revised calculation of block bounding box to ignore objects       ;;
+;;    residing on frozen layers.                                        ;;
+;;  - Added option to specify block name at command-line.               ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.9    -    2020-11-14                                      ;;
+;;                                                                      ;;
+;;  - Revised calculation of block rotation angle to account for        ;;
+;;    insertion points located at the end points of the supplied curve. ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-AutoBlockBreak</span>: they are run by their alias, or picked from <span class="fixw">LM-AutoBlockBreak</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AutoBlockBreak</span></td><td><span class="fixw">ABB</span></td><td>Auto Block Break</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">ABBE</span></td><td>&ndash;</td><td>Auto Block Break Existing</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">ABBS</span></td><td>&ndash;</td><td>Auto Block Break Selection</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2010 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automatically Label Attributes</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Automatically Label Attributes</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/autolabelattributes.html" target="_blank">https://lee-mac.com/autolabelattributes.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>autolabelon / autolabeloff (to enable/disable manually)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/autolabelattributes.html" target="_blank">lee-mac.com/autolabelattributes.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program will automatically populate a specific attribute tag with a unique label within a set of attributed blocks or 
+                multileaders with attributed block content, automatically renumbering if blocks are added, copied or erased.</p>
+<p>The program uses an Object Reactor to monitor modification events for the set of all attributed blocks or multileaders (mleaders) 
+                with a block name matching a block name or wildcard pattern specified within the program source code.</p>
+<p>Following modification to any matching attributed block or multileader, a Command Reactor will trigger the program to automatically 
+                renumber a specific attribute tag held by all matching attributed blocks or multileaders in the active layout of the drawing.</p>
+<p>The block references or multileaders are numbered in the order in which they are encountered in the drawing database 
+                of the active drawing (that is, the order in which the objects were created).</p>
+<p>The program also allows the user to specify a numbering prefix &amp; suffix, the starting number for the numbering, and the number of 
+                characters to be used for fixed length numbering with leading zeros (i.e. if the numbering length is set to <span class="fixw">2</span>,
+                the program will number the objects <span class="fixw">01,02,03,...,10,11,12</span>).</p>
+<p>The autonumbering functionality is automatically enabled on drawing startup when the program is loaded, and may be subsequently 
+                enabled or disabled manually using the commands <span class="fixw">autolabelon</span> &amp; <span class="fixw">autolabeloff</span>
+                respectively.</p>
+<p>For continuous operation it is recommended that the program is automatically loaded on drawing startup - please refer to my 
+                <a href="https://lee-mac.com/autoloading.html" target="_blank" title="Loading Programs Automatically">Loading Programs Automatically</a> tutorial if you are unsure 
+                how to accomplish this.</p>
+<p>For instructions on how to set up the program to work with your attributed blocks, please 
+                read the <a href="#instructions">Instructions for Running</a> section below.</p>
+<div class="cent">
+<h3>Demonstration of Automatic Renumbering</h3>
+<p><img alt="AutoLabel Demo 2" height="400" src="images/LM-autolabeldemo2.gif" width="500"/></p>
+<p><img alt="AutoLabel.gif" height="300" src="images/LM-AutoLabel.gif" width="500"/></p>
+</div>
+<h3 id="instructions">Instructions for Running</h3>
+<p><strong>This program will run automatically when loaded on drawing startup</strong> and may be subsequently enabled or disabled 
+                using the commands <span class="fixw">autolabelon</span> and <span class="fixw">autolabeloff</span> respectively.</p>
+<p>The following instructions explain how to configure the program to automatically label an attribute within a specific block:</p>
+<div class="spacedbullets">
+<ul>
+<li>Download the program file (.lsp) from the AutoLISP download link above.</li>
+<li>Open the downloaded file in Windows Notepad (or an equivalent plain text editor).</li>
+<li>Near the top of the file, you will find the following <span class="fixw">Settings</span> section:</li>
+</ul>
+</div>
+<div class="code">
+<pre>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+<span class="cmt">;;                               Settings                               ;;</span>
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+
+    autolabel:blockname <span class="str">"myblock"</span>  <span class="cmt">;; Name of block to be updated (not case-sensitive / may use wildcards)</span>
+    autolabel:blocktag  <span class="str">"mytag"</span>    <span class="cmt">;; Attribute tag to be updated (not case-sensitive / may use wildcards)</span>
+    autolabel:prefix    <span class="str">""</span>         <span class="cmt">;; Numbering prefix (use "" for none)</span>
+    autolabel:suffix    <span class="str">""</span>         <span class="cmt">;; Numbering suffix (use "" for none)</span>
+    autolabel:start     <span class="int">1</span>          <span class="cmt">;; Starting number</span>
+    autolabel:length    <span class="int">2</span>          <span class="cmt">;; Fixed length numbering (set to zero if not required)</span>
+    autolabel:startup   <span class="func">t</span>          <span class="cmt">;; Enable on drawing startup (t=enable / nil=disable)</span>
+    autolabel:objtype   <span class="int">3</span>          <span class="cmt">;; Bit-coded integer &gt; 0 (1=attributed blocks; 2=multileader blocks)</span>
+
+<span class="cmt">;;----------------------------------------------------------------------;;</span>
+</pre>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>Here you can modify the name of the block and attribute tag to be numbered by the program, specify an optional prefix &amp; suffix,
+                        specify a starting number for the numbering, specify a number of characters for fixed length numbering (as described above), configure
+                        whether the application is enabled by default on drawing startup, and specify whether the program should renumber attributed blocks,
+                        multileaders with attributed block content, or both.</li>
+<li>Note that the block name &amp; attribute tag parameters are <u>not</u> case-sensitive and may use wildcard patterns to 
+                        match multiple block names or attribute tags.</li>
+<li>When you are satisfied with the configuration, save the modified file.</li>
+<li>Load the program as usual. (Refer to 
+                        <a href="https://lee-mac.com/runlisp.html" target="_blank" title="How to Run an AutoLISP Program">How to Run an AutoLISP Program</a> for instructions).</li>
+</ul>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------=={ AutoLabel Attributes }==---------------------;;
+;;                                                                      ;;
+;;  This program will automatically populate a specific attribute tag   ;;
+;;  with a unique label within a set of attributed blocks, renumbering  ;;
+;;  if blocks are added, copied or erased.                              ;;
+;;                                                                      ;;
+;;  The program uses an Object Reactor to monitor modification events   ;;
+;;  for the set of all attributed blocks with a block name matching     ;;
+;;  a block name or wildcard pattern specified within the program       ;;
+;;  source code.                                                        ;;
+;;                                                                      ;;
+;;  Following modification to any matching attributed block, a Command  ;;
+;;  Reactor will trigger the program to automatically renumber a        ;;
+;;  specific attribute tag held by all matching attributed blocks in    ;;
+;;  the active layout of the drawing.                                   ;;
+;;                                                                      ;;
+;;  The block references are numbered in the order in which they are    ;;
+;;  encountered in the drawing database of the active drawing           ;;
+;;  (that is, the order in which the blocks were created).              ;;
+;;                                                                      ;;
+;;  The program also allows the user to specify a numbering prefix &amp;    ;;
+;;  suffix, the starting number for the numbering, and the number of    ;;
+;;  characters to be used for fixed length numbering with leading zeros ;;
+;;  (i.e. if the numbering length is set to 2, the program will number  ;;
+;;  the blocks 01,02,03,...,10,11,12).                                  ;;
+;;                                                                      ;;
+;;  The autonumbering functionality is automatically enabled on drawing ;;
+;;  startup when the program is loaded, and may be subsequently enabled ;;
+;;  or disabled manually using the commands &#x27;AUTOLABELON&#x27; &amp;             ;;
+;;  &#x27;AUTOLABELOFF&#x27; respectively.                                        ;;
+;;----------------------------------------------------------------------;;
+;;  Author: Lee Mac, Copyright © 2011 - www.lee-mac.com                 ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.0    -    2011-09-14                                      ;;
+;;                                                                      ;;
+;;  - First release.                                                    ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.1    -    2015-09-20                                      ;;
+;;                                                                      ;;
+;;  - Program entirely rewritten.                                       ;;
+;;  - Added callback function to handle command cancelled &amp; command     ;;
+;;    failed events when modifying autonumbered blocks.                 ;;
+;;  - Added the ability to specify a numbering prefix &amp; suffix,         ;;
+;;    specify a starting number, and use fixed length numbering         ;;
+;;    (i.e numbering with leading zeros: 01,02,...,10).                 ;;
+;;  - Block Name &amp; Attribute Tag parameters may now use wildcards to    ;;
+;;    match multiple block names &amp; tags (the first attribute tag which  ;;
+;;    matches the wildcard pattern will be numbered).                   ;;
+;;  - Incorporated compatibility for Multiline Attributes.              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.2    -    2015-09-27                                      ;;
+;;                                                                      ;;
+;;  - Program modified to only increment numbering counter if an        ;;
+;;    attribute matching the target tag name is found.                  ;;
+;;  - Implemented compatibility for multileader blocks.                 ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.3    -    2018-10-27                                      ;;
+;;                                                                      ;;
+;;  - Fixed bug in autolabel:getattributetagid function preventing      ;;
+;;    numbering of multileader attributed blocks.                       ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2020-02-15                                      ;;
+;;                                                                      ;;
+;;  - Program modified to account for attributed MInsert Blocks.        ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2011 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Groupes par proximité</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-GroupCluster.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Groupes par proximité (Group Cluster)</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">GROUPCLUSTER</span></td>
+</tr>
+<tr>
+<td>Fichier source</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-GroupCluster.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requis</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>État</td>
+<td>À vérifier &ndash; voir Limites connues</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Répartit les objets d'une fenêtre ou d'une sélection en plusieurs groupes selon leur proximité : les objets plus proches qu'un écart donné se retrouvent dans le même groupe, enchaînés de voisin en voisin, et les objets isolés restent hors groupe.</p>
+<h2 id="commands">Commandes</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
+<tr><td><span class="fixw">GROUPCLUSTER</span></td><td>Group Cluster</td><td>Répartit les objets d'une fenêtre ou d'une sélection en plusieurs groupes selon leur proximité.</td></tr>
+</table>
+</div>
+<h2>Fonctionnement</h2>
+<div class="spacedbullets">
+<ol>
+<li>Choisissez deux coins d'une fenêtre (seuls les objets entièrement à l'intérieur sont gardés), ou appuyez sur Entrée au premier coin pour sélectionner des objets plutôt.</li>
+<li>Entrez l'écart maximal entre deux objets pour qu'ils soient groupés (10 unités de dessin par défaut).</li>
+<li>L'écart est mesuré entre les boîtes englobantes des objets en plan (X/Y seulement); 0 quand les boîtes se touchent ou se chevauchent.</li>
+<li>La proximité s'enchaîne : si A est près de B et B près de C, A, B et C vont dans le même groupe même si A et C sont éloignés.</li>
+<li>Un groupe anonyme est créé par amas de deux objets ou plus, et la commande indique les groupes créés, les objets laissés seuls et les objets sautés (sans boîte englobante).</li>
+</ol>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les groupes sont ajoutés en passant le tableau des membres directement à la méthode <span class="fixw">Add</span> de la collection Groups, qui ne prend qu'un nom de groupe (et <span class="fixw">*</span> pour un groupe anonyme). Si AutoCAD refuse cet appel, chaque amas signale <em>Failed to create a group</em> et aucun groupe n'est créé.</li>
+<li>Chaque objet est comparé à tous les autres : les grandes sélections (des milliers d'objets) deviennent lentes.</li>
+<li>Les boîtes englobantes sont plus grandes que la géométrie des arcs, des lignes diagonales, etc. : de tels objets peuvent être groupés avec des voisins qui n'en sont pas vraiment si proches.</li>
+<li>Le chargement du fichier affiche un message <em>loaded</em> à la ligne de commande : il apparaît donc à chaque démarrage de DynALisp.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-GroupCluster</span></td><td><span class="fixw">GROUPCLUSTER</span></td><td>Group Cluster</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+        <details class="bundled">
+            <summary>Notes du programme d'origine (en anglais)</summary>
+            <pre>;;;-----------------------------------------------------------------------
+;;; GroupCluster.lsp
+;;;
+;;; Command: GROUPCLUSTER
+;;;
+;;; Purpose:
+;;;   Builds on GROUPALL, but instead of putting every entity in the
+;;;   range into ONE group, it looks at how far entities are from each
+;;;   other and automatically splits them into SEVERAL groups - only
+;;;   entities that are close enough to each other end up in the same
+;;;   group.
+;;;
+;;;   &quot;Close enough&quot; is transitive/recursive: if A is near B, and B is
+;;;   near C, then A, B and C all land in the same group even if A and
+;;;   C are far apart on their own (classic single-linkage/connected-
+;;;   component clustering, done with a union-find structure). Entities
+;;;   with no neighbor inside the distance you give are left ungrouped
+;;;   (a &quot;group&quot; of one entity isn&#x27;t meaningful).
+;;;
+;;;   Distance between two entities is measured as the gap between
+;;;   their bounding boxes (0 if the boxes touch or overlap), which is
+;;;   a good general-purpose proximity test regardless of entity type.
+;;;   The comparison is planar (X/Y only, Z is ignored).
+;;;
+;;; Usage:
+;;;   1. APPLOAD this file (or drag &amp; drop it into the AutoCAD window).
+;;;   2. Type GROUPCLUSTER at the command line.
+;;;   3. Either specify two corners to define the range (only entities
+;;;      fully enclosed by the window are considered), or press Enter
+;;;      at the first-corner prompt to pick objects manually instead.
+;;;   4. Enter the maximum gap distance for two entities to be
+;;;      considered part of the same group (default 10 drawing units).
+;;;   5. The routine reports how many groups it created (all anonymous,
+;;;      auto-named by AutoCAD, e.g. *A1, *A2, ...) and how many
+;;;      entities were left ungrouped because nothing was near them.
+;;;
+;;; Notes:
+;;;   - Performance is O(n^2) in the number of selected entities (every
+;;;     entity is compared against every other one), which is fine for
+;;;     selections up to a few hundred/thousand objects but will slow
+;;;     down noticeably beyond that.
+;;;   - As in GROUPALL, grouping never changes the entities themselves.
+;;;-----------------------------------------------------------------------</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

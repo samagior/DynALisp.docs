@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Point Manager</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Point Manager</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/ptmanager.html" target="_blank">https://lee-mac.com/ptmanager.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-PointManager</span> &ndash; original syntax: PtManager / PtM (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>2.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>No</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/ptmanager.html" target="_blank">lee-mac.com/ptmanager.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This is an extremely versatile program engineered to manipulate point data in many ways. The user may select an input type (the
+                source of the point data) and output type (the result of reading the data from the input object).</p>
+<p>The input/output types may be a txt/csv file, a selection of AutoCAD Points, a selection of 3D/LWPolylines, or a selection of
+                blocks. Point (and possibly attribute) data may be read from any of these sources, and subsequently exported to any of the above 
+                objects.</p>
+<p>The program caters for point data in various formats (xyz, yxz etc) with arbitrary data delimiters (commas, semi-colons etc), and
+                furthermore, the point data may be sorted prior to export.</p>
+<p>If the selected output type is an AutoCAD object, various options are supplied to allow control of object Layer and block scale &amp; 
+                rotation; these can be altered upon pressing the <span class="fixw">'Object Options'</span> button.</p>
+<p>If attribute data follows the point data within a txt/csv file, the user may choose to populate block attributes with such data - 
+                similarly, attribute data may be extracted to a file from an input type of attributed blocks.</p>
+<p>Further guidance is provided upon pressing the <span class="fixw">'Help'</span> button.</p>
+<h2>Dialog Preview</h2>
+<div class="cent">
+<h3>Main Dialog</h3>
+<p><img alt="" height="407" src="images/LM-PtManager1.png" width="564"/></p>
+<h3>Point Format Dialog</h3>
+<p><img alt="" height="141" src="images/LM-PtManager2.png" width="462"/></p>
+<h3>Object Options Dialog</h3>
+<p><img alt="" height="167" src="images/LM-PtManager3.png" width="340"/></p>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;----------------------------=={  Point Manager  }==----------------------------;;
+;;                                                                               ;;
+;;  Program will allow the user to manipulate points in the drawing or a file in ;;
+;;  a variety of ways, including:                                                ;;
+;;                                                                               ;;
+;;  From File:-                                                                  ;;
+;;  --------------                                                               ;;
+;;                                                                               ;;
+;;  - Insert a Block at all Points from a File (txt/csv)                         ;;
+;;  - Insert a Point at all Points from a File (txt/csv)                         ;;
+;;  - Create an LW/3D Polyline from all Points in a File (txt/csv)               ;;
+;;                                                                               ;;
+;;  From ACAD Points:-                                                           ;;
+;;  ---------------------                                                        ;;
+;;                                                                               ;;
+;;  - Insert a Block at all/selected Points in a drawing                         ;;
+;;  - Export all/selected Points in a drawing to a File (txt/csv)                ;;
+;;  - Create an LW/3D Polyline from all/Selected Points in a drawing             ;;
+;;                                                                               ;;
+;;  From LW/3D Polylines:-                                                       ;;
+;;  --------------------------                                                   ;;
+;;                                                                               ;;
+;;  - Insert a Block at all vertices of an LW/3D Polyline                        ;;
+;;  - Export all Vertices of an LW/3D Polyline to a File (txt/csv)               ;;
+;;  - Insert a Point at all Vertices of an LW/3D Polyline                        ;;
+;;  - Create an LW/3D Polyline from all/selected LW/3D Polylines                 ;;
+;;                                                                               ;;
+;;  From Blocks:-                                                                ;;
+;;  ----------------                                                             ;;
+;;                                                                               ;;
+;;  - Export all insertions of a Block to a File (txt/csv)                       ;;
+;;  - Insert a Point at all instances of a Block                                 ;;
+;;  - Create an LW/3D Polyline at all insertions of a Block                      ;;
+;;                                                                               ;;
+;;                                                                               ;;
+;;  When reading from/writing to Files, a data delimiter may be selected from    ;;
+;;  the drop-down, with the exception of using a CSV file, in which a comma must ;;
+;;  be used.                                                                     ;;
+;;                                                                               ;;
+;;  The user can also choose to sort the points by X/Y/Z Coordinate, in          ;;
+;;  Ascending or Descending order.                                               ;;
+;;                                                                               ;;
+;;  When the input is of Block type and output of File type (or vice-versa),     ;;
+;;  Block Attributes may be written (or entered).                                ;;
+;;                                                                               ;;
+;;                                                                               ;;
+;;                 --&lt;&lt;  Click Help for more information  &gt;&gt;--                   ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  FUNCTION SYNTAX:  PtManager  /  PtM  /  PTM_clear (Resets Defaults)          ;;
+;;                                                                               ;;
+;;  Notes:-                                                                      ;;
+;;  -----------                                                                  ;;
+;;  If no Z-Coord is found, zero elevation is assumed.                           ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Author: Lee Mac, Copyright © December 2009 - www.lee-mac.com                 ;;
+;;                                                                               ;;
+;;-------------------------------------------------------------------------------;;
+;;                                                                               ;;
+;;  Version:                                                                     ;;
+;;                                                                               ;;
+;;  1.0:  05/12/2009  -  First Release                                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.1:  05/12/2009  -  Added Dialog interface.                                 ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.2:  11/12/2009  -  Updated Dialog Interface to allow for various           ;;
+;;                       input/output.                                           ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.3:  12/12/2009  -  Added ability to Create LW and 3D Polylines.            ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.4:  14/12/2009  -  Added ability to select data delimiter when reading     ;;
+;;                       from/writing to files.                                  ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.5:  17/12/2009  -  Fixed Bug when selecting 3D poly as output.             ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.6:  26/12/2009  -  Added Ability to Extract Block information.             ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.7:  29/12/2009  -  Added ability to sort points.                           ;;
+;;                    -  Added option to write/enter block attributes.           ;;
+;;                    -  Improved Default Handling.                              ;;
+;;                    -  Added option to use &#x27;other&#x27; delimiter.                  ;;
+;;                    -  Added ability to change point format.                   ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.8:  02/01/2010  -  Created Help File &amp; added Help button.                  ;;
+;;                    -  Fixed bug when selecting a block input.                 ;;
+;;-------------------------------------------------------------------------------;;
+;;  1.9:  04/01/2010  -  Modified Delimiter functions to accept delimiters of    ;;
+;;                       length &gt; 1.                                             ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.0:  05/01/2010  -  Modified Delimiter Mode_Tile functions.                 ;;
+;;                    -  Fixed bug when selecting output block from drawing.     ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.1:  07/01/2010  -  Corrected Help File Typo.                               ;;
+;;                    -  Updated Delimiter Check Function                        ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.2:  07/01/2010  -  Added Object Options Button and Dialog.                 ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.3:  08/03/2010  -  Fixed bug to include elevation.                         ;;
+;;                    -  Added code to disable/enable Object Options button.     ;;
+;;-------------------------------------------------------------------------------;;
+;;  2.4:  19/04/2010  -  Fixed bug when reading from files.                      ;;
+;;-------------------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-PointManager</span>: they are run by their alias, or picked from <span class="fixw">LM-PointManager</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-PointManager</span></td><td><span class="fixw">PTM</span>, <span class="fixw">PTMANAGER</span></td><td>Point Manager</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">PTM_CLEAR</span></td><td>&ndash;</td><td>Point Manager Reset</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

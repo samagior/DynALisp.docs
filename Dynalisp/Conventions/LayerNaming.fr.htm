@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nommage des calques</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="LayerNaming.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Nommage des calques</h1>
+
+<div class="toc">
+<h5>Sommaire</h5>
+<ul>
+<li class="outer"><a class="outer" href="#desc">Description</a></li>
+<li class="outer"><a class="outer" href="#format">Format d'un nom de calque</a></li>
+<li class="inner"><a class="inner" href="#spelling">Graphie dans DynALisp</a></li>
+<li class="outer"><a class="outer" href="#discipline">Désignation de discipline</a></li>
+<li class="outer"><a class="outer" href="#major">Groupe principal</a></li>
+<li class="outer"><a class="outer" href="#minor">Groupes secondaires</a></li>
+<li class="inner"><a class="inner" href="#annotation">Annotation</a></li>
+<li class="inner"><a class="inner" href="#view">Vues de dessin</a></li>
+<li class="inner"><a class="inner" href="#dylminor">Groupes secondaires de DynALisp</a></li>
+<li class="outer"><a class="outer" href="#status">Statut (phase)</a></li>
+<li class="outer"><a class="outer" href="#other">Autres noms</a></li>
+<li class="outer"><a class="outer" href="#tools">Comment les outils lisent un nom</a></li>
+<li class="outer"><a class="outer" href="#iso">ISO 13567</a></li>
+<li class="outer"><a class="outer" href="#source">Source</a></li>
+</ul>
+</div>
+
+<h2 id="desc">Description</h2>
+<p>DynALisp nomme ses calques comme le font les <strong>AIA CAD Layer Guidelines</strong> du <strong>United States National CAD Standard</strong> (NCS), version 5. Un nom de calque est fait de champs séparés par des tirets : à qui appartient le contenu (la discipline), ce qu'il est (les groupes principal et secondaires) et sa phase (le statut). <span class="fixw">A-Wall-Full-E</span> est un mur d'architecture, pleine hauteur, existant à conserver.</p>
+<p>Les outils de calques lisent les noms de cette façon : <a href="../Layer/Dyl-LayerTransfer.fr.htm">Layer Transfer</a> remplace un champ d'un nom, <a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a> lit et change le statut, les <a href="../Layer/Dyl-LayerKeys.fr.htm">clés de calque</a> ajoutent la phase active à leur calque, les <a href="../Layer/Dyl-LayerFilter.fr.htm">filtres de calques</a> regroupent les calques par champ, et <a href="../Layer/Dyl-LayerMake.fr.htm">Make Layers</a> construit les noms à partir de leurs champs. Un calque nommé autrement fonctionne toujours dans AutoCAD, mais ces outils le laissent tel quel.</p>
+
+<h2 id="format">Format d'un nom de calque</h2>
+<p>Un nom compte jusqu'à cinq champs, toujours dans cet ordre, chacun séparé du suivant par un tiret (<span class="fixw">-</span>) :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Champ</th><th>Caractères</th><th>Obligatoire</th><th>Exemple</th><th>Ce qu'il indique</th></tr>
+<tr><td>Désignation de discipline</td><td>1 ou 2</td><td>Oui</td><td><span class="fixw">A</span>, <span class="fixw">AD</span></td><td>Le sujet du calque : architecture, structure, électricité...</td></tr>
+<tr><td>Groupe principal</td><td>4</td><td>Oui</td><td><span class="fixw">Wall</span></td><td>Le système ou l'élément du bâtiment</td></tr>
+<tr><td>Groupe secondaire 1</td><td>4</td><td>Non</td><td><span class="fixw">Full</span></td><td>Précise le groupe principal</td></tr>
+<tr><td>Groupe secondaire 2</td><td>4</td><td>Non</td><td><span class="fixw">Dims</span></td><td>Précise le groupe secondaire</td></tr>
+<tr><td>Statut</td><td>1</td><td>Non</td><td><span class="fixw">N</span></td><td>La phase des travaux</td></tr>
+</table>
+</div>
+<p>Du nom le plus court au plus long :</p>
+<div class="programs commands">
+<table>
+<tr><th>Nom</th><th>Champs</th></tr>
+<tr><td><span class="fixw">A-Wall</span></td><td>Discipline, groupe principal</td></tr>
+<tr><td><span class="fixw">AD-Wall</span></td><td>Discipline de deux lettres (démolition d'architecture), groupe principal</td></tr>
+<tr><td><span class="fixw">A-Wall-Full</span></td><td>&hellip; un groupe secondaire</td></tr>
+<tr><td><span class="fixw">A-Wall-Full-Dims</span></td><td>&hellip; deux groupes secondaires</td></tr>
+<tr><td><span class="fixw">A-Wall-Full-Dims-N</span></td><td>&hellip; et le statut</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>La désignation de discipline et le groupe principal sont toujours présents; les groupes secondaires et le statut sont facultatifs. Un groupe secondaire qui précise le groupe principal vient juste après lui.</li>
+<li>Tout groupe principal peut suivre toute désignation de discipline, et tout groupe secondaire tout groupe principal, pourvu que chaque code garde son sens : <span class="fixw">S-Wall-Conc</span> et <span class="fixw">A-Wall-Conc</span> sont tous deux valides.</li>
+<li>Choisissez les champs qu'utilise un projet et gardez-les identiques pour tous les calques du projet.</li>
+</ul>
+</div>
+
+<h3 id="spelling">Graphie dans DynALisp</h3>
+<div class="spacedbullets">
+<ul>
+<li>Le NCS écrit ses noms en majuscules (<span class="fixw">A-WALL-FULL-N</span>). DynALisp écrit la désignation de discipline en majuscules et chaque groupe avec une majuscule suivie de minuscules : <span class="fixw">A-Wall-Full-N</span>, <span class="fixw">AS-Ctrl</span>, <span class="fixw">A-Detl-Thin</span>. C'est plus lisible dans la liste des calques et à la ligne de commande.</li>
+<li>AutoCAD ne distingue pas la casse d'un nom de calque : <span class="fixw">A-WALL-FULL-N</span> et <span class="fixw">A-Wall-Full-N</span> sont le même calque, et les outils de DynALisp comparent les champs sans tenir compte de leur casse. Un dessin nommé en majuscules fonctionne tel quel.</li>
+<li>Un groupe a toujours 4 caractères. Un code plus court est complété par <span class="fixw">~</span> (<span class="fixw">Air~</span>, <span class="fixw">Gas~</span>, <span class="fixw">Top~</span>), jamais par des espaces.</li>
+<li>Un code à vous (absent des listes) a 4 lettres, chiffres ou <span class="fixw">~</span>, et ne doit pas prendre un sens que les listes donnent déjà à un autre code. Notez-le dans les normes du projet.</li>
+</ul>
+</div>
+
+<h2 id="discipline">Désignation de discipline</h2>
+<p>La première lettre donne la discipline (niveau 1). Une seconde lettre, facultative, la subdivise (niveau 2) : <span class="fixw">AD</span> est la démolition d'architecture, <span class="fixw">AS</span> l'aménagement du site. Les secondes lettres <span class="fixw">J</span> et <span class="fixw">K</span> sont réservées à vos propres codes dans chaque discipline (<span class="fixw">AJ</span>, <span class="fixw">AK</span>, <span class="fixw">EJ</span>...).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Lettre</th><th>Discipline</th><th>Lettre</th><th>Discipline</th></tr>
+<tr><td><span class="fixw">A</span></td><td>Architecture</td><td><span class="fixw">M</span></td><td>Mécanique</td></tr>
+<tr><td><span class="fixw">B</span></td><td>Géotechnique</td><td><span class="fixw">O</span></td><td>Exploitation</td></tr>
+<tr><td><span class="fixw">C</span></td><td>Génie civil</td><td><span class="fixw">P</span></td><td>Plomberie</td></tr>
+<tr><td><span class="fixw">D</span></td><td>Procédés</td><td><span class="fixw">Q</span></td><td>Équipement</td></tr>
+<tr><td><span class="fixw">E</span></td><td>Électricité</td><td><span class="fixw">R</span></td><td>Ressources</td></tr>
+<tr><td><span class="fixw">F</span></td><td>Protection incendie</td><td><span class="fixw">S</span></td><td>Structure</td></tr>
+<tr><td><span class="fixw">G</span></td><td>Général</td><td><span class="fixw">T</span></td><td>Télécommunications</td></tr>
+<tr><td><span class="fixw">H</span></td><td>Matières dangereuses</td><td><span class="fixw">V</span></td><td>Arpentage / cartographie</td></tr>
+<tr><td><span class="fixw">I</span></td><td>Aménagement intérieur</td><td><span class="fixw">W</span></td><td>Énergie distribuée</td></tr>
+<tr><td><span class="fixw">L</span></td><td>Architecture de paysage</td><td><span class="fixw">X</span></td><td>Autres disciplines</td></tr>
+<tr><td></td><td></td><td><span class="fixw">Z</span></td><td>Entrepreneur / dessins d'atelier</td></tr>
+</table>
+</div>
+<p>La désignation dit ce que contient le calque, non qui l'a dessiné : un mur structural dessiné par l'architecte est sur <span class="fixw">S-Wall</span>. Les désignations de niveau 2 de l'architecture sont :</p>
+<div class="programs commands">
+<table>
+<tr><th>Désignation</th><th>Discipline</th></tr>
+<tr><td><span class="fixw">AD</span></td><td>Démolition d'architecture</td></tr>
+<tr><td><span class="fixw">AE</span></td><td>Éléments d'architecture</td></tr>
+<tr><td><span class="fixw">AF</span></td><td>Finis d'architecture</td></tr>
+<tr><td><span class="fixw">AG</span></td><td>Graphisme d'architecture</td></tr>
+<tr><td><span class="fixw">AI</span></td><td>Intérieurs d'architecture</td></tr>
+<tr><td><span class="fixw">AS</span></td><td>Site d'architecture</td></tr>
+</table>
+</div>
+<p>Les listes que lit DynALisp sont <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Dd1.csv</span> (niveau 1) et <span class="fixw">Dd2.csv</span> (niveau 2). Les désignations de niveau 2 des autres disciplines sont dans le NCS (voir <a href="#source">Source</a>).</p>
+
+<h2 id="major">Groupe principal</h2>
+<p>Quatre caractères qui nomment un système du bâtiment ou un élément important. Les plus utilisés dans DynALisp :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Sens</th><th>Code</th><th>Sens</th></tr>
+<tr><td><span class="fixw">Anno</span></td><td>Annotation</td><td><span class="fixw">Flor</span></td><td>Plancher (ébénisterie, escaliers, appareils...)</td></tr>
+<tr><td><span class="fixw">Area</span></td><td>Superficies</td><td><span class="fixw">Furn</span></td><td>Mobilier</td></tr>
+<tr><td><span class="fixw">Clng</span></td><td>Plafond</td><td><span class="fixw">Glaz</span></td><td>Vitrage</td></tr>
+<tr><td><span class="fixw">Cols</span></td><td>Colonnes</td><td><span class="fixw">Grid</span></td><td>Grilles</td></tr>
+<tr><td><span class="fixw">Detl</span></td><td>Détail</td><td><span class="fixw">Roof</span></td><td>Toiture</td></tr>
+<tr><td><span class="fixw">Door</span></td><td>Portes</td><td><span class="fixw">Sect</span></td><td>Coupe</td></tr>
+<tr><td><span class="fixw">Elev</span></td><td>Élévation</td><td><span class="fixw">Slab</span></td><td>Dalle</td></tr>
+<tr><td><span class="fixw">Eqpm</span></td><td>Équipement</td><td><span class="fixw">Wall</span></td><td>Murs</td></tr>
+</table>
+</div>
+<p>La liste que lit DynALisp est <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Major.csv</span>; les listes déroulantes de Layer Transfer affichent ses codes avec leur sens (<span class="fixw">Wall - Walls</span>).</p>
+
+<h2 id="minor">Groupes secondaires</h2>
+<p>Quatre caractères chacun, au plus deux dans un nom, qui précisent le groupe principal : <span class="fixw">A-Wall-Full</span> (pleine hauteur), <span class="fixw">A-Wall-Prht</span> (hauteur partielle), <span class="fixw">A-Door-Iden</span> (étiquettes de portes), <span class="fixw">A-Wall-Full-Patt</span> (la hachure des murs pleine hauteur). La liste que lit DynALisp est <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Minor.csv</span>; <span class="fixw">Res\Layer\Standard\Minor.csv</span> contient les mêmes codes avec la couleur et l'épaisseur de ligne que leur donne Make Layers.</p>
+
+<h3 id="annotation">Annotation</h3>
+<p>L'annotation est ce qui ne représente pas une partie du bâtiment : textes, cotes, étiquettes, titres, cartouche. Elle va sur le groupe principal <span class="fixw">Anno</span> (<span class="fixw">G-Anno-Dims</span>), ou sur l'un de ces groupes secondaires après n'importe quel autre groupe (<span class="fixw">A-Wall-Iden</span>, <span class="fixw">A-Flor-Text</span>) :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Sens</th><th>Code</th><th>Sens</th></tr>
+<tr><td><span class="fixw">Dims</span></td><td>Cotes</td><td><span class="fixw">Nplt</span></td><td>Non tracé</td></tr>
+<tr><td><span class="fixw">Iden</span></td><td>Étiquettes d'identification</td><td><span class="fixw">Rdme</span></td><td>Notes à lire, non tracées</td></tr>
+<tr><td><span class="fixw">Keyn</span></td><td>Notes clés</td><td><span class="fixw">Redl</span></td><td>Annotations de révision en rouge</td></tr>
+<tr><td><span class="fixw">Labl</span></td><td>Libellés</td><td><span class="fixw">Revc</span></td><td>Nuages de révision</td></tr>
+<tr><td><span class="fixw">Legn</span></td><td>Légendes, clés de symboles</td><td><span class="fixw">Revs</span></td><td>Indicateurs et textes de révision</td></tr>
+<tr><td><span class="fixw">Mark</span></td><td>Repères, traits de coupure, lignes de repère</td><td><span class="fixw">Schd</span></td><td>Tableaux de nomenclature</td></tr>
+<tr><td><span class="fixw">Matc</span></td><td>Lignes de raccord</td><td><span class="fixw">Symb</span></td><td>Symboles de référence</td></tr>
+<tr><td><span class="fixw">Note</span></td><td>Notes</td><td><span class="fixw">Text</span></td><td>Texte</td></tr>
+<tr><td><span class="fixw">Refr</span></td><td>Références, fichiers externes</td><td><span class="fixw">Titl</span></td><td>Titres de dessins ou de détails</td></tr>
+<tr><td><span class="fixw">Tabl</span></td><td>Tableaux de données</td><td><span class="fixw">Ttlb</span></td><td>Bordure et cartouche</td></tr>
+</table>
+</div>
+<p>Make Layers ne trace pas les calques <span class="fixw">Nplt</span> et <span class="fixw">Rdme</span>.</p>
+
+<h3 id="view">Vues de dessin</h3>
+<p>Les calques d'un dessin organisé par vue plutôt que par système du bâtiment utilisent les groupes principaux <span class="fixw">Detl</span> (détail), <span class="fixw">Elev</span> (élévation) et <span class="fixw">Sect</span> (coupe), qui peuvent aussi être des groupes secondaires (<span class="fixw">A-Wall-Elev</span>). Leurs groupes secondaires :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Sens</th></tr>
+<tr><td><span class="fixw">Mcut</span></td><td>Matériau coupé par la vue</td></tr>
+<tr><td><span class="fixw">Mbnd</span></td><td>Matériau au-delà de la coupe</td></tr>
+<tr><td><span class="fixw">Otln</span></td><td>Contour</td></tr>
+<tr><td><span class="fixw">Patt</span></td><td>Textures et motifs de hachures</td></tr>
+<tr><td><span class="fixw">Iden</span></td><td>Étiquettes d'identification</td></tr>
+<tr><td><span class="fixw">A001</span> &hellip; <span class="fixw">Z999</span></td><td>Un numéro de vue : une lettre et trois chiffres, après un groupe principal de vue seulement (<span class="fixw">A-Detl-A001-Mcut</span>)</td></tr>
+</table>
+</div>
+
+<h3 id="dylminor">Groupes secondaires de DynALisp</h3>
+<p>DynALisp dessine ses détails sur des groupes secondaires qui donnent l'épaisseur des lignes. <span class="fixw">Fine</span> et <span class="fixw">Medm</span> sont des codes du NCS; les autres sont ajoutés par DynALisp, comme les codes de <span class="fixw">Res\Layer\Standard\Dyl-Minor.csv</span> (<span class="fixw">Crak</span> lignes de fissuration, <span class="fixw">Thrm</span> thermique, <span class="fixw">Vapr</span> vapeur, <span class="fixw">Rfrc</span> armature...).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Calque</th><th>Lignes</th><th>Clé de calque</th></tr>
+<tr><td><span class="fixw">A-Detl-XFin</span></td><td>Très fines</td><td><span class="fixw">XLINE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Fine</span></td><td>Fines</td><td><span class="fixw">FINE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Thin</span></td><td>Minces</td><td><span class="fixw">THIN</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Medm</span></td><td>Moyennes</td><td><span class="fixw">MED</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Wide</span></td><td>Épaisses</td><td><span class="fixw">WIDE</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Patt</span></td><td>Textures et motifs de hachures</td><td><span class="fixw">HATCH</span></td></tr>
+<tr><td><span class="fixw">A-Detl-Scrn</span></td><td>Arrière-plans tramés</td><td><span class="fixw">G-DS-ANNO-STD-BACKGROUND_SCREEN</span></td></tr>
+</table>
+</div>
+<p>Les empilements (les élévations ou les étages dessinés dans le même fichier) sont numérotés avec les groupes secondaires <span class="fixw">0001</span> à <span class="fixw">0009</span> : <span class="fixw">A-Wall-0002-N</span>. Make Layers demande l'empilement, et les filtres de calques les affichent ou les masquent.</p>
+
+<h2 id="status">Statut (phase)</h2>
+<p>Le dernier champ, d'un caractère, donne la phase des travaux. Un calque qui ne l'a pas est <em>sans phase</em>. Les codes que connaît DynALisp sont ceux de <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span> :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Phase</th><th>Origine</th></tr>
+<tr><td><span class="fixw">E</span></td><td>Existant à conserver</td><td>NCS</td></tr>
+<tr><td><span class="fixw">D</span></td><td>Existant à démolir</td><td>NCS</td></tr>
+<tr><td><span class="fixw">N</span></td><td>Travaux neufs</td><td>NCS</td></tr>
+<tr><td><span class="fixw">T</span></td><td>Travaux temporaires</td><td>NCS</td></tr>
+<tr><td><span class="fixw">M</span></td><td>Éléments à déplacer</td><td>NCS</td></tr>
+<tr><td><span class="fixw">A</span></td><td>Abandonné</td><td>NCS</td></tr>
+<tr><td><span class="fixw">F</span></td><td>Travaux futurs</td><td>NCS</td></tr>
+<tr><td><span class="fixw">X</span></td><td>Hors contrat</td><td>NCS</td></tr>
+<tr><td><span class="fixw">1</span> &hellip; <span class="fixw">9</span></td><td>Numéros de phase 1 à 9</td><td>NCS</td></tr>
+<tr><td><span class="fixw">S</span></td><td>Existant à récupérer</td><td>DynALisp</td></tr>
+<tr><td><span class="fixw">R</span></td><td>Existant à remettre à neuf</td><td>DynALisp</td></tr>
+<tr><td><span class="fixw">P</span></td><td>Travaux proposés</td><td>DynALisp</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>Un même objet garde son nom dans chaque phase, seul le statut change : <span class="fixw">A-Wall-Full-E</span>, <span class="fixw">A-Wall-Full-D</span>, <span class="fixw">A-Wall-Full-N</span>. C'est ce qui permet à <a href="../Layer/Dyl-LayerTransfer.fr.htm">Layer Transfer</a> de déplacer des objets d'une phase à l'autre, et à l'<a href="../Layer/Dyl-LayerPhase.fr.htm">auto-phase</a> de placer les nouveaux objets dans la phase active.</li>
+<li>Un calque de phase que crée DynALisp reçoit la couleur de la phase : <span class="fixw">2#</span> pour existant à démolir, <span class="fixw">20#</span> pour existant à conserver (le dernier chiffre de la couleur du calque sans phase, qui donne l'épaisseur de ligne de la table de plumes, est conservé).</li>
+<li>Utilisez les lettres ou les numéros dans un projet, pas les deux.</li>
+</ul>
+</div>
+
+<h2 id="other">Autres noms</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">0</span>, <span class="fixw">Defpoints</span> et les calques des xréfs (<span class="fixw">Plan|A-Wall</span>) ne sont jamais mis en phase ni transférés.</li>
+<li>Certains calques du style de clés de calque d'AutoCAD Architecture que suit DynALisp ont trois groupes secondaires (<span class="fixw">G-Anno-Stnd-Nplt-Scrn</span>, voir <a href="../Layer/Dyl-LayerKeys.fr.htm#aec">AEC Layer Overrides</a>). Le NCS en permet deux, mais les outils les lisent quand même : chaque champ de 4 caractères entre le groupe principal et le statut est un groupe secondaire.</li>
+<li>Un nom dont un champ a une autre longueur (<span class="fixw">A-Walls</span>, <span class="fixw">Hatch</span>) n'est pas lu comme un nom NCS : les transferts par niveau de Layer Transfer le laissent tel quel, et les caractères génériques des filtres de calques peuvent le manquer.</li>
+</ul>
+</div>
+
+<h2 id="tools">Comment les outils lisent un nom</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Outil</th><th>Ce qu'il lit</th></tr>
+<tr><td><a href="../Layer/Dyl-LayerTransfer.fr.htm">Layer Transfer</a></td><td>Les transferts par niveau (les listes déroulantes du ruban et <span class="fixw">LTF</span>) divisent le nom en une désignation de 1 ou 2 lettres, un groupe principal, ses groupes secondaires et un statut d'un caractère, et remplacent l'un d'eux. Les transferts de phase (<span class="fixw">E-D</span>, <span class="fixw">D-N</span>...) remplacent ou ajoutent le statut.</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a></td><td>Le statut : compte les calques de chaque phase, les affiche ou les masque, et déplace le calque courant et les nouveaux objets dans la phase active.</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerKeys.fr.htm">Layer Keys</a></td><td>Le calque sans phase de chaque clé, auquel la phase active est ajoutée (<span class="fixw">A-Detl-Thin</span> &rarr; <span class="fixw">A-Detl-Thin-E</span>).</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerFilter.fr.htm">Layer Filters</a></td><td>Des caractères génériques sur les champs : <span class="fixw">A-*</span> pour l'architecture, <span class="fixw">*-E</span> et <span class="fixw">*-X</span> pour l'existant, <span class="fixw">*-@@??</span> pour les calques sans phase (un nom qui finit par un groupe), <span class="fixw">*-0001</span> &hellip; <span class="fixw">*-0009</span> pour les empilements, <span class="fixw">*-Dims*</span>, <span class="fixw">*-Text*</span>... pour l'annotation (voir ses <em>Tokens</em>).</td></tr>
+<tr><td><a href="../Layer/Dyl-LayerMake.fr.htm">Make Layers</a></td><td>Construit chaque nom à partir des colonnes <span class="fixw">Designator</span>, <span class="fixw">Major</span> et <span class="fixw">Minor</span> de ses listes, et donne au calque une couleur, une épaisseur et un type de ligne selon ses codes.</td></tr>
+</table>
+</div>
+
+<h2 id="iso">ISO 13567</h2>
+<p>Le NCS peut s'utiliser en <em>conformité conceptuelle</em> avec ISO 13567 (<em>Organisation et dénomination des couches de CAO</em>). DynALisp ne le vérifie pas; un projet qui en a besoin suit aussi ces règles :</p>
+<div class="spacedbullets">
+<ul>
+<li>Pas de groupe principal <span class="fixw">Anno</span> : l'annotation va dans un groupe secondaire réservé aux seuls codes d'annotation (<span class="fixw">A-Wall-Text-N</span>).</li>
+<li>Un groupe secondaire utilisé pour les vues de dessin (<span class="fixw">Elev</span>, <span class="fixw">Sect</span>...) ne contient aucun autre code.</li>
+<li>Tous les noms du projet ont les mêmes champs et la même longueur : un champ inutilisé est rempli de traits de soulignement (<span class="fixw">A-Wall-Elev-____-N</span>).</li>
+<li>Le statut contient les lettres ou les numéros de phase, pas les deux.</li>
+<li>Le format du projet est décrit dans un fichier de définition du nommage des calques, comme le demande ISO 13567-3.</li>
+</ul>
+</div>
+
+<h2 id="source">Source</h2>
+<p><em>AIA CAD Layer Guidelines</em>, United States National CAD Standard, version 5, National Institute of Building Sciences, 2011. Ses annexes listent chaque désignation de discipline, groupe principal, groupe secondaire et statut, ainsi que les calques les plus utilisés par chaque discipline.</p>
+
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

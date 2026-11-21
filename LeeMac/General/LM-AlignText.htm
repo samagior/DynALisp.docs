@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Align Text</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Align Text</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/aligntext.html" target="_blank">https://lee-mac.com/aligntext.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-AlignText</span> &ndash; original syntax: AT (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.4</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt"><td>Original Page</td><td><a href="https://lee-mac.com/aligntext.html" target="_blank">lee-mac.com/aligntext.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This relatively simple program enables the user to reposition a selection of single-line text objects to be aligned by their text alignment
+                points in a direction perpendicular to the rotation of the text, and optionally equispaced by a factor of the text height.</p>
+<p>The program is designed to operate as efficiently as possible, with minimal prompts: upon issuing the command syntax 
+                <span class="fixw">AT</span> at the AutoCAD command-line, the user is only prompted for a selection of text objects and
+                an optional line spacing factor.</p>
+<p>If the user presses <span class="fixw">ENTER</span> at the prompt for a line spacing factor, the program will align the selection
+                of text objects without altering their spacing; otherwise, if the user specifies a valid spacing factor, the text objects will be aligned
+                and equispaced by a distance equal to the text height multiplied by the given line spacing factor.</p>
+<p>The program assumes that all selected text objects have the same height &amp; rotation and will align the text objects in a direction
+                perpendicular to the rotation angle of an arbitrary text object in the set.</p>
+<p>Finally, the program will operate successfully with text objects constructed in any UCS plane.</p>
+<div class="cent">
+<h2>Demonstration</h2>
+<h3>Using a Line Spacing Factor</h3>
+<img alt="Align Text Example 1" height="220" src="images/LM-aligntext1.gif" width="432"/>
+<img alt="Align Text Example 2" height="220" src="images/LM-aligntext2.gif" width="432"/>
+<h3>Using the Existing Text Spacing</h3>
+<img alt="Align Text Example 3" height="220" src="images/LM-aligntext3.gif" width="430"/>
+<img alt="Align Text Example 4" height="220" src="images/LM-aligntext4.gif" width="430"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;---------------------------=={ Align Text }==-------------------------;;
+;;                                                                      ;;
+;;  This program enables the user to reposition a selection of          ;;
+;;  single-line text objects to be aligned by their text alignment      ;;
+;;  points in a direction perpendicular to the rotation of the text,    ;;
+;;  optionally equispaced by a factor of the text height.               ;;
+;;                                                                      ;;
+;;  The program assumes all text objects in the selection have the      ;;
+;;  same rotation and will align each text object using the coordinates ;;
+;;  of the text alignment point.                                        ;;
+;;                                                                      ;;
+;;  The program will perform successfully with text constructed in      ;;
+;;  any UCS plane.                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.4    -    2016-01-16                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-AlignText</span></td><td><span class="fixw">AT</span></td><td>Align Text</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

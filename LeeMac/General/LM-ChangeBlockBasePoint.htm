@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change Block Base Point</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="Not translated yet">FR</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Change Block Base Point</h1>
+
+        <p class="note">This page is delivered for consistency purposes only, as part of the <a href="../index.htm">LeeMac sample module</a>
+            of DynALisp, which shows how DynALisp turns existing AutoLISP programs into a module. The program and its
+            description are the work of Lee Mac, who keeps all the credit for them. The original page, with the latest
+            version, is on Lee Mac's website: <a href="https://lee-mac.com/changeblockinsertion.html" target="_blank">https://lee-mac.com/changeblockinsertion.html</a></p>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">LM-ChangeBlockBasePoint</span> &ndash; original syntax: CBP / CBPR (see <a href="#aliases">aliases</a>)</td>
+</tr>
+<tr>
+<td>Current Version</td>
+<td>1.5</td>
+</tr>
+
+
+<tr class="alt">
+<td>Compatible with AutoCAD for Mac?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Compatible with AutoCAD LT?</td>
+<td>Yes</td>
+</tr>
+
+<tr class="alt">
+<td class="cent" colspan="2">
+<em>This program is also available at the <a href="http://bit.ly/1jCjHZX" target="_blank">Autodesk Exchange App Store</a><em>
+</em></em></td>
+</tr>
+<tr><td>Original Page</td><td><a href="https://lee-mac.com/changeblockinsertion.html" target="_blank">lee-mac.com/changeblockinsertion.html</a></td></tr></table>
+</div>
+<h2>Program Description</h2>
+<p>This program allows the user to change the position of the block base point for all references of a block
+                definition in a drawing.</p>
+<p>The program offers two commands:</p>
+<h3><em>CBP: <strong>C</strong>hange <strong>B</strong>ase <strong>P</strong>oint</em></h3>
+<p>This command will retain the insertion point coordinates for all references of the selected block. Hence visually, 
+                the block components will be moved around the insertion point when the base point position is changed.</p>
+<h3><em>CBPR: <strong>C</strong>hange <strong>B</strong>ase <strong>P</strong>oint retain <strong>R</strong>eference position</em></h3>
+<p>This command will retain the position of each reference of the selected block. That is, the visual position of all
+                block reference geometry will remain unchanged when the position of the block base point is altered.</p>
+<p>Upon issuing one of the above commands at the AutoCAD command-line, the program will prompt the user to select a block 
+                for which to change the base point position.</p>
+<p>Following a valid selection, the user is then prompted to specify a new location for the
+                base point, relative to the selected block reference.</p>
+<p>The block definition (and block reference depending on the command used) will then be modified to reflect the new block
+                base point position.</p>
+<p>If the selected block is attributed, an <span class="fixw">ATTSYNC</span> operation will also be performed to ensure all
+                attributes are in the correct positions relative to the new base point.</p>
+<p>Finally, the active viewport is regenerated to reflect the changes throughout all references of the block.</p>
+<p>The program will furthermore perform successfully with rotated &amp; scaled block references, constructed in any
+                UCS plane.</p>
+<p><strong>Please Note:</strong> A <span class="fixw">REGEN</span> is required if the <span class="fixw">UNDO</span> 
+                command is used to undo the operations performed by this program.</p>
+<div class="cent">
+<h3>Demonstration</h3>
+<img alt="Change Block Base Point" height="300" src="images/LM-ChangeBlockBasePoint.gif" width="500"/>
+</div>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;--------------------=={ Change Block Base Point }==-------------------;;
+;;                                                                      ;;
+;;  This program allows the user to change the base point for all       ;;
+;;  block references of a block definition in a drawing.                ;;
+;;                                                                      ;;
+;;  The program offers two commands:                                    ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;  CBP (Change Base Point)                                             ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  This command will retain the insertion point coordinates for all    ;;
+;;  references of the selected block. Hence visually, the block         ;;
+;;  components will be moved around the insertion point when the        ;;
+;;  base point is changed.                                              ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;  CBPR (Change Base Point Retain Reference Position)                  ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  This command will retain the position of the each block reference   ;;
+;;  of the selected block. Hence, each block reference will be moved    ;;
+;;  to retain the visual position when the base point is changed.       ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  Upon issuing a command syntax at the AutoCAD command-line, the      ;;
+;;  program will prompt the user to select a block for which to change  ;;
+;;  the base point.                                                     ;;
+;;                                                                      ;;
+;;  Following a valid selection, the user is then prompted to specify   ;;
+;;  a new base point relative to the selected block.                    ;;
+;;                                                                      ;;
+;;  The block definition (and block reference depending on the command  ;;
+;;  used) will then be modified to reflect the new block base point.    ;;
+;;                                                                      ;;
+;;  If the selected block is attributed, an ATTSYNC operation will      ;;
+;;  also be performed to ensure all attributes are in the correct       ;;
+;;  positions relative to the new base point.                           ;;
+;;                                                                      ;;
+;;  Finally, the active viewport is regenerated to reflect the changes  ;;
+;;  throughout all references of the block.                             ;;
+;;                                                                      ;;
+;;  The program will furthermore perform successfully with rotated &amp;    ;;
+;;  scaled block references, constructed in any UCS plane.              ;;
+;;                                                                      ;;
+;;  ------------------------------------------------------------------  ;;
+;;  Please Note:                                                        ;;
+;;  ------------------------------------------------------------------  ;;
+;;                                                                      ;;
+;;  A REGEN is required if the UNDO command is used to undo the         ;;
+;;  operations performed by this program.                               ;;
+;;                                                                      ;;
+;;----------------------------------------------------------------------;;
+;;  Author:  Lee Mac, Copyright © 2013  -  www.lee-mac.com              ;;
+;;----------------------------------------------------------------------;;
+;;  Version 1.5    -    20-10-2013                                      ;;
+;;----------------------------------------------------------------------;;</pre>
+        </details>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>As in every DynALisp module, each program of this sample module has one main command, named <span class="fixw">LM-*</span>, and the original command names of Lee Mac's page are kept as its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">LM-ChangeBlockBasePoint</span>: they are run by their alias, or picked from <span class="fixw">LM-ChangeBlockBasePoint</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">LM-ChangeBlockBasePoint</span></td><td><span class="fixw">CBP</span></td><td>Change Block Base Point</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">CBPR</span></td><td>&ndash;</td><td>Change Block Base Point Retain</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Lee Mac, Copyright &copy; 2013 &ndash;
+            <a href="https://www.lee-mac.com" target="_blank">www.lee-mac.com</a></p>
+    </div>
+</body>
+
+</html>

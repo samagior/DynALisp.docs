@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Import Layers From CSV</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-LayerImportFromCsv.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Import Layers From CSV</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td>12 commands &ndash; see <a href="#commands">Commands</a></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerImportFromCsv.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Applies layer properties stored in a CSV file to the layers of the current drawing. The preset commands load a named CSV for a type of plan and save the result as a named layer state, so the setup can be restored later; IMPORTLAYERS lets you browse for any CSV. The CSV format is the one written by <a href="Dyl-LayerExportToCsv.htm">Export Layers To CSV</a>.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Preset CSV</th><th>Layer state</th></tr>
+<tr><td><span class="fixw">A-FLOR</span></td><td>Architectural Floor Plan Layers</td><td><span class="fixw">preset_arch_floor.csv</span></td><td><span class="fixw">ARCH-FLOOR</span></td></tr>
+<tr><td><span class="fixw">A-CEIL</span></td><td>Architectural Ceiling Plan Layers</td><td><span class="fixw">preset_arch_ceiling.csv</span></td><td><span class="fixw">ARCH-CEILING</span></td></tr>
+<tr><td><span class="fixw">A-ROOF</span></td><td>Architectural Roof Plan Layers</td><td><span class="fixw">preset_arch_roof.csv</span></td><td><span class="fixw">ARCH-ROOF</span></td></tr>
+<tr><td><span class="fixw">I-FURN</span></td><td>Interior Furnishing Plan Layers</td><td><span class="fixw">preset_int_furnish.csv</span></td><td><span class="fixw">INT-FURNISH</span></td></tr>
+<tr><td><span class="fixw">I-FNSH</span></td><td>Interior Finish Plan Layers</td><td><span class="fixw">preset_int_finish.csv</span></td><td><span class="fixw">INT-FINISH</span></td></tr>
+<tr><td><span class="fixw">L-PLNT</span></td><td>Landscape Plantings Plan Layers</td><td><span class="fixw">preset_landscape.csv</span></td><td><span class="fixw">LANDSCAPE</span></td></tr>
+<tr><td><span class="fixw">C-FLOR</span></td><td>Civil Property Plan Layers</td><td><span class="fixw">preset_civil.csv</span></td><td><span class="fixw">CIVIL</span></td></tr>
+<tr><td><span class="fixw">S-FLOR</span></td><td>Structural Floor Plan Layers</td><td><span class="fixw">preset_structural.csv</span></td><td><span class="fixw">STRUCTURAL</span></td></tr>
+<tr><td><span class="fixw">E-FLOR</span></td><td>Electrical Floor Plan Layers</td><td><span class="fixw">preset_electrical.csv</span></td><td><span class="fixw">ELECTRICAL</span></td></tr>
+<tr><td><span class="fixw">P-FLOR</span></td><td>Plumbing Floor Plan Layers</td><td><span class="fixw">preset_plumbing.csv</span></td><td><span class="fixw">PLUMBING</span></td></tr>
+<tr><td><span class="fixw">M-FLOR</span></td><td>Mechanical Floor Plan Layers</td><td><span class="fixw">preset_mechanical.csv</span></td><td><span class="fixw">MECHANICAL</span></td></tr>
+<tr><td><span class="fixw">IMPORTLAYERS</span></td><td>Import Layers From CSV</td><td>Browse (starts in Downloads)</td><td>None</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<h3>Preset commands</h3>
+<div class="spacedbullets">
+<ol>
+<li>The preset CSV is looked up in the program folder. If it is missing, a file dialog opens instead.</li>
+<li>If the layer state of the preset already exists in the drawing, you choose <span class="fixw">U</span> (restore the existing state, CSV ignored), <span class="fixw">I</span> (apply the CSV and overwrite the state) or <span class="fixw">C</span> (cancel).</li>
+<li>Otherwise the CSV is applied and the layer state is created.</li>
+<li>All viewports are regenerated.</li>
+</ol>
+</div>
+<h3>Applying a CSV</h3>
+<div class="spacedbullets">
+<ol>
+<li>The header row and any UTF-8 BOM are skipped; quoted fields are supported.</li>
+<li>Each row is matched to an existing layer by name (case-insensitive). Layers that are not in the drawing are <em>not</em> created: they are counted and listed as <em>MISSING</em>.</li>
+<li>Colour, lineweight, linetype, plot, transparency, on/off, freeze, new viewport freeze and description are applied. A missing linetype is loaded from acad.lin / acadiso.lin; if it cannot be found, the layer keeps its linetype and a note is printed.</li>
+<li>A summary gives the number of layers updated and missing.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>The program folder is found by searching for <span class="fixw">import_layers_from_csv.lsp</span>, a file name that does not exist in the bundle, so presets are looked up in the drawing folder and the file dialog opens in most cases.</li>
+<li>Only <span class="fixw">preset_arch_floor.csv</span> is shipped (in <span class="fixw">Modules\Dynalisp\Res</span>); the other presets have no CSV yet.</li>
+<li>Colours are read as index colours (<span class="fixw">Red (1)</span>, <span class="fixw">ACI 151</span>, <span class="fixw">151</span>); true colours are not supported.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-LayerImportFromCsv</span>: they are run by their alias, or picked from <span class="fixw">Dyl-LayerImportFromCsv</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-LayerImportFromCsv</span></td><td><span class="fixw">IMPORTLAYERS</span></td><td>Import Layers From CSV</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">A-FLOR</span></td><td>&ndash;</td><td>Architectural Floor Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">A-CEIL</span></td><td>&ndash;</td><td>Architectural Ceiling Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">A-ROOF</span></td><td>&ndash;</td><td>Architectural Roof Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">I-FURN</span></td><td>&ndash;</td><td>Interior Furnishing Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">I-FNSH</span></td><td>&ndash;</td><td>Interior Finish Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">L-PLNT</span></td><td>&ndash;</td><td>Landscape Plantings Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">C-FLOR</span></td><td>&ndash;</td><td>Civil Property Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">S-FLOR</span></td><td>&ndash;</td><td>Structural Floor Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">E-FLOR</span></td><td>&ndash;</td><td>Electrical Floor Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">P-FLOR</span></td><td>&ndash;</td><td>Plumbing Floor Plan Layers</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">M-FLOR</span></td><td>&ndash;</td><td>Mechanical Floor Plan Layers</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;; ============================================================
+;; IMPORT-LAYERS-FROM-CSV  (Dedicated preset commands)
+;;
+;; Each command loads a named CSV from the same folder as this
+;; LSP, applies all layer properties to matching layers, then
+;; manages a named Layer State in the drawing.
+;;
+;; COMMANDS:
+;;   A-FLOR  - Architectural Floor Plan
+;;   A-CEIL  - Architectural Ceiling Plan
+;;   A-ROOF  - Architectural Roof Plan
+;;   I-FURN  - Interior Furnishing Plan
+;;   I-FNSH - Interior Finish Plan
+;;   L-PLNT  - Landscape Plantings Identification Plan
+;;   C-FLOR  - Civil Property Plan
+;;   S-FLOR  - Structural Floor Plan
+;;   E-FLOR  - Electrical Floor Plan
+;;   P-FLOR  - Plumbing Floor Plan
+;;   M-FLOR  - Mechanical Floor Plan
+;;   IMPORTLAYERS - Browse for any CSV (no layer state)
+;;
+;; Preset CSV files must live in the same folder as this LSP.
+;; CSV format matches the EXPORTLAYERS companion routine:
+;;   Layer Name,Color,Lineweight,Linetype,Plot,Transparency,
+;;   On/Off,Freeze,New VP Freeze,Description
+;; ============================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

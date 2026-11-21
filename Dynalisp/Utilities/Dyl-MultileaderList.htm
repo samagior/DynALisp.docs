@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multileader List</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-MultileaderList.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Multileader List</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">MLLIST</span></td>
+</tr>
+<tr>
+<td>Source File</td>
+<td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-MultileaderList.lsp</span></td>
+</tr>
+<tr class="alt">
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr>
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Lists the selected multileaders and blocks at the command line, grouped by content (block name and attribute values, or leader text), with a count per group.</p>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td><td>Lists the selected multileaders and blocks grouped by attribute values with a count per group.</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>Uses the pre-selected multileaders and blocks, or prompts for a selection.</li>
+<li>Each object is keyed on its content:<div class="unspacedbullets"><ul><li>block reference: block name and every <em>TAG=value</em> pair of its attributes;</li><li>multileader with block content: block name and its attribute values;</li><li>multileader with text content: the text;</li><li>anything else: <em>&lt;no content&gt;</em>.</li></ul></div></li>
+<li>Identical keys are counted together and one line is printed per group, sorted, as <em>content [xN]</em>.</li>
+<li>A last line gives the total number of objects and of groups.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Dynamic blocks are listed under their anonymous name (<em>*U&hellip;</em>), not their block name.</li>
+<li>For blocks with attributes only the <em>TAG=value</em> pairs are printed, so two different blocks with the same attribute values print identical lines.</li>
+<li>Multileader text is printed with its raw Mtext formatting codes.</li>
+<li>A selected MINSERT block stops the command with an error.</li>
+<li>The list is printed at the command line only (no table or file).</li>
+<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-MultileaderList</span></td><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+        <details class="bundled">
+            <summary>Bundled program notes</summary>
+            <pre>;;; ===========================================================
+;;; MLLIST - List selected multileaders and/or block inserts
+;;;          grouped by attribute values, with count per group
+;;;
+;;; Usage : MLLIST -&gt; runs on pre-selected entities, or
+;;;                   prompts for selection if none selected
+;;; Output: one compact line per unique group + count
+;;; ===========================================================</pre>
+        </details>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
