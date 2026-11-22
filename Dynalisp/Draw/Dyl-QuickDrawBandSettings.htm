@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Opened by</td>
-<td>The open button of <em>Custom band settings</em>, in the Behaviors box of the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window, and in the <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a> window for a layer of an assembly</td>
+<td>The open button of <em>Custom band settings</em>, in the Parameters box of the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window, and in the <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a> window for a layer of an assembly</td>
 </tr>
 <tr>
 <td>Requires</td>
@@ -35,13 +35,13 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Set how the bands of a Quick Draw preset drawn with Linear or Offset are made: what the hatch is aligned to, its scale from the width and its origin on the line, how the bands end and how they turn their corners. Where the line is in the band, its <em>Justification</em>, is set in the Behaviors box of the Quick Draw window. A sketch under the ends and under the corners shows what is picked, and changes with that justification, the hatch, the lap and the joints.</p>
+<p>Set how the bands of a Quick Draw preset drawn with Linear or Offset are made: what the hatch is aligned to, its scale from the width and its origin on the line, how the bands end and how they turn their corners. Where the line is in the band, its <em>Justification</em>, is set in the Parameters box of the Quick Draw window. A sketch under the ends and under the corners shows what is picked, and changes with that justification, the hatch, the lap and the joints.</p>
 <p>The same window sets the band of a Hatch layer of an assembly, apart from the other layers: opened from the Assembly Presets window, it edits the layers selected, and <em>Ask when drawn</em> is not offered. Its <em>Hatch aligned to</em> then gives the line of the layer: <em>Layer center</em>, its middle, or <em>Layer edge</em>, its border nearer to the line of the band (or <em>Drawing origin</em>); its hatch starts there and its Angled ends turn around it. <em>Scale by width</em> and <em>Origin on line</em> are greyed out: a layer has those of its own preset.</p>
 <!-- picture: images/Dyl-QuickDrawBandSettings-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>In the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window, pick the preset, check <em>Custom band settings</em> in its Behaviors box and click the square open button beside it: the Band Settings window opens.</li>
+<li>In the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window, pick the preset, check <em>Custom band settings</em> in its Parameters box and click the square open button beside it: the Band Settings window opens.</li>
 <li>Pick the settings, then OK. The text under <em>Custom band settings</em> sums up the ends and the corners (<em>Extended, Lapped</em>). Unchecked again, the bands are drawn with the defaults (the hatch along the line, square ends, mitered corners); the settings are kept for when it is checked.</li>
 <li>While drawing, the <em>Ends</em> and <em>Corners</em> options of the prompts (and <em>Justification</em> with Linear) change them for the next bands. The sketches of each setting are in <a href="Dyl-QuickDraw.htm#endscorners">Quick Draw &ndash; Ends and Corners</a>.</li>
 </ol>
@@ -51,9 +51,9 @@
 <div class="programs commands wide">
 <table>
 <tr><th>Setting</th><th>Use</th></tr>
-<tr><td>Scale by width</td><td>The hatch scale is the band width times this factor, in place of the scale of the hatch preset (see <a href="Dyl-QuickDraw.htm#behaviors">Quick Draw &ndash; Behaviors</a>). Greyed out for a SOLID hatch.</td></tr>
+<tr><td>Scale by width</td><td>The hatch scale is the band width times this factor, in place of the scale of the hatch preset (see <a href="Dyl-QuickDraw.htm#behaviors">Quick Draw &ndash; Parameters</a>). Greyed out for a SOLID hatch.</td></tr>
 <tr><td>Origin on line, Offset X, Offset Y</td><td>The pattern of each segment starts on the line at the start of the segment, moved along it by <em>X</em> and across it by <em>Y</em> (positive: into the band). Greyed out with <em>Drawing origin</em> and for a SOLID hatch.</td></tr>
-<tr><td>Pick...</td><td>Finds <em>X</em> and <em>Y</em> on a sample band drawn in the middle of the view, with the values of the window: the window closes, the point of the pattern picked lands at the start of the line, and the window opens again on the new offsets (see <a href="Dyl-QuickDraw.htm#behaviors">Quick Draw &ndash; Behaviors</a>).</td></tr>
+<tr><td>Pick...</td><td>Finds <em>X</em> and <em>Y</em> on a sample band drawn in the middle of the view, with the values of the window: the window closes, the point of the pattern picked lands at the start of the line, and the window opens again on the new offsets (see <a href="Dyl-QuickDraw.htm#behaviors">Quick Draw &ndash; Parameters</a>).</td></tr>
 <tr><td>Hatch aligned to</td><td><em>Line</em> (each segment hatched along it, the default) or <em>Drawing origin</em> (the angle of the hatch preset and the origin of the drawing, the pattern continuous across the corners). For a layer of an assembly, <em>Layer center</em> or <em>Layer edge</em> in place of <em>Line</em>: the hatch along the line, from the middle of the layer or from its border nearer to the line of the band.</td></tr>
 <tr><td>Ends</td><td>How an open band ends: <em>Ask when drawn</em>, <em>Square</em> (the default), <em>Open</em> (no line across the end), <em>Extended</em>, <em>Round</em> or <em>Angled</em>.</td></tr>
 <tr><td>Extension</td><td>Extended: the distance past each end, in drawing units; empty: half the width of the band.</td></tr>

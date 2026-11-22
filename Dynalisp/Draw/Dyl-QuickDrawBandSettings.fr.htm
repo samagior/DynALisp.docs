@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Ouverte par</td>
-<td>Le bouton ouvrir de <em>Custom band settings</em>, dans la zone Behaviors de la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, et dans la fenêtre <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a> pour une couche d'un assemblage</td>
+<td>Le bouton ouvrir de <em>Custom band settings</em>, dans la zone Parameters de la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, et dans la fenêtre <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a> pour une couche d'un assemblage</td>
 </tr>
 <tr>
 <td>Requis</td>
@@ -35,13 +35,13 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez comment sont faites les bandes d'un préréglage Quick Draw dessiné avec Linear ou Offset : à quoi la hachure est alignée, son échelle selon la largeur et son origine sur la ligne, comment les bandes se terminent et comment elles tournent leurs coins. Où est la ligne dans la bande, sa <em>Justification</em>, se règle dans la zone Behaviors de la fenêtre Quick Draw. Un croquis sous les extrémités et sous les coins montre ce qui est choisi, et change avec cette justification, la hachure, le recouvrement et les joints.</p>
+<p>Réglez comment sont faites les bandes d'un préréglage Quick Draw dessiné avec Linear ou Offset : à quoi la hachure est alignée, son échelle selon la largeur et son origine sur la ligne, comment les bandes se terminent et comment elles tournent leurs coins. Où est la ligne dans la bande, sa <em>Justification</em>, se règle dans la zone Parameters de la fenêtre Quick Draw. Un croquis sous les extrémités et sous les coins montre ce qui est choisi, et change avec cette justification, la hachure, le recouvrement et les joints.</p>
 <p>La même fenêtre règle la bande d'une couche Hatch d'un assemblage, à part des autres couches : ouverte depuis la fenêtre Assembly Presets, elle modifie les couches sélectionnées, et <em>Ask when drawn</em> n'est pas offert. Son <em>Hatch aligned to</em> donne alors la ligne de la couche : <em>Layer center</em>, son milieu, ou <em>Layer edge</em>, son bord le plus proche de la ligne de la bande (ou <em>Drawing origin</em>); sa hachure commence là et ses extrémités Angled tournent autour. <em>Scale by width</em> et <em>Origin on line</em> sont grisés : une couche a ceux de son propre préréglage.</p>
 <!-- picture: images/Dyl-QuickDrawBandSettings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, choisissez le préréglage, cochez <em>Custom band settings</em> dans sa zone Behaviors et cliquez le bouton ouvrir carré à côté : la fenêtre Band Settings s'ouvre.</li>
+<li>Dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, choisissez le préréglage, cochez <em>Custom band settings</em> dans sa zone Parameters et cliquez le bouton ouvrir carré à côté : la fenêtre Band Settings s'ouvre.</li>
 <li>Choisissez les réglages, puis OK. Le texte sous <em>Custom band settings</em> résume les extrémités et les coins (<em>Extended, Lapped</em>). Décochée de nouveau, les bandes se dessinent avec les valeurs par défaut (la hachure le long de la ligne, extrémités d'équerre, coins en onglet); les réglages sont gardés pour quand elle sera cochée.</li>
 <li>En dessinant, les options <em>Ends</em> et <em>Corners</em> des invites (et <em>Justification</em> avec Linear) les changent pour les bandes suivantes. Les croquis de chaque réglage sont dans <a href="Dyl-QuickDraw.fr.htm#endscorners">Quick Draw &ndash; Extrémités et coins</a>.</li>
 </ol>
@@ -51,9 +51,9 @@
 <div class="programs commands wide">
 <table>
 <tr><th>Paramètre</th><th>Use</th></tr>
-<tr><td>Scale by width</td><td>L'échelle de la hachure est la largeur de la bande fois ce facteur, à la place de l'échelle du préréglage de hachure (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Comportements</a>). Grisé pour une hachure SOLID.</td></tr>
+<tr><td>Scale by width</td><td>L'échelle de la hachure est la largeur de la bande fois ce facteur, à la place de l'échelle du préréglage de hachure (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Paramètres</a>). Grisé pour une hachure SOLID.</td></tr>
 <tr><td>Origin on line, Offset X, Offset Y</td><td>Le motif de chaque segment commence sur la ligne au début du segment, déplacé le long de la ligne de <em>X</em> et en travers de <em>Y</em> (positif : vers l'intérieur de la bande). Grisé avec <em>Drawing origin</em> et pour une hachure SOLID.</td></tr>
-<tr><td>Pick...</td><td>Trouve <em>X</em> et <em>Y</em> sur une bande d'essai dessinée au milieu de la vue, avec les valeurs de la fenêtre : la fenêtre se ferme, le point du motif choisi vient au début de la ligne, et la fenêtre se rouvre sur les nouveaux décalages (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Comportements</a>).</td></tr>
+<tr><td>Pick...</td><td>Trouve <em>X</em> et <em>Y</em> sur une bande d'essai dessinée au milieu de la vue, avec les valeurs de la fenêtre : la fenêtre se ferme, le point du motif choisi vient au début de la ligne, et la fenêtre se rouvre sur les nouveaux décalages (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Paramètres</a>).</td></tr>
 <tr><td>Hatch aligned to</td><td><em>Line</em> (chaque segment hachuré le long de la ligne, par défaut) ou <em>Drawing origin</em> (l'angle du préréglage de hachure et l'origine du dessin, le motif continu d'un coin à l'autre). Pour une couche d'un assemblage, <em>Layer center</em> ou <em>Layer edge</em> à la place de <em>Line</em> : la hachure le long de la ligne, depuis le milieu de la couche ou depuis son bord le plus proche de la ligne de la bande.</td></tr>
 <tr><td>Ends</td><td>La façon dont une bande ouverte se termine : <em>Ask when drawn</em>, <em>Square</em> (par défaut), <em>Open</em> (aucune ligne en travers de l'extrémité), <em>Extended</em>, <em>Round</em> ou <em>Angled</em>.</td></tr>
 <tr><td>Extension</td><td>Extended : la distance au-delà de chaque extrémité, en unités de dessin; vide : la moitié de la largeur de la bande.</td></tr>
