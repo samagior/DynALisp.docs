@@ -121,6 +121,7 @@
 <tr><td>Section</td><td>Iron</td><td>Iron</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
 <tr><td>Section</td><td>Steel</td><td>Steel</td><td><span class="fixw">ANSI32</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
 <tr><td>Section</td><td>Bronze</td><td>Bronze</td><td><span class="fixw">ANSI33</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
+<tr><td>Elevation</td><td>Modular Brick</td><td>Brick (Surface)</td><td><span class="fixw">BRICK</span></td><td>10.6667</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Model : une assise de 2-2/3 po, la brique en élévation.</td></tr>
 <tr><td>Section</td><td>Lead</td><td>Lead</td><td><span class="fixw">ANSI37</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
 <tr><td>Section</td><td>Aluminium</td><td>Aluminium, Metal Or Vinyl Siding, Metal Or Vinyl Siding - Insulated, Metal Or Vinyl Siding - Insulated And Foil</td><td><span class="fixw">ANSI38</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
 <tr><td>Section</td><td>Plywood</td><td>Plywood</td><td><span class="fixw">WOOD_GLU-LAMBEAM</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotatif.</td></tr>
@@ -141,14 +142,7 @@
 <tr><td>Section</td><td>Void</td><td>Air Space - Wall 13 mm, Air Space - Wall 20 mm+, Air Space - Ceiling 13 mm+, Air Space - Ceiling 40 mm+, Air Space - Floor 13 mm, Air Space - Floor 20 mm+, Air Space - Floor 40 mm+, Air Space - Floor 90 mm+, Void</td><td><em>None</em></td><td>&ndash;</td><td>&ndash;</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Sans hachure : une lame d'air, une cavité d'un assemblage.</td></tr>
 </table>
 </div>
-<p>Le fichier livre aussi un exemple de préréglage de hachure personnalisé, qui peut être modifié ou supprimé comme les vôtres :</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Groupe</th><th>Nom</th><th>Utilisé par</th><th>Motif</th><th>Échelle</th><th>Angle</th><th>Clé de bordure</th><th>Clé de hachure</th><th>Notes</th></tr>
-<tr><td>Elevation</td><td>Modular Brick</td><td>Modular Brick</td><td><span class="fixw">BRICK</span></td><td>10.6667</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Model : une assise de 2-2/3 po.</td></tr>
-</table>
-</div>
-<p>Chaque matériau par défaut utilise le préréglage de hachure par défaut du même nom (<em>Brick</em> &rarr; <em>Brick</em>), sauf les matériaux dont la hachure est la même qu'un autre, qui utilisent le préréglage de hachure de celui-ci (<em>Hardboard</em> &rarr; <em>Brick</em>, <em>Undisturbed Soil</em> &rarr; <em>Topsoil</em>, <em>Crushed Stone</em> &rarr; <em>Gravel</em>).</p>
+<p>Chaque matériau par défaut utilise le préréglage de hachure par défaut du même nom (<em>Brick</em> &rarr; <em>Brick</em>), sauf les matériaux dont la hachure est la même qu'un autre, qui utilisent le préréglage de hachure de celui-ci (<em>Hardboard</em> &rarr; <em>Brick</em>, <em>Undisturbed Soil</em> &rarr; <em>Topsoil</em>, <em>Crushed Stone</em> &rarr; <em>Gravel</em>), et la <em>Surface</em> de <em>Brick</em>, <em>Modular Brick</em>.</p>
 <h2 id="older">Matériaux d'une version antérieure</h2>
 <p>Jusqu'à DynALisp 1.1, chaque matériau avait sa propre hachure. La première fois que vos matériaux sont lus, ils sont séparés pour vous : chaque matériau reçoit le préréglage de hachure de son matériau par défaut, avec la hachure que vous aviez réglée (vos modifications sont gardées), ou un nouveau préréglage de hachure personnalisé nommé d'après lui ; les matériaux dont la hachure est la même en tout point en partagent un. Vos matériaux gardent leur nom, leur groupe et leurs préréglages, et dessinent la même hachure qu'avant.</p>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>

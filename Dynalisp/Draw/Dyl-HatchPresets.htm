@@ -121,6 +121,7 @@
 <tr><td>Section</td><td>Iron</td><td>Iron</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
 <tr><td>Section</td><td>Steel</td><td>Steel</td><td><span class="fixw">ANSI32</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
 <tr><td>Section</td><td>Bronze</td><td>Bronze</td><td><span class="fixw">ANSI33</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
+<tr><td>Elevation</td><td>Modular Brick</td><td>Brick (Surface)</td><td><span class="fixw">BRICK</span></td><td>10.6667</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Model: a course of 2-2/3 in, the brick in elevation.</td></tr>
 <tr><td>Section</td><td>Lead</td><td>Lead</td><td><span class="fixw">ANSI37</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
 <tr><td>Section</td><td>Aluminium</td><td>Aluminium, Metal Or Vinyl Siding, Metal Or Vinyl Siding - Insulated, Metal Or Vinyl Siding - Insulated And Foil</td><td><span class="fixw">ANSI38</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
 <tr><td>Section</td><td>Plywood</td><td>Plywood</td><td><span class="fixw">WOOD_GLU-LAMBEAM</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
@@ -141,14 +142,7 @@
 <tr><td>Section</td><td>Void</td><td>Air Space - Wall 13 mm, Air Space - Wall 20 mm+, Air Space - Ceiling 13 mm+, Air Space - Ceiling 40 mm+, Air Space - Floor 13 mm, Air Space - Floor 20 mm+, Air Space - Floor 40 mm+, Air Space - Floor 90 mm+, Void</td><td><em>None</em></td><td>&ndash;</td><td>&ndash;</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>No hatch: an air space, a cavity of an assembly.</td></tr>
 </table>
 </div>
-<p>The file also ships an example custom hatch preset, which can be edited or deleted like your own:</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Group</th><th>Name</th><th>Used by</th><th>Pattern</th><th>Scale</th><th>Angle</th><th>Border key</th><th>Hatch key</th><th>Notes</th></tr>
-<tr><td>Elevation</td><td>Modular Brick</td><td>Modular Brick</td><td><span class="fixw">BRICK</span></td><td>10.6667</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Model: a course of 2-2/3 in.</td></tr>
-</table>
-</div>
-<p>Each default material uses the default hatch preset of the same name (<em>Brick</em> &rarr; <em>Brick</em>), but the materials whose hatch is the same as another one, which use the hatch preset of that one (<em>Hardboard</em> &rarr; <em>Brick</em>, <em>Undisturbed Soil</em> &rarr; <em>Topsoil</em>, <em>Crushed Stone</em> &rarr; <em>Gravel</em>).</p>
+<p>Each default material uses the default hatch preset of the same name (<em>Brick</em> &rarr; <em>Brick</em>), but the materials whose hatch is the same as another one, which use the hatch preset of that one (<em>Hardboard</em> &rarr; <em>Brick</em>, <em>Undisturbed Soil</em> &rarr; <em>Topsoil</em>, <em>Crushed Stone</em> &rarr; <em>Gravel</em>), and the <em>Surface</em> of <em>Brick</em>, <em>Modular Brick</em>.</p>
 <h2 id="older">Materials Of An Older Version</h2>
 <p>Up to DynALisp 1.1, each material held its own hatch. The first time your materials are read, they are split for you: each material gets the hatch preset of its default material, given the hatch you had set (your changes are kept), or a new custom hatch preset named after it; materials whose hatch is the same in every setting share one. Your materials keep their names, groups and presets, and draw the same hatch as before.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
