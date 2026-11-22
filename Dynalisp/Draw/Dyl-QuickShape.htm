@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / ObjectDBX); the shape libraries of <span class="fixw">Modules\Dynalisp\Res\Shapes</span>; Dynalisp preset engine, <a href="Dyl-QuickDraw.htm#materials">hatch presets</a> and <a href="../Layer/Dyl-LayerKeys.htm">layer keys</a> (loaded at startup)</td>
+<td>AutoCAD for Windows (ActiveX / ObjectDBX); the shape libraries of <span class="fixw">Modules\Dynalisp\Res\Shapes</span>; Dynalisp preset engine, <a href="Dyl-QuickDraw.htm#materials">materials</a> and <a href="../Layer/Dyl-LayerKeys.htm">layer keys</a> (loaded at startup)</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,7 +35,7 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Place premade shapes, already hatched: studs, bricks, CMU, steel sections... Each preset inserts a shape from a library drawing, again and again until Enter, and fills its outlines with the hatch of its hatch preset, on the layers of its keys. The companion of Quick Draw, with the same window.</p>
+<p>Place premade shapes, already hatched: studs, bricks, CMU, steel sections... Each preset inserts a shape from a library drawing, again and again until Enter, and fills its outlines with the hatch of its material, on the layers of its keys. The companion of Quick Draw, with the same window.</p>
 <!-- picture: images/Dyl-QuickShape-window.png -->
 <!-- picture: images/Dyl-QuickShape-use.gif -->
 <h2>How To Use</h2>
@@ -43,7 +43,7 @@
 <ol>
 <li>Type the alias of the shape: <span class="fixw">QS-STUD2X4</span>... (the table below).</li>
 <li>Pick its insertion point, then its rotation; place the next one, or press Enter or Esc to stop.</li>
-<li><strong>Change or add presets</strong> &ndash; type <span class="fixw">Dyl-QuickShape</span>: pick a preset, its shape and its hatch preset, or click <strong>New</strong>. Your own shapes are blocks of a library drawing (below).</li>
+<li><strong>Change or add presets</strong> &ndash; type <span class="fixw">Dyl-QuickShape</span>: pick a preset, its shape and its material, or click <strong>New</strong>. Your own shapes are blocks of a library drawing (below).</li>
 </ol>
 </div>
 <h2 id="libraries">Shape Libraries</h2>
@@ -67,10 +67,10 @@
 <h2>Preset Dialog</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Hatch preset</strong> &ndash; the <a href="Dyl-QuickDraw.htm#materials">hatch preset</a> that fills the shape; the square open button just left of it opens the Hatch Presets window.</li>
+<li><strong>Material</strong> &ndash; the <a href="Dyl-QuickDraw.htm#materials">material</a> that fills the shape; the square open button just left of it opens the Materials window.</li>
 <li><strong>Shape</strong> &ndash; picked from the shapes of every library. A shape used by a preset but no longer found stays in the list, marked <em>(missing shape)</em>, until another one is picked.</li>
 <li><strong>Scale</strong> &ndash; insertion scale, on top of the block units (&gt; 0).</li>
-<li><strong>Border settings</strong> &ndash; the border of the shape: the layer key its closed outlines and linework go on, and the overrides of its <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> and <em>Transparency</em>, as in the <a href="Dyl-QuickDraw.htm#border">Border settings</a> of Quick Draw. A shape is always drawn with its border: there is no <em>Has a border</em>. Saved with the preset (border columns of <span class="fixw">QuickShape.csv</span>); a preset of an older file gets the border of its hatch preset.</li>
+<li><strong>Border settings</strong> &ndash; the border of the shape: the layer key its closed outlines and linework go on, and the overrides of its <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> and <em>Transparency</em>, as in the <a href="Dyl-QuickDraw.htm#border">Border settings</a> of Quick Draw. A shape is always drawn with its border: there is no <em>Has a border</em>. Saved with the preset (border columns of <span class="fixw">QuickShape.csv</span>); a preset of an older file gets the border of its material.</li>
 <li><strong>Draw</strong> saves the presets and inserts the selected one, <strong>Save</strong> saves without inserting, <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
 </ul>
 </div>
@@ -78,7 +78,7 @@
 <p>Default presets (restored by <em>Reset Selected</em> / <em>Reset All</em>). Their shapes are in the starter library <span class="fixw">Shapes.dwg</span> (inches).</p>
 <div class="programs commands wide">
 <table>
-<tr><th>Alias</th><th>Preset</th><th>Shape</th><th>Hatch preset</th></tr>
+<tr><th>Alias</th><th>Preset</th><th>Shape</th><th>Material</th></tr>
 <tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>3.5 x 1.5</td><td>Wood Frame</td></tr>
 <tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>5.5 x 1.5</td><td>Wood Frame</td></tr>
 <tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>7.25 x 1.5</td><td>Wood Frame</td></tr>

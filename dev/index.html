@@ -220,7 +220,7 @@
 <h3 id="working-on-dynalisp-with-claude-code">Working on DynALisp with Claude Code</h3>
 <ul>
 <li><strong>Start it in the bundle folder.</strong> CLAUDE.md loads <a href="conventions.html">CONVENTIONS.md</a> in every session, so each change follows the DynALisp rules (naming, folders, settings, windows, docs) without repeating them.</li>
-<li><strong>Ask for the result, one change at a time.</strong> Name the tool and the window, say what should happen ("in Quick Draw, grey out the hatch preset when Assembly is checked"); a short request reviewed and tested beats a long one.</li>
+<li><strong>Ask for the result, one change at a time.</strong> Name the tool and the window, say what should happen ("in Quick Draw, grey out the material when Assembly is checked"); a short request reviewed and tested beats a long one.</li>
 <li><strong>Plan the large changes first.</strong> For a new tool or a window redesign, ask for a plan (plan mode) and answer its questions before any code is written.</li>
 <li><strong>Make new rules conventions.</strong> When you agree on how something should always be done, ask Claude to add it to CONVENTIONS.md, with its reason: the next sessions will follow it.</li>
 <li><strong>Test in AutoCAD.</strong> Claude cannot run AutoCAD: reload (<code>Dyl-Reload</code>, or restart AutoCAD for the menu and <code>dynalisp.mnl</code>), try the change, and paste back the command line text of an error. Describe what you see in the window when the layout is off.</li>

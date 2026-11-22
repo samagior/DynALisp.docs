@@ -23,7 +23,7 @@
 <table>
 <tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-LayerKey.lsp</span> (the keys, the window and the object layer keys, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerKeys.lsp</span> (the command)</td></tr>
 <tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\LayerKeys.csv</span> (your copy under <span class="fixw">User</span>); the user settings <span class="fixw">DynalispLayerKeyUpdate</span> and <span class="fixw">DynalispLayerKeyKeep</span> (the answer remembered, see <a href="../Core/Dyl-Settings.htm">Dyl-Settings</a>)</td></tr>
-<tr class="alt"><td>Used by</td><td>Quick Draw, Quick Shape, the Hatch Presets, Layer Phase, Object Layer Keys, Revisions (<span class="fixw">ANNREV</span>)...</td></tr>
+<tr class="alt"><td>Used by</td><td>Quick Draw, Quick Shape, the Materials, Layer Phase, Object Layer Keys, Revisions (<span class="fixw">ANNREV</span>)...</td></tr>
 </table>
 </div>
 
@@ -59,7 +59,7 @@
 </div>
 
 <h2>The Window</h2>
-<p><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog pick)</span> writes the window (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDcl</span>) and runs <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDlgRun</span>. Its functions follow the <a href="../../conventions.html#windows">Windows</a> convention: several keys selected (<span class="fixw">LayerKeyDlgSel</span>, a field given to all with <span class="fixw">LayerKeyDlgPut</span>), the filter and sort of the list (<span class="fixw">LayerKeyDlgFilter</span>, <span class="fixw">LayerKeyDlgSort</span>), New, Copy, Delete, Reset and Restore defaults. With <span class="fixw">pick</span> T (from the Hatch Presets), a double-click saves and returns the key.</p>
+<p><span class="fixw">(Remote&gt;&gt;Dyl:LayerKeyDialog pick)</span> writes the window (<span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDcl</span>) and runs <span class="fixw">Remote&gt;&gt;Dyl:LayerKeyDlgRun</span>. Its functions follow the <a href="../../conventions.html#windows">Windows</a> convention: several keys selected (<span class="fixw">LayerKeyDlgSel</span>, a field given to all with <span class="fixw">LayerKeyDlgPut</span>), the filter and sort of the list (<span class="fixw">LayerKeyDlgFilter</span>, <span class="fixw">LayerKeyDlgSort</span>), New, Copy, Delete, Reset and Restore defaults. With <span class="fixw">pick</span> T (from the Materials), a double-click saves and returns the key.</p>
 
 <h2>Using Layer Keys In An App</h2>
 <div class="spacedbullets">
