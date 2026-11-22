@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Band Settings &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Draw/Dyl-QuickDrawBandSettings.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Band Settings</h1>
+
+<p class="note">The developer docs of Band Settings: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-QuickDrawBandSettings.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span>, <span class="fixw">Res\Dyl-QuickDrawBandSettings.xaml</span> (the window, shown by <a href="../Plugins/Windows.htm">DynALisp.Windows.dll</a>), <span class="fixw">Remote\Dyl-Materials.lsp</span> (<span class="fixw">*mt:justify*</span>, <span class="fixw">*mt:hatchmodes*</span>, <span class="fixw">*mt:ends*</span>, <span class="fixw">*mt:corners*</span>, <span class="fixw">*mt:bandwindows*</span>)</td></tr>
+<tr><td>Data</td><td>The behavior columns of the preset in <span class="fixw">QuickDraw.csv</span> (<span class="fixw">*qd:tiles*</span>); the last answers of the prompts, kept with <span class="fixw">setenv</span></td></tr>
+</table>
+</div>
+<h2>The Settings</h2>
+<p>The justification, what the hatch is aligned to, the ends and the corners are behaviors of a preset, never of its hatch preset (<a href="../../conventions.html#presets-and-materials">Presets And Materials</a>): <span class="fixw">*mt:justify*</span>, <span class="fixw">*mt:hatchmodes*</span>, <span class="fixw">*mt:ends*</span> and <span class="fixw">*mt:corners*</span> of <span class="fixw">Remote\Dyl-Materials.lsp</span> list their keys, <em>Ask</em> among them (asked when drawn). A preset draws with its own ends and corners only while their columns <em>EndsOn</em> and <em>CornersOn</em> are on (<span class="fixw">meo</span>, <span class="fixw">mcn</span>, columns 61 and 62 of a material), else with the defaults (square, mitered, joints drawn: <span class="fixw">Remote&gt;&gt;Dyl:MaterialEndsDefault-p</span>, <span class="fixw">MaterialCornersDefault-p</span>). <span class="fixw">Remote&gt;&gt;Dyl:MaterialBandOwn</span> gives a material with the ends and corners it draws with, and <span class="fixw">Remote&gt;&gt;Dyl:MaterialBandText</span> the summary beside <em>Band settings</em> in the Quick Draw window (<span class="fixw">mei</span>, column 42 of <span class="fixw">Dyl:QuickDrawWinExtra</span>).</p>
+<h2>The Window</h2>
+<p><span class="fixw">(Dyl:QuickDrawBandDialog r)</span> shows the Band Settings window for the preset <span class="fixw">r</span> (the open button <span class="fixw">mbe</span> of the Quick Draw window closes it with <span class="fixw">*mt:bandpick*</span>, 3): <span class="fixw">Dyl-QuickDrawBandSettings.xaml</span>, on the values of <span class="fixw">Dyl:QuickDrawBandVals</span> for the tiles of <span class="fixw">*mt:bandwindows*</span> (a list its labels, the keys of its items and the one picked, a box its text), taken from <span class="fixw">Remote&gt;&gt;Dyl:MaterialBandOwn</span>, so the window shows what the preset draws with. The method of the preset is given as <span class="fixw">mth</span>, a value with no control, for the rule of <em>Justification</em> (<span class="fixw">mth=Linear|</span>). The window greys out what the choice does not use (<span class="fixw">dyl:Win.EnabledBy="men=Extended|Ask"</span>) and checks the numbers before OK (<span class="fixw">dyl:Win.Check</span>); the Lisp checks them again (<span class="fixw">Remote&gt;&gt;Dyl:MaterialDlgCheck</span>). It returns the values with <span class="fixw">meo</span> and <span class="fixw">mcn</span> on, given to the presets selected by <span class="fixw">Dyl:QuickDrawDlgStatus</span>.</p>
+<p>The sketches are drawn in the window file, as those of the docs: one <span class="fixw">Canvas</span> per item, shown by its rule (<span class="fixw">dyl:Win.VisibleBy="mco=Lapped,mlt=First"</span>). Inside, the line and its points are a <span class="fixw">Canvas</span> each for the middle of the band (<span class="fixw">mjs!=Edge,mth!=Offset</span>) and its border (<span class="fixw">mjs=Edge;mth=Offset</span>); the hatch of the next segment is <span class="fixw">Dyl.Sketch.HatchB</span> along the line and <span class="fixw">HatchA</span>, as the first one, from the drawing origin (<span class="fixw">mht</span>); the joint is an outline (<span class="fixw">mjo=Interrupted</span>), a ghost (<span class="fixw">mjo!=Interrupted,mht!=Origin</span>) or nothing (see <a href="../Plugins/Windows.htm#sketch">A Sketch Of A Choice</a>).</p>
+<p>The Quick Draw window no longer has these values as controls (<span class="fixw">*qd:subtiles*</span>): <span class="fixw">mht</span> stays there as a hidden <span class="fixw">TextBlock</span> (in <span class="fixw">wtiles</span>, with no list, so its rules read its key), for the rules of the hatch origin (<span class="fixw">mht!=Origin</span>).</p>
+<h2>When Drawn</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Dyl:QuickDrawBandOpts mat)</span> &ndash; the options of a band from the behaviors of its material: an <em>Ask</em> asked now (<span class="fixw">Dyl:QuickDrawAskKey</span>, the last answer by default), the extension nil for half the width, the end angle in radians.</li>
+<li><span class="fixw">Dyl:QuickDrawAskEnds</span>, <span class="fixw">Dyl:QuickDrawAskCorners</span> &ndash; the <em>Ends</em> and <em>Corners</em> options of the prompts of Linear and Offset, for the next bands (<span class="fixw">qd:opt</span>).</li>
+<li>The geometry: <span class="fixw">Dyl:QdEnd</span> and <span class="fixw">Dyl:QdEndPt</span> (the ends), <span class="fixw">Dyl:QdMiter</span>, <span class="fixw">Dyl:QdTrim</span> and <span class="fixw">Dyl:QdCorner</span> (the corners), <span class="fixw">Dyl:QdArc</span> (the rounded ones).</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
