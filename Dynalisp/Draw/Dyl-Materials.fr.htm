@@ -56,12 +56,12 @@
 <li><strong>Show / Set default</strong> &ndash; <em>Show</em> ne liste que les matériaux d'un groupe (<em>All</em> : tous les groupes); le filtre et le tri s'y appliquent. <strong>Set default</strong> fait du groupe affiché celui sur lequel la fenêtre s'ouvre, chaque fois et dans chaque dessin.</li>
 <li><strong>Liste des matériaux</strong> &ndash; la hachure <em>Cut</em> de chaque matériau, son groupe et son nom.</li>
 <li><strong>Plusieurs matériaux à la fois</strong> &ndash; Ctrl+clic ajoute un matériau à la sélection (ou l'en retire), Maj+clic sélectionne une plage. L'état sous le nom affiche <em>3 materials selected</em> et les champs montrent les valeurs du matériau cliqué en premier : une valeur changée est donnée à <em>chaque</em> matériau sélectionné, leurs autres valeurs restent telles quelles. Le nom et <em>Copy</em> sont pour un seul matériau (grisés); <em>Delete</em> les retire tous (seulement quand ils sont tous personnalisés), <em>Reset Selected</em> réinitialise ceux par défaut parmi eux.</li>
-<li><strong>Name</strong>, <strong>Group</strong> &ndash; en haut à droite. Deux matériaux ne peuvent pas avoir le même nom. Le groupe se choisit parmi les groupes de la fenêtre <a href="Dyl-PresetGroups.fr.htm">Preset Groups</a>, les mêmes que ceux des préréglages de Quick Draw et Quick Shape (le bouton carré <em>ouvrir</em> juste à gauche de la liste ouvre cette fenêtre); un groupe absent de cette liste reste sélectionnable. Dessous, l'état du matériau (<em>Default material</em>, <em>Default material, modified</em>, <em>Custom material</em>).</li>
+<li><strong>Name</strong>, <strong>Group</strong> &ndash; en haut à droite. Deux matériaux ne peuvent pas avoir le même nom. Le groupe se choisit parmi les groupes des matériaux, selon ce dont ils sont faits (<em>Masonry</em>, <em>Wood</em>, <em>Insulation</em>...), une liste à part, jamais les groupes des préréglages : le bouton carré <em>ouvrir</em> juste à gauche de la liste l'ouvre dans la fenêtre <a href="Dyl-PresetGroups.fr.htm">Material Groups</a>. Un groupe absent de cette liste reste sélectionnable. La liste <em>Material</em> de Quick Draw et de Quick Shape, et celle d'une couche d'un assemblage, montre les matériaux du groupe choisi à côté. Dessous, l'état du matériau (<em>Default material</em>, <em>Default material, modified</em>, <em>Custom material</em>).</li>
 <li><strong>Hatch</strong> &ndash; <strong>Cut</strong> : le préréglage de hachure du matériau en coupe (un mur coupé dans un plan ou une coupe), choisi parmi tous les préréglages de hachures, listés par groupe (<em>groupe - nom</em>). <strong>Surface</strong> : le préréglage de hachure de sa face vue en élévation, dessiné par les préréglages dont la <em>View</em> est <em>Surface</em> (dans les fenêtres Quick Draw et Quick Shape); <em>Same as Cut</em> (le premier élément) utilise celui de Cut. Le bouton carré <em>ouvrir</em> à gauche de chaque liste ouvre la fenêtre <a href="Dyl-HatchPresets.fr.htm">Hatch Presets</a> sur ce préréglage de hachure : celui qui y est sélectionné quand elle est fermée avec OK est donné aux matériaux sélectionnés, pour faire et choisir un préréglage de hachure d'un coup. La fenêtre Hatch Presets enregistre sur son propre OK, même si cette fenêtre-ci est ensuite annulée. Un matériau sans préréglage de hachure, ou dont le préréglage a été supprimé, est dessiné sans hachure (<a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> le liste).</li>
 <li><strong>Preview</strong> &ndash; le préréglage de hachure <em>Cut</em> du matériau tel qu'il se trace, à l'échelle du dessin (son échelle est affichée dans un coin quand l'aperçu est réduit pour montrer le motif).</li>
 <li><strong>Data</strong> &ndash; voir <a href="#data">Données</a>.</li>
 <li><strong>Valeurs vérifiées à la saisie</strong> &ndash; un nom utilisé par un autre matériau, un nom vide ou une valeur des données qui n'est pas un nombre plus grand que 0 affiche son message au bas de la fenêtre; un autre matériau ne peut pas être sélectionné ni la fenêtre fermée (sauf avec Cancel) tant qu'elle n'est pas corrigée.</li>
-<li><strong>New</strong> &ndash; ajoute un matériau personnalisé après celui affiché, dans le groupe <em>Section</em>, sans préréglage de hachure ni données, son nom prêt à être tapé. <strong>Copy</strong> &ndash; ajoute un matériau personnalisé avec les valeurs de celui affiché. <strong>Delete</strong> &ndash; retire les matériaux personnalisés sélectionnés, après confirmation (les matériaux par défaut ne peuvent pas être supprimés, seulement réinitialisés). Les préréglages qui utilisent un matériau supprimé restent, marqués <em>(missing material)</em>, jusqu'à ce qu'un autre matériau soit choisi.</li>
+<li><strong>New</strong> &ndash; ajoute un matériau personnalisé après celui affiché, dans son groupe, sans préréglage de hachure ni données, son nom prêt à être tapé. <strong>Copy</strong> &ndash; ajoute un matériau personnalisé avec les valeurs de celui affiché. <strong>Delete</strong> &ndash; retire les matériaux personnalisés sélectionnés, après confirmation (les matériaux par défaut ne peuvent pas être supprimés, seulement réinitialisés). Les préréglages qui utilisent un matériau supprimé restent, marqués <em>(missing material)</em>, jusqu'à ce qu'un autre matériau soit choisi.</li>
 <li><strong>Reset Selected</strong> &ndash; (en bas à gauche) redonne aux matériaux par défaut sélectionnés leurs valeurs livrées. <strong>Reset All</strong> &ndash; le fait pour chaque matériau par défaut, après confirmation; les matériaux personnalisés sont gardés (renommés si un nom rétabli est déjà utilisé).</li>
 <li><strong>OK</strong> &ndash; enregistre les matériaux (votre copie du fichier des matériaux; le fichier livré ne change jamais) et, quand la fenêtre a été ouverte depuis un préréglage, lui donne le matériau sélectionné. <strong>Cancel</strong> &ndash; annule chaque changement fait dans la fenêtre. <strong>Open Docs</strong> &ndash; ouvre cette page; la fenêtre reste ouverte.</li>
 </ul>
@@ -79,124 +79,124 @@
 </table>
 </div>
 <h2 id="defaults">Matériaux par défaut</h2>
-<p>Les matériaux livrés avec DynALisp, avec leur préréglage de hachure <em>Cut</em> (voir <a href="Dyl-HatchPresets.fr.htm#defaults">Préréglages de hachures par défaut</a>); leur <em>Surface</em> est <em>Same as Cut</em>, sauf pour <em>Brick</em>, dont la <em>Surface</em> est <em>Modular Brick</em>, une brique dessinée à sa taille réelle. Une valeur n'est donnée qu'à partir d'une source, et est vide (&ndash;) sinon.</p>
+<p>Les matériaux livrés avec DynALisp, avec leur groupe et leur préréglage de hachure <em>Cut</em> (voir <a href="Dyl-HatchPresets.fr.htm#defaults">Préréglages de hachures par défaut</a>); leur <em>Surface</em> est <em>Same as Cut</em>, sauf pour <em>Brick</em>, dont la <em>Surface</em> est <em>Modular Brick</em>, une brique dessinée à sa taille réelle. Une valeur n'est donnée qu'à partir d'une source, et est vide (&ndash;) sinon.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Groupe</th><th>Nom</th><th>Cut</th><th>Conductivité (W/m&middot;K)</th><th>Masse volumique (kg/m&sup3;)</th><th>Résistance (RSI)</th></tr>
 <tr><td>Phase</td><td>Demolition</td><td>Demolition</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
 <tr><td>Phase</td><td>Not In Contract</td><td>Not In Contract</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
 <tr><td>Phase</td><td>Existing</td><td>Existing</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Concrete</td><td>Concrete</td><td>2,5</td><td>2400</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Lightweight Concrete</td><td>Lightweight Concrete</td><td>0,7692</td><td>1600</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Mortar</td><td>Mortar</td><td>1,111</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Brick</td><td>Brick</td><td>1,286</td><td>2400</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Stone</td><td>Stone</td><td>2,5</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>CMU</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Firebrick</td><td>Firebrick</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Marble</td><td>Marble</td><td>2,5</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Grout</td><td>Grout</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Iron</td><td>Iron</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Steel</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Bronze</td><td>Bronze</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Lead</td><td>Lead</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Aluminium</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Plywood</td><td>Plywood</td><td>0,1149</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Wood Plank</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Wood Frame</td><td>Wood Frame</td><td>0,1176</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Particleboard</td><td>Particleboard</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Hardboard</td><td>Brick</td><td>0,1053</td><td>800</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Plastic</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Loose Insulation</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Spray Insulation</td><td>Spray Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Rigid Insulation</td><td>Rigid Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Extruded Polystyrene</td><td>Rigid Insulation</td><td>0,02857</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Expanded Polystyrene</td><td>Rigid Insulation</td><td>0,03571</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Polyisocyanurate</td><td>Rigid Insulation</td><td>0,02381</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Gypsum</td><td>Gypsum</td><td>0,1639</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Compacted Soil</td><td>Compacted Soil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Topsoil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Undisturbed Soil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Sand</td><td>Sand</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Asphalt</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Gravel</td><td>Gravel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Crushed Stone</td><td>Gravel</td><td>1,667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Birch</td><td>Wood Frame</td><td>0,1818</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Oak</td><td>Wood Frame</td><td>0,1786</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Maple And Ash</td><td>Wood Frame</td><td>0,1587</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>White Cedar</td><td>Wood Frame</td><td>0,101</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Yellow Cypress</td><td>Wood Frame</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>White Spruce</td><td>Wood Frame</td><td>0,1031</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>White Pine</td><td>Wood Frame</td><td>0,1087</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Lodgepole Pine</td><td>Wood Frame</td><td>0,122</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Red Pine</td><td>Wood Frame</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Hemlock</td><td>Wood Frame</td><td>0,119</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Western Hemlock</td><td>Wood Frame</td><td>0,1351</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Douglas Fir Or Larch</td><td>Wood Frame</td><td>0,1449</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Amabilis Fir</td><td>Wood Frame</td><td>0,125</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>OSB</td><td>Particleboard</td><td>0,102</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Asphalt Fiberboard Sheathing</td><td>Particleboard</td><td>0,06061</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Gypsum Sheathing</td><td>Gypsum</td><td>0,1587</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Foil-Faced Wood Fiberboard</td><td>Particleboard</td><td>0,05155</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Lightweight Concrete Board</td><td>Lightweight Concrete</td><td>0,1449</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Expanded Polystyrene Type 1</td><td>Rigid Insulation</td><td>0,03891</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Expanded Polystyrene Type 3</td><td>Rigid Insulation</td><td>0,03356</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Expanded Polystyrene Type 4</td><td>Rigid Insulation</td><td>0,02882</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Rigid Mineral Wool Roof Board</td><td>Rigid Insulation</td><td>0,0361</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Phenolic Foam Board</td><td>Rigid Insulation</td><td>0,03289</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Insulating Fiberboard</td><td>Particleboard</td><td>0,05155</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Compressed Straw Board</td><td>Loose Insulation</td><td>0,07194</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Wood Fiber Batt</td><td>Loose Insulation</td><td>0,03891</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Expanded Perlite</td><td>Loose Insulation</td><td>0,05348</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Spray Polyurethane Type 1</td><td>Spray Insulation</td><td>0,02778</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Spray Polyurethane Type 2</td><td>Spray Insulation</td><td>0,025</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Sprayed Asbestos</td><td>Spray Insulation</td><td>0,04975</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>CMU 90 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,17</td></tr>
-<tr><td>Section</td><td>CMU 140 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,19</td></tr>
-<tr><td>Section</td><td>CMU 190 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,21</td></tr>
-<tr><td>Section</td><td>CMU 240 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,24</td></tr>
-<tr><td>Section</td><td>CMU 290 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,26</td></tr>
-<tr><td>Section</td><td>CMU 190 mm Perlite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,53</td></tr>
-<tr><td>Section</td><td>CMU 140 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,4</td></tr>
-<tr><td>Section</td><td>CMU 190 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,51</td></tr>
-<tr><td>Section</td><td>CMU 240 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,61</td></tr>
-<tr><td>Section</td><td>CMU 290 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,69</td></tr>
-<tr><td>Section</td><td>Concrete Brick</td><td>Brick</td><td>1,698</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Quartzite And Sandstone</td><td>Stone</td><td>3,333</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Stucco</td><td>Plaster</td><td>1,111</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Wood Shingle Siding</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,15</td></tr>
-<tr><td>Section</td><td>Wood Shingle Siding - Double</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,21</td></tr>
-<tr><td>Section</td><td>Wood Siding</td><td>Wood Plank</td><td>0,1429</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Hardboard Siding</td><td>Brick</td><td>0,09167</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Fiber Cement Siding</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>0,003</td></tr>
-<tr><td>Section</td><td>Metal Or Vinyl Siding</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,11</td></tr>
-<tr><td>Section</td><td>Metal Or Vinyl Siding - Insulated</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,32</td></tr>
-<tr><td>Section</td><td>Metal Or Vinyl Siding - Insulated And Foil</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,52</td></tr>
-<tr><td>Section</td><td>Roll Roofing</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0,03</td></tr>
-<tr><td>Section</td><td>Bitumen</td><td>Asphalt</td><td>0,7143</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Asphalt Shingles</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0,078</td></tr>
-<tr><td>Section</td><td>Built-Up Roof</td><td>Asphalt</td><td>0,1667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Wood Shingle Roofing</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,17</td></tr>
-<tr><td>Section</td><td>Slate</td><td>Stone</td><td>1,3</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Cement Plaster</td><td>Plaster</td><td>0,7143</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Low Density Fiberboard</td><td>Particleboard</td><td>0,102</td><td>590</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Medium Density Fiberboard</td><td>Particleboard</td><td>0,1351</td><td>800</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>High Density Fiberboard</td><td>Particleboard</td><td>0,1695</td><td>1000</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Terrazzo</td><td>Concrete</td><td>1,667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Carpet - Fibrous Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,37</td></tr>
-<tr><td>Section</td><td>Carpet - Rubber Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,22</td></tr>
-<tr><td>Section</td><td>Cork Tile</td><td>Particleboard</td><td>0,06531</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Hardwood Flooring</td><td>Wood Plank</td><td>0,1583</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Resilient Flooring</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,009</td></tr>
-<tr><td>Section</td><td>Air Space - Wall 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
-<tr><td>Section</td><td>Air Space - Wall 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,18</td></tr>
-<tr><td>Section</td><td>Air Space - Ceiling 13 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,15</td></tr>
-<tr><td>Section</td><td>Air Space - Ceiling 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
-<tr><td>Section</td><td>Air Space - Floor 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
-<tr><td>Section</td><td>Air Space - Floor 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,18</td></tr>
-<tr><td>Section</td><td>Air Space - Floor 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,2</td></tr>
-<tr><td>Section</td><td>Air Space - Floor 90 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,22</td></tr>
-<tr><td>Section</td><td>Void</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Concrete</td><td>Concrete</td><td>2,5</td><td>2400</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Lightweight Concrete</td><td>Lightweight Concrete</td><td>0,7692</td><td>1600</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Mortar</td><td>Mortar</td><td>1,111</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Brick</td><td>Brick</td><td>1,286</td><td>2400</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Stone</td><td>Stone</td><td>2,5</td><td>2240</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Firebrick</td><td>Firebrick</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Marble</td><td>Marble</td><td>2,5</td><td>2240</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Grout</td><td>Grout</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Iron</td><td>Iron</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Steel</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Bronze</td><td>Bronze</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Lead</td><td>Lead</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Aluminium</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Plywood</td><td>Plywood</td><td>0,1149</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Wood Plank</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Wood Frame</td><td>Wood Frame</td><td>0,1176</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Particleboard</td><td>Particleboard</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Hardboard</td><td>Brick</td><td>0,1053</td><td>800</td><td>&ndash;</td></tr>
+<tr><td>Generic</td><td>Plastic</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Loose Insulation</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Insulation</td><td>Spray Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Rigid Insulation</td><td>Rigid Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Extruded Polystyrene</td><td>Rigid Insulation</td><td>0,02857</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene</td><td>Rigid Insulation</td><td>0,03571</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Polyisocyanurate</td><td>Rigid Insulation</td><td>0,02381</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Gypsum</td><td>Gypsum</td><td>0,1639</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Compacted Soil</td><td>Compacted Soil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Topsoil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Undisturbed Soil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Sand</td><td>Sand</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Asphalt</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Gravel</td><td>Gravel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Crushed Stone</td><td>Gravel</td><td>1,667</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Birch</td><td>Wood Frame</td><td>0,1818</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Oak</td><td>Wood Frame</td><td>0,1786</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Maple And Ash</td><td>Wood Frame</td><td>0,1587</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Cedar</td><td>Wood Frame</td><td>0,101</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Yellow Cypress</td><td>Wood Frame</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Spruce</td><td>Wood Frame</td><td>0,1031</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Pine</td><td>Wood Frame</td><td>0,1087</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Lodgepole Pine</td><td>Wood Frame</td><td>0,122</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Red Pine</td><td>Wood Frame</td><td>0,1299</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Hemlock</td><td>Wood Frame</td><td>0,119</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Western Hemlock</td><td>Wood Frame</td><td>0,1351</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Douglas Fir Or Larch</td><td>Wood Frame</td><td>0,1449</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Amabilis Fir</td><td>Wood Frame</td><td>0,125</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>OSB</td><td>Particleboard</td><td>0,102</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Asphalt Fiberboard Sheathing</td><td>Particleboard</td><td>0,06061</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Gypsum Sheathing</td><td>Gypsum</td><td>0,1587</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Foil-Faced Wood Fiberboard</td><td>Particleboard</td><td>0,05155</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Lightweight Concrete Board</td><td>Lightweight Concrete</td><td>0,1449</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 1</td><td>Rigid Insulation</td><td>0,03891</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 3</td><td>Rigid Insulation</td><td>0,03356</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 4</td><td>Rigid Insulation</td><td>0,02882</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Rigid Mineral Wool Roof Board</td><td>Rigid Insulation</td><td>0,0361</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Phenolic Foam Board</td><td>Rigid Insulation</td><td>0,03289</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Insulating Fiberboard</td><td>Particleboard</td><td>0,05155</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Compressed Straw Board</td><td>Loose Insulation</td><td>0,07194</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Wood Fiber Batt</td><td>Loose Insulation</td><td>0,03891</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Perlite</td><td>Loose Insulation</td><td>0,05348</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Polyurethane Type 1</td><td>Spray Insulation</td><td>0,02778</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Polyurethane Type 2</td><td>Spray Insulation</td><td>0,025</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Sprayed Asbestos</td><td>Spray Insulation</td><td>0,04975</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 90 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,17</td></tr>
+<tr><td>Masonry</td><td>CMU 140 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,19</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,21</td></tr>
+<tr><td>Masonry</td><td>CMU 240 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,24</td></tr>
+<tr><td>Masonry</td><td>CMU 290 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,26</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Perlite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,53</td></tr>
+<tr><td>Masonry</td><td>CMU 140 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,4</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,51</td></tr>
+<tr><td>Masonry</td><td>CMU 240 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,61</td></tr>
+<tr><td>Masonry</td><td>CMU 290 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0,69</td></tr>
+<tr><td>Masonry</td><td>Concrete Brick</td><td>Brick</td><td>1,698</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Quartzite And Sandstone</td><td>Stone</td><td>3,333</td><td>2240</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Stucco</td><td>Plaster</td><td>1,111</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Wood Shingle Siding</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,15</td></tr>
+<tr><td>Finish</td><td>Wood Shingle Siding - Double</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,21</td></tr>
+<tr><td>Finish</td><td>Wood Siding</td><td>Wood Plank</td><td>0,1429</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Hardboard Siding</td><td>Brick</td><td>0,09167</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Fiber Cement Siding</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>0,003</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,11</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,32</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated And Foil</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0,52</td></tr>
+<tr><td>Roofing</td><td>Roll Roofing</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0,03</td></tr>
+<tr><td>Roofing</td><td>Bitumen</td><td>Asphalt</td><td>0,7143</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Asphalt Shingles</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0,078</td></tr>
+<tr><td>Roofing</td><td>Built-Up Roof</td><td>Asphalt</td><td>0,1667</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Wood Shingle Roofing</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0,17</td></tr>
+<tr><td>Roofing</td><td>Slate</td><td>Stone</td><td>1,3</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Cement Plaster</td><td>Plaster</td><td>0,7143</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Low Density Fiberboard</td><td>Particleboard</td><td>0,102</td><td>590</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Medium Density Fiberboard</td><td>Particleboard</td><td>0,1351</td><td>800</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>High Density Fiberboard</td><td>Particleboard</td><td>0,1695</td><td>1000</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Terrazzo</td><td>Concrete</td><td>1,667</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Carpet - Fibrous Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,37</td></tr>
+<tr><td>Finish</td><td>Carpet - Rubber Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,22</td></tr>
+<tr><td>Finish</td><td>Cork Tile</td><td>Particleboard</td><td>0,06531</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Hardwood Flooring</td><td>Wood Plank</td><td>0,1583</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Resilient Flooring</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0,009</td></tr>
+<tr><td>Air</td><td>Air Space - Wall 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
+<tr><td>Air</td><td>Air Space - Wall 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,18</td></tr>
+<tr><td>Air</td><td>Air Space - Ceiling 13 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,15</td></tr>
+<tr><td>Air</td><td>Air Space - Ceiling 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,16</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,18</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,2</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 90 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0,22</td></tr>
+<tr><td>Air</td><td>Void</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
 </table>
 </div>
 <p>Sources :</p>
@@ -209,7 +209,7 @@
 <p>Ces valeurs sont génériques et prudentes : une fiche technique peut donner une autre valeur, à taper dans votre copie. Une lame d'air ne compte que si elle est fermée de tous côtés; sa résistance dépend de sa direction (un mur, un plafond où la chaleur monte, un plancher où elle descend) et de son épaisseur, d'où un matériau pour chacune.</p>
 <p>Chaque préréglage par défaut de Quick Draw utilise le matériau par défaut du même nom (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
 <h2 id="older">Matériaux d'une version antérieure</h2>
-<p>Jusqu'à DynALisp 1.1, un matériau était sa hachure. Vos matériaux sont séparés pour vous la première fois qu'ils sont lus : chacun garde son nom, son groupe et ses préréglages, et reçoit un préréglage de hachure de la hachure qu'il avait (voir <a href="Dyl-HatchPresets.fr.htm#older">Hatch Presets</a>), et dessine donc la même hachure qu'avant. Ses données sont vides. Un préréglage du groupe <em>Elevation</em> reçoit la <em>View</em> <em>Surface</em>, les autres <em>Cut</em>; un préréglage du matériau <em>Modular Brick</em> livré avec DynALisp 1.1 dessine <em>Brick</em>, <em>Surface</em>, quand vous n'avez pas gardé ce matériau.</p>
+<p>Jusqu'à DynALisp 1.1, un matériau était sa hachure. Vos matériaux sont séparés pour vous la première fois qu'ils sont lus : chacun garde son nom, son groupe et ses préréglages, et reçoit un préréglage de hachure de la hachure qu'il avait (voir <a href="Dyl-HatchPresets.fr.htm#older">Hatch Presets</a>), et dessine donc la même hachure qu'avant. Ses données sont vides. Un préréglage du groupe <em>Elevation</em> reçoit la <em>View</em> <em>Surface</em>, les autres <em>Cut</em>; un préréglage du matériau <em>Modular Brick</em> livré avec DynALisp 1.1 dessine <em>Brick</em>, <em>Surface</em>, quand vous n'avez pas gardé ce matériau. Un matériau par défaut encore dans le groupe <em>Section</em> ou <em>Elevation</em>, un groupe des préréglages, passe à son groupe des matériaux (<em>Brick</em> dans <em>Masonry</em>); vos propres matériaux gardent leur groupe.</p>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>
