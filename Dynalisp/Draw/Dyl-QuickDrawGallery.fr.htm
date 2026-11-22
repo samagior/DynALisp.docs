@@ -42,15 +42,16 @@
 <div class="spacedbullets">
 <ol>
 <li>Cliquez <em>Dessin rapide</em> dans l'onglet DynALisp du ruban (ou tapez <span class="fixw">QDG</span>). Sa flèche liste <em>All</em> et les groupes, pour ouvrir sur un groupe; le bouton ouvre ensuite le dernier groupe choisi.</li>
-<li>Choisissez un groupe, ou tapez quelques lettres dans la zone de recherche, puis cliquez une vignette : la fenêtre se ferme et le préréglage se dessine.</li>
+<li>Cliquez la pastille d'un groupe, ou tapez quelques lettres dans la zone de recherche, puis cliquez une vignette : la fenêtre se ferme et le préréglage se dessine.</li>
 <li>Les préréglages se modifient dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> (<em>Gestion du dessin rapide</em> à côté dans le ruban, ou en bas de la galerie).</li>
 </ol>
 </div>
 <h2>Fenêtre Quick Draw Gallery</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Group</strong> &ndash; <em>All</em>, ou l'un des <a href="Dyl-PresetGroups.fr.htm">groupes de préréglages</a>, dans leur ordre, même un groupe encore sans préréglage. La fenêtre s'ouvre sur le groupe choisi dans le ruban, sinon sur le dernier groupe affiché.</li>
-<li><strong>Search presets</strong> &ndash; n'affiche que les préréglages dont le nom ou le groupe contient le texte tapé, sans tenir compte de la casse. La recherche se fait dans le groupe choisi : choisissez <em>All</em> pour chercher dans tous les préréglages. Le nombre de préréglages affichés est à droite.</li>
+<li><strong>Pastilles des groupes</strong> &ndash; sous la zone de recherche : <em>All</em>, puis une pastille pour chacun des <a href="Dyl-PresetGroups.fr.htm">groupes de préréglages</a> qui a des préréglages, dans leur ordre, et <em>Recent</em> en dernier. Cliquez-en une pour n'afficher que ses préréglages; celle affichée est remplie de bleu. La fenêtre s'ouvre sur le groupe choisi dans le ruban, sinon sur le dernier groupe affiché.</li>
+<li><strong>Recent</strong> &ndash; les préréglages dessinés depuis le démarrage d'AutoCAD, le dernier en premier (douze au plus), de quelque façon qu'ils aient été dessinés (la galerie, un alias, la fenêtre Quick Draw). La pastille apparaît dès qu'un préréglage a été dessiné.</li>
+<li><strong>Search presets</strong> &ndash; la zone à la loupe : n'affiche que les préréglages dont le nom ou le groupe contient le texte tapé, sans tenir compte de la casse. La recherche se fait dans le groupe choisi : choisissez <em>All</em> pour chercher dans tous les préréglages. Le nombre de préréglages affichés est à droite.</li>
 <li><strong>Vignettes</strong> &ndash; six par rangée, dans l'ordre du fichier de préréglages : la hachure du préréglage, son nom et son groupe en dessous. Faites défiler pour voir les autres. Cliquez-en une pour la dessiner : la fenêtre se ferme et Quick Draw démarre avec ce préréglage (sa méthode, ses comportements et sa bordure). Un nom long est coupé; son infobulle le montre en entier.</li>
 <li><strong>Quick Draw Manager</strong> &ndash; ferme la galerie et ouvre la fenêtre Quick Draw, pour modifier les préréglages ou en créer un. <strong>Cancel</strong> ferme la galerie, <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
@@ -69,7 +70,7 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les groupes sous la flèche du bouton du ruban sont les groupes par défaut : un groupe renommé ou ajouté dans Preset Groups n'est pas dans cette liste, mais il est dans la liste Group de la fenêtre. Un groupe choisi dans le ruban ouvre le groupe au nom le plus proche (<em>Floor</em> &rarr; <em>Floors</em>), sinon, quand il a été renommé ou supprimé, <em>All</em>.</li>
+<li>Les groupes sous la flèche du bouton du ruban sont les groupes par défaut : un groupe renommé ou ajouté dans Preset Groups n'est pas dans cette liste, mais il a sa pastille dans la fenêtre. Un groupe choisi dans le ruban ouvre le groupe au nom le plus proche (<em>Floor</em> &rarr; <em>Floors</em>), sinon, quand il a été renommé ou supprimé, <em>All</em>.</li>
 <li>La fenêtre a besoin du plug-in des fenêtres de DynALisp : quand il n'est pas chargé, la galerie ne s'ouvre pas.</li>
 </ul>
 </div>
