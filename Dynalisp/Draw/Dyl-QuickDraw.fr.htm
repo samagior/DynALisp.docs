@@ -90,7 +90,7 @@
 <div class="programs commands wide">
 <table>
 <tr><th>Paramètre</th><th>Use</th></tr>
-<tr><td>Default method</td><td>La méthode de saisie : <em>Ask when drawn</em> (demandée à la ligne de commande, par défaut), <em>Polyline, Rectangle, Circle, Polygon, Ellipse, Shrinkwrap, Pick internal points, Select closed objects</em>, <em>Linear</em>, <em>Offset</em> ou <em>Replace hatches</em>. Voir <a href="#drawwith">Draw With</a>.</td></tr>
+<tr><td>Default method</td><td>La méthode de saisie : <em>Ask when drawn</em> (demandée à la ligne de commande, par défaut), <em>Polyline, Rectangle, Circle, Polygon, Ellipse, Shrinkwrap, Pick internal points, Select closed objects</em>, <em>Linear</em>, <em>Offset</em> ou <em>Replace hatches</em>. Voir <a href="#defaultmethod">Méthode par défaut</a>.</td></tr>
 <tr><td>Width</td><td>La largeur de la bande, en unités de dessin : <span class="fixw">100</span>; plusieurs largeurs séparées par des virgules, <span class="fixw">100,150,200</span>, sont proposées à la ligne de commande chaque fois; vide : la dernière largeur utilisée (demandée la première fois).</td></tr>
 <tr><td>Assembly of layers</td><td>Facultatif. La bande est faite de plusieurs couches côte à côte (un mur : gypse, montants et isolant, revêtement intermédiaire, brique...), réglées dans la fenêtre <a href="Dyl-AssemblyLayers.fr.htm">Assembly Layers</a> qu'ouvre le bouton ouvrir à côté (grisé tant que la case n'est pas cochée); le texte à côté donne leur nombre. <em>Width</em> montre alors leur total (grisé : la largeur de la bande), et les réglages de hachure de chaque couche viennent de son propre préréglage (les réglages <em>Hatch</em> de ce préréglage sont grisés). Voir <a href="#assembly">Assemblages</a>.</td></tr>
 <tr><td>Justification</td><td>Où est la ligne dessinée dans la bande : <em>Ask when drawn</em>, <em>Center</em> ou <em>Edge</em> : la ligne est un bord de la bande, et la bande va du côté choisi une fois la ligne dessinée, comme avec Offset (voir <a href="#linear">Linear</a>). Un préréglage d'une version plus ancienne sur <em>Left border</em> ou <em>Right border</em> est sur <em>Edge</em>.</td></tr>
@@ -121,7 +121,7 @@
 </table>
 </div>
 <p>Ils sont enregistrés avec le préréglage (colonnes de bordure de <span class="fixw">QuickDraw.csv</span>, les mêmes valeurs que les colonnes de bordure de <span class="fixw">Materials.csv</span>, qui ne sont plus modifiées). Un préréglage d'un fichier plus ancien, enregistré avant que les préréglages aient une bordure, reçoit la bordure de son préréglage de hachure quand il est lu : il se dessine de la même façon; un préréglage par défaut reçoit la bordure de son préréglage de hachure par défaut.</p>
-<h2 id="drawwith">Draw With</h2>
+<h2 id="defaultmethod">Méthode par défaut</h2>
 <p>Un préréglage dessine avec sa méthode <em>Default method</em> (voir <a href="#behaviors">Comportements</a>). La <a href="Dyl-QuickDrawGallery.fr.htm">Quick Draw Gallery</a> peut le dessiner une fois avec une autre méthode, choisie sous sa vignette. Sans méthode (<em>Ask when drawn</em>), la méthode est demandée à la ligne de commande chaque fois que le préréglage est dessiné : <span class="fixw">Draw with [Polyline/Rectangle/Circle/pOlygon/Ellipse/sHrinkwrap/pIck/Select/Linear/oFfset/replAce] &lt;Polyline&gt;:</span>. Entrée garde la méthode donnée la dernière fois (enregistrée pour les sessions suivantes).</p>
 <div class="programs commands wide">
 <table>
