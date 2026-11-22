@@ -21,7 +21,7 @@
 <p class="note">The developer docs of Assembly Layers: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-AssemblyLayers.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (the window, <span class="fixw">Dyl:QuickDrawLayers*</span>; drawing an assembly), <span class="fixw">Remote\Dyl-Materials.lsp</span> (reading and writing the layers)</td></tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-QuickDraw.lsp</span> (the window, <span class="fixw">Dyl:QuickDrawLayers*</span>; drawing an assembly), <span class="fixw">Res\Dyl-AssemblyLayers.xaml</span> (the window, shown by <a href="../Plugins/Windows.htm">DynALisp.Windows.dll</a>), <span class="fixw">Remote\Dyl-Materials.lsp</span> (reading and writing the layers)</td></tr>
 <tr><td>Data</td><td>The <span class="fixw">Assembly</span> and <span class="fixw">AssemblyOn</span> columns of <span class="fixw">Res\QuickDraw.csv</span></td></tr>
 </table>
 </div>
@@ -33,9 +33,11 @@ P:qd-Brick:90:HATCH          ; a Hatch layer with its own hatch layer key</pre><
 <h2>The Window</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">Dyl:QuickDrawLayersDialog</span> writes its DCL (<span class="fixw">Dyl:QuickDrawLayersDcl</span>) and edits a copy of the layers; OK gives them to every preset selected in the Quick Draw window, saved with them by Draw or Save.</li>
-<li>Several layers selected (<span class="fixw">Dyl:QuickDrawLayersSel</span>): <span class="fixw">Dyl:QuickDrawLayersEditAll</span> gives a field changed to each layer it applies to (Preset and Hatch layer key to the Hatch layers, Thickness to Hatch and Space); <span class="fixw">Dyl:QuickDrawLayersEditOne</span> edits the one shown.</li>
-<li><span class="fixw">Dyl:QuickDrawLayersAdd</span>, <span class="fixw">LayersRemove</span>, <span class="fixw">LayersMove</span>, <span class="fixw">LayersFlip</span>; <span class="fixw">Dyl:QuickDrawLayersPresetWidth</span> gives a Hatch layer the width of its preset; <span class="fixw">Dyl:QuickDrawLayersTotal</span> the total under the list.</li>
+<li><span class="fixw">Dyl:QuickDrawLayersDialog</span> shows <span class="fixw">Dyl-AssemblyLayers.xaml</span> (<span class="fixw">Dyl:WinShow</span>) on the layers of the preset shown; OK gives them to every preset selected in the Quick Draw window, saved with them by Draw or Save.</li>
+<li>The layers are a list of rows edited in the window itself (<span class="fixw">Installer\Windows\Engine\Rows.cs</span>, see <a href="../Plugins/Windows.htm">Windows</a>): <span class="fixw">ll/rows</span>, a row per layer, <span class="fixw">(kind preset thickness hatch-key line-key)</span>. <span class="fixw">Dyl:QuickDrawLayersRows</span> makes them from the layers, the columns a layer does not use taken from the new layer (<span class="fixw">ll/new</span>: a Hatch of the first preset, a Line on the border layer key), so a layer turned into another kind and back gets its values again.</li>
+<li>The fields are bound to the columns (<span class="fixw">dyl:Win.Column</span>): <span class="fixw">lk</span> the kind, <span class="fixw">lp</span> the preset (<span class="fixw">lp/vals</span> the ids, a preset that no longer exists added as <em>(missing)</em>), <span class="fixw">lw</span> the thickness (it follows <span class="fixw">lp/widths</span>, the first width of each preset), <span class="fixw">lh</span> the hatch layer key (<em>From preset</em>: <span class="fixw">""</span>), <span class="fixw">ly</span> the line layer key. A field changed with several layers selected goes to each one its rules hold for (Preset and Hatch layer key to the Hatch layers, Thickness to Hatch and Space).</li>
+<li>Add, Remove, Move up, Move down and Flip run in the window (<span class="fixw">dyl:Win.Do</span>), with no call to the Lisp; the text under the list is a <span class="fixw">dyl:Win.Summary</span> of the rows.</li>
+<li>On OK, <span class="fixw">Dyl:QuickDrawLayersOf</span> keeps of each row what its kind uses and checks it again; a layer not valid is said (<span class="fixw">alert</span>) and the window is shown again on the layers edited, the same ones selected (<span class="fixw">ll.sel</span>).</li>
 </ul>
 </div>
 <h2>Drawing An Assembly</h2>

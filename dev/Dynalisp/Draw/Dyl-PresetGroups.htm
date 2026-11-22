@@ -21,7 +21,7 @@
 <p class="note">The developer docs of Preset Groups: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-PresetGroups.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Groups.lsp</span> (loaded at startup, before <span class="fixw">Dyl-Materials.lsp</span> and <span class="fixw">Dyl-Paths.lsp</span>, whose readers use it)</td></tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Groups.lsp</span> (loaded at startup, before <span class="fixw">Dyl-Materials.lsp</span> and <span class="fixw">Dyl-Paths.lsp</span>, whose readers use it), <span class="fixw">Res\Dyl-PresetGroups.xaml</span> (the window, shown by <a href="../Plugins/Windows.htm">DynALisp.Windows.dll</a>)</td></tr>
 <tr><td>Data</td><td><span class="fixw">Res\Groups.csv</span> (one group per row, header <span class="fixw">Group</span>; your copy under <span class="fixw">User</span>)</td></tr>
 <tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention: the presets and the hatch presets are found by their group, so every window lists the same groups</td></tr>
 </table>
@@ -35,7 +35,7 @@
 </ul>
 </div>
 <h2>The Window</h2>
-<p><span class="fixw">(Remote&gt;&gt;Dyl:GroupsDialog n)</span> opens the Preset Groups window, <span class="fixw">n</span> the presets of the window it was opened from in each group. On OK, a group renamed is renamed in the files of every preset tool at once (<span class="fixw">Remote&gt;&gt;Dyl:GroupsRename</span>: Quick Draw, Quick Shape and the hatch presets), and in the presets of the windows open (<span class="fixw">*grp:renames*</span>), even when the window it was opened from is then cancelled.</p>
+<p><span class="fixw">(Remote&gt;&gt;Dyl:GroupsDialog n)</span> opens the Preset Groups window, <span class="fixw">n</span> the presets of the window it was opened from in each group. Its groups are a list of rows edited in the window (<span class="fixw">Installer\Windows\Engine\Rows.cs</span>): <span class="fixw">gl/rows</span>, a row per group, <span class="fixw">(name presets original)</span> (<span class="fixw">Remote&gt;&gt;Dyl:GroupsRow</span>), the original name <span class="fixw">""</span> for a group added; <span class="fixw">gl/defs</span> the rows of Reset, the default groups (those of the file keep their original name). The name field is unique and checked (<span class="fixw">dyl:Win.Unique</span>, <span class="fixw">dyl:Win.Check="text;plain"</span>), the list keeps one group at least (<span class="fixw">dyl:Win.Check="rows"</span>). The rows whose name differs from their original one are the renames. On OK, a group renamed is renamed in the files of every preset tool at once (<span class="fixw">Remote&gt;&gt;Dyl:GroupsRename</span>: Quick Draw, Quick Shape and the hatch presets), and in the presets of the windows open (<span class="fixw">*grp:renames*</span>), even when the window it was opened from is then cancelled.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>
