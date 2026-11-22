@@ -79,7 +79,16 @@
 </table>
 </div>
 <h2 id="defaults">Matériaux par défaut</h2>
-<p>Les matériaux livrés avec DynALisp, avec leur préréglage de hachure <em>Cut</em> (voir <a href="Dyl-HatchPresets.fr.htm#defaults">Préréglages de hachures par défaut</a>); leur <em>Surface</em> est <em>Same as Cut</em>. Leurs données sont vides : une valeur n'est ajoutée qu'à partir d'une source.</p>
+<p>Les matériaux livrés avec DynALisp, avec leur préréglage de hachure <em>Cut</em> (voir <a href="Dyl-HatchPresets.fr.htm#defaults">Préréglages de hachures par défaut</a>); leur <em>Surface</em> est <em>Same as Cut</em>. Leurs données sont vides, sauf les valeurs ci-dessous : une valeur n'est ajoutée qu'à partir d'une source.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Matériau</th><th>Conductivité thermique</th><th>Source</th></tr>
+<tr><td>Extruded Polystyrene</td><td>0,02857 W/m&middot;K</td><td>RSI 0,035 par mm (R-5,0 par pouce), polystyrène extrudé types 2, 3 et 4</td></tr>
+<tr><td>Expanded Polystyrene</td><td>0,03571 W/m&middot;K</td><td>RSI 0,028 par mm (R-4,0 par pouce), polystyrène expansé type 2</td></tr>
+<tr><td>Polyisocyanurate</td><td>0,02381 W/m&middot;K</td><td>RSI 0,042 par mm (R-6,0 par pouce)</td></tr>
+</table>
+</div>
+<p>Ce sont les valeurs reconnues par le Code de construction du Québec pour ses exigences d'efficacité énergétique (APCHQ, <em>Efficacité énergétique</em>, ST-522, 2015), les mêmes que le tableau de valeurs du programme Novoclimat; la conductivité est 1 divisé par le RSI par mètre. Une fiche technique peut donner une autre valeur : changez-la dans votre copie. Leur masse volumique reste vide tant qu'une source ne la donne pas.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Groupe</th><th>Nom</th><th>Cut</th></tr>

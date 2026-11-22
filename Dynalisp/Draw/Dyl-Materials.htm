@@ -79,7 +79,16 @@
 </table>
 </div>
 <h2 id="defaults">Default Materials</h2>
-<p>The materials shipped with DynALisp, with their <em>Cut</em> hatch preset (see <a href="Dyl-HatchPresets.htm#defaults">Default Hatch Presets</a>); their <em>Surface</em> is <em>Same as Cut</em>. Their data are empty: a value is added only from a source.</p>
+<p>The materials shipped with DynALisp, with their <em>Cut</em> hatch preset (see <a href="Dyl-HatchPresets.htm#defaults">Default Hatch Presets</a>); their <em>Surface</em> is <em>Same as Cut</em>. Their data are empty, but the values below: a value is added only from a source.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Material</th><th>Thermal conductivity</th><th>Source</th></tr>
+<tr><td>Extruded Polystyrene</td><td>0.02857 W/m&middot;K</td><td>RSI 0.035 per mm (R-5.0 per inch), extruded polystyrene types 2, 3 and 4</td></tr>
+<tr><td>Expanded Polystyrene</td><td>0.03571 W/m&middot;K</td><td>RSI 0.028 per mm (R-4.0 per inch), expanded polystyrene type 2</td></tr>
+<tr><td>Polyisocyanurate</td><td>0.02381 W/m&middot;K</td><td>RSI 0.042 per mm (R-6.0 per inch)</td></tr>
+</table>
+</div>
+<p>These are the values recognized by the Quebec building code for its energy efficiency requirements (APCHQ, <em>Efficacité énergétique</em>, ST-522, 2015), the same as the table of values of the Novoclimat program; the conductivity is 1 divided by the RSI per metre. A product sheet can give another value: change it in your copy. Their density is empty until a source gives it.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Group</th><th>Name</th><th>Cut</th></tr>
