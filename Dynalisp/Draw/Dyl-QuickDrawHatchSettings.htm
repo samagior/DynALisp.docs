@@ -35,14 +35,14 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Set the hatch of a Quick Draw preset: its material, the layer key it goes on, that of its material or another one, and the properties the hatch overrides, its color, linetype, linetype scale and lineweight, and its transparency, in place of those of its material. The material itself is not changed: the other presets that use it keep its hatch. Whether the preset has a hatch at all is <em>Has a hatch</em>, in the Parameters box of the Quick Draw window: unchecked, only the outlines are drawn, as the border. An assembly has none of its own (<em>Has a hatch</em> is greyed out), its layers have theirs; <em>Replace hatches</em> gives its material as it is (greyed out too, the window opened for its material only).</p>
-<p>The same window sets the hatch of a Hatch layer of an assembly: opened from the Assembly Presets window, it edits the layers selected. There, the material is not shown (a layer is hatched with the material of its preset), and the open buttons of the layer key and of the color are greyed out: pick the layer key in its list and type the color.</p>
+<p>Set the hatch of a Quick Draw preset: the layer key it goes on, that of its material or another one, and the properties the hatch overrides, its color, linetype, linetype scale and lineweight, and its transparency, in place of those of its material. The material itself is not changed: the other presets that use it keep its hatch. Whether the preset has a hatch at all is <em>Has a hatch</em>, in the Parameters box of the Quick Draw window: unchecked, only the outlines are drawn, as the border. An assembly has none of its own (<em>Has a hatch</em> is greyed out), its layers have theirs; <em>Replace hatches</em> gives its material as it is (greyed out too).</p>
+<p>The same window sets the hatch of a Hatch layer of an assembly: opened from the Assembly Presets window, it edits the layers selected. There, the open buttons of the layer key and of the color are greyed out: pick the layer key in its list and type the color.</p>
 <!-- picture: images/Dyl-QuickDrawHatchSettings-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
 <li>In the <a href="Dyl-QuickDraw.htm">Quick Draw</a> window, pick the presets and click the square open button beside <em>Has a hatch</em> in their Parameters box (checked by default): the Hatch Settings window opens on the hatch of the preset shown.</li>
-<li>Pick the material, the layer key (<em>From material</em> keeps that of the material), check the properties to override and give their values, then OK. The text under <em>Has a hatch</em> sums up the hatch (<em>Brick, Color 8, Transparency 30</em>).</li>
+<li>Pick the layer key (<em>From material</em> keeps that of the material), check the properties to override and give their values, then OK. The text under <em>Has a hatch</em> sums up the hatch (<em>From material, Color 8, Transparency 30</em>).</li>
 <li>For a layer of an assembly, in the <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a> window, select the Hatch layers and click the open button beside <em>Has a hatch</em>.</li>
 </ol>
 </div>
@@ -51,8 +51,7 @@
 <div class="programs commands wide">
 <table>
 <tr><th>Setting</th><th>Use</th></tr>
-<tr><td>Material</td><td>The <a href="Dyl-Materials.htm">material</a> of the hatch: its pattern, scale, angle and hatch layer key. The list shows the materials of the group of the preset, by name; the material of the preset stays in it when it is in another group, shown <em>group - name</em>, and a group without material lists them all. Another group picked for the preset keeps its material. A material that was deleted stays in the list, marked <em>(missing material)</em>, until another one is picked. The square <em>open</em> button beside it opens the Materials window on that material: the one selected there when it is closed with OK is given to the hatch, so a new material can be made and picked in one go. The Materials window saves on its own OK, even if Quick Draw is then cancelled. Not shown for a layer of an assembly.</td></tr>
-<tr><td>Layer key</td><td>Greyed out, as the settings below, for <em>Replace hatches</em>. The layer key of the hatch: the hatch goes on its layer. <em>From material</em> (<em>From preset</em> for a layer of an assembly): the hatch layer key of its material. A key used but not defined is marked <em>(not defined)</em>. The square <em>open</em> button beside it opens the Layer Keys window on that key, to create or edit keys (saved on its own OK); double-click a key there to use it.</td></tr>
+<tr><td>Layer key</td><td>The layer key of the hatch: the hatch goes on its layer. <em>From material</em> (<em>From preset</em> for a layer of an assembly): the hatch layer key of its material. A key used but not defined is marked <em>(not defined)</em>. The square <em>open</em> button beside it opens the Layer Keys window on that key, to create or edit keys (saved on its own OK); double-click a key there to use it.</td></tr>
 <tr><td>Color</td><td>Optional. Color of the hatch: an AutoCAD color number (1-255) or a true color <span class="fixw">r,g,b</span>. The square <em>open</em> button beside it opens the color window of AutoCAD.</td></tr>
 <tr><td>Linetype</td><td>Optional. Linetype of the hatch, loaded from <span class="fixw">acad.lin</span> or <span class="fixw">acadiso.lin</span> when the drawing does not have it.</td></tr>
 <tr><td>Linetype scale</td><td>Optional. Linetype scale of the hatch, greater than 0.</td></tr>
