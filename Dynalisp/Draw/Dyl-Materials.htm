@@ -35,123 +35,99 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Keep the hatches of your presets in one place: a material is the hatch of an outline (pattern, scale, angle, layer key and the optional colors, linetype, lineweight and transparency), shared by every Quick Draw and Quick Shape preset that uses it. Change a material, and every preset that uses it draws the new hatch.</p>
+<p>Say what your objects are made of: a material is a name, a group, the <a href="Dyl-HatchPresets.htm">hatch presets</a> it is drawn with (<em>Cut</em> in section, <em>Surface</em> in elevation) and its data (thermal conductivity, density, thermal resistance), kept for the analyses to come. Every Quick Draw and Quick Shape preset, and every layer of an assembly, that uses a material shares it: change a material, and all of them follow. Materials that look the same share one hatch preset, each with its own data: Extruded Polystyrene, Expanded Polystyrene and Polyisocyanurate are three materials drawn with the one <em>Rigid Insulation</em> hatch preset.</p>
 <!-- picture: images/Dyl-Materials-window.png -->
 <!-- picture: images/Dyl-Materials-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">Dyl-Materials</span>, or click the open button beside <em>Material</em> in the Quick Draw or Quick Shape window.</li>
-<li>Pick a material, or click <strong>New</strong> or <strong>Copy</strong>; change its pattern, scale and layer key, and check the optional settings you want.</li>
-<li><strong>Pick hatch...</strong> copies the settings of a hatch of the drawing; <strong>Draw legend...</strong> draws a box of each material selected, with its name.</li>
+<li>Type <span class="fixw">Dyl-Materials</span>, click <em>Materials</em> in the <em>Draw</em> panel of the ribbon, or click the open button beside <em>Material</em> in the Quick Draw or Quick Shape window.</li>
+<li>Pick a material, or click <strong>New</strong> or <strong>Copy</strong>; give it a name and a group.</li>
+<li>Pick its <em>Cut</em> hatch preset, and its <em>Surface</em> one when it looks different in elevation. The open button beside each one opens the <a href="Dyl-HatchPresets.htm">Hatch Presets</a> window, to change a hatch or make a new one.</li>
+<li>Type the data you know, from a product sheet or the building code; leave the others empty.</li>
 <li>Click <strong>OK</strong>. Opened from a preset, the material selected becomes the one of that preset.</li>
 </ol>
 </div>
-<p>How a preset is drawn and its border are set in each preset, in the Quick Draw and Quick Shape windows, never here.</p>
+<p>How a hatch looks (its pattern, scale and layer key) is set in its hatch preset; how a preset is drawn, its hatch and its border, in each preset, in the Quick Draw and Quick Shape windows: never here.</p>
 <h2 id="window">The Window</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Filter / Sort by</strong> &ndash; the list shows the materials whose group, name or pattern contain the text typed (any case); <em>Sort by</em> (under the filter) orders them by <em>Name</em> (the default) or <em>Group</em> (kept for the session). The count of the materials listed is shown beside.</li>
-<li><strong>List</strong> &ndash; group and name of each material. Whether it is a default material as shipped, a default material changed (<em>modified</em>) or a custom material made with New or Copy is shown in the heading of its parameters: <em>Parameters (modified)</em>, <em>Parameters (custom)</em>, or just <em>Parameters</em> for a default material as shipped. Click a material to show its parameters on the right.</li>
-<li><strong>Several materials at once</strong> &ndash; Ctrl+click adds a material to the selection (or removes it), Shift+click selects a range. The heading reads <em>Parameters (3 selected)</em> and the fields show the values of the material shown (the one clicked first): a value changed is given to <em>every</em> material selected, their other values are left as they are. The name (unique to each material) and <em>Copy</em> are greyed out while several are selected; <em>Delete</em> removes them all (only when they are all custom), <em>Reset Selected</em> resets the default ones among them. A new filter keeps only the material shown selected.</li>
-<li><strong>New</strong> &ndash; adds a custom material after the selected one (see <a href="#new">New material</a>). <strong>Copy</strong> &ndash; adds a custom copy of the selected material. <strong>Delete</strong> &ndash; removes the selected custom materials (default materials cannot be deleted, only reset). The presets that use a deleted material stay, marked <em>(missing material)</em>, until another material is picked.</li>
-<li><strong>Reset Selected</strong> &ndash; gives the selected default materials their shipped values back. <strong>Reset All</strong> &ndash; does it for every default material; custom materials are kept (renamed if a restored name is already used). The shipped values are the ones of <span class="fixw">Res\Materials.csv</span> under <span class="fixw">Contents</span>.</li>
-<li><strong>OK</strong> &ndash; saves the materials to your copy of <span class="fixw">Res\Materials.csv</span> (under <span class="fixw">User</span>, the shipped file is never changed) and, when the window was opened from a preset, gives it the selected material. When more than 5 materials were changed (edited, added or deleted) since the window opened, it asks first (<em>12 materials were changed... Save the changes?</em>); Cancel there goes back to the window. <strong>Cancel</strong> &ndash; discards every change. <strong>Open Docs</strong> &ndash; opens this page; the window stays open.</li>
-<li><strong>Pick hatch...</strong> &ndash; (under the <em>Hatch settings</em>) gives the hatch settings of a hatch of the drawing to the selected materials. The window closes and asks for a hatch (Enter cancels), then opens again with its values: its pattern, scale and angle, <em>Annotative</em> and <em>Associative</em>, the layer key whose layer it is on (in any phase), the layer key overrides it has (color, linetype, linetype scale, lineweight, transparency) and its background color; a setting the hatch does not have (ByLayer, no background) is turned off. Its scale is turned back into the units of the pattern, and to 1:1 when the material uses <em>Adaptive scaling</em>, so the material draws the hatch picked again. The name, the group, <em>Adaptive scaling</em> and the <em>Existing phase background</em> are kept. A hatch on a layer that is no layer key keeps the hatch layer key of the preset (a message says so); a gradient or a user-defined hatch (no pattern of a <span class="fixw">.pat</span> file) is refused. Nothing is saved until <strong>OK</strong>.
-<br>When no <span class="fixw">.pat</span> file of the support path has the pattern of the hatch (a hatch from another drawing), a material could not draw it: you are asked whether to rebuild <span class="fixw">&lt;pattern&gt;.pat</span> from the lines stored in the hatch, with <a href="../Utilities/Dyl-RebuildPat.htm">Dyl-RebuildPat</a>. Unexpected results may happen: the pattern rebuilt can differ from the original (check the hatches the preset draws). When Rebuild Patterns is turned off in the Startup Suite, you are asked to turn it on and load it, then the pattern is rebuilt. The pattern rebuilt is in the units of this drawing, and the scale of the hatch is read in them. <em>No</em> to either question copies the hatch anyway, its pattern marked <em>(not found on the support path)</em>: run <span class="fixw">RPAT</span> on the hatch before drawing that material.</li>
-<li><strong>Draw legend...</strong> &ndash; (under the <em>Hatch settings</em>) draws a legend of the selected materials in the drawing, with the values being edited (saved or not). The window closes and asks for the top left corner of the legend (Enter or Esc: nothing drawn); then, one under the other in the order of the list, a box hatched with each material, with its name beside it, and the window opens again. The boxes and the names are on the current layer, in the current text style, along the X axis of the UCS; each hatch is on the layer of its hatch layer key, behind its box. Their size follows the drawing scale (see <a href="Dyl-QuickDraw.htm#drawscale">Drawing Scale</a>): at 1:1, a box is 20 x 10 mm with a 2.5 mm text in a metric drawing, 3/4 x 3/8 in with a 3/32 in text in an imperial one; at 1:50 they are 50 times as large, so the legend plots at the same size at every scale. <em>Undo</em> removes the whole legend.</li>
-<li>A value that is not valid is shown at the bottom of the window, and the material cannot be left until it is corrected.</li>
+<li><strong>Filter</strong> / sort &ndash; above the list: type a part of a group, a name or the name of a <em>Cut</em> hatch preset to list only the materials that have it (any case; the list follows as you type; empty: every material). The list beside it sorts them by name (the default) or by group then name, kept for the session. The number of materials listed is given under it.</li>
+<li><strong>Show / Set default</strong> &ndash; <em>Show</em> lists only the materials of one group (<em>All</em>: every group); the filter and the sort apply within it. <strong>Set default</strong> makes the group shown the one the window opens on, every time and in every drawing.</li>
+<li><strong>Material list</strong> &ndash; the <em>Cut</em> hatch of each material, its group and its name.</li>
+<li><strong>Several materials at once</strong> &ndash; Ctrl+click adds a material to the selection (or removes it), Shift+click selects a range. The status under the name reads <em>3 materials selected</em> and the fields show the values of the material clicked first: a value changed is given to <em>every</em> material selected, their other values are left as they are. The name and <em>Copy</em> are for one material only (greyed out); <em>Delete</em> removes them all (only when they are all custom), <em>Reset Selected</em> resets the default ones among them.</li>
+<li><strong>Name</strong>, <strong>Group</strong> &ndash; at the top right. Two materials cannot have the same name. The group is picked from the groups of the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window, the same as the groups of the presets of Quick Draw and Quick Shape (the square <em>open</em> button just left of the list opens that window); a group that is not in that list stays selectable. Under them, the status of the material (<em>Default material</em>, <em>Default material, modified</em>, <em>Custom material</em>).</li>
+<li><strong>Hatch</strong> &ndash; <strong>Cut</strong>: the hatch preset of the material in section (a wall cut in a plan or a section), picked among every hatch preset, shown <em>group - name</em> when it is in another group than the material. <strong>Surface</strong>: the hatch preset of its face seen in elevation; <em>Same as Cut</em> (the first item) uses the Cut one. The square <em>open</em> button left of each list opens the <a href="Dyl-HatchPresets.htm">Hatch Presets</a> window on that hatch preset: the one selected there when it is closed with OK is given to the materials selected, so a hatch preset can be made and picked in one go. The Hatch Presets window saves on its own OK, even if this window is then cancelled. A material without a hatch preset, or whose hatch preset was deleted, is drawn without hatch (<a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> lists it).</li>
+<li><strong>Preview</strong> &ndash; the <em>Cut</em> hatch preset of the material as it plots, at the drawing scale (its scale is shown in a corner when it is zoomed out to show the pattern).</li>
+<li><strong>Data</strong> &ndash; see <a href="#data">Data</a>.</li>
+<li><strong>Values checked as you type</strong> &ndash; a name used by another material, an empty name or a value of the data that is not a number greater than 0 shows its message at the bottom of the window; another material cannot be selected nor the window closed (but with Cancel) until it is fixed.</li>
+<li><strong>New</strong> &ndash; adds a custom material after the one shown, in the group <em>Section</em>, without hatch preset nor data, its name ready to be typed. <strong>Copy</strong> &ndash; adds a custom material with the values of the one shown. <strong>Delete</strong> &ndash; removes the custom materials selected, once you confirm (default materials cannot be deleted, only reset). The presets that use a deleted material stay, marked <em>(missing material)</em>, until another material is picked.</li>
+<li><strong>Reset Selected</strong> &ndash; (bottom left) gives the default materials selected their shipped values back. <strong>Reset All</strong> &ndash; does it for every default material, once you confirm; custom materials are kept (renamed if a restored name is already used).</li>
+<li><strong>OK</strong> &ndash; saves the materials (your copy of the materials file; the shipped file is never changed) and, when the window was opened from a preset, gives it the material selected. <strong>Cancel</strong> &ndash; discards every change made in the window. <strong>Open Docs</strong> &ndash; opens this page; the window stays open.</li>
 </ul>
 </div>
-<h2 id="parameters">Parameters</h2>
-<p>The right side of the window shows the <strong>Name</strong> (unique), the <strong>Group</strong> and the <a href="#hatch">Hatch settings</a> box, in two columns: the basic settings and the layer key overrides on the left, the optional settings on the right. The basic settings are always used. Every other setting has a checkbox: its value stays greyed out until it is checked, and while it is unchecked the property is left as the layer of the layer key (ByLayer) or the AutoCAD default.</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Name</strong> &ndash; the name shown in the lists and in the preset summary. Two materials cannot have the same name.</li>
-<li><strong>Group</strong> &ndash; the kind of drawing the material is used in, to sort and filter the list, picked from the groups of the <a href="Dyl-PresetGroups.htm">Preset Groups</a> window (the same groups as the presets of Quick Draw and Quick Shape; the square <em>open</em> button just left of the list opens that window). A group typed in <span class="fixw">Materials.csv</span> that is not in this list stays selectable.</li>
-</ul>
-</div>
-<p><strong>Values</strong>: a <em>color</em> is an AutoCAD color number (1&ndash;255) or a true color <span class="fixw">r,g,b</span>, the square <em>open</em> button beside it opens the AutoCAD color dialog; a <em>lineweight</em> is picked from the AutoCAD lineweights; a <em>transparency</em> is 0 (opaque) to 90; scales and factors are numbers greater than 0.</p>
-
-<h3 id="hatch">Hatch Settings</h3>
-<p>Color, linetype and lineweight, under <em>Layer key overrides</em>, replace the properties of the hatch layer key for the hatch; background color, existing phase background, transparency and how the hatch is scaled and made (annotative, adaptive scaling, associative) are under <em>Optional settings</em>. The hatch is always drawn behind its border (draw order).</p>
+<p>The open buttons (Group, Cut, Surface) close the window for a moment and open it again as it was, the value picked filled in.</p>
+<h2 id="data">Data</h2>
+<p>The data of a material are what it is, whatever its hatch: they are kept for the analyses and simulations to come (the thermal resistance of a wall, its weight). Each value is empty when it is not known: type only a value you have from a source (a product sheet, a test report, the building code). A comma is read as a decimal point.</p>
+<p>The values are shown, and typed, in the units of the drawing: metric (SI) in a metric drawing, imperial in an imperial one (<span class="fixw">MEASUREMENT</span>). They are always saved in SI units, so a material gives the same values in every drawing; a value shown and not changed is saved as it was, without rounding.</p>
 <div class="programs commands wide">
 <table>
-<tr><th>Setting</th><th>Use</th></tr>
-<tr><td>Pattern</td><td>The hatch pattern, picked from every pattern of the <span class="fixw">.pat</span> files on the support path (<span class="fixw">acad.pat</span>, <span class="fixw">acadiso.pat</span>, custom files). A pattern not found stays in the list, marked <em>(not found on the support path)</em>. <span class="fixw">SOLID</span> fills the outline: scales, angle, background colors, lineweight, annotative, drawing scale and the Linear hatch scale and origin are then greyed out and not used. <em>None</em> (first in the list) is a material without hatch: the hatch settings are greyed out, and what is drawn with it is only its outline, or a space between the lines of an assembly (the <em>Void</em> material, an air space).</td></tr>
-<tr><td>Type</td><td><em>Drafting</em>: the hatch has a size on paper, as the section hatches of Revit; it is annotative or follows the drawing scale (<em>Adaptive scaling</em>), so it plots at the same size at every scale (Brick, Concrete). <em>Model</em>: the hatch has a real size in the model, as the model patterns of Revit: its scale makes the lines of the pattern real dimensions (Modular Brick: a course of 2-2/3 in), so it plots smaller at 1:100 than at 1:50; <em>Annotative</em> and <em>Adaptive scaling</em> are then greyed out and off. A material of an older version is <em>Drafting</em>; <strong>Pick hatch...</strong> makes it <em>Drafting</em> when the hatch picked is annotative.</td></tr>
-<tr><td>Scale</td><td>The hatch scale, one value for imperial and metric drawings, in the units of the pattern. The units of the pattern are found for you: a pattern of <span class="fixw">acad.pat</span> is imperial, one of <span class="fixw">acadiso.pat</span> metric (AutoCAD takes it from <span class="fixw">acadiso.pat</span> in a metric drawing, <span class="fixw">MEASUREMENT</span> = 1, and from <span class="fixw">acad.pat</span> in an imperial one). A pattern in a file of its own (<span class="fixw">&lt;name&gt;.pat</span>) is metric when the file says so (a line <span class="fixw">;%UNITS=MM</span>, written by <a href="../Utilities/Dyl-RebuildPat.htm">Dyl-RebuildPat</a>; <span class="fixw">;%UNITS=INCH</span>: imperial) or else when the name of the file or of its folder has <em>ISO</em> or <em>METRIC</em> in it; otherwise it is imperial, like the patterns of AutoCAD and its toolsets. An imperial pattern in a metric drawing has its scale multiplied by 25.4, a metric pattern in an imperial drawing divided by 25.4, so it draws at the same size in both. The line under <em>Scale</em> gives the units found and the factor in the current drawing (<em>Imperial pattern: x25.4 here (metric).</em>); the <em>open</em> button at the end of that line opens the <span class="fixw">.pat</span> file of the pattern in Notepad, to inspect it (greyed out when no file defines the pattern, and for <span class="fixw">SOLID</span>).</td></tr>
-<tr><td>Angle</td><td>Hatch angle, in degrees. With the Linear method, the angle of each segment is added so the pattern follows the line.</td></tr>
-<tr><td>Layer key</td><td>The <a href="../Layer/Dyl-LayerKeys.htm">layer key</a> of the hatch, picked from the keys sorted by name: the hatch goes on its layer (created with the key properties when missing). A key that is not defined stays in the list, marked <em>(not defined)</em>, and draws on a layer of the same name. The square <em>open</em> button beside it opens the Layer Keys window on that key, to create or edit keys (saved on its own OK). Double-click a key there to use it: the keys are saved, the window closes and the key becomes the hatch layer key of the materials selected.</td></tr>
-<tr><td>Color</td><td>Optional. Color of the hatch pattern.</td></tr>
-<tr><td>Linetype</td><td>Optional. Linetype of the hatch, loaded from <span class="fixw">acad.lin</span> or <span class="fixw">acadiso.lin</span> when the drawing does not have it (not for <span class="fixw">SOLID</span>). Most patterns draw their own dashes: the linetype shows only on their continuous lines.</td></tr>
-<tr><td>Linetype scale</td><td>Optional. Linetype scale of the hatch (not for <span class="fixw">SOLID</span>).</td></tr>
-<tr><td>Lineweight</td><td>Optional. Lineweight of the pattern (not for <span class="fixw">SOLID</span>).</td></tr>
-<tr><td>Background color</td><td>Optional. Background fill color behind the pattern (not for <span class="fixw">SOLID</span>).</td></tr>
-<tr><td>Existing phase background</td><td>Optional. Background color used in place of <em>Background color</em> while <a href="../Layer/Dyl-LayerPhase.htm">auto-phase</a> is on and the active phase is <span class="fixw">E</span> (existing to remain), e.g. to screen the existing work. It needs the DynALisp reactors and <span class="fixw">PH-AUTO</span> on. Not for <span class="fixw">SOLID</span>.</td></tr>
-<tr><td>Transparency (0-90)</td><td>Optional. Transparency of the hatch.</td></tr>
-<tr><td>Annotative</td><td>The hatch is annotative: it shows at the same size at every annotation scale. Greyed out for a <em>Model</em> material.</td></tr>
-<tr><td>Adaptive scaling</td><td>The hatch follows the drawing scale: it is not annotative, but its scale is multiplied by the drawing scale (<span class="fixw">CANNOSCALE</span>): the scale above is always set for 1:1, multiplied by 50 at 1:50. Greyed out while <em>Annotative</em> is checked, and for a <em>Model</em> material. See <a href="Dyl-QuickDraw.htm#drawscale">Drawing Scale</a>.</td></tr>
-<tr><td>Associative</td><td>The hatch follows its border when the border is edited. A hatch drawn without its border (<em>Has a border</em> unchecked in a Quick Draw preset) is never associative.</td></tr>
+<tr><th>Value</th><th>Metric</th><th>Imperial</th><th>Use</th></tr>
+<tr><td>Thermal conductivity</td><td>W/m&middot;K</td><td>Btu&middot;in/h&middot;ft&sup2;&middot;&deg;F</td><td>How well the material conducts heat (k, &lambda;). Divided into its thickness, it gives the thermal resistance of a layer of it.</td></tr>
+<tr><td>Density</td><td>kg/m&sup3;</td><td>lb/ft&sup3;</td><td>Its mass per volume: with its thickness, the weight of a layer of it.</td></tr>
+<tr><td>Thermal resistance</td><td>m&sup2;&middot;K/W (RSI)</td><td>h&middot;ft&sup2;&middot;&deg;F/Btu (R)</td><td>A fixed resistance, for what its thickness does not give: an air space, a membrane, a product sold by its R-value.</td></tr>
 </table>
 </div>
-
-<h3 id="border">Border</h3>
-<p>The border of the hatch (its layer key, the overrides of its properties, its transparency, and in Quick Draw <em>Has a border</em>) is set in each preset, in the <a href="Dyl-QuickDraw.htm#border">Border settings</a> box of the Quick Draw and <a href="Dyl-QuickShape.htm">Quick Shape</a> windows: two presets of one material can have different borders. The border columns of <span class="fixw">Materials.csv</span> are no longer edited: a preset of an older file, saved before the presets had a border, gets the border of its material when it is read, and the default presets get the border of their default material (the <em>Border key</em> of the tables below).</p>
-
-<h3 id="new">New Material</h3>
-<p><strong>New</strong> starts from: pattern <span class="fixw">ANSI31</span>, scale 1.0, angle 0, hatch key <span class="fixw">HATCH</span>, annotative and associative, and every optional setting unchecked. <strong>Copy</strong> starts from the selected material.</p>
 <h2 id="defaults">Default Materials</h2>
-<p>The materials shipped with DynALisp (<span class="fixw">Res\Materials.csv</span>). Unless noted, they are not annotative, not associative, and every optional setting is unchecked. <em>Border key</em>: the border layer key of the default presets of the material (the border is set in each preset). Scale: the scale of the material, in the units of its pattern (see <em>Scale</em> above). Layer keys: <span class="fixw">FINE</span> A-Detl-Fine, <span class="fixw">THIN</span> A-Detl-Thin, <span class="fixw">MED</span> A-Detl-Medm, <span class="fixw">WIDE</span> A-Detl-Wide, <span class="fixw">XLINE</span> A-Detl-XFin, <span class="fixw">HATCH</span> A-Detl-Patt (see <a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a>).</p>
+<p>The materials shipped with DynALisp, with their <em>Cut</em> hatch preset (see <a href="Dyl-HatchPresets.htm#defaults">Default Hatch Presets</a>); their <em>Surface</em> is <em>Same as Cut</em>. Their data are empty: a value is added only from a source.</p>
 <div class="programs commands wide">
 <table>
-<tr><th>Group</th><th>Name</th><th>Pattern</th><th>Scale</th><th>Angle</th><th>Border key</th><th>Hatch key</th><th>Notes</th></tr>
-<tr><td>Phase</td><td>Demolition</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>90.0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Phase</td><td>Not In Contract</td><td><span class="fixw">ANSI31</span></td><td>1.5</td><td>90.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Phase</td><td>Existing</td><td><span class="fixw">SOLID</span></td><td>&ndash;</td><td>&ndash;</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Concrete</td><td><span class="fixw">CONCRETE_C</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Lightweight Concrete</td><td><span class="fixw">CONCRETE</span></td><td>1.0</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Mortar</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>1.0</td><td>0</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Brick</td><td><span class="fixw">ANSI31</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Stone</td><td><span class="fixw">ANSI33</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>CMU</td><td><span class="fixw">ANSI37</span></td><td>1.0</td><td>0</td><td><span class="fixw">WIDE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Firebrick</td><td><span class="fixw">ANSI35</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Marble</td><td><span class="fixw">ANSI36</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Grout</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>2.0</td><td>0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Iron</td><td><span class="fixw">ANSI31</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Steel</td><td><span class="fixw">ANSI32</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Bronze</td><td><span class="fixw">ANSI33</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Lead</td><td><span class="fixw">ANSI37</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Aluminium</td><td><span class="fixw">ANSI38</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Plywood</td><td><span class="fixw">WOOD_GLU-LAMBEAM</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Wood Plank</td><td><span class="fixw">WOOD_2</span></td><td>0.1875</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Wood Frame</td><td><span class="fixw">WOOD_1</span></td><td>0.75</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Particleboard</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>3.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Hardboard</td><td><span class="fixw">ANSI31</span></td><td>1.0</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Plastic</td><td><span class="fixw">ANSI34</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Loose Insulation</td><td><span class="fixw">NET3</span></td><td>1.0</td><td>0</td><td><span class="fixw">HATCH</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Spray Insulation</td><td><span class="fixw">HONEY</span></td><td>0.5</td><td>0</td><td><span class="fixw">HATCH</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Rigid Insulation</td><td><span class="fixw">THERMAL_INSULATION</span></td><td>0.5</td><td>90</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Follows the drawing scale, associative (its Quick Draw preset draws with Linear).</td></tr>
-<tr><td>Section</td><td>Gypsum</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>0.5</td><td>0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Plaster</td><td><span class="fixw">GENERAL_TEXTURE</span></td><td>3.0</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Compacted Soil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>45.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Topsoil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Undisturbed Soil</td><td><span class="fixw">SITEWORK_EARTH</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">XLINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Sand</td><td><span class="fixw">GENERAL_STIPPLE</span></td><td>1.0</td><td>0.0</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Asphalt</td><td><span class="fixw">SITEWORK_ASPHALT</span></td><td>1</td><td>90.0</td><td><span class="fixw">MED</span></td><td><span class="fixw">HATCH</span></td><td>Annotative.</td></tr>
-<tr><td>Section</td><td>Gravel</td><td><span class="fixw">SITEWORK_GRAVEL</span></td><td>3.0</td><td>22.5</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Crushed Stone</td><td><span class="fixw">SITEWORK_GRAVEL</span></td><td>3.0</td><td>22.5</td><td><span class="fixw">FINE</span></td><td><span class="fixw">HATCH</span></td><td>&ndash;</td></tr>
-<tr><td>Section</td><td>Void</td><td><em>None</em></td><td>&ndash;</td><td>&ndash;</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>No hatch: an air space, a cavity of an assembly.</td></tr>
+<tr><th>Group</th><th>Name</th><th>Cut</th></tr>
+<tr><td>Phase</td><td>Demolition</td><td>Demolition</td></tr>
+<tr><td>Phase</td><td>Not In Contract</td><td>Not In Contract</td></tr>
+<tr><td>Phase</td><td>Existing</td><td>Existing</td></tr>
+<tr><td>Section</td><td>Concrete</td><td>Concrete</td></tr>
+<tr><td>Section</td><td>Lightweight Concrete</td><td>Lightweight Concrete</td></tr>
+<tr><td>Section</td><td>Mortar</td><td>Mortar</td></tr>
+<tr><td>Section</td><td>Brick</td><td>Brick</td></tr>
+<tr><td>Section</td><td>Stone</td><td>Stone</td></tr>
+<tr><td>Section</td><td>CMU</td><td>CMU</td></tr>
+<tr><td>Section</td><td>Firebrick</td><td>Firebrick</td></tr>
+<tr><td>Section</td><td>Marble</td><td>Marble</td></tr>
+<tr><td>Section</td><td>Grout</td><td>Grout</td></tr>
+<tr><td>Section</td><td>Iron</td><td>Iron</td></tr>
+<tr><td>Section</td><td>Steel</td><td>Steel</td></tr>
+<tr><td>Section</td><td>Bronze</td><td>Bronze</td></tr>
+<tr><td>Section</td><td>Lead</td><td>Lead</td></tr>
+<tr><td>Section</td><td>Aluminium</td><td>Aluminium</td></tr>
+<tr><td>Section</td><td>Plywood</td><td>Plywood</td></tr>
+<tr><td>Section</td><td>Wood Plank</td><td>Wood Plank</td></tr>
+<tr><td>Section</td><td>Wood Frame</td><td>Wood Frame</td></tr>
+<tr><td>Section</td><td>Particleboard</td><td>Particleboard</td></tr>
+<tr><td>Section</td><td>Hardboard</td><td>Brick</td></tr>
+<tr><td>Section</td><td>Plastic</td><td>Plastic</td></tr>
+<tr><td>Section</td><td>Loose Insulation</td><td>Loose Insulation</td></tr>
+<tr><td>Section</td><td>Spray Insulation</td><td>Spray Insulation</td></tr>
+<tr><td>Section</td><td>Rigid Insulation</td><td>Rigid Insulation</td></tr>
+<tr><td>Section</td><td>Extruded Polystyrene</td><td>Rigid Insulation</td></tr>
+<tr><td>Section</td><td>Expanded Polystyrene</td><td>Rigid Insulation</td></tr>
+<tr><td>Section</td><td>Polyisocyanurate</td><td>Rigid Insulation</td></tr>
+<tr><td>Section</td><td>Gypsum</td><td>Gypsum</td></tr>
+<tr><td>Section</td><td>Plaster</td><td>Plaster</td></tr>
+<tr><td>Section</td><td>Compacted Soil</td><td>Compacted Soil</td></tr>
+<tr><td>Section</td><td>Topsoil</td><td>Topsoil</td></tr>
+<tr><td>Section</td><td>Undisturbed Soil</td><td>Topsoil</td></tr>
+<tr><td>Section</td><td>Sand</td><td>Sand</td></tr>
+<tr><td>Section</td><td>Asphalt</td><td>Asphalt</td></tr>
+<tr><td>Section</td><td>Gravel</td><td>Gravel</td></tr>
+<tr><td>Section</td><td>Crushed Stone</td><td>Gravel</td></tr>
+<tr><td>Section</td><td>Void</td><td>Void</td></tr>
 </table>
 </div>
-<p>The file also ships an example custom material, which can be edited or deleted like your own:</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Group</th><th>Name</th><th>Pattern</th><th>Scale</th><th>Angle</th><th>Border key</th><th>Hatch key</th><th>Notes</th></tr>
-<tr><td>Elevation</td><td>Modular Brick</td><td><span class="fixw">BRICK</span></td><td>10.6667</td><td>0</td><td><span class="fixw">THIN</span></td><td><span class="fixw">HATCH</span></td><td>Model: a course of 2-2/3 in.</td></tr>
-</table>
-</div>
+<p>The file also ships an example custom material, which can be edited or deleted like your own: <em>Modular Brick</em> (group <em>Elevation</em>), on its own <em>Modular Brick</em> hatch preset, a brick drawn at its real size.</p>
 <p>Each default preset of Quick Draw uses the default material of the same name (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
+<h2 id="older">Materials Of An Older Version</h2>
+<p>Up to DynALisp 1.1, a material was its hatch. Your materials are split for you the first time they are read: each one keeps its name, its group and its presets, and gets a hatch preset of the hatch it had (see <a href="Dyl-HatchPresets.htm#older">Hatch Presets</a>), so it draws the same hatch as before. Its data are empty.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
 
     </div>
