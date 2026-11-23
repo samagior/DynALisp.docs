@@ -85,141 +85,144 @@
 <tr><td>Thermal conductivity</td><td>W/m&middot;K</td><td>Btu&middot;in/h&middot;ft&sup2;&middot;&deg;F</td><td>How well the material conducts heat (k, &lambda;). Divided into its thickness, it gives the thermal resistance of a layer of it.</td></tr>
 <tr><td>Density</td><td>kg/m&sup3;</td><td>lb/ft&sup3;</td><td>Its mass per volume: with its thickness, the weight of a layer of it.</td></tr>
 <tr><td>Thermal resistance</td><td>m&sup2;&middot;K/W (RSI)</td><td>h&middot;ft&sup2;&middot;&deg;F/Btu (R)</td><td>A fixed resistance, for what its thickness does not give: an air space, a membrane, a product sold by its R-value.</td></tr>
+<tr><td>Vapour permeability</td><td>ng/Pa&middot;s&middot;m</td><td>perm&middot;in</td><td>How well water vapour goes through the material (&delta;). Divided by its thickness, it gives the vapour permeance of a layer of it.</td></tr>
+<tr><td>Vapour permeance</td><td>ng/Pa&middot;s&middot;m&sup2;</td><td>perm</td><td>A fixed permeance, for what its thickness does not give: a membrane, a vapour barrier, a coating, a product sold by its permeance (dry cup, as the building code asks for a vapour barrier).</td></tr>
 </table>
 </div>
 <h2 id="defaults">Default Materials</h2>
-<p>The materials shipped with DynALisp, with their group and their <em>Cut</em> hatch preset (see <a href="Dyl-HatchPresets.htm#defaults">Default Hatch Presets</a>); their <em>Surface</em> is <em>Same as Cut</em>, but for <em>Brick</em>, whose <em>Surface</em> is <em>Modular Brick</em>, a brick drawn at its real size. A value is given only from a source, and is empty (&ndash;) otherwise.</p>
+<p>The materials shipped with DynALisp, with their group and their <em>Cut</em> hatch preset (see <a href="Dyl-HatchPresets.htm#defaults">Default Hatch Presets</a>); their <em>Surface</em> is <em>Same as Cut</em>, but for <em>Brick</em>, whose <em>Surface</em> is <em>Modular Brick</em>, a brick drawn at its real size. A value is given only from a source, and is empty (&ndash;) otherwise. A vapour permeability is given only where the building code gives one value for the material; type the others, and every vapour permeance (a membrane, a vapour barrier), from your product sheets.</p>
 <div class="programs commands wide">
 <table>
-<tr><th>Group</th><th>Name</th><th>Cut</th><th>Conductivity (W/m&middot;K)</th><th>Density (kg/m&sup3;)</th><th>Resistance (RSI)</th></tr>
-<tr><td>Phase</td><td>Demolition</td><td>Demolition</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Phase</td><td>Not In Contract</td><td>Not In Contract</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Phase</td><td>Existing</td><td>Existing</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Concrete</td><td>Concrete</td><td>2.5</td><td>2400</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Lightweight Concrete</td><td>Lightweight Concrete</td><td>0.7692</td><td>1600</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Mortar</td><td>Mortar</td><td>1.111</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>Brick</td><td>Brick</td><td>1.286</td><td>2400</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>Stone</td><td>Stone</td><td>2.5</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>CMU</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>Firebrick</td><td>Firebrick</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>Marble</td><td>Marble</td><td>2.5</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Grout</td><td>Grout</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Iron</td><td>Iron</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Steel</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Bronze</td><td>Bronze</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Lead</td><td>Lead</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Aluminium</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Plywood</td><td>Plywood</td><td>0.1149</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Wood Plank</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Wood Frame</td><td>Wood Frame</td><td>0.1176</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Particleboard</td><td>Particleboard</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Hardboard</td><td>Brick</td><td>0.1053</td><td>800</td><td>&ndash;</td></tr>
-<tr><td>Generic</td><td>Plastic</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Loose Insulation</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Spray Insulation</td><td>Spray Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Rigid Insulation</td><td>Rigid Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Extruded Polystyrene</td><td>Rigid Insulation</td><td>0.02857</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Expanded Polystyrene</td><td>Rigid Insulation</td><td>0.03571</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Polyisocyanurate</td><td>Rigid Insulation</td><td>0.02381</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Board</td><td>Gypsum</td><td>Gypsum</td><td>0.1639</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Compacted Soil</td><td>Compacted Soil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Topsoil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Undisturbed Soil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Sand</td><td>Sand</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Asphalt</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Gravel</td><td>Gravel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Site</td><td>Crushed Stone</td><td>Gravel</td><td>1.667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Birch</td><td>Wood Frame</td><td>0.1818</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Oak</td><td>Wood Frame</td><td>0.1786</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Maple And Ash</td><td>Wood Frame</td><td>0.1587</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>White Cedar</td><td>Wood Frame</td><td>0.101</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Yellow Cypress</td><td>Wood Frame</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>White Spruce</td><td>Wood Frame</td><td>0.1031</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>White Pine</td><td>Wood Frame</td><td>0.1087</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Lodgepole Pine</td><td>Wood Frame</td><td>0.122</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Red Pine</td><td>Wood Frame</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Hemlock</td><td>Wood Frame</td><td>0.119</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Western Hemlock</td><td>Wood Frame</td><td>0.1351</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Douglas Fir Or Larch</td><td>Wood Frame</td><td>0.1449</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Amabilis Fir</td><td>Wood Frame</td><td>0.125</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>OSB</td><td>Particleboard</td><td>0.102</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Board</td><td>Asphalt Fiberboard Sheathing</td><td>Particleboard</td><td>0.06061</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Board</td><td>Gypsum Sheathing</td><td>Gypsum</td><td>0.1587</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Board</td><td>Foil-Faced Wood Fiberboard</td><td>Particleboard</td><td>0.05155</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Board</td><td>Lightweight Concrete Board</td><td>Lightweight Concrete</td><td>0.1449</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Expanded Polystyrene Type 1</td><td>Rigid Insulation</td><td>0.03891</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Expanded Polystyrene Type 3</td><td>Rigid Insulation</td><td>0.03356</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Expanded Polystyrene Type 4</td><td>Rigid Insulation</td><td>0.02882</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Rigid Mineral Wool Roof Board</td><td>Rigid Insulation</td><td>0.0361</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Phenolic Foam Board</td><td>Rigid Insulation</td><td>0.03289</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Insulating Fiberboard</td><td>Particleboard</td><td>0.05155</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Compressed Straw Board</td><td>Loose Insulation</td><td>0.07194</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Wood Fiber Batt</td><td>Loose Insulation</td><td>0.03891</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Expanded Perlite</td><td>Loose Insulation</td><td>0.05348</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Spray Polyurethane Type 1</td><td>Spray Insulation</td><td>0.02778</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Spray Polyurethane Type 2</td><td>Spray Insulation</td><td>0.025</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Sprayed Asbestos</td><td>Spray Insulation</td><td>0.04975</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>CMU 90 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.17</td></tr>
-<tr><td>Masonry</td><td>CMU 140 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.19</td></tr>
-<tr><td>Masonry</td><td>CMU 190 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.21</td></tr>
-<tr><td>Masonry</td><td>CMU 240 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.24</td></tr>
-<tr><td>Masonry</td><td>CMU 290 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.26</td></tr>
-<tr><td>Masonry</td><td>CMU 190 mm Perlite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.53</td></tr>
-<tr><td>Masonry</td><td>CMU 140 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.4</td></tr>
-<tr><td>Masonry</td><td>CMU 190 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.51</td></tr>
-<tr><td>Masonry</td><td>CMU 240 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.61</td></tr>
-<tr><td>Masonry</td><td>CMU 290 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.69</td></tr>
-<tr><td>Masonry</td><td>Concrete Brick</td><td>Brick</td><td>1.698</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Masonry</td><td>Quartzite And Sandstone</td><td>Stone</td><td>3.333</td><td>2240</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Stucco</td><td>Plaster</td><td>1.111</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Wood Shingle Siding</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.15</td></tr>
-<tr><td>Finish</td><td>Wood Shingle Siding - Double</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.21</td></tr>
-<tr><td>Finish</td><td>Wood Siding</td><td>Wood Plank</td><td>0.1429</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Hardboard Siding</td><td>Brick</td><td>0.09167</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Fiber Cement Siding</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>0.003</td></tr>
-<tr><td>Finish</td><td>Metal Or Vinyl Siding</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.11</td></tr>
-<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.32</td></tr>
-<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated And Foil</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.52</td></tr>
-<tr><td>Roofing</td><td>Roll Roofing</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0.03</td></tr>
-<tr><td>Roofing</td><td>Bitumen</td><td>Asphalt</td><td>0.7143</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Roofing</td><td>Asphalt Shingles</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0.078</td></tr>
-<tr><td>Roofing</td><td>Built-Up Roof</td><td>Asphalt</td><td>0.1667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Roofing</td><td>Wood Shingle Roofing</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.17</td></tr>
-<tr><td>Roofing</td><td>Slate</td><td>Stone</td><td>1.3</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Cement Plaster</td><td>Plaster</td><td>0.7143</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Low Density Fiberboard</td><td>Particleboard</td><td>0.102</td><td>590</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>Medium Density Fiberboard</td><td>Particleboard</td><td>0.1351</td><td>800</td><td>&ndash;</td></tr>
-<tr><td>Wood</td><td>High Density Fiberboard</td><td>Particleboard</td><td>0.1695</td><td>1000</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Terrazzo</td><td>Concrete</td><td>1.667</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Carpet - Fibrous Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.37</td></tr>
-<tr><td>Finish</td><td>Carpet - Rubber Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.22</td></tr>
-<tr><td>Finish</td><td>Cork Tile</td><td>Particleboard</td><td>0.06531</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Hardwood Flooring</td><td>Wood Plank</td><td>0.1583</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Resilient Flooring</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.009</td></tr>
-<tr><td>Air</td><td>Air Space - Wall 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td></tr>
-<tr><td>Air</td><td>Air Space - Wall 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.18</td></tr>
-<tr><td>Air</td><td>Air Space - Ceiling 13 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.15</td></tr>
-<tr><td>Air</td><td>Air Space - Ceiling 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td></tr>
-<tr><td>Air</td><td>Air Space - Floor 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td></tr>
-<tr><td>Air</td><td>Air Space - Floor 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.18</td></tr>
-<tr><td>Air</td><td>Air Space - Floor 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.2</td></tr>
-<tr><td>Air</td><td>Air Space - Floor 90 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.22</td></tr>
-<tr><td>Board</td><td>Gypsum Board Type X</td><td>Gypsum</td><td>0.1639</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Finish</td><td>Gypsum-Sand Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Insulation</td><td>Absorptive Material</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Resilient Metal Channel</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Steel Furring Channel</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Hollow Core Slab</td><td>Concrete</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Concrete</td><td>Gypsum Concrete</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Metal</td><td>Steel Deck</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
-<tr><td>Air</td><td>Void</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><th>Group</th><th>Name</th><th>Cut</th><th>Conductivity (W/m&middot;K)</th><th>Density (kg/m&sup3;)</th><th>Resistance (RSI)</th><th>Vapour permeability (ng/Pa&middot;s&middot;m)</th></tr>
+<tr><td>Phase</td><td>Demolition</td><td>Demolition</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Phase</td><td>Not In Contract</td><td>Not In Contract</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Phase</td><td>Existing</td><td>Existing</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Concrete</td><td>Concrete</td><td>2.5</td><td>2400</td><td>&ndash;</td><td>1.15</td></tr>
+<tr><td>Concrete</td><td>Lightweight Concrete</td><td>Lightweight Concrete</td><td>0.7692</td><td>1600</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Mortar</td><td>Mortar</td><td>1.111</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Brick</td><td>Brick</td><td>1.286</td><td>2400</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Stone</td><td>Stone</td><td>2.5</td><td>2240</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Firebrick</td><td>Firebrick</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Marble</td><td>Marble</td><td>2.5</td><td>2240</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Grout</td><td>Grout</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Iron</td><td>Iron</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Steel</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Bronze</td><td>Bronze</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Lead</td><td>Lead</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Aluminium</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Plywood</td><td>Plywood</td><td>0.1149</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Wood Plank</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Wood Frame</td><td>Wood Frame</td><td>0.1176</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Particleboard</td><td>Particleboard</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Hardboard</td><td>Brick</td><td>0.1053</td><td>800</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Generic</td><td>Plastic</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Loose Insulation</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Insulation</td><td>Spray Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Rigid Insulation</td><td>Rigid Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Extruded Polystyrene</td><td>Rigid Insulation</td><td>0.02857</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene</td><td>Rigid Insulation</td><td>0.03571</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Polyisocyanurate</td><td>Rigid Insulation</td><td>0.02381</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Gypsum</td><td>Gypsum</td><td>0.1639</td><td>&ndash;</td><td>&ndash;</td><td>33.02</td></tr>
+<tr><td>Finish</td><td>Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Compacted Soil</td><td>Compacted Soil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Topsoil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Undisturbed Soil</td><td>Topsoil</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Sand</td><td>Sand</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Asphalt</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Gravel</td><td>Gravel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Site</td><td>Crushed Stone</td><td>Gravel</td><td>1.667</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Birch</td><td>Wood Frame</td><td>0.1818</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Oak</td><td>Wood Frame</td><td>0.1786</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Maple And Ash</td><td>Wood Frame</td><td>0.1587</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Cedar</td><td>Wood Frame</td><td>0.101</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Yellow Cypress</td><td>Wood Frame</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Spruce</td><td>Wood Frame</td><td>0.1031</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>White Pine</td><td>Wood Frame</td><td>0.1087</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Lodgepole Pine</td><td>Wood Frame</td><td>0.122</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Red Pine</td><td>Wood Frame</td><td>0.1299</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Hemlock</td><td>Wood Frame</td><td>0.119</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Western Hemlock</td><td>Wood Frame</td><td>0.1351</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Douglas Fir Or Larch</td><td>Wood Frame</td><td>0.1449</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Amabilis Fir</td><td>Wood Frame</td><td>0.125</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>OSB</td><td>Particleboard</td><td>0.102</td><td>&ndash;</td><td>&ndash;</td><td>0.484</td></tr>
+<tr><td>Board</td><td>Asphalt Fiberboard Sheathing</td><td>Particleboard</td><td>0.06061</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Gypsum Sheathing</td><td>Gypsum</td><td>0.1587</td><td>&ndash;</td><td>&ndash;</td><td>17.44</td></tr>
+<tr><td>Board</td><td>Foil-Faced Wood Fiberboard</td><td>Particleboard</td><td>0.05155</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Lightweight Concrete Board</td><td>Lightweight Concrete</td><td>0.1449</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 1</td><td>Rigid Insulation</td><td>0.03891</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 3</td><td>Rigid Insulation</td><td>0.03356</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Polystyrene Type 4</td><td>Rigid Insulation</td><td>0.02882</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Rigid Mineral Wool Roof Board</td><td>Rigid Insulation</td><td>0.0361</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Phenolic Foam Board</td><td>Rigid Insulation</td><td>0.03289</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Insulating Fiberboard</td><td>Particleboard</td><td>0.05155</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Compressed Straw Board</td><td>Loose Insulation</td><td>0.07194</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Wood Fiber Batt</td><td>Loose Insulation</td><td>0.03891</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Expanded Perlite</td><td>Loose Insulation</td><td>0.05348</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Polyurethane Type 1</td><td>Spray Insulation</td><td>0.02778</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Spray Polyurethane Type 2</td><td>Spray Insulation</td><td>0.025</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Sprayed Asbestos</td><td>Spray Insulation</td><td>0.04975</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 90 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.17</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 140 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.19</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.21</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 240 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.24</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 290 mm Hollow</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.26</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Perlite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.53</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 140 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.4</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 190 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.51</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 240 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.61</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>CMU 290 mm Vermiculite Filled</td><td>CMU</td><td>&ndash;</td><td>&ndash;</td><td>0.69</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Concrete Brick</td><td>Brick</td><td>1.698</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Masonry</td><td>Quartzite And Sandstone</td><td>Stone</td><td>3.333</td><td>2240</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Stucco</td><td>Plaster</td><td>1.111</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Wood Shingle Siding</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.15</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Wood Shingle Siding - Double</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.21</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Wood Siding</td><td>Wood Plank</td><td>0.1429</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Hardboard Siding</td><td>Brick</td><td>0.09167</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Fiber Cement Siding</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>0.003</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.11</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.32</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Metal Or Vinyl Siding - Insulated And Foil</td><td>Aluminium</td><td>&ndash;</td><td>&ndash;</td><td>0.52</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Roll Roofing</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0.03</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Bitumen</td><td>Asphalt</td><td>0.7143</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Asphalt Shingles</td><td>Asphalt</td><td>&ndash;</td><td>&ndash;</td><td>0.078</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Built-Up Roof</td><td>Asphalt</td><td>0.1667</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Wood Shingle Roofing</td><td>Wood Plank</td><td>&ndash;</td><td>&ndash;</td><td>0.17</td><td>&ndash;</td></tr>
+<tr><td>Roofing</td><td>Slate</td><td>Stone</td><td>1.3</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Cement Plaster</td><td>Plaster</td><td>0.7143</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Low Density Fiberboard</td><td>Particleboard</td><td>0.102</td><td>590</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>Medium Density Fiberboard</td><td>Particleboard</td><td>0.1351</td><td>800</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Wood</td><td>High Density Fiberboard</td><td>Particleboard</td><td>0.1695</td><td>1000</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Terrazzo</td><td>Concrete</td><td>1.667</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Carpet - Fibrous Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.37</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Carpet - Rubber Underlay</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.22</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Cork Tile</td><td>Particleboard</td><td>0.06531</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Hardwood Flooring</td><td>Wood Plank</td><td>0.1583</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Resilient Flooring</td><td>Plastic</td><td>&ndash;</td><td>&ndash;</td><td>0.009</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Wall 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Wall 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.18</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Ceiling 13 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.15</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Ceiling 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 13 mm</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.16</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 20 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.18</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 40 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.2</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Air Space - Floor 90 mm+</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>0.22</td><td>&ndash;</td></tr>
+<tr><td>Board</td><td>Gypsum Board Type X</td><td>Gypsum</td><td>0.1639</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Finish</td><td>Gypsum-Sand Plaster</td><td>Plaster</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Insulation</td><td>Absorptive Material</td><td>Loose Insulation</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Resilient Metal Channel</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Steel Furring Channel</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Hollow Core Slab</td><td>Concrete</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Concrete</td><td>Gypsum Concrete</td><td>Lightweight Concrete</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Metal</td><td>Steel Deck</td><td>Steel</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+<tr><td>Air</td><td>Void</td><td>Void</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
 </table>
 </div>
 <p>Sources:</p>
 <div class="spacedbullets">
 <ul>
 <li><strong>Extruded Polystyrene</strong>, <strong>Expanded Polystyrene</strong> (type 2) and <strong>Polyisocyanurate</strong> &ndash; the values recognized by the Quebec building code for its energy efficiency requirements (APCHQ, <em>Efficacité énergétique</em>, ST-522, 2015): RSI 0.035, 0.028 and 0.042 per mm.</li>
+<li><strong>Vapour permeability</strong> &ndash; the dry cup water vapour permeance of Table A-9.25.5.1.(1) of the National Building Code of Canada 2020, times the thickness it is given for: concrete 23 ng/Pa&middot;s&middot;m&sup2; at 50 mm, gypsum board 2600 at 12.7 mm, gypsum sheathing 1373 at 12.7 mm, OSB 44 at 11 mm. A material the table gives as a range (plywood, brick, polystyrene), or with a facing (polyisocyanurate), has none.</li>
 <li><strong>Every other value</strong> &ndash; the Novoclimat table of values for thermal resistance calculations (<em>Tableau de valeurs pour les calculs de résistance thermique</em>, 2021-09-01), compiled from the National Building Code 2010 and the Quebec energy regulation. A material given per unit of thickness (RSI per mm) has the conductivity 1 / (RSI per metre); one given for a stated thickness (a 90 mm brick, a 19 mm hardwood floor) the conductivity thickness / RSI; one given without a thickness to scale (an air space, a concrete block, a siding, a roofing, a carpet) a fixed <em>Resistance</em>. A density is given only where the table states one. The products of a manufacturer of the table (a brand of batt, of board or of spray foam) are not default materials: make them from your product sheets.</li>
 </ul>
 </div>
