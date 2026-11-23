@@ -36,7 +36,7 @@
 </div>
 <h2>Program Description</h2>
 <p>When DynALisp loads, the command line gives a short summary: <span class="fixw">DynALisp loaded (516 commands/453 aliases)</span>, then <span class="fixw">Dyl-Settings to change the settings, Dyl-Info for help.</span> (the counts are the ones of your installation; warnings, if any, follow on a last line starting with <span class="fixw">--&gt;</span>). <span class="fixw">DYL-INFO</span> is the help window of DynALisp; <span class="fixw">DYL-USERFILES</span> manages the files you edited.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-Info-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-window.png" alt="Info And User Files: window"></picture></figure>
+<!-- picture: images/Dyl-Info-window.png -->
 <!-- picture: images/Dyl-Info-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
@@ -81,11 +81,9 @@
 </ul>
 </div>
 <p>The first time AutoCAD starts after an update (either way), the What's New window shows the changes since the version you had, once; Dyl-Info's <strong>What's new</strong> shows them again. The changes are in <span class="fixw">CHANGELOG.md</span>, in the DynALisp folder. <strong>All releases</strong> opens the releases page.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-Info-whatsnew-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-whatsnew.png" alt="Info And User Files: window"></picture></figure>
 <p><strong>Automatic updates</strong> (<em>Install updates automatically</em>, Updates section of <a href="Dyl-Settings.htm#updates">Dyl-Settings</a>, off until you turn it on): once a day, the first drawing opened checks for a new version and starts its setup, which installs it when you close AutoCAD. The command line says so under <span class="fixw">DynALisp loaded</span>.</p>
 <h2 id="userfiles">User Files</h2>
 <p>The data files of DynALisp (presets, materials, layer keys, aliases, the Startup Suite, system variable profiles...) are shipped under <span class="fixw">Contents</span> and never changed by the commands. What you edit is saved to a copy of the file in the <span class="fixw">User</span> folder of the bundle (ignored by git), which is read in place of the default. <span class="fixw">DYL-USERFILES</span> lists those copies with what each one is:</p>
-<figure class="shot"><picture><source srcset="images/Dyl-Info-userfiles-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-userfiles.png" alt="Info And User Files: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Open</strong> &ndash; opens the copy selected; <strong>Open User folder</strong> opens the folder.</li>

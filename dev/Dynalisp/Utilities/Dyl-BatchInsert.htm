@@ -22,18 +22,20 @@
 <div class="programs">
 <table>
 <tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-BatchInsert.lsp</span></td></tr>
+<tr><td>Requires</td><td>AutoCAD for Windows: the folder browser is <span class="fixw">BrowseForFolder</span> of <span class="fixw">Shell.Application</span></td></tr>
 </table>
 </div>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
-<li>A Windows folder browser opens (<em>Select a folder</em>); the path can be typed in the dialog.</li>
-<li>The routine lists the <span class="fixw">*.dwg</span> files of the folder.</li>
-<li>Each file is inserted with <span class="fixw">-INSERT</span> at scale 1 and rotation 0, the X position being meant to advance by 100 drawing units for each drawing.</li>
+<li><span class="fixw">Local&gt;&gt;BatchInsertFolder</span> opens the folder browser (option 16: a path can be typed) and returns the folder with its ending backslash, or nil.</li>
+<li>The <span class="fixw">*.dwg</span> files of the folder (<span class="fixw">vl-directory-files</span>, files only) are sorted by name (<span class="fixw">acad_strlsort</span>).</li>
+<li>The space is paper space when a layout is current with no viewport active (<span class="fixw">TILEMODE</span> 0, <span class="fixw">CVPORT</span> 1), else model space. Everything is one undo group.</li>
+<li>Each file is inserted with <span class="fixw">vla-InsertBlock</span> by its full path, scale 1, rotation 0: its block is named after the file. Skipped: the current drawing (<span class="fixw">DWGPREFIX</span> + <span class="fixw">DWGNAME</span>), a name that is already a block (inserting would redefine it) or not a valid name (<span class="fixw">snvalid</span>), and a file that fails to insert (its error printed).</li>
+<li>The block is moved so the lower left corner of its bounding box is at <span class="fixw">(x, 0)</span>; <span class="fixw">x</span> then grows by its width and a gap of a tenth of the widest drawing so far.</li>
+<li>The view zooms to the extents and the count of inserted and skipped drawings is printed.</li>
 </ol>
 </div>
-<h2>The Code</h2>
-<p><span class="fixw">c:Dyl-BatchInsert</span> opens a folder browser (<span class="fixw">Directory-Dia</span>, <span class="fixw">BrowseForFolder</span> of <span class="fixw">Shell.Application</span>) and should run <span class="fixw">-INSERT</span> for each <span class="fixw">*.dwg</span> of the folder. The folder picked is not used (the files are listed from a folder written in the code), the point is sent as the text <span class="fixw">"x,0,0"</span>, and the file names have no folder: the three faults of Known Limitations of the guide page.</p>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>

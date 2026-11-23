@@ -25,53 +25,55 @@
 <td><span class="fixw">DYL-LAYERMAKE</span> and 11 layer sets &ndash; see <a href="#commands">Commands</a></td>
 </tr>
 <tr>
-<td>Status</td>
-<td>Work in progress &ndash; see Known Limitations</td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>GNU General Public License v3; CSV helpers by Lee Mac</td>
 </tr>
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Make the whole set of layers of a type of drawing in one command: a basic drawing, an architectural plan, elevation, section or detail, or the NCS layers of one level. Each layer gets its name, color, lineweight, linetype and plot setting from the DynALisp layer standard; the layers already there are updated.</p>
-<p class="note">The layer sets do not work at the moment: they stop with an error before making the layers (see Known Limitations). Use the <a href="Dyl-LayerKeys.htm">Layer Keys</a> to make standard layers one at a time.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-LayerMake-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-LayerMake-window.png" alt="Make Layers: window"></picture></figure>
+<p>Make the whole set of layers of a type of drawing in one command: a basic drawing, an architectural plan, elevation, section or detail, or the NCS layers of one level. Each layer gets its name, color, lineweight, linetype, plot setting and description from the DynALisp layer standard; the layers already there are updated.</p>
+<!-- picture: images/Dyl-LayerMake-window.png -->
 <!-- picture: images/Dyl-LayerMake-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
 <li>Type the alias of the set: <span class="fixw">LL-A-FLOOR</span> for an architectural floor plan... (the table below), or type <span class="fixw">Dyl-LayerMake</span> and double-click a set.</li>
-<li>When the set is for a stacked drawing, choose its level (<em>None</em>, <em>1-First</em>... <em>9-Ninth</em>); when it is for any discipline, choose the discipline.</li>
-<li>The command line lists each layer, created or updated.</li>
+<li>Answer the questions of the set at the command line, only those it needs:
+<div class="unspacedbullets">
+<ul>
+<li>the <strong>stack</strong> of a stacked drawing: <em>None</em>, or <em>1-First</em>... <em>9-Ninth</em>, which ends the names with <span class="fixw">0001</span>... <span class="fixw">0009</span>;</li>
+<li>the <strong>discipline</strong>: <em>General</em>, <em>Architectural</em>, <em>Interior</em>, <em>Structural</em> or <em>Landscape</em>;</li>
+<li>the <strong>major group</strong>, 4 characters (<span class="fixw">Detl</span> by default, <span class="fixw">Wall</span>, <span class="fixw">Roof</span>...).</li>
+</ul>
+</div></li>
+<li>The command line lists each layer, created or updated, then their count. The current layer does not change, and one <span class="fixw">U</span> undoes it all.</li>
 </ol>
 </div>
 <h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Command</th><th>Name</th><th>CSV folder</th><th>CSV files</th></tr>
-<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td><span class="fixw">Dyl\Drawing</span></td><td><span class="fixw">Basic.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Drawing.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Roof.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Ceil.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Furn.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">1-Architectural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Interior.csv</span>, <span class="fixw">1-Landscape.csv</span>, <span class="fixw">1-Structural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Plumbing.csv</span>, <span class="fixw">1-Electrical.csv</span>, <span class="fixw">1-Mechanical.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">2-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">2-Landscape.csv</span>, <span class="fixw">2-Structural.csv</span>, <span class="fixw">2-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">2-Electrical.csv</span>, <span class="fixw">2-Mechanical.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">3-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">3-Landscape.csv</span>, <span class="fixw">3-Structural.csv</span>, <span class="fixw">3-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">3-Electrical.csv</span>, <span class="fixw">3-Mechanical.csv</span></td></tr>
+<tr><th>Command</th><th>Name</th><th>Layers made</th></tr>
+<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td>The line layers (fine, thin, medium, wide, hidden, patterns...) of the discipline and major group you choose.</td></tr>
+<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td>The elevation lines and the annotation, of a stack.</td></tr>
+<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td>The same layers as the elevations.</td></tr>
+<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td>The detail lines of the major group you choose (membranes, insulation, rebar...) and the annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td>Walls, doors, glazing, columns, floors and equipment, and the annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td>The roof layers and the annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td>The ceiling (grid, lights, HVAC, openings...), the walls, doors and glazing it shows, and the annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td>The furniture, the floor plan layers and the annotation.</td></tr>
+<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td>The level 1 layers of the US National CAD Standard, every discipline.</td></tr>
+<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td>The level 2 layers, every discipline.</td></tr>
+<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td>The level 3 layers, every discipline (level 2 for interiors and plumbing).</td></tr>
 </table>
 </div>
-<p>CSV folders are relative to <span class="fixw">Modules\Dynalisp\Res\Layer\List</span>. Each CSV has the columns <span class="fixw">Designator, Major, Minor1, Minor2, Minor3, Description</span>.</p>
+<p>The names follow the <a href="../Conventions/LayerNaming.htm">Layer Naming</a> standard.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The discipline check passes the whole CSV data list to <span class="fixw">wcmatch</span>, which only accepts text, so the commands currently stop with a <em>bad argument type</em> error at that step.</li>
-<li>Rows without the <span class="fixw">0000</span> placeholder produce no layer name (the name is only built inside the stack substitution).</li>
-<li>Several CSV names do not match the shipped files (e.g. A-Elev.csv vs A-Elevation.csv, folder NCS vs NCSv5); missing files are skipped silently.</li>
-<li>The colour group option (<span class="fixw">MinorColor</span>, <span class="fixw">DesignatorColor</span>, <span class="fixw">MajorColor</span>, <span class="fixw">StackColor</span>, <span class="fixw">PhaseColor</span>) is fixed to <span class="fixw">MinorColor</span>, which adds no override.</li>
+<li>The color, lineweight and linetype of each layer come from the words of its name: they cannot be chosen here. Change them afterwards, or use the <a href="Dyl-LayerKeys.htm">Layer Keys</a>.</li>
+<li>A layer already in the drawing gets the properties of the standard back, its own changes lost.</li>
+<li>A linetype missing from the linetype file of AutoCAD gives the layer <em>Continuous</em>.</li>
+<li>The NCS sets make several hundred layers: it takes a moment.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

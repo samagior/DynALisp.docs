@@ -22,46 +22,63 @@
 <div class="programs">
 <table>
 <tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Layer\Dyl-LayerMake.lsp</span></td></tr>
-<tr><td>Data</td><td>The CSV layer lists of <span class="fixw">*dyl:layerlist</span> (<span class="fixw">Res\Layer\...</span>), one folder per discipline, read through <span class="fixw">Dyl:UserFile</span></td></tr>
+<tr><td>Data</td><td>The CSV layer lists of <span class="fixw">*dyl:layerlist</span> (<span class="fixw">Res\Layer\List</span>), columns <span class="fixw">Designator,Major,Minor1,Minor2,Minor3,Description</span>, read through <span class="fixw">Dyl:UserFile</span>; <span class="fixw">Res\AEC\Standard\Major.csv</span> for the description of a major group</td></tr>
 </table>
 </div>
 <h2>A Layer Set</h2>
-<p>Each child command names its lists, then calls the engine:</p>
-<div class="code"><pre>(defun c:Pst-MakeBasicDrawingLayers ()
-  (setq *typ "Csv"                ; "Csv": layer lists, "Lyr": single layer names
-        *dir "Dyl//Drawing"       ; the folder under *dyl:layerlist
-        *lst '("Basic.csv"))      ; its CSV files
+<p>Each child command names its lists, relative to <span class="fixw">*dyl:layerlist</span>, then calls the engine:</p>
+<div class="code"><pre>(defun c:Pst-MakeArchitecturalFloorPlanLayers ()
+  (setq *typ "Csv"                ; "Csv": layer lists, "Lyr": a list of (name . description)
+        *dir nil                  ; a folder for every file, or nil: the paths say it
+        *lst '("Dyl\\Model\\Floor.csv" "Architecture\\A-Anno.csv"))
   (Dyl-LayerMake *typ *dir *lst *cop)
 )</pre></div>
-<p><span class="fixw">c:Dyl-LayerMake</span> is <span class="fixw">Dyl:ChildPicker</span> of <span class="fixw">dynalisp.mnl</span>: the window <span class="fixw">Res\Dyl-ChildPicker.xaml</span> (see <a href="../Plugins/Windows.htm#picker">Windows</a>) on its children turned on.</p>
+<p><span class="fixw">c:Dyl-LayerMake</span> is <span class="fixw">Dyl:ChildPicker</span> of <span class="fixw">dynalisp.mnl</span>.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Set</th><th>Lists</th></tr>
+<tr><td><span class="fixw">Pst-MakeBasicDrawingLayers</span></td><td><span class="fixw">Dyl\Drawing\Basic.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalElevationLayers</span>, <span class="fixw">...SectionLayers</span></td><td><span class="fixw">Architecture\A-Elevation.csv</span>, <span class="fixw">Architecture\A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalDetailLayers</span></td><td><span class="fixw">Architecture\A-Detail.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalFloorPlanLayers</span></td><td><span class="fixw">Dyl\Model\Floor.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalRoofPlanLayers</span></td><td><span class="fixw">Architecture\A-Roof.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalCeilingPlanLayers</span></td><td><span class="fixw">Architecture\A-Ceiling.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeArchitecturalFurniturePlanLayers</span></td><td><span class="fixw">Dyl\Model\Furniture.csv</span>, <span class="fixw">Dyl\Model\Floor.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
+<tr><td><span class="fixw">Pst-MakeNCSLevel1Layers</span> ... <span class="fixw">Level3Layers</span></td><td><span class="fixw">NCSv5\&lt;level&gt;\&lt;Discipline&gt;.csv</span> of the 8 disciplines (level 3: <span class="fixw">Interior</span> and <span class="fixw">Plumbing</span> of level 2, which have no level 3)</td></tr>
+</table>
+</div>
+<p>The other lists of <span class="fixw">Res\Layer\List</span> (<span class="fixw">A-Plan.csv</span>, <span class="fixw">A-Stack-*.csv</span>, <span class="fixw">C-Plan.csv</span>...) are used by no set.</p>
 <h2>How It Works</h2>
 <div class="spacedbullets">
 <ol>
-<li>The rows of every CSV of the preset are read (header skipped).</li>
-<li>If a row contains the stack placeholder <span class="fixw">0000</span>, you are asked for the stack (<span class="fixw">None</span>, <span class="fixw">1-First</span> &hellip; <span class="fixw">9-Ninth</span>) which replaces it with <span class="fixw">0001</span> &hellip; <span class="fixw">0009</span>.</li>
-<li>If a row contains the discipline placeholder <span class="fixw">$$</span>, you are asked for the discipline (General, Architectural, Interior, Structural, Landscape) which replaces it with its letter.</li>
-<li>The name fields are joined with hyphens to make the layer name; the Description column becomes the layer description.</li>
+<li>The rows of every list are read (header skipped, the separator the one the header uses); a list missing is reported.</li>
+<li>The questions, each only when a list needs it: the stack when a field is <span class="fixw">0000</span> (<span class="fixw">0001</span> ... <span class="fixw">0009</span>, or dropped for <em>None</em> and Enter), the discipline when a designator is <span class="fixw">$$</span> or <span class="fixw">??</span>, the major group when a major is <span class="fixw">Maj$</span> or <span class="fixw">Majr</span> (its description, from <span class="fixw">Major.csv</span>, replaces <span class="fixw">MajrDesc$</span> and <span class="fixw">GroupTyp</span> in the descriptions).</li>
+<li>The name is the first five fields joined with hyphens: a field <span class="fixw">----</span> is dropped, and so are a <span class="fixw">?</span> (the optional second letter of an NCS designator: <span class="fixw">A?</span> gives <span class="fixw">A</span>) and a <span class="fixw">~</span> padding a short field (<span class="fixw">Air~</span>). A name already listed is kept once. The Description column is the layer description.</li>
 <li>Properties are derived from the name:<div class="unspacedbullets">
 <ul>
-<li>colour: 151 by default, then fixed colours by keyword (e.g. <span class="fixw">Eqpm</span> 1, <span class="fixw">Plnt</span> 81, <span class="fixw">Note</span>/<span class="fixw">Mark</span> 122, <span class="fixw">Dims</span>/<span class="fixw">Grid</span> 221, <span class="fixw">Text</span> 41, <span class="fixw">Scrn</span> 8, <span class="fixw">Exst</span> 9, <span class="fixw">Redl</span> true colour 255,0,0; elevation layers have their own colours);</li>
+<li>colour: 151 by default, then fixed colours by keyword (e.g. <span class="fixw">Eqpm</span> 1, <span class="fixw">Plnt</span> 81, <span class="fixw">Note</span>/<span class="fixw">Mark</span> 122, <span class="fixw">Dims</span>/<span class="fixw">Grid</span> 221, <span class="fixw">Text</span> 41, <span class="fixw">Scrn</span> 8, <span class="fixw">Exst</span> 9, <span class="fixw">Redl</span> true color 255,0,0), and by stack (<span class="fixw">Bgrd</span>, <span class="fixw">Mcut</span> of the elevations);</li>
 <li>lineweight: from the last digit of the colour number &ndash; 0 &rarr; 0.13, 1 &rarr; 0.18, 2 &rarr; 0.25, 3 &rarr; 0.35, 4 &rarr; 0.50, 5 &rarr; 0.70, 6 &rarr; 1.00, 7 &rarr; 1.40, 8 &rarr; 2.00, 9 &rarr; 0.13 mm (grey colours always 0.13);</li>
-<li>linetype: Continuous, or Center/Hidden/Phantom (and their 2 variants) for <span class="fixw">Cntr</span>, <span class="fixw">Hdln</span>, <span class="fixw">Phnt</span>, <span class="fixw">Grid</span>, <span class="fixw">Labl</span>, <span class="fixw">Tags</span> &hellip; layers;</li>
+<li>linetype: Continuous, or Center/Hidden/Phantom (and their 2 variants) for <span class="fixw">Cntr</span>, <span class="fixw">Hdln</span>, <span class="fixw">Phnt</span>, <span class="fixw">Grid</span>, <span class="fixw">Labl</span>, <span class="fixw">Tags</span> &hellip; layers, the ISO and JIS joint lines for the joints of the elevations;</li>
 <li>plot: off for <span class="fixw">Nplt</span> and <span class="fixw">Rdme</span> layers.</li>
 </ul>
 </div></li>
-<li>Each layer is made or updated with <span class="fixw">-LAYER</span> and the command line shows <span class="fixw">...&lt;layer&gt; - created</span> or <span class="fixw">- updated</span>.</li>
+<li>Each layer is made or updated through ActiveX (<span class="fixw">Local&gt;&gt;LayerPut</span>), never made current, in one undo group; the command line shows <span class="fixw">...&lt;layer&gt; - created</span> or <span class="fixw">- updated</span>, then the count.</li>
 </ol>
 </div>
 <h2>The Engine</h2>
-<p><span class="fixw">Dyl-LayerMake</span> (a function of about 440 lines, its variables global) reads the rows of every CSV with <span class="fixw">Local&gt;&gt;LM:readcsv</span>, looks for the placeholders with <span class="fixw">Local&gt;&gt;getMatching</span>, asks for the stack and the discipline, builds the names, gets the properties from the keywords of the name, and makes each layer with <span class="fixw">_.-LAYER</span>. <span class="fixw">Local&gt;&gt;LM:*</span> are local copies of Lee Mac functions that <span class="fixw">Remote\LM-Sub.lsp</span> also has.</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">Dyl-LayerMake</span> &ndash; reads the lists (<span class="fixw">Local&gt;&gt;LM:readcsv</span>, Lee Mac's reader, the separator found in the header), looks for the placeholders (<span class="fixw">Local&gt;&gt;getMatching</span>), asks the questions, builds the names (<span class="fixw">Local&gt;&gt;FirstN</span>), gets the properties from the keywords of the name, and makes each layer. Its variables are local, and so is its <span class="fixw">*error*</span>, which ends the undo group.</li>
+<li><span class="fixw">Local&gt;&gt;LayerPut</span> &ndash; adds the layer or takes the one there (<span class="fixw">vla-Add</span>, <span class="fixw">vla-Item</span>), then sets its color (ACI, or a true color through <span class="fixw">AcCmColor</span>), lineweight, linetype, plot and description; returns the error caught, reported for that layer alone.</li>
+<li><span class="fixw">Local&gt;&gt;Linetype</span> &ndash; the linetype of the drawing, loaded from <span class="fixw">acad.lin</span> or <span class="fixw">acadiso.lin</span> (<span class="fixw">MEASUREMENT</span>) when missing, else <em>Continuous</em>.</li>
+<li><span class="fixw">Local&gt;&gt;MajorDesc</span> &ndash; the English description of a major group in <span class="fixw">Major.csv</span>.</li>
+</ul>
+</div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The discipline check passes the whole CSV data to <span class="fixw">wcmatch</span>, which takes text only: every set stops there with <em>bad argument type</em>.</li>
-<li>A row without the <span class="fixw">0000</span> placeholder makes no name: the name is built only inside the stack substitution.</li>
-<li>Several file names of the presets differ from the files shipped (<span class="fixw">A-Elev.csv</span> and <span class="fixw">A-Elevation.csv</span>, folder <span class="fixw">NCS</span> and <span class="fixw">NCSv5</span>); a file missing is skipped without a message.</li>
-<li><span class="fixw">*cop</span>, the color group option, is fixed to <span class="fixw">"MinorColor"</span>, which adds no override.</li>
-<li>The <a href="Dyl-LayerKeys.htm">Layer Keys</a> make standard layers the current way; this engine predates them.</li>
+<li><span class="fixw">*cop</span>, the color group option (<span class="fixw">MinorColor</span>, <span class="fixw">DesignatorColor</span>...), is fixed to <span class="fixw">"MinorColor"</span>, which adds no override: the other groups are kept in the code but never used.</li>
+<li>The <a href="Dyl-LayerKeys.htm">Layer Keys</a> make standard layers the current way; this engine predates them, and its colors are not those of the layer keys.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>

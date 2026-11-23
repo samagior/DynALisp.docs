@@ -25,53 +25,55 @@
 <td><span class="fixw">DYL-LAYERMAKE</span> et 11 jeux de calques &ndash; voir <a href="#commands">Commandes</a></td>
 </tr>
 <tr>
-<td>État</td>
-<td>En développement &ndash; voir Limites connues</td>
-</tr>
-<tr class="alt">
 <td>Licence</td>
 <td>Licence publique générale GNU v3; fonctions CSV de Lee Mac</td>
 </tr>
 </table>
 </div>
 <h2>Description</h2>
-<p>Créez tout le jeu de calques d'un type de dessin en une commande : un dessin de base, un plan, une élévation, une coupe ou un détail d'architecture, ou les calques NCS d'un niveau. Chaque calque reçoit son nom, sa couleur, son épaisseur de ligne, son type de ligne et son réglage de tracé de la norme de calques de DynALisp; les calques déjà présents sont mis à jour.</p>
-<p class="note">Les jeux de calques ne fonctionnent pas pour l'instant : ils s'arrêtent sur une erreur avant de créer les calques (voir Limites connues). Utilisez les <a href="Dyl-LayerKeys.fr.htm">clés de calque</a> pour créer les calques de la norme un à un.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-LayerMake-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-LayerMake-window.png" alt="Créer des calques (Make Layers): window"></picture></figure>
+<p>Créez tout le jeu de calques d'un type de dessin en une commande : un dessin de base, un plan, une élévation, une coupe ou un détail d'architecture, ou les calques NCS d'un niveau. Chaque calque reçoit son nom, sa couleur, son épaisseur de ligne, son type de ligne, son réglage de tracé et sa description de la norme de calques de DynALisp; les calques déjà présents sont mis à jour.</p>
+<!-- picture: images/Dyl-LayerMake-window.png -->
 <!-- picture: images/Dyl-LayerMake-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez l'alias du jeu : <span class="fixw">LL-A-FLOOR</span> pour un plan d'étage d'architecture... (le tableau ci-dessous), ou tapez <span class="fixw">Dyl-LayerMake</span> et double-cliquez un jeu.</li>
-<li>Quand le jeu est pour un dessin empilé, choisissez son niveau (<em>None</em>, <em>1-First</em>... <em>9-Ninth</em>); quand il est pour n'importe quelle discipline, choisissez la discipline.</li>
-<li>La ligne de commande liste chaque calque, créé ou mis à jour.</li>
+<li>Répondez aux questions du jeu à la ligne de commande, seulement celles dont il a besoin :
+<div class="unspacedbullets">
+<ul>
+<li>la <strong>pile</strong> d'un dessin empilé : <em>None</em>, ou <em>1-First</em>... <em>9-Ninth</em>, qui termine les noms par <span class="fixw">0001</span>... <span class="fixw">0009</span>;</li>
+<li>la <strong>discipline</strong> : <em>General</em>, <em>Architectural</em>, <em>Interior</em>, <em>Structural</em> ou <em>Landscape</em>;</li>
+<li>le <strong>groupe principal</strong>, 4 caractères (<span class="fixw">Detl</span> par défaut, <span class="fixw">Wall</span>, <span class="fixw">Roof</span>...).</li>
+</ul>
+</div></li>
+<li>La ligne de commande liste chaque calque, créé ou mis à jour, puis leur nombre. Le calque courant ne change pas, et un seul <span class="fixw">U</span> annule le tout.</li>
 </ol>
 </div>
 <h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Commande</th><th>Nom</th><th>Dossier CSV</th><th>Fichiers CSV</th></tr>
-<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td><span class="fixw">Dyl\Drawing</span></td><td><span class="fixw">Basic.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Elev.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Drawing.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Roof.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Ceil.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Eqpm.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td><span class="fixw">Architecture</span></td><td><span class="fixw">A-Furn.csv</span>, <span class="fixw">A-Flor.csv</span>, <span class="fixw">A-Anno.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">1-Architectural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Interior.csv</span>, <span class="fixw">1-Landscape.csv</span>, <span class="fixw">1-Structural.csv</span>, <span class="fixw">1-Civil.csv</span>, <span class="fixw">1-Plumbing.csv</span>, <span class="fixw">1-Electrical.csv</span>, <span class="fixw">1-Mechanical.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">2-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">2-Landscape.csv</span>, <span class="fixw">2-Structural.csv</span>, <span class="fixw">2-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">2-Electrical.csv</span>, <span class="fixw">2-Mechanical.csv</span></td></tr>
-<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td><span class="fixw">NCS</span></td><td><span class="fixw">3-Architectural.csv</span>, <span class="fixw">2-Interior.csv</span>, <span class="fixw">3-Landscape.csv</span>, <span class="fixw">3-Structural.csv</span>, <span class="fixw">3-Civil.csv</span>, <span class="fixw">2-Plumbing.csv</span>, <span class="fixw">3-Electrical.csv</span>, <span class="fixw">3-Mechanical.csv</span></td></tr>
+<tr><th>Commande</th><th>Nom</th><th>Calques créés</th></tr>
+<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td>Les calques de lignes (fines, minces, moyennes, larges, cachées, motifs...) de la discipline et du groupe principal choisis.</td></tr>
+<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td>Les lignes d'élévation et l'annotation, d'une pile.</td></tr>
+<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td>Les mêmes calques que les élévations.</td></tr>
+<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td>Les lignes de détail du groupe principal choisi (membranes, isolant, armature...) et l'annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td>Murs, portes, vitrages, poteaux, planchers et équipements, et l'annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td>Les calques de toiture et l'annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td>Le plafond (grille, éclairage, CVCA, ouvertures...), les murs, portes et vitrages qu'il montre, et l'annotation.</td></tr>
+<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td>Le mobilier, les calques du plan d'étage et l'annotation.</td></tr>
+<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td>Les calques de niveau 1 du National CAD Standard américain, toutes les disciplines.</td></tr>
+<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td>Les calques de niveau 2, toutes les disciplines.</td></tr>
+<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td>Les calques de niveau 3, toutes les disciplines (niveau 2 pour l'intérieur et la plomberie).</td></tr>
 </table>
 </div>
-<p>Les dossiers CSV sont relatifs à <span class="fixw">Modules\Dynalisp\Res\Layer\List</span>. Chaque CSV a les colonnes <span class="fixw">Designator, Major, Minor1, Minor2, Minor3, Description</span>.</p>
+<p>Les noms suivent la norme de <a href="../Conventions/LayerNaming.fr.htm">nommage des calques</a>.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>La vérification de la discipline passe toute la liste des données CSV à <span class="fixw">wcmatch</span>, qui n'accepte que du texte : les commandes s'arrêtent donc pour l'instant à cette étape avec une erreur <em>bad argument type</em>.</li>
-<li>Les rangées sans le repère <span class="fixw">0000</span> ne produisent aucun nom de calque (le nom n'est construit que dans la substitution de l'empilement).</li>
-<li>Plusieurs noms de CSV ne correspondent pas aux fichiers livrés (p. ex. A-Elev.csv au lieu de A-Elevation.csv, dossier NCS au lieu de NCSv5); les fichiers manquants sont sautés en silence.</li>
-<li>L'option de groupe de couleurs (<span class="fixw">MinorColor</span>, <span class="fixw">DesignatorColor</span>, <span class="fixw">MajorColor</span>, <span class="fixw">StackColor</span>, <span class="fixw">PhaseColor</span>) est fixée à <span class="fixw">MinorColor</span>, qui n'ajoute aucune dérogation.</li>
+<li>La couleur, l'épaisseur de ligne et le type de ligne de chaque calque viennent des mots de son nom : ils ne se choisissent pas ici. Changez-les ensuite, ou utilisez les <a href="Dyl-LayerKeys.fr.htm">clés de calque</a>.</li>
+<li>Un calque déjà dans le dessin reprend les propriétés de la norme; ses propres changements sont perdus.</li>
+<li>Un type de ligne absent du fichier de types de ligne d'AutoCAD donne <em>Continuous</em> au calque.</li>
+<li>Les jeux NCS créent plusieurs centaines de calques : cela prend un moment.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->

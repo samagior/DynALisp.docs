@@ -29,24 +29,21 @@
 <td>AutoCAD pour Windows (sélecteur de dossier Shell)</td>
 </tr>
 <tr class="alt">
-<td>État</td>
-<td>En développement &ndash; voir Limites connues</td>
-</tr>
-<tr>
 <td>Licence</td>
 <td>Licence publique générale GNU v3</td>
 </tr>
 </table>
 </div>
 <h2>Description</h2>
-<p>Prévu pour insérer chaque dessin d'un dossier dans le dessin courant comme blocs, côte à côte, pour passer en revue un jeu de dessins d'un coup d'œil.<br>Il ne fonctionne pas pour l'instant : voir Limites connues.</p>
+<p>Insérez chaque dessin d'un dossier dans le dessin courant comme blocs, côte à côte, pour passer en revue un jeu de dessins d'un coup d'œil ou les réunir dans un fichier.</p>
 <!-- picture: images/Dyl-BatchInsert-window.png -->
 <!-- picture: images/Dyl-BatchInsert-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">BATCH-INSERT</span> et choisissez le dossier dans la fenêtre.</li>
-<li>Chaque dessin du dossier devrait être inséré à l'échelle 1, 100 unités à droite du précédent.</li>
+<li>Tapez <span class="fixw">BATCH-INSERT</span> et choisissez le dossier dans la fenêtre (vous pouvez aussi y taper son chemin).</li>
+<li>Chaque dessin du dossier est inséré comme bloc, à l'échelle 1 et sur le calque courant, de gauche à droite dans l'ordre de leurs noms, les bas alignés, un petit espace entre deux.</li>
+<li>La vue se règle sur eux, et la ligne de commande donne combien ont été insérés et sautés. Un seul <span class="fixw">U</span> les retire tous.</li>
 </ol>
 </div>
 <h2 id="commands">Commandes</h2>
@@ -59,9 +56,9 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Le dossier choisi dans le sélecteur n'est pas utilisé : les fichiers sont listés depuis le dossier codé en dur <span class="fixw">C:/Users/My folder/</span>.</li>
-<li>Le point d'insertion est envoyé comme le texte littéral <span class="fixw">x,0,0</span> au lieu de la valeur du compteur X : AutoCAD refuse donc le point.</li>
-<li>Les noms de fichiers sont passés sans leur dossier : <span class="fixw">-INSERT</span> ne les trouve donc que si le dossier est dans le chemin de recherche des fichiers de support.</li>
+<li>Un dessin dont le nom est déjà un bloc du dessin courant est sauté, pour ne jamais redéfinir le bloc qui s'y trouve : renommez-le ou purgez-le d'abord.</li>
+<li>Le dessin courant, quand il est dans le dossier, est sauté aussi.</li>
+<li>Les blocs vont dans l'espace objet, ou dans la présentation quand elle est courante sans fenêtre active.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
