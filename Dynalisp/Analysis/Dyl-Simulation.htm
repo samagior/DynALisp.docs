@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulation</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Simulation.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Analysis/Dyl-Simulation.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Simulation</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMCLEAR</span></td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2015 or later for Windows, with its .NET plugin (installed with DynALisp)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>The Simulation tool prepares a 2D detail of the drawing (a wall section, a sill, a slab edge) for a thermal simulation: where the cold and warm zones are in the detail, the coldest point of its interior surface, and in a later version where water vapour may condense in it. The simulation itself (<em>Play</em>) comes in a later version; this one sets up the detail and checks it.</p>
+<p>A detail is simulated inside a <strong>simulation zone</strong>, a rectangle or a closed polyline drawn around it, a little away from what matters. Each part of the detail is a hatch or a closed outline that knows its <a href="../Draw/Dyl-Materials.htm">material</a>: everything Quick Draw and Quick Shape draw does, and a detail drawn otherwise gets its materials with <a href="../Draw/Dyl-MaterialAssign.htm">Assign Material</a>. On each side of the detail, a <strong>climate zone</strong> covers the air: <em>Interior</em>, <em>Exterior</em>, or a climate of your own (a garage, a crawl space). The climates are kept by DynALisp, the same in every drawing: changing <em>Interior</em> changes every detail.</p>
+<p><strong>Check</strong> reads the detail of the zone and shows, over the drawing, the grid the simulation will use and every problem it found: in red, the hatches without a material, the regions of a material that has no thermal data, the holes (a place in the zone that is neither a material nor a climate, almost always something left out).</p>
+<!-- picture: images/Dyl-Simulation-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Draw the detail with Quick Draw and Quick Shape, or give its hatches their materials with <span class="fixw">MTASSIGN</span>. An air space is a region too: a layer of <em>Void</em>, or an air material.</li>
+<li>Type <span class="fixw">Dyl-Simulation</span>, or click <em>Simulation</em> in the <em>Analysis</em> panel of the ribbon.</li>
+<li>Under <em>Zone</em>, click <em>New...</em> and pick two corners around the detail, or <em>Pick...</em> to make a closed polyline into the zone.</li>
+<li>Under <em>Climates</em>, select <em>Interior</em> and click <em>Place...</em>, then draw a rectangle over the air on the interior side, overlapping the face of the detail. Do the same for <em>Exterior</em>.</li>
+<li>Pick the <em>Grid</em>, then click <em>Check</em>. The window closes, the grid and the problems are shown over the drawing, and the command line says what was found.</li>
+<li>Fix what is shown in red, then check again. <span class="fixw">SIMCLEAR</span>, or <em>Clear</em> in the window, clears what is shown.</li>
+</ol>
+</div>
+<h2>Simulation Window</h2>
+<!-- picture: images/Dyl-Simulation-window.png -->
+<h3>Zone</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Pick...</td><td>Closes the window to pick a simulation zone already in the drawing, or a closed polyline to make into one. An outline that is a region of a material is refused: draw the zone around it.</td></tr>
+<tr><td>New...</td><td>Closes the window to draw a new zone, a rectangle by two corners (or <em>Pick</em> at the prompt), on the <span class="fixw">SIMZONE</span> layer key, which is not plotted.</td></tr>
+<tr><td>Grid</td><td>The size of the cells of the simulation: <em>Coarse</em> (10 mm), <em>Medium</em> (5 mm) or <em>Fine</em> (2 mm), at most. The lines of the grid go through every corner of the detail, so a thin layer gets cells as thin as itself, and grow slowly from it. Kept on the zone.</td></tr>
+</table>
+</div>
+<p>Above the buttons, the size of the zone picked. A zone already picked in the drawing opens with the window; a drawing with one zone only opens on it.</p>
+<h3>Check</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Check</td><td>Saves the climates and the grid, closes the window, reads the detail of the zone and shows its grid in grey, its problems in red and the zone in orange over the drawing. Greyed out while no zone is picked.</td></tr>
+<tr><td>Clear</td><td>Clears what Check showed, and opens the window again.</td></tr>
+</table>
+</div>
+<p>Above the buttons, what the last check found: the problems first, then the regions and materials of the zone and the size of its grid.</p>
+<h3>Climates</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Name</td><td>The name of the climate selected. Two climates cannot have the same name.</td></tr>
+<tr><td>Temperature</td><td>The temperature of its air, in &deg;C (&deg;F in an imperial drawing). Empty: not known yet.</td></tr>
+<tr><td>Relative humidity</td><td>The relative humidity of its air, 0 to 100 %. Empty: not known yet.</td></tr>
+<tr><td>Surface resistance</td><td>The resistance of the film of air on a face of the detail that the climate touches, for the heat that goes through it: 0.13 m&sup2;&middot;K/W inside, 0.04 outside (ISO 6946).</td></tr>
+<tr><td>Condensation resistance</td><td>The same resistance, used to judge the condensation and the mould on a surface: 0.25 m&sup2;&middot;K/W inside (ISO 13788), 0.04 outside.</td></tr>
+<tr><td>Add, Remove, Reset</td><td>Adds a climate after the one selected, removes the climates selected, puts back <em>Interior</em> and <em>Exterior</em> as they come with DynALisp.</td></tr>
+<tr><td>Place...</td><td>Saves the climates, closes the window and draws a zone of the climate selected: a rectangle by two corners on the <span class="fixw">SIMCLIMATE</span> layer key (red for <em>Interior</em>, blue for <em>Exterior</em>), or <em>Pick</em> a closed polyline.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li><strong>OK</strong> saves the climates and the grid. <strong>Cancel</strong> drops what was changed in the window (a zone drawn or placed stays). <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>Ribbon</h2>
+<p>The <em>Analysis</em> panel has the <em>Simulation</em> button; its children are under its arrow: <em>Simulation Zone</em>, <em>Simulation Climate</em>, <em>Simulation Check</em>, <em>Simulation Clear</em>.</p>
+<h2>Good To Know</h2>
+<div class="spacedbullets">
+<ul>
+<li>Where two hatches overlap, the one in front (the draw order) is used. A material always wins over a climate zone, so a climate zone can overlap the face of the detail: draw it a little into the detail rather than short of it, or a gap of air is left as a hole.</li>
+<li>The edge of the zone that is not in a climate zone is a cut: no heat goes through it. Draw the zone far enough from what you want to see (a stud, a slab edge) for the cut not to change it.</li>
+<li>Only the hatches and the closed outlines of the space of the zone are read, the model or the layout it is in. A block, an xref, a region or a solid is not read: explode it or hatch it first.</li>
+<li>A material without a thermal conductivity nor a fixed thermal resistance cannot be simulated: give it one in the <a href="../Draw/Dyl-Materials.htm">Materials</a> window.</li>
+<li>The temperature and the humidity of the default climates are empty: the climate data of a city and the interior conditions to use will come with the simulation itself.</li>
+<li>What Check shows is not part of the drawing: it is not plotted, not saved, and goes when the drawing closes.</li>
+<li>A grid of more than a million cells is refused: pick a coarser grid, or a smaller zone.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-Simulation</span>: they are run by their alias, or picked under the arrow of its button in the ribbon (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Simulation</span></td><td></td><td>Simulation</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationZone</span></td><td><span class="fixw">SIMZONE</span></td><td>Simulation Zone</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClimate</span></td><td><span class="fixw">SIMCLIMATE</span></td><td>Simulation Climate</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationCheck</span></td><td><span class="fixw">SIMCHECK</span></td><td>Simulation Check</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClear</span></td><td><span class="fixw">SIMCLEAR</span></td><td>Simulation Clear</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

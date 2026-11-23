@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulation &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Analysis/Dyl-Simulation.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Simulation</h1>
+
+<p class="note">The developer docs of the simulation of a 2D detail. What it does and how to use it are in its <a href="../../../Dynalisp/Analysis/Dyl-Simulation.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Analysis\Dyl-Simulation.lsp</span> (the commands, the window, the zones, the climates), <span class="fixw">Installer\Simulation</span> (the plugin <span class="fixw">DynALisp.Simulation.dll</span>: <span class="fixw">Plugin.cs</span>, <span class="fixw">Reader.cs</span>, <span class="fixw">Show.cs</span>), <span class="fixw">Installer\Simulation\Core</span> (the calculation, without AutoCAD) and <span class="fixw">Installer\Simulation\Tests</span> (its tests)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Res\Climates.csv</span> (its user copy), the window <span class="fixw">Res\Dyl-Simulation.xaml</span>, the layer keys <span class="fixw">SIMZONE</span> and <span class="fixw">SIMCLIMATE</span> (<span class="fixw">Res\LayerKeys.csv</span>), the extended data <span class="fixw">DYNALISP</span> of the zones and of the regions</td></tr>
+<tr class="alt"><td>Plugin</td><td><span class="fixw">Contents\Resources\DynALisp.Simulation.dll</span> (AutoCAD 2025 and later) and <span class="fixw">Contents\Resources\Net48\DynALisp.Simulation.dll</span> (AutoCAD 2015 to 2024), two components of <span class="fixw">PackageContents.xml</span></td></tr>
+<tr><td>Follows</td><td>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention (the material of an object) and the <a href="../../conventions.html#versions-and-updates">Versions And Updates</a> convention (a plugin built twice)</td></tr>
+</table>
+</div>
+<h2 id="parts">How It Is Split</h2>
+<p>The Lisp keeps what it already does: the materials and their user copies, the climates, the units, the window. The plugin reads the geometry from the database of the drawing, much faster than Lisp, and the calculation lives in a library with no reference to AutoCAD (<span class="fixw">Core</span>, <span class="fixw">netstandard2.0</span>), compiled into the plugin and tested alone with <span class="fixw">dotnet test Installer\Simulation\Tests</span>, on any computer: the <span class="fixw">Simulation</span> workflow runs the tests and builds the plugin on each push that changes <span class="fixw">Installer\Simulation</span>. The plugin has no WPF, so it builds on Linux too (<span class="fixw">dotnet build Installer\Simulation -c Release</span>, which copies both DLLs to <span class="fixw">Contents\Resources</span>; commit them with the source).</p>
+<h2 id="data">The Data In The Drawing</h2>
+<p>The zones carry the extended data of the application <span class="fixw">DYNALISP</span>, as a region carries its material (see <a href="../Draw/Dyl-MaterialAssign.htm">Assign Material</a>), written with <span class="fixw">Remote&gt;&gt;Dyl:MaterialTagPut</span>:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Object</th><th>Keys</th></tr>
+<tr><td>A simulation zone (a closed curve)</td><td><span class="fixw">Role=SimulationZone</span>, <span class="fixw">Grid=Coarse|Medium|Fine</span> (<span class="fixw">*sim:grids*</span>: the target size of the cells, 10, 5 or 2 mm, converted to drawing units with <span class="fixw">Remote&gt;&gt;Dyl:MaterialUnitMetres</span>). Its <span class="fixw">Material</span> is taken off; an outline that has one is refused.</td></tr>
+<tr><td>A climate zone (a closed curve)</td><td><span class="fixw">Role=Climate</span>, <span class="fixw">Climate=&lt;id&gt;</span>, the id of a row of <span class="fixw">Climates.csv</span> (<span class="fixw">cl-Interior</span>).</td></tr>
+<tr><td>A region</td><td><span class="fixw">Material=&lt;id&gt;</span> on a hatch or a closed curve; a hatch without it is read as a region of no material.</td></tr>
+</table>
+</div>
+<p>The zone of the session is kept in <span class="fixw">*sim:zone*</span> (a global of the drawing), the text of the last check in <span class="fixw">*sim:last*</span>. <span class="fixw">Dyl:SimZoneCurrent</span> gives the zone of the session while it exists, else the only zone of the drawing.</p>
+<h2 id="climates">The Climates</h2>
+<p><span class="fixw">Res\Climates.csv</span>, read with <span class="fixw">Dyl:UserFile</span> (<span class="fixw">Dyl:SimClimates</span>, <span class="fixw">*sim:climdefs*</span> when the file has no row) and written to its user copy (<span class="fixw">Dyl:SimClimatesWrite</span>): <span class="fixw">Id;Name;Temperature;Humidity;Rs;RsCondensation</span>, in SI (&deg;C, %, m&sup2;&middot;K/W), each value empty when not known. The defaults have the surface resistances of ISO 6946 and ISO 13788 and no temperature nor humidity, which come with a source in the step of the simulation itself.</p>
+<p>The window shows them in the units of the drawing (<span class="fixw">sim.imp</span>, <span class="fixw">Remote&gt;&gt;Dyl:MaterialImperial-p</span>: &deg;F and R), each row of the list holding the values shown, the values of the file and the values shown when the window opened (<span class="fixw">Dyl:SimClimRow</span>); a value shown and not changed is saved as it was (<span class="fixw">Dyl:SimClimOf</span>), never rounded by opening the window. A climate added gets the id <span class="fixw">cl-&lt;name&gt;</span>, made unique.</p>
+<h2 id="window">The Window</h2>
+<p><span class="fixw">Dyl:SimulationDialog</span> shows <span class="fixw">Res\Dyl-Simulation.xaml</span> in a loop: the buttons that act on the drawing close it with their number, the Lisp does the work, then shows it again on the values it got back (the climates edited, the climate selected <span class="fixw">cl.sel</span>, the grid).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Code</th><th>Button</th><th>What the Lisp does</th></tr>
+<tr><td>1</td><td>OK</td><td>Saves the climates, writes the grid on the zone, ends.</td></tr>
+<tr><td>2</td><td>Pick...</td><td><span class="fixw">Dyl:SimZonePick</span>: an existing zone.</td></tr>
+<tr><td>3</td><td>New...</td><td><span class="fixw">Dyl:SimZoneNew</span>: a rectangle or a closed polyline picked (<span class="fixw">Dyl:SimOutline</span>), on <span class="fixw">SIMZONE</span> when drawn.</td></tr>
+<tr><td>4</td><td>Place...</td><td>Saves the climates, then <span class="fixw">Dyl:SimClimateNew</span> for the climate selected, on <span class="fixw">SIMCLIMATE</span> when drawn.</td></tr>
+<tr><td>5</td><td>Check</td><td>As OK, then <span class="fixw">Dyl:SimCheck</span> on the zone; the window stays closed, so the drawing shows what was found.</td></tr>
+<tr><td>6</td><td>Clear</td><td><span class="fixw">Dyl:SimulationClear</span>.</td></tr>
+</table>
+</div>
+<h2 id="check">The Check, Step By Step</h2>
+<ol>
+<li><span class="fixw">Dyl:SimCheck</span> reads the grid of the zone, the materials (<span class="fixw">Dyl:SimMaterials</span>: the ids of every material of <span class="fixw">Remote&gt;&gt;Dyl:MaterialBoth</span>, and of those that have a thermal conductivity or a fixed RSI, columns 5 and 7) and the ids of the climates, and calls <span class="fixw">(Dyl:SimulationRead zone size known data climates)</span>.</li>
+<li>The plugin (<span class="fixw">Reader.Read</span>) reads the objects of the space of the zone whose extents touch it: the hatches (their loops, <span class="fixw">Hatch.GetLoopAt</span>, arcs every 10&deg;, splines and ellipses in 96 points, in the plane of the hatch), and the closed curves that carry a <span class="fixw">Material</span> or a <span class="fixw">Climate</span>. The draw order of the space (<span class="fixw">DrawOrderTable.GetFullDrawOrder</span>) is the order of each region.</li>
+<li>The library (<span class="fixw">Detail.Read</span>) builds the grid (<span class="fixw">Grid.Lines</span>): its lines go through every vertex of the zone and of the regions, lines closer than a quarter of the target size merged, each interval divided to the target size, two neighbours within a factor 2. Each cell gets what its center is in, each row scanned once per shape (even-odd, an island of a hatch outside it): the region of a material in front, else the climate zone in front, else a hole; a cell outside the zone is left out. The holes are grouped by the cells that share a side.</li>
+<li>The plugin classes the regions that have cells in the zone (no material, a material not known, a material without data, a climate not known), shows the grid, the holes, those regions and the zone as transient graphics (<span class="fixw">Show.Detail</span>, <span class="fixw">TransientManager</span>, kept by drawing until <span class="fixw">Dyl:SimulationClear</span>, the next check or the drawing closed), and returns the counts: <span class="fixw">(cells nx ny regions nomaterial unknown nodata holes overlaps badclimates climatecells grid (material ...))</span>, or a text when the zone cannot be read.</li>
+<li><span class="fixw">Dyl:SimReport</span> makes the text of what was found, the problems first, printed on the command line and kept for the window.</li>
+</ol>
+<h2 id="functions">Functions Another App Can Call</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Function</th><th>Returns</th></tr>
+<tr><td><span class="fixw">(Dyl:SimulationRead zone size known data climates)</span></td><td>The plugin: the counts above, the detail shown over the drawing. Check it is defined first.</td></tr>
+<tr><td><span class="fixw">(Dyl:SimulationClear)</span></td><td>The plugin: clears what is shown over the current drawing, T.</td></tr>
+<tr><td><span class="fixw">(Dyl:SimZones)</span></td><td>The simulation zones of the drawing.</td></tr>
+<tr><td><span class="fixw">(Dyl:SimClimates)</span></td><td>The climates, rows of <span class="fixw">*sim:climhead*</span>.</td></tr>
+</table>
+</div>
+<h2 id="diagnostics">Diagnostics</h2>
+<ul>
+<li>DynALisp section: <span class="fixw">DynALisp.Simulation.dll</span> not loaded (a problem in AutoCAD 2015 and later).</li>
+<li>Drawing section (<span class="fixw">dg:dwg-simulation</span>): the climates of the file, the simulation zones and the climate zones of the drawing, and a problem for a climate zone of a climate the file no longer has.</li>
+</ul>
+<h2 id="limits">Limits</h2>
+<div class="spacedbullets">
+<ul>
+<li>Only the objects of the space of the zone are read: no block, xref, region or solid, no object of another layout.</li>
+<li>A curve that is not in the plane of the drawing is read by its X and Y; a hatch is read in its own plane, its points then given in X and Y.</li>
+<li>A Polyline2d with arcs is read by its vertices (its arcs as chords); a lightweight polyline keeps its arcs.</li>
+<li>A grid of more than a million cells is refused (<span class="fixw">Detail.MaxCells</span>); one of more than 1500 lines on an axis is checked but not drawn.</li>
+<li>Nothing is simulated yet: the temperatures (the solver, Play) are the next step of the plan.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

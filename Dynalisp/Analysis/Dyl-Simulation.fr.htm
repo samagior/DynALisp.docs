@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulation</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-Simulation.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Analysis/Dyl-Simulation.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Simulation</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMCLEAR</span></td>
+</tr>
+<tr>
+<td>Requiert</td>
+<td>AutoCAD 2015 ou plus récent pour Windows, avec son plugiciel .NET (installé avec DynALisp)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>L'outil Simulation prépare un détail 2D du dessin (une coupe de mur, un seuil, une rive de dalle) pour une simulation thermique : où sont les zones froides et chaudes du détail, le point le plus froid de sa surface intérieure, et dans une version suivante où la vapeur d'eau risque de condenser. La simulation elle-même (<em>Play</em>) vient dans une version suivante ; celle-ci met le détail en place et le vérifie.</p>
+<p>Un détail se simule dans une <strong>zone de simulation</strong>, un rectangle ou une polyligne fermée tracée autour de lui, un peu à l'écart de ce qui compte. Chaque partie du détail est une hachure ou un contour fermé qui connaît son <a href="../Draw/Dyl-Materials.fr.htm">matériau</a> : tout ce que dessinent Quick Draw et Quick Shape le connaît, et un détail dessiné autrement reçoit ses matériaux avec <a href="../Draw/Dyl-MaterialAssign.fr.htm">Assign Material</a>. De chaque côté du détail, une <strong>zone de climat</strong> couvre l'air : <em>Interior</em>, <em>Exterior</em>, ou un climat à vous (un garage, un vide sanitaire). Les climats sont gardés par DynALisp, les mêmes dans tous les dessins : changer <em>Interior</em> change tous les détails.</p>
+<p><strong>Check</strong> lit le détail de la zone et montre, par-dessus le dessin, la grille que la simulation utilisera et chaque problème trouvé : en rouge, les hachures sans matériau, les régions d'un matériau sans données thermiques, les trous (un endroit de la zone qui n'est ni un matériau ni un climat, presque toujours un oubli).</p>
+<!-- picture: images/Dyl-Simulation-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dessinez le détail avec Quick Draw et Quick Shape, ou donnez leurs matériaux à ses hachures avec <span class="fixw">MTASSIGN</span>. Une lame d'air est aussi une région : une couche de <em>Void</em>, ou un matériau d'air.</li>
+<li>Tapez <span class="fixw">Dyl-Simulation</span>, ou cliquez <em>Simulation</em> dans le groupe de fonctions <em>Analyse</em> du ruban.</li>
+<li>Sous <em>Zone</em>, cliquez <em>New...</em> et choisissez deux coins autour du détail, ou <em>Pick...</em> pour faire d'une polyligne fermée la zone.</li>
+<li>Sous <em>Climates</em>, sélectionnez <em>Interior</em> et cliquez <em>Place...</em>, puis tracez un rectangle sur l'air du côté intérieur, qui chevauche la face du détail. Faites de même pour <em>Exterior</em>.</li>
+<li>Choisissez la grille (<em>Grid</em>), puis cliquez <em>Check</em>. La fenêtre se ferme, la grille et les problèmes s'affichent par-dessus le dessin, et la ligne de commande dit ce qui a été trouvé.</li>
+<li>Corrigez ce qui est en rouge, puis vérifiez de nouveau. <span class="fixw">SIMCLEAR</span>, ou <em>Clear</em> dans la fenêtre, efface ce qui est affiché.</li>
+</ol>
+</div>
+<h2>Fenêtre Simulation</h2>
+<!-- picture: images/Dyl-Simulation-window.png -->
+<h3>Zone</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Usage</th></tr>
+<tr><td>Pick...</td><td>Ferme la fenêtre pour choisir une zone de simulation déjà dans le dessin, ou une polyligne fermée à en faire une. Un contour qui est une région d'un matériau est refusé : tracez la zone autour de lui.</td></tr>
+<tr><td>New...</td><td>Ferme la fenêtre pour tracer une nouvelle zone, un rectangle par deux coins (ou <em>Pick</em> à l'invite), sur la clé de calque <span class="fixw">SIMZONE</span>, qui ne s'imprime pas.</td></tr>
+<tr><td>Grid</td><td>La taille des cellules de la simulation : <em>Coarse</em> (10 mm), <em>Medium</em> (5 mm) ou <em>Fine</em> (2 mm), au plus. Les lignes de la grille passent par chaque coin du détail, de sorte qu'une couche mince a des cellules aussi minces qu'elle, qui grandissent doucement en s'en éloignant. Gardée sur la zone.</td></tr>
+</table>
+</div>
+<p>Au-dessus des boutons, la taille de la zone choisie. Une zone déjà choisie dans le dessin s'ouvre avec la fenêtre ; un dessin qui n'a qu'une zone s'ouvre sur elle.</p>
+<h3>Check</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Usage</th></tr>
+<tr><td>Check</td><td>Enregistre les climats et la grille, ferme la fenêtre, lit le détail de la zone et montre sa grille en gris, ses problèmes en rouge et la zone en orange par-dessus le dessin. Grisé tant qu'aucune zone n'est choisie.</td></tr>
+<tr><td>Clear</td><td>Efface ce que Check a montré, et rouvre la fenêtre.</td></tr>
+</table>
+</div>
+<p>Au-dessus des boutons, ce que la dernière vérification a trouvé : les problèmes d'abord, puis les régions et les matériaux de la zone et la taille de sa grille.</p>
+<h3>Climates</h3>
+<div class="programs commands wide">
+<table>
+<tr><th>Paramètre</th><th>Usage</th></tr>
+<tr><td>Name</td><td>Le nom du climat sélectionné. Deux climats ne peuvent pas avoir le même nom.</td></tr>
+<tr><td>Temperature</td><td>La température de son air, en &deg;C (&deg;F dans un dessin impérial). Vide : pas encore connue.</td></tr>
+<tr><td>Relative humidity</td><td>L'humidité relative de son air, de 0 à 100 %. Vide : pas encore connue.</td></tr>
+<tr><td>Surface resistance</td><td>La résistance du film d'air sur une face du détail que le climat touche, pour la chaleur qui la traverse : 0,13 m&sup2;&middot;K/W à l'intérieur, 0,04 à l'extérieur (ISO 6946).</td></tr>
+<tr><td>Condensation resistance</td><td>La même résistance, utilisée pour juger la condensation et la moisissure sur une surface : 0,25 m&sup2;&middot;K/W à l'intérieur (ISO 13788), 0,04 à l'extérieur.</td></tr>
+<tr><td>Add, Remove, Reset</td><td>Ajoute un climat après celui sélectionné, retire les climats sélectionnés, remet <em>Interior</em> et <em>Exterior</em> tels que livrés avec DynALisp.</td></tr>
+<tr><td>Place...</td><td>Enregistre les climats, ferme la fenêtre et trace une zone du climat sélectionné : un rectangle par deux coins sur la clé de calque <span class="fixw">SIMCLIMATE</span> (rouge pour <em>Interior</em>, bleu pour <em>Exterior</em>), ou <em>Pick</em> une polyligne fermée.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li><strong>OK</strong> enregistre les climats et la grille. <strong>Cancel</strong> abandonne ce qui a été changé dans la fenêtre (une zone tracée ou placée reste). <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2>Ruban</h2>
+<p>Le groupe de fonctions <em>Analyse</em> a le bouton <em>Simulation</em> ; ses enfants sont sous sa flèche : <em>Simulation Zone</em>, <em>Simulation Climat</em>, <em>Simulation Vérifier</em>, <em>Simulation Effacer</em>.</p>
+<h2>Bon à savoir</h2>
+<div class="spacedbullets">
+<ul>
+<li>Là où deux hachures se chevauchent, celle de devant (l'ordre de tracé) est utilisée. Un matériau l'emporte toujours sur une zone de climat : une zone de climat peut donc chevaucher la face du détail. Tracez-la un peu dans le détail plutôt qu'en retrait, sinon un espace d'air reste un trou.</li>
+<li>Le bord de la zone qui n'est pas dans une zone de climat est une coupe : aucune chaleur ne le traverse. Tracez la zone assez loin de ce que vous voulez voir (un montant, une rive de dalle) pour que la coupe ne le change pas.</li>
+<li>Seules les hachures et les contours fermés de l'espace de la zone sont lus, l'objet ou la présentation où elle se trouve. Un bloc, une xréf, une région ou un solide n'est pas lu : décomposez-le ou hachurez-le d'abord.</li>
+<li>Un matériau sans conductivité thermique ni résistance thermique fixe ne peut pas être simulé : donnez-lui en une dans la fenêtre <a href="../Draw/Dyl-Materials.fr.htm">Materials</a>.</li>
+<li>La température et l'humidité des climats par défaut sont vides : les données climatiques d'une ville et les conditions intérieures à utiliser viendront avec la simulation elle-même.</li>
+<li>Ce que montre Check ne fait pas partie du dessin : il ne s'imprime pas, ne s'enregistre pas et disparaît à la fermeture du dessin.</li>
+<li>Une grille de plus d'un million de cellules est refusée : choisissez une grille plus grossière, ou une zone plus petite.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les lignes marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-Simulation</span> : elles se lancent par leur alias, ou se choisissent sous la flèche de son bouton dans le ruban (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-Simulation</span></td><td></td><td>Simulation</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationZone</span></td><td><span class="fixw">SIMZONE</span></td><td>Simulation Zone</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClimate</span></td><td><span class="fixw">SIMCLIMATE</span></td><td>Simulation Climate</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationCheck</span></td><td><span class="fixw">SIMCHECK</span></td><td>Simulation Check</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClear</span></td><td><span class="fixw">SIMCLEAR</span></td><td>Simulation Clear</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>
