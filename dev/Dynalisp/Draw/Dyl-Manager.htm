@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manager &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Draw/Dyl-Manager.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Manager</h1>
+
+<p class="note">The developer docs of the Manager: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-Manager.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Manager.lsp</span> (the tabs and the Manager, loaded at startup: the commands of every tool open it), <span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Manager.lsp</span> (the command <span class="fixw">Dyl-Manager</span>), the Windows region of <span class="fixw">Resources\dynalisp.mnl</span> (<span class="fixw">Dyl:WinShow</span>, <span class="fixw">*dyl:wintabs*</span>), <span class="fixw">Installer\Windows\Engine\Tabs.cs</span> (the row of tabs and the picture left between two tabs, in <span class="fixw">DynALisp.Windows.dll</span>)</td></tr>
+<tr><td>Data</td><td>No file of its own: each tab saves the file of its tool. The tab shown last, <span class="fixw">*dyl:mgrlast*</span>, for the session; the size and place of the window, <span class="fixw">Dyl-Manager</span> in the user setting <span class="fixw">DynalispWindowPlaces</span> (see <a href="../Plugins/Windows.htm">Windows</a>)</td></tr>
+</table>
+</div>
+<h2>The Tabs</h2>
+<p>A tab is a row of <span class="fixw">*dyl:mgrtabs*</span>: <span class="fixw">(key title window app dialog run)</span>, its key as the commands name it (<span class="fixw">"QuickDraw"</span>), its title, the window file of its tool (the window that gets the tabs), the Apps file of its tool (the <em>Path</em> of <span class="fixw">StartupSuite.csv</span>), the function that shows the window of the tool and returns what to draw, and the function that draws it (nil for a tool that draws nothing).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Key</th><th>Window</th><th>Dialog</th><th>Run</th></tr>
+<tr><td><span class="fixw">QuickDraw</span></td><td><span class="fixw">Dyl-QuickDraw.xaml</span></td><td><span class="fixw">Dyl:QuickDrawDialog</span></td><td><span class="fixw">Dyl:QuickDrawRun</span></td></tr>
+<tr><td><span class="fixw">Assemblies</span></td><td><span class="fixw">Dyl-AssemblyPresets.xaml</span></td><td><span class="fixw">Dyl:QuickDrawAsmManager</span> (<span class="fixw">Dyl:QuickDrawAsmDialog</span> on no Quick Draw preset)</td><td>&ndash;</td></tr>
+<tr><td><span class="fixw">Materials</span></td><td><span class="fixw">Dyl-Materials.xaml</span></td><td><span class="fixw">Remote&gt;&gt;Dyl:ManagerMaterials</span> (<span class="fixw">Remote&gt;&gt;Dyl:MaterialDialog</span>)</td><td>&ndash;</td></tr>
+<tr><td><span class="fixw">HatchPresets</span></td><td><span class="fixw">Dyl-HatchPresets.xaml</span></td><td><span class="fixw">Remote&gt;&gt;Dyl:ManagerHatchPresets</span> (<span class="fixw">Remote&gt;&gt;Dyl:HatchPresetDialog</span>)</td><td>&ndash;</td></tr>
+</table>
+</div>
+<p>A new tab is a row there: the window of a preset tool (<span class="fixw">Remote&gt;&gt;Dyl:PresetWin</span>) needs nothing else, since the preset engine saves on the tab code. A window of another kind must treat <span class="fixw">*dyl:wintabcode*</span> as its Save.</p>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">Remote&gt;&gt;Dyl:Manager</span> (from <span class="fixw">c:Dyl-Manager</span> with nil, from <span class="fixw">c:Dyl-QuickDraw</span>, <span class="fixw">c:Dyl-Materials</span> and <span class="fixw">c:Dyl-HatchPresets</span> with their key, from the <em>Quick Draw Manager</em> button of the Quick Draw Gallery) lists the tabs whose Apps file is turned on (<span class="fixw">Dyl:SuiteFileOn-p</span>), with the tab asked for (<span class="fixw">Remote&gt;&gt;Dyl:ManagerTabs</span>), and starts on that tab, else on <span class="fixw">*dyl:mgrlast*</span>.</li>
+<li>For the tab shown it binds <span class="fixw">*dyl:wintabs*</span>, <span class="fixw">(window titles index title place)</span>, and runs its dialog (<span class="fixw">Remote&gt;&gt;Dyl:ManagerShow</span>, which loads its Apps file first when the function is not defined: an App turned on is only autoloaded).</li>
+<li><span class="fixw">Dyl:WinShow</span> gives the tabs to the window whose file is the window of that tab, and to no other (a window opened from the tab, Materials from Quick Draw, stays a sub-window): <span class="fixw">tab/list</span>, <span class="fixw">tab</span>, <span class="fixw">tab/title</span> (<span class="fixw">*dyl:mgrtitle*</span>, <em>DynALisp - Manager</em>) and <span class="fixw">tab/place</span> (<span class="fixw">*dyl:mgrplace*</span>).</li>
+<li>The plugin puts the row of tabs above the window (<span class="fixw">TabHost</span> of <span class="fixw">Engine\Tabs.cs</span>, left out of the <span class="fixw">ScrollViewer</span> of <span class="fixw">Engine\Fit.cs</span>, its height added to the window) and keeps the window at the place of <span class="fixw">tab/place</span> whatever the tab. Another tab picked (a click, Ctrl+Tab, Ctrl+Shift+Tab, Ctrl+Page Down / Up) checks the values of the window as OK does, leaves a picture of it on the screen (<span class="fixw">Cover</span>: a window without border, owned by AutoCAD, of the pixels of the window) and closes it with status 90 (<span class="fixw">TabHost.Status</span>, <span class="fixw">*dyl:wintabcode*</span>), the tab picked in <span class="fixw">tab</span>. The picture is closed when the next window is drawn (<span class="fixw">ContentRendered</span>), when AutoCAD is idle again (<span class="fixw">Application.Idle</span>, in <span class="fixw">Bridge.cs</span>: no other window was shown) or after 4 seconds.</li>
+<li><span class="fixw">Dyl:WinShow</span> sets <span class="fixw">*dyl:wintab*</span> to the tab picked. <span class="fixw">Remote&gt;&gt;Dyl:PresetWin</span> checks the presets got back as for Save (a value not valid shows the same tab again with its message, and <span class="fixw">*dyl:wintab*</span> is cleared when it is shown again), then returns 2: the presets and the aliases are saved, and the dialog returns.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:Manager</span> shows the tab of <span class="fixw">*dyl:wintab*</span>, and stops once a window was closed otherwise (OK, Save, Cancel, Draw). It then runs the <em>run</em> function of the last tab on what its dialog returned: the preset Draw picked in the Quick Draw tab is drawn once the window is closed.</li>
+</ol>
+</div>
+<p>Each tab reads its files again when it is shown (the materials and hatch presets of the Quick Draw tab, the groups), so what another tab saved is there at once.</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

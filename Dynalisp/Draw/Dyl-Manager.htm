@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manager</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-Manager.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-Manager.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Manager</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-MANAGER</span></td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2015 or later for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Set up every drawing tool in one window: the Manager holds the windows of the presets as tabs, <strong>Quick Draw</strong>, <strong>Assembly Presets</strong>, <strong>Materials</strong> and <strong>Hatch Presets</strong>. Go from a preset to its assembly, its material and the hatch of that material with one click on a tab, without closing and opening windows. Each tab is the window of its tool as it always was, with its own buttons and its own page of the docs.</p>
+<!-- picture: images/Dyl-Manager-window.png -->
+<!-- picture: images/Dyl-Manager-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">Dyl-Manager</span> or click <em>Manager</em> in the <em>Draw</em> panel of the ribbon: the Manager opens on the tab you used last. <span class="fixw">Dyl-QuickDraw</span>, <span class="fixw">Dyl-Materials</span> and <span class="fixw">Dyl-HatchPresets</span> open it on their own tab, and so do their buttons on the ribbon.</li>
+<li>Click a tab, or press <strong>Ctrl+Tab</strong> (<strong>Ctrl+Shift+Tab</strong> for the tab before): what you changed in the tab you leave is saved, and the tab you picked opens at the same place and size.</li>
+<li>Work in the tab as in the window of its tool: see <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a>, <a href="Dyl-Materials.htm">Materials</a> and <a href="Dyl-HatchPresets.htm">Hatch Presets</a>. <strong>Open Docs</strong> opens the page of the tab shown.</li>
+<li>Close the Manager with the buttons of the tab: <strong>OK</strong> or <strong>Save</strong> saves it, <strong>Cancel</strong> discards what changed in it, <strong>Draw</strong> (Quick Draw) saves it and draws the preset shown.</li>
+</ol>
+</div>
+<h2 id="window">The Window</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Tabs</strong> &ndash; along the top of the window, the tab shown in bold and underlined. Only the tabs of the programs turned on in the Startup Suite (<span class="fixw">Dyl-Suite</span>) are listed: Quick Draw and Assembly Presets with Quick Draw, Materials and Hatch Presets with their own program. A command opens its own tab even when the others are turned off.</li>
+<li><strong>Another tab saves the tab you leave</strong> &ndash; as its <strong>Save</strong> (or <strong>OK</strong>) button would: the presets, the materials or the hatch presets changed are written, so the next tab shows them at once (a material made in the Materials tab is in the Material list of the Quick Draw tab). A value that is not valid keeps you on the tab, with its message, until it is fixed.</li>
+<li><strong>Cancel</strong> &ndash; discards only what changed in the tab shown since it was opened: a tab you left before is already saved.</li>
+<li><strong>Size and place</strong> &ndash; the Manager can be resized, maximized and snapped as any window with a list; it keeps its size and its place for every tab, and opens again where you left it. A tab that needs more room makes the window wider.</li>
+<li><strong>Windows opened from a tab</strong> &ndash; the square open buttons of a tab (the Material, Assembly or Hatch preset of the preset shown, the Preset Groups...) still open their window over the Manager, without tabs: what you pick there goes back to the preset of the tab, as before. To edit materials or hatch presets on their own, use their tab.</li>
+</ul>
+</div>
+<h2 id="commands">Commands</h2>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Name</th><th>Description</th></tr>
+<tr><td><span class="fixw">DYL-MANAGER</span></td><td>Manager</td><td>Opens the Manager: the windows that set up the drawing tools (Quick Draw, Assembly Presets, Materials, Hatch Presets) as the tabs of one window.</td></tr>
+</table>
+</div>
+<h2>Good To Know</h2>
+<div class="spacedbullets">
+<ul>
+<li>The tab shown last is remembered until AutoCAD closes: <span class="fixw">Dyl-Manager</span> opens on it, on Quick Draw the first time.</li>
+<li>The <em>Quick Draw Manager</em> button of the <a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a> opens the Manager on its Quick Draw tab.</li>
+<li>Between two tabs the window is not closed for good: the picture of the tab you leave stays on the screen until the next one is shown.</li>
+</ul>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Quick Shape is not a tab yet: its window opens on its own with <span class="fixw">Dyl-QuickShape</span>.</li>
+<li>The Manager needs the windows plugin of DynALisp (AutoCAD 2015 or later): without it, no window opens and the command line says why.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Manager</span></td><td>&ndash;</td><td>Manager</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
