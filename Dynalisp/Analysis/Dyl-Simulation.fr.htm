@@ -38,7 +38,8 @@
 <p>L'outil Simulation simule la chaleur qui traverse un détail 2D du dessin (une coupe de mur, un seuil, une rive de dalle), comme THERM : où sont les zones froides et chaudes du détail, le point le plus froid de sa surface intérieure et si l'eau y condense, et la résistance thermique du détail entier, ponts thermiques compris. Où la vapeur d'eau risque de condenser dans le détail vient dans une version suivante.</p>
 <p>Un détail se simule dans une <strong>zone de simulation</strong>, un rectangle ou une polyligne fermée tracée autour de lui, un peu à l'écart de ce qui compte. Chaque partie du détail est une hachure ou un contour fermé qui connaît son <a href="../Draw/Dyl-Materials.fr.htm">matériau</a> : tout ce que dessinent Quick Draw et Quick Shape le connaît, et un détail dessiné autrement reçoit ses matériaux avec <a href="../Draw/Dyl-MaterialAssign.fr.htm">Assign Material</a>. De chaque côté du détail, une <strong>zone de climat</strong> couvre l'air : <em>Interior</em>, <em>Exterior</em>, ou un climat à vous (un garage, un vide sanitaire). Les climats sont gardés par DynALisp, les mêmes dans tous les dessins : changer <em>Interior</em> change tous les détails.</p>
 <p><strong>Check</strong> lit le détail de la zone et montre, par-dessus le dessin, la grille que la simulation utilisera et chaque problème trouvé : en rouge, les hachures sans matériau, les régions d'un matériau sans données thermiques, les trous (un endroit de la zone qui n'est ni un matériau ni un climat, presque toujours un oubli).</p>
-<p><strong>Play</strong> calcule la température de chaque cellule du détail, en régime stationnaire, entre les températures de ses climats, et colore le détail du bleu (l'extérieur) au rouge (l'intérieur). Une ligne magenta suit le point de rosée de l'air intérieur, et les surfaces intérieures plus froides que lui, où l'eau condense, sont tracées en magenta épais. La ligne de commande donne la surface intérieure la plus froide, son facteur de température et la résistance thermique du détail, et la sonde donne la température en tout point.</p>
+<p><strong>Play</strong> calcule la température de chaque cellule du détail, en régime stationnaire, entre les températures de ses climats, et colore le détail du bleu (l'extérieur) au rouge (l'intérieur). Une ligne magenta suit le point de rosée de l'air intérieur, et les surfaces intérieures plus froides que lui, où l'eau condense, sont tracées en magenta épais. La ligne de commande donne la surface intérieure la plus froide, son facteur de température et la résistance thermique du détail, et la sonde donne la température en tout point. Quand chaque matériau a ses données de vapeur et chaque climat une humidité, Play suit aussi la vapeur à travers le détail et montre où elle condense à l'intérieur, et combien.</p>
+<p><strong>Keep</strong> ajoute le résultat au dessin, pour imprimer le détail avec lui : ses isothermes, la ligne du point de rosée et une hachure là où la vapeur condense, chacun sur sa clé de calque. <strong>Report</strong> écrit toute la simulation dans un fichier texte : la zone, les climats, les matériaux et leurs données, les résultats et les méthodes.</p>
 <!-- picture: images/Dyl-Simulation-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -49,7 +50,8 @@
 <li>Sous <em>Climates</em>, sélectionnez <em>Interior</em> et cliquez <em>Place...</em>, puis tracez un rectangle sur l'air du côté intérieur, qui chevauche la face du détail. Faites de même pour <em>Exterior</em>.</li>
 <li>Tapez la température (<em>Temperature</em>) et l'humidité relative (<em>Relative humidity</em>) de chaque climat.</li>
 <li>Choisissez la grille (<em>Grid</em>), puis cliquez <em>Check</em>. La fenêtre se ferme, la grille et les problèmes s'affichent par-dessus le dessin, et la ligne de commande dit ce qui a été trouvé. Corrigez ce qui est en rouge, puis vérifiez de nouveau.</li>
-<li>Cliquez <em>Play</em> (ou tapez <span class="fixw">SIMPLAY</span>). Les températures s'affichent sur le détail et la ligne de commande donne les résultats. À son invite, <em>Probe</em> donne la température (et l'humidité relative) aux points que vous choisissez, <em>Humidity</em> et <em>Temperature</em> montrent l'humidité relative ou les températures du détail (quand sa vapeur a été calculée), <em>Window</em> rouvre la fenêtre, <em>Clear</em> efface ce qui est affiché, et Entrée termine.</li>
+<li>Cliquez <em>Play</em> (ou tapez <span class="fixw">SIMPLAY</span>). Les températures s'affichent sur le détail et la ligne de commande donne les résultats. À son invite, <em>Probe</em> donne la température (et l'humidité relative) aux points que vous choisissez, <em>Humidity</em> et <em>Temperature</em> montrent l'humidité relative ou les températures du détail (quand sa vapeur a été calculée), <em>Keep</em> et <em>Report</em> gardent le résultat (voir plus bas), <em>Window</em> rouvre la fenêtre, <em>Clear</em> efface ce qui est affiché, et Entrée termine.</li>
+<li>Pour garder le résultat, tapez <span class="fixw">SIMKEEP</span> (ou <em>Keep</em> à l'invite après Play) et l'intervalle des isothermes ; pour un rapport, <span class="fixw">SIMREPORT</span> (ou <em>Report</em>) et le fichier à écrire.</li>
 <li><span class="fixw">SIMCLEAR</span>, ou <em>Clear</em> dans la fenêtre, efface ce qui est affiché.</li>
 </ol>
 </div>
@@ -118,8 +120,20 @@
 </table>
 </div>
 <p>L'intérieur est le climat de la température la plus haute parmi ceux que touche le détail, l'extérieur celui de la plus basse.</p>
+<h2 id="keep">Garder et rapporter</h2>
+<p>Ce que montre Play ne fait pas partie du dessin. <strong>Keep</strong> ajoute la dernière simulation du dessin à son espace courant, comme des objets du dessin qui s'impriment, s'enregistrent et s'annulent comme tous les autres :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Objet</th><th>Clé de calque</th><th>Ce que c'est</th></tr>
+<tr><td>Isothermes</td><td><span class="fixw">SIMISOTHERM</span></td><td>Une polyligne pour chaque température à l'intervalle tapé (5 &deg;C par défaut, 10 &deg;F dans un dessin impérial ; 0 pour aucune), chacune étiquetée une fois de sa température.</td></tr>
+<tr><td>Ligne du point de rosée</td><td><span class="fixw">SIMDEWPOINT</span></td><td>La ligne où le détail est au point de rosée de l'air intérieur, étiquetée.</td></tr>
+<tr><td>Condensation</td><td><span class="fixw">SIMCONDENSATION</span></td><td>Une hachure sur les cellules où la vapeur condense dans le détail.</td></tr>
+</table>
+</div>
+<p>Les textes ont 2,5 mm de haut sur papier et les lignes de la hachure 3 mm d'écart, à l'échelle d'annotation du dessin. Ils sont des températures affichées, celles de la <em>Condensation resistance</em>.</p>
+<p><strong>Report</strong> écrit la dernière simulation dans un fichier texte (à côté du dessin par défaut) et l'ouvre : la date et le dessin, la zone et sa grille, chaque climat et chaque matériau du détail avec ses données en unités SI, les résultats tels que la ligne de commande les donne, et les méthodes utilisées.</p>
 <h2>Ruban</h2>
-<p>Le groupe de fonctions <em>Analyse</em> a le bouton <em>Simulation</em> ; ses enfants sont sous sa flèche : <em>Simulation Zone</em>, <em>Simulation Climat</em>, <em>Simulation Vérifier</em>, <em>Simulation Lancer</em>, <em>Simulation Sonder</em>, <em>Simulation Effacer</em>.</p>
+<p>Le groupe de fonctions <em>Analyse</em> a le bouton <em>Simulation</em> ; ses enfants sont sous sa flèche : <em>Simulation Zone</em>, <em>Simulation Climat</em>, <em>Simulation Vérifier</em>, <em>Simulation Lancer</em>, <em>Simulation Sonder</em>, <em>Simulation Garder</em>, <em>Simulation Rapport</em>, <em>Simulation Effacer</em>.</p>
 <h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
@@ -146,6 +160,8 @@
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationCheck</span></td><td><span class="fixw">SIMCHECK</span></td><td>Simulation Check</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationPlay</span></td><td><span class="fixw">SIMPLAY</span></td><td>Simulation Play</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationProbe</span></td><td><span class="fixw">SIMPROBE</span></td><td>Simulation Probe</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationKeep</span></td><td><span class="fixw">SIMKEEP</span></td><td>Simulation Keep</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationReport</span></td><td><span class="fixw">SIMREPORT</span></td><td>Simulation Report</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClear</span></td><td><span class="fixw">SIMCLEAR</span></td><td>Simulation Clear</td></tr>
 </table>
 </div>
