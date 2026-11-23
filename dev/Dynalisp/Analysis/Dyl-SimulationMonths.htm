@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Months &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Analysis/Dyl-SimulationMonths.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Months</h1>
+
+<p class="note">The developer docs of the Months window of the Simulation: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Analysis/Dyl-SimulationMonths.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Res\Dyl-SimulationMonths.xaml</span> (the window, shown by <a href="../Plugins/Windows.htm">DynALisp.Windows.dll</a>), <span class="fixw">Res\Dyl-Simulation.xaml</span> (its open button <span class="fixw">clm</span>), <span class="fixw">Modules\Dynalisp\Apps\Analysis\Dyl-Simulation.lsp</span> (<span class="fixw">Dyl:SimClimRow</span>, <span class="fixw">Dyl:SimClimOf</span>, <span class="fixw">Dyl:SimMonthTexts</span>)</td></tr>
+<tr><td>Data</td><td>The columns 6 to 29 of <span class="fixw">Res\Climates.csv</span> (its user copy): <span class="fixw">T01</span> to <span class="fixw">T12</span>, the temperature of each month in C, then <span class="fixw">RH01</span> to <span class="fixw">RH12</span>, its relative humidity in %, January first, empty when not known</td></tr>
+</table>
+</div>
+<h2>The Window</h2>
+<p>The Simulation window opens it itself, with no call to the Lisp: the open button <span class="fixw">clm</span> beside <em>Months</em> has <span class="fixw">dyl:Win.Open="Dyl-SimulationMonths.xaml"</span> and <span class="fixw">dyl:Win.Columns="mt1:6,...,mt12:17,mh1:18,...,mh12:29"</span>, so the window edits those columns of the row shown of the climates list <span class="fixw">cl</span> (a list of rows, <span class="fixw">Engine\Rows.cs</span>) as its keys, and its OK gives them to every row selected. The columns are the values as shown (<span class="fixw">Dyl:SimClimRow</span>: in F in an imperial drawing, <span class="fixw">*sim:climdata*</span>), the units following <span class="fixw">sim.imp</span> of the session; <span class="fixw">Dyl:SimClimOf</span> stores them back in SI when the climates are saved, a value shown and not changed kept as it was in the file (the columns 30 to 57 of the row hold the values of the file, 58 to 85 those shown when the window opened).</p>
+<p>Each box is checked by <span class="fixw">dyl:Win.Check</span>: <span class="fixw">empty;number</span> for a temperature, <span class="fixw">empty;number;min=0;max=100</span> for a humidity. That a climate has all twelve months or none is checked by the plugin when the monthly balance runs (<span class="fixw">PartMonths</span>), not by the window, so a climate can be typed over several sessions.</p>
+<p>The plugin gets the months by <span class="fixw">Dyl:SimMonthTexts</span>, a text <span class="fixw">"id|t1|...|t12|rh1|...|rh12"</span> for each climate that has one (see <a href="Dyl-Simulation.htm#monthly">Simulation</a>).</p>
+<p><a href="Dyl-Simulation.htm">&larr; Simulation</a> &nbsp; <a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

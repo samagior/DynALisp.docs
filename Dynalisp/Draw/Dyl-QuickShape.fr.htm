@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td><span class="fixw">DYL-QUICKSHAPE</span> (onglet Quick Shape du <a href="Dyl-Manager.fr.htm">gestionnaire</a>) + 6 commandes préréglées &ndash; voir <a href="#commands">Commandes</a></td>
+<td><span class="fixw">DYL-QUICKSHAPE</span> (fenêtre des préréglages) + 6 commandes préréglées &ndash; voir <a href="#commands">Commandes</a></td>
 </tr>
 <tr>
 <td>Requis</td>
@@ -36,14 +36,14 @@
 </div>
 <h2>Description</h2>
 <p>Placez des formes toutes faites, déjà hachurées : montants, briques, blocs de béton, profilés d'acier... Chaque préréglage insère une forme d'un dessin de bibliothèque, encore et encore jusqu'à Entrée, et remplit ses contours de la hachure de son matériau, sur les calques de ses clés. Le compagnon de Quick Draw, avec la même fenêtre.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-QuickShape-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-QuickShape-window.png" alt="Forme rapide (Quick Shape): window"></picture></figure>
+<!-- picture: images/Dyl-QuickShape-window.png -->
 <!-- picture: images/Dyl-QuickShape-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez l'alias de la forme : <span class="fixw">QS-STUD2X4</span>... (le tableau ci-dessous).</li>
 <li>Choisissez son point d'insertion, puis sa rotation; placez la suivante, ou appuyez sur Entrée ou Échap pour arrêter.</li>
-<li><strong>Modifiez ou ajoutez des préréglages</strong> &ndash; tapez <span class="fixw">Dyl-QuickShape</span> : le <a href="Dyl-Manager.fr.htm">gestionnaire</a> s'ouvre sur son onglet Quick Shape, à côté des onglets du dessin rapide, des matériaux et des préréglages de hachures. Choisissez un préréglage, sa forme et son matériau, ou cliquez <strong>New</strong>. Vos propres formes sont des blocs d'un dessin de bibliothèque (ci-dessous).</li>
+<li><strong>Modifiez ou ajoutez des préréglages</strong> &ndash; tapez <span class="fixw">Dyl-QuickShape</span> : choisissez un préréglage, sa forme et son matériau, ou cliquez <strong>New</strong>. Vos propres formes sont des blocs d'un dessin de bibliothèque (ci-dessous).</li>
 </ol>
 </div>
 <h2 id="libraries">Bibliothèques de formes</h2>
@@ -64,8 +64,7 @@
 <li><strong>Nouvelle bibliothèque</strong> &ndash; enregistrez n'importe quel dessin avec des blocs dans le dossier Shapes.</li>
 </ul>
 </div>
-<h2 id="window">Fenêtre Quick Shape</h2>
-<p>L'onglet Quick Shape du gestionnaire : la liste des préréglages à gauche, avec son filtre, son tri et sa liste Group, comme dans la fenêtre Quick Draw; le préréglage choisi à droite, son aperçu et ses paramètres. Plusieurs préréglages peuvent être sélectionnés pour les changer à la fois.</p>
+<h2>Fenêtre des préréglages</h2>
 <div class="spacedbullets">
 <ul>
 <li><strong>Material group</strong> &ndash; le groupe des matériaux que montre la liste <em>Material</em>, selon ce dont ils sont faits (<em>Metal</em>, <em>Wood</em>...; voir <a href="Dyl-PresetGroups.fr.htm">Material Groups</a>) : il montre le groupe du matériau du préréglage, et en choisir un autre liste ses matériaux.</li>
@@ -73,8 +72,8 @@
 <li><strong>View</strong> &ndash; le préréglage de hachure du matériau qui remplit la forme : <em>Cut</em>, la forme coupée dans une coupe (un montant, un tube), ou <em>Surface</em>, sa face vue en élévation (celui de <em>Cut</em> quand le matériau n'a pas de Surface).</li>
 <li><strong>Shape</strong> &ndash; choisie parmi les formes de toutes les bibliothèques. Une forme utilisée par un préréglage mais introuvable reste dans la liste, marquée <em>(missing shape)</em>, jusqu'à ce qu'une autre soit choisie.</li>
 <li><strong>Scale</strong> &ndash; échelle d'insertion, en plus des unités du bloc (&gt; 0).</li>
-<li><strong>Border</strong> &ndash; la bordure de la forme : la clé de calque sur laquelle vont ses contours fermés et ses traits, et les dérogations de ses <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> et <em>Transparency</em>, comme dans la fenêtre <a href="Dyl-QuickDrawBorderSettings.fr.htm">Border Settings</a> de Quick Draw; le bouton ouvrir à gauche de la clé de calque ouvre la fenêtre Layer Keys, celui de la couleur la fenêtre des couleurs d'AutoCAD. Une forme est toujours dessinée avec sa bordure : il n'y a pas de <em>Has a border</em>. Enregistrée avec le préréglage (colonnes de bordure de <span class="fixw">QuickShape.csv</span>); un préréglage d'un fichier plus ancien reçoit la bordure de son matériau.</li>
-<li><strong>Draw</strong> enregistre les préréglages et insère celui sélectionné, <strong>Save</strong> enregistre sans insérer, <strong>Cancel</strong> annule les changements. Un autre onglet du gestionnaire enregistre les préréglages, comme <strong>Save</strong>, et montre cet onglet. <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>Border settings</strong> &ndash; la bordure de la forme : la clé de calque sur laquelle vont ses contours fermés et ses traits, et les dérogations de ses <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> et <em>Transparency</em>, comme dans les <a href="Dyl-QuickDraw.fr.htm#border">Border settings</a> de Quick Draw. Une forme est toujours dessinée avec sa bordure : il n'y a pas de <em>Has a border</em>. Enregistrée avec le préréglage (colonnes de bordure de <span class="fixw">QuickShape.csv</span>); un préréglage d'un fichier plus ancien reçoit la bordure de son matériau.</li>
+<li><strong>Draw</strong> enregistre les préréglages et insère celui sélectionné, <strong>Save</strong> enregistre sans insérer, <strong>Cancel</strong> annule les changements. <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
 <h2 id="commands">Commandes</h2>

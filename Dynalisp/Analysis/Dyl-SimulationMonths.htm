@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Months</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-SimulationMonths.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Analysis/Dyl-SimulationMonths.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Months</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Opened by</td>
+<td>The open button of <em>Months</em>, under <em>Climates</em> in the <a href="Dyl-Simulation.htm">Simulation</a> window</td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2015 or later for Windows</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Type the climate of each month of a climate of the Simulation: the temperature and the relative humidity of its air, January to December. The monthly balance of the Simulation (<em>Monthly</em>) runs the detail through these twelve months, to see whether the water that condenses in it in winter dries out over the year.</p>
+<p>A climate has either its twelve months or none: without them, it is the same all year, at its <em>Temperature</em> and <em>Relative humidity</em> (an interior heated and kept at the same humidity). The monthly balance refuses a climate with some months and not all of them.</p>
+<!-- picture: images/Dyl-SimulationMonths-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>In the <a href="Dyl-Simulation.htm">Simulation</a> window, select the climate under <em>Climates</em> and click the square open button beside <em>Months</em>.</li>
+<li>Type the mean temperature and the mean relative humidity of each month, then OK. Selecting several climates first gives them all the same months.</li>
+<li>Click <em>Monthly</em> in the Simulation window.</li>
+</ol>
+</div>
+<h2>Months Window</h2>
+<!-- picture: images/Dyl-SimulationMonths-window.png -->
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Temperature</td><td>The mean temperature of the air in the month, in &deg;C (&deg;F in an imperial drawing). Empty: not known.</td></tr>
+<tr><td>Humidity</td><td>The mean relative humidity of the air in the month, 0 to 100 %. Empty: not known.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>No climate comes with its months: the monthly climate of a project is that of its location, the climate normals of the nearest weather station for the exterior (its mean temperature and relative humidity of each month), the conditions kept inside for the interior.</li>
+<li><strong>OK</strong> gives the months to every climate selected in the Simulation window, once the values are valid (a message under the boxes says what to fix); they are saved with the climates by the OK of the Simulation window, or by <em>Play</em>, <em>Monthly</em>, <em>Check</em> and <em>Place...</em>. <strong>Cancel</strong> discards the changes, <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<p><a href="Dyl-Simulation.htm">&larr; Simulation</a> &nbsp; <a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
