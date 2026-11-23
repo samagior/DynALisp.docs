@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assistant &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-Assistant.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assistant</h1>
+
+<p class="note">The developer docs of the Assistant: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-Assistant.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-Assistant.lsp</span>, <span class="fixw">Installer\Assistant</span> (<span class="fixw">DynALisp.Assistant.dll</span>: <span class="fixw">Plugin.cs</span>, <span class="fixw">Cli.cs</span>, <span class="fixw">Chat.cs</span>, <span class="fixw">Palette.cs</span>, <span class="fixw">Json.cs</span>)</td></tr>
+<tr><td>Data</td><td><span class="fixw">Modules\Dynalisp\Res\Assistant\Prompt.txt</span> (its <span class="fixw">User</span> copy when there is one), the working folder <span class="fixw">%LOCALAPPDATA%\DynALisp\Assistant</span></td></tr>
+<tr class="alt"><td>Needs</td><td>AutoCAD 2016 or later (the <span class="fixw">Net48</span> build references AutoCAD 2016, <span class="fixw">SeriesMin="R20.1"</span>), Claude Code (<span class="fixw">claude.exe</span>) installed and signed in by the user</td></tr>
+<tr><td>Sends</td><td>What the user types, to Anthropic, through Claude Code; DynALisp itself sends nothing</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">c:Dyl-Assistant</span> checks that the plugin is loaded (<span class="fixw">Dyl:AssistantShow</span>), finds its docs page (<span class="fixw">Dyl:DocsPage</span>, <span class="fixw">Dyl:DocsTarget</span>) and its instructions (<span class="fixw">Dyl:UserFile</span> of <span class="fixw">Res\Assistant\Prompt.txt</span>), and calls <span class="fixw">(Dyl:AssistantShow docs prompt)</span>.</li>
+<li>The palette (<span class="fixw">Palette.cs</span>, a <span class="fixw">PaletteSet</span> holding a WPF view built in code, <span class="fixw">KeepFocus</span> on) looks for Claude Code on a thread of its own (<span class="fixw">Cli.Find</span>: the <span class="fixw">PATH</span>, the <span class="fixw">PATH</span> of the user, <span class="fixw">%USERPROFILE%\.local\bin</span>, the <span class="fixw">Links</span> folder of WinGet), its version (<span class="fixw">claude --version</span>) and whether it is signed in (<span class="fixw">claude auth status --json</span>, <span class="fixw">loggedIn</span>). Until both are there it shows a banner: <em>Install Claude Code</em> opens a console running the installer of Anthropic (<span class="fixw">irm https://claude.ai/install.ps1 | iex</span>), <em>Sign in</em> a console running <span class="fixw">claude auth login --claudeai</span>.</li>
+<li>The first message starts one Claude Code for the conversation (<span class="fixw">Chat.cs</span>): <span class="fixw">claude -p --input-format stream-json --output-format stream-json --verbose --include-partial-messages --model sonnet</span>, the isolation options below and <span class="fixw">--append-system-prompt-file Prompt.txt</span>. Each message is a line of JSON on its standard input; its events come back one JSON a line on a thread of their own, shown on the thread of the palette (<span class="fixw">Dispatcher</span>): <span class="fixw">system/init</span> (the session, kept; <span class="fixw">apiKeySource</span>), <span class="fixw">stream_event</span> (the text as it is written), <span class="fixw">assistant</span> (a message whole, rendered: code blocks in Consolas, headings in bold), <span class="fixw">result</span> (the end of the turn, its error).</li>
+<li><em>Stop</em> ends the process; the next message starts it again with <span class="fixw">--resume &lt;session&gt;</span>, so the conversation goes on. A model picked ends an idle process the same way. <em>New chat</em> forgets the session. AutoCAD closing ends the process (<span class="fixw">Plugin.Terminate</span>).</li>
+</ol>
+</div>
+<h2>Claude Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>The account</strong> &ndash; the user signs in to the official Claude Code, unmodified, with their own Claude account; DynALisp runs that program and never reads, copies or sends its credentials, nor calls the API with them (the terms of Anthropic). Never <span class="fixw">--bare</span>, which ignores the sign-in.</li>
+<li><strong>Isolation</strong> (<span class="fixw">Cli.Isolated</span>) &ndash; <span class="fixw">--tools ""</span> (no tool of Claude Code: no file, shell or web), <span class="fixw">--strict-mcp-config</span> (no MCP server but those DynALisp gives: none yet), <span class="fixw">--setting-sources project</span> and <span class="fixw">--disable-slash-commands</span> (no settings, hooks or plugins of the user), run in <span class="fixw">%LOCALAPPDATA%\DynALisp\Assistant</span>. The <span class="fixw">CLAUDE_CODE_*</span> variables of a Claude app that started AutoCAD are removed from its environment (<span class="fixw">Cli.StartInfo</span>).</li>
+<li><strong>ANTHROPIC_API_KEY</strong> &ndash; kept: when it is set, Claude Code bills that key, not the subscription; the palette says so (and the <span class="fixw">apiKeySource</span> of <span class="fixw">system/init</span> when it is not <span class="fixw">none</span>).</li>
+<li><strong>Windows</strong> &ndash; the arguments are quoted as <span class="fixw">CommandLineToArgvW</span> reads them (<span class="fixw">Cli.Quote</span>: .NET Framework has no <span class="fixw">ArgumentList</span>), the standard input written as UTF-8 bytes without BOM on its stream (<span class="fixw">Cli.Write</span>), the outputs read as UTF-8.</li>
+</ul>
+</div>
+<h2>Functions For Other Apps</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">(Dyl:ClaudeRun input system model schema timeout)</span> &ndash; one request without the palette: <span class="fixw">claude -p --output-format json --model &lt;model&gt;</span> (<span class="fixw">haiku</span> when nil), the isolation options, <span class="fixw">--no-session-persistence</span>, the instructions in a temporary file (<span class="fixw">--system-prompt-file</span>, deleted after), <span class="fixw">--json-schema</span> when a schema is given, the input on its standard input; <span class="fixw">timeout</span> in seconds (120 when nil). Returns <span class="fixw">(T text)</span>, the text of the answer or the JSON of its <span class="fixw">structured_output</span>, or <span class="fixw">(nil error)</span>. AutoCAD waits for it. Check <span class="fixw">(if Dyl:ClaudeRun ...)</span> first.</li>
+<li><span class="fixw">(Dyl:ClaudeInfo)</span> &ndash; <span class="fixw">(("path" . p) ("version" . v) ("loggedIn" . "1") ("authMethod" . m) ("apiKey" . "1"))</span>, for <span class="fixw">Dyl-Diagnostics</span>; only <span class="fixw">path</span> (empty) and <span class="fixw">apiKey</span> when Claude Code is not found.</li>
+</ul>
+</div>
+<h2>Diagnostics And Uninstall</h2>
+<p><span class="fixw">dg:dyl-assistant</span> (section DynALisp of <span class="fixw">Dyl-Diagnostics</span>), when <span class="fixw">Dyl-Assistant</span> is turned on: the plugin loaded, the path and version of Claude Code, whether it is signed in and how, and a note when <span class="fixw">ANTHROPIC_API_KEY</span> is set. The uninstall removes the working folder and the conversations Claude Code kept for it (<span class="fixw">%USERPROFILE%\.claude\projects\*-DynALisp-Assistant</span>, <span class="fixw">CleanAssistant</span> of <span class="fixw">DynALisp.iss</span>); Claude Code and its sign-in stay.</p>
+<h2>Limits</h2>
+<div class="spacedbullets">
+<ul>
+<li>No tool yet: the MCP server that reads and changes the drawing comes next.</li>
+<li>The palette is built in code, so <span class="fixw">Installer\Windows\Shots</span> cannot draw its picture.</li>
+<li>Claude Code installed with npm (<span class="fixw">claude.cmd</span>) is not found: the native installer or WinGet is needed.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

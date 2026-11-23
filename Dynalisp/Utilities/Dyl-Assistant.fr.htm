@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assistant</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-Assistant.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Utilities/Dyl-Assistant.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assistant</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Syntaxe</td>
+<td><span class="fixw">DYL-ASSISTANT</span> (<span class="fixw">AICHAT</span>)</td>
+</tr>
+<tr>
+<td>Requis</td>
+<td>AutoCAD 2016 ou plus récent pour Windows, Claude Code (l'outil en ligne de commande d'Anthropic) connecté à votre propre compte Claude, une connexion Internet</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description</h2>
+<p>Posez vos questions sur AutoCAD, AutoLISP et DynALisp à Claude dans une palette à côté de votre dessin. La palette garde le fil de la conversation : posez une question, puis une autre qui la suit, comme dans un clavardage. Elle lance Claude Code, l'outil en ligne de commande d'Anthropic, connecté à votre propre compte Claude : aucune clé d'API, et l'utilisation compte dans votre forfait Claude.</p>
+<p>Dans cette première version, l'Assistant ne fait que répondre : il ne lit ni ne modifie le dessin, et ne lance pas de commande. Il donne les étapes, les commandes ou le code AutoLISP pour le faire vous-même.</p>
+<p class="note">Ce que vous tapez est envoyé à Anthropic par Claude Code. Ne collez rien qui ne doit pas quitter votre ordinateur. L'Assistant est désactivé à une nouvelle installation : activez-le dans <span class="fixw">Dyl-Suite</span>.</p>
+<!-- picture: images/Dyl-Assistant-window.png -->
+<!-- picture: images/Dyl-Assistant-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Une fois</strong> &ndash; activez <em>Assistant</em> dans <span class="fixw">Dyl-Suite</span>, puis tapez <span class="fixw">Dyl-Assistant</span>. Quand Claude Code n'est pas installé, la palette offre <em>Install Claude Code</em> : une console s'ouvre et lance l'installateur d'Anthropic. Ensuite, <em>Sign in</em> ouvre une console qui connecte Claude Code à votre compte Claude, dans votre navigateur. Cliquez sur <em>Check again</em> une fois que c'est fait.</li>
+<li>Tapez votre question dans la case au bas de la palette et appuyez sur <strong>Entrée</strong> (<strong>Maj+Entrée</strong> commence une nouvelle ligne). La réponse s'écrit à mesure qu'elle arrive.</li>
+<li><em>Stop</em> arrête une réponse trop longue ; la conversation continue à la question suivante. <em>New chat</em> recommence à zéro.</li>
+<li>La liste du haut choisit le modèle : <em>Sonnet</em> (par défaut, rapide) ou <em>Opus</em> (pour les questions plus difficiles, plus lent et qui compte davantage dans votre forfait).</li>
+</ol>
+</div>
+<h2>La palette</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>New chat</strong> &ndash; oublie la conversation et en commence une nouvelle.</li>
+<li><strong>Modèle</strong> &ndash; <em>Sonnet</em> ou <em>Opus</em>, gardé jusqu'à la fermeture d'AutoCAD.</li>
+<li><strong>Open Docs</strong> &ndash; ouvre cette page.</li>
+<li><strong>Send</strong> et <strong>Stop</strong> &ndash; envoient la question, ou arrêtent la réponse en cours.</li>
+</ul>
+</div>
+<p>La palette s'ancre à gauche ou à droite d'AutoCAD, ou flotte, et prend le thème clair ou sombre d'AutoCAD. Le texte d'une réponse peut être sélectionné et copié.</p>
+<h2>Bon à savoir</h2>
+<div class="spacedbullets">
+<ul>
+<li>Votre compte Claude est connecté par Claude Code lui-même, dans votre navigateur : DynALisp ne le voit jamais.</li>
+<li>Quand la variable d'environnement Windows <span class="fixw">ANTHROPIC_API_KEY</span> existe, Claude Code utilise cette clé d'API, facturée par l'API d'Anthropic, au lieu de votre forfait Claude. La palette le signale ; retirez la variable pour utiliser votre forfait.</li>
+<li>L'Assistant répond dans la langue dans laquelle vous écrivez.</li>
+<li><span class="fixw">Dyl-Diagnostics</span> indique si Claude Code est installé et connecté.</li>
+</ul>
+</div>
+<h2>Limites connues</h2>
+<div class="spacedbullets">
+<ul>
+<li>Il ne voit pas encore votre dessin : décrivez ce dont vous avez besoin.</li>
+<li>Les libellés de la palette sont en anglais.</li>
+<li>Il exige AutoCAD 2016 ou plus récent.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-Assistant</span></td><td><span class="fixw">AICHAT</span></td><td>Assistant</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>
