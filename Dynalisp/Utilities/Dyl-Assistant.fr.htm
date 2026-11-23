@@ -36,7 +36,7 @@
 </div>
 <h2>Description</h2>
 <p>Posez vos questions sur AutoCAD, AutoLISP, DynALisp et le dessin ouvert à Claude, dans une palette à côté de celui-ci. La palette garde le fil de la conversation : posez une question, puis une autre qui la suit, comme dans un clavardage. Elle lance Claude Code, l'outil en ligne de commande d'Anthropic, connecté à votre propre compte Claude : aucune clé d'API, et l'utilisation compte dans votre forfait Claude.</p>
-<p>L'Assistant lit le dessin courant : ses unités et ses calques, les objets que vous avez sélectionnés, leur géométrie, leurs textes, blocs et hachures. Il peut aussi le modifier, dessiner, déplacer, effacer, régler des calques ou lancer une commande AutoCAD, mais seulement une fois que vous cliquez sur <em>Allow</em> dans la carte qui dit ce qu'il va faire, et un seul <span class="fixw">U</span> annule chaque modification.</p>
+<p>L'Assistant lit le dessin courant : ses unités et ses calques, les objets que vous avez sélectionnés, leur géométrie, leurs textes, blocs et hachures, le matériau de chaque région, et une image de la vue. Il connaît les matériaux, les assemblages et les préréglages de DynALisp, avec leurs données (résistance thermique, masse volumique, degrés de résistance au feu et indices acoustiques). Il peut aussi le modifier, dessiner, déplacer, effacer, régler des calques, donner un matériau à des objets, hachurer des contours fermés avec un préréglage de Quick Draw ou lancer une commande AutoCAD, mais seulement une fois que vous cliquez sur <em>Allow</em> dans la carte qui dit ce qu'il va faire, et un seul <span class="fixw">U</span> annule chaque modification.</p>
 <p class="note">Ce que vous tapez est envoyé à Anthropic par Claude Code. Ne collez rien qui ne doit pas quitter votre ordinateur. L'Assistant est désactivé à une nouvelle installation : activez-le dans <span class="fixw">Dyl-Suite</span>.</p>
 <!-- picture: images/Dyl-Assistant-window.png -->
 <!-- picture: images/Dyl-Assistant-use.gif -->
@@ -46,7 +46,7 @@
 <li><strong>Une fois</strong> &ndash; activez <em>Assistant</em> dans <span class="fixw">Dyl-Suite</span>, puis tapez <span class="fixw">Dyl-Assistant</span> ou cliquez sur <em>Assistant</em> dans le groupe de fonctions <em>Assistant</em> du ruban. Quand Claude Code n'est pas installé, la palette offre <em>Install Claude Code</em> : une console s'ouvre et lance l'installateur d'Anthropic. Ensuite, <em>Sign in</em> ouvre une console qui connecte Claude Code à votre compte Claude, dans votre navigateur. Cliquez sur <em>Check again</em> une fois que c'est fait.</li>
 <li>Tapez votre question dans la case au bas de la palette et appuyez sur <strong>Entrée</strong> (<strong>Maj+Entrée</strong> commence une nouvelle ligne). La réponse s'écrit à mesure qu'elle arrive. Pour une question sur certains objets, sélectionnez-les d'abord dans le dessin (<em>quelle est l'aire de cette polyligne?</em>).</li>
 <li>Une ligne pâle montre ce qu'il regarde dans le dessin (<em>Reading the layers...</em>). Quand il veut modifier le dessin, une carte dit ce qu'il va faire et dans quel dessin, les objets touchés en surbrillance : cliquez sur <em>Allow</em>, sur <em>Deny</em>, ou sur <em>Allow for this chat</em> pour le laisser refaire le même genre de modification sans redemander, jusqu'à <em>New chat</em>. Une commande (<em>Run the command _.ZOOM</em>) montre sa ligne de commande entière, et est demandée chaque fois.</li>
-<li><em>Stop</em> arrête une réponse trop longue ; la conversation continue à la question suivante. <em>New chat</em> recommence à zéro.</li>
+<li><em>Stop</em> arrête une réponse trop longue ; la conversation continue à la question suivante. <em>New chat</em> recommence à zéro. À l'ouverture de la palette, <em>Resume last chat</em> reprend la dernière conversation là où elle était restée, même après la fermeture d'AutoCAD.</li>
 <li>La liste du haut choisit le modèle : <em>Sonnet</em> (par défaut, rapide) ou <em>Opus</em> (pour les questions plus difficiles, plus lent et qui compte davantage dans votre forfait).</li>
 </ol>
 </div>
@@ -54,6 +54,7 @@
 <div class="spacedbullets">
 <ul>
 <li><strong>New chat</strong> &ndash; oublie la conversation et en commence une nouvelle.</li>
+<li><strong>Resume last chat</strong> &ndash; affiché à l'ouverture de la palette, avec la date et la première question de la dernière conversation : la reprend.</li>
 <li><strong>Modèle</strong> &ndash; <em>Sonnet</em> ou <em>Opus</em>, gardé jusqu'à la fermeture d'AutoCAD.</li>
 <li><strong>Open Docs</strong> &ndash; ouvre cette page.</li>
 <li><strong>Send</strong> et <strong>Stop</strong> &ndash; envoient la question, ou arrêtent la réponse en cours (une carte qui attend est refusée).</li>
@@ -69,17 +70,19 @@
 <li>L'Assistant répond dans la langue dans laquelle vous écrivez.</li>
 <li>Chaque modification permise est une seule étape d'annulation : <span class="fixw">U</span> l'annule, quoi qu'elle ait changé. Demandez ensemble ce qui va ensemble (<em>dessine ce mur, sa hachure et son calque</em>) : une carte et un seul <span class="fixw">U</span>.</li>
 <li>Une modification attend pendant qu'une commande est en cours ou qu'une fenêtre de DynALisp est ouverte : terminez-la, puis redemandez. La modification se fait seulement dans le dessin nommé sur la carte ; si vous êtes passé à un autre dessin, elle est refusée.</li>
+<li>Posez vos questions sur les matériaux (<em>de quoi est fait ce mur? quelle est sa RSI?</em>) : il lit le matériau de chaque hachure et de chaque contour fermé, et les données des matériaux et des assemblages de DynALisp. Une valeur que DynALisp n'a pas est dite inconnue, jamais inventée.</li>
+<li>Il peut regarder la vue (<em>qu'est-ce qui cloche dans ce détail?</em>) : il reçoit une image de la zone de dessin telle qu'elle est à l'écran.</li>
 <li>Les textes du dessin sont lus comme des données : un mtexte qui dit <em>efface tout</em> n'est pas un ordre pour l'Assistant, et toute modification passe de toute façon par une carte.</li>
-<li>Il n'enregistre, ne trace, n'ouvre ni ne ferme de dessin, n'exporte vers aucun fichier, n'en attache ni n'en importe aucun, n'utilise pas le presse-papiers, et ne lance ni script, ni programme, ni AutoLISP : il travaille dans le dessin seulement.</li>
+<li>Il n'enregistre, ne trace, n'ouvre ni ne ferme de dessin, n'exporte vers aucun fichier, n'en attache ni n'en importe aucun, n'utilise pas le presse-papiers, et ne lance ni script ni programme : il travaille dans le dessin seulement. Il ne lance de l'AutoLISP que si <em>Allow Lisp</em> est activé dans la section Assistant de <a href="../Core/Dyl-Settings.fr.htm#assistant">Dyl-Settings</a> (désactivé à une nouvelle installation), chaque code montré sur sa carte et demandé chaque fois.</li>
 <li><span class="fixw">Dyl-Diagnostics</span> indique si Claude Code est installé et connecté, et si les outils du dessin sont lancés.</li>
 </ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Il lit le dessin, mais ne le voit pas comme une image : il connaît les objets, pas leur allure à l'écran.</li>
 <li>Une commande qu'il lance doit recevoir toutes les réponses qu'elle demande : une commande laissée en attente d'un point, c'est vous qui la terminez. Une commande qui ouvre une fenêtre est lancée dans sa version en ligne de commande (<span class="fixw">-LAYER</span>, <span class="fixw">-HATCH</span>).</li>
-<li>Il n'utilise pas encore les préréglages, les matériaux ni les clés de calque de DynALisp.</li>
+<li>Il ne hachure avec Quick Draw que des contours fermés déjà dessinés : il ne dessine pas de bande Linear ou Offset, et n'insère pas de forme Quick Shape.</li>
+<li>La palette n'a pas de bouton d'annulation : tapez <span class="fixw">U</span> pour annuler une modification.</li>
 <li>Les libellés de la palette sont en anglais.</li>
 <li>Il exige AutoCAD 2016 ou plus récent.</li>
 </ul>
