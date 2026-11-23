@@ -66,7 +66,7 @@
 <ul>
 <li><strong>Revisions list</strong> &ndash; the revisions of the project, in their sequence: sequence, number, date, description and whether it is issued. Several revisions can be selected (Ctrl or Shift click) to edit them at once. With numbering per sheet, the number column shows how they count (<em>1...</em> or <em>A...</em>): each sheet numbers its own.</li>
 <li><strong>New</strong> &ndash; adds a revision after the last one, dated today, with the numbering of the last one. A revision is never given the id of a revision deleted, so the clouds of a deleted revision never go to a new one.</li>
-<li><strong>Delete</strong> &ndash; deletes the revisions selected, after a confirmation, and takes them from every sheet. Their clouds stay in the drawings, without a revision: erase them. Greyed out when an issued revision after them would get another number.</li>
+<li><strong>Delete</strong> &ndash; deletes the revisions selected, after a confirmation, and takes them from every sheet. Their clouds stay in the drawings, without a revision: erase them. Refused when an issued revision after them would get another number.</li>
 <li><strong>Move Up</strong>, <strong>Move Down</strong> &ndash; change the sequence of the revision selected, and the numbers that follow it. A revision is never moved past an issued one.</li>
 </ul>
 </div>
@@ -75,7 +75,7 @@
 <ul>
 <li><strong>Numbering</strong> &ndash; <em>Numeric</em> (1, 2, 3), <em>Alphabetic</em> (A, B, C... Z, AA) or <em>None</em> (no number, a revision that is only listed). Each numbering counts on its own: revisions A and B issued for tender, then 1, 2, 3 for construction. A numbering that would give an issued revision after it another number is refused.</li>
 <li><strong>Date</strong>, <strong>Description</strong>, <strong>Issued to</strong>, <strong>Issued by</strong> &ndash; what the title blocks show. Every revision needs a description.</li>
-<li><strong>Issued</strong> &ndash; locks the revision once it is sent: its parameters, its sheets, its place in the sequence and its deletion are greyed out. Clear it to change the revision again. A cloud is drawn only for a revision that is not issued.</li>
+<li><strong>Issued</strong> &ndash; locks the revision once it is sent: its parameters are greyed out, and its sheets, its place in the sequence and its deletion cannot change (the window says why). Clear it to change the revision again. A cloud is drawn only for a revision that is not issued.</li>
 </ul>
 </div>
 <h3>Project</h3>
@@ -98,10 +98,11 @@
 <p><strong>OK</strong> saves the revisions in the project, then updates the sheets whose title block shows something else now (or every sheet with a revision, when the title blocks were changed). <strong>Cancel</strong> leaves everything as it was. The command line then gives the number of sheets updated and lists the ones that could not be.</p>
 <h2 id="titleblocks">Revision Title Blocks Window</h2>
 <p>The title blocks whose attributes show the revisions (<span class="fixw">REVTB</span>, the open button of <em>Title blocks</em>, or the open button of <em>Revisions</em> in <span class="fixw">Dyl-Settings</span>). They are a DynALisp setting, used for every project: one row per title block.</p>
+<!-- picture: images/Dyl-Revisions-titleblocks.png -->
 <div class="spacedbullets">
 <ul>
 <li><strong>Title blocks list</strong> &ndash; each title block, its number of revision rows and the revision of its row 1. Several can be selected to edit or delete them at once.</li>
-<li><strong>New</strong>, <strong>Delete</strong> &ndash; add a title block, delete the ones selected.</li>
+<li><strong>Add</strong>, <strong>Delete</strong> &ndash; add a title block (a copy of the one shown, to change), delete the ones selected.</li>
 <li><strong>Pick...</strong> &ndash; select a title block in the drawing: its name, its revision rows and its attributes are guessed from their tags (in English or French: <em>DATE</em>, <em>DESC</em>, <em>PAR</em>, <em>BY</em>...) and given to the title block shown, or to a new one. Check them.</li>
 <li><strong>Block</strong> &ndash; the name of the block. Wildcards can be used (<span class="fixw">*TITLE*</span>): one row for every size of a title block. Its dynamic block name for a dynamic block.</li>
 <li><strong>Rows</strong> &ndash; the number of revision rows of the block. When a sheet has more revisions, the newest ones are shown.</li>
