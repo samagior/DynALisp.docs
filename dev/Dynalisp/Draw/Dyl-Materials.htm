@@ -21,7 +21,7 @@
 <p class="note">The developer docs of Materials: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-Materials.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (the materials and their <a href="Dyl-HatchPresets.htm">hatch presets</a>, the hatch, the windows, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Materials.lsp</span> (the command: <span class="fixw">(Remote&gt;&gt;Dyl:MaterialDialog nil)</span>; its children, the material of the objects: see <a href="Dyl-MaterialAssign.htm">Assign Material</a>)</td></tr>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (the materials and their <a href="Dyl-HatchPresets.htm">hatch presets</a>, the hatch, the windows, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Materials.lsp</span> (the command: <span class="fixw">(Remote&gt;&gt;Dyl:MaterialDialog nil)</span>)</td></tr>
 <tr><td>Data</td><td><span class="fixw">Res\Materials.csv</span>, <span class="fixw">Res\HatchPresets.csv</span> and <span class="fixw">Res\MaterialGroups.csv</span> (the groups of the materials; your copies under <span class="fixw">User</span>); the window <span class="fixw">Res\Dyl-Materials.xaml</span></td></tr>
 <tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention: <em>material</em> and <em>hatch preset</em> in the windows, the messages, the docs, the code and the files; the data in SI units</td></tr>
 </table>
@@ -54,7 +54,6 @@
 <li>New starts from <span class="fixw">*mt:newrow*</span>: group <em>Section</em>, no hatch preset, no data.</li>
 </ul></li>
 <li><strong>The hatch, its scale and its previews</strong> &ndash; see <a href="Dyl-HatchPresets.htm">Hatch Presets</a>: they are read from the material joined to its hatch preset.</li>
-<li><strong>The material of the objects</strong> &ndash; every hatch made carries the id of its material in its extended data, and the child commands give, match and show it: see <a href="Dyl-MaterialAssign.htm">Assign Material</a>.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
