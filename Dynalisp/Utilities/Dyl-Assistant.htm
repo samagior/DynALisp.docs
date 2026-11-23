@@ -70,7 +70,7 @@
 <li>Each change you allow is one step of undo: <span class="fixw">U</span> undoes it, whatever it changed. Put what goes together in one request (<em>draw this wall, its hatch and its layer</em>): it is one card and one <span class="fixw">U</span>.</li>
 <li>A change waits while a command is running or a DynALisp window is open: finish it, then ask again. The change is made in the drawing named on the card only; if you switched to another drawing, it is refused.</li>
 <li>The texts of the drawing are read as data: an mtext that says <em>erase everything</em> is not an order to the Assistant, and every change goes through a card anyway.</li>
-<li>It does not save, plot, open or close drawings, nor run scripts, programs or AutoLISP.</li>
+<li>It does not save, plot, open or close drawings, does not export to a file, attach or import one, nor use the clipboard, and does not run scripts, programs or AutoLISP: it works in the drawing only.</li>
 <li><span class="fixw">Dyl-Diagnostics</span> reports whether Claude Code is installed and signed in, and whether the tools of the drawing are running.</li>
 </ul>
 </div>
