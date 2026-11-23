@@ -554,10 +554,6 @@ details.bundled pre {
     color: var(--text-muted);
 }
 
-.programs tr.window td:first-child {
-    padding-left: 34px;
-}
-
 .programs td.right {
     text-align: right;
 }

@@ -21,7 +21,7 @@
 <p class="note">The developer docs of Info And User Files: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Core/Dyl-Info.htm">User Guide</a> page.</p>
 <div class="programs">
 <table>
-<tr class="alt"><td>Source Files</td><td>The Info and UserFiles regions of <span class="fixw">Resources\dynalisp.mnl</span>, <span class="fixw">Resources\Dyl-Info.dcl</span></td></tr>
+<tr class="alt"><td>Source Files</td><td>The Info and UserFiles regions of <span class="fixw">Resources\dynalisp.mnl</span>, the windows <span class="fixw">Res\Dyl-Info.xaml</span>, <span class="fixw">Res\Dyl-WhatsNew.xaml</span> and <span class="fixw">Res\Dyl-UserFiles.xaml</span> (of the Dynalisp module)</td></tr>
 <tr><td>Data</td><td>The <span class="fixw">AppVersion</span> of <span class="fixw">PackageContents.xml</span>, <span class="fixw">CHANGELOG.md</span>, the latest release of <span class="fixw">*dyl:relrepo*</span>; the <span class="fixw">User</span> folder</td></tr>
 <tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#versions-and-updates">Versions And Updates</a> and <a href="../../conventions.html#user-files">User Files</a> conventions</td></tr>
 </table>
@@ -44,8 +44,15 @@
 <li><em>Export settings</em> and <em>Import settings</em> (<span class="fixw">Dyl:SetsExport</span>, <span class="fixw">Dyl:SetsImport</span>) write and read a <span class="fixw">DynALisp Settings &lt;date&gt;</span> folder: <span class="fixw">DynALisp-Settings.txt</span> (every <span class="fixw">Dynalisp*</span> setting as <span class="fixw">Name=Value</span>, the local ones of <span class="fixw">*dyl:setslocal*</span> left out), <span class="fixw">User\</span> and <span class="fixw">Modules\MyTools\</span>; the setup and the uninstall use the same format (<span class="fixw">Installer\DynALisp.iss</span>).</li>
 </ul>
 </div>
-<h2>The Window</h2>
-<p><span class="fixw">c:Dyl-Info</span> loads <span class="fixw">Dyl-Info.dcl</span>; its list of modules is every module with a docs index, on the website or on this computer (<span class="fixw">Dyl:DocsFind</span>), and its list of commands is <span class="fixw">*dyl:core*</span>, the core commands defined.</p>
+<h2>The Windows</h2>
+<p>The three are WPF windows (see <a href="../Plugins/Windows.htm">Windows</a>), shown with <span class="fixw">Dyl:WinShow</span>. Nothing calls the Lisp back while one is open, so each button that runs Lisp closes it with its number (the comment at the top of each window file lists them), and the Lisp does the work and shows it again on the values it got.</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Info</strong> (<span class="fixw">Res\Dyl-Info.xaml</span>) &ndash; <span class="fixw">c:Dyl-Info</span> gives the version, the update status and the label of the update button (<span class="fixw">Dyl:InfoWinUpd</span>, greyed out when there is nothing to update), the modules with a docs index, on the website or on this computer (<span class="fixw">Dyl:DocsFind</span>), and the core commands defined (<span class="fixw">*dyl:core*</span>, <span class="fixw">command TAB what it does</span>, shown in two columns by <span class="fixw">dyl:Cell</span>). The update button (3) runs <span class="fixw">Dyl:InfoUpdate</span>, whose message replaces the status when the install failed; What's new (4), Check again (5), GitHub repository (6) and Open docs index (7) do their work, then the window opens again on the command and the module picked. Run, or a command double-clicked (<span class="fixw">dyl:Win.Close</span> on the list), closes it with 2: the command runs once the window is closed.</li>
+<li><strong>What's New</strong> (<span class="fixw">Res\Dyl-WhatsNew.xaml</span>) &ndash; <span class="fixw">Dyl:InfoNotesDlg</span> gives the line above the notes (<span class="fixw">hed</span>), the notes (<span class="fixw">lst/list</span>, one line each, wrapped), the line under them (<span class="fixw">msg</span>) and the label of Install (<span class="fixw">ins</span>, greyed out when nil). All releases (3) opens the releases page and shows it again; Install (2) returns T.</li>
+<li><strong>User Files</strong> (<span class="fixw">Res\Dyl-UserFiles.xaml</span>) &ndash; <span class="fixw">c:Dyl-UserFiles</span> reads the copies again (<span class="fixw">Dyl:UserWinFill</span>) each time it shows it, with the line of what was done (<span class="fixw">msg</span>). Open (2, or an item double-clicked), Open User folder (3), Reset to default (4) and Make it the default (5) work on the item selected; Reset and Make it the default do it on the second click of the same button on the same item (<span class="fixw">uf:arm</span>, taken back by any other button; <span class="fixw">Dyl:UserWinDo</span>). Export settings (6, <span class="fixw">Dyl:UserWinExport</span>) and Import settings (7, <span class="fixw">Dyl:UserWinImport</span>) ask for their folder or file once the window is closed. When a file changed (<span class="fixw">uf:done</span>), the cached presets are read again and the aliases defined again.</li>
+</ul>
+</div>
 <p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
 
     </div>
