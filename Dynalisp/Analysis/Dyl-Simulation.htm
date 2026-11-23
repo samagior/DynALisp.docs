@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Function Syntax</td>
-<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMCLEAR</span></td>
+<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMPLAY</span>, <span class="fixw">SIMPROBE</span>, <span class="fixw">SIMCLEAR</span></td>
 </tr>
 <tr>
 <td>Requires</td>
@@ -35,9 +35,10 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>The Simulation tool prepares a 2D detail of the drawing (a wall section, a sill, a slab edge) for a thermal simulation: where the cold and warm zones are in the detail, the coldest point of its interior surface, and in a later version where water vapour may condense in it. The simulation itself (<em>Play</em>) comes in a later version; this one sets up the detail and checks it.</p>
+<p>The Simulation tool simulates the heat through a 2D detail of the drawing (a wall section, a sill, a slab edge), as THERM does: where the cold and warm zones are in the detail, the coldest point of its interior surface and whether water condenses on it, and the thermal resistance of the whole detail, thermal bridges included. Where water vapour may condense inside the detail comes in a later version.</p>
 <p>A detail is simulated inside a <strong>simulation zone</strong>, a rectangle or a closed polyline drawn around it, a little away from what matters. Each part of the detail is a hatch or a closed outline that knows its <a href="../Draw/Dyl-Materials.htm">material</a>: everything Quick Draw and Quick Shape draw does, and a detail drawn otherwise gets its materials with <a href="../Draw/Dyl-MaterialAssign.htm">Assign Material</a>. On each side of the detail, a <strong>climate zone</strong> covers the air: <em>Interior</em>, <em>Exterior</em>, or a climate of your own (a garage, a crawl space). The climates are kept by DynALisp, the same in every drawing: changing <em>Interior</em> changes every detail.</p>
 <p><strong>Check</strong> reads the detail of the zone and shows, over the drawing, the grid the simulation will use and every problem it found: in red, the hatches without a material, the regions of a material that has no thermal data, the holes (a place in the zone that is neither a material nor a climate, almost always something left out).</p>
+<p><strong>Play</strong> computes the temperature of every cell of the detail, steady, between the temperatures of its climates, and colours the detail from blue (the exterior) to red (the interior). A magenta line follows the dew point of the interior air, and the interior surfaces colder than it, where water condenses, are drawn in thick magenta. The command line gives the coldest interior surface, its temperature factor and the thermal resistance of the detail, and the probe gives the temperature at any point.</p>
 <!-- picture: images/Dyl-Simulation-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
@@ -46,8 +47,10 @@
 <li>Type <span class="fixw">Dyl-Simulation</span>, or click <em>Simulation</em> in the <em>Analysis</em> panel of the ribbon.</li>
 <li>Under <em>Zone</em>, click <em>New...</em> and pick two corners around the detail, or <em>Pick...</em> to make a closed polyline into the zone.</li>
 <li>Under <em>Climates</em>, select <em>Interior</em> and click <em>Place...</em>, then draw a rectangle over the air on the interior side, overlapping the face of the detail. Do the same for <em>Exterior</em>.</li>
-<li>Pick the <em>Grid</em>, then click <em>Check</em>. The window closes, the grid and the problems are shown over the drawing, and the command line says what was found.</li>
-<li>Fix what is shown in red, then check again. <span class="fixw">SIMCLEAR</span>, or <em>Clear</em> in the window, clears what is shown.</li>
+<li>Type the <em>Temperature</em> and the <em>Relative humidity</em> of each climate.</li>
+<li>Pick the <em>Grid</em>, then click <em>Check</em>. The window closes, the grid and the problems are shown over the drawing, and the command line says what was found. Fix what is shown in red, then check again.</li>
+<li>Click <em>Play</em> (or type <span class="fixw">SIMPLAY</span>). The temperatures are shown over the detail and the command line gives the results. At its prompt, <em>Probe</em> gives the temperature at the points you pick, <em>Window</em> opens the window again, <em>Clear</em> clears what is shown, and Enter ends.</li>
+<li><span class="fixw">SIMCLEAR</span>, or <em>Clear</em> in the window, clears what is shown.</li>
 </ol>
 </div>
 <h2>Simulation Window</h2>
@@ -62,15 +65,16 @@
 </table>
 </div>
 <p>Above the buttons, the size of the zone picked. A zone already picked in the drawing opens with the window; a drawing with one zone only opens on it.</p>
-<h3>Check</h3>
+<h3>Simulation</h3>
 <div class="programs commands wide">
 <table>
 <tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Play</td><td>Saves the climates and the grid, closes the window and simulates the heat through the detail of the zone: see <a href="#play">What Play Shows</a>. A detail with a problem that Check would show, or a climate without a temperature, is not simulated: its problems are shown instead. Greyed out while no zone is picked.</td></tr>
 <tr><td>Check</td><td>Saves the climates and the grid, closes the window, reads the detail of the zone and shows its grid in grey, its problems in red and the zone in orange over the drawing. Greyed out while no zone is picked.</td></tr>
-<tr><td>Clear</td><td>Clears what Check showed, and opens the window again.</td></tr>
+<tr><td>Clear</td><td>Clears what Check or Play showed, and opens the window again.</td></tr>
 </table>
 </div>
-<p>Above the buttons, what the last check found: the problems first, then the regions and materials of the zone and the size of its grid.</p>
+<p>Above the buttons, what the last check or simulation found: the problems first, then the regions and materials of the zone and the size of its grid, or the results of the simulation.</p>
 <h3>Climates</h3>
 <div class="programs commands wide">
 <table>
@@ -89,8 +93,30 @@
 <li><strong>OK</strong> saves the climates and the grid. <strong>Cancel</strong> drops what was changed in the window (a zone drawn or placed stays). <strong>Open Docs</strong> opens this page.</li>
 </ul>
 </div>
+<h2 id="play">What Play Shows</h2>
+<p>Over the drawing, until it is cleared:</p>
+<div class="spacedbullets">
+<ul>
+<li>Each cell of a material in the colour of its temperature, from blue at the temperature of the exterior through white to red at that of the interior, with the legend at the right of the zone. A cell of a material that touches no climate, not even through other materials (an island in a hole), has no temperature: it is grey.</li>
+<li>The <strong>dew point</strong> of the interior air, from its temperature and its relative humidity: a thin magenta line where the detail is at that temperature, and its mark on the legend. Inside the detail, the line only says where the dew point is; whether vapour condenses there depends on what lets it through, which comes in a later version.</li>
+<li>The interior surfaces colder than the dew point, in thick magenta: water condenses on them.</li>
+<li>The coldest interior surface, circled in magenta.</li>
+</ul>
+</div>
+<p>On the command line (and in the window):</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Result</th><th>What it is</th></tr>
+<tr><td>Coldest interior surface</td><td>The lowest temperature of the surfaces the interior climate touches, and the material there. It is computed with the <em>Condensation resistance</em> of the climates (0.25 m&sup2;&middot;K/W inside), as ISO 13788 asks to judge condensation and mould; so are the colours and the dew point line.</td></tr>
+<tr><td>Temperature factor fRsi</td><td>(coldest surface &minus; exterior) / (interior &minus; exterior): 1 for a surface at the interior temperature, 0 at the exterior one. It does not depend on the temperatures picked, so it compares details; under 0.70, a heated room is at risk of mould (the limit of DIN 4108-2).</td></tr>
+<tr><td>Dew point of the interior air</td><td>The temperature at which the interior air condenses, and whether an interior surface is colder.</td></tr>
+<tr><td>Effective RSI (R)</td><td>The thermal resistance of the detail over the length of its interior surface, the films of air included: (interior &minus; exterior) &times; length / heat flow, computed with the <em>Surface resistance</em> of the climates. A thermal bridge lowers it below the resistance of the same wall without it.</td></tr>
+<tr><td>Thermal coupling L2D</td><td>The heat flow through the detail per metre of its depth and per degree between the interior and the exterior (ISO 10211). The linear thermal transmittance &psi; of a thermal bridge is L2D less that of the same walls without it.</td></tr>
+</table>
+</div>
+<p>The interior is the climate of the highest temperature among those the detail touches, the exterior the one of the lowest.</p>
 <h2>Ribbon</h2>
-<p>The <em>Analysis</em> panel has the <em>Simulation</em> button; its children are under its arrow: <em>Simulation Zone</em>, <em>Simulation Climate</em>, <em>Simulation Check</em>, <em>Simulation Clear</em>.</p>
+<p>The <em>Analysis</em> panel has the <em>Simulation</em> button; its children are under its arrow: <em>Simulation Zone</em>, <em>Simulation Climate</em>, <em>Simulation Check</em>, <em>Simulation Play</em>, <em>Simulation Probe</em>, <em>Simulation Clear</em>.</p>
 <h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
@@ -98,8 +124,10 @@
 <li>The edge of the zone that is not in a climate zone is a cut: no heat goes through it. Draw the zone far enough from what you want to see (a stud, a slab edge) for the cut not to change it.</li>
 <li>Only the hatches and the closed outlines of the space of the zone are read, the model or the layout it is in. A block, an xref, a region or a solid is not read: explode it or hatch it first.</li>
 <li>A material without a thermal conductivity nor a fixed thermal resistance cannot be simulated: give it one in the <a href="../Draw/Dyl-Materials.htm">Materials</a> window.</li>
-<li>The temperature and the humidity of the default climates are empty: the climate data of a city and the interior conditions to use will come with the simulation itself.</li>
-<li>What Check shows is not part of the drawing: it is not plotted, not saved, and goes when the drawing closes.</li>
+<li>The default <b>Interior</b> climate is at 21 &deg;C and 35 % relative humidity, the indoor conditions the National Building Code of Canada assumes for its vapour barrier requirements. The temperature of the <b>Exterior</b> is empty until it is typed: type the January design temperature of the location of the project (NBC, Appendix C). Play refuses a climate without a temperature. Without a relative humidity, Play shows no dew point.</li>
+<li>What Check and Play show is not part of the drawing: it is not plotted, not saved, and goes when the drawing closes. The probe reads the last simulation of the drawing.</li>
+<li>An air space (a material with a fixed thermal resistance and no conductivity) is simulated as a solid of the same resistance across its thinnest side: draw it as a band, as Quick Draw does.</li>
+<li>A cell takes the material at its center. The grid follows the straight edges of the detail exactly; an oblique edge or an arc is followed in steps of a cell: pick a finer grid to see a sloped or round detail better.</li>
 <li>A grid of more than a million cells is refused: pick a coarser grid, or a smaller zone.</li>
 </ul>
 </div>
@@ -113,6 +141,8 @@
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationZone</span></td><td><span class="fixw">SIMZONE</span></td><td>Simulation Zone</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClimate</span></td><td><span class="fixw">SIMCLIMATE</span></td><td>Simulation Climate</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationCheck</span></td><td><span class="fixw">SIMCHECK</span></td><td>Simulation Check</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationPlay</span></td><td><span class="fixw">SIMPLAY</span></td><td>Simulation Play</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationProbe</span></td><td><span class="fixw">SIMPROBE</span></td><td>Simulation Probe</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClear</span></td><td><span class="fixw">SIMCLEAR</span></td><td>Simulation Clear</td></tr>
 </table>
 </div>
