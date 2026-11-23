@@ -37,7 +37,7 @@
 <h2>Description</h2>
 <p>Gérez les révisions d'un projet en un seul endroit, comme le fait Revit : une liste de révisions pour tout le projet, chacune avec sa date, sa description, et à qui et par qui elle a été émise. Donnez une révision à une feuille, ou dessinez-y un nuage de révision, et les rangées de révisions de son cartouche se remplissent d'elles-mêmes, numérotées par projet ou par feuille. Les dessins fermés sont mis à jour sans être ouverts.</p>
 <p>Le projet est le projet du Navigateur de projets du dessin; ses feuilles sont les dessins de son dossier des feuilles, chaque présentation une feuille.</p>
-<!-- picture: images/Dyl-Revisions-window.png -->
+<figure class="shot"><picture><source srcset="images/Dyl-Revisions-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Revisions-window.png" alt="Révisions (Revisions): window"></picture></figure>
 <!-- picture: images/Dyl-Revisions-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -66,7 +66,7 @@
 <ul>
 <li><strong>Liste des révisions</strong> &ndash; les révisions du projet, dans leur séquence : séquence, numéro, date, description et si elle est émise. Plusieurs révisions peuvent être sélectionnées (Ctrl ou Maj) pour les modifier d'un coup. Avec la numérotation par feuille, la colonne des numéros montre comment elles comptent (1... ou A...) : chaque feuille numérote les siennes.</li>
 <li><strong>New</strong> &ndash; ajoute une révision après la dernière, datée d'aujourd'hui, avec la numérotation de la dernière. Une révision ne reçoit jamais l'identifiant d'une révision supprimée : les nuages d'une révision supprimée ne vont jamais à une nouvelle.</li>
-<li><strong>Delete</strong> &ndash; supprime les révisions sélectionnées, après une confirmation, et les retire de chaque feuille. Leurs nuages restent dans les dessins, sans révision : effacez-les. Grisé quand une révision émise après elles recevrait un autre numéro.</li>
+<li><strong>Delete</strong> &ndash; supprime les révisions sélectionnées, après une confirmation, et les retire de chaque feuille. Leurs nuages restent dans les dessins, sans révision : effacez-les. Refusé quand une révision émise après elles recevrait un autre numéro.</li>
 <li><strong>Move Up</strong>, <strong>Move Down</strong> &ndash; changent la séquence de la révision sélectionnée, et les numéros qui la suivent. Une révision ne passe jamais au-delà d'une révision émise.</li>
 </ul>
 </div>
@@ -75,7 +75,7 @@
 <ul>
 <li><strong>Numbering</strong> &ndash; <em>Numeric</em> (1, 2, 3), <em>Alphabetic</em> (A, B, C... Z, AA) ou <em>None</em> (sans numéro, une révision seulement listée). Chaque numérotation compte à part : les révisions A et B émises pour soumission, puis 1, 2, 3 pour construction. Une numérotation qui donnerait un autre numéro à une révision émise après elle est refusée.</li>
 <li><strong>Date</strong>, <strong>Description</strong>, <strong>Issued to</strong>, <strong>Issued by</strong> &ndash; ce que montrent les cartouches. Chaque révision demande une description.</li>
-<li><strong>Issued</strong> &ndash; verrouille la révision une fois envoyée : ses paramètres, ses feuilles, sa place dans la séquence et sa suppression sont grisés. Décochez-le pour modifier la révision à nouveau. Un nuage ne se dessine que pour une révision non émise.</li>
+<li><strong>Issued</strong> &ndash; verrouille la révision une fois envoyée : ses paramètres sont grisés, et ses feuilles, sa place dans la séquence et sa suppression ne peuvent plus changer (la fenêtre dit pourquoi). Décochez-le pour modifier la révision à nouveau. Un nuage ne se dessine que pour une révision non émise.</li>
 </ul>
 </div>
 <h3>Project</h3>
@@ -98,10 +98,11 @@
 <p><strong>OK</strong> enregistre les révisions dans le projet, puis met à jour les feuilles dont le cartouche montre autre chose maintenant (ou chaque feuille qui a une révision, quand les cartouches ont changé). <strong>Cancel</strong> laisse tout tel quel. La ligne de commande donne ensuite le nombre de feuilles mises à jour et liste celles qui n'ont pu l'être.</p>
 <h2 id="titleblocks">Fenêtre Revision Title Blocks</h2>
 <p>Les cartouches dont les attributs affichent les révisions (<span class="fixw">REVTB</span>, le bouton ouvrir de <em>Title blocks</em>, ou le bouton ouvrir de <em>Revisions</em> dans <span class="fixw">Dyl-Settings</span>). C'est un réglage de DynALisp, qui sert à chaque projet : une rangée par cartouche.</p>
+<figure class="shot"><picture><source srcset="images/Dyl-Revisions-titleblocks-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Revisions-titleblocks.png" alt="Révisions (Revisions): window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Liste des cartouches</strong> &ndash; chaque cartouche, son nombre de rangées de révisions et la révision de sa rangée 1. Plusieurs peuvent être sélectionnés pour les modifier ou les supprimer d'un coup.</li>
-<li><strong>New</strong>, <strong>Delete</strong> &ndash; ajoutent un cartouche, suppriment ceux sélectionnés.</li>
+<li><strong>Add</strong>, <strong>Delete</strong> &ndash; ajoutent un cartouche (une copie de celui affiché, à modifier), suppriment ceux sélectionnés.</li>
 <li><strong>Pick...</strong> &ndash; sélectionnez un cartouche dans le dessin : son nom, ses rangées de révisions et ses attributs sont devinés d'après leurs étiquettes (en anglais ou en français : DATE, DESC, PAR, BY...) et donnés au cartouche affiché, ou à un nouveau. Vérifiez-les.</li>
 <li><strong>Block</strong> &ndash; le nom du bloc. Les caractères génériques sont permis (<span class="fixw">*TITLE*</span>) : une rangée pour chaque format d'un cartouche. Pour un bloc dynamique, son nom de bloc dynamique.</li>
 <li><strong>Rows</strong> &ndash; le nombre de rangées de révisions du bloc. Quand une feuille a plus de révisions, les plus récentes sont affichées.</li>

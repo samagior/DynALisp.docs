@@ -36,7 +36,7 @@
 </div>
 <h2>Description</h2>
 <p>Au chargement de DynALisp, la ligne de commande donne un bref résumé : <span class="fixw">DynALisp loaded (516 commands/453 aliases)</span>, puis <span class="fixw">Dyl-Settings to change the settings, Dyl-Info for help.</span> (les nombres sont ceux de votre installation; les avertissements, s'il y en a, suivent sur une dernière ligne qui commence par <span class="fixw">--&gt;</span>). <span class="fixw">DYL-INFO</span> est la fenêtre d'aide de DynALisp; <span class="fixw">DYL-USERFILES</span> gère les fichiers que vous avez modifiés.</p>
-<!-- picture: images/Dyl-Info-window.png -->
+<figure class="shot"><picture><source srcset="images/Dyl-Info-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-window.png" alt="Info et fichiers utilisateur: window"></picture></figure>
 <!-- picture: images/Dyl-Info-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -81,9 +81,11 @@
 </ul>
 </div>
 <p>Au premier démarrage d'AutoCAD après une mise à jour (de l'une ou l'autre façon), la fenêtre What's New montre une fois les changements depuis la version que vous aviez; <strong>What's new</strong> de Dyl-Info les montre de nouveau. Les changements sont dans <span class="fixw">CHANGELOG.md</span>, dans le dossier DynALisp. <strong>All releases</strong> ouvre la page des versions.</p>
+<figure class="shot"><picture><source srcset="images/Dyl-Info-whatsnew-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-whatsnew.png" alt="Info et fichiers utilisateur: window"></picture></figure>
 <p><strong>Mises à jour automatiques</strong> (<em>Install updates automatically</em>, section Updates de <a href="Dyl-Settings.fr.htm#updates">Dyl-Settings</a>, désactivé tant que vous ne l'activez pas) : une fois par jour, le premier dessin ouvert vérifie s'il existe une nouvelle version et lance son installation, qui s'effectue à la fermeture d'AutoCAD. La ligne de commande l'indique sous <span class="fixw">DynALisp loaded</span>.</p>
 <h2 id="userfiles">Fichiers utilisateur</h2>
 <p>Les fichiers de données de DynALisp (préréglages, matériaux, clés de calque, alias, la suite de démarrage, profils de variables système...) sont livrés sous <span class="fixw">Contents</span> et jamais modifiés par les commandes. Ce que vous modifiez est enregistré dans une copie du fichier, dans le dossier <span class="fixw">User</span> du paquet (ignoré par git), lue à la place du fichier par défaut. <span class="fixw">DYL-USERFILES</span> liste ces copies avec ce qu'est chacune :</p>
+<figure class="shot"><picture><source srcset="images/Dyl-Info-userfiles-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Info-userfiles.png" alt="Info et fichiers utilisateur: window"></picture></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Open</strong> &ndash; ouvre la copie sélectionnée; <strong>Open User folder</strong> ouvre le dossier.</li>
