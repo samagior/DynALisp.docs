@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assign Material</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-MaterialAssign.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Draw/Dyl-MaterialAssign.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assign Material</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Ouverte par</td>
+<td><span class="fixw">MTASSIGN</span>, une commande enfant de <a href="Dyl-Materials.fr.htm">Materials</a>; avec elle, <span class="fixw">MTMATCH</span> et <span class="fixw">MTSHOW</span></td>
+</tr>
+<tr>
+<td>Requiert</td>
+<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>Licence publique générale GNU v3</td>
+</tr>
+</table>
+</div>
+<h2>Description du programme</h2>
+<p>Un dessin sait de quoi chaque hachure est faite. Chaque hachure que font Quick Draw et Quick Shape porte son <a href="Dyl-Materials.fr.htm">matériau</a>, et avec lui l'outil et le préréglage qui l'ont dessinée; une couche d'un assemblage porte aussi son matériau, et sa place dans l'assemblage. Le matériau reste sur la hachure quand elle est copiée, déplacée, symétrisée ou étirée, et un changement fait au matériau dans la fenêtre Materials s'applique à toutes les hachures déjà dessinées avec lui. C'est ce que lira la simulation thermique d'un détail 2D, pour savoir où est chaque matériau.</p>
+<p>La fenêtre <strong>Assign Material</strong> donne un matériau à des hachures et des contours fermés que DynALisp n'a pas dessinés : un détail reçu de quelqu'un d'autre, une hachure faite avec <span class="fixw">HACHURES</span>, une polyligne autour d'une zone. <span class="fixw">MTMATCH</span> copie le matériau d'un objet sur d'autres, et <span class="fixw">MTSHOW</span> dit de quoi un objet est fait.</p>
+<!-- picture: images/Dyl-MaterialAssign-use.gif -->
+<h2>Mode d'emploi</h2>
+<div class="spacedbullets">
+<ol>
+<li>Tapez <span class="fixw">MTASSIGN</span>, ou choisissez <em>Attribuer</em> sous la flèche du bouton <em>Matériaux</em> du groupe de fonctions <em>Dessin</em> du ruban.</li>
+<li>Sélectionnez les hachures et les contours fermés (polylignes fermées, cercles, ellipses, splines fermées) à qui donner un matériau. Les objets sélectionnés avant la commande sont pris tels quels; un objet ouvert est laissé de côté, avec un message.</li>
+<li>Dans la fenêtre Assign Material, choisissez le matériau, puis OK. <em>None</em> retire le matériau.</li>
+<li>Pour donner le matériau d'un objet à d'autres, tapez <span class="fixw">MTMATCH</span>, choisissez l'objet, puis sélectionnez les autres.</li>
+<li>Pour voir de quoi des objets sont faits, sélectionnez-les et tapez <span class="fixw">MTSHOW</span> : pour un objet, son matériau, ses données, l'outil et le préréglage qui l'ont dessiné; pour plusieurs, combien de chaque matériau.</li>
+</ol>
+</div>
+<h2>Fenêtre Assign Material</h2>
+<!-- picture: images/Dyl-MaterialAssign-window.png -->
+<div class="programs commands wide">
+<table>
+<tr><th>Réglage</th><th>Utilisation</th></tr>
+<tr><td>Material</td><td>Le matériau à donner aux objets sélectionnés : <em>None</em>, puis chaque matériau par son groupe, dans l'ordre des groupes des matériaux (<em>Groupe - Nom</em>). Tapez les premières lettres d'un groupe pour y sauter. Elle s'ouvre sur le matériau du premier objet sélectionné. Le bouton carré <em>ouvrir</em> à côté ouvre la fenêtre <a href="Dyl-Materials.fr.htm">Materials</a>, pour faire ou changer un matériau; la fenêtre Assign Material s'ouvre ensuite de nouveau.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>Sous la liste, le nombre d'objets sélectionnés.</li>
+<li><strong>OK</strong> donne le matériau à chaque objet sélectionné, en une étape : <span class="fixw">U</span> l'annule. <strong>Cancel</strong> ne change rien, <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2>Bon à savoir</h2>
+<div class="spacedbullets">
+<ul>
+<li>Un matériau donné à la main remplace celui que l'objet avait, et l'objet ne dit plus quel outil et quel préréglage l'ont dessiné.</li>
+<li>Seuls une hachure ou un contour fermé ont un matériau : la zone d'une hachure est à l'intérieur de son contour (un îlot reste dehors), celle d'un contour à l'intérieur du contour. Hachurez une zone, ou fermez son contour, avant de lui donner un matériau.</li>
+<li>Une zone sans hachure garde son contour, pour qu'elle soit encore là pour la simulation : une couche d'un assemblage faite de <em>Void</em> (une lame d'air), ou dessinée sans hachure, garde un contour fermé sur la clé de calque <span class="fixw">MATREGION</span>, un calque qui ne s'imprime pas. Effacez-le avec le mur auquel il appartient.</li>
+<li>Une case d'une légende (<em>Draw legend</em> de la fenêtre Materials) porte son matériau comme un échantillon, jamais comme une partie du détail.</li>
+<li>Un objet sur un calque verrouillé n'est pas changé; le message dit combien.</li>
+<li>Un matériau supprimé dans la fenêtre Materials reste sur les objets qui en sont faits : <span class="fixw">MTSHOW</span> le marque <em>(no longer exists)</em> et <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> le signale.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-Materials</span> : elles se lancent par leur alias, ou se choisissent sous la flèche de son bouton dans le ruban (leur commande se nomme <span class="fixw">Pst-*</span>). Les alias s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span>.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialAssign</span></td><td><span class="fixw">MTASSIGN</span></td><td>Material Assign</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialMatch</span></td><td><span class="fixw">MTMATCH</span></td><td>Material Match</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialShow</span></td><td><span class="fixw">MTSHOW</span></td><td>Material Show</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="Dyl-Materials.fr.htm">&larr; Materials</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>

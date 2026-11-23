@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assign Material &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Draw/Dyl-MaterialAssign.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assign Material</h1>
+
+<p class="note">The developer docs of the material written on the objects of a drawing, and of the Assign Material window. What it does and how to use it are in its <a href="../../../Dynalisp/Draw/Dyl-MaterialAssign.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Remote\Dyl-Materials.lsp</span> (the data written on the objects, the hatch that writes them, loaded at startup), <span class="fixw">Modules\Dynalisp\Apps\Draw\Dyl-Materials.lsp</span> (the commands <span class="fixw">Pst-MaterialAssign</span>, <span class="fixw">Pst-MaterialMatch</span>, <span class="fixw">Pst-MaterialShow</span>), <span class="fixw">Apps\Draw\Dyl-QuickDraw.lsp</span> and <span class="fixw">Apps\Draw\Dyl-QuickShape.lsp</span> (what they add: the tool, the preset, the layer of an assembly)</td></tr>
+<tr><td>Data</td><td>The extended data of the application <span class="fixw">DYNALISP</span> on each hatch or closed outline; the window <span class="fixw">Res\Dyl-MaterialAssign.xaml</span>; the layer key <span class="fixw">MATREGION</span> (<span class="fixw">Res\LayerKeys.csv</span>)</td></tr>
+<tr class="alt"><td>Follows</td><td>The <a href="../../conventions.html#presets-and-materials">Presets And Materials</a> convention: an object carries the id of its material, never its values</td></tr>
+</table>
+</div>
+<h2 id="data">The Data On An Object</h2>
+<p>An object made of a material carries the extended data (XData) of the application <span class="fixw">DYNALISP</span> (<span class="fixw">*mt:app*</span>): strings <span class="fixw">"Key=value"</span> (group 1000), any number of them, so another tool can add keys of its own without a format of its own. They follow the object through <span class="fixw">COPY</span>, <span class="fixw">MOVE</span>, <span class="fixw">MIRROR</span>, an associative hatch stretched with its boundary, and are read in Lisp with <span class="fixw">(entget e '("DYNALISP"))</span> or in .NET with <span class="fixw">Entity.GetXDataForApplication("DYNALISP")</span>. The keys:</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Key</th><th>Value</th></tr>
+<tr><td><span class="fixw">Format</span></td><td>The version of these data, <span class="fixw">1</span> (<span class="fixw">*mt:tagformat*</span>), always first.</td></tr>
+<tr><td><span class="fixw">Material</span></td><td>The id of the material (<span class="fixw">mt-Brick</span>, <span class="fixw">cu-...</span>), never its values: the values are read from the materials file when they are needed, so a material changed in the Materials window changes every object made of it.</td></tr>
+<tr><td><span class="fixw">Tool</span>, <span class="fixw">Preset</span></td><td>The tool that drew it (<span class="fixw">QuickDraw</span>, <span class="fixw">QuickShape</span>) and the id of its preset. Dropped when the material is given by hand.</td></tr>
+<tr><td><span class="fixw">Assembly</span>, <span class="fixw">Layer</span></td><td>For a layer of an assembly: the id of the assembly preset and the number of the layer in it, 1 the first, whichever way the band was drawn (Flip, justification), so a simulation can read the layer (its framing, its load-bearing) from the assembly preset.</td></tr>
+<tr><td><span class="fixw">Role</span></td><td><span class="fixw">Legend</span>: a box of a legend (<span class="fixw">mt:legend</span> of <span class="fixw">Remote&gt;&gt;Dyl:MaterialLegend</span>), a sample, not a part of a detail.</td></tr>
+</table>
+</div>
+<p>Only a hatch or a closed curve carries a material (<span class="fixw">Remote&gt;&gt;Dyl:MaterialTaggable-p</span>, the types of <span class="fixw">*mt:tagtypes*</span>): the region of a hatch is inside its boundary loops, an island outside; that of a closed curve inside the curve.</p>
+<h2 id="code">The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Read</strong> &ndash; <span class="fixw">Remote&gt;&gt;Dyl:MaterialTags</span> returns the data of an entity, <span class="fixw">(("Key" . "value") ...)</span>; <span class="fixw">Remote&gt;&gt;Dyl:MaterialTag</span> one key (any case); <span class="fixw">Remote&gt;&gt;Dyl:MaterialOf</span> the id of its material, nil when it has none.</li>
+<li><strong>Write</strong> &ndash; <span class="fixw">Remote&gt;&gt;Dyl:MaterialTagPut</span> puts keys in the data of an entity, the others kept, a key given nil or <span class="fixw">""</span> removed, the data removed once no key is left (the application registered first). It writes with <span class="fixw">vla-SetXData</span>, never <span class="fixw">entmod</span>, which would rewrite a hatch whole; it returns nil when the object cannot be changed (a locked layer).</li>
+<li><strong>The hatch</strong> &ndash; <span class="fixw">Remote&gt;&gt;Dyl:MaterialHatchAt</span> (and so <span class="fixw">Remote&gt;&gt;Dyl:MaterialHatch</span>, the one path of every hatch of Quick Draw, Quick Shape and the legends) writes the material on each hatch it makes with <span class="fixw">Remote&gt;&gt;Dyl:MaterialTagSet</span>: its id (<span class="fixw">(car mat)</span>, the material joined to its hatch preset), the keys of <span class="fixw">mt:tag</span>, a variable of the caller, and <span class="fixw">Role</span> for a legend (<span class="fixw">Remote&gt;&gt;Dyl:MaterialTagsOf</span>); the keys <span class="fixw">Tool</span>, <span class="fixw">Preset</span>, <span class="fixw">Assembly</span>, <span class="fixw">Layer</span> and <span class="fixw">Role</span> of a former tool are dropped first. <span class="fixw">Remote&gt;&gt;Dyl:MaterialReplace</span> (Replace hatches) writes it on the hatch it changes.</li>
+<li><strong>Without hatch</strong> &ndash; a material without pattern (<em>Void</em>) or a preset or layer with <em>Has a hatch</em> off makes no hatch: its closed outlines carry the material instead. Those made only to be hatched (No border: the outlines of a layer of an assembly, drawn apart by its Border lines and Dividing lines) were erased; they are now kept on the layer key <span class="fixw">*mt:regionkey*</span> (<span class="fixw">MATREGION</span>, layer <span class="fixw">A-Detl-Matl-Nplt</span>, not plotted, in <span class="fixw">*lk:defaults*</span> so a user copy of the layer keys gets it), so the region of an air space is still in the drawing. A legend box without hatch is still erased.</li>
+<li><strong>Quick Draw</strong> &ndash; <span class="fixw">Dyl:QuickDrawRun</span> binds <span class="fixw">mt:tag</span> to <span class="fixw">(("Tool" . "QuickDraw") ("Preset" . id))</span>. <span class="fixw">Dyl:QuickDrawLayersGet</span> gives each layer of an assembly its number (the 10th item of the layer), <span class="fixw">Dyl:QuickDrawLayerHatch</span> passes it as the 8th item of each outline to hatch, and the Linear / Offset loop of <span class="fixw">Dyl:QuickDraw</span> hatches each one with <span class="fixw">mt:tag</span> bound to those keys and <span class="fixw">Assembly</span> (column <span class="fixw">*mt:layerscol*</span> of the material, unless it still holds the layers of an older file) and <span class="fixw">Layer</span>.</li>
+<li><strong>Quick Shape</strong> &ndash; <span class="fixw">Dyl:QuickShapeRun</span> binds <span class="fixw">mt:tag</span> to <span class="fixw">(("Tool" . "QuickShape") ("Preset" . id))</span>.</li>
+<li><strong>Pst-MaterialAssign</strong> &ndash; <span class="fixw">Dyl:MaterialSel</span> takes the objects selected before the command (<span class="fixw">ssget "_I"</span> with the types of <span class="fixw">*mt:tagtypes*</span>) or asks for them, an open curve left out; <span class="fixw">Dyl:MaterialAssignDialog</span> shows <span class="fixw">Res\Dyl-MaterialAssign.xaml</span>: <span class="fixw">mat</span> the list of <span class="fixw">Dyl:MaterialAssignList</span> (<em>None</em>, then <em>Group - Name</em> by the order of <span class="fixw">(Remote&gt;&gt;Dyl:GroupsOf "Material")</span>, then by name), on the material of the first object; <span class="fixw">cnt</span> the number of objects; <span class="fixw">edm</span>, the open button, closes with 2: the Materials window (<span class="fixw">Remote&gt;&gt;Dyl:MaterialDialog</span>), then this one again, the list read again. <span class="fixw">Dyl:MaterialGive</span> writes the id (<span class="fixw">""</span>: None, the key removed) and drops the keys of the tool, in one undo mark.</li>
+<li><strong>Pst-MaterialMatch</strong> &ndash; picks an object with a material (asked again while the one picked has none), then gives it to the objects selected (<span class="fixw">Dyl:MaterialGive</span>), the source left out.</li>
+<li><strong>Pst-MaterialShow</strong> &ndash; <span class="fixw">Dyl:MaterialShow</span>: for one object, its material (<span class="fixw">Dyl:MaterialLabel</span>: <em>Name (Group)</em>, <em>id (no longer exists)</em>), its data in the units of the drawing (<span class="fixw">Dyl:MaterialDataText</span>, the factors of <span class="fixw">*mt:data*</span>, as the Materials window shows them) and its tool, preset and layer; for several, the count of each material.</li>
+</ul>
+</div>
+<h2 id="diagnostics">Diagnostics</h2>
+<p>The <em>Drawing</em> section of <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> (<span class="fixw">dg:dwg-materials</span>) counts the objects that carry a material, how many are closed outlines, the materials used and those of one's own, and reports a problem when a material used no longer exists. It gives counts only: the id of a material of one's own can name a client.</p>
+<h2 id="limits">Limits</h2>
+<div class="spacedbullets">
+<ul>
+<li>The outline kept for a region without hatch is not tied to the hatches around it: it is not stretched with an associative hatch, and stays when the wall is erased unless it is selected with it.</li>
+<li>A material given to a block reference, a region or a solid is not read: explode it, or hatch it, first.</li>
+<li>The data are not checked against the materials file when the drawing opens: a material deleted shows only in <span class="fixw">Pst-MaterialShow</span> and <span class="fixw">Dyl-Diagnostics</span>.</li>
+</ul>
+</div>
+<p><a href="Dyl-Materials.htm">&larr; Materials</a> &nbsp; <a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

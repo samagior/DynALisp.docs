@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assign Material</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-MaterialAssign.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Draw/Dyl-MaterialAssign.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Assign Material</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Opened by</td>
+<td><span class="fixw">MTASSIGN</span>, a child command of <a href="Dyl-Materials.htm">Materials</a>; with it, <span class="fixw">MTMATCH</span> and <span class="fixw">MTSHOW</span></td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>A drawing knows what each hatch is made of. Every hatch that Quick Draw and Quick Shape make carries its <a href="Dyl-Materials.htm">material</a>, and with it the tool and the preset that drew it; a layer of an assembly carries its material too, and its place in the assembly. The material stays on the hatch when it is copied, moved, mirrored or stretched, and a change made to the material in the Materials window applies to every hatch already drawn with it. It is what the thermal simulation of a 2D detail will read, to know where each material is.</p>
+<p>The <strong>Assign Material</strong> window gives a material to hatches and closed outlines that DynALisp did not draw: a detail received from someone else, a hatch made with <span class="fixw">HATCH</span>, a polyline around an area. <span class="fixw">MTMATCH</span> copies the material of one object onto others, and <span class="fixw">MTSHOW</span> says what an object is made of.</p>
+<!-- picture: images/Dyl-MaterialAssign-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>Type <span class="fixw">MTASSIGN</span>, or pick <em>Material Assign</em> under the arrow of the <em>Materials</em> button in the <em>Draw</em> panel of the ribbon.</li>
+<li>Select the hatches and closed outlines (closed polylines, circles, ellipses, closed splines) to give a material. Objects selected before the command are used as they are; an open object is left out, with a message.</li>
+<li>In the Assign Material window, pick the material, then OK. <em>None</em> takes the material off.</li>
+<li>To give the material of an object to others, type <span class="fixw">MTMATCH</span>, pick the object, then select the others.</li>
+<li>To see what objects are made of, select them and type <span class="fixw">MTSHOW</span>: for one object, its material, its data and the tool and preset that drew it; for several, how many of each material.</li>
+</ol>
+</div>
+<h2>Assign Material Window</h2>
+<!-- picture: images/Dyl-MaterialAssign-window.png -->
+<div class="programs commands wide">
+<table>
+<tr><th>Setting</th><th>Use</th></tr>
+<tr><td>Material</td><td>The material to give to the objects selected: <em>None</em>, then every material by its group, in the order of the groups of the materials (<em>Group - Name</em>). Type the first letters of a group to jump to it. It opens on the material of the first object selected. The square <em>open</em> button beside it opens the <a href="Dyl-Materials.htm">Materials</a> window, to make or change a material; the Assign Material window then opens again.</td></tr>
+</table>
+</div>
+<div class="spacedbullets">
+<ul>
+<li>Under the list, the number of objects selected.</li>
+<li><strong>OK</strong> gives the material to every object selected, in one step: <span class="fixw">U</span> takes it back. <strong>Cancel</strong> changes nothing, <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>Good To Know</h2>
+<div class="spacedbullets">
+<ul>
+<li>A material given by hand replaces the one the object had, and the object no longer says which tool and preset drew it.</li>
+<li>Only a hatch or a closed outline has a material: the region of a hatch is inside its boundary (an island stays outside), that of an outline inside the outline. Hatch a region, or close its outline, before giving it a material.</li>
+<li>A region without hatch keeps its outline, so it is still there for the simulation: a layer of an assembly made of <em>Void</em> (an air space), or drawn without hatch, keeps a closed outline on the <span class="fixw">MATREGION</span> layer key, a layer that is not plotted. Erase it with the wall it belongs to.</li>
+<li>A box of a legend (<em>Draw legend</em> in the Materials window) carries its material as a sample, never as a part of the detail.</li>
+<li>An object on a locked layer is not changed; the message says how many.</li>
+<li>A material deleted from the Materials window stays on the objects made of it: <span class="fixw">MTSHOW</span> marks it <em>(no longer exists)</em> and <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> reports it.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>The rows marked &#8627; are child commands of <span class="fixw">Dyl-Materials</span>: they are run by their alias, or picked under the arrow of its button in the ribbon (their command is named <span class="fixw">Pst-*</span>). Aliases can be added, renamed or removed in <span class="fixw">Dyl-Suite</span>.</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialAssign</span></td><td><span class="fixw">MTASSIGN</span></td><td>Material Assign</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialMatch</span></td><td><span class="fixw">MTMATCH</span></td><td>Material Match</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialShow</span></td><td><span class="fixw">MTSHOW</span></td><td>Material Show</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="Dyl-Materials.htm">&larr; Materials</a> &nbsp; <a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

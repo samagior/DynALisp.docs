@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Function Syntax</td>
-<td><span class="fixw">DYL-MATERIALS</span></td>
+<td><span class="fixw">DYL-MATERIALS</span> + 3 commands for the material of the objects &ndash; see <a href="#objects">Material Of The Objects</a></td>
 </tr>
 <tr>
 <td>Requires</td>
@@ -67,6 +67,15 @@
 </ul>
 </div>
 <p>The open buttons (Group, Cut, Surface) close the window for a moment and open it again as it was, the value picked filled in.</p>
+<h2 id="objects">Material Of The Objects</h2>
+<p>Every hatch that Quick Draw and Quick Shape make carries its material, so the drawing knows what each part of a detail is made of; a change made to a material here applies to the hatches already drawn with it. Three child commands work on the material of the objects of a drawing (see <a href="Dyl-MaterialAssign.htm">Assign Material</a>):</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">MTASSIGN</span> &ndash; gives a material to hatches and closed outlines that DynALisp did not draw, or takes it off, in the Assign Material window.</li>
+<li><span class="fixw">MTMATCH</span> &ndash; gives the material of an object to others.</li>
+<li><span class="fixw">MTSHOW</span> &ndash; shows the material of the objects selected, with its data and the tool and preset that drew them.</li>
+</ul>
+</div>
 <h2 id="data">Data</h2>
 <p>The data of a material are what it is, whatever its hatch: the <a href="Dyl-AssemblyPresets.htm#data">Assembly Presets</a> window adds them up into the thermal resistance and the mass of an assembly, and they are kept for the analyses and simulations to come. Each value is empty when it is not known: type only a value you have from a source (a product sheet, a test report, the building code). A comma is read as a decimal point.</p>
 <p>The values are shown, and typed, in the units of the drawing: metric (SI) in a metric drawing, imperial in an imperial one (<span class="fixw">MEASUREMENT</span>). They are always saved in SI units, so a material gives the same values in every drawing; a value shown and not changed is saved as it was, without rounding.</p>
@@ -210,6 +219,19 @@
 <p>Each default preset of Quick Draw uses the default material of the same name (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
 <h2 id="older">Materials Of An Older Version</h2>
 <p>Up to DynALisp 1.1, a material was its hatch. Your materials are split for you the first time they are read: each one keeps its name, its group and its presets, and gets a hatch preset of the hatch it had (see <a href="Dyl-HatchPresets.htm#older">Hatch Presets</a>), so it draws the same hatch as before. Its data are empty. A preset of the <em>Elevation</em> group gets the <em>View</em> <em>Surface</em>, the others <em>Cut</em>; a preset of the <em>Modular Brick</em> material shipped with DynALisp 1.1 draws <em>Brick</em>, <em>Surface</em>, when you have not kept that material. A default material still in the <em>Section</em> or <em>Elevation</em> group, a group of the presets, moves to its group of the materials (<em>Brick</em> to <em>Masonry</em>); your own materials keep their group.</p>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-Materials</span>: they are run by their alias, or picked under the arrow of its button in the ribbon (their command is named <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-Materials</span></td><td>&ndash;</td><td>Materials</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialAssign</span></td><td><span class="fixw">MTASSIGN</span></td><td>Material Assign</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialMatch</span></td><td><span class="fixw">MTMATCH</span></td><td>Material Match</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialShow</span></td><td><span class="fixw">MTSHOW</span></td><td>Material Show</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
 
     </div>

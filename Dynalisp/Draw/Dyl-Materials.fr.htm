@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td><span class="fixw">DYL-MATERIALS</span></td>
+<td><span class="fixw">DYL-MATERIALS</span> + 3 commandes pour le matériau des objets &ndash; voir <a href="#objects">Matériau des objets</a></td>
 </tr>
 <tr>
 <td>Requis</td>
@@ -67,6 +67,15 @@
 </ul>
 </div>
 <p>Les boutons ouvrir (Group, Cut, Surface) ferment la fenêtre un instant et la rouvrent telle qu'elle était, la valeur choisie remplie.</p>
+<h2 id="objects">Matériau des objets</h2>
+<p>Chaque hachure que font Quick Draw et Quick Shape porte son matériau : le dessin sait ainsi de quoi chaque partie d'un détail est faite, et un changement fait ici à un matériau s'applique aux hachures déjà dessinées avec lui. Trois commandes enfants travaillent sur le matériau des objets d'un dessin (voir <a href="Dyl-MaterialAssign.fr.htm">Assign Material</a>) :</p>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">MTASSIGN</span> &ndash; donne un matériau à des hachures et des contours fermés que DynALisp n'a pas dessinés, ou le leur retire, dans la fenêtre Assign Material.</li>
+<li><span class="fixw">MTMATCH</span> &ndash; donne le matériau d'un objet à d'autres.</li>
+<li><span class="fixw">MTSHOW</span> &ndash; affiche le matériau des objets sélectionnés, avec ses données, l'outil et le préréglage qui les ont dessinés.</li>
+</ul>
+</div>
 <h2 id="data">Données</h2>
 <p>Les données d'un matériau sont ce qu'il est, quelle que soit sa hachure : la fenêtre <a href="Dyl-AssemblyPresets.fr.htm#data">Assembly Presets</a> les additionne en la résistance thermique et la masse d'un assemblage, et elles sont gardées pour les analyses et les simulations à venir. Chaque valeur est vide quand elle n'est pas connue : ne tapez qu'une valeur tirée d'une source (une fiche technique, un rapport d'essai, le code du bâtiment). Une virgule est lue comme un point décimal.</p>
 <p>Les valeurs sont affichées, et tapées, dans les unités du dessin : métriques (SI) dans un dessin métrique, impériales dans un dessin impérial (<span class="fixw">MEASUREMENT</span>). Elles sont toujours enregistrées en unités SI, pour qu'un matériau donne les mêmes valeurs dans chaque dessin; une valeur affichée et non changée est enregistrée telle qu'elle était, sans arrondi.</p>
@@ -210,6 +219,19 @@
 <p>Chaque préréglage par défaut de Quick Draw utilise le matériau par défaut du même nom (<span class="fixw">QD-BRICK</span> &rarr; <em>Brick</em>).</p>
 <h2 id="older">Matériaux d'une version antérieure</h2>
 <p>Jusqu'à DynALisp 1.1, un matériau était sa hachure. Vos matériaux sont séparés pour vous la première fois qu'ils sont lus : chacun garde son nom, son groupe et ses préréglages, et reçoit un préréglage de hachure de la hachure qu'il avait (voir <a href="Dyl-HatchPresets.fr.htm#older">Hatch Presets</a>), et dessine donc la même hachure qu'avant. Ses données sont vides. Un préréglage du groupe <em>Elevation</em> reçoit la <em>View</em> <em>Surface</em>, les autres <em>Cut</em>; un préréglage du matériau <em>Modular Brick</em> livré avec DynALisp 1.1 dessine <em>Brick</em>, <em>Surface</em>, quand vous n'avez pas gardé ce matériau. Un matériau par défaut encore dans le groupe <em>Section</em> ou <em>Elevation</em>, un groupe des préréglages, passe à son groupe des matériaux (<em>Brick</em> dans <em>Masonry</em>); vos propres matériaux gardent leur groupe.</p>
+<!-- dyl:aliases -->
+<h2 id="aliases">Noms des commandes et alias</h2>
+<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-Materials</span> : elles se lancent par leur alias, ou se choisissent sous la flèche de son bouton dans le ruban (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
+<tr><td><span class="fixw">Dyl-Materials</span></td><td>&ndash;</td><td>Materials</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialAssign</span></td><td><span class="fixw">MTASSIGN</span></td><td>Material Assign</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialMatch</span></td><td><span class="fixw">MTMATCH</span></td><td>Material Match</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-MaterialShow</span></td><td><span class="fixw">MTSHOW</span></td><td>Material Show</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 
     </div>
