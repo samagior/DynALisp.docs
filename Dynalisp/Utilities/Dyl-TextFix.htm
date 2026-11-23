@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text Fix</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-TextFix.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Utilities/Dyl-TextFix.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Text Fix</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Function Syntax</td>
+<td><span class="fixw">DYL-TEXTFIX</span> (<span class="fixw">TEXTFIX</span>)</td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2016 or later for Windows, Claude Code (the command line tool of Anthropic) signed in with your own Claude account, an internet connection</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+<h2>Program Description</h2>
+<p>Proofread the texts of a drawing with Claude: each text, mtext and multileader you select is checked for spelling, grammar, accents and punctuation in its own language, never translated, and replaced by its corrected version once you say yes. Technical terms, abbreviations, units, dimensions and codes are left as they are. It goes through Claude Code signed in with your own Claude account: no API key, and the use counts toward your Claude plan.</p>
+<p class="note">The text of the objects selected is sent to Anthropic through Claude Code. Do not use it on drawings whose text must not leave your computer. Text Fix is turned off on a new installation: turn it on in <span class="fixw">Dyl-Suite</span>.</p>
+<!-- picture: images/Dyl-TextFix-window.png -->
+<!-- picture: images/Dyl-TextFix-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li><strong>Once</strong> &ndash; turn on <em>Text Fix</em> in <span class="fixw">Dyl-Suite</span>. When Claude Code is not installed or signed in yet, run <a href="Dyl-Assistant.htm">Assistant</a> (<span class="fixw">Dyl-Assistant</span>): its palette installs Claude Code and signs it in with your Claude account.</li>
+<li>Select the texts, then type <span class="fixw">Dyl-TextFix</span>. All the texts are sent to Claude together and AutoCAD waits a few seconds for the answer (a large selection is sent in a few parts).</li>
+<li>For each text that changes, the command line shows the original and the correction: answer <em>Oui</em> to replace it, <em>Non</em> to keep it, <em>Tous</em> to accept all the others, <em>Quitter</em> to stop.</li>
+<li>A summary gives the texts checked, corrected and failed. One <span class="fixw">U</span> undoes all the corrections.</li>
+</ol>
+</div>
+<h2>Known Limitations</h2>
+<div class="spacedbullets">
+<ul>
+<li>Block attributes are not processed (they cannot be selected with the selection prompt).</li>
+<li>In AutoCAD older than 2021, characters outside the code page of Windows in the reply are replaced by <span class="fixw">?</span>.</li>
+<li>When the Windows environment variable <span class="fixw">ANTHROPIC_API_KEY</span> is set, Claude Code uses that API key, billed by the Anthropic API, instead of your Claude plan.</li>
+<li>The prompts of the command line are in French.</li>
+</ul>
+</div>
+<!-- dyl:aliases -->
+<h2 id="aliases">Command Names And Aliases</h2>
+<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
+<tr><td><span class="fixw">Dyl-TextFix</span></td><td><span class="fixw">TEXTFIX</span></td><td>Text Fix</td></tr>
+</table>
+</div>
+<!-- /dyl:aliases -->
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

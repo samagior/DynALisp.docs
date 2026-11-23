@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text Fix &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Utilities/Dyl-TextFix.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Text Fix</h1>
+
+<p class="note">The developer docs of Text Fix: its files and how its code works. What it does and how to use it are in its <a href="../../../Dynalisp/Utilities/Dyl-TextFix.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Utilities\Dyl-TextFix.lsp</span></td></tr>
+<tr><td>Needs</td><td><span class="fixw">Dyl:ClaudeRun</span> of <span class="fixw">DynALisp.Assistant.dll</span> (AutoCAD 2016 or later, see <a href="Dyl-Assistant.htm">Assistant</a>), Claude Code installed and signed in by the user</td></tr>
+<tr class="alt"><td>Sends</td><td>The texts of the objects selected, to Anthropic through Claude Code; nothing is saved</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li><span class="fixw">c:Dyl-TextFix</span> checks that <span class="fixw">Dyl:ClaudeRun</span> is defined, then takes the objects selected before the command (right-click menu), else asks for a selection: <span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span> and <span class="fixw">MULTILEADER</span>.</li>
+<li>The texts are sent together, one request for at most <span class="fixw">*ctf:batch-max*</span> texts (40) and <span class="fixw">*ctf:batch-chars*</span> characters (6000), a longer selection in a few (<span class="fixw">ctf:batches</span>). Each request is <span class="fixw">(Dyl:ClaudeRun input system "haiku" schema 180)</span>: the input <span class="fixw">{"texts":["...", ...]}</span>, the instructions <span class="fixw">*ctf:system-prompt*</span> (correct, never translate, keep terms, codes and lines, one text per text in the same order), the JSON schema <span class="fixw">*ctf:schema*</span> (an object with a <span class="fixw">texts</span> array of strings). AutoCAD waits for the answer.</li>
+<li>The answer is the JSON of its <span class="fixw">structured_output</span>, read by <span class="fixw">ctf:json-strings</span>; a request whose answer has not one text per text sent fails as a whole (its texts counted <em>failed</em>). An error that speaks of a sign-in adds that <span class="fixw">Dyl-Assistant</span> signs Claude Code in.</li>
+<li>When a text changes, the original and the corrected text are shown (<span class="fixw">Avant</span> / <span class="fixw">Apres</span>) and the command asks <span class="fixw">Appliquer la correction ? [Oui/Non/Tous/Quitter] &lt;Oui&gt;</span>: <em>Oui</em> replaces it, <em>Non</em> keeps it, <em>Tous</em> replaces it and every next correction without asking, <em>Quitter</em> stops.</li>
+<li>The corrections are written with ActiveX, so objects on locked layers are corrected too. The whole command is one undo step, and a summary gives the objects checked, corrected and failed.</li>
+</ol>
+</div>
+<h2>The Code</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Claude</strong> &ndash; <span class="fixw">ctf:correct-texts</span> writes the input (<span class="fixw">ctf:json-escape</span>), calls <span class="fixw">Dyl:ClaudeRun</span> and returns <span class="fixw">(T corrected ...)</span> or <span class="fixw">(nil error)</span>. No API key or token is read or kept: the sign-in is Claude Code's own (the <a href="../../conventions.html#claude">Claude</a> convention).</li>
+<li><strong>JSON</strong> &ndash; <span class="fixw">ctf:json-strings</span> and <span class="fixw">ctf:json-string-at</span> read the array of the answer (<span class="fixw">ctf:unicode-to-char</span> for the <span class="fixw">\uXXXX</span> escapes: any character in AutoCAD 2021 and later, <span class="fixw">?</span> outside the code page in an older one).</li>
+<li><strong>The texts</strong> &ndash; <span class="fixw">ctf:get-selection</span>, <span class="fixw">ctf:text-editable-p</span>, <span class="fixw">ctf:print-change</span> and <span class="fixw">ctf:ask-confirmation</span>, then <span class="fixw">ctf:apply-text</span> through ActiveX; <span class="fixw">ctf:process-selection</span> runs them in one undo mark.</li>
+</ul>
+</div>
+<p><span class="fixw">Dyl-Diagnostics</span> checks Claude Code when Text Fix is turned on (<span class="fixw">dg:dyl-assistant</span>).</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
