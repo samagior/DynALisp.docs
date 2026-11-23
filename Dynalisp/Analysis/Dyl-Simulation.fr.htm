@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMCLEAR</span></td>
+<td><span class="fixw">Dyl-Simulation</span>, <span class="fixw">SIMZONE</span>, <span class="fixw">SIMCLIMATE</span>, <span class="fixw">SIMCHECK</span>, <span class="fixw">SIMPLAY</span>, <span class="fixw">SIMPROBE</span>, <span class="fixw">SIMCLEAR</span></td>
 </tr>
 <tr>
 <td>Requiert</td>
@@ -35,9 +35,10 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>L'outil Simulation prépare un détail 2D du dessin (une coupe de mur, un seuil, une rive de dalle) pour une simulation thermique : où sont les zones froides et chaudes du détail, le point le plus froid de sa surface intérieure, et dans une version suivante où la vapeur d'eau risque de condenser. La simulation elle-même (<em>Play</em>) vient dans une version suivante ; celle-ci met le détail en place et le vérifie.</p>
+<p>L'outil Simulation simule la chaleur qui traverse un détail 2D du dessin (une coupe de mur, un seuil, une rive de dalle), comme THERM : où sont les zones froides et chaudes du détail, le point le plus froid de sa surface intérieure et si l'eau y condense, et la résistance thermique du détail entier, ponts thermiques compris. Où la vapeur d'eau risque de condenser dans le détail vient dans une version suivante.</p>
 <p>Un détail se simule dans une <strong>zone de simulation</strong>, un rectangle ou une polyligne fermée tracée autour de lui, un peu à l'écart de ce qui compte. Chaque partie du détail est une hachure ou un contour fermé qui connaît son <a href="../Draw/Dyl-Materials.fr.htm">matériau</a> : tout ce que dessinent Quick Draw et Quick Shape le connaît, et un détail dessiné autrement reçoit ses matériaux avec <a href="../Draw/Dyl-MaterialAssign.fr.htm">Assign Material</a>. De chaque côté du détail, une <strong>zone de climat</strong> couvre l'air : <em>Interior</em>, <em>Exterior</em>, ou un climat à vous (un garage, un vide sanitaire). Les climats sont gardés par DynALisp, les mêmes dans tous les dessins : changer <em>Interior</em> change tous les détails.</p>
 <p><strong>Check</strong> lit le détail de la zone et montre, par-dessus le dessin, la grille que la simulation utilisera et chaque problème trouvé : en rouge, les hachures sans matériau, les régions d'un matériau sans données thermiques, les trous (un endroit de la zone qui n'est ni un matériau ni un climat, presque toujours un oubli).</p>
+<p><strong>Play</strong> calcule la température de chaque cellule du détail, en régime stationnaire, entre les températures de ses climats, et colore le détail du bleu (l'extérieur) au rouge (l'intérieur). Une ligne magenta suit le point de rosée de l'air intérieur, et les surfaces intérieures plus froides que lui, où l'eau condense, sont tracées en magenta épais. La ligne de commande donne la surface intérieure la plus froide, son facteur de température et la résistance thermique du détail, et la sonde donne la température en tout point.</p>
 <!-- picture: images/Dyl-Simulation-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -46,8 +47,10 @@
 <li>Tapez <span class="fixw">Dyl-Simulation</span>, ou cliquez <em>Simulation</em> dans le groupe de fonctions <em>Analyse</em> du ruban.</li>
 <li>Sous <em>Zone</em>, cliquez <em>New...</em> et choisissez deux coins autour du détail, ou <em>Pick...</em> pour faire d'une polyligne fermée la zone.</li>
 <li>Sous <em>Climates</em>, sélectionnez <em>Interior</em> et cliquez <em>Place...</em>, puis tracez un rectangle sur l'air du côté intérieur, qui chevauche la face du détail. Faites de même pour <em>Exterior</em>.</li>
-<li>Choisissez la grille (<em>Grid</em>), puis cliquez <em>Check</em>. La fenêtre se ferme, la grille et les problèmes s'affichent par-dessus le dessin, et la ligne de commande dit ce qui a été trouvé.</li>
-<li>Corrigez ce qui est en rouge, puis vérifiez de nouveau. <span class="fixw">SIMCLEAR</span>, ou <em>Clear</em> dans la fenêtre, efface ce qui est affiché.</li>
+<li>Tapez la température (<em>Temperature</em>) et l'humidité relative (<em>Relative humidity</em>) de chaque climat.</li>
+<li>Choisissez la grille (<em>Grid</em>), puis cliquez <em>Check</em>. La fenêtre se ferme, la grille et les problèmes s'affichent par-dessus le dessin, et la ligne de commande dit ce qui a été trouvé. Corrigez ce qui est en rouge, puis vérifiez de nouveau.</li>
+<li>Cliquez <em>Play</em> (ou tapez <span class="fixw">SIMPLAY</span>). Les températures s'affichent sur le détail et la ligne de commande donne les résultats. À son invite, <em>Probe</em> donne la température aux points que vous choisissez, <em>Window</em> rouvre la fenêtre, <em>Clear</em> efface ce qui est affiché, et Entrée termine.</li>
+<li><span class="fixw">SIMCLEAR</span>, ou <em>Clear</em> dans la fenêtre, efface ce qui est affiché.</li>
 </ol>
 </div>
 <h2>Fenêtre Simulation</h2>
@@ -62,15 +65,16 @@
 </table>
 </div>
 <p>Au-dessus des boutons, la taille de la zone choisie. Une zone déjà choisie dans le dessin s'ouvre avec la fenêtre ; un dessin qui n'a qu'une zone s'ouvre sur elle.</p>
-<h3>Check</h3>
+<h3>Simulation</h3>
 <div class="programs commands wide">
 <table>
 <tr><th>Paramètre</th><th>Usage</th></tr>
+<tr><td>Play</td><td>Enregistre les climats et la grille, ferme la fenêtre et simule la chaleur qui traverse le détail de la zone : voir <a href="#play">Ce que montre Play</a>. Un détail qui a un problème que Check montrerait, ou un climat sans température, n'est pas simulé : ses problèmes sont montrés à la place. Grisé tant qu'aucune zone n'est choisie.</td></tr>
 <tr><td>Check</td><td>Enregistre les climats et la grille, ferme la fenêtre, lit le détail de la zone et montre sa grille en gris, ses problèmes en rouge et la zone en orange par-dessus le dessin. Grisé tant qu'aucune zone n'est choisie.</td></tr>
-<tr><td>Clear</td><td>Efface ce que Check a montré, et rouvre la fenêtre.</td></tr>
+<tr><td>Clear</td><td>Efface ce que Check ou Play a montré, et rouvre la fenêtre.</td></tr>
 </table>
 </div>
-<p>Au-dessus des boutons, ce que la dernière vérification a trouvé : les problèmes d'abord, puis les régions et les matériaux de la zone et la taille de sa grille.</p>
+<p>Au-dessus des boutons, ce que la dernière vérification ou simulation a trouvé : les problèmes d'abord, puis les régions et les matériaux de la zone et la taille de sa grille, ou les résultats de la simulation.</p>
 <h3>Climates</h3>
 <div class="programs commands wide">
 <table>
@@ -89,8 +93,30 @@
 <li><strong>OK</strong> enregistre les climats et la grille. <strong>Cancel</strong> abandonne ce qui a été changé dans la fenêtre (une zone tracée ou placée reste). <strong>Open Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
+<h2 id="play">Ce que montre Play</h2>
+<p>Par-dessus le dessin, jusqu'à ce qu'il soit effacé :</p>
+<div class="spacedbullets">
+<ul>
+<li>Chaque cellule d'un matériau dans la couleur de sa température, du bleu à la température de l'extérieur au rouge à celle de l'intérieur en passant par le blanc, avec la légende à droite de la zone. Une cellule d'un matériau qui ne touche aucun climat, pas même par d'autres matériaux (une île dans un trou), n'a pas de température : elle est grise.</li>
+<li>Le <strong>point de rosée</strong> de l'air intérieur, d'après sa température et son humidité relative : une ligne magenta fine là où le détail est à cette température, et sa marque sur la légende. Dans le détail, la ligne dit seulement où est le point de rosée ; que la vapeur y condense ou non dépend de ce qui la laisse passer, qui vient dans une version suivante.</li>
+<li>Les surfaces intérieures plus froides que le point de rosée, en magenta épais : l'eau y condense.</li>
+<li>La surface intérieure la plus froide, encerclée en magenta.</li>
+</ul>
+</div>
+<p>Sur la ligne de commande (et dans la fenêtre) :</p>
+<div class="programs commands wide">
+<table>
+<tr><th>Résultat</th><th>Ce que c'est</th></tr>
+<tr><td>Coldest interior surface</td><td>La température la plus basse des surfaces que touche le climat intérieur, et le matériau à cet endroit. Elle est calculée avec la <em>Condensation resistance</em> des climats (0,25 m&sup2;&middot;K/W à l'intérieur), comme l'ISO 13788 le demande pour juger la condensation et la moisissure ; les couleurs et la ligne du point de rosée aussi.</td></tr>
+<tr><td>Temperature factor fRsi</td><td>(surface la plus froide &minus; extérieur) / (intérieur &minus; extérieur) : 1 pour une surface à la température intérieure, 0 à l'extérieure. Il ne dépend pas des températures choisies, et compare donc les détails ; sous 0,70, une pièce chauffée risque la moisissure (la limite de la DIN 4108-2).</td></tr>
+<tr><td>Dew point of the interior air</td><td>La température à laquelle l'air intérieur condense, et si une surface intérieure est plus froide.</td></tr>
+<tr><td>Effective RSI (R)</td><td>La résistance thermique du détail sur la longueur de sa surface intérieure, films d'air compris : (intérieur &minus; extérieur) &times; longueur / flux de chaleur, calculée avec la <em>Surface resistance</em> des climats. Un pont thermique la fait baisser sous la résistance du même mur sans lui.</td></tr>
+<tr><td>Thermal coupling L2D</td><td>Le flux de chaleur qui traverse le détail par mètre de sa profondeur et par degré entre l'intérieur et l'extérieur (ISO 10211). Le coefficient de transmission linéique &psi; d'un pont thermique est L2D moins celui des mêmes murs sans lui.</td></tr>
+</table>
+</div>
+<p>L'intérieur est le climat de la température la plus haute parmi ceux que touche le détail, l'extérieur celui de la plus basse.</p>
 <h2>Ruban</h2>
-<p>Le groupe de fonctions <em>Analyse</em> a le bouton <em>Simulation</em> ; ses enfants sont sous sa flèche : <em>Simulation Zone</em>, <em>Simulation Climat</em>, <em>Simulation Vérifier</em>, <em>Simulation Effacer</em>.</p>
+<p>Le groupe de fonctions <em>Analyse</em> a le bouton <em>Simulation</em> ; ses enfants sont sous sa flèche : <em>Simulation Zone</em>, <em>Simulation Climat</em>, <em>Simulation Vérifier</em>, <em>Simulation Lancer</em>, <em>Simulation Sonder</em>, <em>Simulation Effacer</em>.</p>
 <h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
@@ -98,8 +124,10 @@
 <li>Le bord de la zone qui n'est pas dans une zone de climat est une coupe : aucune chaleur ne le traverse. Tracez la zone assez loin de ce que vous voulez voir (un montant, une rive de dalle) pour que la coupe ne le change pas.</li>
 <li>Seules les hachures et les contours fermés de l'espace de la zone sont lus, l'objet ou la présentation où elle se trouve. Un bloc, une xréf, une région ou un solide n'est pas lu : décomposez-le ou hachurez-le d'abord.</li>
 <li>Un matériau sans conductivité thermique ni résistance thermique fixe ne peut pas être simulé : donnez-lui en une dans la fenêtre <a href="../Draw/Dyl-Materials.fr.htm">Materials</a>.</li>
-<li>La température et l'humidité des climats par défaut sont vides : les données climatiques d'une ville et les conditions intérieures à utiliser viendront avec la simulation elle-même.</li>
-<li>Ce que montre Check ne fait pas partie du dessin : il ne s'imprime pas, ne s'enregistre pas et disparaît à la fermeture du dessin.</li>
+<li>La température et l'humidité des climats par défaut sont vides tant qu'elles ne sont pas tapées : Play refuse un climat sans température. Sans humidité relative, Play ne montre pas de point de rosée.</li>
+<li>Ce que montrent Check et Play ne fait pas partie du dessin : il ne s'imprime pas, ne s'enregistre pas et disparaît à la fermeture du dessin. La sonde lit la dernière simulation du dessin.</li>
+<li>Une lame d'air (un matériau d'une résistance thermique fixe, sans conductivité) est simulée comme un solide de la même résistance dans son épaisseur la plus mince : tracez-la en bande, comme le fait Quick Draw.</li>
+<li>Une cellule prend le matériau de son centre. La grille suit exactement les arêtes droites du détail ; une arête oblique ou un arc est suivi par paliers d'une cellule : choisissez une grille plus fine pour mieux voir un détail en pente ou arrondi.</li>
 <li>Une grille de plus d'un million de cellules est refusée : choisissez une grille plus grossière, ou une zone plus petite.</li>
 </ul>
 </div>
@@ -113,6 +141,8 @@
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationZone</span></td><td><span class="fixw">SIMZONE</span></td><td>Simulation Zone</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClimate</span></td><td><span class="fixw">SIMCLIMATE</span></td><td>Simulation Climate</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationCheck</span></td><td><span class="fixw">SIMCHECK</span></td><td>Simulation Check</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationPlay</span></td><td><span class="fixw">SIMPLAY</span></td><td>Simulation Play</td></tr>
+<tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationProbe</span></td><td><span class="fixw">SIMPROBE</span></td><td>Simulation Probe</td></tr>
 <tr><td>&nbsp;&nbsp;&#8627; <span class="fixw">Pst-SimulationClear</span></td><td><span class="fixw">SIMCLEAR</span></td><td>Simulation Clear</td></tr>
 </table>
 </div>
