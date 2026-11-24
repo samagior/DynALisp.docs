@@ -27,7 +27,7 @@
 <div class="programs">
 <table>
 <tr class="alt"><td>Apps</td><td>One Lisp file per program, in a group folder: <span class="fixw">Apps\General</span>, <span class="fixw">Apps\Mathematical</span>, <span class="fixw">Apps\Novelty</span>, <span class="fixw">Apps\Utilities</span>. A file is named exactly as its main command (<span class="fixw">LM-AddObjectsToBlock.lsp</span>).</td></tr>
-<tr><td>Remote</td><td>The code every program shares, loaded on demand, once in a drawing, just before the first program of the module loads (<span class="fixw">Dyl:LibsLoad</span>): <span class="fixw">Remote\LM-Sub.lsp</span>, the Lee Mac subfunctions (over 300), each with the <span class="fixw">Remote&gt;&gt;</span> prefix.</td></tr>
+<tr><td>Remote</td><td>The code every program shares, loaded at startup: <span class="fixw">Remote\LM-Sub.lsp</span>, the Lee Mac subfunctions (over 300), each with the <span class="fixw">Remote&gt;&gt;</span> prefix.</td></tr>
 <tr class="alt"><td>Docs</td><td>The User Guide: one page per program, in the same group folder as its file (<span class="fixw">Docs\General\LM-AddObjectsToBlock.htm</span>), its pictures in <span class="fixw">images</span>, and <span class="fixw">index.htm</span>.</td></tr>
 <tr><td>DevDocs</td><td>The developer docs: this page. A module of your own gets one page per program here, as the Dynalisp module does.</td></tr>
 </table>
@@ -61,7 +61,7 @@ C:ADDTOBLOCK;C:LM-ADDOBJECTSTOBLOCK</pre></div>
 <p>An alias never takes the name of a command of AutoCAD, of its Express Tools or of <span class="fixw">acad.pgp</span>: <span class="fixw">Dyl-Suite</span> refuses it, and an original name that is taken gets another alias (<span class="fixw">TXTCOUNT</span> for Lee Mac's <span class="fixw">TCOUNT</span>, <span class="fixw">ACL</span> for his <span class="fixw">CL</span>).</p>
 
 <h2>Shared Subfunctions</h2>
-<p>A subfunction used by several programs is loaded once, before the first program of the module runs, from <span class="fixw">Remote\LM-Sub.lsp</span>, as <span class="fixw">Remote&gt;&gt;LM:&lt;name&gt;</span>. A program that keeps its own local copy stays an exact copy of the original; a new program calls the remote one. In VS Code, the snippets <span class="fixw">LM-LocalSub</span> and <span class="fixw">LM-RemoteSub</span> insert a subfunction either way (<span class="fixw">.vscode\lmsnippets.py</span> writes them from <span class="fixw">LM-Sub.lsp</span>).</p>
+<p>A subfunction used by several programs is loaded once, at startup, from <span class="fixw">Remote\LM-Sub.lsp</span>, as <span class="fixw">Remote&gt;&gt;LM:&lt;name&gt;</span>. A program that keeps its own local copy stays an exact copy of the original; a new program calls the remote one. In VS Code, the snippets <span class="fixw">LM-LocalSub</span> and <span class="fixw">LM-RemoteSub</span> insert a subfunction either way (<span class="fixw">.vscode\lmsnippets.py</span> writes them from <span class="fixw">LM-Sub.lsp</span>).</p>
 
 <h2>The Docs</h2>
 <ul>
