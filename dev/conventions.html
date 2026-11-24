@@ -201,8 +201,9 @@
 <li>
 <p>A data file read again and again (the presets, the layer keys) is <strong>kept in memory</strong> with the date and size of its files (<code>*pst:readcache*</code>, <code>*lk:readcache*</code>), read again only when one changed, and dropped by every writer of DynALisp (<code>Remote&gt;&gt;Dyl:PresetWrite</code>, <code>Remote&gt;&gt;Dyl:LayerKeyWrite</code>, <code>Remote&gt;&gt;Dyl:GroupsWriteOf</code>). A cache never outlives a change it cannot see: a file changed by hand or by another drawing has another date or size.</p>
 </li>
+<li>A data file made from the code (the index of the Startup Suite, <code>StartupSuite.csv</code>) is made again only for the files changed since it was written: when an Apps file is newer, <code>Dyl:Suite</code> parses that file again and keeps the commands of the others from the index; <code>Dyl-SuiteUpdate</code> parses them all.</li>
 </ul>
-<p><em>Why: the defaults stay in git, each user's edits stay out of it. A file of 860 assemblies parsed on each call made every tab of the Manager, and every object a reactor names, take seconds.</em></p>
+<p><em>Why: the defaults stay in git, each user's edits stay out of it. A file of 860 assemblies parsed on each call made every tab of the Manager, and every object a reactor names, take seconds; the 200 Apps files parsed again after each <code>git pull</code> added 2 s to the next drawing opened.</em></p>
 <h2 id="project-files">Project Files</h2>
 <ul>
 <li>Data that belongs to a <strong>project</strong> (its revisions, the revisions of its sheets) is kept in the project itself, in a <code>DynALisp</code> folder beside the <code>.apj</code> of its Project Navigator project (<code>&lt;project&gt;\DynALisp\Revisions.csv</code>), never in a <code>Dynalisp*</code> setting or the <code>User</code> folder. The project of a drawing is the first folder holding a <code>.apj</code>, from the folder of the drawing up (<code>Remote&gt;&gt;Dyl:RevProject</code>); its sheets are the drawings of its sheet folder (<code>SheetLocation</code> of the <code>.apj</code>).</li>
