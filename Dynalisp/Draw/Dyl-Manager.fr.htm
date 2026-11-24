@@ -44,7 +44,8 @@
 <li>Tapez <span class="fixw">Dyl-Manager</span> ou cliquez <em>Gestionnaire</em> dans le groupe de fonctions <em>Dessin</em> du ruban : le gestionnaire s'ouvre sur le dernier onglet utilisé. <span class="fixw">Dyl-QuickDraw</span>, <span class="fixw">Dyl-QuickShape</span>, <span class="fixw">Dyl-Materials</span> et <span class="fixw">Dyl-HatchPresets</span> l'ouvrent sur leur propre onglet, tout comme leurs boutons du ruban.</li>
 <li>Cliquez sur un onglet, ou appuyez sur <strong>Ctrl+Tab</strong> (<strong>Ctrl+Maj+Tab</strong> pour l'onglet précédent) : ce que vous avez modifié dans l'onglet que vous quittez est enregistré, et l'onglet choisi s'ouvre au même endroit et à la même taille.</li>
 <li>Travaillez dans l'onglet comme dans la fenêtre de son outil : voyez <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a>, <a href="Dyl-QuickShape.fr.htm">Quick Shape</a>, <a href="Dyl-Materials.fr.htm">Materials</a> et <a href="Dyl-HatchPresets.fr.htm">Hatch Presets</a>. <strong>Open Docs</strong> ouvre la page de l'onglet affiché.</li>
-<li>Fermez le gestionnaire avec les boutons de l'onglet : <strong>OK</strong> ou <strong>Save</strong> l'enregistre, <strong>Cancel</strong> annule ce qui y a changé, <strong>Draw</strong> (Quick Draw, Quick Shape) l'enregistre et dessine le préréglage affiché.</li>
+<li>Continuez à dessiner pendant que le gestionnaire est ouvert : il reste à côté du dessin, et vous pouvez zoomer, dessiner et changer de dessin comme d'habitude.</li>
+<li>Fermez le gestionnaire avec les boutons de l'onglet : <strong>OK</strong> ou <strong>Save</strong> l'enregistre, <strong>Cancel</strong> annule ce qui y a changé. <strong>Draw</strong> (Quick Draw, Quick Shape) l'enregistre et dessine le préréglage affiché : le gestionnaire est rangé pendant le dessin et revient sur le même onglet à la fin du dessin (ou quand vous appuyez sur Échap).</li>
 </ol>
 </div>
 <h2 id="window">La fenêtre</h2>
@@ -70,6 +71,8 @@
 <li>Le dernier onglet affiché est retenu jusqu'à la fermeture d'AutoCAD : <span class="fixw">Dyl-Manager</span> s'ouvre dessus, sur Quick Draw la première fois.</li>
 <li>Le bouton <em>Quick Draw Manager</em> de la <a href="Dyl-QuickDrawGallery.fr.htm">galerie Quick Draw</a> ouvre le gestionnaire sur son onglet Quick Draw.</li>
 <li>Entre deux onglets, la fenêtre n'est pas vraiment fermée : l'image de l'onglet quitté reste à l'écran jusqu'à ce que le suivant s'affiche.</li>
+<li>Un bouton qui enregistre ou ouvre une autre fenêtre (un autre onglet, <strong>Save</strong>, <strong>Draw</strong>, un bouton d'ouverture) annule d'abord la commande en cours dans le dessin, et s'inscrit à la ligne de commande. Le gestionnaire est grisé un instant pendant qu'il enregistre.</li>
+<li>Une fenêtre ouverte depuis un onglet (Materials depuis Quick Draw) est une fenêtre à part : vous ne pouvez pas dessiner avant de la fermer.</li>
 </ul>
 </div>
 <h2>Limites connues</h2>
