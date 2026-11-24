@@ -29,15 +29,17 @@
 <h2>The Redefined Commands</h2>
 <p>Each command of <span class="fixw">MAJ:cmds</span> is a Lisp command of the same name in <span class="fixw">Dyl-CmdOptimizer.lsp</span>, turned on or off in <span class="fixw">Dyl-Suite</span> as any other:</p>
 <div class="code"><pre>(defun c:QSAVE ()
-  (if MAJ:PrepFor (MAJ:PrepFor "QSAVE"))   ; the steps of its column
+  (MAJ:PrepSafe "QSAVE")                     ; the steps of its column, caught
+  (if (= 0 (getvar "DWGTITLED")) (initdia))  ; never saved: the Save As dialog
   (vl-cmdf "_.QSAVE")                        ; the native command, even undefined
   (princ)
 )</pre></div>
-<p>The dialog commands call <span class="fixw">(initdia)</span> first, so their window opens. <span class="fixw">MAJ:groups</span> puts them in four groups that share one column of steps, named by their first command (<span class="fixw">MAJ:PrepCol</span>): <span class="fixw">SAVE</span> (SAVE, QSAVE, SAVEAS, +SAVEAS), <span class="fixw">PLOT</span> (PLOT, PUBLISH, EXPORTPDF, EXPORTDWF, EXPORTDWFX), <span class="fixw">PREVIEW</span> and <span class="fixw">REGEN</span>.</p>
+<p>The dialog commands call <span class="fixw">(initdia)</span> first, so their window opens (QSAVE in a drawing never saved, which shows the Save As dialog). <span class="fixw">MAJ:PrepSafe</span> runs <span class="fixw">MAJ:PrepFor</span> under <span class="fixw">vl-catch-all-apply</span>: a step that fails is said on the command line, a command it left running is cancelled, and the native command runs all the same, so an error in a step never stops a save or a plot. <span class="fixw">MAJ:groups</span> puts them in four groups that share one column of steps, named by their first command (<span class="fixw">MAJ:PrepCol</span>): <span class="fixw">SAVE</span> (SAVE, QSAVE, SAVEAS, +SAVEAS), <span class="fixw">PLOT</span> (PLOT, PUBLISH, EXPORTPDF, EXPORTDWF, EXPORTDWFX), <span class="fixw">PREVIEW</span> and <span class="fixw">REGEN</span>.</p>
 
 <h2>Redefining, Step By Step</h2>
 <div class="spacedbullets">
 <ol>
+<li>At the very start of <span class="fixw">dyl:startup</span> (<span class="fixw">dynalisp.mnl</span>), before any module loads, when <span class="fixw">DynalispPrepRedefine</span> is on, <span class="fixw">_.REDEFINE</span> gives back every command of <span class="fixw">MAJ:cmds</span>, silently: <span class="fixw">UNDEFINE</span> holds for the session, so they were still undefined from the drawing before, while this drawing has not defined its Lisp commands yet. A startup that stops halfway then leaves the native commands, never <em>Unknown command</em>.</li>
 <li>As DynALisp loads, when <span class="fixw">DynalispPrepRedefine</span> is on (<span class="fixw">MAJ:Redefine-p</span>), <span class="fixw">(MAJ:Redefine T)</span> runs. <span class="fixw">MAJ:synced</span> keeps the setting this drawing applied.</li>
 <li><span class="fixw">MAJ:Redefine</span> loads <span class="fixw">AcPublish.crx</span> when it is not (AutoCAD loads <span class="fixw">PUBLISH</span> on demand, which would bring the native command back), then, with <span class="fixw">CMDECHO</span> 0 and <span class="fixw">NOMUTT</span> 1, runs <span class="fixw">_.UNDEFINE</span> on each command of <span class="fixw">MAJ:CmdsOn</span> (the Lisp commands defined in this drawing, their autoload stubs included) and <span class="fixw">_.REDEFINE</span> on the others: a native command is never undefined without its Lisp command.</li>
 <li><span class="fixw">MAJ:RedefineSet</span> (the <em>Commands</em> checkbox of <span class="fixw">Dyl-Settings</span>, and <span class="fixw">c:Dyl-CmdOptimizer</span>, which asks <em>[On/Off]</em>) writes the setting and redefines this drawing at once. The other open drawings follow when they become current: the settings reactor finds <span class="fixw">MAJ:synced</span> different and <span class="fixw">Dyl:SetSync</span> sends <span class="fixw">MAJ:RedefineSync</span> (<span class="fixw">UNDEFINE</span> cannot run from a reactor).</li>
@@ -61,7 +63,7 @@
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">UNDEFINE</span> lasts for the session, the Lisp commands are defined per drawing: a drawing whose startup stopped before the modules loaded has neither (<span class="fixw">_.QSAVE</span> still works).</li>
+<li><span class="fixw">UNDEFINE</span> lasts for the session, the Lisp commands are defined per drawing: a drawing whose startup stops before the end of the Output region gets the native commands back (step 1 above), without its output prep.</li>
 <li><span class="fixw">-PLOT</span> and <span class="fixw">-PUBLISH</span> are left out of <span class="fixw">MAJ:groups</span>: <span class="fixw">(command "-PLOT" ...)</span> fails while a command is undefined.</li>
 <li><span class="fixw">+SAVEAS</span> leaves its prompts to the user or to the menu macro that called it.</li>
 </ul>
