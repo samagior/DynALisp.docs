@@ -29,8 +29,8 @@
 <h2>Loading The Modules</h2>
 <div class="spacedbullets">
 <ol>
-<li><span class="fixw">Dyl:load</span>, as each drawing opens, loads the Remote folders of every module (alphabetical order), then the Reactor folders while the reactors are on, keeping the errors and times of each file for the diagnostics.</li>
-<li><span class="fixw">Dyl:autoload</span> reads <span class="fixw">StartupSuite.csv</span> and, for each command turned on, defines an autoload stub (<span class="fixw">autoload</span>): the Lisp file loads the first time one of its commands runs. A command turned off is not defined.</li>
+<li><span class="fixw">Dyl:load</span>, as each drawing opens, loads the Remote folders of every module (alphabetical order) but those of the library modules (<span class="fixw">*dyl:libmods*</span>: LeeMac, gileCAD), then the Reactor folders while the reactors are on, keeping the errors and times of each file for the diagnostics.</li>
+<li><span class="fixw">Dyl:autoload</span> reads <span class="fixw">StartupSuite.csv</span> and, for each command turned on, defines an autoload stub (<span class="fixw">autoload</span>): the Lisp file loads the first time one of its commands runs. A command of another module than Dynalisp gets a stub of its own (<span class="fixw">Dyl:LibAutoload</span>, <span class="fixw">Dyl:LibRun</span>), which first loads the Remote folders of the library modules, once in the drawing (<span class="fixw">Dyl:LibsLoad</span>, their times kept in <span class="fixw">*dyl:libtimes*</span>). A command turned off is not defined.</li>
 <li><span class="fixw">Dyl:AliasApply</span> defines each alias of <span class="fixw">Aliases.csv</span> as a command that runs its command, unless the name is taken by AutoCAD, its Express Tools, <span class="fixw">acad.pgp</span> or another program (<span class="fixw">Dyl:AliasTaken</span>, <span class="fixw">Dyl:PgpAliases</span>).</li>
 <li><span class="fixw">Dyl:DynList</span> asks each provider of <span class="fixw">*dyl:dynproviders*</span> for its dynamic children (the custom presets of Quick Draw and Quick Shape) and defines them with their main command.</li>
 </ol>
