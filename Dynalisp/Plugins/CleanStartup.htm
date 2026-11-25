@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD 2025 or later for Windows</td>
+<td>AutoCAD 2015 or later for Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -54,7 +54,7 @@
 <li>Only the command line is cleaned: the lines removed become blank lines above the ones kept (seen when its history is scrolled up), and the text window (<span class="fixw">F2</span>) keeps every line of the startup. AutoCAD keeps its own copy of the lines and adds the next ones after the number of lines shown, so the command line keeps that number.</li>
 <li>The <em>System Variable Changed</em> notice is AutoCAD's own: <span class="fixw">SYSMON</span> <span class="fixw">0</span> turns it off for good, whether Clean startup is on or not.</li>
 <li>AutoCAD has no command for it: the plugin uses the list of lines of the command line, and does nothing in a version where it does not find it. In a version older than 2015, the plugin is not loaded and the setting is greyed out.</li>
-<li>For whoever changes DynALisp: the source is <span class="fixw">Installer\Startup</span>, one project built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later), both DLLs committed.</li>
+<li>For whoever changes DynALisp: the source is <span class="fixw">Installer\Startup</span>, one project built for .NET 8 and for .NET Framework 4.8, both DLLs committed.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>

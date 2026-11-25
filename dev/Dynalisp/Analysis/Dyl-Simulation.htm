@@ -23,7 +23,7 @@
 <table>
 <tr class="alt"><td>Source Files</td><td><span class="fixw">Modules\Dynalisp\Apps\Analysis\Dyl-Simulation.lsp</span> (the commands, the window, the zones, the climates), <span class="fixw">Installer\Simulation</span> (the plugin <span class="fixw">DynALisp.Simulation.dll</span>: <span class="fixw">Plugin.cs</span>, <span class="fixw">Reader.cs</span>, <span class="fixw">Check.cs</span>, <span class="fixw">Show.cs</span>), <span class="fixw">Installer\Simulation\Core</span> (the calculation, without AutoCAD) and <span class="fixw">Installer\Simulation\Tests</span> (its tests)</td></tr>
 <tr><td>Data</td><td><span class="fixw">Res\Climates.csv</span> (its user copy), the window <span class="fixw">Res\Dyl-Simulation.xaml</span>, the layer keys <span class="fixw">SIMZONE</span> and <span class="fixw">SIMCLIMATE</span> (not plotted), <span class="fixw">SIMISOTHERM</span>, <span class="fixw">SIMDEWPOINT</span> and <span class="fixw">SIMCONDENSATION</span> (what Keep adds, plotted: <span class="fixw">*sim:keepkeys*</span>) (<span class="fixw">Res\LayerKeys.csv</span>), the extended data <span class="fixw">DYNALISP</span> of the zones and of the regions</td></tr>
-<tr class="alt"><td>Plugin</td><td><span class="fixw">Contents\Resources\DynALisp.Simulation.dll</span> (.NET 8, AutoCAD 2025 and 2026) and <span class="fixw">Contents\Resources\Net10\DynALisp.Simulation.dll</span> (.NET 10, AutoCAD 2027 and later), two components of <span class="fixw">PackageContents.xml</span></td></tr>
+<tr class="alt"><td>Plugin</td><td><span class="fixw">Contents\Resources\DynALisp.Simulation.dll</span> (AutoCAD 2025 and later) and <span class="fixw">Contents\Resources\Net48\DynALisp.Simulation.dll</span> (AutoCAD 2015 to 2024), two components of <span class="fixw">PackageContents.xml</span></td></tr>
 <tr><td>Follows</td><td>The <a href="../../conventions/PresetsAndMaterials.html">Presets And Materials</a> convention (the material of an object) and the <a href="../../conventions/VersionsAndUpdates.html">Versions And Updates</a> convention (a plugin built twice)</td></tr>
 </table>
 </div>
@@ -116,7 +116,7 @@
 </div>
 <h2 id="diagnostics">Diagnostics</h2>
 <ul>
-<li>DynALisp section: <span class="fixw">DynALisp.Simulation.dll</span> not loaded (always a problem: every AutoCAD DynALisp runs in loads it).</li>
+<li>DynALisp section: <span class="fixw">DynALisp.Simulation.dll</span> not loaded (a problem in AutoCAD 2015 and later).</li>
 <li>Drawing section (<span class="fixw">dg:dwg-simulation</span>): the climates of the file and a note for those without a temperature (Play refuses them), the climates with their months and a note for those with some months and not all (the monthly balance refuses them), the simulation zones and the climate zones of the drawing, and a problem for a climate zone of a climate the file no longer has.</li>
 </ul>
 <h2 id="limits">Limits</h2>
