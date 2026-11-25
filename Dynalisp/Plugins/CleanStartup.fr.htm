@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD 2015 ou suivant pour Windows</td>
+<td>AutoCAD 2025 ou suivant pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -54,7 +54,7 @@
 <li>Seule la ligne de commande est épurée : les lignes retirées deviennent des lignes vides au-dessus de celles conservées (visibles en remontant son historique), et la fenêtre de texte (<span class="fixw">F2</span>) garde toutes les lignes du démarrage. AutoCAD garde sa propre copie des lignes et ajoute les suivantes après le nombre de lignes affichées : la ligne de commande garde donc ce nombre.</li>
 <li>L'avis <em>System Variable Changed</em> est celui d'AutoCAD : <span class="fixw">SYSMON</span> <span class="fixw">0</span> le désactive pour de bon, que Clean startup soit activé ou non.</li>
 <li>AutoCAD n'a pas de commande pour cela : le module d'extension utilise la liste des lignes de la ligne de commande, et ne fait rien dans une version où il ne la trouve pas. Dans une version antérieure à 2015, le module d'extension n'est pas chargé et le paramètre est grisé.</li>
-<li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Startup</span>, un seul projet compilé pour .NET 8 et pour .NET Framework 4.8, les deux DLL validées dans git.</li>
+<li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Startup</span>, un seul projet compilé pour .NET 8 (AutoCAD 2025 et 2026) et pour .NET 10 (AutoCAD 2027 et suivants), les deux DLL validées dans git.</li>
 </ul>
 </div>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
