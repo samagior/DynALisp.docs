@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Core</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Core.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Plugins/Core.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Core</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Setting</td>
+<td>None: always on</td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2025 or later for Windows</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+
+<h2>Description</h2>
+<p>The core of DynALisp in .NET. It reads the data of DynALisp (the layer keys, the materials, the hatch presets, the presets of Quick Draw and Quick Shape, the assemblies, the groups, the climates...) once for the whole session of AutoCAD, and gives it to every drawing: a drawing opened after the first one no longer reads those files again. A file changed, by a window of DynALisp, in another drawing or in Excel, is read again the next time it is needed.</p>
+<h2>How To Use</h2>
+<p>Nothing to do: it is loaded with AutoCAD, and the tools of DynALisp use it on their own.</p>
+<h2>Notes</h2>
+<div class="spacedbullets">
+<ul>
+<li>When it is not loaded (blocked by <span class="fixw">SECURELOAD</span>, or a file missing), DynALisp works the same, only slower: each drawing reads the files again. <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> says so, and shows how many files it keeps and the time it spent reading them.</li>
+<li>For whoever changes DynALisp: the source is <span class="fixw">Installer\Core</span>, one project built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later), both DLLs committed.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

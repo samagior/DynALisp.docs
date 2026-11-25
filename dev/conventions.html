@@ -159,9 +159,10 @@
 <li>
 <p>A data file read again and again (the presets, the layer keys) is <strong>kept in memory</strong> with the date and size of its files (<code>*pst:readcache*</code>, <code>*lk:readcache*</code>), read again only when one changed, and dropped by every writer of DynALisp (<code>Remote&gt;&gt;Dyl:PresetWrite</code>, <code>Remote&gt;&gt;Dyl:LayerKeyWrite</code>, <code>Remote&gt;&gt;Dyl:GroupsWriteOf</code>). A cache never outlives a change it cannot see: a file changed by hand or by another drawing has another date or size.</p>
 </li>
+<li>A CSV data file of a module is read with <code>Remote&gt;&gt;Dyl:CsvRead</code> (<code>Remote&gt;&gt;Dyl:CsvHead</code> for its header), never with a new reader of its own, and written with <code>Remote&gt;&gt;Dyl:CsvWrite</code>, never <code>Remote&gt;&gt;LM:writecsv</code> alone: while <strong>DynALisp.Core.dll</strong> (<code>Installer\Core</code>, the core of DynALisp in .NET) is loaded, <code>Dyl:Data</code> reads each file once per session of AutoCAD for every drawing, read again when its date or size changes, and <code>Remote&gt;&gt;Dyl:CsvWrite</code> tells it a file was written (<code>Dyl:DataDrop</code>); without it, the Lisp side reads the file itself (<code>Remote&gt;&gt;Dyl:CsvReadLisp</code>), the same rows.</li>
 <li>A data file made from the code (the index of the Startup Suite, <code>StartupSuite.csv</code>) is made again only for the files changed since it was written: when an Apps file is newer, <code>Dyl:Suite</code> parses that file again and keeps the commands of the others from the index; <code>Dyl-SuiteUpdate</code> parses them all.</li>
 </ul>
-<p><em>Why: the defaults stay in git, each user's edits stay out of it. A file of 860 assemblies parsed on each call made every tab of the Manager, and every object a reactor names, take seconds; the 200 Apps files parsed again after each <code>git pull</code> added 2 s to the next drawing opened.</em></p>
+<p><em>Why: the defaults stay in git, each user's edits stay out of it. A file of 860 assemblies parsed on each call made every tab of the Manager, and every object a reactor names, take seconds; the 200 Apps files parsed again after each <code>git pull</code> added 2 s to the next drawing opened; a file read by the .NET core is divided once for the whole session, not once in each drawing, and the drawings never see two versions of it.</em></p>
 <h2 id="project-files">Project Files</h2>
 <ul>
 <li>Data that belongs to a project (its revisions) is kept in a <code>DynALisp</code> folder beside its <code>.apj</code>, never in a setting or the <code>User</code> folder, and read again just before it is written.</li>
@@ -172,6 +173,7 @@
 <li>The version is the <code>AppVersion</code> of <code>PackageContents.xml</code>, and only there; raise it with its <code>CHANGELOG.md</code> section, in a commit of its own.</li>
 <li>DynALisp 2.0 runs in AutoCAD 2025 and later; 1.x, for AutoCAD 2015 to 2024, lives on the branch <code>release/1.x</code> (fixes only).</li>
 <li>A .NET plugin is built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later, <code>Net10</code>), both committed; the Lisp checks its function is defined before using it.</li>
+<li>The core of DynALisp in .NET (<code>Installer\Core</code>, <code>DynALisp.Core.dll</code>) takes over from Lisp one step at a time; each of its functions gives what the Lisp code it replaces gives, and that code stays for when it is not loaded.</li>
 </ul>
 <p>The rest: <a href="conventions/VersionsAndUpdates.html">Conventions/VersionsAndUpdates.md</a>, read before changing the version, a release, the setup or the uninstall, or a .NET plugin.</p>
 <h2 id="git">Git</h2>

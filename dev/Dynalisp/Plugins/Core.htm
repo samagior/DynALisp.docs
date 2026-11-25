@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Core &ndash; Developer docs</title>
+    <link rel="stylesheet" href="../../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../../Dynalisp/Plugins/Core.htm">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+
+    <div id="content">
+        <h1>Core</h1>
+
+<p class="note">The developer docs of Core: its files and how its code works. What it does is in its <a href="../../../Dynalisp/Plugins/Core.htm">User Guide</a> page.</p>
+<div class="programs">
+<table>
+<tr class="alt"><td>Source Files</td><td><span class="fixw">Installer\Core\Plugin.cs</span> (<span class="fixw">DynALisp.Core.csproj</span>), built twice and committed: <span class="fixw">Contents\Resources\DynALisp.Core.dll</span> (.NET 8, AutoCAD 2025 and 2026) and <span class="fixw">Contents\Resources\Net10\DynALisp.Core.dll</span> (.NET 10, AutoCAD 2027 and later), a component of <span class="fixw">PackageContents.xml</span> each, listed first. <span class="fixw">Installer\Core\Data</span> (<span class="fixw">Csv.cs</span>, <span class="fixw">Store.cs</span>): the reading of the files, a library without AutoCAD compiled into the plugin, tested by <span class="fixw">Installer\Core\Tests</span>. On the Lisp side: <span class="fixw">Remote&gt;&gt;Dyl:CsvRead</span>, <span class="fixw">Remote&gt;&gt;Dyl:CsvHead</span> and <span class="fixw">Remote&gt;&gt;Dyl:CsvWrite</span> of <span class="fixw">Remote\Dyl-Sub.lsp</span></td></tr>
+<tr><td>Data</td><td>Every CSV file read by <span class="fixw">Remote&gt;&gt;Dyl:CsvRead</span>: <span class="fixw">LayerKeys.csv</span>, <span class="fixw">ObjectLayerKeys.csv</span>, <span class="fixw">Materials.csv</span>, <span class="fixw">HatchPresets.csv</span>, <span class="fixw">QuickDraw.csv</span>, <span class="fixw">QuickDrawAssemblies.csv</span>, <span class="fixw">QuickShape.csv</span>, <span class="fixw">Groups.csv</span>, <span class="fixw">MaterialGroups.csv</span>, <span class="fixw">Climates.csv</span>, <span class="fixw">FilePrefs.csv</span>, the draw order and system variable presets... (their user copy, else the default)</td></tr>
+<tr class="alt"><td>Tests</td><td><span class="fixw">dotnet test Installer\Core\Tests</span>, run by the Core workflow (<span class="fixw">.github/workflows/core.yml</span>) on every push that changes <span class="fixw">Installer\Core</span> or a CSV file of <span class="fixw">Res</span></td></tr>
+<tr><td>Follows</td><td>The <a href="../../conventions/VersionsAndUpdates.html">Versions And Updates</a> convention on plugins and on a library tested alone, and the <a href="../../conventions.html#user-files">User Files</a> convention on the data files kept in memory</td></tr>
+</table>
+</div>
+<h2>How It Works</h2>
+<div class="spacedbullets">
+<ol>
+<li>The plugin loads with AutoCAD, before the CUIx and its <span class="fixw">dynalisp.mnl</span>. It holds one <span class="fixw">Store</span> for the whole session (a static field): the files read, by full path (any case), each with the date of its last write (to the tenth of a microsecond) and its size.</li>
+<li><span class="fixw">(Dyl:Data path n)</span> gives the rows of the file, its header excluded, each cut or padded with <span class="fixw">""</span> to <span class="fixw">n</span> cells: the same list as <span class="fixw">Remote&gt;&gt;Dyl:CsvRead</span> made in Lisp (now <span class="fixw">Remote&gt;&gt;Dyl:CsvReadLisp</span>, used when the plugin is not loaded), nil when the file does not exist or has no row. Each call looks at the date and the size of the file: when they did not change, the rows kept are given again; else the file is read again. A file that no longer exists is forgotten.</li>
+<li>A file is read as <span class="fixw">(open file "r")</span> reads it, in the ANSI code page of Windows (<span class="fixw">GetACP</span>), and divided as the Lisp side divides it (<span class="fixw">Csv.cs</span>): the separator of its header (<span class="fixw">;</span>, else a tab, else <span class="fixw">,</span>), each line divided step for step as <span class="fixw">Remote&gt;&gt;LM:csv-&gt;lst</span> does, its odd cases too, each cell trimmed of its spaces, a blank line left out. <span class="fixw">(Dyl:DataHead path)</span> gives the header as <span class="fixw">Remote&gt;&gt;Dyl:CsvHead</span>, its UTF-8 byte order mark left out.</li>
+<li><span class="fixw">Remote&gt;&gt;Dyl:CsvRead</span> and <span class="fixw">Remote&gt;&gt;Dyl:CsvHead</span> call <span class="fixw">Dyl:Data</span> and <span class="fixw">Dyl:DataHead</span> when they are defined, so every reader (the layer keys, the presets and their engine, the materials, the groups, the simulation...) uses the plugin with no change of its own. The caches of the Lisp side (<span class="fixw">*pst:readcache*</span>, <span class="fixw">*lk:readcache*</span>) stay: they keep the rows once cleaned, for one drawing; the plugin makes their first read in each drawing a copy of rows already divided, the 387 KB of <span class="fixw">QuickDrawAssemblies.csv</span> no longer divided again in Lisp in each drawing.</li>
+<li>Every writer of these files calls <span class="fixw">Remote&gt;&gt;Dyl:CsvWrite</span> (<span class="fixw">Remote&gt;&gt;LM:writecsv</span>, then <span class="fixw">(Dyl:DataDrop path)</span>): the clock of Windows moves by steps of about 15 ms, so a file written twice in one step at the same size would keep its date. A file changed out of DynALisp (Excel, another drawing, <span class="fixw">git pull</span>) gets another date and is read again.</li>
+<li><span class="fixw">(Dyl:DataInfo)</span> gives <span class="fixw">(("Files" . n) ("Reads" . n) ("Hits" . n) ("ReadMs" . ms))</span>: the files kept, the reads of a file, the calls given a file kept and the time spent reading, shown by <span class="fixw">Dyl-Diagnostics</span>.</li>
+</ol>
+</div>
+<h2>Diagnostics</h2>
+<p>The DynALisp section of <span class="fixw">Dyl-Diagnostics</span> shows the <em>Data files</em> line (<span class="fixw">Dyl:DataInfo</span>), and a <span class="fixw">[!]</span> line when <span class="fixw">Dyl:Data</span> is not defined (the DLL is not loaded): each drawing then reads the files again in Lisp.</p>
+<h2>Next Steps</h2>
+<p>The first step of the .NET core (plan B): the next ones give the Lisp side the rows already cleaned (the presets with their defaults, the layer keys), then move the Manager and the reactors into .NET.</p>
+<p><a href="../index.htm">&larr; Dynalisp developer docs</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>
