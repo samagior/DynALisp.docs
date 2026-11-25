@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulation Conventions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../index.html">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+    <div id="content" class="md">
+<h1 id="simulation">Simulation</h1>
+<p class="devnav"><strong>Developer docs</strong> &ndash; <a href="../conventions.html">Conventions</a> &middot; <a href="../Dynalisp/index.htm">Dynalisp Module – Developer docs</a> &middot; <a href="../LeeMac/index.htm">Making A Module</a> &middot; <a href="../../index.html">User Guide</a></p>
+
+<p>The Simulation conventions of DynALisp, part of the <a href="../conventions.html">DynALisp Conventions</a>: read before changing the simulation, its zones, its climates or what it shows. When a new convention of this topic is agreed, add it here, with the reason for it.</p>
+<ul>
+<li>A 2D detail is simulated (<code>Dyl-Simulation</code>, <code>Apps\Analysis</code>) inside a <strong>simulation zone</strong>, a closed curve that carries <code>Role=SimulationZone</code> and its <code>Grid</code> (<code>Coarse</code>, <code>Medium</code>, <code>Fine</code>: the target size of the cells, in metres, <code>*sim:grids*</code>), between <strong>climate zones</strong>, closed curves that carry <code>Role=Climate</code> and the id of their <code>Climate</code>, the DynALisp data of the objects (see <a href="PresetsAndMaterials.html">Presets And Materials</a>). Its regions are the hatches and the closed curves of the space of the zone that carry their material: a hatch without one is a problem, never guessed from its layer or its pattern.</li>
+<li>The <strong>climates</strong> are a data file of DynALisp (<code>Res\Climates.csv</code>, its user copy), shared by every drawing, in SI (C, %, m2.K/W), a value empty when not known, shown in the units of the drawing; a default value comes from a source (the surface resistances of ISO 6946 and ISO 13788). A climate also holds the temperature and the humidity of each month, for the monthly balance (<code>T01</code> to <code>T12</code>, <code>RH01</code> to <code>RH12</code>, edited in the <strong>Months</strong> window, <code>Res\Dyl-SimulationMonths.xaml</code>, a sub-window of the climates list): none by default, since they are those of the location of each project; a climate without its months is the same all year, one with some of them and not all is refused.</li>
+<li>Each cell of the grid inside the zone is the region of a material in front (the draw order), else the climate zone in front, else a <strong>hole</strong>, which is refused and shown: an empty space is almost always something left out, and an air space is a region of a material.</li>
+<li>What the simulation shows over the drawing (the grid, the problems, the temperatures, the humidity, the condensation) is <strong>transient</strong> (<code>TransientManager</code>, <code>Installer\Simulation\Show.cs</code>): never added to the drawing, so nothing is plotted, saved or left to erase. What is kept is drawn on purpose, by <code>Pst-SimulationKeep</code>, as objects of the drawing on layer keys that are plotted (<code>SIMISOTHERM</code>, <code>SIMDEWPOINT</code>, <code>SIMCONDENSATION</code>), its texts and hatch sized on paper at the annotation scale; a report of a run is a text file the user saves (<code>Pst-SimulationReport</code>), with the data and the methods it used.</li>
+<li>The zones are on layer keys that are not plotted (<code>SIMZONE</code>, <code>SIMCLIMATE</code>).</li>
+<li>The simulation follows the <strong>methods of the standards</strong>, never one of DynALisp: the steady heat of ISO 10211 (finite volumes on the grid, <code>Core\Thermal.cs</code>, the edge of the zone outside a climate adiabatic), the surface resistances of ISO 6946 for the heat flow and the resistance of ISO 13788 for the temperatures of the surfaces, the condensation and the colours (two runs when they differ), the saturation pressure of ISO 13788 for the dew point, and the method of Glaser of ISO 13788 for the vapour inside the detail (<code>Core\Vapour.cs</code>, in two dimensions, with the temperatures of the heat flow, no surface vapour resistance), and its monthly balance (clause 6.4, <code>Core\Monthly.cs</code>, <code>Pst-SimulationMonthly</code>): each month steady, the water of each cell added up from the first month that condenses after one that does not, a cell that holds water held at the saturation pressure so it dries by what it gives back, the detail passing when every cell is dry after the twelve months. A material is simulated by its conductivity, else its fixed RSI across the smaller side of its region, and by its vapour permeability, else its fixed permeance the same way (a membrane is a thin region, never a line); a detail with a problem, or a climate of a zone without a temperature, is never simulated (Play shows its problems instead), and the vapour is computed only when every material has vapour data and every climate a humidity, never with a value guessed for the others (Play says what is missing).</li>
+<li>The colours of a field are a <strong>diverging scale</strong> (blue for the cold side, white, red for the warm side) for a field of two ends (the temperatures), a <strong>sequential scale</strong> (white to dark blue) for a field of one (the relative humidity), never a rainbow; a line of a value (the dew point) and the cells where vapour condenses are magenta, over it. The result (<code>Show.Last</code>) is kept for the probe until it is cleared, never saved.</li>
+</ul>
+<p><em>Why: the detail must say what each region is made of from the drawing alone, the same climates must give the same results in every drawing, and a hole or a hatch without a material would change the result without anyone seeing it. A result shown for a moment over the drawing can be looked at in every way without changing the drawing. A value computed as a standard computes it can be compared with THERM, WUFI or a report, and a result computed with a value made up would look as right as the others. A rainbow draws borders the field does not have.</em></p>
+    </div>
+    <div id="footer"><p>DynALisp &ndash; released under the GNU General Public License v3</p></div>
+</body>
+</html>

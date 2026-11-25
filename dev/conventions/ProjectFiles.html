@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Files Conventions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../index.html">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+    <div id="content" class="md">
+<h1 id="project-files">Project Files</h1>
+<p class="devnav"><strong>Developer docs</strong> &ndash; <a href="../conventions.html">Conventions</a> &middot; <a href="../Dynalisp/index.htm">Dynalisp Module – Developer docs</a> &middot; <a href="../LeeMac/index.htm">Making A Module</a> &middot; <a href="../../index.html">User Guide</a></p>
+
+<p>The Project Files conventions of DynALisp, part of the <a href="../conventions.html">DynALisp Conventions</a>: read before changing data kept with a project (the revisions). When a new convention of this topic is agreed, add it here, with the reason for it.</p>
+<ul>
+<li>Data that belongs to a <strong>project</strong> (its revisions, the revisions of its sheets) is kept in the project itself, in a <code>DynALisp</code> folder beside the <code>.apj</code> of its Project Navigator project (<code>&lt;project&gt;\DynALisp\Revisions.csv</code>), never in a <code>Dynalisp*</code> setting or the <code>User</code> folder. The project of a drawing is the first folder holding a <code>.apj</code>, from the folder of the drawing up (<code>Remote&gt;&gt;Dyl:RevProject</code>); its sheets are the drawings of its sheet folder (<code>SheetLocation</code> of the <code>.apj</code>).</li>
+<li>A choice the whole team must share (the numbering of the revisions, per project or per sheet) is a <strong>setting of the project</strong>, in a file of that folder (<code>RevisionSettings.csv</code>), edited in the window of the tool, not in the Settings window. What works the same in every project (the title blocks and their attributes, <code>RevisionBlocks.csv</code>) stays a data file of DynALisp (see <a href="../conventions.html#user-files">User Files</a>).</li>
+<li>The project files are CSV divided by <code>;</code>, in UTF-8 when AutoCAD can write it, and <strong>read again just before they are written</strong>, since another user may have changed them:</li>
+<li>A file every drawing writes its rows to (<code>Sheets.csv</code>) is merged: only the rows of the drawings just updated are replaced (<code>Remote&gt;&gt;Dyl:RevSheetsMerge</code>).</li>
+<li>A file edited in a window (<code>Revisions.csv</code>) is not saved when it changed since the window opened (its time, <code>Remote&gt;&gt;Dyl:RevStamp</code>): the window says so.</li>
+<li>The drawings of a project that are closed are changed with ObjectDBX, without opening them, and only the values that differ are written, so a drawing up to date is never modified. A drawing another user has open (its <code>.dwl</code>) is never changed: it is listed, and catches up the next time it is updated.</li>
+<li>What a drawing gets from the project is also kept in the drawing (the revisions of a layout in its XRecord), so a drawing copied or renamed keeps it; the project file wins when it has the drawing.</li>
+</ul>
+<p><em>Why: everyone who works on a project must see the same revisions, numbered the same way, wherever DynALisp is installed, and the data must move with the project, not with the computer. A project on a server is written by several users at once: a file read long before it is written would lose the work of the others.</em></p>
+    </div>
+    <div id="footer"><p>DynALisp &ndash; released under the GNU General Public License v3</p></div>
+</body>
+</html>

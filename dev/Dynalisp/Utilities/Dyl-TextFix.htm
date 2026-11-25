@@ -39,7 +39,7 @@
 <h2>The Code</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Claude</strong> &ndash; <span class="fixw">ctf:correct-texts</span> writes the input (<span class="fixw">ctf:json-escape</span>), calls <span class="fixw">Dyl:ClaudeRun</span> and returns <span class="fixw">(T corrected ...)</span> or <span class="fixw">(nil error)</span>. No API key or token is read or kept: the sign-in is Claude Code's own (the <a href="../../conventions.html#claude">Claude</a> convention).</li>
+<li><strong>Claude</strong> &ndash; <span class="fixw">ctf:correct-texts</span> writes the input (<span class="fixw">ctf:json-escape</span>), calls <span class="fixw">Dyl:ClaudeRun</span> and returns <span class="fixw">(T corrected ...)</span> or <span class="fixw">(nil error)</span>. No API key or token is read or kept: the sign-in is Claude Code's own (the <a href="../../conventions/Claude.html">Claude</a> convention).</li>
 <li><strong>JSON</strong> &ndash; <span class="fixw">ctf:json-strings</span> and <span class="fixw">ctf:json-string-at</span> read the array of the answer (<span class="fixw">ctf:unicode-to-char</span> for the <span class="fixw">\uXXXX</span> escapes: any character in AutoCAD 2021 and later, <span class="fixw">?</span> outside the code page in an older one).</li>
 <li><strong>The texts</strong> &ndash; <span class="fixw">ctf:get-selection</span>, <span class="fixw">ctf:text-editable-p</span>, <span class="fixw">ctf:print-change</span> and <span class="fixw">ctf:ask-confirmation</span>, then <span class="fixw">ctf:apply-text</span> through ActiveX; <span class="fixw">ctf:process-selection</span> runs them in one undo mark.</li>
 </ul>

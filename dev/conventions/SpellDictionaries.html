@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spell Dictionaries Conventions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../index.html">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+    <div id="content" class="md">
+<h1 id="spell-dictionaries">Spell Dictionaries</h1>
+<p class="devnav"><strong>Developer docs</strong> &ndash; <a href="../conventions.html">Conventions</a> &middot; <a href="../Dynalisp/index.htm">Dynalisp Module – Developer docs</a> &middot; <a href="../LeeMac/index.htm">Making A Module</a> &middot; <a href="../../index.html">User Guide</a></p>
+
+<p>The Spell Dictionaries conventions of DynALisp, part of the <a href="../conventions.html">DynALisp Conventions</a>: read before changing a spell dictionary. When a new convention of this topic is agreed, add it here, with the reason for it.</p>
+<ul>
+<li>The custom dictionaries are <code>Res\Dictionaries\&lt;code&gt;.cus</code> (UTF-16 BE with BOM, CRLF, as AutoCAD writes them), each with its definitions file <code>&lt;code&gt;-def.csv</code> (UTF-8 with BOM, <code>;</code>), read by <code>Dyl-Dictionary</code>.</li>
+<li>Never re-set <code>DCTCUST</code> automatically to make AutoCAD read a changed dictionary: the user reloads it (restarts AutoCAD).</li>
+<li>Words added to a <code>.cus</code> go in both the default and its <code>User</code> copy (AutoCAD uses the copy and writes added words there); restart AutoCAD before using <em>Add to dictionary</em>, or AutoCAD writes its old list back.</li>
+<li>Every word of the <code>.cus</code> has a row in <code>-def.csv</code> (or is a form of one). Add only single real words or real hyphenated compounds (<em>pare-vapeur</em>) to the <code>.cus</code>, never phrases joined by hyphens; expressions of several words (<em>semelle filante</em>) go only in <code>-def.csv</code>, with the types <code>loc.n.m.</code>, <code>loc.n.f.</code>, <code>loc.adj.</code> or <code>loc.adv.</code>.</li>
+</ul>
+<p><em>Why: the spell checker checks each word separately, and the user controls when AutoCAD reloads the dictionary.</em></p>
+    </div>
+    <div id="footer"><p>DynALisp &ndash; released under the GNU General Public License v3</p></div>
+</body>
+</html>

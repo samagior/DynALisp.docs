@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Versions And Updates Conventions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../index.html">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+    <div id="content" class="md">
+<h1 id="versions-and-updates">Versions And Updates</h1>
+<p class="devnav"><strong>Developer docs</strong> &ndash; <a href="../conventions.html">Conventions</a> &middot; <a href="../Dynalisp/index.htm">Dynalisp Module – Developer docs</a> &middot; <a href="../LeeMac/index.htm">Making A Module</a> &middot; <a href="../../index.html">User Guide</a></p>
+
+<p>The Versions And Updates conventions of DynALisp, part of the <a href="../conventions.html">DynALisp Conventions</a>: read before changing the version, a release, the setup or the uninstall, or a .NET plugin. When a new convention of this topic is agreed, add it here, with the reason for it.</p>
+<ul>
+<li>The version of DynALisp is the <code>AppVersion</code> of <code>PackageContents.xml</code>, and only there: Dyl-Info, the setup and the release all read it. Its <code>ProductCode</code> never changes.</li>
+<li>Each version has its section at the top of <code>CHANGELOG.md</code>: a <code>## &lt;version&gt; - &lt;date&gt;</code> heading, then one short line per change (plain ASCII: AutoCAD reads the file as is). Raise <code>AppVersion</code> and add its section in the same change.</li>
+<li>A release is a <code>v&lt;version&gt;</code> tag pushed to the source repository (<code>DynALisp.bundle</code>, private): the release workflow builds the setup (<code>Installer\Build.ps1</code>) and publishes the release to the public releases repository (<code>DynALisp.release</code>, <code>*dyl:relrepo*</code>), with the setup and <code>CHANGELOG.md</code> as files and its changelog section as notes. Users, the setup and Dyl-Info only ever link to the releases repository; only git clones use the source one.</li>
+<li>DynALisp is installed with the setup or as a git clone. The setup installs only the files git knows (never <code>User</code>, <code>MyTools</code>, the dev files or the <code>Docs</code> and <code>DevDocs</code> folders of the modules, which open on the docs website), removes the shipped folders before copying the new ones, waits for AutoCAD to close, and never installs over a git clone. A git clone is updated with <code>git pull</code>.</li>
+<li>The uninstall is <strong>clean</strong>: it offers to save the settings first (see <a href="../conventions.html#user-files">User Files</a>), then removes the whole folder and everything DynALisp added outside it (the <code>Dynalisp*</code> user settings, the DynALisp profile, the paths into the folder in the AutoCAD profiles). Anything new that DynALisp adds outside its folder must be removed by the uninstall too (<code>CleanProduct</code> in <code>Installer\DynALisp.iss</code>).</li>
+<li>A .NET plugin that every version of AutoCAD needs (the clean startup, <code>Installer\Startup</code>; the windows, <code>Installer\Windows</code>) is one project built twice and committed: for .NET 8 (<code>Contents\Resources\&lt;Name&gt;.dll</code>, AutoCAD 2025 and later, <code>SeriesMin="R25.0"</code>) and for .NET Framework 4.8 with the references of AutoCAD 2015 (<code>Contents\Resources\Net48\&lt;Name&gt;.dll</code>, <code>SeriesMin="R20.0"</code> <code>SeriesMax="R24.3"</code>), a component of <code>PackageContents.xml</code> each. It defines a Lisp function the Lisp side checks before using it (<code>(if Dyl:CleanStartup ...)</code>), and a window greys out what it does when it is not loaded. A plugin that reaches into AutoCAD itself by reflection (the lines of the command line) does nothing when it does not find what it looks for. A plugin never relies on a Lisp call made while DynALisp loads: it reads the <code>Dynalisp*</code> settings it needs itself when it starts (<code>FixedProfile\General</code> of <code>UserRegistryProductRootKey</code>, as <code>DynALisp.Startup.dll</code> and <code>Translations.cs</code> do), and asks the Lisp side for the state of the drawing when AutoCAD is idle. Every class that holds a <code>LispFunction</code> or a <code>CommandMethod</code> is listed in an <code>[assembly: CommandClass(...)]</code> of the plugin: AutoCAD registers the methods of those classes only (a static class cannot be listed), and a Lisp function it never registered makes every <code>(if Dyl:X ...)</code> of the Lisp side do nothing, with no error.</li>
+<li>A plugin whose code needs a later AutoCAD than 2015 references that version in its .NET Framework build and says so in its component (<code>SeriesMin</code>), never the whole of DynALisp: the Assistant (<code>Installer\Assistant</code>) references AutoCAD 2016 (<code>SeriesMin="R20.1"</code>, for <code>ExecuteInCommandContextAsync</code>), while DynALisp still loads in AutoCAD 2015. Its App says what it needs when the plugin is not loaded, and <code>Dyl-Diagnostics</code> reports it.</li>
+<li>A calculation that needs no AutoCAD (the simulation of a 2D detail) is a <strong>library of its own</strong> with no reference to AutoCAD (<code>Installer\Simulation\Core</code>, <code>netstandard2.0</code>), compiled into its plugin (the plugin stays one DLL) and tested alone (<code>dotnet test Installer\Simulation\Tests</code>) by a workflow on each push that changes it (<code>.github/workflows/simulation.yml</code>). A plugin without WPF builds on Linux too (<code>EnableWindowsTargeting</code>, the .NET 8 SDK), so its DLLs can be built and committed from any computer; a plugin with WPF builds on Windows only.</li>
+<li>A file edited by DynALisp at run time never goes under <code>Contents</code> (see <a href="../conventions.html#user-files">User Files</a>): an update replaces the shipped folders whole.</li>
+</ul>
+<p><em>Why: one version number for every reader, updates readable without a GitHub account while the source stays private, users told what changed on each update, the users' edits kept by every update, and nothing left behind by the uninstall unless the user saves it.; a calculation tested apart is checked on every push, without AutoCAD</em></p>
+    </div>
+    <div id="footer"><p>DynALisp &ndash; released under the GNU General Public License v3</p></div>
+</body>
+</html>

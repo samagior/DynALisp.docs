@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docs Conventions</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><span class="off" title="The developer docs are in English only">FR</span></nav>
+        <nav class="set" aria-label="Docs"><a href="../../index.html">User Guide</a><span class="on">Developers</span></nav>
+    </div>
+    <div id="content" class="md">
+<h1 id="docs">Docs</h1>
+<p class="devnav"><strong>Developer docs</strong> &ndash; <a href="../conventions.html">Conventions</a> &middot; <a href="../Dynalisp/index.htm">Dynalisp Module – Developer docs</a> &middot; <a href="../LeeMac/index.htm">Making A Module</a> &middot; <a href="../../index.html">User Guide</a></p>
+
+<p>The Docs conventions of DynALisp, part of the <a href="../conventions.html">DynALisp Conventions</a>: read before changing a docs page, the docs website or their translation. When a new convention of this topic is agreed, add it here, with the reason for it.</p>
+<ul>
+<li>The docs are <strong>two sets</strong>, a page of each for every tool, with the same name:</li>
+<li>The <strong>User Guide</strong> (<code>Docs</code>) is for the user, as Lee Mac's pages: what the tool does in a few sentences, <em>How To Use</em> in steps, its windows, its ribbon, what is good to know, its limitations and its commands and aliases. No file path, function, variable or setting name (but the labels the user sees and the commands typed). Every Open Docs button opens it.</li>
+<li>It names the picture of its window and the GIF of a sample use in placeholders, <code>&lt;!-- picture: images/&lt;Page&gt;-window.png --&gt;</code> and <code>&lt;!-- picture: images/&lt;Page&gt;-use.gif --&gt;</code>, after its description. The website shows a picture once its file is in <code>images</code>, nothing before; <code>BuildDocs.py --missing</code> lists the pages still without.</li>
+<li>The <strong>Developer docs</strong> (<code>DevDocs</code>) are for whoever reads or changes the code: the source files and the data (files, dictionaries, <code>Dynalisp*</code> settings), when each part loads, each command and reactor step by step through its functions, the functions another App can call, what <code>Dyl-Diagnostics</code> checks, and the technical limits. They start with a link to their User Guide page. Layer Phase (<code>Docs\Layer\Dyl-LayerPhase.htm</code>, <code>DevDocs\Layer\Dyl-LayerPhase.htm</code>) is the model of both.</li>
+<li>A new tool gets both pages in the same change. A detail moves to the set it belongs to: how to use it in the guide, how it is made in the dev docs, never the same text in both.</li>
+<li>The developer home of the website is <code>README.md</code>, and its conventions <code>CONVENTIONS.md</code> and the files of <code>Conventions</code>, all rendered by <code>BuildSite.py</code> (<code>dev/conventions.html</code>, <code>dev/conventions/&lt;Topic&gt;.html</code>): a link of theirs to a file that is not on the website keeps its text only, and is reported.</li>
+<li>The docs open on the <strong>docs website</strong>, https://samagior.github.io/DynALisp.docs/ (<code>*dyl:docsweb*</code>), never from the <code>Docs</code> folders, which the setup does not install:</li>
+<li>They are edited only in this repository, in the <code>Docs</code> and <code>DevDocs</code> folders of each module. Every push to <code>main</code> that changes them publishes them (<code>.github/workflows/docs.yml</code>; <strong>temporarily, during development, every push to any branch</strong>, the last push winning: <code>branches: ['**']</code> in <code>docs.yml</code>, back to <code>[main]</code> afterwards): <code>Installer\Docs\BuildSite.py</code> builds the website (the User Guide of each module in a folder of its own, the Developer docs under <code>dev/</code>, <code>docs.css</code> at its root, the User Guide home listing the modules at its root, with a search box that filters the tools of every module by name, command, alias or keyword (read from the module indexes and the pages and written in the home itself, so it fetches nothing), a <em>User Guide | Developers</em> switch in the header of every page leading to the same tool in the other set) and the workflow pushes it to the public repository <code>samagior/DynALisp.docs</code>, whose GitHub Pages publish it. That repository is generated: it is never edited. A page the website has is never removed from it, even when it is renamed, moved or deleted in the docs: an installed version still opens it at the path of its own list.</li>
+<li>A page is still named by its path in <code>Modules\&lt;Module&gt;\Docs</code> (<code>Dyl:DocsTile</code>, <code>Dyl:SuiteDocs</code>). The list of the pages of the website, <code>Contents\Resources\DocsPages.txt</code>, written by <code>BuildDocs.py</code> with the pages git knows only (never those of <code>MyTools</code>, ignored), is installed: a page of the list opens on the website (<code>Dyl:DocsTarget</code>), found by <code>Dyl:DocsFind</code> in place of <code>findfile</code>; a page the list does not have (the docs of a module of one's own, <code>MyTools</code>) opens from the computer.</li>
+<li>A page of the LeeMac sample module begins with a note saying it is delivered for consistency purposes only, as the docs of the sample module, that the program and its description are the work of Lee Mac, who keeps all the credit for them, with a link to the original page on his website. <code>BuildDocs.py</code> reports a page without it.</li>
+<li><code>BuildDocs.py --check</code> writes nothing and fails when a page or <code>DocsPages.txt</code> is not up to date, or a LeeMac page has no credit: the docs workflow and <code>Build.ps1</code> run it, so a page added without running <code>BuildDocs.py</code> stops the publication and the setup instead of shipping a list that does not have it.</li>
+<li>The User Guide is <strong>in English and French</strong>: a page is <code>Page.htm</code> (English, the one every link and <code>Dyl:DocsTile</code> names) and its French copy <code>Page.fr.htm</code> beside it, in the same folder. The Developer docs are in English only (their FR switch is greyed out):</li>
+<li>A docs page opens in the language of DynALisp (<em>Language</em> in the Environment section of Dyl-Settings, <code>Dyl:Lang</code>), English when the page has no copy in it. Every page is opened through <code>Dyl:SuiteDlgShell</code>, which calls <code>Dyl:DocsTarget</code> (Docs region of <code>dynalisp.mnl</code>).</li>
+<li>Every page has the <strong>EN | FR switch</strong> at the top right of its header, greyed out for a language it has no copy in yet. <code>python Installer\Docs\BuildDocs.py</code> writes it, sets <code>&lt;html lang&gt;</code> and points the links of each page to the pages of its language; run it after adding, translating, moving or deleting a page, and commit what it changed (with <code>DocsPages.txt</code>). It reports the broken links and how many pages are translated (<code>--missing</code> lists the others).</li>
+<li>A French page translates the text and keeps what DynALisp shows in English as it is: the labels of the windows, the commands, aliases, settings and file names, in English (<em>Open Docs</em>, <em>Save</em>, <code>Dyl-Settings</code>, <code>DynalispReactors</code>). The ribbon is translated: a French page names its panels and buttons by their French labels (<em>Dessin rapide</em>, <em>Transférer</em>). AutoCAD terms are those of the French AutoCAD (calque, hachure, ruban, groupe de fonctions, ligne de commande).</li>
+<li>A change to a page that has its French copy is made in both, in the same change. A new page may come in English alone: its switch shows FR greyed out until its copy is added.</li>
+<li>The Lee Mac pages of the LeeMac sample module are their author's: they stay in English.</li>
+</ul>
+<p><em>Why: a tool is learned from its User Guide and changed from its Developer docs, each written for its reader and never the same text twice; the docs are read in the language the user works in when it is translated, on a website that anyone can reach without installing DynALisp and that a lighter setup leaves out of the installation.</em></p>
+    </div>
+    <div id="footer"><p>DynALisp &ndash; released under the GNU General Public License v3</p></div>
+</body>
+</html>
