@@ -171,7 +171,7 @@
 <p>Each module has the same folders:</p>
 <ul>
 <li><strong>Apps</strong> - one Lisp file per tool, in a group folder (<code>Apps\Draw</code>, <code>Apps\Layer</code>...), indexed by <code>Dyl-Suite</code>.</li>
-<li><strong>Remote</strong> - shared code loaded at startup for every tool (subfunctions, settings readers); that of the library modules (LeeMac, gileCAD) is loaded on demand, before the first of their programs runs.</li>
+<li><strong>Remote</strong> - shared code loaded at startup for every tool (subfunctions, settings readers).</li>
 <li><strong>Reactor</strong> - every reactor, loaded only while the DynALisp reactors are on.</li>
 <li><strong>Res</strong> - the data files (CSV) and dialogs (DCL) of the module.</li>
 <li><strong>Docs</strong> - the User Guide, one page per tool: what it does and how to use it.</li>
@@ -180,7 +180,7 @@
 <p>Add your own tools as a new module folder under <code>Contents\Modules</code>: it is loaded and indexed like the others. The LeeMac module is the sample to follow: existing programs, each with one <code>LM-*</code> main command, its <code>Pst-*</code> children and aliases, shared subfunctions in <code>Remote</code>, and a docs page per program. A personal module can be kept out of git (see <code>.gitignore</code>).</p>
 <p>&nbsp;</p>
 <h2 id="development">Development</h2>
-<p>Open the folder in VS Code with <code>Dyl-VSCode</code> (it offers to install VS Code when missing). The workspace recommends the AutoLISP extension and adds two snippet files, <code>LM-LocalSub</code> and <code>LM-RemoteSub</code>, for the Lee Mac subfunctions: insert a subfunction as local code, or as a call to its <code>Remote&gt;&gt;</code> copy, loaded before the first Lee Mac program runs. <code>.vscode\lmsnippets.py</code> regenerates them from <code>LM-Sub.lsp</code>.</p>
+<p>Open the folder in VS Code with <code>Dyl-VSCode</code> (it offers to install VS Code when missing). The workspace recommends the AutoLISP extension and adds two snippet files, <code>LM-LocalSub</code> and <code>LM-RemoteSub</code>, for the Lee Mac subfunctions: insert a subfunction as local code, or as a call to its <code>Remote&gt;&gt;</code> copy loaded at startup. <code>.vscode\lmsnippets.py</code> regenerates them from <code>LM-Sub.lsp</code>.</p>
 <p>Before adding a tool, read <a href="conventions.html">CONVENTIONS.md</a>: command naming (<code>Dyl-*</code> main command, <code>Pst-*</code> children, aliases), where files go, settings, reactors, user files and windows. After adding or renaming a command, run <code>Dyl-SuiteUpdate</code> to index it.</p>
 <h3 id="the-ribbon">The ribbon</h3>
 <p><code>Contents\Resources\DynALisp.cuix</code> is written by <code>Installer\Ribbon\BuildRibbon.py</code> (Python 3 with Pillow: <code>pip install pillow</code>), never in the CUI editor:</p>
