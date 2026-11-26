@@ -20,33 +20,34 @@
 <a href="http://www.gnu.org/licenses/gpl-3.0"><img alt="Licence" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg?" /></a>
 <a href="https://claude.com/claude-code"><img alt="Powered by Claude" src="https://img.shields.io/badge/Powered%20by-Claude-D97757?logo=claude&amp;logoColor=white" /></a></p>
 <p>&nbsp;</p>
+<p>The source of DynALisp, an open source AutoCAD plugin and development platform written in AutoLISP / Visual LISP, with .NET plugins where Lisp falls short. This page is for <strong>programmers and power users</strong>: how DynALisp is built, how to run it from a git clone, how to add your own tools, build its plugins and contribute.</p>
+<p>To install DynALisp and use its tools, go to <strong><a href="https://github.com/samagior/DynALisp">DynALisp</a></strong> (the setup and the releases) and the <strong><a href="https://samagior.github.io/DynALisp.docs/">User Guide</a></strong>.</p>
+<blockquote>
+<p><strong>Warning: DynALisp is under heavy development.</strong> Installing it is not recommended in its current state: commands, settings, data files and the APIs of its modules still change without notice, and <code>main</code> can break what you built on it. If you install it or build on it anyway, you do so at your own risk.</p>
+</blockquote>
+<p>&nbsp;</p>
 <h2 id="overview">Overview</h2>
-<p>DynALisp is an open source AutoCAD plugin and development platform written in AutoLISP / Visual LISP. Use it as is, with its built-in tools, or as a base to build your own. It ships as an Autodesk plugin bundle, so it is easy to deploy, manage and customize: every tool can be turned on or off, renamed with aliases, and documented, without touching the code.</p>
+<p>DynALisp ships as an Autodesk plugin bundle (<code>DynALisp.bundle</code>): AutoCAD loads it from its plugins folder, with its ribbon, its .NET plugins and <code>dynalisp.mnl</code>, which loads every module. On top of the tools it ships, it is a frame for your own:</p>
 <ul>
-<li><strong>Ready-made tools</strong> - about 40 DynALisp tools (drawing presets, layers, cleaning, output prep, setup...), each with its docs page.</li>
-<li><strong>A sample module</strong> - the LeeMac module showcases what DynALisp does with existing AutoLISP programs: over 100 tools by Lee Mac, indexed, turned on or off, given aliases and docs pages, without touching their code. Use it as a model for your own module.</li>
-<li><strong>One window for every setting</strong> - drawing settings, file preferences, system variables and reactors, applied to all drawings and off until you turn them on.</li>
-<li><strong>Your edits stay yours</strong> - the defaults are in the repository, your changes are saved to a separate <code>User</code> folder, and can be reset at any time.</li>
-<li><strong>Built for developers</strong> - a large library of subfunctions, available in VS Code as snippets to speed up writing new tools.</li>
+<li><strong>Modules</strong> - each collection of tools is a module folder under <code>Contents\Modules</code>, loaded and indexed the same way. Add yours beside the others.</li>
+<li><strong>The Startup Suite</strong> - an index of every command, built from the Lisp files: each tool can be turned on or off, renamed with aliases and given a docs page, without touching its code (<code>Dyl-Suite</code>).</li>
+<li><strong>A sample module</strong> - the LeeMac module turns over 100 existing programs by Lee Mac into DynALisp tools (main and child commands, aliases, shared subfunctions, a docs page each) without changing their code: the model for a module of your own.</li>
+<li><strong>Settings and data that stay yours</strong> - the defaults of the data files (presets, aliases, layer keys...) are committed; every edit goes to a copy in a <code>User</code> folder that git ignores and every update keeps.</li>
+<li><strong>A subfunction library</strong> - LeeMac and gileCAD, over 11,000 lines, loaded only when a tool needs them, and available in VS Code as snippets.</li>
+<li><strong>.NET where it counts</strong> - the windows (WPF), the ribbon, the reading of the data files, the Assistant and the simulation are .NET plugins; the Lisp side checks they are loaded before calling them.</li>
 </ul>
 <p>&nbsp;</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>AutoCAD 2025 (R25.0) or later, on Windows (64-bit): the windows of DynALisp are shown by its .NET plugins, built for .NET 8 (AutoCAD 2025 and 2026) and .NET 10 (AutoCAD 2027 and later). AutoCAD LT has no AutoLISP interpreter (see <a href="https://www.cadsta.com/">CADSTA</a>).</li>
-<li>For AutoCAD 2015 to 2024: DynALisp 1.x, the last version for them (fixes only, branch <code>release/1.x</code>), from the <a href="https://github.com/samagior/DynALisp.release/releases">releases</a>.</li>
-<li>To build the .NET plugins (<code>Installer\*</code>): the .NET 10 SDK, which builds both versions.</li>
-<li>To edit the code: <a href="https://code.visualstudio.com/">Visual Studio Code</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension</a>.</li>
+<li><strong>AutoCAD 2025 (R25.0) or later</strong>, on Windows (64-bit). AutoCAD LT has no AutoLISP interpreter (see <a href="https://www.cadsta.com/">CADSTA</a>).</li>
+<li><strong>AutoCAD 2015 to 2024</strong>: DynALisp 1.x, on the branch <code>release/1.x</code> (fixes only).</li>
+<li><strong><a href="https://git-scm.com/">git</a></strong>, to install from source and stay up to date.</li>
+<li><strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> with the <a href="https://marketplace.visualstudio.com/items?itemName=Autodesk.autolispext">AutoCAD AutoLISP Extension</a>, to edit the Lisp.</li>
+<li><strong>The <a href="https://dotnet.microsoft.com/download">.NET 10 SDK</a></strong>, to build the .NET plugins (it builds both their .NET 8 and .NET 10 versions).</li>
+<li><strong>Python 3</strong>, to build the ribbon (<code>pip install pillow</code>) and the docs website (<code>pip install markdown</code>).</li>
+<li><strong><a href="https://jrsoftware.org/isinfo.php">Inno Setup 6</a></strong>, only to build the setup on your computer.</li>
 </ul>
-<h2 id="installation">Installation</h2>
-<p>There are two ways to install DynALisp. Both put it in the AutoCAD plugins folder, as <code>DynALisp.bundle</code>, and both keep your edits (the <code>User</code> folder) when you update. <code>Dyl-UserFiles</code> &gt; <strong>Export settings</strong> saves your edits and options to move them to another installation (<strong>Import settings</strong>).</p>
-<h3 id="with-the-setup-to-use-the-tools">With the setup (to use the tools)</h3>
-<ol>
-<li>Download <code>DynALisp-Setup-&lt;version&gt;.exe</code> from the <a href="https://github.com/samagior/DynALisp.release/releases/latest">latest release</a> of the public <a href="https://github.com/samagior/DynALisp.release">DynALisp.release</a> repository and run it. It installs for your Windows user only (no admin rights), into <code>%APPDATA%\Autodesk\ApplicationPlugins\DynALisp.bundle</code>. Close AutoCAD first, or the setup waits for you to.</li>
-<li>Start AutoCAD. Accept the security prompt if AutoCAD asks to load DynALisp.</li>
-</ol>
-<p>Windows may warn about an unknown publisher (the setup is not signed yet): click <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
-<p><strong>Updates:</strong> <code>Dyl-Info</code> tells you when a new version is out. <strong>Update to...</strong> shows what changed and installs it when you close AutoCAD. To install updates without asking, turn on <strong>Install updates automatically</strong> in <code>Dyl-Settings</code> (checked once a day). After an update, AutoCAD shows the changes once (they are in <a href="https://github.com/samagior/DynALisp.release/releases/latest">CHANGELOG.md</a>). Uninstall it from Windows Settings &gt; Apps: it offers to save your settings (your edited files, the <code>Dyl-Settings</code> options and your <code>MyTools</code> module) in a folder you choose, then removes everything DynALisp added. To get them back, pick the saved <code>DynALisp-Settings.txt</code> on the <strong>Import Saved Settings</strong> page of the setup, or use <strong>Import settings</strong> in <code>Dyl-UserFiles</code>.</p>
-<h3 id="with-git-to-read-or-edit-the-code">With git (to read or edit the code)</h3>
+<h2 id="install-from-source">Install From Source</h2>
 <ol>
 <li>Close AutoCAD.</li>
 <li>Clone the repository into the AutoCAD plugins folder, as <code>DynALisp.bundle</code>:</li>
@@ -54,12 +55,12 @@
 <p><code>powershell
    git clone https://github.com/samagior/DynALisp.bundle.git "$env:APPDATA\Autodesk\ApplicationPlugins\DynALisp.bundle"</code></p>
 <ol start="3">
-<li>Start AutoCAD. The bundle loads its ribbon (<code>DynALisp.cuix</code>) and runs <code>dynalisp.mnl</code>, which loads every module. Accept the security prompt if AutoCAD asks to load it.</li>
+<li>Start AutoCAD and accept the security prompt if it asks to load DynALisp.</li>
 </ol>
-<p><strong>Updates:</strong> <code>git pull</code>, then restart AutoCAD. <code>Dyl-Info</code> tells you when a newer version is out and shows what changed. The setup never installs over a git clone, and the automatic updates are off for one.</p>
+<p><strong>Updates:</strong> <code>git pull</code>, then restart AutoCAD. The setup never installs over a git clone, and the automatic updates are off for one. A clone holds what the setup leaves out: the <code>Docs</code> and <code>DevDocs</code> folders, the <code>Installer</code> sources and the VS Code workspace.</p>
 <p>&nbsp;</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>Type <code>Dyl</code> in the command line to see the main commands. The core commands:</p>
+<h2 id="commands-for-power-users">Commands For Power Users</h2>
+<p>Type <code>Dyl</code> in the command line to list the main commands. Those that customize DynALisp or help work on it:</p>
 <table>
 <thead>
 <tr>
@@ -69,28 +70,20 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Dyl-Info</code></td>
-<td>Version, updates, links and the list of core commands</td>
-</tr>
-<tr>
 <td><code>Dyl-Suite</code></td>
-<td>Turn the module commands on or off, edit their aliases, open their docs</td>
+<td>Turn each command on or off, edit its aliases, open its docs</td>
 </tr>
 <tr>
 <td><code>Dyl-Settings</code></td>
-<td>Drawing settings, file preferences, system variables, reactors, commands</td>
+<td>Every setting: environment, reactors, Assistant, overrides, layer keys, updates</td>
+</tr>
+<tr>
+<td><code>Dyl-UserFiles</code></td>
+<td>Your edited data files: open, reset, make one the committed default; export and import settings</td>
 </tr>
 <tr>
 <td><code>Dyl-PrepSuite</code></td>
 <td>Output prep: the steps run before saves, prints and REGEN</td>
-</tr>
-<tr>
-<td><code>Dyl-UserFiles</code></td>
-<td>Your edited files (presets, aliases...): open, reset or make default</td>
-</tr>
-<tr>
-<td><code>Dyl-Docs</code> / <code>LM-Docs</code></td>
-<td>Open the docs of every module (the Docs button of the ribbon) / of the LeeMac sample module</td>
 </tr>
 <tr>
 <td><code>Dyl-Reload</code></td>
@@ -98,7 +91,11 @@
 </tr>
 <tr>
 <td><code>Dyl-SuiteUpdate</code></td>
-<td>Rebuild the command index (<code>StartupSuite.csv</code>) from the Lisp files</td>
+<td>Rebuild the command index (<code>StartupSuite.csv</code>) from every Lisp file</td>
+</tr>
+<tr>
+<td><code>Dyl-Diagnostics</code></td>
+<td>A report of the setup, the settings, the reactors and the drawing</td>
 </tr>
 <tr>
 <td><code>Dyl-VSCode</code></td>
@@ -110,125 +107,154 @@
 </tr>
 </tbody>
 </table>
-<p>Every window has an <strong>Open Docs</strong> button that opens its page on the docs website, <strong>https://samagior.github.io/DynALisp.docs/</strong>. The website has two sets, with a <em>User Guide | Developers</em> switch at the top of every page: the <strong>User Guide</strong>, what each tool does and how to use it, and the <strong>Developer docs</strong>, how its code works, whose home is this page. The User Guide is in English and French: they open in the language of DynALisp (<em>Language</em> in <code>Dyl-Settings</code>, the language of AutoCAD until it is set), and the EN | FR switch at the top right of each page changes it.</p>
-<p>The docs are edited in this repository, in the <code>Docs</code> (User Guide) and <code>DevDocs</code> (Developer docs) folders of each module (<code>Contents\Modules\&lt;Module&gt;\Docs</code>); the <a href="conventions/Docs.html">conventions</a> say what goes in each, and Layer Phase is the model of both. After editing a page, run <code>python Installer\Docs\BuildDocs.py</code>: it writes the switch, links each page to the pages of its language, reports the broken links and writes <code>Contents\Resources\DocsPages.txt</code>, the list of the pages of the website. Every push to <code>main</code> publishes them (<code>.github/workflows/docs.yml</code> builds the website with <code>Installer\Docs\BuildSite.py</code> and pushes it to the public repository <a href="https://github.com/samagior/DynALisp.docs">DynALisp.docs</a>). The website also renders this README and <a href="conventions.html">CONVENTIONS.md</a> and the files of <code>Conventions</code> as its developer home (<code>pip install markdown</code> to build it locally). The setup installs that list, not the <code>Docs</code> and <code>DevDocs</code> folders: only a git clone has them.</p>
-<p>The <strong>DynALisp</strong> tab of the ribbon has a button for each tool of the DynALisp module, in a panel per group (Draw, Layers, Layer Tools, Text, Cleaning, Navigate, Output, Setup, Utilities) and the core commands in the DynALisp panel. The <strong>Quick Draw</strong> button opens the Quick Draw Gallery (a tile with its hatch for each preset; its arrow opens it on a group), <strong>Quick Draw Manager</strong> the Quick Draw window. The arrow of a button lists its presets (the phases, the drawing scales...), and the button then runs the one picked last, as the Circle button of AutoCAD (the main tool is always first in the list); the tools used less often are in the slide-out of their panel (the arrow beside its title). A tool turned off in <code>Dyl-Suite</code> answers <em>Unknown command</em> when its button is clicked.</p>
-<h3 id="dynalisp-tools">DynALisp Tools</h3>
-<table>
-<thead>
-<tr>
-<th>Group</th>
-<th>Tools</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Draw</strong></td>
-<td>Quick Draw and Quick Shape (hatch, outline and layer presets drawn in one command), Materials, Shrinkwrap</td>
-</tr>
-<tr>
-<td><strong>Layer</strong></td>
-<td>Layer keys, sets, filters, groups and transfers, phases, draw order, CSV import / export, color and lineweight matching, pen colors</td>
-</tr>
-<tr>
-<td><strong>Cleaning</strong></td>
-<td>Color ByLayer, blocks ByBlock, data links</td>
-</tr>
-<tr>
-<td><strong>Output</strong></td>
-<td>Prep Drawing (layers, hidden objects, xrefs, data links, tables, draw order and regen before output), Command Optimizer</td>
-</tr>
-<tr>
-<td><strong>Setup</strong></td>
-<td>Units, grid, file preferences, system variable profiles</td>
-</tr>
-<tr>
-<td><strong>Navigate</strong></td>
-<td>Switch drawing scale</td>
-</tr>
-<tr>
-<td><strong>Utilities</strong></td>
-<td>Batch insert, count by layers, text prefix / suffix, quick select similar, group cluster, rebuild hatch patterns, viewport to paper space, spell dictionaries, text proofreading with Claude...</td>
-</tr>
-</tbody>
-</table>
-<p>Most tools come with presets (<code>Pst-*</code> child commands) and short aliases (<code>PL-*</code>, <code>QD-*</code>, <code>QS-*</code>...), listed in <code>Dyl-Suite</code>.</p>
 <p>&nbsp;</p>
 <h2 id="structure">Structure</h2>
 <pre><code class="language-text">DynALisp.bundle
 ├─ PackageContents.xml       Autodesk bundle manifest (its AppVersion is the version of DynALisp)
 ├─ CHANGELOG.md              The changes of each version, shown by Dyl-Info
+├─ CONVENTIONS.md            The rules every change follows; Conventions\: those of each topic
 ├─ Contents
-│  ├─ Resources              Core: dynalisp.mnl, ribbon, Startup Suite, aliases, core dialogs, docs.css
+│  ├─ Resources              Core: dynalisp.mnl, Startup Suite, aliases, ribbon, plugins (Net10\: .NET 10 builds), docs.css
 │  └─ Modules
 │     ├─ Dynalisp            The DynALisp tools
 │     ├─ LeeMac              The sample module: the Lee Mac tools and subfunctions
-│     └─ gileCAD             The gileCAD subfunctions
+│     ├─ gileCAD             The gileCAD subfunctions
+│     └─ MyTools             Your own module (not in git)
 ├─ User                      Your edited copies of the data files (not in git)
 ├─ Licences                  Licences of the third-party code
-├─ Installer                 The setup (Inno Setup) and its build script; Ribbon: the ribbon builder
-├─ .github                   The release workflow
+├─ Installer                 The setup and the sources of everything generated (see below)
+├─ .github                   The workflows: release, docs website, plugin builds and tests
 └─ .vscode                   VS Code settings and subfunction snippets
 </code></pre>
 <p>Each module has the same folders:</p>
 <ul>
-<li><strong>Apps</strong> - one Lisp file per tool, in a group folder (<code>Apps\Draw</code>, <code>Apps\Layer</code>...), indexed by <code>Dyl-Suite</code>.</li>
-<li><strong>Remote</strong> - shared code loaded at startup for every tool (subfunctions, settings readers); that of the library modules (LeeMac, gileCAD) is loaded on demand, before the first of their programs runs.</li>
+<li><strong>Apps</strong> - one Lisp file per tool, named as its main command, in a group folder (<code>Apps\Draw</code>, <code>Apps\Layer</code>...), indexed by the Startup Suite.</li>
+<li><strong>Remote</strong> - shared code loaded at startup for every tool (subfunctions, settings readers). The Remote of the library modules (LeeMac, gileCAD) loads on demand, just before the first of their programs runs.</li>
 <li><strong>Reactor</strong> - every reactor, loaded only while the DynALisp reactors are on.</li>
-<li><strong>Res</strong> - the data files (CSV) and dialogs (DCL) of the module.</li>
-<li><strong>Docs</strong> - the User Guide, one page per tool: what it does and how to use it.</li>
-<li><strong>DevDocs</strong> - the Developer docs, one page per tool: how its code works.</li>
+<li><strong>Res</strong> - the data files (CSV) and the windows (WPF <code>.xaml</code>, older DCL) of the module.</li>
+<li><strong>Docs</strong> - the User Guide, one page per tool: what it does and how to use it (English and French).</li>
+<li><strong>DevDocs</strong> - the Developer docs, one page per tool: how its code works (English).</li>
 </ul>
-<p>Add your own tools as a new module folder under <code>Contents\Modules</code>: it is loaded and indexed like the others. The LeeMac module is the sample to follow: existing programs, each with one <code>LM-*</code> main command, its <code>Pst-*</code> children and aliases, shared subfunctions in <code>Remote</code>, and a docs page per program. A personal module can be kept out of git (see <code>.gitignore</code>).</p>
+<p><code>Installer</code> holds the sources of what is built:</p>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>What it builds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Core</code></td>
+<td><code>DynALisp.Core.dll</code>: the core in .NET, reads the data files once per session for every drawing</td>
+</tr>
+<tr>
+<td><code>Windows</code></td>
+<td><code>DynALisp.Windows.dll</code>: shows the WPF windows of the <code>Res</code> folders (<code>Dyl:WinShow</code>); <code>Shots</code>: their pictures for the docs</td>
+</tr>
+<tr>
+<td><code>Ribbon</code></td>
+<td><code>DynALisp.cuix</code> and its icons (<code>BuildRibbon.py</code>), and <code>DynALisp.Ribbon.dll</code> (translations, drop-downs)</td>
+</tr>
+<tr>
+<td><code>Startup</code></td>
+<td><code>DynALisp.Startup.dll</code>: the clean startup of the command line</td>
+</tr>
+<tr>
+<td><code>Assistant</code></td>
+<td><code>DynALisp.Assistant.dll</code>: the Assistant palette and its tools, through Claude Code</td>
+</tr>
+<tr>
+<td><code>Simulation</code></td>
+<td><code>DynALisp.Simulation.dll</code>: the simulation of a 2D detail, its calculation tested alone</td>
+</tr>
+<tr>
+<td><code>Assemblies</code></td>
+<td>The assemblies of Quick Draw, from <code>Walls.txt</code> and <code>Floors.txt</code></td>
+</tr>
+<tr>
+<td><code>Docs</code></td>
+<td>The docs switch and index (<code>BuildDocs.py</code>) and the docs website (<code>BuildSite.py</code>)</td>
+</tr>
+<tr>
+<td><code>DynALisp.iss</code>, <code>Build.ps1</code></td>
+<td>The setup (Inno Setup) and its build script</td>
+</tr>
+</tbody>
+</table>
 <p>&nbsp;</p>
-<h2 id="development">Development</h2>
-<p>Open the folder in VS Code with <code>Dyl-VSCode</code> (it offers to install VS Code when missing). The workspace recommends the AutoLISP extension and adds two snippet files, <code>LM-LocalSub</code> and <code>LM-RemoteSub</code>, for the Lee Mac subfunctions: insert a subfunction as local code, or as a call to its <code>Remote&gt;&gt;</code> copy, loaded before the first Lee Mac program runs. <code>.vscode\lmsnippets.py</code> regenerates them from <code>LM-Sub.lsp</code>.</p>
-<p>Before adding a tool, read <a href="conventions.html">CONVENTIONS.md</a>: command naming (<code>Dyl-*</code> main command, <code>Pst-*</code> children, aliases), where files go, settings, reactors, user files and git, then the file of <code>Conventions</code> of each topic the tool touches (its windows, its docs, its ribbon, its presets...). After adding or renaming a command, run <code>Dyl-SuiteUpdate</code> to index it.</p>
-<h3 id="the-ribbon">The ribbon</h3>
-<p><code>Contents\Resources\DynALisp.cuix</code> is written by <code>Installer\Ribbon\BuildRibbon.py</code> (Python 3 with Pillow: <code>pip install pillow</code>), never in the CUI editor:</p>
+<h2 id="your-own-tools">Your Own Tools</h2>
+<p>Add your tools as a module folder under <code>Contents\Modules</code> (<code>MyTools</code> is kept out of git, and the setup and <strong>Export settings</strong> keep it): it is loaded and indexed like the others. Follow the LeeMac module: one Lisp file per program, each with one main command (named as its file), its <code>Pst-*</code> child commands and short aliases, shared subfunctions in <code>Remote</code>, and a docs page per program. Then run <code>Dyl-SuiteUpdate</code> to index it, and turn its commands on in <code>Dyl-Suite</code>.</p>
+<p>Open the folder in VS Code with <code>Dyl-VSCode</code> (it offers to install VS Code when missing). The workspace recommends the AutoLISP extension and adds two snippet files for the Lee Mac subfunctions: <code>LM-LocalSub</code> inserts one as local code, <code>LM-RemoteSub</code> as a call to its <code>Remote&gt;&gt;</code> copy. <code>.vscode\lmsnippets.py</code> regenerates them from <code>LM-Sub.lsp</code>.</p>
+<p>Before writing a tool, read <a href="conventions.html">CONVENTIONS.md</a>: command naming (<code>Dyl-*</code> main command, <code>Pst-*</code> children, aliases), where files go, settings, reactors, user files and git, then the file of <code>Conventions</code> for each topic the tool touches (its windows, its docs, its ribbon, its presets...).</p>
+<p>&nbsp;</p>
+<h2 id="building">Building</h2>
+<h3 id="the-net-plugins">The .NET Plugins</h3>
+<p>Each plugin is one project built twice: for .NET 8 with the references of AutoCAD 2025 (<code>Contents\Resources\&lt;Name&gt;.dll</code>, AutoCAD 2025 and 2026) and for .NET 10 with those of AutoCAD 2027 (<code>Contents\Resources\Net10\&lt;Name&gt;.dll</code>, AutoCAD 2027 and later, which is not binary compatible with 2025 and 2026). Both builds are committed, so a clone runs without building anything.</p>
+<pre><code class="language-powershell">dotnet build Installer\Windows -c Release
+</code></pre>
+<p>The Release build copies both DLLs to where <code>PackageContents.xml</code> loads them. Close AutoCAD first: it keeps the DLLs open. The AutoCAD references come from NuGet (<code>AutoCAD.NET</code>), so no AutoCAD is needed to build. On Linux, add <code>-p:EnableWindowsTargeting=true</code>.</p>
+<p>What needs no AutoCAD is a library of its own, tested alone, and checked by a workflow on each push that changes it:</p>
+<pre><code class="language-powershell">dotnet test Installer\Core\Tests
+dotnet test Installer\Simulation\Tests
+</code></pre>
+<h3 id="the-ribbon">The Ribbon</h3>
+<p><code>Contents\Resources\DynALisp.cuix</code> is written by <code>Installer\Ribbon\BuildRibbon.py</code>, never in the CUI editor:</p>
 <ul>
-<li><code>Installer\Ribbon\Ribbon.csv</code> - the panels and buttons: the panel, the stack (empty: a large button; a number: small buttons stacked together; <code>&gt;1</code>: a row of the slide-out), the command, its children listed under its arrow (<code>*</code>, or patterns divided by <code>|</code>), and a name and description for a command that is not in <code>StartupSuite.csv</code>.</li>
-<li><code>Installer\Ribbon\RibbonIcons.py</code> - the icon of each command, drawn at 16 and 32 px and stored in the CUIx. A child without an icon of its own uses the icon of its main command.</li>
-<li><code>Installer\Ribbon\Ribbon.fr.csv</code> - the French texts of the tab (panel titles, button labels and tooltips): the plugin shows them on AutoCAD 2025 and later in a French AutoCAD (the tab follows the language of the AutoCAD installed, not the <em>Language</em> of <code>Dyl-Settings</code>, which sets the language of the docs only).</li>
-<li><code>Installer\Ribbon\ContextMenus.csv</code> - the commands added to the right-click menus of AutoCAD: the menu (<code>OBJECT_MTEXT</code> for one mtext selected, <code>OBJECTS_MTEXT</code> for several...) and the command. Empty for now: the first menus made AutoCAD crash on the right click (see <code>BuildRibbon.py</code>).</li>
+<li><code>Ribbon.csv</code> - the panels and buttons: the panel, the stack (empty: a large button; a number: small buttons stacked together; <code>&gt;1</code>: a row of the slide-out), the command, and its children listed under its arrow.</li>
+<li><code>RibbonIcons.py</code> - the icon of each command, drawn at 16 and 32 px. A child without an icon of its own uses the icon of its main command.</li>
+<li><code>Ribbon.&lt;code&gt;.csv</code> (<code>Ribbon.fr.csv</code>) - the texts of the tab in another language, shown by the ribbon plugin in an AutoCAD of that language.</li>
+<li><code>ContextMenus.csv</code> - the commands added to the right-click menus of AutoCAD.</li>
 </ul>
-<p>Run <code>python Installer\Ribbon\BuildRibbon.py</code> after adding, renaming or removing a tool: it warns about a main command of the module missing from <code>Ribbon.csv</code> or without an icon. It also draws the pictures of the panels for the Ribbon docs page (<code>RibbonPanels.py</code>, into <code>Docs\Plugins\Ribbon</code>) and writes its Panels section; <code>--pictures</code> draws them only. <code>--sheet &lt;file.png&gt;</code> draws every icon, on the light and the dark ribbon, to review them. Restart AutoCAD to see the new ribbon.</p>
-<h3 id="releasing-a-version">Releasing a version</h3>
-<ol>
-<li>Raise <code>AppVersion</code> in <code>PackageContents.xml</code> and add its <code>## &lt;version&gt; - &lt;date&gt;</code> section at the top of <code>CHANGELOG.md</code>, in the same commit.</li>
-<li>Push a tag of that version: <code>git tag v1.1</code>, then <code>git push origin v1.1</code>.</li>
-</ol>
-<p>The release workflow checks the tag against <code>AppVersion</code>, builds the setup with <code>Installer\Build.ps1</code> and publishes the release to the public <a href="https://github.com/samagior/DynALisp.release">DynALisp.release</a> repository: the setup and <code>CHANGELOG.md</code> as files, its changelog section as notes. Dyl-Info and the automatic updates read that release, without signing in to GitHub. The workflow needs the <code>RELEASE_TOKEN</code> secret of this repository: a fine-grained token with <strong>Contents: Read and write</strong> on <code>DynALisp.release</code> only (renew it when it expires, then run the workflow by hand with the tag to publish again). To build the setup locally, install <a href="https://jrsoftware.org/isinfo.php">Inno Setup 6</a> and run <code>powershell -ExecutionPolicy Bypass -File Installer\Build.ps1</code> (output in <code>Releases</code>).</p>
+<p>Run <code>python Installer\Ribbon\BuildRibbon.py</code> after adding, renaming or removing a tool: it warns about a main command missing from <code>Ribbon.csv</code> or without an icon, and draws the pictures of the panels for the Ribbon docs page. <code>--sheet &lt;file.png&gt;</code> draws every icon on the light and the dark ribbon, to review them. Restart AutoCAD to see the new ribbon.</p>
+<h3 id="the-docs">The Docs</h3>
+<p>The docs are edited here, in the <code>Docs</code> (User Guide) and <code>DevDocs</code> (Developer docs) folders of each module; <a href="conventions/Docs.html">Conventions/Docs.md</a> says what goes in each. After editing a page, run <code>python Installer\Docs\BuildDocs.py</code>: it writes the language switch, links each page to the pages of its language, reports the broken links and writes <code>Contents\Resources\DocsPages.txt</code>. A push publishes them: <code>.github/workflows/docs.yml</code> builds the website with <code>BuildSite.py</code> and pushes it to the public repository <a href="https://github.com/samagior/DynALisp.docs">DynALisp.docs</a>, served at <strong>https://samagior.github.io/DynALisp.docs/</strong>. This README and the conventions are its developer home.</p>
+<p>The pictures of the windows are drawn without AutoCAD by <code>Installer\Windows\Shots</code> (a row of <code>Shots.csv</code> each), on Windows or by the <code>windows.yml</code> workflow.</p>
+<h3 id="the-setup">The Setup</h3>
+<p>To build it on your computer: <code>powershell -ExecutionPolicy Bypass -File Installer\Build.ps1</code> (output in <code>Releases</code>). It installs only the files git knows.</p>
 <p>&nbsp;</p>
-<h3 id="why-autolisp">Why AutoLISP?</h3>
-<h4 id="pros">Pros</h4>
+<h2 id="contributing">Contributing</h2>
+<ul>
+<li><strong>Read the conventions first.</strong> <a href="conventions.html">CONVENTIONS.md</a> is the core, read for every change; the larger topics (presets and materials, windows, docs, ribbon, versions, Claude, simulation...) have their file in <code>Conventions</code>, read before changing what they cover. A new rule goes there, with its reason, in the same change.</li>
+<li><strong>Branches.</strong> <code>main</code> always loads in AutoCAD. Work of several steps goes on a branch made from <code>main</code>: <code>feature/&lt;name&gt;</code>, <code>fix/&lt;name&gt;</code> or <code>refactor/&lt;name&gt;</code>. The changes of a period of work are tried in AutoCAD together, then merged into <code>main</code> as one pull request.</li>
+<li><strong>Commits.</strong> One commit per step that is done and leaves DynALisp loading, staged by path (never <code>git add -A</code>). A tool is committed whole: its Lisp file, its docs pages, its rows of <code>StartupSuite.csv</code> and <code>Aliases.csv</code>, its ribbon row. A rename is a commit of its own.</li>
+<li><strong>Diagnostics.</strong> A tool that adds a startup step, a reactor, a data file or a setting adds its check to <code>Dyl-Diagnostics</code>.</li>
+<li><strong>Problems.</strong> Users report them on the <a href="https://github.com/samagior/DynALisp/issues">issues of DynALisp</a>, with the report of <code>Dyl-Diagnostics</code>.</li>
+</ul>
+<h3 id="releasing-a-version">Releasing a Version</h3>
+<ol>
+<li>Raise <code>AppVersion</code> in <code>PackageContents.xml</code> and add its <code>## &lt;version&gt; - &lt;date&gt;</code> section at the top of <code>CHANGELOG.md</code>, in a commit of its own.</li>
+<li>Push a tag of that version: <code>git tag v2.1</code>, then <code>git push origin v2.1</code> (1.x versions are tagged on <code>release/1.x</code>).</li>
+</ol>
+<p>The release workflow checks the tag against <code>AppVersion</code>, builds the setup and publishes the release to the public <a href="https://github.com/samagior/DynALisp">DynALisp</a> repository: the setup and <code>CHANGELOG.md</code> as files, its changelog section as notes. Dyl-Info and the automatic updates read that release without signing in to GitHub. The workflow needs the <code>RELEASE_TOKEN</code> secret: a fine-grained token with <strong>Contents: Read and write</strong> on the releases repository only (renew it when it expires, then run the workflow by hand with the tag).</p>
+<p>&nbsp;</p>
+<h2 id="powered-by-claude">Powered By Claude</h2>
+<p><a href="https://claude.com/claude-code"><img alt="Claude" src="https://img.shields.io/badge/Claude-Anthropic-D97757?logo=claude&amp;logoColor=white&amp;style=for-the-badge" /></a></p>
+<p>DynALisp is developed with <a href="https://claude.com/claude-code">Claude Code</a>, Anthropic's coding assistant: the ribbon and its icons, the windows, the Quick Draw gallery and assemblies, the layer keys, the .NET plugins, the docs and the <a href="conventions.html">conventions</a> were written with it. The <strong>Assistant</strong> (<code>Dyl-Assistant</code>) and <strong>Text Fix</strong> (<code>Dyl-TextFix</code>) ask Claude itself, through the user's own Claude Code (<a href="conventions/Claude.html">Conventions/Claude.md</a>).</p>
+<h3 id="working-on-dynalisp-with-claude-code">Working on DynALisp with Claude Code</h3>
+<ul>
+<li><strong>Start it in the bundle folder.</strong> CLAUDE.md loads <a href="conventions.html">CONVENTIONS.md</a> in every session, so each change follows the DynALisp rules without repeating them; Claude reads the file of <code>Conventions</code> of a topic before changing what it covers.</li>
+<li><strong>Ask for the result, one change at a time.</strong> Name the tool and the window, say what should happen ("in Quick Draw, grey out the material when Assembly is checked"); a short request reviewed and tested beats a long one.</li>
+<li><strong>Plan the large changes first.</strong> For a new tool or a window redesign, ask for a plan and answer its questions before any code is written.</li>
+<li><strong>Make new rules conventions.</strong> When you agree on how something should always be done, ask Claude to add it to the conventions, with its reason: the next sessions will follow it.</li>
+<li><strong>Test in AutoCAD.</strong> Claude cannot run AutoCAD: reload (<code>Dyl-Reload</code>, or restart AutoCAD for the ribbon and <code>dynalisp.mnl</code>), try the change, and paste back the command line text of an error.</li>
+<li><strong>Review before merging.</strong> Claude commits and pushes each step to the work branch as it goes; merging into <code>main</code> and tagging a release stay your call.</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="why-autolisp">Why AutoLISP?</h2>
+<h3 id="pros">Pros</h3>
 <ul>
 <li>AutoLISP has been around for a long time, is well documented and has a large community library.</li>
 <li>No complex API, system or application to learn.</li>
 <li>The built-in interpreter makes it easy to get going: no compiling required.</li>
 </ul>
-<h4 id="cons">Cons</h4>
+<h3 id="cons">Cons</h3>
 <ul>
 <li>Needs the built-in interpreter, not available in AutoCAD LT (you may want to take a look at the <a href="https://www.cadsta.com/">CADSTA</a> plugin).</li>
 <li>No Visual LISP IDE or ActiveX (<code>vla-*</code>) functions on Mac.</li>
-<li>No access to the full AutoCAD .NET API.</li>
+<li>No access to the full AutoCAD .NET API: DynALisp adds .NET plugins where it needs it (windows, ribbon, data files).</li>
 <li>Only usable in AutoCAD products.</li>
 <li>Some dislike, or have a hard time reading, its parenthesis-heavy syntax that reads from the inside out.</li>
-</ul>
-<p>&nbsp;</p>
-<h2 id="powered-by-claude">Powered By Claude</h2>
-<p><a href="https://claude.com/claude-code"><img alt="Claude" src="https://img.shields.io/badge/Claude-Anthropic-D97757?logo=claude&amp;logoColor=white&amp;style=for-the-badge" /></a></p>
-<p>DynALisp is developed with <a href="https://claude.com/claude-code">Claude Code</a>, Anthropic's coding assistant: the ribbon and its icons, the Quick Draw gallery and assemblies, the layer keys, the docs pages and the <a href="conventions.html">conventions</a> were written with it. The <strong>Text Fix</strong> tool (<code>Dyl-TextFix</code>) uses Claude itself to proofread the texts of a drawing.</p>
-<h3 id="working-on-dynalisp-with-claude-code">Working on DynALisp with Claude Code</h3>
-<ul>
-<li><strong>Start it in the bundle folder.</strong> CLAUDE.md loads <a href="conventions.html">CONVENTIONS.md</a> in every session, so each change follows the DynALisp rules (naming, folders, settings, git) without repeating them; the larger topics (windows, docs, ribbon, presets...) are in the files of <code>Conventions</code>, which Claude reads before changing what they cover, so a session carries only the rules of its work.</li>
-<li><strong>Ask for the result, one change at a time.</strong> Name the tool and the window, say what should happen ("in Quick Draw, grey out the material when Assembly is checked"); a short request reviewed and tested beats a long one.</li>
-<li><strong>Plan the large changes first.</strong> For a new tool or a window redesign, ask for a plan (plan mode) and answer its questions before any code is written.</li>
-<li><strong>Make new rules conventions.</strong> When you agree on how something should always be done, ask Claude to add it to CONVENTIONS.md (or the file of its topic), with its reason: the next sessions will follow it.</li>
-<li><strong>Test in AutoCAD.</strong> Claude cannot run AutoCAD: reload (<code>Dyl-Reload</code>, or restart AutoCAD for the menu and <code>dynalisp.mnl</code>), try the change, and paste back the command line text of an error. Describe what you see in the window when the layout is off.</li>
-<li><strong>Rebuild what is generated.</strong> After a tool is added or renamed: <code>Dyl-SuiteUpdate</code> for the Startup Suite, and <code>python Installer\Ribbon\BuildRibbon.py</code> for the ribbon (Claude runs it when it changes the ribbon).</li>
-<li><strong>Review, then commit.</strong> Read the diff before committing; Claude commits only when asked.</li>
-<li><strong>Keep keys out of the files.</strong> Claude Text Fix reads its Anthropic API key from the <code>ANTHROPIC_API_KEY</code> environment variable (or asks for it, kept for the session only): never write a key in a Lisp, CSV or settings file.</li>
 </ul>
 <p>&nbsp;</p>
 <h2 id="licence">Licence</h2>
