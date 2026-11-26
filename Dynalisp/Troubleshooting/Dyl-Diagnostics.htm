@@ -60,6 +60,7 @@
 <tr><td><span class="fixw">PST-DIAGNOSTICSREACTORS</span></td><td>Diagnostics Reactors</td><td>Checks the DynALisp reactors of the drawing against their settings and lists every reactor.</td></tr>
 <tr><td><span class="fixw">PST-DIAGNOSTICSREACTOREVENTS</span></td><td>Diagnostics Reactor Events</td><td>Counts the events the drawing sends to the reactors between two runs, to find what slows AutoCAD.</td></tr>
 <tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Reports the units, spaces, draw order tables, layers, xrefs and objects of the drawing, and its regen time.</td></tr>
+<tr><td><span class="fixw">PST-DIAGNOSTICSWITNESS</span></td><td>Diagnostics Witness</td><td>Takes the witness files of the .NET core: what the Lisp gives from its test files, zipped to send. In a git clone only.</td></tr>
 </table>
 </div>
 <h2 id="sending">Sending A Report</h2>
@@ -74,6 +75,8 @@
 <h2>Finding What Slows AutoCAD</h2>
 <p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) counts the events the drawing sends to the reactors: run it, work the slow way for about 20 seconds (zoom, pan, draw), then run it again. The report lists each event (an object added or changed, a command started, a system variable changed) and its count. The DynALisp reactors run only on these events: when none is counted during a slow zoom or pan, the reactors are not what slows it. It needs the DynALisp reactors on (<span class="fixw">Dyl-Settings</span>).</p>
 <p>The <em>Drawing</em> part times a regeneration of the drawing: run <span class="fixw">DIAG-DWG</span>, change one thing (the draw order table deleted with <span class="fixw">DO-RESET</span>, the reactors turned off and the drawing opened again...), run it again and compare.</p>
+<h2>Witness Files</h2>
+<p><span class="fixw">Pst-DiagnosticsWitness</span> (<span class="fixw">DIAG-WITNESS</span>) is for the development of DynALisp, in a git clone only: it runs the Lisp code that the .NET core of DynALisp replaces on the test files of the clone, then shows a <span class="fixw">DynALisp Witness &lt;date&gt;.zip</span> of what it gave in the Explorer. Send that zip when it is asked for: the tests of the core check that the .NET gives the same. Nothing of the drawing, of your settings or of your files is read or changed. It needs Quick Draw turned on in <span class="fixw">Dyl-Suite</span>.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
@@ -97,6 +100,7 @@
 <tr><td><span class="fixw">Pst-DiagnosticsReactors</span></td><td>DIAG-REACTORS</td><td>Diagnostics Reactors</td></tr>
 <tr><td><span class="fixw">Pst-DiagnosticsReactorEvents</span></td><td>DIAG-EVENTS</td><td>Diagnostics Reactor Events</td></tr>
 <tr><td><span class="fixw">Pst-DiagnosticsDrawing</span></td><td>DIAG-DWG</td><td>Diagnostics Drawing</td></tr>
+<tr><td><span class="fixw">Pst-DiagnosticsWitness</span></td><td>DIAG-WITNESS</td><td>Diagnostics Witness</td></tr>
 </table>
 </div>
 <!-- /dyl:aliases -->
