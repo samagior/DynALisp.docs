@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rouvrir les jeux de feuilles</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="SheetSets.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Plugins/SheetSets.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Rouvrir les jeux de feuilles</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Paramètre</td>
+<td><em>Reopen sheet sets</em>, dans les dérogations (Overrides) de <a href="../Core/Dyl-Settings.fr.htm">Dyl-Settings</a>, désactivé à une nouvelle installation</td>
+</tr>
+<tr>
+<td>Requis</td>
+<td>AutoCAD 2025 ou suivant pour Windows</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+
+<h2>Description</h2>
+<p>Le Gestionnaire du jeu de feuilles d'AutoCAD oublie les jeux de feuilles qu'il avait ouverts quand AutoCAD se ferme : chaque jour, il faut les rouvrir un par un. Avec <em>Reopen sheet sets</em> activé, DynALisp mémorise les jeux de feuilles ouverts dans le Gestionnaire du jeu de feuilles et les rouvre à chaque démarrage d'AutoCAD, jusqu'à ce que vous les fermiez vous-même dans le gestionnaire.</p>
+<!-- picture: images/SheetSets-window.png -->
+<!-- picture: images/SheetSets-use.gif -->
+<h2>Utilisation</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Reopen sheet sets</em> (dans Overrides), puis Save. Les jeux de feuilles ouverts à ce moment sont mémorisés aussitôt.</li>
+<li>Ouvrez vos jeux de feuilles dans le Gestionnaire du jeu de feuilles comme d'habitude (<span class="fixw">SHEETSET</span>, <em>Ouvrir...</em>).</li>
+<li>Fermez AutoCAD et redémarrez-le : une fois le premier dessin ouvert et AutoCAD au repos, les mêmes jeux de feuilles se rouvrent dans le Gestionnaire du jeu de feuilles.</li>
+<li>Un jeu de feuilles dont vous n'avez plus besoin : fermez-le dans le Gestionnaire du jeu de feuilles (clic droit sur son nom, <em>Fermer le jeu de feuilles</em>). Il n'est plus rouvert.</li>
+</ol>
+</div>
+<h2>Notes</h2>
+<div class="spacedbullets">
+<ul>
+<li>Les jeux de feuilles ouverts sont notés après chaque commande, quand un dessin devient courant ou se ferme, et à la fermeture d'AutoCAD. Un jeu de feuilles fermé dans le gestionnaire juste avant qu'AutoCAD s'arrête sur une erreur peut se rouvrir une fois de plus au démarrage suivant.</li>
+<li>Le Gestionnaire du jeu de feuilles affiche le dernier jeu rouvert ; les autres sont dans sa liste du haut.</li>
+<li>Un jeu de feuilles dont le fichier n'existe plus (déplacé, renommé, supprimé) n'est plus mémorisé : la ligne de commande le dit au démarrage. Un jeu qui existe mais ne peut pas s'ouvrir (un serveur pas encore joignable) est gardé pour le démarrage suivant.</li>
+<li>La liste reste sur cet ordinateur : elle ne fait pas partie des réglages exportés par <span class="fixw">Dyl-UserFiles</span>. Désactiver le réglage l'oublie.</li>
+<li>Quand AutoCAD démarre sans dessin (l'onglet Démarrer seulement), les jeux de feuilles s'ouvrent avec le premier dessin.</li>
+<li>Pour qui modifie DynALisp : le plug-in est celui du <a href="CleanStartup.fr.htm">Démarrage épuré</a> ; sa source est <span class="fixw">Installer\Startup</span>.</li>
+</ul>
+</div>
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>
