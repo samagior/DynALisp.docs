@@ -111,7 +111,8 @@
 <h2 id="structure">Structure</h2>
 <pre><code class="language-text">DynALisp.bundle
 ├─ PackageContents.xml       Autodesk bundle manifest (its AppVersion is the version of DynALisp)
-├─ CHANGELOG.md              The changes of each version, shown by Dyl-Info
+├─ CHANGELOG.md              What's New: what each version brings to its users, shown by Dyl-Info
+├─ CHANGELOG.fr.md           Its French copy
 ├─ CONVENTIONS.md            The rules every change follows; Conventions\: those of each topic
 ├─ Contents
 │  ├─ Resources              Core: dynalisp.mnl, Startup Suite, aliases, ribbon, plugins (Net10\: .NET 10 builds), docs.css
@@ -223,10 +224,10 @@ dotnet test Installer\Simulation\Tests
 </ul>
 <h3 id="releasing-a-version">Releasing a Version</h3>
 <ol>
-<li>Raise <code>AppVersion</code> in <code>PackageContents.xml</code> and add its <code>## &lt;version&gt; - &lt;date&gt;</code> section at the top of <code>CHANGELOG.md</code>, in a commit of its own.</li>
+<li>Raise <code>AppVersion</code> in <code>PackageContents.xml</code> and turn the <code>## Next</code> section of <code>CHANGELOG.md</code> and <code>CHANGELOG.fr.md</code> into its <code>## &lt;version&gt; - &lt;date&gt;</code> section, in a commit of its own. A change that users see adds its <code>### &lt;title&gt;</code> to <code>## Next</code> (both files) when it is merged: what they can do now and where to find it, with a picture and a link to its docs page (the format is at the top of <code>CHANGELOG.md</code>).</li>
 <li>Push a tag of that version: <code>git tag v2.1</code>, then <code>git push origin v2.1</code> (1.x versions are tagged on <code>release/1.x</code>).</li>
 </ol>
-<p>The release workflow checks the tag against <code>AppVersion</code>, builds the setup and publishes the release to the public <a href="https://github.com/samagior/DynALisp">DynALisp</a> repository: the setup and <code>CHANGELOG.md</code> as files, its changelog section as notes. Dyl-Info and the automatic updates read that release without signing in to GitHub. The workflow needs the <code>RELEASE_TOKEN</code> secret: a fine-grained token with <strong>Contents: Read and write</strong> on the releases repository only (renew it when it expires, then run the workflow by hand with the tag).</p>
+<p>The release workflow checks the tag against <code>AppVersion</code>, builds the setup and publishes the release to the public <a href="https://github.com/samagior/DynALisp">DynALisp</a> repository: the setup, <code>CHANGELOG.md</code> and <code>CHANGELOG.fr.md</code> as files, the section of the version as notes (its pictures and links pointed to the docs website). Dyl-Info and the automatic updates read that release without signing in to GitHub. The workflow needs the <code>RELEASE_TOKEN</code> secret: a fine-grained token with <strong>Contents: Read and write</strong> on the releases repository only (renew it when it expires, then run the workflow by hand with the tag).</p>
 <p>&nbsp;</p>
 <h2 id="powered-by-claude">Powered By Claude</h2>
 <p><a href="https://claude.com/claude-code"><img alt="Claude" src="https://img.shields.io/badge/Claude-Anthropic-D97757?logo=claude&amp;logoColor=white&amp;style=for-the-badge" /></a></p>

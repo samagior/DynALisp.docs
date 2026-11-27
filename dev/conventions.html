@@ -172,6 +172,7 @@
 <h2 id="versions-and-updates">Versions And Updates</h2>
 <ul>
 <li>The version is the <code>AppVersion</code> of <code>PackageContents.xml</code>, and only there; raise it with its <code>CHANGELOG.md</code> section, in a commit of its own.</li>
+<li><code>CHANGELOG.md</code> (and <code>CHANGELOG.fr.md</code>) is <strong>What's New</strong>, for the users only: a change they see adds its <code>### &lt;title&gt;</code>, its text, a picture and the link to its docs page to <code>## Next</code> when it is merged; never how the code changed.</li>
 <li>DynALisp 2.0 runs in AutoCAD 2025 and later; 1.x, for AutoCAD 2015 to 2024, lives on the branch <code>release/1.x</code> (fixes only).</li>
 <li>A .NET plugin is built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later, <code>Net10</code>), both committed; the Lisp checks its function is defined before using it.</li>
 <li>The core of DynALisp in .NET (<code>Installer\Core</code>, <code>DynALisp.Core.dll</code>) takes over from Lisp one step at a time; each of its functions gives what the Lisp code it replaces gives (checked against witness files taken in AutoCAD, <code>Installer\Core\Tests\Witness</code>), and that code stays for when it is not loaded, except the windows of the Manager, whose Lisp goes once their tab is in .NET.</li>
