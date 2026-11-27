@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Start Page</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><span class="on" title="English">EN</span><a href="Dyl-StartPage.fr.htm" hreflang="fr" lang="fr" title="Français">FR</a></nav>
+        <nav class="set" aria-label="Docs"><span class="on">User Guide</span><a href="../../dev/Dynalisp/Core/Dyl-StartPage.htm">Developers</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Start Page</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Setting</td>
+<td><em>Start page</em>, in the Overrides of <a href="Dyl-Settings.htm">Dyl-Settings</a>, off on a new installation</td>
+</tr>
+<tr>
+<td>Requires</td>
+<td>AutoCAD 2025 or later for Windows, its Start tab on</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+
+<h2>Description</h2>
+<p>The Start tab of AutoCAD shows the Start page of DynALisp in place of its own: your recent drawings, with the picture each drawing keeps of itself, and beside them what DynALisp is, how it started in the last drawing opened, its main settings and its last diagnostics. It opens as AutoCAD starts and each time you click the Start tab, in the colours of AutoCAD (or of DynALisp Neutral).</p>
+<!-- picture: images/Dyl-StartPage-window.png -->
+<!-- picture: images/Dyl-StartPage-use.gif -->
+<h2>How To Use</h2>
+<div class="spacedbullets">
+<ol>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>Start page</em> (in Overrides), then Save. The Start tab shows the page of DynALisp within a second.</li>
+<li>Click a drawing to open it; right-click it to open it read-only or show it in its folder. Type in <strong>Search</strong> to find a drawing by its name or its folder.</li>
+<li><strong>New</strong> starts a drawing from your template (the one of <span class="fixw">QNEW</span>), <strong>Open...</strong> opens one or more drawings.</li>
+<li>Read the cards on the right; <strong>Settings</strong>, <strong>Run Diagnostics</strong> and <strong>Open report</strong> lead to the rest.</li>
+</ol>
+</div>
+<h2 id="page">The Page</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Recent drawings</strong> &ndash; the drawings of the recent list of AutoCAD, the last opened first, each with its picture, its folder and when it was last saved (<em>today</em>, <em>yesterday</em> or its date). A drawing that is no longer found says <em>Not found</em>, greyed out. A drawing already open is made current instead of being opened again.</li>
+<li><strong>DynALisp</strong> &ndash; how it is installed (by the setup, or a git clone with its branch and commit), its modules, and whether every plugin of DynALisp is loaded (one that is not is named, in red).</li>
+<li><strong>Startup</strong> &ndash; the time DynALisp took to start in the last drawing opened, the drawing and when, its commands and aliases, its three slowest steps, and in red each warning and each file that did not load. Before any drawing is opened, the last startup of the previous session.</li>
+<li><strong>Settings</strong> &ndash; Reactors, Display, Clean startup, Updates and Language, as saved in <a href="Dyl-Settings.htm">Dyl-Settings</a>. <strong>Settings</strong> opens Dyl-Settings.</li>
+<li><strong>Diagnostics</strong> &ndash; the last full report of <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a>: when, how many problems, and the first three. <strong>Run Diagnostics</strong> makes a new one, <strong>Open report</strong> opens the last; <strong>Open Docs</strong> opens this page.</li>
+</ul>
+</div>
+<h2>Notes</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Settings</strong> and <strong>Run Diagnostics</strong> run in a drawing: they are greyed out while no drawing is open.</li>
+<li>The page is shown only in the Start tab: with <span class="fixw">STARTMODE</span> at 0 (the Start tab off), turning <em>Start page</em> on in Dyl-Settings turns the Start tab back on.</li>
+<li>The page reads the drawings on its own, so the Start tab never waits for a slow network drive: they appear once read. The pictures are kept in the temp folder, made again when a drawing is saved.</li>
+<li>AutoCAD has no command for its Start tab: DynALisp puts its page over the page of AutoCAD, which it hides, and gives it back when <em>Start page</em> is turned off. In a version of AutoCAD where it does not find the Start tab, the Start tab stays as it is; the <strong>Interface</strong> section of Dyl-Diagnostics says what was found, to send with an issue.</li>
+</ul>
+</div>
+<p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Author: Samuel Martineau, Copyright &copy; 2026 &ndash; released under the GNU General Public License v3</p>
+    </div>
+</body>
+
+</html>

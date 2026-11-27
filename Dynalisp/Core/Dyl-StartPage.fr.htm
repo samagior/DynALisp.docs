@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page de démarrage</title>
+    <link rel="stylesheet" href="../../docs.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>DynALisp <span>Docs</span></p>
+        <nav class="lang" aria-label="Language"><a href="Dyl-StartPage.htm" hreflang="en" lang="en" title="English">EN</a><span class="on" title="Français">FR</span></nav>
+        <nav class="set" aria-label="Docs"><span class="on">Guide d'utilisation</span><a href="../../dev/Dynalisp/Core/Dyl-StartPage.htm">D&eacute;veloppeurs</a></nav>
+    </div>
+
+    <div id="content">
+        <h1>Page de démarrage</h1>
+
+<div class="programs">
+<table>
+<tr class="alt">
+<td>Réglage</td>
+<td><em>Start page</em>, dans les Overrides de <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, désactivé à une nouvelle installation</td>
+</tr>
+<tr>
+<td>Nécessite</td>
+<td>AutoCAD 2025 ou plus récent pour Windows, son onglet Démarrer activé</td>
+</tr>
+<tr class="alt">
+<td>Licence</td>
+<td>GNU General Public License v3</td>
+</tr>
+</table>
+</div>
+
+<h2>Description</h2>
+<p>L'onglet Démarrer d'AutoCAD affiche la page de démarrage de DynALisp à la place de la sienne : vos dessins récents, avec l'image que chaque dessin garde de lui-même, et à côté ce qu'est DynALisp, comment il a démarré dans le dernier dessin ouvert, ses principaux réglages et ses derniers diagnostics. Elle s'ouvre au démarrage d'AutoCAD et chaque fois que vous cliquez sur l'onglet Démarrer, aux couleurs d'AutoCAD (ou de DynALisp Neutral).</p>
+<!-- picture: images/Dyl-StartPage-window.png -->
+<!-- picture: images/Dyl-StartPage-use.gif -->
+<h2>Mode d'emploi</h2>
+<div class="spacedbullets">
+<ol>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Start page</em> (dans Overrides), puis Save. L'onglet Démarrer affiche la page de DynALisp en moins d'une seconde.</li>
+<li>Cliquez sur un dessin pour l'ouvrir ; un clic droit l'ouvre en lecture seule ou l'affiche dans son dossier. Tapez dans <strong>Search</strong> pour trouver un dessin par son nom ou son dossier.</li>
+<li><strong>New</strong> commence un dessin à partir de votre gabarit (celui de <span class="fixw">QNEW</span>), <strong>Open...</strong> ouvre un ou plusieurs dessins.</li>
+<li>Lisez les cartes à droite ; <strong>Settings</strong>, <strong>Run Diagnostics</strong> et <strong>Open report</strong> mènent au reste.</li>
+</ol>
+</div>
+<h2 id="page">La page</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Recent drawings</strong> &ndash; les dessins de la liste des fichiers récents d'AutoCAD, le dernier ouvert en premier, chacun avec son image, son dossier et sa dernière sauvegarde (<em>today</em>, <em>yesterday</em> ou sa date). Un dessin introuvable affiche <em>Not found</em>, grisé. Un dessin déjà ouvert devient le dessin courant au lieu d'être ouvert à nouveau.</li>
+<li><strong>DynALisp</strong> &ndash; comment il est installé (par l'installateur, ou un clone git avec sa branche et son commit), ses modules, et si chaque plug-in de DynALisp est chargé (celui qui ne l'est pas est nommé, en rouge).</li>
+<li><strong>Startup</strong> &ndash; le temps de démarrage de DynALisp dans le dernier dessin ouvert, le dessin et l'heure, ses commandes et alias, ses trois étapes les plus lentes, et en rouge chaque avertissement et chaque fichier qui n'a pas chargé. Avant l'ouverture d'un dessin, le dernier démarrage de la session précédente.</li>
+<li><strong>Settings</strong> &ndash; Reactors, Display, Clean startup, Updates et Language, tels qu'enregistrés dans <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>. <strong>Settings</strong> ouvre Dyl-Settings.</li>
+<li><strong>Diagnostics</strong> &ndash; le dernier rapport complet de <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> : sa date, le nombre de problèmes et les trois premiers. <strong>Run Diagnostics</strong> en fait un nouveau, <strong>Open report</strong> ouvre le dernier ; <strong>Open Docs</strong> ouvre cette page.</li>
+</ul>
+</div>
+<h2>Remarques</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Settings</strong> et <strong>Run Diagnostics</strong> s'exécutent dans un dessin : ils sont grisés tant qu'aucun dessin n'est ouvert.</li>
+<li>La page s'affiche seulement dans l'onglet Démarrer : avec <span class="fixw">STARTMODE</span> à 0 (l'onglet Démarrer désactivé), activer <em>Start page</em> dans Dyl-Settings réactive l'onglet Démarrer.</li>
+<li>La page lit les dessins d'elle-même, si bien que l'onglet Démarrer n'attend jamais un lecteur réseau lent : ils apparaissent une fois lus. Les images sont gardées dans le dossier temporaire, refaites quand un dessin est enregistré.</li>
+<li>AutoCAD n'a aucune commande pour son onglet Démarrer : DynALisp pose sa page sur celle d'AutoCAD, qu'il masque, et la rend quand <em>Start page</em> est désactivé. Dans une version d'AutoCAD où il ne trouve pas l'onglet Démarrer, celui-ci reste tel quel ; la section <strong>Interface</strong> de Dyl-Diagnostics dit ce qui a été trouvé, à joindre à un signalement.</li>
+</ul>
+</div>
+<p><a href="../index.fr.htm">&larr; Index de la documentation du module Dynalisp</a></p>
+
+    </div>
+
+    <div id="footer">
+        <p>Auteur : Samuel Martineau, Copyright &copy; 2026 &ndash; publié sous la licence publique générale GNU v3</p>
+    </div>
+</body>
+
+</html>
