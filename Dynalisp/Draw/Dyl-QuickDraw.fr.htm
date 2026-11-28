@@ -36,7 +36,6 @@
 </div>
 <h2>Description</h2>
 <p>Dessinez et hachurez d'un coup : le contour, son calque et sa hachure à la bonne échelle. Trente-cinq préréglages sont prêts, béton, brique, isolant, trames de phase, et vous faites les vôtres.</p>
-<!-- picture: images/Dyl-QuickDraw-window.png -->
 <!-- picture: images/Dyl-QuickDraw-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -47,27 +46,51 @@
 </ol>
 </div>
 <h2 id="window">Fenêtre Quick Draw</h2>
+<p>Tapez <span class="fixw">Dyl-QuickDraw</span> pour l'ouvrir.</p>
+<h3 id="presets">Préréglages</h3>
+<!-- picture: images/Dyl-QuickDraw-presets.png -->
 <div class="spacedbullets">
 <ul>
-<li><strong>La liste</strong> &ndash; vos préréglages. Filtrez, triez, ou montrez un groupe. Sélectionnez-en plusieurs pour les changer ensemble.</li>
-<li><strong>Name</strong> et <strong>Group</strong> &ndash; en haut ; l'aperçu dessous.</li>
-<li><strong>Parameters</strong> &ndash; de quoi il est fait et comment il est dessiné (plus bas).</li>
-<li><strong>Aliases</strong> &ndash; les noms courts qui le dessinent.</li>
-<li><strong>New</strong>, <strong>Copy</strong>, <strong>Delete</strong>, <strong>Reset Selected</strong>, <strong>Reset All</strong>.</li>
-<li><strong>Draw</strong> enregistre et dessine, <strong>Save</strong> enregistre, <strong>Cancel</strong> abandonne les changements.</li>
+<li><strong>Filter</strong> &ndash; tapez une partie d'un nom pour raccourcir la liste. La liste à côté trie par nom ou par groupe.</li>
+<li><strong>Show</strong> &ndash; tous les préréglages, ou un groupe. <strong>Set default</strong> ouvre la fenêtre sur ce groupe la prochaine fois.</li>
+<li><strong>La liste</strong> &ndash; cliquez un préréglage pour le voir. Sélectionnez-en plusieurs pour les changer ensemble.</li>
+<li><strong>New</strong>, <strong>Copy</strong>, <strong>Delete</strong> &ndash; ajoutez un préréglage, copiez celui qui est sélectionné, supprimez un des vôtres.</li>
 </ul>
 </div>
-<figure class="shot"><img src="images/Dyl-QuickDraw-assembly.png" width="1140" height="924" alt="Dessin rapide (Quick Draw): window"></figure>
-<h2 id="behaviors">Paramètres</h2>
+<h3 id="name">Nom et groupe</h3>
+<!-- picture: images/Dyl-QuickDraw-name.png -->
 <div class="spacedbullets">
 <ul>
-<li id="materials"><strong>Material</strong> &ndash; de quoi il est fait, ce qui donne sa hachure. <strong>View</strong> : <em>Cut</em> en plan ou en coupe, <em>Surface</em> en élévation. Voyez <a href="Dyl-Materials.fr.htm">Matériaux</a>.</li>
+<li><strong>Name</strong> &ndash; tel que la liste et la galerie le montrent.</li>
+<li><strong>Group</strong> &ndash; où il est rangé. Le bouton à côté ouvre <a href="Dyl-PresetGroups.fr.htm">Preset Groups</a>.</li>
+<li>Dessous : si le préréglage est tel que livré, modifié ou le vôtre, et la commande qui le dessine.</li>
+</ul>
+</div>
+<h3 id="preview">Aperçu</h3>
+<!-- picture: images/Dyl-QuickDraw-preview.png -->
+<p>La hachure telle qu'elle sera dessinée, ou les couches d'un assemblage avec son épaisseur.</p>
+<h3 id="behaviors">Paramètres</h3>
+<!-- picture: images/Dyl-QuickDraw-parameters.png -->
+<div class="spacedbullets">
+<ul>
+<li id="materials"><strong>Material</strong> &ndash; de quoi il est fait, ce qui donne sa hachure. <strong>Material group</strong> raccourcit la liste ; le bouton ouvre <a href="Dyl-Materials.fr.htm">Matériaux</a>. <strong>View</strong> : <em>Cut</em> en plan ou en coupe, <em>Surface</em> en élévation.</li>
 <li><strong>Default method</strong> &ndash; comment il est dessiné (plus bas), ou demandé chaque fois.</li>
+<li><strong>Sides</strong> &ndash; pour un polygone, son nombre de côtés. <strong>Gap override</strong> &ndash; pour Shrinkwrap, le plus grand écart qu'il ferme. Vide, demandé au dessin.</li>
 <li><strong>Width</strong> et <strong>Justification</strong> &ndash; pour une bande : <span class="fixw">100</span>, ou <span class="fixw">100,150,200</span> pour choisir chaque fois.</li>
-<li><strong>Assembly</strong> &ndash; une bande de plusieurs couches, comme un mur (plus bas).</li>
+<li><strong>Assembly</strong> &ndash; une bande de plusieurs couches, comme un mur (<a href="#assembly">plus bas</a>).</li>
 <li><strong>Custom band settings</strong> &ndash; les bouts et les coins d'une bande : <a href="Dyl-QuickDrawBandSettings.fr.htm">Réglages des bandes</a>.</li>
 <li><strong>Has a hatch</strong> &ndash; son calque et son allure : <a href="Dyl-QuickDrawHatchSettings.fr.htm">Hatch Settings</a>.</li>
 <li id="border"><strong>Has a border</strong> &ndash; garde le contour : <a href="Dyl-QuickDrawBorderSettings.fr.htm">Border Settings</a>.</li>
+<li id="aliases-box"><strong>Aliases</strong> &ndash; les noms courts qui le dessinent. Tapez-en un et cliquez <strong>Add</strong> ; choisissez-en un pour le renommer (<strong>Rename</strong>) ou le retirer (<strong>Remove</strong>).</li>
+</ul>
+</div>
+<h3 id="buttons">Boutons</h3>
+<!-- picture: images/Dyl-QuickDraw-buttons.png -->
+<div class="spacedbullets">
+<ul>
+<li><strong>Reset Selected</strong> &ndash; remet les préréglages sélectionnés tels que livrés. <strong>Reset All</strong> le fait pour tous les préréglages livrés ; les vôtres sont gardés.</li>
+<li><strong>Draw</strong> enregistre et dessine le préréglage montré, <strong>Save</strong> enregistre, <strong>Cancel</strong> abandonne les changements.</li>
+<li><strong>Open Docs</strong> &ndash; cette page.</li>
 </ul>
 </div>
 <h2 id="drawscale">Échelle du dessin</h2>
@@ -180,6 +203,7 @@
       </svg><figcaption><strong>Uninterrupted, drawing origin</strong> Un contour et une hachure pour toute la bande, comme si elle était dessinée en une seule polyligne fermée.</figcaption></figure></div>
 <h2 id="assembly">Assemblages</h2>
 <p>Un assemblage dessine une bande de plusieurs couches côte à côte, comme un mur : gypse, montants et isolant, revêtement intermédiaire, lame d'air, brique. Cochez <em>Assembly</em> et choisissez-le ; créez-le dans <a href="Dyl-AssemblyPresets.fr.htm">Préréglages d'assemblage</a>.</p>
+<figure class="shot"><img src="images/Dyl-QuickDraw-assembly.png" width="1140" height="924" alt="Dessin rapide (Quick Draw): window"></figure>
 <div class="sketches"><figure><svg viewBox="0 0 320 160" role="img" aria-label="Un assemblage : cinq couches côte à côte le long d'une ligne droite">
         <rect class="sk-hC" x="30" y="30" width="200" height="10"/>
         <rect class="sk-hB" x="30" y="40" width="200" height="36"/>
