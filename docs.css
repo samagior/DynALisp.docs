@@ -168,18 +168,17 @@ img {
 }
 
 /* The picture of a window or the GIF of a sample use (a guide page, once its file exists), and
-   the pictures of the ribbon: always at their true size (1:1), never stretched or shrunk to the
-   column; one wider than the column scrolls. */
+   the pictures of the ribbon: at their true size (1:1), never enlarged to fill the column; one
+   wider than the column is scaled down to fit in it whole. */
 figure.shot, p.shot {
     margin: 16px 0;
     padding: 4px 4px 12px 4px;
-    overflow-x: auto;
 }
 
 figure.shot img, p.shot img {
     display: block;
     margin: 0 auto;
-    max-width: none;
+    max-width: 100%;
     height: auto;
     border: 1px solid var(--border);
     border-radius: 8px;
