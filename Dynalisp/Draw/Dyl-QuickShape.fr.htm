@@ -35,68 +35,50 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Placez des formes toutes faites, déjà hachurées : montants, briques, blocs de béton, profilés d'acier... Chaque préréglage insère une forme d'un dessin de bibliothèque, encore et encore jusqu'à Entrée, et remplit ses contours de la hachure de son matériau, sur les calques de ses clés. Le compagnon de Quick Draw, avec la même fenêtre.</p>
+<p>Placez des formes toutes faites, déjà hachurées : montants, briques, blocs, tubes d'acier. Encore et encore, jusqu'à Entrée.</p>
 <figure class="shot"><img src="images/Dyl-QuickShape-window.png" width="1140" height="857" alt="Forme rapide (Quick Shape): window"></figure>
 <!-- picture: images/Dyl-QuickShape-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'alias de la forme : <span class="fixw">QS-STUD2X4</span>... (le tableau ci-dessous).</li>
-<li>Choisissez son point d'insertion, puis sa rotation; placez la suivante, ou appuyez sur Entrée ou Échap pour arrêter.</li>
-<li><strong>Modifiez ou ajoutez des préréglages</strong> &ndash; tapez <span class="fixw">Dyl-QuickShape</span> : le <a href="Dyl-Manager.fr.htm">gestionnaire</a> s'ouvre sur son onglet Quick Shape, à côté des onglets du dessin rapide, des matériaux et des préréglages de hachures. Choisissez un préréglage, sa forme et son matériau, ou cliquez <strong>New</strong>. Vos propres formes sont des blocs d'un dessin de bibliothèque (ci-dessous).</li>
+<li>Tapez une forme, <span class="fixw">QS-STUD2X4</span> pour un montant 2x4 (la liste plus bas).</li>
+<li>Choisissez son point, puis sa rotation. Entrée arrête.</li>
+<li>Pour en changer ou en ajouter une, tapez <span class="fixw">Dyl-QuickShape</span>.</li>
 </ol>
 </div>
-<h2 id="libraries">Bibliothèques de formes</h2>
-<p>Les formes sont des blocs dans des dessins de bibliothèque : <strong>chaque <span class="fixw">.dwg</span> de <span class="fixw">Modules\Dynalisp\Res\Shapes</span> est une bibliothèque, et chacun de ses blocs est une forme</strong>. Un dessin de nombreux blocs ou de nombreux dessins d'un bloc chacun fonctionnent tous deux, et les deux peuvent se mêler (p. ex. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). Une forme s'affiche comme <em>Library: Block</em>. Quand le dossier n'a aucune bibliothèque, un <span class="fixw">Shapes.dwg</span> de départ est fait avec les formes des préréglages par défaut.</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Point de base</strong> &ndash; le point de base du bloc est le point d'insertion de la forme.</li>
-<li><strong>Unités</strong> &ndash; les unités du bloc (<em>Unité du bloc</em> dans la définition du bloc, <span class="fixw">INSUNITS</span> quand il est fait) mettent la forme à l'échelle des unités du dessin : une forme dessinée en pouces est insérée à la bonne taille dans un dessin en millimètres. Les formes de départ sont en pouces. L'échelle (Scale) du préréglage la multiplie.</li>
-<li><strong>Objets</strong> &ndash; dessinez les formes avec des polylignes fermées, des cercles, des ellipses ou des splines pour les parties à remplir; les autres objets (lignes, arcs, polylignes ouvertes) sont gardés comme traits, non remplis. Dessinez-les sur le calque 0 avec des propriétés DuCalque : ils vont sur la clé de calque du contour une fois insérés.</li>
-</ul>
-</div>
-<p>Les bibliothèques sont lues sans les ouvrir (ObjectDBX), seule la forme insérée est copiée, et elle ne laisse aucune définition de bloc dans le dessin. La liste des formes d'une bibliothèque est gardée jusqu'à ce que son fichier change : la fenêtre reste rapide avec de grandes bibliothèques. Une bibliothèque ouverte dans AutoCAD est lue depuis le dessin ouvert, enregistré ou non.</p>
-<h2>Créer et modifier des formes</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Add shape from selection...</strong> &ndash; ferme la fenêtre, puis : sélectionnez les objets de la forme, choisissez son point de base et tapez son nom. La forme est ajoutée à la bibliothèque de la forme du préréglage (remplacée après confirmation quand le nom existe), la bibliothèque est enregistrée, et la nouvelle forme est donnée au préréglage. Les unités de la forme sont celles du dessin courant.</li>
-<li><strong>Open library</strong> &ndash; enregistre les préréglages, ferme la fenêtre et ouvre la bibliothèque de la forme du préréglage, pour modifier ses blocs (<span class="fixw">BEDIT</span>, <span class="fixw">BLOCK</span>, <span class="fixw">BASE</span>&hellip;). Enregistrez-la : l'insertion suivante utilise la forme modifiée.</li>
-<li><strong>Nouvelle bibliothèque</strong> &ndash; enregistrez n'importe quel dessin avec des blocs dans le dossier Shapes.</li>
-</ul>
-</div>
 <h2 id="window">Fenêtre Quick Shape</h2>
-<p>L'onglet Quick Shape du gestionnaire : la liste des préréglages à gauche, avec son filtre, son tri et sa liste Group, comme dans la fenêtre Quick Draw; le préréglage choisi à droite, son aperçu et ses paramètres. Plusieurs préréglages peuvent être sélectionnés pour les changer à la fois.</p>
 <div class="spacedbullets">
 <ul>
-<li><strong>Material group</strong> &ndash; le groupe des matériaux que montre la liste <em>Material</em>, selon ce dont ils sont faits (<em>Metal</em>, <em>Wood</em>...; voir <a href="Dyl-PresetGroups.fr.htm">Material Groups</a>) : il montre le groupe du matériau du préréglage, et en choisir un autre liste ses matériaux.</li>
-<li><strong>Material</strong> &ndash; le <a href="Dyl-QuickDraw.fr.htm#materials">matériau</a> qui remplit la forme; le bouton carré ouvrir juste à sa gauche ouvre la fenêtre Materials.</li>
-<li><strong>View</strong> &ndash; le préréglage de hachure du matériau qui remplit la forme : <em>Cut</em>, la forme coupée dans une coupe (un montant, un tube), ou <em>Surface</em>, sa face vue en élévation (celui de <em>Cut</em> quand le matériau n'a pas de Surface).</li>
-<li><strong>Shape</strong> &ndash; choisie parmi les formes de toutes les bibliothèques. Une forme utilisée par un préréglage mais introuvable reste dans la liste, marquée <em>(missing shape)</em>, jusqu'à ce qu'une autre soit choisie.</li>
-<li><strong>Scale</strong> &ndash; échelle d'insertion, en plus des unités du bloc (&gt; 0).</li>
-<li><strong>Border</strong> &ndash; la bordure de la forme : la clé de calque sur laquelle vont ses contours fermés et ses traits, et les dérogations de ses <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> et <em>Transparency</em>, comme dans la fenêtre <a href="Dyl-QuickDrawBorderSettings.fr.htm">Border Settings</a> de Quick Draw; le bouton ouvrir à gauche de la clé de calque ouvre la fenêtre Layer Keys, celui de la couleur la fenêtre des couleurs d'AutoCAD. Une forme est toujours dessinée avec sa bordure : il n'y a pas de <em>Has a border</em>. Enregistrée avec le préréglage (colonnes de bordure de <span class="fixw">QuickShape.csv</span>); un préréglage d'un fichier plus ancien reçoit la bordure de son matériau.</li>
-<li><strong>Draw</strong> enregistre les préréglages et insère celui sélectionné, <strong>Save</strong> enregistre sans insérer, <strong>Cancel</strong> annule les changements. Un autre onglet du gestionnaire enregistre les préréglages, comme <strong>Save</strong>, et montre cet onglet. <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>Material</strong> &ndash; ce qui remplit la forme, et <strong>View</strong> : <em>Cut</em> en coupe, <em>Surface</em> en élévation.</li>
+<li><strong>Shape</strong> et <strong>Scale</strong> &ndash; la forme à placer et sa taille.</li>
+<li><strong>Border</strong> &ndash; le calque et l'allure de son contour.</li>
+<li><strong>Draw</strong> la place, <strong>Save</strong> garde les changements.</li>
 </ul>
 </div>
-<h2 id="commands">Commandes</h2>
-<p>Préréglages par défaut (rétablis par <em>Reset Selected</em> / <em>Reset All</em>). Leurs formes sont dans la bibliothèque de départ <span class="fixw">Shapes.dwg</span> (pouces).</p>
+<h2 id="libraries">Vos propres formes</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Add shape from selection...</strong> &ndash; sélectionnez les objets, choisissez le point de base, tapez un nom.</li>
+<li><strong>Open library</strong> &ndash; ouvre le dessin des formes, pour les modifier.</li>
+<li>Dessinez les parties à remplir avec des contours fermés, sur le calque 0.</li>
+</ul>
+</div>
+<h2 id="commands">Les formes</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Alias</th><th>Préréglage</th><th>Forme</th><th>Matériau</th></tr>
-<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>3.5 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>5.5 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>7.25 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-BRICK</span></td><td>Brick Modular</td><td>3.625 x 2.25</td><td>Brick</td></tr>
-<tr><td><span class="fixw">QS-CMU8</span></td><td>CMU 8 in</td><td>15.625 x 7.625, deux alvéoles</td><td>CMU</td></tr>
-<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>tube 4 x 4, paroi 1/4</td><td>Steel</td></tr>
+<tr><th>Alias</th><th>Forme</th><th>Matériau</th></tr>
+<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Montant 2x4</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Montant 2x6</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Montant 2x8</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-BRICK</span></td><td>Brique modulaire</td><td>Brick</td></tr>
+<tr><td><span class="fixw">QS-CMU8</span></td><td>Bloc de béton 8 po</td><td>CMU</td></tr>
+<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>Steel</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Une bibliothèque enregistrée par <em>Add shape from selection</em> (ObjectDBX) n'a pas d'aperçu tant qu'elle n'est pas enregistrée de nouveau dans AutoCAD.</li>
-<li>Les attributs de blocs ne sont pas demandés; les paramètres des blocs dynamiques sont perdus quand la forme est décomposée.</li>
-<li>Un bloc imbriqué d'une forme dont le nom existe dans le dessin utilise la définition du dessin.</li>
-<li><span class="fixw">QuickShape.csv</span> ne peut pas être enregistré pendant qu'il est ouvert dans Excel.</li>
+<li>Les attributs ne sont pas demandés ; les blocs dynamiques perdent leurs poignées.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -116,7 +98,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

@@ -35,50 +35,24 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Set up every drawing tool in one window: the Manager holds the windows of the presets as tabs, <strong>Quick Draw</strong>, <strong>Assembly Presets</strong>, <strong>Quick Shape</strong>, <strong>Materials</strong> and <strong>Hatch Presets</strong>. Go from a preset to its assembly, its material and the hatch of that material with one click on a tab, without closing and opening windows. Each tab is the window of its tool as it always was, with its own buttons and its own page of the docs.</p>
+<p>Set up every drawing tool in one window: Quick Draw, Assembly Presets, Quick Shape, Materials and Hatch Presets, each in its tab.</p>
 <figure class="shot"><img src="images/Dyl-Manager-window.png" width="1140" height="952" alt="Manager: window"></figure>
 <!-- picture: images/Dyl-Manager-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">Dyl-Manager</span> or click <em>Manager</em> in the <em>Draw</em> panel of the ribbon: the Manager opens on the tab you used last. <span class="fixw">Dyl-QuickDraw</span>, <span class="fixw">Dyl-QuickShape</span>, <span class="fixw">Dyl-Materials</span> and <span class="fixw">Dyl-HatchPresets</span> open it on their own tab, and so do their buttons on the ribbon.</li>
-<li>Click a tab, or press <strong>Ctrl+Tab</strong> (<strong>Ctrl+Shift+Tab</strong> for the tab before): what you changed in the tab you leave is saved, and the tab you picked opens in the same window, at the same place and size. The Manager is one window: move it or resize it once and every tab follows. A tab that needs more room than the window has scrolls, and you can make the window larger.</li>
-<li>Work in the tab as in the window of its tool: see <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a>, <a href="Dyl-QuickShape.htm">Quick Shape</a>, <a href="Dyl-Materials.htm">Materials</a> and <a href="Dyl-HatchPresets.htm">Hatch Presets</a>. <strong>Open Docs</strong> opens the page of the tab shown.</li>
-<li>Keep drawing while the Manager is open: it stays beside the drawing, and you can zoom, draw and switch drawings as usual.</li>
-<li>Close the Manager with the buttons of the tab: <strong>OK</strong> or <strong>Save</strong> saves it, <strong>Cancel</strong> discards what changed in it. <strong>Draw</strong> (Quick Draw, Quick Shape) saves it and draws the preset shown: the Manager is put away while you draw, and comes back on the same tab when the drawing ends (or when you press Escape).</li>
+<li>Type <span class="fixw">Dyl-Manager</span>, or click <em>Manager</em> in the ribbon.</li>
+<li>Click a tab, or press <strong>Ctrl+Tab</strong>: the tab you leave is saved.</li>
+<li>Keep drawing while it is open.</li>
+<li><strong>OK</strong> or <strong>Save</strong> saves, <strong>Cancel</strong> drops the changes of the tab shown, <strong>Draw</strong> draws the preset.</li>
 </ol>
 </div>
-<h2 id="window">The Window</h2>
+<h2 id="window">Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Tabs</strong> &ndash; along the top of the window, the tab shown in bold and underlined. Only the tabs of the programs turned on in the Startup Suite (<span class="fixw">Dyl-Suite</span>) are listed: Quick Draw and Assembly Presets with Quick Draw, Quick Shape, Materials and Hatch Presets with their own program. A command opens its own tab even when the others are turned off.</li>
-<li><strong>Another tab saves the tab you leave</strong> &ndash; as its <strong>Save</strong> (or <strong>OK</strong>) button would: the presets, the materials or the hatch presets changed are written, so the next tab shows them at once (a material made in the Materials tab is in the Material list of the Quick Draw tab). A value that is not valid keeps you on the tab, with its message, until it is fixed.</li>
-<li><strong>Cancel</strong> &ndash; discards only what changed in the tab shown since it was opened: a tab you left before is already saved.</li>
-<li><strong>Size and place</strong> &ndash; the Manager can be resized, maximized and snapped as any window with a list; it keeps its size and its place for every tab, and opens again where you left it. A tab that needs more room makes the window wider.</li>
-<li><strong>Windows opened from a tab</strong> &ndash; the square open buttons of a tab (the Material, Assembly or Hatch preset of the preset shown, the Preset Groups...) still open their window over the Manager, without tabs: what you pick there goes back to the preset of the tab, as before. To edit materials or hatch presets on their own, use their tab.</li>
-</ul>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-MANAGER</span></td><td>Manager</td><td>Opens the Manager: the windows that set up the drawing tools (Quick Draw, Assembly Presets, Quick Shape, Materials, Hatch Presets) as the tabs of one window.</td></tr>
-</table>
-</div>
-<h2>Good To Know</h2>
-<div class="spacedbullets">
-<ul>
-<li>The tab shown last is remembered until AutoCAD closes: <span class="fixw">Dyl-Manager</span> opens on it, on Quick Draw the first time.</li>
-<li>The <em>Quick Draw Manager</em> button of the <a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a> opens the Manager on its Quick Draw tab.</li>
-<li>Between two tabs the window is not closed for good: the picture of the tab you leave stays on the screen until the next one is shown.</li>
-<li>A button that saves or opens another window (another tab, <strong>Save</strong>, <strong>Draw</strong>, an open button) cancels the command running in the drawing first, and is written on the command line. The Manager is greyed out for a moment while it saves.</li>
-<li>A window opened from a tab (Materials from Quick Draw) is a window of its own: you cannot draw until it is closed.</li>
-</ul>
-</div>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>The Manager needs the windows plugin of DynALisp (AutoCAD 2025 or later): without it, no window opens and the command line says why.</li>
+<li>Each tab has its own page: <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a>, <a href="Dyl-QuickShape.htm">Quick Shape</a>, <a href="Dyl-Materials.htm">Materials</a>, <a href="Dyl-HatchPresets.htm">Hatch Presets</a>.</li>
+<li>Only the tabs of the tools turned on in <span class="fixw">Dyl-Suite</span> show.</li>
+<li>It opens again on the last tab, where you left it.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -92,7 +66,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

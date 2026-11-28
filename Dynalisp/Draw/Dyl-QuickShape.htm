@@ -35,68 +35,50 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Place premade shapes, already hatched: studs, bricks, CMU, steel sections... Each preset inserts a shape from a library drawing, again and again until Enter, and fills its outlines with the hatch of its material, on the layers of its keys. The companion of Quick Draw, with the same window.</p>
+<p>Place ready-made shapes, already hatched: studs, bricks, blocks, steel tubes. Again and again, until Enter.</p>
 <figure class="shot"><img src="images/Dyl-QuickShape-window.png" width="1140" height="857" alt="Quick Shape: window"></figure>
 <!-- picture: images/Dyl-QuickShape-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type the alias of the shape: <span class="fixw">QS-STUD2X4</span>... (the table below).</li>
-<li>Pick its insertion point, then its rotation; place the next one, or press Enter or Esc to stop.</li>
-<li><strong>Change or add presets</strong> &ndash; type <span class="fixw">Dyl-QuickShape</span>: the <a href="Dyl-Manager.htm">Manager</a> opens on its Quick Shape tab, beside the tabs of Quick Draw, the materials and the hatch presets. Pick a preset, its shape and its material, or click <strong>New</strong>. Your own shapes are blocks of a library drawing (below).</li>
+<li>Type a shape, <span class="fixw">QS-STUD2X4</span> for a 2x4 stud (the list below).</li>
+<li>Pick its point, then its rotation. Enter stops.</li>
+<li>To change or add one, type <span class="fixw">Dyl-QuickShape</span>.</li>
 </ol>
 </div>
-<h2 id="libraries">Shape Libraries</h2>
-<p>The shapes are blocks in library drawings: <strong>every <span class="fixw">.dwg</span> of <span class="fixw">Modules\Dynalisp\Res\Shapes</span> is a library, and every block in it is a shape</strong>. One drawing with many blocks or many drawings with one block each both work, and both can be mixed (e.g. <span class="fixw">Wood.dwg</span>, <span class="fixw">Masonry.dwg</span>, <span class="fixw">Steel.dwg</span>). A shape is shown as <em>Library: Block</em>. When the folder has no library, a starter <span class="fixw">Shapes.dwg</span> is made with the shapes of the default presets.</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Base point</strong> &ndash; the block base point is the insertion point of the shape.</li>
-<li><strong>Units</strong> &ndash; the block units (<em>Block unit</em> in the block definition, <span class="fixw">INSUNITS</span> when it is made) scale the shape to the units of the drawing: a shape drawn in inches is inserted at the right size in a drawing in millimeters. The starter shapes are in inches. The preset Scale multiplies it.</li>
-<li><strong>Objects</strong> &ndash; draw the shapes with closed polylines, circles, ellipses or splines for the parts to fill; other objects (lines, arcs, open polylines) are kept as linework, not filled. Draw them on layer 0 with ByLayer properties: they go on the outline layer key when inserted.</li>
-</ul>
-</div>
-<p>The libraries are read without opening them (ObjectDBX), only the shape inserted is copied, and it leaves no block definition in the drawing. The list of shapes of a library is kept until its file changes, so the window stays fast with large libraries. A library open in AutoCAD is read from the open drawing, saved or not.</p>
-<h2>Making And Editing Shapes</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Add shape from selection...</strong> &ndash; closes the window, then: select the objects of the shape, pick its base point and type its name. The shape is added to the library of the shape of the preset (replaced after confirmation when the name exists), the library is saved, and the new shape is given to the preset. The units of the shape are the units of the current drawing.</li>
-<li><strong>Open library</strong> &ndash; saves the presets, closes the window and opens the library of the shape of the preset, to edit its blocks (<span class="fixw">BEDIT</span>, <span class="fixw">BLOCK</span>, <span class="fixw">BASE</span>&hellip;). Save it: the next insertion uses the edited shape.</li>
-<li><strong>New library</strong> &ndash; save any drawing with blocks to the Shapes folder.</li>
-</ul>
-</div>
 <h2 id="window">Quick Shape Window</h2>
-<p>The Quick Shape tab of the Manager: the list of the presets on the left, with its filter, its sort and its Group list, as in the Quick Draw window; the preset picked on the right, its preview and its parameters. Several presets can be selected to change them at once.</p>
 <div class="spacedbullets">
 <ul>
-<li><strong>Material group</strong> &ndash; the group of the materials the <em>Material</em> list shows, by what they are made of (<em>Metal</em>, <em>Wood</em>...; see <a href="Dyl-PresetGroups.htm">Material Groups</a>): it shows the group of the material of the preset, and picking another one lists its materials.</li>
-<li><strong>Material</strong> &ndash; the <a href="Dyl-QuickDraw.htm#materials">material</a> that fills the shape; the square open button just left of it opens the Materials window.</li>
-<li><strong>View</strong> &ndash; the hatch preset of the material the shape is filled with: <em>Cut</em>, the shape cut in a section (a stud, a tube), or <em>Surface</em>, its face seen in elevation (the <em>Cut</em> one when the material has no Surface).</li>
-<li><strong>Shape</strong> &ndash; picked from the shapes of every library. A shape used by a preset but no longer found stays in the list, marked <em>(missing shape)</em>, until another one is picked.</li>
-<li><strong>Scale</strong> &ndash; insertion scale, on top of the block units (&gt; 0).</li>
-<li><strong>Border</strong> &ndash; the border of the shape: the layer key its closed outlines and linework go on, and the overrides of its <em>Color</em>, <em>Linetype</em>, <em>Linetype scale</em>, <em>Lineweight</em> and <em>Transparency</em>, as in the <a href="Dyl-QuickDrawBorderSettings.htm">Border Settings</a> of Quick Draw; the open button left of the layer key opens the Layer Keys window, the one of the color the color window of AutoCAD. A shape is always drawn with its border: there is no <em>Has a border</em>. Saved with the preset (border columns of <span class="fixw">QuickShape.csv</span>); a preset of an older file gets the border of its material.</li>
-<li><strong>Draw</strong> saves the presets and inserts the selected one, <strong>Save</strong> saves without inserting, <strong>Cancel</strong> discards the changes. Another tab of the Manager saves the presets, as <strong>Save</strong>, and shows that tab. <strong>Open Docs</strong> opens this page.</li>
+<li><strong>Material</strong> &ndash; what fills the shape, and <strong>View</strong>: <em>Cut</em> in a section, <em>Surface</em> in an elevation.</li>
+<li><strong>Shape</strong> and <strong>Scale</strong> &ndash; the shape to place and its size.</li>
+<li><strong>Border</strong> &ndash; the layer and the look of its outline.</li>
+<li><strong>Draw</strong> places it, <strong>Save</strong> keeps the changes.</li>
 </ul>
 </div>
-<h2 id="commands">Commands</h2>
-<p>Default presets (restored by <em>Reset Selected</em> / <em>Reset All</em>). Their shapes are in the starter library <span class="fixw">Shapes.dwg</span> (inches).</p>
+<h2 id="libraries">Your Own Shapes</h2>
+<div class="spacedbullets">
+<ul>
+<li><strong>Add shape from selection...</strong> &ndash; select the objects, pick the base point, type a name.</li>
+<li><strong>Open library</strong> &ndash; opens the drawing of the shapes, to edit them.</li>
+<li>Draw the parts to fill with closed outlines, on layer 0.</li>
+</ul>
+</div>
+<h2 id="commands">The Shapes</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Alias</th><th>Preset</th><th>Shape</th><th>Material</th></tr>
-<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>3.5 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>5.5 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>7.25 x 1.5</td><td>Wood Frame</td></tr>
-<tr><td><span class="fixw">QS-BRICK</span></td><td>Brick Modular</td><td>3.625 x 2.25</td><td>Brick</td></tr>
-<tr><td><span class="fixw">QS-CMU8</span></td><td>CMU 8 in</td><td>15.625 x 7.625, two cores</td><td>CMU</td></tr>
-<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>4 x 4 tube, 1/4 wall</td><td>Steel</td></tr>
+<tr><th>Alias</th><th>Shape</th><th>Material</th></tr>
+<tr><td><span class="fixw">QS-STUD2X4</span></td><td>Stud 2x4</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X6</span></td><td>Stud 2x6</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-STUD2X8</span></td><td>Stud 2x8</td><td>Wood Frame</td></tr>
+<tr><td><span class="fixw">QS-BRICK</span></td><td>Brick Modular</td><td>Brick</td></tr>
+<tr><td><span class="fixw">QS-CMU8</span></td><td>CMU 8 in</td><td>CMU</td></tr>
+<tr><td><span class="fixw">QS-HSS4X4</span></td><td>HSS 4x4x1/4</td><td>Steel</td></tr>
 </table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>A library saved by <em>Add shape from selection</em> (ObjectDBX) has no thumbnail preview until it is saved again in AutoCAD.</li>
-<li>Block attributes are not prompted for; dynamic block parameters are lost when the shape is exploded.</li>
-<li>A nested block of a shape whose name exists in the drawing uses the definition of the drawing.</li>
-<li><span class="fixw">QuickShape.csv</span> cannot be saved while it is open in Excel.</li>
+<li>Attributes are not asked; dynamic blocks lose their grips.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -116,7 +98,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

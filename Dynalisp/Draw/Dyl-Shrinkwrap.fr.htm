@@ -35,37 +35,24 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Dessinez un contour fermé autour de l'extérieur d'objets, comme le contour (shrinkwrap) d'AutoCAD Architecture, dans n'importe quel AutoCAD : un contour par groupe d'objets qui se touchent, les textes et le texte des blocs, des cotes et des tables enveloppés aussi. Les objets ne sont pas modifiés.</p>
+<p>Dessinez un contour fermé autour d'objets, textes et cotes compris. Les objets restent tels quels.</p>
 <!-- picture: images/Dyl-Shrinkwrap-window.png -->
 <!-- picture: images/Dyl-Shrinkwrap-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez <span class="fixw">Dyl-Shrinkwrap</span> et sélectionnez les objets.</li>
-<li>Les contours sont dessinés sur le calque courant et laissés sélectionnés, prêts pour la commande suivante (une hachure, un passage à un autre calque...).</li>
-<li>Quand les objets laissent des écarts entre eux, réglez une tolérance d'écart (ci-dessous) : le contour franchit les écarts jusqu'à cette largeur.</li>
+<li>Tapez un écart, ou appuyez sur Entrée pour aucun.</li>
+<li>Les contours sont dessinés et restent sélectionnés, prêts à hachurer.</li>
 </ol>
 </div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-SHRINKWRAP</span></td><td>Shrinkwrap</td><td>Dessine des polylignes fermées autour de l'extérieur des objets sélectionnés (remplace AECLINEWORKSHRINKWRAP).</td></tr>
-</table>
-</div>
 <h2 id="gap">Tolérance d'écart</h2>
-<p>Les objets qui ne ferment pas une aire (lignes ouvertes, dessin avec de petits écarts) sont traités avec une <strong>tolérance d'écart</strong>. <span class="fixw">DYL-SHRINKWRAP</span> la demande d'abord, <span class="fixw">0</span> par défaut (exact) : avec une valeur, les objets sont épaissis en bandes de cette largeur avant que le contour soit tracé, pour que les objets plus proches que l'écart soient joints et qu'un dessin ouvert soit fermé, puis le contour est décalé vers l'intérieur de la moitié de l'écart : il suit les objets à environ une demi-tolérance près. Les morceaux droits (lignes, polylignes sans arcs) gardent leurs sommets; les arcs, cercles, splines et polylignes courbes sont divisés tous les demi-écarts.</p>
-<p>Quand aucun contour n'est trouvé (ou qu'un essai échoue), Shrinkwrap réessaie de lui-même avec un écart plus grand : l'écart tapé plus un <strong>pas d'écart</strong>, puis deux, jusqu'à 10 pas, et la ligne de commande donne l'écart utilisé (<span class="fixw">Shrinkwrap: no outline with a gap of 0, found with a gap tolerance of 3 (3 step(s) of 1...)</span>). Le pas d'écart se règle dans <span class="fixw">Dyl-Settings</span>, <em>Drawing Settings</em> (son bouton <em>ouvrir</em>) : un pour les dessins impériaux (1 par défaut, pouces) et un pour les dessins métriques (25 par défaut, mm). Un écart plus grand ferme de plus grandes ouvertures mais arrondit davantage le contour.</p>
-<p>Dans Quick Draw, l'écart est un comportement du préréglage : avec <em>Gap override</em> désactivé, Shrinkwrap commence à 0 et utilise le pas d'écart de Dyl-Settings; activé, il commence avec le <em>Gap</em> du préréglage (une valeur, en unités de dessin), et demande l'écart à chaque Shrinkwrap quand cette case est vide. Les essais automatiques s'appliquent dans tous les cas.</p>
+<p>L'écart ferme les ouvertures entre les objets jusqu'à cette largeur. Sans écart, Shrinkwrap essaie de lui-même des écarts plus grands jusqu'à trouver un contour ; réglez le pas dans <span class="fixw">Dyl-Settings</span>, <em>Drawing Settings</em>. Un écart plus grand arrondit davantage les coins.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Fonctionne dans le plan du SCU courant : les objets doivent être plats et parallèles à lui.</li>
-<li>Les objets qui ne se touchent pas ou ne se chevauchent pas donnent des contours séparés, sauf s'ils sont plus proches que la tolérance d'écart; les écarts plus petits que <span class="fixw">HPGAPTOL</span> sont fermés.</li>
-<li>Chaque essai automatique avec un écart plus grand prend autant de temps que le premier : une grande sélection qui demande beaucoup d'essais est lente. Un écart plus grand arrondit aussi davantage les coins du contour.</li>
-<li>Les rectangles des textes sont serrés autour des caractères; les textes en miroir ou obliques et les colonnes de textes multilignes sont approximés.</li>
-<li>Les blocs qui ne peuvent pas être décomposés (décomposition interdite, MINSERT) sont tracés tels quels, sans le texte qu'ils contiennent.</li>
-<li>Les grandes sélections avec beaucoup de blocs sont plus lentes, car chaque bloc est décomposé sur une copie temporaire.</li>
+<li>Objets plats seulement.</li>
+<li>Les grandes sélections avec beaucoup de blocs sont lentes.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -79,7 +66,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

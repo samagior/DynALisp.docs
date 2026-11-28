@@ -35,39 +35,18 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez la hachure d'un préréglage Quick Draw : la clé de calque sur laquelle elle va, celle de son matériau ou une autre, et les propriétés que la hachure remplace, sa couleur, son type de ligne, l'échelle de son type de ligne et son épaisseur de ligne, et sa transparence, à la place de celles de son matériau. Le matériau lui-même n'est pas changé : les autres préréglages qui l'utilisent gardent sa hachure. Que le préréglage ait une hachure ou non, c'est <em>Has a hatch</em>, dans la zone Parameters de la fenêtre Quick Draw : décoché, seuls les contours sont dessinés, comme bordure. Un assemblage n'en a pas à lui (<em>Has a hatch</em> est grisé), ses couches ont la leur; <em>Replace hatches</em> donne son matériau tel quel (grisé aussi).</p>
-<p>La même fenêtre règle la hachure d'une couche d'un assemblage : ouverte depuis la fenêtre Assembly Presets, elle modifie les couches sélectionnées. Là, les boutons ouvrir de la clé de calque et de la couleur sont grisés : choisissez la clé de calque dans sa liste et tapez la couleur.</p>
+<p>Choisissez le calque, la couleur, le type de ligne, l'épaisseur et la transparence de la hachure d'un préréglage de Quick Draw, ou d'une couche d'un assemblage. Le matériau lui-même ne change pas.</p>
 <!-- picture: images/Dyl-QuickDrawHatchSettings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, choisissez les préréglages et cliquez le bouton ouvrir carré à côté de <em>Has a hatch</em> dans leur zone Parameters (coché par défaut) : la fenêtre Hatch Settings s'ouvre sur la hachure du préréglage affiché.</li>
-<li>Choisissez la clé de calque (<em>From material</em> garde celle du matériau), cochez les propriétés à remplacer et donnez leurs valeurs, puis OK. Le texte sous <em>Has a hatch</em> résume la hachure (<em>From material, Color 8, Transparency 30</em>).</li>
-<li>Pour une couche d'un assemblage, dans la fenêtre <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a>, sélectionnez les couches et cliquez le bouton ouvrir à côté de <em>Has a hatch</em>.</li>
+<li>Dans <a href="Dyl-QuickDraw.fr.htm">Dessin rapide</a>, cliquez le bouton carré à côté de <em>Has a hatch</em>.</li>
+<li>Choisissez la clé de calque (<em>From material</em> garde celle du matériau), cochez ce qui change et donnez sa valeur.</li>
+<li>Cliquez OK. Ce qui n'est pas coché suit le matériau.</li>
 </ol>
 </div>
-<h2>Fenêtre Hatch Settings</h2>
 <figure class="shot"><img src="images/Dyl-QuickDrawHatchSettings-window.png" width="450" height="431" alt="Hatch Settings: window"></figure>
-<div class="programs commands wide">
-<table>
-<tr><th>Paramètre</th><th>Utilisation</th></tr>
-<tr><td>Layer key</td><td>La clé de calque de la hachure : la hachure va sur son calque. <em>From material</em> : la clé de calque de hachure de son matériau (celui du préréglage, ou de la couche d'un assemblage). Une clé utilisée mais non définie est marquée <em>(not defined)</em>. Le bouton carré <em>ouvrir</em> à côté ouvre la fenêtre Layer Keys sur cette clé, pour créer ou modifier des clés (enregistrées par son propre OK); double-cliquez-y une clé pour l'utiliser.</td></tr>
-<tr><td>Color</td><td>Facultatif. La couleur de la hachure : un numéro de couleur AutoCAD (1-255) ou une couleur vraie <span class="fixw">r,g,b</span>. Le bouton carré <em>ouvrir</em> à côté ouvre la fenêtre de couleurs d'AutoCAD.</td></tr>
-<tr><td>Linetype</td><td>Facultatif. Le type de ligne de la hachure, chargé depuis <span class="fixw">acad.lin</span> ou <span class="fixw">acadiso.lin</span> quand le dessin ne l'a pas.</td></tr>
-<tr><td>Linetype scale</td><td>Facultatif. L'échelle du type de ligne de la hachure, plus grande que 0.</td></tr>
-<tr><td>Lineweight</td><td>Facultatif. L'épaisseur de ligne de la hachure.</td></tr>
-<tr><td>Transparency</td><td>Facultatif. La transparence de la hachure, de 0 à 90.</td></tr>
-</table>
-</div>
-<div class="spacedbullets">
-<ul>
-<li>Chaque réglage facultatif a une case à cocher : sa valeur reste grisée tant qu'elle n'est pas cochée. Décochée, la hachure a la propriété que lui donne son matériau (son propre remplacement, ou celle de son calque).</li>
-<li><strong>OK</strong> donne la hachure à chaque préréglage sélectionné dans la fenêtre Quick Draw (enregistrés avec eux par <em>Draw</em> ou <em>Save</em>), ou à chaque couche sélectionnée dans la fenêtre Assembly Presets, une fois les valeurs valides (un message sous les cases dit quoi corriger). <strong>Cancel</strong> annule les changements, <strong>Open Docs</strong> ouvre cette page.</li>
-<li>Les boutons ouvrir ferment la fenêtre un instant et la rouvrent sur ce qui a été choisi.</li>
-</ul>
-</div>
 <p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

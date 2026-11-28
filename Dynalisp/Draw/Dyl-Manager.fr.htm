@@ -35,50 +35,24 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Configurez tous les outils de dessin dans une seule fenêtre : le gestionnaire réunit les fenêtres des préréglages dans des onglets, <strong>Quick Draw</strong>, <strong>Assembly Presets</strong>, <strong>Quick Shape</strong>, <strong>Materials</strong> et <strong>Hatch Presets</strong>. Passez d'un préréglage à son assemblage, à son matériau et à la hachure de ce matériau d'un clic sur un onglet, sans fermer ni ouvrir de fenêtres. Chaque onglet est la fenêtre de son outil telle qu'elle a toujours été, avec ses propres boutons et sa propre page de la documentation.</p>
+<p>Réglez tous les outils de dessin dans une seule fenêtre : Quick Draw, Assembly Presets, Quick Shape, Materials et Hatch Presets, chacun dans son onglet.</p>
 <figure class="shot"><img src="images/Dyl-Manager-window.png" width="1140" height="952" alt="Gestionnaire (Manager): window"></figure>
 <!-- picture: images/Dyl-Manager-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-Manager</span> ou cliquez <em>Gestionnaire</em> dans le groupe de fonctions <em>Dessin</em> du ruban : le gestionnaire s'ouvre sur le dernier onglet utilisé. <span class="fixw">Dyl-QuickDraw</span>, <span class="fixw">Dyl-QuickShape</span>, <span class="fixw">Dyl-Materials</span> et <span class="fixw">Dyl-HatchPresets</span> l'ouvrent sur leur propre onglet, tout comme leurs boutons du ruban.</li>
-<li>Cliquez sur un onglet, ou appuyez sur <strong>Ctrl+Tab</strong> (<strong>Ctrl+Maj+Tab</strong> pour l'onglet précédent) : ce que vous avez modifié dans l'onglet que vous quittez est enregistré, et l'onglet choisi s'ouvre dans la même fenêtre, au même endroit et à la même taille. Le gestionnaire est une seule fenêtre : déplacez-la ou redimensionnez-la une fois et tous les onglets suivent. Un onglet qui a besoin de plus de place que la fenêtre défile, et vous pouvez agrandir la fenêtre.</li>
-<li>Travaillez dans l'onglet comme dans la fenêtre de son outil : voyez <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a>, <a href="Dyl-QuickShape.fr.htm">Quick Shape</a>, <a href="Dyl-Materials.fr.htm">Materials</a> et <a href="Dyl-HatchPresets.fr.htm">Hatch Presets</a>. <strong>Open Docs</strong> ouvre la page de l'onglet affiché.</li>
-<li>Continuez à dessiner pendant que le gestionnaire est ouvert : il reste à côté du dessin, et vous pouvez zoomer, dessiner et changer de dessin comme d'habitude.</li>
-<li>Fermez le gestionnaire avec les boutons de l'onglet : <strong>OK</strong> ou <strong>Save</strong> l'enregistre, <strong>Cancel</strong> annule ce qui y a changé. <strong>Draw</strong> (Quick Draw, Quick Shape) l'enregistre et dessine le préréglage affiché : le gestionnaire est rangé pendant le dessin et revient sur le même onglet à la fin du dessin (ou quand vous appuyez sur Échap).</li>
+<li>Tapez <span class="fixw">Dyl-Manager</span>, ou cliquez <em>Manager</em> dans le ruban.</li>
+<li>Cliquez un onglet, ou appuyez sur <strong>Ctrl+Tab</strong> : l'onglet quitté est enregistré.</li>
+<li>Continuez à dessiner pendant qu'il est ouvert.</li>
+<li><strong>OK</strong> ou <strong>Save</strong> enregistre, <strong>Cancel</strong> abandonne les changements de l'onglet affiché, <strong>Draw</strong> dessine le préréglage.</li>
 </ol>
 </div>
-<h2 id="window">La fenêtre</h2>
+<h2 id="window">Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Onglets</strong> &ndash; le long du haut de la fenêtre, l'onglet affiché en gras et souligné. Seuls les onglets des programmes activés dans la Startup Suite (<span class="fixw">Dyl-Suite</span>) sont listés : Quick Draw et Assembly Presets avec Quick Draw, Quick Shape, Materials et Hatch Presets avec leur propre programme. Une commande ouvre son propre onglet même quand les autres sont désactivés.</li>
-<li><strong>Un autre onglet enregistre l'onglet quitté</strong> &ndash; comme le ferait son bouton <strong>Save</strong> (ou <strong>OK</strong>) : les préréglages, les matériaux ou les préréglages de hachures modifiés sont écrits, et l'onglet suivant les montre aussitôt (un matériau créé dans l'onglet Materials est dans la liste Material de l'onglet Quick Draw). Une valeur non valide vous garde sur l'onglet, avec son message, jusqu'à ce qu'elle soit corrigée.</li>
-<li><strong>Cancel</strong> &ndash; n'annule que ce qui a changé dans l'onglet affiché depuis son ouverture : un onglet quitté avant est déjà enregistré.</li>
-<li><strong>Taille et position</strong> &ndash; le gestionnaire se redimensionne, s'agrandit et s'ancre comme toute fenêtre avec une liste; il garde sa taille et sa position pour tous les onglets, et se rouvre là où vous l'avez laissé. Un onglet qui demande plus de place élargit la fenêtre.</li>
-<li><strong>Fenêtres ouvertes depuis un onglet</strong> &ndash; les boutons carrés ouvrir d'un onglet (le Material, l'Assembly ou le préréglage de hachure du préréglage affiché, les Preset Groups...) ouvrent toujours leur fenêtre par-dessus le gestionnaire, sans onglets : ce que vous y choisissez revient au préréglage de l'onglet, comme avant. Pour modifier les matériaux ou les préréglages de hachures seuls, utilisez leur onglet.</li>
-</ul>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-MANAGER</span></td><td>Manager</td><td>Ouvre le gestionnaire : les fenêtres qui configurent les outils de dessin (Quick Draw, Assembly Presets, Quick Shape, Materials, Hatch Presets), dans les onglets d'une seule fenêtre.</td></tr>
-</table>
-</div>
-<h2>Bon à savoir</h2>
-<div class="spacedbullets">
-<ul>
-<li>Le dernier onglet affiché est retenu jusqu'à la fermeture d'AutoCAD : <span class="fixw">Dyl-Manager</span> s'ouvre dessus, sur Quick Draw la première fois.</li>
-<li>Le bouton <em>Quick Draw Manager</em> de la <a href="Dyl-QuickDrawGallery.fr.htm">galerie Quick Draw</a> ouvre le gestionnaire sur son onglet Quick Draw.</li>
-<li>Entre deux onglets, la fenêtre n'est pas vraiment fermée : l'image de l'onglet quitté reste à l'écran jusqu'à ce que le suivant s'affiche.</li>
-<li>Un bouton qui enregistre ou ouvre une autre fenêtre (un autre onglet, <strong>Save</strong>, <strong>Draw</strong>, un bouton d'ouverture) annule d'abord la commande en cours dans le dessin, et s'inscrit à la ligne de commande. Le gestionnaire est grisé un instant pendant qu'il enregistre.</li>
-<li>Une fenêtre ouverte depuis un onglet (Materials depuis Quick Draw) est une fenêtre à part : vous ne pouvez pas dessiner avant de la fermer.</li>
-</ul>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Le gestionnaire a besoin du module d'extension des fenêtres de DynALisp (AutoCAD 2025 ou plus récent) : sans lui, aucune fenêtre ne s'ouvre et la ligne de commande dit pourquoi.</li>
+<li>Chaque onglet a sa page : <a href="Dyl-QuickDraw.fr.htm">Dessin rapide</a>, <a href="Dyl-AssemblyPresets.fr.htm">Préréglages d'assemblage</a>, <a href="Dyl-QuickShape.fr.htm">Forme rapide</a>, <a href="Dyl-Materials.fr.htm">Matériaux</a>, <a href="Dyl-HatchPresets.fr.htm">Préréglages de hachures</a>.</li>
+<li>Seuls les onglets des outils activés dans <span class="fixw">Dyl-Suite</span> s'affichent.</li>
+<li>Il se rouvre sur le dernier onglet, là où vous l'avez laissé.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -92,7 +66,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

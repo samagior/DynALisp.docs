@@ -35,45 +35,30 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez comment sont faites les bandes d'un préréglage Quick Draw dessiné avec Linear ou Offset : à quoi la hachure est alignée, son échelle selon la largeur et son origine sur la ligne, comment les bandes se terminent et comment elles tournent leurs coins. Où est la ligne dans la bande, sa <em>Justification</em>, se règle dans la zone Parameters de la fenêtre Quick Draw. Un croquis sous les extrémités et sous les coins montre ce qui est choisi, et change avec cette justification, la hachure, le recouvrement et les joints.</p>
-<p>La même fenêtre règle la bande d'une couche d'un assemblage, à part des autres couches : ouverte depuis la fenêtre Assembly Presets, elle modifie les couches sélectionnées, et <em>Ask when drawn</em> n'est pas offert. Son <em>Hatch aligned to</em> donne alors la ligne de la couche : <em>Layer center</em>, son milieu, ou <em>Layer edge</em>, son bord le plus proche de la ligne de la bande (ou <em>Drawing origin</em>); sa hachure commence là et ses extrémités Angled tournent autour. <em>Scale by width</em> met la hachure de la couche à l'échelle de son épaisseur (fois le facteur de largeur), et <em>Origin on line</em> déplace son début depuis la ligne de la couche, X le long de celle-ci et Y vers l'intérieur de la couche; <em>Pick...</em> y est grisé : tapez les décalages.</p>
+<p>Choisissez comment les bandes d'un préréglage de Quick Draw finissent, tournent leurs coins et alignent leur hachure. Un croquis montre chaque choix.</p>
 <!-- picture: images/Dyl-QuickDrawBandSettings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a>, choisissez le préréglage, cochez <em>Custom band settings</em> dans sa zone Parameters et cliquez le bouton ouvrir carré à côté : la fenêtre Band Settings s'ouvre.</li>
-<li>Choisissez les réglages, puis OK. Le texte sous <em>Custom band settings</em> résume les extrémités et les coins (<em>Extended, Lapped</em>). Décochée de nouveau, les bandes se dessinent avec les valeurs par défaut (la hachure le long de la ligne, extrémités d'équerre, coins en onglet); les réglages sont gardés pour quand elle sera cochée.</li>
-<li>En dessinant, les options <em>Ends</em> et <em>Corners</em> des invites (et <em>Justification</em> avec Linear) les changent pour les bandes suivantes. Les croquis de chaque réglage sont dans <a href="Dyl-QuickDraw.fr.htm#endscorners">Quick Draw &ndash; Extrémités et coins</a>.</li>
+<li>Dans <a href="Dyl-QuickDraw.fr.htm">Dessin rapide</a>, cochez <em>Custom band settings</em> et cliquez le bouton carré à côté.</li>
+<li>Choisissez les réglages, puis OK.</li>
+<li>En dessinant, <em>Ends</em> et <em>Corners</em> les changent pour les bandes suivantes.</li>
 </ol>
 </div>
 <h2>Fenêtre Band Settings</h2>
 <figure class="shot"><img src="images/Dyl-QuickDrawBandSettings-window.png" width="810" height="617" alt="Réglages des bandes (Band Settings): window"></figure>
-<div class="programs commands wide">
-<table>
-<tr><th>Paramètre</th><th>Use</th></tr>
-<tr><td>Scale by width</td><td>L'échelle de la hachure est la largeur de la bande fois ce facteur, à la place de l'échelle du matériau (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Paramètres</a>). Grisé pour une hachure SOLID.</td></tr>
-<tr><td>Origin on line, Offset X, Offset Y</td><td>Le motif de chaque segment commence sur la ligne au début du segment, déplacé le long de la ligne de <em>X</em> et en travers de <em>Y</em> (positif : vers l'intérieur de la bande). Grisé avec <em>Drawing origin</em> et pour une hachure SOLID.</td></tr>
-<tr><td>Pick...</td><td>Trouve <em>X</em> et <em>Y</em> sur une bande d'essai dessinée au milieu de la vue, avec les valeurs de la fenêtre : la fenêtre se ferme, le point du motif choisi vient au début de la ligne, et la fenêtre se rouvre sur les nouveaux décalages (voir <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw &ndash; Paramètres</a>).</td></tr>
-<tr><td>Hatch aligned to</td><td><em>Line</em> (chaque segment hachuré le long de la ligne, par défaut) ou <em>Drawing origin</em> (l'angle du matériau et l'origine du dessin, le motif continu d'un coin à l'autre). Pour une couche d'un assemblage, <em>Layer center</em> ou <em>Layer edge</em> à la place de <em>Line</em> : la hachure le long de la ligne, depuis le milieu de la couche ou depuis son bord le plus proche de la ligne de la bande.</td></tr>
-<tr><td>Ends</td><td>La façon dont une bande ouverte se termine : <em>Ask when drawn</em>, <em>Square</em> (par défaut), <em>Open</em> (aucune ligne en travers de l'extrémité), <em>Extended</em>, <em>Round</em> ou <em>Angled</em>.</td></tr>
-<tr><td>Extension</td><td>Extended : la distance au-delà de chaque extrémité, en unités de dessin; vide : la moitié de la largeur de la bande.</td></tr>
-<tr><td>Angle</td><td>Angled : l'angle de la coupe par rapport à l'équerre, de -80 à 80 degrés (45 par défaut).</td></tr>
-<tr><td>Corners</td><td>La façon dont deux segments se rejoignent : <em>Ask when drawn</em>, <em>Mitered</em> (par défaut), <em>Beveled</em>, <em>Round</em> ou <em>Lapped</em>.</td></tr>
-<tr><td>Miter limit</td><td>Mitered : un coin dont l'onglet est plus long que cette valeur fois la largeur est chanfreiné (4 par défaut, 1 ou plus).</td></tr>
-<tr><td>Lap</td><td>Lapped : le segment qui traverse chaque coin, <em>First segment</em> ou <em>Next segment</em>; l'autre s'arrête contre lui.</td></tr>
-<tr><td>Joints</td><td><em>Interrupted</em>, par défaut, ou <em>Uninterrupted</em>.</td></tr>
-</table>
-</div>
 <div class="spacedbullets">
 <ul>
-<li>Sous les extrémités et sous les coins, un <strong>croquis</strong> montre ce qui est choisi, comme dans <a href="Dyl-QuickDraw.fr.htm#endscorners">Extrémités et coins</a> : la bande, sa hachure, la ligne dessinée (en tirets) et ses points. La ligne est là où la met la <em>Justification</em> du préréglage : au milieu de la bande avec <em>Center</em>, sur un bord avec <em>Edge</em> ou avec Offset (pour une couche : sur son bord avec <em>Layer edge</em>). Les coins montrent aussi le segment qui traverse un coin à recouvrement, la hachure du segment suivant (tournée le long de lui, ou la même que celle du premier avec <em>Drawing origin</em>) et le joint : dessiné, en tirets avec <em>Uninterrupted</em>, absent avec <em>Uninterrupted</em> depuis l'origine du dessin. Avec <em>Ask when drawn</em>, le croquis l'indique.</li>
-<li>Une valeur est grisée quand ce qui est choisi ne l'utilise pas : les décalages tant qu'<em>Origin on line</em> est décoché, le prolongement pour <em>Extended</em>, l'angle d'extrémité pour <em>Angled</em>, la limite d'onglet pour <em>Mitered</em>, <em>Lap</em> pour <em>Lapped</em> (toutes avec <em>Ask when drawn</em> : celui choisi au dessin les utilise).</li>
-<li><strong>OK</strong> donne les valeurs à chaque préréglage sélectionné dans la fenêtre Quick Draw (enregistrées avec eux par <em>Draw</em> ou <em>Save</em>), une fois qu'elles sont valides (un message sous les zones dit quoi corriger, et OK attend). <strong>Cancel</strong> annule les changements, <strong>Open Docs</strong> ouvre cette page.</li>
-<li>Les extrémités et les coins (et la justification de Linear) peuvent aussi être changés pour une seule bande au dessin, à la première invite de Linear ou d'Offset (<span class="fixw">Ends</span>, <span class="fixw">Corners</span>, et <span class="fixw">Justification</span> avec Linear).</li>
+<li><strong>Scale by width</strong> &ndash; la hachure grandit avec la largeur de la bande.</li>
+<li><strong>Origin on line</strong> &ndash; où le motif commence sur la ligne ; <strong>Pick...</strong> le trouve sur un échantillon.</li>
+<li><strong>Hatch aligned to</strong> &ndash; la ligne, ou le dessin pour un motif qui continue d'un coin à l'autre.</li>
+<li><strong>Ends</strong> &ndash; <em>Square</em>, <em>Open</em>, <em>Extended</em>, <em>Round</em> ou <em>Angled</em>.</li>
+<li><strong>Corners</strong> &ndash; <em>Mitered</em>, <em>Beveled</em>, <em>Round</em> ou <em>Lapped</em>.</li>
+<li><strong>Joints</strong> &ndash; une ligne entre les segments, ou aucune.</li>
 </ul>
 </div>
+<p>Voyez les croquis dans <a href="Dyl-QuickDraw.fr.htm#endscorners">Dessin rapide &ndash; Bouts et coins</a>.</p>
 <p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

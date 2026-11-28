@@ -18,28 +18,20 @@
     <div id="content">
         <h1>Preset Groups</h1>
 
-<p>DynALisp has two lists of groups, and the Preset Groups window edits each of them:</p>
-<ul>
-<li><strong>The groups of the presets</strong>, by the kind of drawing they are used in (<em>Wall</em>, <em>Section</em>, <em>Elevation</em>, <em>Phase</em>...): the <strong>Group</strong> list of the <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-QuickShape.htm">Quick Shape</a>, <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a> and <a href="Dyl-HatchPresets.htm">Hatch Presets</a> windows.</li>
-<li><strong>The groups of the materials</strong>, by what they are made of (<em>Masonry</em>, <em>Wood</em>, <em>Insulation</em>...): the <strong>Group</strong> list of the <a href="Dyl-Materials.htm">Materials</a> window, the <em>Material group</em> list above the <em>Material</em> list of Quick Draw and Quick Shape, and the <em>Group</em> list of a layer of an assembly. The window is then titled <strong>Material Groups</strong>.</li>
-</ul>
-<p>It opens from the square <em>open</em> button just left of the <em>Group</em> list of any of these windows, on the groups that list shows.</p>
+<p>Sort your presets and materials into groups: <em>Wall</em>, <em>Section</em>, <em>Phase</em> for the presets, <em>Masonry</em>, <em>Wood</em>, <em>Insulation</em> for the materials.</p>
 <figure class="shot"><img src="images/Dyl-PresetGroups-window.png" width="700" height="581" alt="Preset Groups: window"></figure>
 <figure class="shot"><img src="images/Dyl-PresetGroups-materials.png" width="700" height="581" alt="Preset Groups: window"></figure>
 <!-- picture: images/Dyl-PresetGroups-use.gif -->
+<h2>How To Use</h2>
 <div class="spacedbullets">
-<ul>
-<li><strong>Groups</strong> &ndash; the groups, in the order of the Group lists, with the number of presets (or of materials) of the window it was opened from in each one (<em>33 presets</em>). Several can be selected (Ctrl / Shift click) to remove them at once.</li>
-<li><strong>Name</strong> &ndash; the name of the group selected: typing renames it. A name is unique (any case) and has no <span class="fixw">;</span>, <span class="fixw">,</span> or <span class="fixw">"</span>: a message says when it is not, and the name is kept as it was. Greyed out while several groups are selected. On OK, the group is renamed in every preset that uses it (Quick Draw, Quick Shape, the assemblies and the hatch presets), or in every material for a group of the materials, so they stay in the same group.</li>
-<li><strong>Add</strong> &ndash; adds a group after the group selected (else last), named as the one selected followed by <em>(2)</em>, or <em>New group</em>, and selects it: type its name.</li>
-<li><strong>Remove</strong> &ndash; removes the groups selected from the lists. The presets in them keep their group: it stays in the Group list of their window as long as a preset uses it.</li>
-<li><strong>Move up / Move down</strong> &ndash; the order of the groups in the Group lists (and in <em>Show</em>).</li>
-<li><strong>Reset</strong> &ndash; the default groups. Those of the presets: <em>Floor, Wall, Ceiling, Roof, Finish, Structural, Site</em> (plans, by their type), <em>Elevation, Section, Detail, Annotation, Phase, Area, Generic</em>. Those of the materials: <em>Concrete, Masonry, Metal, Wood, Board, Insulation, Finish, Roofing, Site, Air</em> (the air spaces and the <em>Void</em> of an assembly), <em>Phase, Generic</em>.</li>
-<li><strong>OK</strong> &ndash; saves the groups and renames the groups renamed in the presets files right away, even if the window it was opened from is then cancelled (the presets being edited there are renamed too). <strong>Cancel</strong> discards the changes. <strong>Open Docs</strong> opens this page.</li>
-</ul>
+<ol>
+<li>Click the square button beside a <em>Group</em> list in <a href="Dyl-QuickDraw.htm">Quick Draw</a>, <a href="Dyl-QuickShape.htm">Quick Shape</a>, <a href="Dyl-AssemblyPresets.htm">Assembly Presets</a>, <a href="Dyl-HatchPresets.htm">Hatch Presets</a> or <a href="Dyl-Materials.htm">Materials</a>.</li>
+<li><strong>Add</strong>, rename, <strong>Remove</strong> or move the groups.</li>
+<li>Click OK: a group renamed is renamed everywhere.</li>
+</ol>
 </div>
+<p><strong>Reset</strong> gives back the default groups.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

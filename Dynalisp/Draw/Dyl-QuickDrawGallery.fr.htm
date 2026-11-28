@@ -35,52 +35,27 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Choisissez un préréglage Quick Draw d'après son aspect : une vignette par préréglage, sa hachure dessinée telle qu'elle s'imprime. Filtrez les vignettes par groupe, par type ou par quelques lettres de leur nom, choisissez-en une et la méthode pour la dessiner, et dessinez le préréglage, comme le ferait sa commande.</p>
+<p>Choisissez un préréglage de Quick Draw à son allure : une tuile pour chacun, sa hachure telle qu'elle s'imprime.</p>
 <figure class="shot"><img src="images/Dyl-QuickDrawGallery-window.png" width="1006" height="827" alt="Galerie de dessin rapide (Quick Draw Gallery): window"></figure>
 <!-- picture: images/Dyl-QuickDrawGallery-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Cliquez <em>Dessin rapide</em> dans l'onglet DynALisp du ruban (ou tapez <span class="fixw">QDG</span>). Sa flèche liste <em>All</em> et les groupes, pour ouvrir sur un groupe; le bouton ouvre ensuite le dernier groupe choisi.</li>
-<li>Cliquez la pastille d'un groupe ou d'un type, ou tapez quelques lettres dans la zone de recherche.</li>
-<li>Cliquez une vignette pour la sélectionner : les pastilles de ses méthodes s'affichent sous les vignettes, sa méthode par défaut choisie. Choisissez une autre méthode au besoin.</li>
-<li>Double-cliquez la vignette (ou cliquez <strong>Draw</strong>) : la fenêtre se ferme et le préréglage se dessine avec la méthode choisie.</li>
-<li>Les préréglages se modifient dans la fenêtre <a href="Dyl-QuickDraw.fr.htm">Quick Draw</a> (<em>Gestion du dessin rapide</em> à côté dans le ruban, ou en bas de la galerie).</li>
+<li>Cliquez <em>Quick Draw</em> dans le ruban, ou tapez <span class="fixw">QDG</span>.</li>
+<li>Filtrez avec les pastilles, ou tapez quelques lettres.</li>
+<li>Double-cliquez une tuile pour la dessiner. Choisissez d'abord une autre méthode sous les tuiles si vous voulez.</li>
 </ol>
 </div>
-<h2>Fenêtre Quick Draw Gallery</h2>
+<h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Pastilles des groupes</strong> &ndash; sous la zone de recherche : <em>All</em>, puis une pastille pour chacun des <a href="Dyl-PresetGroups.fr.htm">groupes de préréglages</a> qui a des préréglages, dans leur ordre, et <em>Recent</em> en dernier. Cliquez-en une pour n'afficher que ses préréglages; celle affichée est remplie de bleu. La fenêtre s'ouvre sur le groupe choisi dans le ruban, sinon sur le dernier groupe affiché.</li>
-<li><strong>Pastilles des types</strong> &ndash; sous les pastilles des groupes : <em>All</em>, <em>Drafting</em> (motif de dessin) et <em>Model</em> (motif de modèle), le type du <a href="Dyl-HatchPresets.fr.htm">préréglage de hachure</a> de son matériau : une taille sur papier ou une taille réelle dans le modèle, et <em>Assembly</em> (assemblage : un préréglage où <em>Assembly</em> est coché). Elles filtrent les vignettes avec les pastilles des groupes.</li>
-<li><strong>Recent</strong> &ndash; les préréglages dessinés depuis le démarrage d'AutoCAD, le dernier en premier (douze au plus), de quelque façon qu'ils aient été dessinés (la galerie, un alias, la fenêtre Quick Draw). La pastille apparaît dès qu'un préréglage a été dessiné.</li>
-<li><strong>Search presets</strong> &ndash; la zone à la loupe : n'affiche que les préréglages dont le nom ou le groupe contient le texte tapé, sans tenir compte de la casse. La recherche se fait dans le groupe choisi : choisissez <em>All</em> pour chercher dans tous les préréglages. Le nombre de préréglages affichés est à droite.</li>
-<li><strong>Vignettes</strong> &ndash; six par rangée, dans l'ordre du fichier de préréglages : la hachure du préréglage, son nom et son groupe en dessous. Faites défiler pour voir les autres. Cliquez-en une pour la sélectionner (sa bordure devient bleue); double-cliquez-la pour la dessiner : la fenêtre se ferme et Quick Draw démarre avec ce préréglage (la méthode choisie, ses comportements et sa bordure). Un nom long est coupé; son infobulle le montre en entier.</li>
-<li><strong>Method</strong> &ndash; sous les vignettes, les pastilles des méthodes avec lesquelles le préréglage sélectionné peut se dessiner, sa <em>Default method</em> choisie (réglée dans la fenêtre <a href="Dyl-QuickDraw.fr.htm#behaviors">Quick Draw</a>) : <em>Ask</em> (demandée à la ligne de commande), <em>Polyline</em>, <em>Rectangle</em>, <em>Circle</em>, <em>Polygon</em>, <em>Ellipse</em>, <em>Shrinkwrap</em>, <em>Pick</em> (points intérieurs), <em>Select</em> (objets fermés), <em>Linear</em>, <em>Offset</em> et <em>Replace</em> (remplacer des hachures); un assemblage seulement <em>Linear</em> et <em>Offset</em>, puisque ses couches sont des bandes. La méthode choisie ne vaut que pour cette fois : le préréglage garde sa méthode par défaut. Voir <a href="Dyl-QuickDraw.fr.htm#defaultmethod">Quick Draw &ndash; Méthode par défaut</a>.</li>
-<li><strong>Draw</strong> &ndash; (ou Entrée) dessine le préréglage sélectionné, comme un double-clic; grisé tant qu'aucune vignette n'est sélectionnée.</li>
-<li><strong>Quick Draw Manager</strong> &ndash; ferme la galerie et ouvre la fenêtre Quick Draw, pour modifier les préréglages ou en créer un. <strong>Cancel</strong> ferme la galerie, <strong>Open Docs</strong> ouvre cette page.</li>
-</ul>
-</div>
-<h2>La hachure d'une vignette</h2>
-<div class="spacedbullets">
-<ul>
-<li>Chaque vignette dessine le motif du <a href="Dyl-Materials.fr.htm">matériau</a> du préréglage <strong>tel qu'il s'imprime</strong> : à sa taille sur papier, 1:1 à l'écran, lu dans le fichier <span class="fixw">.pat</span> qui le définit (<span class="fixw">acad.pat</span> ou <span class="fixw">acadiso.pat</span>, sinon son propre fichier du chemin de recherche), tourné de son angle. Les préréglages par défaut et personnalisés sont dessinés de la même façon : une vignette montre ce que le préréglage dessine.</li>
-<li>Un matériau <em>Drafting</em> qui est <em>Annotative</em> ou a <em>Adaptive scaling</em> garde sa taille sur papier : sa vignette est la même à toutes les échelles. Toute autre hachure (un préréglage de hachure <em>Model</em>, une brique en élévation) est dessinée à son échelle divisée par l'échelle du dessin (l'échelle d'annotation de l'espace courant) : elle paraît plus petite à 1:100 qu'à 1:50, comme sur la feuille.</li>
-<li>Une hachure <em>Drafting</em> est toujours dessinée à 1:1, sans zoom, pour que toutes les vignettes Drafting soient à la même échelle. Quand moins d'environ trois répétitions d'un motif <em>Model</em> tiennent dans la vignette (une seule brique d'une élévation), la vignette fait un zoom arrière juste assez pour les montrer et donne l'échelle qu'elle utilise dans son coin inférieur droit (<em>1:100</em>). Un motif trop fin pour l'écran est dessiné en gris, comme il se lit sur papier.</li>
-<li>Un <a href="Dyl-QuickDraw.fr.htm#assembly">assemblage</a> (un préréglage Linear avec <em>Assembly</em> coché) montre ses couches côte à côte, de gauche à droite comme dans la fenêtre <a href="Dyl-AssemblyPresets.fr.htm">Assembly Presets</a> : chaque bande aussi large que son épaisseur (une couche mince garde quelques pixels de large) et dessinée avec la hachure de son propre matériau, un espace laissé vide, une ligne entre deux bandes.</li>
-<li>Une hachure <span class="fixw">SOLID</span> est une vignette grise. Un motif qu'aucun fichier <span class="fixw">.pat</span> ne définit, ou une couche dont le matériau manque, est barré : son matériau a besoin d'un fichier de motifs (voir <span class="fixw">Dyl-RebuildPat</span>).</li>
-<li>Les vignettes sont dessinées dans les couleurs du thème d'AutoCAD (clair ou foncé), pas dans les couleurs des matériaux.</li>
-</ul>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Les groupes sous la flèche du bouton du ruban sont les groupes par défaut : un groupe renommé ou ajouté dans Preset Groups n'est pas dans cette liste, mais il a sa pastille dans la fenêtre. Un groupe choisi dans le ruban ouvre le groupe au nom le plus proche (<em>Floor</em> &rarr; <em>Floors</em>), sinon, quand il a été renommé ou supprimé, <em>All</em>.</li>
-<li>La fenêtre a besoin du plug-in des fenêtres de DynALisp : quand il n'est pas chargé, la galerie ne s'ouvre pas.</li>
+<li><em>Recent</em> garde les préréglages dessinés aujourd'hui.</li>
+<li>Les tuiles <em>Drafting</em> sont à leur taille sur papier ; les tuiles <em>Model</em> suivent l'échelle du dessin.</li>
+<li>Une tuile barrée a besoin de son motif de hachure : voyez <a href="../Utilities/Dyl-RebuildPat.fr.htm">Reconstruire les motifs</a>.</li>
+<li><strong>Quick Draw Manager</strong> ouvre <a href="Dyl-QuickDraw.fr.htm">Dessin rapide</a> pour modifier les préréglages.</li>
 </ul>
 </div>
 <p><a href="Dyl-QuickDraw.fr.htm">&larr; Dessin rapide</a> &nbsp; <a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">
