@@ -35,32 +35,22 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Comptez les lignes de repère multiples et les blocs d'une sélection par leur contenu : une ligne par genre (nom du bloc et valeurs des attributs, ou texte de la ligne de repère), avec son compte. Pratique pour un tableau de portes ou de notes clés.</p>
+<p>Comptez les lignes de repère multiples et les blocs d'une sélection selon ce qu'ils disent, pour un tableau de portes ou de notes.</p>
 <!-- picture: images/Dyl-MultileaderList-window.png -->
 <!-- picture: images/Dyl-MultileaderList-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Sélectionnez les lignes de repère multiples et les blocs, puis tapez <span class="fixw">MLLIST</span> (ou tapez-le d'abord, puis sélectionnez).</li>
-<li>La ligne de commande liste chaque contenu avec son compte, <span class="fixw">[x3]</span>, trié, puis les totaux.</li>
+<li>Sélectionnez les lignes de repère et les blocs, puis tapez <span class="fixw">MLLIST</span>.</li>
+<li>La ligne de commande liste chacun avec son nombre, <span class="fixw">[x3]</span>.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">MLLIST</span></td><td>Multileader and Block List</td><td>Liste les lignes de repère multiples et les blocs sélectionnés, groupés par valeurs d'attributs, avec un compte par groupe.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les blocs dynamiques sont listés sous leur nom anonyme (<em>*U&hellip;</em>), pas sous leur nom de bloc.</li>
-<li>Pour les blocs avec attributs, seules les paires <em>ÉTIQUETTE=valeur</em> sont affichées : deux blocs différents avec les mêmes valeurs d'attributs donnent donc des lignes identiques.</li>
-<li>Le texte des lignes de repère multiples est affiché avec ses codes de mise en forme Mtext bruts.</li>
-<li>Un bloc MINSERT sélectionné arrête la commande par une erreur.</li>
-<li>La liste est affichée à la ligne de commande seulement (ni tableau ni fichier).</li>
-<li>Le chargement du fichier affiche un message <em>loaded</em> à la ligne de commande : il apparaît donc à chaque démarrage de DynALisp.</li>
+<li>Les blocs dynamiques ont un nom <em>*U&hellip;</em>.</li>
+<li>Deux blocs aux mêmes valeurs se lisent pareil.</li>
+<li>Sur la ligne de commande seulement.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -74,18 +64,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;; ===========================================================
-;;; MLLIST - List selected multileaders and/or block inserts
-;;;          grouped by attribute values, with count per group
-;;;
-;;; Usage : MLLIST -&gt; runs on pre-selected entities, or
-;;;                   prompts for selection if none selected
-;;; Output: one compact line per unique group + count
-;;; ===========================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

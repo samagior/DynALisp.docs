@@ -35,30 +35,22 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Totalisez la longueur des courbes sélectionnées, et l'aire de celles qui sont fermées, calque par calque : chaque objet reçoit une étiquette avec sa longueur (ou son aire et son périmètre), et les totaux vont dans une table ou un fichier CSV.</p>
+<p>Totalisez les longueurs et les aires de ce que vous sélectionnez, calque par calque, dans un tableau ou un fichier.</p>
 <!-- picture: images/Dyl-CountByLayers-window.png -->
 <!-- picture: images/Dyl-CountByLayers-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">COUNTBYLAYERS</span> et sélectionnez les lignes, arcs, cercles, polylignes et splines.</li>
-<li>Chaque objet est étiqueté, et les totaux par calque sont affichés à la ligne de commande.</li>
-<li>À <em>Output</em>, choisissez <em>Table</em> pour insérer une table à un point, <em>Csv</em> pour écrire un fichier, ou <em>None</em>.</li>
+<li>Tapez <span class="fixw">Dyl-CountByLayers</span> et sélectionnez les lignes, arcs, cercles et polylignes.</li>
+<li>Chaque objet reçoit une étiquette avec sa longueur, ou son aire.</li>
+<li>Choisissez <em>Table</em>, <em>Csv</em> ou <em>None</em> pour les totaux.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">COUNTBYLAYERS</span></td><td>Count by Layers</td><td>Totalise par calque la longueur et l'aire des courbes sélectionnées, étiquette chaque objet et donne les totaux en tableau ou en fichier CSV.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les étiquettes sont toujours créées, même avec <em>None</em>; un seul <span class="fixw">U</span> les retire toutes.</li>
-<li>Les étiquettes montrent toujours pieds et mètres, quelles que soient les unités du dessin (un dessin en millimètres s'affiche quand même en pi et m).</li>
-<li>Les valeurs en unités de dessin suivent LUPREC; les valeurs converties sont arrondies à 2 décimales.</li>
+<li>Les étiquettes sont toujours ajoutées : un <span class="fixw">U</span> les retire.</li>
+<li>Les étiquettes sont en pieds et en mètres, quelles que soient les unités du dessin.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,27 +64,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;-------------------=={ Count by Layers }==-------------------;;
-;;                                                            ;;
-;;  Displays the total length of selected curves, and the     ;;
-;;  total area of the closed ones, at the command line,       ;;
-;;  grouped by layer, with conversions to meters/feet based   ;;
-;;  on INSUNITS. The precision of the drawing-unit values is  ;;
-;;  dependent on the setting of the LUPREC system variable.   ;;
-;;  Also labels each object with an MText on its layer:       ;;
-;;    - open objects: length, aligned above the midpoint      ;;
-;;    - closed objects: area and perimeter, centered          ;;
-;;  Labels are scaled to fit the object size (cbl:fill).      ;;
-;;  Optionally inserts the results as a table or exports      ;;
-;;  them to a CSV file.                                       ;;
-;;------------------------------------------------------------;;
-;;  Based on Total Area by Lee Mac, Copyright © 2013          ;;
-;;  www.lee-mac.com                                           ;;
-;;------------------------------------------------------------;;</pre>
-        </details>
-
     </div>
 
     <div id="footer">

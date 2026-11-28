@@ -35,29 +35,15 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Retirez chaque groupe auquel appartiennent les objets sélectionnés, imbriqués et superposés compris, en une commande : là où UNGROUP d'AutoCAD demande à nouveau son option Suivant pour chaque groupe. Les objets eux-mêmes ne sont pas modifiés.</p>
+<p>Retirez tous les groupes des objets choisis, groupes dans des groupes compris, en une commande.</p>
 <!-- picture: images/Dyl-UngroupNext-window.png -->
 <!-- picture: images/Dyl-UngroupNext-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez <span class="fixw">UNGROUPNEXT</span>.</li>
-<li>Sélectionnez les objets ou les groupes : un membre d'un groupe suffit.</li>
-<li>Chaque groupe retiré est nommé à la ligne de commande, jusqu'à ce qu'il n'en reste aucun.</li>
+<li>Sélectionnez un objet de chaque groupe.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">UNGROUPNEXT</span></td><td>Ungroup Nested</td><td>Retire chaque groupe, à tous les niveaux d'imbrication, qui contient les objets sélectionnés.</td></tr>
-</table>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Seuls les groupes qui contiennent l'un des objets <em>sélectionnés</em> sont retirés; les autres membres de ces groupes sont libérés aussi, mais les groupes auxquels ils appartiennent ailleurs sont gardés.</li>
-</ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
@@ -70,48 +56,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;;-----------------------------------------------------------------------
-;;; UngroupNext.lsp
-;;;
-;;; Command: UNGROUPNEXT
-;;;
-;;; Purpose:
-;;;   Fully dissolves every group association for a selection, including
-;;;   objects that belong to MORE THAN ONE group at once (the situation
-;;;   the native UNGROUP / -GROUP &quot;Explode&quot; command handles at the
-;;;   command line with its &quot;Next&quot; sub-option, where you keep typing
-;;;   Next to cycle through the additional groups a pick point belongs
-;;;   to and ungroup each one in turn).
-;;;
-;;; Why not just script &quot;Next&quot; at the command line?
-;;;   AutoLISP has no reliable way to read the dynamic command-line
-;;;   prompt text of -GROUP/UNGROUP to know whether it should send
-;;;   &quot;Next&quot; again or stop. Instead this routine talks to the drawing&#x27;s
-;;;   Group dictionary directly (via ActiveX): it repeatedly scans every
-;;;   AcadGroup in the drawing, and for any group that still contains
-;;;   one of your originally selected objects, it deletes (ungroups)
-;;;   that group. It keeps looping until a full pass removes nothing
-;;;   more - i.e. it recurses through every level/overlap of group
-;;;   membership, exactly like manually repeating
-;;;   UNGROUP -&gt; pick -&gt; (Next -&gt; pick again) until nothing is left.
-;;;
-;;;   Note: &quot;ungrouping&quot; only deletes the group DEFINITION - it never
-;;;   erases or otherwise changes the entities themselves, same as the
-;;;   native UNGROUP command.
-;;;
-;;; Usage:
-;;;   1. APPLOAD this file (or drag &amp; drop it into the AutoCAD window).
-;;;   2. Type UNGROUPNEXT at the command line.
-;;;   3. Select one or more objects/groups (a single pick on any member
-;;;      of a group is enough - you do not need to select every member).
-;;;   4. Press Enter to finish selection. The routine reports each
-;;;      group it removes, then confirms when the selection is fully
-;;;      ungrouped at every level.
-;;;-----------------------------------------------------------------------</pre>
-        </details>
-
     </div>
 
     <div id="footer">

@@ -35,26 +35,23 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Faites relire les textes d'un dessin par Claude : chaque texte, texte multiligne et ligne de repère multiple sélectionné est vérifié pour l'orthographe, la grammaire, les accents et la ponctuation dans sa propre langue, jamais traduit, et remplacé par sa version corrigée une fois que vous dites oui. Les termes techniques, abréviations, unités, cotes et codes restent tels quels. Elle passe par Claude Code connecté à votre propre compte Claude : aucune clé d'API, et l'utilisation compte dans votre forfait Claude.</p>
-<p class="note">Le texte des objets sélectionnés est envoyé à Anthropic par Claude Code. Ne l'utilisez pas sur des dessins dont le texte ne doit pas quitter votre ordinateur. Text Fix est désactivé à une nouvelle installation : activez-le dans <span class="fixw">Dyl-Suite</span>.</p>
+<p>Faites relire les textes de votre dessin par Claude : orthographe, grammaire et accents, dans leur langue. Les termes, unités et codes restent tels quels.</p>
+<p class="note">Les textes sélectionnés sont envoyés à Anthropic. Ne l'utilisez pas sur des textes qui doivent rester sur votre ordinateur.</p>
 <!-- picture: images/Dyl-TextFix-window.png -->
 <!-- picture: images/Dyl-TextFix-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Une fois</strong> &ndash; activez <em>Text Fix</em> dans <span class="fixw">Dyl-Suite</span>. Quand Claude Code n'est pas encore installé ou connecté, lancez l'<a href="Dyl-Assistant.fr.htm">Assistant</a> (<span class="fixw">Dyl-Assistant</span>) : sa palette installe Claude Code et le connecte à votre compte Claude.</li>
-<li>Sélectionnez les textes, puis tapez <span class="fixw">Dyl-TextFix</span> ou cliquez sur <em>Correction de texte</em> dans le groupe de fonctions <em>Assistant</em> du ruban. Tous les textes sont envoyés ensemble à Claude et AutoCAD attend la réponse quelques secondes (une grande sélection est envoyée en quelques parties).</li>
-<li>Pour chaque texte qui change, la ligne de commande montre l'original et la correction : répondez <em>Oui</em> pour le remplacer, <em>Non</em> pour le garder, <em>Tous</em> pour accepter tous les autres, <em>Quitter</em> pour arrêter.</li>
-<li>Un résumé donne les textes vérifiés, corrigés et en échec. Un <span class="fixw">U</span> annule toutes les corrections.</li>
+<li><strong>Une fois</strong> &ndash; activez <em>Text Fix</em> dans <span class="fixw">Dyl-Suite</span>, et connectez-vous avec l'<a href="Dyl-Assistant.fr.htm">Assistant</a>.</li>
+<li>Sélectionnez les textes et tapez <span class="fixw">TEXTFIX</span>.</li>
+<li>Pour chaque correction, répondez <em>Oui</em>, <em>Non</em>, <em>Tous</em> ou <em>Quitter</em>.</li>
+<li>Un <span class="fixw">U</span> les annule toutes.</li>
 </ol>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les attributs de blocs ne sont pas traités (ils ne peuvent pas être sélectionnés à l'invite de sélection).</li>
-<li>Dans un AutoCAD antérieur à 2021, les caractères hors de la page de codes de Windows dans la réponse sont remplacés par <span class="fixw">?</span>.</li>
-<li>Quand la variable d'environnement Windows <span class="fixw">ANTHROPIC_API_KEY</span> existe, Claude Code utilise cette clé d'API, facturée par l'API d'Anthropic, au lieu de votre forfait Claude.</li>
-<li>Les invites de la ligne de commande sont en français.</li>
+<li>Pas les attributs des blocs.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -68,7 +65,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

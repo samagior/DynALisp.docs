@@ -39,41 +39,24 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Cherchez les mots des dictionnaires personnalisés de DynALisp avec leur définition, leur type et leur catégorie : environ 2 450 mots d'architecture et de construction, les chiffres romains, et 260 expressions comme <em>semelle filante</em> ou <em>clé de voûte</em>, les mots que le vérificateur d'orthographe connaît par le dictionnaire de DynALisp (voir <a href="../Setup/Dyl-SetFilePrefs.fr.htm">Set File Preferences</a>).</p>
+<p>Cherchez les mots que connaît le correcteur de DynALisp, avec leur définition : environ 2 450 mots français d'architecture et de construction et 260 expressions.</p>
 <figure class="shot"><img src="images/Dyl-Dictionary-window.png" width="930" height="857" alt="Dictionnaire (Dictionary): window"></figure>
 <!-- picture: images/Dyl-Dictionary-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-Dictionary</span> : la fenêtre s'ouvre sur le dictionnaire de la langue de vos préférences de fichiers.</li>
-<li>Tapez un ou plusieurs mots : la liste suit à mesure que vous tapez. Resserrez-la avec la catégorie, la sous-catégorie et le type.</li>
-<li>Sélectionnez un mot pour lire sa définition; <strong>Copy word</strong> (ou un double-clic) le met dans le presse-papiers, pour le coller dans un texte.</li>
+<li>Tapez <span class="fixw">DICO</span>.</li>
+<li>Tapez un mot, ou une partie : <em>vitr</em> trouve vitrage et vitrail. Les accents ne comptent pas.</li>
+<li>Choisissez un mot pour le lire ; <strong>Copy word</strong> le copie dans le presse-papiers.</li>
 </ol>
 </div>
-<h2>Fenêtre Dictionary</h2>
+<h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Dictionary</strong> &ndash; le dictionnaire affiché, quand il y en a plusieurs.</li>
-<li><strong>Words</strong> &ndash; chaque mot tapé doit se trouver dans le mot ou une de ses formes : <em>vitr</em> trouve vitrage, vitrail et vitraux. Les accents, les ligatures et la casse sont ignorés : <em>equarri</em> trouve équarri, <em>oeil</em> trouve œil-de-bœuf.</li>
-<li><strong>Category</strong>, <strong>Subcategory</strong>, <strong>Type</strong> &ndash; filtrent la liste (n.m., n.f., adj., v., sigle, abr., n.pr., loc.n.f. pour une expression...). <strong>Clear</strong> retire la recherche et les filtres.</li>
-<li><strong>Le mot sélectionné</strong> &ndash; son type, ses formes, sa définition et sa catégorie; <strong>See also</strong> liste des mots liés, et <strong>Go to</strong> en affiche un.</li>
-<li><strong>Edit list...</strong> &ndash; ouvre votre copie de la liste dans Excel; enregistrez-la en <em>CSV UTF-8</em>, puis relancez la commande. Un mot ajouté au dictionnaire depuis AutoCAD (<em>Ajouter au dictionnaire</em>) y reçoit sa définition.</li>
-</ul>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-DICTIONARY</span></td><td>Dictionary</td><td>Cherche les mots des dictionnaires DynALisp, leurs définitions et catégories, dans la langue des préférences de fichiers.</td></tr>
-</table>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Les définitions sont de courtes définitions de travail écrites pour les dessins et devis de la firme, pas une terminologie officielle. Vérifiez les termes régionaux et patrimoniaux auprès de vos références (Office québécois de la langue française, Grand dictionnaire terminologique).</li>
-<li>Le fichier est lu en UTF-8 : enregistré par Excel en <em>CSV</em> simple (et non <em>CSV UTF-8</em>), ses lettres accentuées s'affichent mal.</li>
-<li>Copy word utilise l'objet Windows <span class="fixw">htmlfile</span>; quand Windows ne le fournit pas, la fenêtre indique que le mot n'a pas pu être copié.</li>
-<li>Seul le français a un fichier de définitions pour l'instant : une autre langue ouvre le premier trouvé.</li>
+<li><strong>Edit list...</strong> ouvre la liste dans Excel : enregistrez-la en <em>CSV UTF-8</em>.</li>
+<li>Un mot ajouté au dictionnaire dans AutoCAD y reçoit sa définition.</li>
+<li>Les définitions sont des notes de travail, pas une terminologie officielle.</li>
+<li>Français seulement pour l'instant.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -87,7 +70,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

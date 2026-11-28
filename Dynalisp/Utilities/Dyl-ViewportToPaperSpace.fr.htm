@@ -35,30 +35,23 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Transformez le contenu de fenêtres en objets de l'espace papier : ce qu'on voit par les fenêtres est copié dans la présentation à 1:1, exactement là où c'était sur la feuille, et les fenêtres sont supprimées. La feuille a le même aspect, mais ne dépend plus de l'espace objet.</p>
+<p>Copiez ce que montrent les fenêtres sur la feuille même, puis retirez les fenêtres. La feuille reste pareille, sans l'espace objet.</p>
 <!-- picture: images/Dyl-ViewportToPaperSpace-window.png -->
 <!-- picture: images/Dyl-ViewportToPaperSpace-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Allez dans une présentation et tapez <span class="fixw">VP2PS</span>.</li>
-<li>Choisissez le résultat : <em>Decouper</em> (par défaut : les copies dans un bloc découpé par la fenêtre, comme elle apparaissait) ou <em>Libre</em> (objets libres, non coupés au bord).</li>
-<li>Sélectionnez les fenêtres. Chacune est remplacée par son contenu; un <span class="fixw">U</span> annule le tout.</li>
+<li>Dans une présentation, tapez <span class="fixw">VP2PS</span>.</li>
+<li>Choisissez <em>Decouper</em> (coupé au bord de la fenêtre) ou <em>Libre</em> (non coupé).</li>
+<li>Sélectionnez les fenêtres. Un <span class="fixw">U</span> l'annule.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">VP2PS</span></td><td>Viewport To Paper Space</td><td>Recrée dans l'espace papier les objets de l'espace objet vus par les fenêtres sélectionnées, puis supprime les fenêtres.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les fenêtres en perspective sont sautées; les vues 3D (non en plan) gardent leur profondeur &ndash; utilisez FLATTEN ensuite.</li>
-<li>Les dérogations de calques des fenêtres (couleur de fenêtre, type de ligne&hellip;) ne sont pas reportées.</li>
-<li>Les copies ne sont plus associatives (cotes, hachures); vérifiez visuellement les objets annotatifs et les lignes de repère multiples.</li>
+<li>Les fenêtres en perspective sont sautées.</li>
+<li>Les couleurs propres à une fenêtre sont perdues.</li>
+<li>Les cotes et hachures ne suivent plus leurs objets.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,47 +65,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;; ==========================================================================
-;;; VP2PS.lsp  -  Viewport To Paper Space
-;;;
-;;; Purpose :
-;;;   Recreates the model space objects visible through the selected
-;;;   viewports directly in the current layout (paper space) at a 1:1
-;;;   scale. Each copy is placed exactly where it appeared on the sheet,
-;;;   so the sheet layout is preserved. The source viewports are then
-;;;   deleted.
-;;;
-;;; Commands :
-;;;   VP2PS   - Run the conversion on the selected viewports.
-;;;
-;;; Result modes :
-;;;   Decouper (Clip)  - Copies are grouped in a block and clipped (XCLIP)
-;;;                      with the viewport boundary. The result is visually
-;;;                      identical to the viewport. (default)
-;;;   Libre (Free)     - Copies are placed as loose objects in paper space.
-;;;                      Objects crossing the viewport edge are NOT trimmed.
-;;;
-;;; What is handled :
-;;;   - Any viewport scale, view center and twist angle.
-;;;   - Rectangular and non-rectangular (clipped) viewports.
-;;;   - Layers that are off, frozen, or frozen in the viewport are skipped.
-;;;   - Objects on locked layers are copied normally.
-;;;   - PSLTSCALE = 0 : linetype scales are adjusted to keep dash lengths.
-;;;   - Dimensions keep their displayed value and their visual size.
-;;;
-;;; Limitations :
-;;;   - Perspective viewports are skipped.
-;;;   - 3D (non-plan) views keep their depth : use FLATTEN afterwards.
-;;;   - Viewport layer overrides (VP color, linetype...) are not transferred.
-;;;   - Annotative objects and multileaders should be checked visually.
-;;;   - Copies are no longer associative (dimensions, hatches).
-;;;
-;;; The whole operation is recorded as a single UNDO group.
-;;; ==========================================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

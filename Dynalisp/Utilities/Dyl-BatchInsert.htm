@@ -35,30 +35,21 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Insert every drawing of a folder into the current drawing as blocks, side by side, to review a set of drawings at a glance or gather them in one file.</p>
+<p>Insert every drawing of a folder side by side, to see a set of drawings at a glance.</p>
 <!-- picture: images/Dyl-BatchInsert-window.png -->
 <!-- picture: images/Dyl-BatchInsert-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">BATCH-INSERT</span> and pick the folder in the window (you can also type its path there).</li>
-<li>Each drawing of the folder is inserted as a block, at scale 1 and on the current layer, from left to right in the order of their names, the bottoms lined up, a small gap between two.</li>
-<li>The view zooms to them, and the command line gives how many were inserted and skipped. One <span class="fixw">U</span> removes them all.</li>
+<li>Type <span class="fixw">BATCH-INSERT</span> and pick the folder.</li>
+<li>The drawings come in as blocks, left to right by name.</li>
+<li>One <span class="fixw">U</span> removes them all.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">BATCH-INSERT</span></td><td>Batch Insert</td><td>Inserts every drawing of a folder side by side as blocks in the current drawing.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>A drawing whose name is already a block of the current drawing is skipped, so the block there is never redefined: rename or purge it first.</li>
-<li>The current drawing, when it is in the folder, is skipped too.</li>
-<li>The blocks go in model space, or in the layout when it is current with no viewport active.</li>
+<li>A drawing whose name is already a block here is skipped: rename or purge that block first.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,7 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

@@ -31,36 +31,21 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Ajoutez ou retirez un qualificatif standard sur le texte d'une cote en un clic, la valeur mesurée restant à jour : &plusmn;, &Oslash;, max., min., (TYP), (OB), (OL). Relancez-la sur la même cote pour retirer le qualificatif.</p>
+<p>Ajoutez &plusmn;, &Oslash;, max., min., (TYP), (OB) ou (OL) à une cote en un clic. Cliquez-la de nouveau pour l'enlever.</p>
 <!-- picture: images/Dyl-QuickAddPrefixSuffix-window.png -->
 <!-- picture: images/Dyl-QuickAddPrefixSuffix-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'alias du qualificatif : <span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-TYP</span>... (le tableau ci-dessous).</li>
-<li>Choisissez la cote : le qualificatif est ajouté, ou retiré quand la cote l'a déjà.</li>
-<li>Ou tapez <span class="fixw">Dyl-QuickAddPrefixSuffix</span>, double-cliquez un qualificatif, puis choisissez la cote.</li>
+<li>Tapez <span class="fixw">DT-PM</span>, <span class="fixw">DT-DIA</span>, <span class="fixw">DT-MAX</span>, <span class="fixw">DT-MIN</span>, <span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span> ou <span class="fixw">DT-OL</span>.</li>
+<li>Choisissez la cote.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th><th>Texte ajouté</th></tr>
-<tr><td><span class="fixw">DT-PM</span></td><td>Dimension Text Plus-Minus</td><td>Ajoute ou retire le préfixe plus-moins du texte de la cote sélectionnée.</td><td><span class="fixw">± </span></td></tr>
-<tr><td><span class="fixw">DT-DIA</span></td><td>Dimension Text Diameter</td><td>Ajoute ou retire le préfixe de diamètre du texte de la cote sélectionnée.</td><td><span class="fixw">%%c</span> (affiché Ø)</td></tr>
-<tr><td><span class="fixw">DT-MAX</span></td><td>Dimension Text Maximum</td><td>Ajoute ou retire le préfixe max. du texte de la cote sélectionnée.</td><td><span class="fixw">max. </span></td></tr>
-<tr><td><span class="fixw">DT-MIN</span></td><td>Dimension Text Minimum</td><td>Ajoute ou retire le préfixe min. du texte de la cote sélectionnée.</td><td><span class="fixw">min. </span></td></tr>
-<tr><td><span class="fixw">DT-TYP</span></td><td>Dimension Text Typical</td><td>Ajoute ou retire le suffixe (TYP) du texte de la cote sélectionnée.</td><td><span class="fixw"> (TYP)</span></td></tr>
-<tr><td><span class="fixw">DT-OB</span></td><td>Dimension Text OB</td><td>Ajoute ou retire le suffixe (OB) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OB)</span></td></tr>
-<tr><td><span class="fixw">DT-OL</span></td><td>Dimension Text OL</td><td>Ajoute ou retire le suffixe (OL) du texte de la cote sélectionnée.</td><td><span class="fixw"> (OL)</span></td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les commandes de suffixe (<span class="fixw">DT-TYP</span>, <span class="fixw">DT-OB</span>, <span class="fixw">DT-OL</span>) gardent un type préfixe/suffixe, mais la routine insère toujours le texte <em>avant</em> <span class="fixw">&lt;&gt;</span> : les suffixes s'affichent donc pour l'instant devant la valeur (p. ex. <span class="fixw"> (TYP)1200</span>).</li>
-<li>Une seule cote est traitée par exécution et le choix n'est pas filtré sur les objets cotes.</li>
-<li>Appuyer sur Entrée ou rater le choix à l'invite termine la commande par un message d'erreur.</li>
+<li>(TYP), (OB) et (OL) s'affichent avant la valeur, pas après.</li>
+<li>Une cote à la fois.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -81,7 +66,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

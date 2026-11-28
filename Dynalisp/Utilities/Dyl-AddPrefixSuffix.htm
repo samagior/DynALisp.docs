@@ -35,31 +35,22 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Add the same text to the start or the end of every text and mtext you select, in one step: a level number before every room name, a unit after every value.</p>
+<p>Add the same text before or after every text you select: a level number before each room name, a unit after each value.</p>
 <!-- picture: images/Dyl-AddPrefixSuffix-window.png -->
 <!-- picture: images/Dyl-AddPrefixSuffix-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">TXTPS</span> and select the texts; only texts and mtexts are kept.</li>
-<li>Choose <em>Prefix</em> or <em>Suffix</em> (Enter: Suffix), then type the text to add, spaces included.</li>
-<li>Every text selected gets it; one <span class="fixw">U</span> undoes the whole change.</li>
+<li>Type <span class="fixw">TXTPS</span> and select the texts.</li>
+<li>Choose <em>Prefix</em> or <em>Suffix</em>, then type the text to add.</li>
+<li>One <span class="fixw">U</span> undoes it.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">TXTPS</span></td><td>Text Prefix Suffix</td><td>Adds a user string as a prefix or suffix to the selected Text and Mtext objects.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>For Mtext the string is added to the raw contents: a prefix goes before any opening formatting codes, so it may not take the formatting of the first word.</li>
-<li>Objects on locked layers are not filtered out of the selection; editing one stops the command with an error.</li>
-<li>Attributes, dimensions and multileaders are not handled.</li>
-<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+<li>Texts and mtexts only: not attributes, dimensions or multileaders.</li>
+<li>Unlock the layers first.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -73,36 +64,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-        <details class="bundled">
-            <summary>Bundled program notes</summary>
-            <pre>;;; ==============================================================
-;;; AddPrefixSuffix.lsp
-;;;
-;;; Adds a user-chosen string to the beginning (prefix) or end
-;;; (suffix) of the text content of all selected TEXT and MTEXT
-;;; entities.
-;;;
-;;; COMMAND:  TXTPS
-;;;
-;;; USAGE:
-;;;   1. Load this file (APPLOAD, or drag-and-drop onto the
-;;;      AutoCAD window).
-;;;   2. Type TXTPS at the command line.
-;;;   3. Select the TEXT / MTEXT objects to modify (other object
-;;;      types in the selection are ignored automatically).
-;;;   4. Choose whether to add the string as a Prefix or Suffix.
-;;;   5. Type the text to add.
-;;;
-;;; NOTES:
-;;;   - Works on both single-line TEXT and multiline MTEXT.
-;;;   - For MTEXT, the string is added to the raw TextString
-;;;     (including any formatting codes it may already contain),
-;;;     so existing formatting is preserved.
-;;;   - Wrapped in a single UNDO group, so one U / CTRL+Z undoes
-;;;     the whole operation.
-;;; ==============================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

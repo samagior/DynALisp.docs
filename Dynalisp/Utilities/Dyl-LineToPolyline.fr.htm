@@ -31,30 +31,21 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Transformez les lignes sélectionnées en polylignes, et joignez celles qui se touchent en polylignes uniques si vous le voulez.</p>
+<p>Changez des lignes en polylignes, et joignez celles qui se touchent.</p>
 <!-- picture: images/Dyl-LineToPolyline-window.png -->
 <!-- picture: images/Dyl-LineToPolyline-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">LTPL</span> et répondez à <em>Join touching polylines?</em> (Non par défaut).</li>
-<li>Sélectionnez les objets; seules les lignes sont gardées.</li>
-<li>Chaque ligne devient une polyligne; avec Oui, celles qui se touchent bout à bout n'en font plus qu'une.</li>
+<li>Tapez <span class="fixw">LTPL</span> et dites s'il faut joindre les lignes qui se touchent.</li>
+<li>Sélectionnez les lignes.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">LTPL</span></td><td>Line To Polyline</td><td>Convertit chaque ligne sélectionnée en polyligne avec PEDIT, en joignant au besoin celles qui se touchent.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Suppose <span class="fixw">PEDITACCEPT</span> = 0 : la routine répond <em>Oui</em> à <em>Voulez-vous la transformer en polyligne?</em>. Avec <span class="fixw">PEDITACCEPT</span> = 1, cette réponse est lue comme une option de PEDIT.</li>
-<li>Les arcs et les autres courbes ne sont pas sélectionnés.</li>
-<li>Il n'y a pas d'étape d'annulation unique : chaque conversion s'annule séparément.</li>
+<li>Les arcs et les courbes sont laissés de côté.</li>
+<li>Chaque ligne s'annule à part.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -68,7 +59,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

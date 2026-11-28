@@ -35,30 +35,22 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Total the length of the curves you select, and the area of the closed ones, layer by layer: every object gets a label with its length (or its area and perimeter), and the totals go in a table or a CSV file.</p>
+<p>Total the lengths and areas of what you select, layer by layer, in a table or a file.</p>
 <!-- picture: images/Dyl-CountByLayers-window.png -->
 <!-- picture: images/Dyl-CountByLayers-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">COUNTBYLAYERS</span> and select the lines, arcs, circles, polylines and splines.</li>
-<li>Each object is labelled, and the totals by layer are printed on the command line.</li>
-<li>At <em>Output</em>, choose <em>Table</em> to insert a table at a point, <em>Csv</em> to write a file, or <em>None</em>.</li>
+<li>Type <span class="fixw">Dyl-CountByLayers</span> and select the lines, arcs, circles and polylines.</li>
+<li>Each object gets a label with its length, or its area.</li>
+<li>Choose <em>Table</em>, <em>Csv</em> or <em>None</em> for the totals.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">COUNTBYLAYERS</span></td><td>Count by Layers</td><td>Totals the length and area of the selected curves by layer, labels each object and outputs the totals as a table or CSV file.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The labels are always created, even with <em>None</em>; one <span class="fixw">U</span> removes them all.</li>
-<li>Labels always show feet and metres, whatever the drawing units (for example a millimetre drawing still reads in ft and m).</li>
-<li>Drawing-unit values follow LUPREC; converted values are rounded to 2 decimals.</li>
+<li>The labels are always added: one <span class="fixw">U</span> removes them.</li>
+<li>Labels read in feet and metres, whatever the units of the drawing.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,27 +64,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-        <details class="bundled">
-            <summary>Bundled program notes</summary>
-            <pre>;;-------------------=={ Count by Layers }==-------------------;;
-;;                                                            ;;
-;;  Displays the total length of selected curves, and the     ;;
-;;  total area of the closed ones, at the command line,       ;;
-;;  grouped by layer, with conversions to meters/feet based   ;;
-;;  on INSUNITS. The precision of the drawing-unit values is  ;;
-;;  dependent on the setting of the LUPREC system variable.   ;;
-;;  Also labels each object with an MText on its layer:       ;;
-;;    - open objects: length, aligned above the midpoint      ;;
-;;    - closed objects: area and perimeter, centered          ;;
-;;  Labels are scaled to fit the object size (cbl:fill).      ;;
-;;  Optionally inserts the results as a table or exports      ;;
-;;  them to a CSV file.                                       ;;
-;;------------------------------------------------------------;;
-;;  Based on Total Area by Lee Mac, Copyright © 2013          ;;
-;;  www.lee-mac.com                                           ;;
-;;------------------------------------------------------------;;</pre>
-        </details>
-
     </div>
 
     <div id="footer">

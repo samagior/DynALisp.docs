@@ -35,31 +35,20 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Remettez l'échelle du type de ligne de chaque objet du dessin à 1,0, dans l'espace objet et chaque présentation, attributs compris, sans rien sélectionner.</p>
+<p>Remettez à 1 l'échelle de type de ligne de tous les objets, dans toutes les présentations, sans rien sélectionner.</p>
 <!-- picture: images/Dyl-ResetLinetypeScale-window.png -->
 <!-- picture: images/Dyl-ResetLinetypeScale-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez <span class="fixw">LTS1</span>.</li>
-<li>La ligne de commande dit combien d'objets ont changé; le dessin est régénéré. Un <span class="fixw">U</span> l'annule.</li>
+<li>Un <span class="fixw">U</span> l'annule.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">LTS1</span></td><td>Reset Linetype Scale</td><td>Remet à 1,0 l'échelle de type de ligne de chaque objet de l'espace objet et de toutes les présentations.</td></tr>
-<tr><td><span class="fixw">RESETLTSCALE</span></td><td>Reset Linetype Scale (Alias)</td><td>Alias de LTS1 qui remet à 1,0 l'échelle de type de ligne de chaque objet du dessin.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les définitions de blocs ne sont pas traitées : les objets dans les blocs gardent leur propre échelle de type de ligne.</li>
-<li>Les variables système <span class="fixw">LTSCALE</span>, <span class="fixw">CELTSCALE</span> et <span class="fixw">PSLTSCALE</span> ne sont pas changées.</li>
-<li>Les messages de la ligne de commande sont en français.</li>
-<li>Le chargement du fichier affiche un message <em>loaded</em> à la ligne de commande : il apparaît donc à chaque démarrage de DynALisp.</li>
+<li>Les objets dans les blocs gardent leur échelle.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -73,31 +62,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;; ==========================================================================
-;;; ResetLtScale.lsp
-;;;
-;;; Remet l&#x27;echelle de type de ligne (LinetypeScale / code DXF 48) a 1.0 sur
-;;; tous les objets du dessin : espace objet + tous les onglets de
-;;; presentation, y compris les attributs des references de blocs.
-;;;
-;;; Portee : objets du dessin uniquement.
-;;;   - Les definitions de blocs ne sont PAS parcourues.
-;;;   - Les variables systeme LTSCALE / CELTSCALE ne sont PAS modifiees.
-;;;   - Les references externes (xrefs) sont ignorees.
-;;;
-;;; Commandes :
-;;;   LTS1            - execute la remise a 1.0
-;;;   RESETLTSCALE    - alias de LTS1
-;;;
-;;; Notes :
-;;;   Utilise ActiveX : les objets sur des calques verrouilles, geles ou
-;;;   desactives sont egalement traites.
-;;;   L&#x27;operation est enregistree comme une seule transaction UNDO.
-;;; ==========================================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

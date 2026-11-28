@@ -39,41 +39,24 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Look up the words of the DynALisp custom dictionaries with their definition, type and category: about 2,450 French architecture and construction words, Roman numerals, and 260 expressions such as <em>semelle filante</em> or <em>clé de voûte</em>, the words the spell checker knows through the DynALisp dictionary (see <a href="../Setup/Dyl-SetFilePrefs.htm">Set File Preferences</a>).</p>
+<p>Look up the words the spell checker of DynALisp knows, with their definition: about 2,450 French architecture and construction words and 260 expressions.</p>
 <figure class="shot"><img src="images/Dyl-Dictionary-window.png" width="930" height="857" alt="Dictionary: window"></figure>
 <!-- picture: images/Dyl-Dictionary-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">Dyl-Dictionary</span>: the window opens on the dictionary of the language of your file preferences.</li>
-<li>Type one or more words: the list follows as you type. Narrow it with the category, subcategory and type.</li>
-<li>Select a word to read its definition; <strong>Copy word</strong> (or a double-click) puts it on the clipboard, to paste in a text.</li>
+<li>Type <span class="fixw">DICO</span>.</li>
+<li>Type a word, or a part of it: <em>vitr</em> finds vitrage and vitrail. Accents do not matter.</li>
+<li>Pick a word to read it; <strong>Copy word</strong> puts it on the clipboard.</li>
 </ol>
 </div>
-<h2>Dictionary Window</h2>
+<h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Dictionary</strong> &ndash; the dictionary shown, when there are several.</li>
-<li><strong>Words</strong> &ndash; every word typed must be found in the word or one of its forms: <em>vitr</em> finds vitrage, vitrail and vitraux. Accents, ligatures and case are ignored: <em>equarri</em> finds équarri, <em>oeil</em> finds œil-de-bœuf.</li>
-<li><strong>Category</strong>, <strong>Subcategory</strong>, <strong>Type</strong> &ndash; filter the list (n.m., n.f., adj., v., sigle, abr., n.pr., loc.n.f. for an expression...). <strong>Clear</strong> removes the search and the filters.</li>
-<li><strong>The word selected</strong> &ndash; its type, forms, definition and category; <strong>See also</strong> lists related words, and <strong>Go to</strong> shows one.</li>
-<li><strong>Edit list...</strong> &ndash; opens your copy of the list in Excel; save it as <em>CSV UTF-8</em>, then run the command again. A word added to the dictionary from AutoCAD (<em>Add to dictionary</em>) gets its definition there.</li>
-</ul>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-DICTIONARY</span></td><td>Dictionary</td><td>Searches the words of the DynALisp dictionaries, their definitions and categories, in the language of the file preferences.</td></tr>
-</table>
-</div>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>The definitions are short working definitions written for the drawings and specifications of the firm, not an official terminology. Check the regional and heritage terms with your references (Office québécois de la langue française, Grand dictionnaire terminologique).</li>
-<li>The file is read as UTF-8: saved by Excel as a plain <em>CSV</em> (not <em>CSV UTF-8</em>), its accented letters show wrong.</li>
-<li>Copy word uses the Windows <span class="fixw">htmlfile</span> object; when Windows does not provide it, the window says the word could not be copied.</li>
-<li>Only French has a definitions file for now: another language opens the first one found.</li>
+<li><strong>Edit list...</strong> opens the list in Excel: save it as <em>CSV UTF-8</em>.</li>
+<li>A word you add to the dictionary in AutoCAD gets its definition there.</li>
+<li>The definitions are working notes, not an official terminology.</li>
+<li>French only for now.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -87,7 +70,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

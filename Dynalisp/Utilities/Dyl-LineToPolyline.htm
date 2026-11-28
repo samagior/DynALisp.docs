@@ -31,30 +31,21 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Turn the lines you select into polylines, and join the ones that touch into single polylines if you want.</p>
+<p>Turn lines into polylines, and join the ones that touch.</p>
 <!-- picture: images/Dyl-LineToPolyline-window.png -->
 <!-- picture: images/Dyl-LineToPolyline-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">LTPL</span> and answer <em>Join touching polylines?</em> (No by default).</li>
-<li>Select the objects; only lines are kept.</li>
-<li>Each line becomes a polyline; with Yes, the ones that touch end to end become one.</li>
+<li>Type <span class="fixw">LTPL</span> and say whether to join the lines that touch.</li>
+<li>Select the lines.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">LTPL</span></td><td>Line To Polyline</td><td>Converts each selected line into a polyline with PEDIT, optionally joining the touching ones.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Expects <span class="fixw">PEDITACCEPT</span> = 0: the routine answers <em>Yes</em> to <em>Do you want to turn it into one?</em>. With <span class="fixw">PEDITACCEPT</span> = 1 that answer is read as a PEDIT option instead.</li>
-<li>Arcs and other curves are not selected.</li>
-<li>There is no single undo step: each conversion is undone separately.</li>
+<li>Arcs and curves are left out.</li>
+<li>Each line is undone on its own.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -68,7 +59,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

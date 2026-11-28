@@ -35,31 +35,21 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Un sélectionner-similaire que vous réglez vous-même : choisissez des objets de référence, cochez dans une fenêtre les types d'objets et les propriétés qui doivent concorder, et chaque objet visible de l'espace qui concorde est sélectionné.</p>
+<p>Sélectionnez tous les objets semblables à ceux que vous choisissez, selon ce que vous cochez : type, calque, couleur, type de ligne, style ou bloc.</p>
 <!-- picture: images/Dyl-QuickSelectSimilar-window.png -->
 <!-- picture: images/Dyl-QuickSelectSimilar-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Sélectionnez un ou plusieurs objets de référence, puis tapez <span class="fixw">QSS</span> (ou tapez-le et choisissez-les). Appuyez sur Entrée sans sélection pour ouvrir la fenêtre avec les derniers réglages.</li>
-<li>Dans la fenêtre, cochez les types d'objets et les propriétés à faire concorder (calque, couleur, type de ligne, épaisseur de ligne, style de texte ou de cote, nom de bloc), préremplis d'après les références; choisissez tout l'espace ou la vue courante.</li>
-<li>Cliquez OK : les objets qui concordent sont sélectionnés, prêts pour la commande suivante, et comptés par type.</li>
+<li>Sélectionnez un ou plusieurs objets et tapez <span class="fixw">QSS</span>.</li>
+<li>Cochez ce qui doit correspondre, et tout l'espace ou la vue.</li>
+<li>Cliquez OK : les objets sont sélectionnés pour votre prochaine commande.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">QSS</span></td><td>Quick Select Similar</td><td>Sélectionne les objets visibles qui correspondent aux types et propriétés choisis dans une fenêtre.</td></tr>
-<tr><td><span class="fixw">QSELECTSIMILAR</span></td><td>Quick Select Similar (Alias)</td><td>Alias de QSS.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les calques gelés seulement dans une fenêtre de l'espace papier ne sont pas détectés comme masqués.</li>
-<li>Le filtre de couleur compare les couleurs d'index (les couleurs vraies utilisent leur ACI).</li>
-<li>Les réglages sont mémorisés pour la session du dessin seulement.</li>
+<li>Un calque gelé dans une fenêtre seulement compte encore comme visible.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -73,53 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;;; ==========================================================================
-;;; QuickSelectSimilar.lsp
-;;;
-;;; Customizable &quot;Select Similar&quot; for AutoCAD / AutoCAD Architecture.
-;;;
-;;; Selects every visible object of the current space that matches criteria
-;;; chosen on the fly in a dialog box:
-;;;   - one or many object types (DXF names, shown with live counts);
-;;;   - optional property filters, combined with a logical AND:
-;;;       Layer, Color, Linetype, Lineweight,
-;;;       Text style (TEXT / MTEXT / ATTDEF), Dim style (dimensions),
-;;;       Block name (block references, dynamic blocks supported);
-;;;   - scope: whole current space or current view only;
-;;;   - options: exclude locked layers, add to the current selection.
-;;;
-;;; Filter syntax:
-;;;   Each field accepts comma-separated values and the * ? wildcards.
-;;;   Within one field, values are combined with OR.
-;;;   Type-specific filters (text style, dim style, block name) only restrict
-;;;   their own object types; other selected types are not affected by them.
-;;;
-;;; Commands:
-;;;   QSS              - run the command
-;;;   QSELECTSIMILAR   - alias of QSS
-;;;
-;;; Workflow:
-;;;   1. Pre-select reference object(s), or pick them at the prompt
-;;;      (press Enter to skip and open the dialog with the last settings).
-;;;   2. The dialog is pre-filled with the reference types and properties.
-;;;      Check the filters to apply, edit values as needed.
-;;;   3. &quot;Choisir reference &lt;&quot; lets you pick new reference objects without
-;;;      losing the dialog settings.
-;;;   4. OK: the result is gripped (PICKFIRST) and stored as &quot;Previous&quot;.
-;;;
-;;; Notes:
-;;;   - &quot;Visible&quot; means: layer on and thawed, object not invisible (DXF 60).
-;;;     Layers frozen only in a paper space viewport (VP freeze) are not
-;;;     detected.
-;;;   - The color filter compares ACI values (true colors use their ACI).
-;;;   - Dialog settings are remembered for the current drawing session.
-;;;   - The dialog definition (DCL) is generated at run time, so this single
-;;;     .lsp file is all that is needed.
-;;; ==========================================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

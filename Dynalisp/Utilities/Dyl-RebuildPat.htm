@@ -35,27 +35,24 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>A drawing from someone else often uses hatch patterns your computer does not have: the hatches show, but the pattern cannot be picked for a new hatch. Rebuild Patterns writes the missing <span class="fixw">.pat</span> files back from the hatches of the drawing, into a folder AutoCAD searches, so you can use and edit them. The drawing itself is not changed.</p>
+<p>A drawing from someone else uses hatch patterns you do not have? Get them back from its hatches, to use them in your own.</p>
 <!-- picture: images/Dyl-RebuildPat-window.png -->
 <!-- picture: images/Dyl-RebuildPat-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">RPAT</span>. Select hatches, or press Enter for every hatch of the drawing.</li>
-<li>Each missing pattern is written; for a hatch selected whose pattern exists already, choose <em>Replace</em>, <em>Rename</em> or <em>Cancel</em>.</li>
-<li>The command line gives the folder and the patterns written. <span class="fixw">OPENPATS</span> opens that folder.</li>
-<li>The <strong>Pick hatch...</strong> button of the <a href="../Draw/Dyl-Materials.htm">Materials</a> window offers to rebuild the pattern of the hatch picked the same way.</li>
+<li>Type <span class="fixw">RPAT</span>, select hatches or press Enter for all.</li>
+<li>The missing patterns are added. <span class="fixw">OPENPATS</span> opens their folder.</li>
 </ol>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The pattern rebuilt can differ from the original: check the hatches drawn with it.</li>
-<li>Xrefs, solid fills, gradients and user-defined hatches are skipped: they use no <span class="fixw">.pat</span> file.</li>
+<li>A pattern rebuilt can differ a little from the original.</li>
+<li>Solid fills and gradients need nothing to rebuild.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

@@ -39,31 +39,22 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Split the objects of a window or a selection into groups by how close they are: objects within a gap of each other go in the same group, chained from neighbour to neighbour, and the objects alone stay ungrouped.</p>
+<p>Group the objects that are close to each other, in one step.</p>
 <!-- picture: images/Dyl-GroupCluster-window.png -->
 <!-- picture: images/Dyl-GroupCluster-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">GROUPCLUSTER</span> and pick the two corners of a window, or press Enter to select the objects instead.</li>
-<li>Type the largest gap between two objects of one group (10 drawing units by default).</li>
-<li>One group is made for each cluster of two objects or more; the command line gives the counts.</li>
+<li>Type <span class="fixw">GROUPCLUSTER</span> and draw a window, or press Enter to select.</li>
+<li>Type the largest gap between two objects of a group.</li>
+<li>Each cluster becomes a group; objects alone stay as they are.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">GROUPCLUSTER</span></td><td>Group Cluster</td><td>Splits the objects of a window or selection into several groups based on their proximity.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The groups are added with the member array passed straight to the Groups collection <span class="fixw">Add</span> method, which only takes a group name (and <span class="fixw">*</span> for an anonymous group). If AutoCAD rejects that call, every cluster reports <em>Failed to create a group</em> and no group is made.</li>
-<li>Every object is compared with every other one: large selections (thousands of objects) get slow.</li>
-<li>Bounding boxes are larger than the geometry of arcs, diagonal lines and so on, so such objects can be grouped with neighbours that do not really come that close.</li>
-<li>Loading the file prints a <em>loaded</em> message at the command line, so it shows at every DynALisp startup.</li>
+<li>Slow with thousands of objects.</li>
+<li>Arcs and diagonal lines can join a group a little too far.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -77,53 +68,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-        <details class="bundled">
-            <summary>Bundled program notes</summary>
-            <pre>;;;-----------------------------------------------------------------------
-;;; GroupCluster.lsp
-;;;
-;;; Command: GROUPCLUSTER
-;;;
-;;; Purpose:
-;;;   Builds on GROUPALL, but instead of putting every entity in the
-;;;   range into ONE group, it looks at how far entities are from each
-;;;   other and automatically splits them into SEVERAL groups - only
-;;;   entities that are close enough to each other end up in the same
-;;;   group.
-;;;
-;;;   &quot;Close enough&quot; is transitive/recursive: if A is near B, and B is
-;;;   near C, then A, B and C all land in the same group even if A and
-;;;   C are far apart on their own (classic single-linkage/connected-
-;;;   component clustering, done with a union-find structure). Entities
-;;;   with no neighbor inside the distance you give are left ungrouped
-;;;   (a &quot;group&quot; of one entity isn&#x27;t meaningful).
-;;;
-;;;   Distance between two entities is measured as the gap between
-;;;   their bounding boxes (0 if the boxes touch or overlap), which is
-;;;   a good general-purpose proximity test regardless of entity type.
-;;;   The comparison is planar (X/Y only, Z is ignored).
-;;;
-;;; Usage:
-;;;   1. APPLOAD this file (or drag &amp; drop it into the AutoCAD window).
-;;;   2. Type GROUPCLUSTER at the command line.
-;;;   3. Either specify two corners to define the range (only entities
-;;;      fully enclosed by the window are considered), or press Enter
-;;;      at the first-corner prompt to pick objects manually instead.
-;;;   4. Enter the maximum gap distance for two entities to be
-;;;      considered part of the same group (default 10 drawing units).
-;;;   5. The routine reports how many groups it created (all anonymous,
-;;;      auto-named by AutoCAD, e.g. *A1, *A2, ...) and how many
-;;;      entities were left ungrouped because nothing was near them.
-;;;
-;;; Notes:
-;;;   - Performance is O(n^2) in the number of selected entities (every
-;;;     entity is compared against every other one), which is fine for
-;;;     selections up to a few hundred/thousand objects but will slow
-;;;     down noticeably beyond that.
-;;;   - As in GROUPALL, grouping never changes the entities themselves.
-;;;-----------------------------------------------------------------------</pre>
-        </details>
-
     </div>
 
     <div id="footer">

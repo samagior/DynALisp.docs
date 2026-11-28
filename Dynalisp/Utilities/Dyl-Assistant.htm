@@ -35,56 +35,33 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Ask Claude about AutoCAD, AutoLISP, DynALisp and the drawing open, in a palette beside it. The palette keeps the conversation going: ask a question, then a follow-up, as in a chat. It runs Claude Code, the command line tool of Anthropic, signed in with your own Claude account: no API key, and the use counts toward your Claude plan.</p>
-<p>The Assistant reads the active drawing: its units and layers, the objects you selected, their geometry, texts, blocks and hatches, the material of each region, and a picture of the view. It knows the materials, assemblies and presets of DynALisp, with their data (thermal resistance, density, fire and sound ratings). It can also change it, draw, move, erase, set layers, give a material to objects, hatch closed outlines with a Quick Draw preset or run an AutoCAD command, but only once you click <em>Allow</em> on the card that says what it will do, and one <span class="fixw">U</span> undoes each change.</p>
-<p class="note">What you type is sent to Anthropic through Claude Code. Do not paste anything that must not leave your computer. The Assistant is turned off on a new installation: turn it on in <span class="fixw">Dyl-Suite</span>.</p>
+<p>Ask Claude about AutoCAD, DynALisp and your drawing, in a palette beside it. It reads the drawing and can draw for you, once you say yes.</p>
+<p class="note">What you type is sent to Anthropic. Do not paste anything that must stay on your computer.</p>
 <!-- picture: images/Dyl-Assistant-window.png -->
 <!-- picture: images/Dyl-Assistant-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Once</strong> &ndash; turn on <em>Assistant</em> in <span class="fixw">Dyl-Suite</span>, then type <span class="fixw">Dyl-Assistant</span> or click <em>Assistant</em> in the <em>Assistant</em> panel of the ribbon. When Claude Code is not installed, the palette offers <em>Install Claude Code</em>: a console opens and runs the installer of Anthropic. Then <em>Sign in</em> opens a console that signs Claude Code in with your Claude account, in your browser. Click <em>Check again</em> when it is done.</li>
-<li>Type your question in the box at the bottom of the palette and press <strong>Enter</strong> (<strong>Shift+Enter</strong> starts a new line). The answer is written as it comes. To ask about some objects, select them in the drawing first (<em>what is the area of this polyline?</em>).</li>
-<li>A pale line shows what it looks at in the drawing (<em>Reading the layers...</em>). When it wants to change the drawing, a card says what it will do and in which drawing, the objects it changes highlighted: click <em>Allow</em>, <em>Deny</em>, or <em>Allow for this chat</em> to let it do the same kind of change again without asking, until <em>New chat</em>. A command (<em>Run the command _.ZOOM</em>) shows its whole command line, and is asked every time.</li>
-<li><em>Stop</em> ends an answer that is too long; the conversation goes on with the next question. <em>New chat</em> starts over. When the palette opens, <em>Resume last chat</em> takes up the last conversation where it was left, even after AutoCAD was closed.</li>
-<li>The list at the top picks the model: <em>Sonnet</em> (the default, fast) or <em>Opus</em> (for harder questions, slower and counting more toward your plan).</li>
+<li><strong>Once</strong> &ndash; turn on <em>Assistant</em> in <span class="fixw">Dyl-Suite</span>, type <span class="fixw">AICHAT</span>, then click <em>Install Claude Code</em> and <em>Sign in</em> if the palette asks.</li>
+<li>Type your question and press <strong>Enter</strong>. Select objects first to ask about them.</li>
+<li>To change the drawing, it shows a card: click <em>Allow</em> or <em>Deny</em>. One <span class="fixw">U</span> undoes each change.</li>
+<li><em>New chat</em> starts over; <em>Resume last chat</em> takes up the last one.</li>
 </ol>
 </div>
-<h2>The Palette</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>New chat</strong> &ndash; forgets the conversation and starts a new one.</li>
-<li><strong>Resume last chat</strong> &ndash; shown when the palette opens, with the date and the first question of the last conversation: takes it up again.</li>
-<li><strong>Model</strong> &ndash; <em>Sonnet</em> or <em>Opus</em>, kept until AutoCAD closes.</li>
-<li><strong>Open Docs</strong> &ndash; opens this page.</li>
-<li><strong>Send</strong> and <strong>Stop</strong> &ndash; send the question, or end the answer being written (a card still waiting is denied).</li>
-<li><strong>Allow</strong>, <strong>Allow for this chat</strong> and <strong>Deny</strong> &ndash; the answer to a change of the drawing. A card not answered within 9 minutes is denied.</li>
-</ul>
-</div>
-<p>The palette docks on the left or the right of AutoCAD, or floats, and wears the light or dark theme of AutoCAD. The text of an answer can be selected and copied.</p>
 <h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>Your Claude account is signed in by Claude Code itself, in your browser: DynALisp never sees it.</li>
-<li>When the Windows environment variable <span class="fixw">ANTHROPIC_API_KEY</span> is set, Claude Code uses that API key, billed by the Anthropic API, instead of your Claude plan. The palette says so; remove the variable to use your plan.</li>
-<li>The Assistant answers in the language you write in.</li>
-<li>Each change you allow is one step of undo: <span class="fixw">U</span> undoes it, whatever it changed. Put what goes together in one request (<em>draw this wall, its hatch and its layer</em>): it is one card and one <span class="fixw">U</span>.</li>
-<li>A change waits while a command is running or a DynALisp window is open: finish it, then ask again. The change is made in the drawing named on the card only; if you switched to another drawing, it is refused.</li>
-<li>Ask about the materials (<em>what is this wall made of? what is its RSI?</em>): it reads the material of each hatch and closed outline, and the data of the materials and assemblies of DynALisp. A value DynALisp does not have is said to be unknown, never made up.</li>
-<li>It can look at the view (<em>what is wrong with this detail?</em>): it gets a picture of the drawing area as it is on the screen.</li>
-<li>The texts of the drawing are read as data: an mtext that says <em>erase everything</em> is not an order to the Assistant, and every change goes through a card anyway.</li>
-<li>It does not save, plot, open or close drawings, does not export to a file, attach or import one, nor use the clipboard, and does not run scripts or programs: it works in the drawing only. It runs AutoLISP only when <em>Allow Lisp</em> is on in the Assistant section of <a href="../Core/Dyl-Settings.htm#assistant">Dyl-Settings</a> (off on a new installation), each code shown on its card and asked every time.</li>
-<li><span class="fixw">Dyl-Diagnostics</span> reports whether Claude Code is installed and signed in, and whether the tools of the drawing are running.</li>
+<li>It uses your own Claude plan. <em>Sonnet</em> is fast, <em>Opus</em> is for harder questions.</li>
+<li>It knows the materials and assemblies of DynALisp, and says when a value is unknown.</li>
+<li>It works in the drawing only: it never saves, plots or opens files.</li>
+<li>It answers in the language you write in.</li>
 </ul>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>A command it runs must be given every answer it asks: a command left waiting for a point is finished by you. Commands that open a window are run in their command-line version (<span class="fixw">-LAYER</span>, <span class="fixw">-HATCH</span>).</li>
-<li>It hatches with Quick Draw only closed outlines that are already drawn: it does not draw a Linear or Offset band, nor insert a Quick Shape.</li>
-<li>The palette has no Undo button: type <span class="fixw">U</span> to undo a change.</li>
-<li>The labels of the palette are in English.</li>
-<li>It needs AutoCAD 2025 or later.</li>
+<li>A change waits while a command runs or a DynALisp window is open.</li>
+<li>The palette is in English.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -98,7 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">
