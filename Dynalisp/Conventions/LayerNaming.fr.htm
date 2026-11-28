@@ -32,7 +32,6 @@
 <li class="inner"><a class="inner" href="#dylminor">Groupes secondaires de DynALisp</a></li>
 <li class="outer"><a class="outer" href="#status">Statut (phase)</a></li>
 <li class="outer"><a class="outer" href="#other">Autres noms</a></li>
-<li class="outer"><a class="outer" href="../../dev/Dynalisp/Conventions/LayerNaming.htm#tools">Comment les outils lisent un nom</a></li>
 <li class="outer"><a class="outer" href="#iso">ISO 13567</a></li>
 <li class="outer"><a class="outer" href="#source">Source</a></li>
 </ul>
@@ -113,7 +112,7 @@
 <tr><td><span class="fixw">AS</span></td><td>Site d'architecture</td></tr>
 </table>
 </div>
-<p>Les listes que lit DynALisp sont <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Dd1.csv</span> (niveau 1) et <span class="fixw">Dd2.csv</span> (niveau 2). Les désignations de niveau 2 des autres disciplines sont dans le NCS (voir <a href="#source">Source</a>).</p>
+<p>Les désignations de niveau 2 des autres disciplines sont dans le NCS (voir <a href="#source">Source</a>).</p>
 
 <h2 id="major">Groupe principal</h2>
 <p>Quatre caractères qui nomment un système du bâtiment ou un élément important. Les plus utilisés dans DynALisp :</p>
@@ -130,10 +129,10 @@
 <tr><td><span class="fixw">Eqpm</span></td><td>Équipement</td><td><span class="fixw">Wall</span></td><td>Murs</td></tr>
 </table>
 </div>
-<p>La liste que lit DynALisp est <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Major.csv</span>; les listes déroulantes de Layer Transfer affichent ses codes avec leur sens (<span class="fixw">Wall - Walls</span>).</p>
+<p>Les listes déroulantes de Layer Transfer affichent ces codes avec leur sens (<span class="fixw">Wall - Walls</span>).</p>
 
 <h2 id="minor">Groupes secondaires</h2>
-<p>Quatre caractères chacun, au plus deux dans un nom, qui précisent le groupe principal : <span class="fixw">A-Wall-Full</span> (pleine hauteur), <span class="fixw">A-Wall-Prht</span> (hauteur partielle), <span class="fixw">A-Door-Iden</span> (étiquettes de portes), <span class="fixw">A-Wall-Full-Patt</span> (la hachure des murs pleine hauteur). La liste que lit DynALisp est <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Minor.csv</span>; <span class="fixw">Res\Layer\Standard\Minor.csv</span> contient les mêmes codes avec la couleur et l'épaisseur de ligne que leur donne Make Layers.</p>
+<p>Quatre caractères chacun, au plus deux dans un nom, qui précisent le groupe principal : <span class="fixw">A-Wall-Full</span> (pleine hauteur), <span class="fixw">A-Wall-Prht</span> (hauteur partielle), <span class="fixw">A-Door-Iden</span> (étiquettes de portes), <span class="fixw">A-Wall-Full-Patt</span> (la hachure des murs pleine hauteur).</p>
 
 <h3 id="annotation">Annotation</h3>
 <p>L'annotation est ce qui ne représente pas une partie du bâtiment : textes, cotes, étiquettes, titres, cartouche. Elle va sur le groupe principal <span class="fixw">Anno</span> (<span class="fixw">G-Anno-Dims</span>), ou sur l'un de ces groupes secondaires après n'importe quel autre groupe (<span class="fixw">A-Wall-Iden</span>, <span class="fixw">A-Flor-Text</span>) :</p>
@@ -169,7 +168,7 @@
 </div>
 
 <h3 id="dylminor">Groupes secondaires de DynALisp</h3>
-<p>DynALisp dessine ses détails sur des groupes secondaires qui donnent l'épaisseur des lignes. <span class="fixw">Fine</span> et <span class="fixw">Medm</span> sont des codes du NCS; les autres sont ajoutés par DynALisp, comme les codes de <span class="fixw">Res\Layer\Standard\Dyl-Minor.csv</span> (<span class="fixw">Crak</span> lignes de fissuration, <span class="fixw">Thrm</span> thermique, <span class="fixw">Vapr</span> vapeur, <span class="fixw">Rfrc</span> armature...).</p>
+<p>DynALisp dessine ses détails sur des groupes secondaires qui donnent l'épaisseur des lignes. <span class="fixw">Fine</span> et <span class="fixw">Medm</span> sont des codes du NCS; les autres sont ajoutés par DynALisp (<span class="fixw">Crak</span> lignes de fissuration, <span class="fixw">Thrm</span> thermique, <span class="fixw">Vapr</span> vapeur, <span class="fixw">Rfrc</span> armature...).</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Calque</th><th>Lignes</th><th>Clé de calque</th></tr>
@@ -185,7 +184,7 @@
 <p>Les empilements (les élévations ou les étages dessinés dans le même fichier) sont numérotés avec les groupes secondaires <span class="fixw">0001</span> à <span class="fixw">0009</span> : <span class="fixw">A-Wall-0002-N</span>. Make Layers demande l'empilement, et les filtres de calques les affichent ou les masquent.</p>
 
 <h2 id="status">Statut (phase)</h2>
-<p>Le dernier champ, d'un caractère, donne la phase des travaux. Un calque qui ne l'a pas est <em>sans phase</em>. Les codes que connaît DynALisp sont ceux de <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span> :</p>
+<p>Le dernier champ, d'un caractère, donne la phase des travaux. Un calque qui ne l'a pas est <em>sans phase</em>. Les codes que connaît DynALisp :</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Code</th><th>Phase</th><th>Origine</th></tr>

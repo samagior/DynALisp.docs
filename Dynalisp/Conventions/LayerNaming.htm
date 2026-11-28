@@ -32,7 +32,6 @@
 <li class="inner"><a class="inner" href="#dylminor">DynALisp Minor Groups</a></li>
 <li class="outer"><a class="outer" href="#status">Status (Phase)</a></li>
 <li class="outer"><a class="outer" href="#other">Other Names</a></li>
-<li class="outer"><a class="outer" href="../../dev/Dynalisp/Conventions/LayerNaming.htm#tools">How The Tools Read A Name</a></li>
 <li class="outer"><a class="outer" href="#iso">ISO 13567</a></li>
 <li class="outer"><a class="outer" href="#source">Source</a></li>
 </ul>
@@ -113,7 +112,7 @@
 <tr><td><span class="fixw">AS</span></td><td>Architectural site</td></tr>
 </table>
 </div>
-<p>The lists DynALisp reads are <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Dd1.csv</span> (level 1) and <span class="fixw">Dd2.csv</span> (level 2). The level 2 designators of the other disciplines are in the NCS (see <a href="#source">Source</a>).</p>
+<p>The level 2 designators of the other disciplines are in the NCS (see <a href="#source">Source</a>).</p>
 
 <h2 id="major">Major Group</h2>
 <p>Four characters that name a building system or a major element. The ones used most in DynALisp:</p>
@@ -130,10 +129,10 @@
 <tr><td><span class="fixw">Eqpm</span></td><td>Equipment</td><td><span class="fixw">Wall</span></td><td>Walls</td></tr>
 </table>
 </div>
-<p>The list DynALisp reads is <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Major.csv</span>; the Layer Transfer drop-downs show its codes with their meaning (<span class="fixw">Wall - Walls</span>).</p>
+<p>The Layer Transfer drop-downs show these codes with their meaning (<span class="fixw">Wall - Walls</span>).</p>
 
 <h2 id="minor">Minor Groups</h2>
-<p>Four characters each, at most two in a name, that define the major group further: <span class="fixw">A-Wall-Full</span> (full height), <span class="fixw">A-Wall-Prht</span> (partial height), <span class="fixw">A-Door-Iden</span> (door tags), <span class="fixw">A-Wall-Full-Patt</span> (the hatch of the full height walls). The list DynALisp reads is <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Minor.csv</span>; <span class="fixw">Res\Layer\Standard\Minor.csv</span> holds the same codes with the color and lineweight Make Layers gives them.</p>
+<p>Four characters each, at most two in a name, that define the major group further: <span class="fixw">A-Wall-Full</span> (full height), <span class="fixw">A-Wall-Prht</span> (partial height), <span class="fixw">A-Door-Iden</span> (door tags), <span class="fixw">A-Wall-Full-Patt</span> (the hatch of the full height walls).</p>
 
 <h3 id="annotation">Annotation</h3>
 <p>Annotation is what does not stand for a part of the building: text, dimensions, tags, titles, the title block. It goes on the major group <span class="fixw">Anno</span> (<span class="fixw">G-Anno-Dims</span>), or on one of these minor groups after any other group (<span class="fixw">A-Wall-Iden</span>, <span class="fixw">A-Flor-Text</span>):</p>
@@ -169,7 +168,7 @@
 </div>
 
 <h3 id="dylminor">DynALisp Minor Groups</h3>
-<p>DynALisp draws its details on minor groups that give the line weight. <span class="fixw">Fine</span> and <span class="fixw">Medm</span> are NCS codes; the others are added by DynALisp, as the codes of <span class="fixw">Res\Layer\Standard\Dyl-Minor.csv</span> (<span class="fixw">Crak</span> cracking lines, <span class="fixw">Thrm</span> thermal, <span class="fixw">Vapr</span> vapor, <span class="fixw">Rfrc</span> reinforcement...).</p>
+<p>DynALisp draws its details on minor groups that give the line weight. <span class="fixw">Fine</span> and <span class="fixw">Medm</span> are NCS codes; the others are added by DynALisp (<span class="fixw">Crak</span> cracking lines, <span class="fixw">Thrm</span> thermal, <span class="fixw">Vapr</span> vapor, <span class="fixw">Rfrc</span> reinforcement...).</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Layer</th><th>Lines</th><th>Layer key</th></tr>
@@ -185,7 +184,7 @@
 <p>The stacks (the elevations or floors drawn in the same file) are numbered with the minor groups <span class="fixw">0001</span> to <span class="fixw">0009</span>: <span class="fixw">A-Wall-0002-N</span>. Make Layers asks for the stack, and the layer filters show or hide them.</p>
 
 <h2 id="status">Status (Phase)</h2>
-<p>The last field, one character, gives the phase of the work. A layer without it is <em>unphased</em>. The codes DynALisp knows are those of <span class="fixw">Modules\Dynalisp\Res\AEC\Standard\Phase.csv</span>:</p>
+<p>The last field, one character, gives the phase of the work. A layer without it is <em>unphased</em>. The codes DynALisp knows:</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Code</th><th>Phase</th><th>From</th></tr>

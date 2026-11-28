@@ -35,110 +35,43 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Gérez les révisions d'un projet en un seul endroit, comme le fait Revit : une liste de révisions pour tout le projet, chacune avec sa date, sa description, et à qui et par qui elle a été émise. Donnez une révision à une feuille, ou dessinez-y un nuage de révision, et les rangées de révisions de son cartouche se remplissent d'elles-mêmes, numérotées par projet ou par feuille. Les dessins fermés sont mis à jour sans être ouverts.</p>
-<p>Le projet est le projet du Navigateur de projets du dessin; ses feuilles sont les dessins de son dossier des feuilles, chaque présentation une feuille.</p>
+<p>Une seule liste de révisions pour tout le projet, comme dans Revit. Donnez une révision à une feuille, ou tracez un nuage, et son cartouche se remplit de lui-même.</p>
 <figure class="shot"><img src="images/Dyl-Revisions-window.png" width="1030" height="950" alt="Révisions (Revisions): window"></figure>
 <!-- picture: images/Dyl-Revisions-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Une fois par cartouche</strong> &ndash; ouvrez une feuille et tapez <span class="fixw">REVTB</span>. Cliquez <strong>Pick...</strong> et sélectionnez le cartouche : ses rangées de révisions et ses attributs sont devinés d'après leurs étiquettes. Vérifiez-les, puis OK. Cela sert à chaque projet.</li>
-<li><strong>Ajoutez une révision</strong> &ndash; tapez <span class="fixw">REVS</span>, cliquez <strong>New</strong> et tapez sa description. Sélectionnez les feuilles qui l'ont et cliquez <strong>Add Revision</strong>.</li>
-<li>Cliquez <strong>OK</strong> : les révisions sont enregistrées dans le projet, et les cartouches des feuilles qu'elles changent sont remplis.</li>
-<li><strong>Montrez un changement sur une feuille</strong> &ndash; tapez <span class="fixw">RCLOUD</span> dans sa présentation et dessinez le nuage : il donne sa révision à la feuille.</li>
-<li><strong>Une fois envoyée</strong> &ndash; cochez <em>Issued</em> : la révision est verrouillée, et son numéro ne change plus jamais.</li>
+<li><strong>Une fois par cartouche</strong> &ndash; tapez <span class="fixw">REVTB</span>, cliquez <strong>Pick...</strong> et sélectionnez le cartouche. Vérifiez ses rangées, puis OK.</li>
+<li><strong>Ajouter une révision</strong> &ndash; tapez <span class="fixw">REVS</span>, cliquez <strong>New</strong> et tapez sa description. Sélectionnez ses feuilles et cliquez <strong>Add Revision</strong>, puis OK.</li>
+<li><strong>Montrer un changement</strong> &ndash; dans la présentation, tapez <span class="fixw">RCLOUD</span>, tracez le nuage et placez son repère.</li>
+<li><strong>Une fois émise</strong> &ndash; cochez <em>Issued</em> : la révision est verrouillée.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">Dyl-Revisions</span></td><td>Revisions</td><td>Ouvre les révisions du projet, comme dans Revit : leur numérotation, leurs dates et descriptions, et les feuilles qui les ont.</td></tr>
-<tr><td><span class="fixw">RCLOUD</span></td><td>Revision Cloud</td><td>Dessine un nuage de révision dans la présentation pour une révision du projet, puis son repère, et met à jour le cartouche.</td></tr>
-<tr><td><span class="fixw">REVUP</span></td><td>Update Revisions</td><td>Met à jour les cartouches et les repères de révision de cette feuille avec les révisions de son projet.</td></tr>
-<tr><td><span class="fixw">REVTB</span></td><td>Revision Title Blocks</td><td>Ouvre les cartouches qui affichent les révisions, et les attributs de leurs rangées de révisions.</td></tr>
-</table>
 </div>
 <h2>Fenêtre Revisions</h2>
-<p>Le projet, son numéro et son dossier sont affichés en haut.</p>
-<h3>Revisions</h3>
 <div class="spacedbullets">
 <ul>
-<li><strong>Liste des révisions</strong> &ndash; les révisions du projet, dans leur séquence : séquence, numéro, date, description et si elle est émise. Plusieurs révisions peuvent être sélectionnées (Ctrl ou Maj) pour les modifier d'un coup. Avec la numérotation par feuille, la colonne des numéros montre comment elles comptent (1... ou A...) : chaque feuille numérote les siennes.</li>
-<li><strong>New</strong> &ndash; ajoute une révision après la dernière, datée d'aujourd'hui, avec la numérotation de la dernière. Une révision ne reçoit jamais l'identifiant d'une révision supprimée : les nuages d'une révision supprimée ne vont jamais à une nouvelle.</li>
-<li><strong>Delete</strong> &ndash; supprime les révisions sélectionnées, après une confirmation, et les retire de chaque feuille. Leurs nuages restent dans les dessins, sans révision : effacez-les. Refusé quand une révision émise après elles recevrait un autre numéro.</li>
-<li><strong>Move Up</strong>, <strong>Move Down</strong> &ndash; changent la séquence de la révision sélectionnée, et les numéros qui la suivent. Une révision ne passe jamais au-delà d'une révision émise.</li>
+<li><strong>Revisions</strong> &ndash; la liste, avec <strong>New</strong>, <strong>Delete</strong>, <strong>Move Up</strong> et <strong>Move Down</strong>.</li>
+<li><strong>Parameters</strong> &ndash; numérotation (1, 2, 3 ou A, B, C), date, description, émise à et par.</li>
+<li><strong>Project</strong> &ndash; numéros par projet ou par feuille ; les cartouches.</li>
+<li><strong>Sheets</strong> &ndash; chaque feuille, et si elle a la révision. <strong>Update All Sheets</strong> les met à jour.</li>
 </ul>
 </div>
-<h3>Parameters</h3>
-<div class="spacedbullets">
-<ul>
-<li><strong>Numbering</strong> &ndash; <em>Numeric</em> (1, 2, 3), <em>Alphabetic</em> (A, B, C... Z, AA) ou <em>None</em> (sans numéro, une révision seulement listée). Chaque numérotation compte à part : les révisions A et B émises pour soumission, puis 1, 2, 3 pour construction. Une numérotation qui donnerait un autre numéro à une révision émise après elle est refusée.</li>
-<li><strong>Date</strong>, <strong>Description</strong>, <strong>Issued to</strong>, <strong>Issued by</strong> &ndash; ce que montrent les cartouches. Chaque révision demande une description.</li>
-<li><strong>Issued</strong> &ndash; verrouille la révision une fois envoyée : ses paramètres sont grisés, et ses feuilles, sa place dans la séquence et sa suppression ne peuvent plus changer (la fenêtre dit pourquoi). Décochez-le pour modifier la révision à nouveau. Un nuage ne se dessine que pour une révision non émise.</li>
-</ul>
-</div>
-<h3>Project</h3>
-<div class="spacedbullets">
-<ul>
-<li><strong>Numbering</strong> &ndash; <em>Per project</em> : une révision a le même numéro sur chaque feuille, sa place parmi les révisions de sa numérotation. <em>Per sheet</em> : chaque feuille numérote les révisions qu'elle a, à partir de la première : la troisième révision du projet est la révision 1 d'une feuille qui n'a aucune des deux premières.</li>
-<li><strong>First number</strong> &ndash; le premier numéro des révisions numériques : 1 ou 0.</li>
-<li><strong>Title blocks</strong> &ndash; son bouton ouvrir ouvre la fenêtre Revision Title Blocks, puis cette fenêtre à nouveau. Le nombre de cartouches réglés est affiché à côté.</li>
-</ul>
-</div>
-<h3>Sheets</h3>
-<div class="spacedbullets">
-<ul>
-<li><strong>Liste des feuilles</strong> &ndash; chaque feuille du projet : son dessin (dans le dossier des feuilles), sa présentation, si elle a la révision affichée (<em>Yes</em> : donnée dans cette fenêtre, <em>Cloud</em> : par un nuage de la présentation), et les numéros de ses révisions tels que son cartouche les montre. Plusieurs feuilles peuvent être sélectionnées. L'en-tête donne le nombre de feuilles qui ont la révision affichée.</li>
-<li><strong>Add Revision</strong> &ndash; donne les révisions sélectionnées aux feuilles sélectionnées.</li>
-<li><strong>Remove Revision</strong> &ndash; les retire des feuilles sélectionnées. Une feuille qui a un nuage de la révision la garde : effacez le nuage pour la retirer.</li>
-<li><strong>Update All Sheets</strong> &ndash; enregistre, puis met à jour chaque feuille du projet, par exemple après un changement de cartouche.</li>
-</ul>
-</div>
-<p><strong>OK</strong> enregistre les révisions dans le projet, puis met à jour les feuilles dont le cartouche montre autre chose maintenant (ou chaque feuille qui a une révision, quand les cartouches ont changé). <strong>Cancel</strong> laisse tout tel quel. La ligne de commande donne ensuite le nombre de feuilles mises à jour et liste celles qui n'ont pu l'être.</p>
 <h2 id="titleblocks">Fenêtre Revision Title Blocks</h2>
-<p>Les cartouches dont les attributs affichent les révisions (<span class="fixw">REVTB</span>, le bouton ouvrir de <em>Title blocks</em>, ou le bouton ouvrir de <em>Revisions</em> dans <span class="fixw">Dyl-Settings</span>). C'est un réglage de DynALisp, qui sert à chaque projet : une rangée par cartouche.</p>
 <figure class="shot"><img src="images/Dyl-Revisions-titleblocks.png" width="852" height="617" alt="Révisions (Revisions): window"></figure>
-<div class="spacedbullets">
-<ul>
-<li><strong>Liste des cartouches</strong> &ndash; chaque cartouche, son nombre de rangées de révisions et la révision de sa rangée 1. Plusieurs peuvent être sélectionnés pour les modifier ou les supprimer d'un coup.</li>
-<li><strong>Add</strong>, <strong>Delete</strong> &ndash; ajoutent un cartouche (une copie de celui affiché, à modifier), suppriment ceux sélectionnés.</li>
-<li><strong>Pick...</strong> &ndash; sélectionnez un cartouche dans le dessin : son nom, ses rangées de révisions et ses attributs sont devinés d'après leurs étiquettes (en anglais ou en français : DATE, DESC, PAR, BY...) et donnés au cartouche affiché, ou à un nouveau. Vérifiez-les.</li>
-<li><strong>Block</strong> &ndash; le nom du bloc. Les caractères génériques sont permis (<span class="fixw">*TITLE*</span>) : une rangée pour chaque format d'un cartouche. Pour un bloc dynamique, son nom de bloc dynamique.</li>
-<li><strong>Rows</strong> &ndash; le nombre de rangées de révisions du bloc. Quand une feuille a plus de révisions, les plus récentes sont affichées.</li>
-<li><strong>Row 1</strong> &ndash; <em>Oldest revision</em> : les rangées se remplissent dans leur séquence à partir de la rangée 1. <em>Newest revision</em> : la rangée 1 a la révision la plus récente, les plus anciennes suivent.</li>
-<li><strong>Row attributes</strong> &ndash; les étiquettes d'attributs des rangées de révisions, <span class="fixw">#</span> tenant lieu du numéro de la rangée : <span class="fixw">REV#_DATE</span> pour <span class="fixw">REV1_DATE</span>, <span class="fixw">REV2_DATE</span>... Une pour Number, Date, Description, Issued to et Issued by. Une rangée sans révision est vidée.</li>
-<li><strong>Sheet attributes</strong> &ndash; <em>Current revision</em> et <em>Current date</em> : un attribut chacun, qui reçoit le numéro et la date de la révision la plus récente de la feuille.</li>
-</ul>
-</div>
-<p>Un attribut laissé vide, ou qu'un cartouche n'a pas, est ignoré. Les cartouches sont enregistrés avec vos autres fichiers DynALisp (voir <span class="fixw">Dyl-UserFiles</span>).</p>
-<h2>Nuages de révision</h2>
-<div class="spacedbullets">
-<ol>
-<li>Allez dans l'espace papier de la présentation de la feuille : un nuage donne sa révision à la présentation où il est dessiné.</li>
-<li>Tapez <span class="fixw">RCLOUD</span>. Les révisions non émises sont listées avec leur séquence : appuyez sur Entrée pour la plus récente, ou tapez la séquence d'une autre.</li>
-<li>Dessinez le nuage avec les options de <span class="fixw">REVCLOUD</span>. Il va sur le calque de la clé de calque <span class="fixw">ANNREV</span> (voir <a href="../Layer/Dyl-LayerKeys.fr.htm">Layer Keys</a>).</li>
-<li>Choisissez la position de son repère, ou appuyez sur Entrée pour aucun. Le repère est un triangle avec le numéro de la révision sur cette feuille (bloc <span class="fixw">DYL-REVTAG</span>, créé dans le dessin la première fois).</li>
-<li>Le cartouche de la feuille est mis à jour.</li>
-</ol>
-</div>
+<p>Dites à DynALisp où chaque cartouche montre ses révisions : ses rangées, laquelle est la plus récente, et les attributs de la révision courante. <strong>Pick...</strong> les devine pour vous.</p>
 <h2 id="sync">Mise à jour des feuilles</h2>
 <div class="spacedbullets">
 <ul>
-<li>Seules les valeurs qui ont changé sont écrites : une feuille déjà à jour n'est pas modifiée.</li>
-<li>Les feuilles du dessin courant et des autres dessins ouverts dans cet AutoCAD sont mises à jour, pas enregistrées : enregistrez-les. Un dessin ouvert dans cet AutoCAD qui ne peut être changé depuis le dessin courant est listé : lancez <span class="fixw">REVUP</span> dans ce dessin.</li>
-<li>Les dessins fermés sont mis à jour sans être ouverts, et enregistrés.</li>
-<li>Un dessin ouvert par un autre utilisateur (il a un fichier de verrouillage <span class="fixw">.dwl</span>) est sauté et listé. Ses révisions sont gardées dans le projet : il les reçoit la prochaine fois qu'il est mis à jour. Un <span class="fixw">.dwl</span> laissé par un plantage arrête aussi la mise à jour : supprimez-le une fois que personne n'a le dessin ouvert.</li>
-<li><em>Revisions</em> dans <span class="fixw">Dyl-Settings</span> (Overrides) : chaque feuille d'un projet est mise à jour à son ouverture, et les dessins sautés rattrapent ainsi leur retard. Son bouton ouvrir ouvre la fenêtre Revision Title Blocks.</li>
+<li>Les dessins ouverts sont mis à jour : enregistrez-les. Les fermés sont mis à jour et enregistrés.</li>
+<li>Un dessin ouvert par quelqu'un d'autre est sauté, et se rattrape plus tard.</li>
+<li>Activez <strong>Revisions</strong> dans <span class="fixw">Dyl-Settings</span> pour que chaque feuille se mette à jour à l'ouverture.</li>
 </ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Un nuage ne compte que dans la présentation où il est dessiné, en espace papier : un nuage dans l'espace objet, vu par une fenêtre, ne donne pas sa révision à la feuille.</li>
-<li>Un dessin fermé mis à jour ne déplace pas un attribut qui n'est pas justifié à gauche vers son nouveau texte. La feuille est marquée, et ses attributs sont réglés à nouveau la prochaine fois qu'elle est mise à jour ouverte (avec <em>Revisions</em> activé dans <span class="fixw">Dyl-Settings</span>, dès son ouverture).</li>
-<li>Un dessin fermé mis à jour est enregistré au format de cet AutoCAD, et peut perdre son image d'aperçu jusqu'à ce qu'il soit enregistré à nouveau dans AutoCAD.</li>
-<li>Le cartouche doit être un bloc avec attributs dans la présentation. Un cartouche dans une xréf, ou rempli par des champs de jeu de feuilles, n'est pas modifié.</li>
+<li>Tracez les nuages dans la présentation, pas dans l'espace objet.</li>
+<li>Le cartouche doit être un bloc avec attributs, pas une xréf.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -155,7 +88,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">
