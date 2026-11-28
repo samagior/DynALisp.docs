@@ -21,8 +21,8 @@
 <div class="programs">
 <table>
 <tr class="alt">
-<td>Setting</td>
-<td><em>Start page</em> and <em>Active time</em>, in the Overrides of <a href="Dyl-Settings.htm">Dyl-Settings</a>, off on a new installation</td>
+<td>Function Syntax</td>
+<td><em>Start page</em> in <span class="fixw">Dyl-Settings</span></td>
 </tr>
 <tr>
 <td>Requires</td>
@@ -36,62 +36,44 @@
 </div>
 
 <h2>Description</h2>
-<p>The Start tab of AutoCAD shows the Start page of DynALisp in place of its own, in the manner of a profile page, in three columns across the tab: near its left edge, what starts a drawing (<strong>New</strong>, <strong>Open...</strong>, <strong>Open sheet set...</strong> and your templates); in the middle between them, the widest, what you pinned (drawings, sheet sets, projects), the time you spent working each day of the year and a few recent drawings, with the picture each drawing keeps of itself; near its right edge, the tasks of each project and sheet set pinned, with a bar of what is done. No path is shown: point at a card or a drawing to read it. DynALisp itself is only a line at the foot of the page. It opens as AutoCAD starts and each time you click the Start tab, in the colours of AutoCAD (or of DynALisp Neutral).</p>
+<p>Your work at a glance, in the Start tab of AutoCAD: start a drawing on the left, your pinned work, your time and your recent drawings in the middle, the tasks of your projects on the right.</p>
 <figure class="shot"><img src="images/Dyl-StartPage-window.png" width="1702" height="1034" alt="Start Page: window"></figure>
 <!-- picture: images/Dyl-StartPage-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>Start page</em> (in Overrides), and <em>Active time</em> under it to count the time spent in each drawing, then Save. The Start tab shows the page of DynALisp within a second.</li>
-<li><strong>New</strong> starts a drawing from your template (the one of <span class="fixw">QNEW</span>), a template of the list starts one from it, <strong>Open...</strong> opens one or more drawings, <strong>Open sheet set...</strong> opens a sheet set in the Sheet Set Manager.</li>
-<li>Right-click a recent drawing and choose <strong>Pin</strong>, <strong>Pin sheet set</strong> or <strong>Pin project</strong>, or click <strong>Pin...</strong> and pick a drawing (<span class="fixw">.dwg</span>), a sheet set (<span class="fixw">.dst</span>) or a project (<span class="fixw">.apj</span>).</li>
-<li>Click a pinned card or a recent drawing to show only its days in the graph (a sheet set or a project: those of the drawings in its folder); click it again, or <strong>Show all</strong>, to show all of them. Double-click it to open it (a project: its folder).</li>
-<li>To show another picture for a drawing, right-click it (a recent drawing or a pin) and choose <strong>Choose preview picture...</strong> to pick an image, or <strong>Set preview area...</strong>: the drawing opens, pick the two corners of the area to show, and its picture is made again each time you save the drawing (see <a href="#previews">Previews</a>).</li>
-<li>Pick the <strong>Columns</strong> of <strong>Pinned</strong> and of <strong>Recent</strong> over them: fewer columns, larger cards and pictures. The page keeps your choice.</li>
-<li>Click a day of the graph (or a month over it) to list the drawings worked on then; click one to open it.</li>
-<li>Under a project on the right, type a task in the box and press Enter; check it once done, right-click it to delete it. To share the tasks of a project with everyone who works on it, right-click its card and check <strong>Keep tasks with the project</strong> (or <em>with the sheet set</em>).</li>
-<li>Something went wrong? Click <strong>Report a problem</strong>, say what happened, then <strong>Open the issue</strong> (see <a href="#report">Report a Problem</a>).</li>
+<li>In <span class="fixw">Dyl-Settings</span>, turn on <em>Start page</em>, and <em>Active time</em> to count your time. Click Save.</li>
+<li>Start a drawing with <strong>New</strong>, a template or <strong>Open...</strong>.</li>
+<li>Right-click a recent drawing to <strong>Pin</strong> it, its sheet set or its project.</li>
+<li>Click a drawing to see its days in the graph. Double-click it to open it.</li>
+<li>Type a task under a project and press Enter. Check it when done.</li>
 </ol>
 </div>
 <h2 id="page">The Page</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>New, Open and the templates</strong> &ndash; on the left. <strong>Templates</strong> lists the template of <span class="fixw">QNEW</span> first, marked <em>default</em>, then the templates of the template folder of AutoCAD (Files of Options), 12 at most; <strong>Browse templates...</strong> picks another one.</li>
-<li><strong>Pinned</strong> &ndash; up to 6 cards, in the order they were pinned: each with its name (the title of a sheet set, as the Sheet Set Manager shows it, not the name of its file), and its kind (<em>Drawing</em>, <em>Sheet set</em> or <em>Project</em>); a drawing also shows its sheet set or project, with the dot of its colour. Click a card to show its days in the graph (a sheet set or a project: the drawings in its folder and the folders under it), double-click it to open it. Right-click a card to open it (a drawing, a sheet set: in the Sheet Set Manager), show its time, show it in its folder or unpin it.</li>
-<li><strong>Active time</strong> &ndash; a square for each day, darker for more time: under 1 hour, 1 to 3 hours, 3 to 6 hours, 6 hours and more. Point at a day to read its time. The last 12 months, or a year picked on the right. Under it, the drawings worked on in the day or month picked (the last month with time until you pick one), the most time first.</li>
-<li><strong>Recent</strong> &ndash; two rows of drawings of the recent list of AutoCAD (a sheet set by its title), the last opened first, each with its picture, its sheet set or project (a dot of the colour of its file tabs, and its name) and when it was last saved. Type in <strong>Search</strong> to find one by its name or its folder, among all of them. Right-click a drawing to open it read-only, show it in its folder, or pin it, its sheet set or its project. A drawing that is no longer found says <em>Not found</em>, greyed out. Click a drawing to show its days in the graph, double-click it to open it. A drawing already open is made current instead of being opened again.</li>
-<li><strong>Projects</strong> &ndash; on the right, a card for each project and sheet set pinned: its tasks, and a bar of how many are done. The tasks are yours, kept on this computer in the <span class="fixw">User\Start</span> folder of DynALisp, until you check <strong>Keep tasks with the project</strong> in the right-click menu of its card: they then go in a <span class="fixw">DynALisp\Tasks.csv</span> file beside its <span class="fixw">.apj</span> or <span class="fixw">.dst</span>, so everyone who opens the project from the same folder sees the same tasks, and its card says <em>shared</em>. Unchecked, they come back to your folder. Either way, the tasks already in the other place are kept.</li>
-<li><strong>The foot of the page</strong> &ndash; the version of DynALisp, the AutoCAD it runs in and the time of its last startup. <strong>Settings</strong> opens <a href="Dyl-Settings.htm">Dyl-Settings</a>, <strong>Report a problem</strong> opens the panel of a report, <strong>Docs</strong> opens the home page of the docs.</li>
+<li><strong>New, Open and the templates</strong> &ndash; start or open a drawing.</li>
+<li><strong>Pinned</strong> &ndash; up to 6 drawings, sheet sets or projects you keep at hand.</li>
+<li><strong>Active time</strong> &ndash; a square per day, darker for more time. Click a day to list its drawings.</li>
+<li><strong>Recent</strong> &ndash; your last drawings. <strong>Search</strong> finds one by name. <strong>Columns</strong> sets the size of the cards.</li>
+<li><strong>Projects</strong> &ndash; the tasks of each pinned project. Right-click a project and check <strong>Keep tasks with the project</strong> to share them with your team.</li>
+<li><strong>The foot of the page</strong> &ndash; your version, <strong>Settings</strong>, <strong>Report a problem</strong> and <strong>Docs</strong>.</li>
 </ul>
 </div>
 <h2 id="activetime">Active Time</h2>
-<p>A drawing counts while it is the current drawing, AutoCAD is the application in front and you used the mouse or the keyboard in the last 3 minutes. The Start tab, another application, a pause and a drawing never saved do not count. The time is written every 2 minutes, when a drawing closes and when AutoCAD quits; two AutoCAD open at once add their time to the same files.</p>
-<p>It stays on this computer, in the <span class="fixw">User\Start</span> folder of DynALisp (a file per month, a line per day and drawing), with the pins: <em>Export settings</em> of <span class="fixw">Dyl-UserFiles</span> keeps them, and a report of Dyl-Diagnostics never holds them. It is counted only while <em>Start page</em> is on too.</p>
+<p>A drawing counts while you work in it. A pause of more than 3 minutes does not count. Your time stays on your computer.</p>
 <h2 id="previews">Previews</h2>
-<p>A drawing shows the picture AutoCAD keeps in it: the view it was last saved in. Right-click a recent drawing or a pinned card to show another one:</p>
+<p>Right-click a drawing to change its picture:</p>
 <div class="spacedbullets">
 <ul>
-<li><strong>Choose preview picture...</strong> &ndash; an image (PNG, JPEG, BMP, GIF or TIFF) shown in place of the picture of the drawing; a pinned sheet set or project can take one too. When its shape is not that of the frames of the page (16 by 10), a window shows it with a frame over it (<a href="Dyl-StartPagePreview.htm">Preview Picture</a>): drag the frame onto the part to keep, drag its corner or turn the mouse wheel to size it, then OK. The image is copied: moving or deleting it afterwards changes nothing.</li>
-<li><strong>Set preview area...</strong> &ndash; the drawing opens (or becomes current), and AutoCAD asks for the two corners of the area to show, on the Model tab or a layout. Its picture is made at once, then again each time you save the drawing while it is on that tab (QSAVE, SAVE, SAVEAS), so it follows your work: the view zooms to the area for a moment and comes back. An area of another shape than the frames takes a little more of the drawing around it, so its picture fills them.</li>
-<li><strong>Use its own preview</strong> &ndash; forgets the picture chosen.</li>
+<li><strong>Choose preview picture...</strong> &ndash; any image, framed in the <a href="Dyl-StartPagePreview.htm">Preview Picture</a> window.</li>
+<li><strong>Set preview area...</strong> &ndash; pick two corners in the drawing. The picture follows each time you save.</li>
+<li><strong>Use its own preview</strong> &ndash; back to the picture AutoCAD keeps.</li>
 </ul>
 </div>
-<p>Every picture fills its frame: the pictures AutoCAD keeps, of the shape of its window, are cut a little at their sides or their top and bottom.</p>
-<p>The pictures stay on this computer, in the <span class="fixw">User\Start</span> folder of DynALisp, with your pins and your active time: they never change the drawing, and other users keep its own preview.</p>
 <h2 id="report">Report a Problem</h2>
-<p>Type what you did, what you saw and what you expected, then click <strong>Open the issue</strong>. DynALisp runs <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> on its own, then opens a new issue of DynALisp on GitHub in your browser, filled in with what you typed, the summary and the problems of the report. GitHub does not let a page attach a file to an issue: the zip of the report is put on the clipboard, so press Ctrl+V in the text of the issue to attach it. Check the issue, then Submit: it is public, and nothing is sent until you do. The report never holds your user name, your computer name, your active time or the drawing itself.</p>
-<h2>Notes</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Settings</strong> and a report run in a drawing, and a sheet set opens in the Sheet Set Manager of a drawing: when no drawing is open, a new drawing is started first. With no drawing open, <strong>Report a problem</strong> uses the last report made.</li>
-<li>A project has no command to open it: its card shows its time, and <strong>Show in folder</strong> opens its folder.</li>
-<li>The page is shown only in the Start tab: with <span class="fixw">STARTMODE</span> at 0 (the Start tab off), turning <em>Start page</em> on in Dyl-Settings turns the Start tab back on.</li>
-<li>The page reads the drawings and the time on its own, so the Start tab never waits for a slow network drive: they appear once read. The pictures are kept in the temp folder, made again when a drawing is saved. The title of a sheet set is read again only once its file changed.</li>
-<li>AutoCAD has no command for its Start tab: DynALisp puts its page over the page of AutoCAD, which it hides, and gives it back when <em>Start page</em> is turned off. In a version of AutoCAD where it does not find the Start tab, the Start tab stays as it is; the <strong>Interface</strong> section of Dyl-Diagnostics says what was found, to send with an issue.</li>
-</ul>
-</div>
+<p>Say what happened, then click <strong>Open the issue</strong>. DynALisp adds a report of your setup and opens it on GitHub, where you read it and submit it. Press Ctrl+V in the issue to attach the report. Nothing is sent until you submit.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

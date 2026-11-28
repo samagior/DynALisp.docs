@@ -20,10 +20,6 @@
 
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Setting</td>
-<td><em>Reopen sheet sets</em>, in the Overrides of <a href="../Core/Dyl-Settings.htm">Dyl-Settings</a>, off on a new installation</td>
-</tr>
 <tr>
 <td>Requires</td>
 <td>AutoCAD 2025 or later for Windows</td>
@@ -36,32 +32,19 @@
 </div>
 
 <h2>Description</h2>
-<p>The Sheet Set Manager of AutoCAD forgets the sheet sets it had open when AutoCAD closes: each day, they are opened again one by one. With <em>Reopen sheet sets</em> on, DynALisp remembers the sheet sets open in the Sheet Set Manager and opens them again each time AutoCAD starts, until you close them yourself in the manager.</p>
+<p>Your sheet sets open again each time AutoCAD starts, as you left them in the Sheet Set Manager.</p>
 <!-- picture: images/SheetSets-window.png -->
 <!-- picture: images/SheetSets-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>Reopen sheet sets</em> (in Overrides), then Save. The sheet sets open now are remembered at once.</li>
-<li>Open your sheet sets in the Sheet Set Manager as usual (<span class="fixw">SHEETSET</span>, <em>Open...</em>).</li>
-<li>Close AutoCAD and start it again: once the first drawing is open and AutoCAD is idle, the same sheet sets open again in the Sheet Set Manager.</li>
-<li>A sheet set you no longer need: close it in the Sheet Set Manager (right-click its name, <em>Close Sheet Set</em>). It is not opened again.</li>
+<li>In <span class="fixw">Dyl-Settings</span>, turn on <em>Reopen sheet sets</em>, then Save.</li>
+<li>Open your sheet sets in the Sheet Set Manager as usual.</li>
+<li>Next time AutoCAD starts, they open again.</li>
+<li>To forget one, close it in the Sheet Set Manager.</li>
 </ol>
 </div>
-<h2>Notes</h2>
-<div class="spacedbullets">
-<ul>
-<li>The sheet sets open are noted after each command, when a drawing is made current or closed, and when AutoCAD closes. A sheet set closed in the manager just before AutoCAD stops on an error may open once more at the next startup.</li>
-<li>The Sheet Set Manager shows the last sheet set opened again; the others are in its list at the top.</li>
-<li>A sheet set whose file no longer exists (moved, renamed, deleted) is no longer remembered: the command line says so at startup. One that exists but cannot be opened (a server not reachable yet) is kept for the next startup.</li>
-<li>The list is kept on this computer: it is not part of the settings exported by <span class="fixw">Dyl-UserFiles</span>. Turning the setting off forgets it.</li>
-<li>Only the sheet sets you opened are remembered: the one AutoCAD Architecture loads for the current project of the Project Navigator is not, unless you open it in the Sheet Set Manager yourself.</li>
-<li>When AutoCAD starts without a drawing (the Start tab only), the sheet sets open with the first drawing.</li>
-<li>For whoever changes DynALisp: the plugin is the one of <a href="CleanStartup.htm">Clean Startup</a>; its source is <span class="fixw">Installer\Startup</span>.</li>
-</ul>
-</div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

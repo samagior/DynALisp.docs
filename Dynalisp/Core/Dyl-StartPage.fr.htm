@@ -21,77 +21,59 @@
 <div class="programs">
 <table>
 <tr class="alt">
-<td>Réglage</td>
-<td><em>Start page</em> et <em>Active time</em>, dans les Overrides de <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, désactivé à une nouvelle installation</td>
+<td>Syntaxe</td>
+<td><em>Start page</em> dans <span class="fixw">Dyl-Settings</span></td>
 </tr>
 <tr>
-<td>Nécessite</td>
+<td>Requis</td>
 <td>AutoCAD 2025 ou plus récent pour Windows, son onglet Démarrer activé</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
-<td>GNU General Public License v3</td>
+<td>Licence publique générale GNU v3</td>
 </tr>
 </table>
 </div>
 
 <h2>Description</h2>
-<p>L'onglet Démarrer d'AutoCAD affiche la page de démarrage de DynALisp à la place de la sienne, à la manière d'une page de profil, en trois colonnes sur toute la largeur de l'onglet : près de son bord gauche, ce qui commence un dessin (<strong>New</strong>, <strong>Open...</strong>, <strong>Open sheet set...</strong> et vos gabarits) ; au milieu entre les deux, la plus large, ce que vous avez épinglé (dessins, jeux de feuilles, projets), le temps passé à travailler chaque jour de l'année et quelques dessins récents, avec l'image que chaque dessin garde de lui-même ; près de son bord droit, les tâches de chaque projet et jeu de feuilles épinglé, avec une barre de ce qui est fait. Aucun chemin n'est affiché : pointez une carte ou un dessin pour le lire. DynALisp lui-même n'est qu'une ligne au bas de la page. Elle s'ouvre au démarrage d'AutoCAD et chaque fois que vous cliquez sur l'onglet Démarrer, aux couleurs d'AutoCAD (ou de DynALisp Neutral).</p>
+<p>Votre travail d'un coup d'œil, dans l'onglet Démarrer d'AutoCAD : commencez un dessin à gauche, votre travail épinglé, votre temps et vos dessins récents au milieu, les tâches de vos projets à droite.</p>
 <figure class="shot"><img src="images/Dyl-StartPage-window.png" width="1702" height="1034" alt="Page de démarrage: window"></figure>
 <!-- picture: images/Dyl-StartPage-use.gif -->
-<h2>Mode d'emploi</h2>
+<h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Start page</em> (dans Overrides), et <em>Active time</em> sous elle pour compter le temps passé dans chaque dessin, puis Save. L'onglet Démarrer affiche la page de DynALisp en moins d'une seconde.</li>
-<li><strong>New</strong> commence un dessin à partir de votre gabarit (celui de <span class="fixw">QNEW</span>), un gabarit de la liste en commence un à partir de lui, <strong>Open...</strong> ouvre un ou plusieurs dessins, <strong>Open sheet set...</strong> ouvre un jeu de feuilles dans le Gestionnaire du jeu de feuilles.</li>
-<li>Cliquez avec le bouton droit sur un dessin récent et choisissez <strong>Pin</strong>, <strong>Pin sheet set</strong> ou <strong>Pin project</strong>, ou cliquez sur <strong>Pin...</strong> et choisissez un dessin (<span class="fixw">.dwg</span>), un jeu de feuilles (<span class="fixw">.dst</span>) ou un projet (<span class="fixw">.apj</span>).</li>
-<li>Cliquez sur une carte épinglée ou un dessin récent pour ne montrer que ses jours dans le graphique (un jeu de feuilles ou un projet : ceux des dessins de son dossier) ; cliquez-y de nouveau, ou sur <strong>Show all</strong>, pour tout montrer. Double-cliquez dessus pour l'ouvrir (un projet : son dossier).</li>
-<li>Pour montrer une autre image d'un dessin, cliquez dessus avec le bouton droit (un dessin récent ou une épingle) et choisissez <strong>Choose preview picture...</strong> pour prendre une image, ou <strong>Set preview area...</strong> : le dessin s'ouvre, choisissez les deux coins de la zone à montrer, et son image est refaite chaque fois que vous enregistrez le dessin (voir <a href="#previews">Aperçus</a>).</li>
-<li>Choisissez les colonnes (<strong>Columns</strong>) de <strong>Pinned</strong> et de <strong>Recent</strong> au-dessus d'elles : moins de colonnes, des cartes et des images plus grandes. La page garde votre choix.</li>
-<li>Cliquez sur un jour du graphique (ou sur un mois au-dessus) pour lister les dessins travaillés à ce moment ; cliquez sur l'un d'eux pour l'ouvrir.</li>
-<li>Sous un projet, à droite, tapez une tâche dans la case et appuyez sur Entrée ; cochez-la une fois faite, cliquez dessus avec le bouton droit pour la supprimer. Pour partager les tâches d'un projet avec tous ceux qui y travaillent, cliquez avec le bouton droit sur sa carte et cochez <strong>Keep tasks with the project</strong> (ou <em>with the sheet set</em>).</li>
-<li>Un problème ? Cliquez sur <strong>Report a problem</strong>, dites ce qui s'est passé, puis <strong>Open the issue</strong> (voir <a href="#report">Signaler un problème</a>).</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, activez <em>Start page</em>, et <em>Active time</em> pour compter votre temps. Cliquez Save.</li>
+<li>Commencez un dessin avec <strong>New</strong>, un gabarit ou <strong>Open...</strong>.</li>
+<li>Cliquez droit sur un dessin récent pour l'épingler (<strong>Pin</strong>), lui, son jeu de feuilles ou son projet.</li>
+<li>Cliquez un dessin pour voir ses jours dans le graphique. Double-cliquez-le pour l'ouvrir.</li>
+<li>Tapez une tâche sous un projet et appuyez sur Entrée. Cochez-la une fois faite.</li>
 </ol>
 </div>
 <h2 id="page">La page</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>New, Open et les gabarits</strong> &ndash; à gauche. <strong>Templates</strong> liste d'abord le gabarit de <span class="fixw">QNEW</span>, marqué <em>default</em>, puis les gabarits du dossier des gabarits d'AutoCAD (Fichiers des Options), 12 au plus ; <strong>Browse templates...</strong> en choisit un autre.</li>
-<li><strong>Pinned</strong> &ndash; jusqu'à 6 cartes, dans l'ordre où elles ont été épinglées : chacune avec son nom (le titre d'un jeu de feuilles, tel que le Gestionnaire du jeu de feuilles l'affiche, et non le nom de son fichier), et son type (<em>Drawing</em>, <em>Sheet set</em> ou <em>Project</em>) ; un dessin montre aussi son jeu de feuilles ou son projet, avec le point de sa couleur. Cliquez sur une carte pour montrer ses jours dans le graphique (un jeu de feuilles ou un projet : les dessins de son dossier et des dossiers sous lui), double-cliquez pour l'ouvrir. Cliquez avec le bouton droit sur une carte pour l'ouvrir (un dessin, un jeu de feuilles : dans le Gestionnaire du jeu de feuilles), montrer son temps, la montrer dans son dossier ou la désépingler.</li>
-<li><strong>Temps actif</strong> &ndash; un carré par jour, plus foncé pour plus de temps : moins d'une heure, de 1 à 3 heures, de 3 à 6 heures, 6 heures et plus. Pointez un jour pour lire son temps. Les 12 derniers mois, ou une année choisie à droite. Dessous, les dessins travaillés le jour ou le mois choisi (le dernier mois avec du temps tant que vous n'en choisissez pas), le plus de temps en premier.</li>
-<li><strong>Recent</strong> &ndash; deux rangées de dessins de la liste récente d'AutoCAD (un jeu de feuilles par son titre), le dernier ouvert en premier, chacun avec son image, son jeu de feuilles ou son projet (un point de la couleur de ses onglets de fichiers, et son nom) et sa dernière sauvegarde. Tapez dans <strong>Search</strong> pour en trouver un par son nom ou son dossier, parmi tous. Cliquez avec le bouton droit sur un dessin pour l'ouvrir en lecture seule, le montrer dans son dossier, ou l'épingler, lui, son jeu de feuilles ou son projet. Un dessin introuvable indique <em>Not found</em>, grisé. Cliquez sur un dessin pour montrer ses jours dans le graphique, double-cliquez pour l'ouvrir. Un dessin déjà ouvert devient le dessin courant au lieu d'être rouvert.</li>
-<li><strong>Projects</strong> &ndash; à droite, une carte par projet et jeu de feuilles épinglé : ses tâches, et une barre de combien sont faites. Les tâches sont les vôtres, gardées sur cet ordinateur dans le dossier <span class="fixw">User\Start</span> de DynALisp, jusqu'à ce que vous cochiez <strong>Keep tasks with the project</strong> dans le menu du clic droit de sa carte : elles vont alors dans un fichier <span class="fixw">DynALisp\Tasks.csv</span> à côté de son <span class="fixw">.apj</span> ou de son <span class="fixw">.dst</span>, si bien que tous ceux qui ouvrent le projet du même dossier voient les mêmes tâches, et sa carte indique <em>shared</em>. Décochée, elles reviennent dans votre dossier. Dans les deux cas, les tâches déjà à l'autre endroit sont gardées.</li>
-<li><strong>Le bas de la page</strong> &ndash; la version de DynALisp, l'AutoCAD dans lequel il tourne et la durée de son dernier démarrage. <strong>Settings</strong> ouvre <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, <strong>Report a problem</strong> ouvre le panneau d'un ticket, <strong>Docs</strong> ouvre l'accueil de la documentation.</li>
+<li><strong>New, Open et les gabarits</strong> &ndash; commencer ou ouvrir un dessin.</li>
+<li><strong>Pinned</strong> &ndash; jusqu'à 6 dessins, jeux de feuilles ou projets gardés sous la main.</li>
+<li><strong>Active time</strong> &ndash; un carré par jour, plus foncé pour plus de temps. Cliquez un jour pour lister ses dessins.</li>
+<li><strong>Recent</strong> &ndash; vos derniers dessins. <strong>Search</strong> en trouve un par son nom. <strong>Columns</strong> règle la taille des cartes.</li>
+<li><strong>Projects</strong> &ndash; les tâches de chaque projet épinglé. Cliquez droit sur un projet et cochez <strong>Keep tasks with the project</strong> pour les partager avec votre équipe.</li>
+<li><strong>Le pied de page</strong> &ndash; votre version, <strong>Settings</strong>, <strong>Report a problem</strong> et <strong>Docs</strong>.</li>
 </ul>
 </div>
 <h2 id="activetime">Temps actif</h2>
-<p>Un dessin compte tant qu'il est le dessin courant, qu'AutoCAD est l'application au premier plan et que vous avez utilisé la souris ou le clavier dans les 3 dernières minutes. L'onglet Démarrer, une autre application, une pause et un dessin jamais enregistré ne comptent pas. Le temps est écrit toutes les 2 minutes, à la fermeture d'un dessin et à la fermeture d'AutoCAD ; deux AutoCAD ouverts en même temps ajoutent leur temps aux mêmes fichiers.</p>
-<p>Il reste sur cet ordinateur, dans le dossier <span class="fixw">User\Start</span> de DynALisp (un fichier par mois, une ligne par jour et par dessin), avec les épingles : <em>Export settings</em> de <span class="fixw">Dyl-UserFiles</span> les garde, et un rapport de Dyl-Diagnostics ne les contient jamais. Il n'est compté que si <em>Start page</em> est activée aussi.</p>
+<p>Un dessin compte pendant que vous y travaillez. Une pause de plus de 3 minutes ne compte pas. Votre temps reste sur votre ordinateur.</p>
 <h2 id="previews">Aperçus</h2>
-<p>Un dessin montre l'image qu'AutoCAD garde en lui : la vue dans laquelle il a été enregistré la dernière fois. Cliquez avec le bouton droit sur un dessin récent ou une carte épinglée pour en montrer une autre :</p>
+<p>Cliquez droit sur un dessin pour changer son image :</p>
 <div class="spacedbullets">
 <ul>
-<li><strong>Choose preview picture...</strong> &ndash; une image (PNG, JPEG, BMP, GIF ou TIFF) montrée à la place de celle du dessin ; un jeu de feuilles ou un projet épinglé peut en prendre une aussi. Quand sa forme n'est pas celle des cadres de la page (16 sur 10), une fenêtre la montre avec un cadre dessus (<a href="Dyl-StartPagePreview.fr.htm">Preview Picture</a>) : glissez le cadre sur la partie à garder, glissez son coin ou tournez la molette pour le dimensionner, puis OK. L'image est copiée : la déplacer ou la supprimer ensuite ne change rien.</li>
-<li><strong>Set preview area...</strong> &ndash; le dessin s'ouvre (ou devient le dessin courant), et AutoCAD demande les deux coins de la zone à montrer, dans l'onglet Objet ou une présentation. Son image est faite aussitôt, puis refaite chaque fois que vous enregistrez le dessin pendant qu'il est sur cet onglet (QSAVE, SAVE, SAVEAS), si bien qu'elle suit votre travail : la vue se règle sur la zone un instant, puis revient. Une zone d'une autre forme que les cadres prend un peu plus du dessin autour d'elle, pour que son image les remplisse.</li>
-<li><strong>Use its own preview</strong> &ndash; oublie l'image choisie.</li>
+<li><strong>Choose preview picture...</strong> &ndash; n'importe quelle image, cadrée dans la fenêtre <a href="Dyl-StartPagePreview.fr.htm">Preview Picture</a>.</li>
+<li><strong>Set preview area...</strong> &ndash; choisissez deux coins dans le dessin. L'image suit à chaque enregistrement.</li>
+<li><strong>Use its own preview</strong> &ndash; revient à l'image gardée par AutoCAD.</li>
 </ul>
 </div>
-<p>Chaque image remplit son cadre : les images qu'AutoCAD garde, de la forme de sa fenêtre, sont un peu coupées sur leurs côtés ou en haut et en bas.</p>
-<p>Les images restent sur cet ordinateur, dans le dossier <span class="fixw">User\Start</span> de DynALisp, avec vos épingles et votre temps actif : elles ne changent jamais le dessin, et les autres utilisateurs gardent son propre aperçu.</p>
 <h2 id="report">Signaler un problème</h2>
-<p>Tapez ce que vous avez fait, ce que vous avez vu et ce que vous attendiez, puis cliquez sur <strong>Open the issue</strong>. DynALisp lance <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> de lui-même, puis ouvre dans votre navigateur un nouveau ticket (issue) de DynALisp sur GitHub, rempli de ce que vous avez tapé, du résumé et des problèmes du rapport. GitHub ne permet pas à une page de joindre un fichier à un ticket : le zip du rapport est mis dans le presse-papiers, appuyez donc sur Ctrl+V dans le texte du ticket pour le joindre. Vérifiez le ticket, puis Submit : il est public, et rien n'est envoyé avant. Le rapport ne contient jamais votre nom d'utilisateur, le nom de votre ordinateur, votre temps actif ni le dessin lui-même.</p>
-<h2>Remarques</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Settings</strong> et un rapport s'exécutent dans un dessin, et un jeu de feuilles s'ouvre dans le Gestionnaire du jeu de feuilles d'un dessin : quand aucun dessin n'est ouvert, un nouveau dessin est d'abord commencé. Sans dessin ouvert, <strong>Report a problem</strong> utilise le dernier rapport fait.</li>
-<li>Un projet n'a pas de commande pour l'ouvrir : sa carte montre son temps, et <strong>Show in folder</strong> ouvre son dossier.</li>
-<li>La page n'est affichée que dans l'onglet Démarrer : avec <span class="fixw">STARTMODE</span> à 0 (l'onglet Démarrer désactivé), activer <em>Start page</em> dans Dyl-Settings réactive l'onglet Démarrer.</li>
-<li>La page lit les dessins et le temps d'elle-même, si bien que l'onglet Démarrer n'attend jamais un lecteur réseau lent : ils apparaissent une fois lus. Les images sont gardées dans le dossier temporaire, refaites quand un dessin est enregistré. Le titre d'un jeu de feuilles n'est relu qu'une fois son fichier modifié.</li>
-<li>AutoCAD n'a pas de commande pour son onglet Démarrer : DynALisp pose sa page par-dessus celle d'AutoCAD, qu'il masque, et la rend quand <em>Start page</em> est désactivée. Dans une version d'AutoCAD où il ne trouve pas l'onglet Démarrer, celui-ci reste tel quel ; la section <strong>Interface</strong> de Dyl-Diagnostics dit ce qui a été trouvé, à joindre à un signalement.</li>
-</ul>
-</div>
-<p><a href="../index.fr.htm">&larr; Index de la documentation du module Dynalisp</a></p>
-
+<p>Dites ce qui s'est passé, puis cliquez <strong>Open the issue</strong>. DynALisp ajoute un rapport de votre installation et l'ouvre sur GitHub, où vous le relisez avant de le soumettre. Appuyez sur Ctrl+V dans le ticket pour joindre le rapport. Rien n'est envoyé avant que vous soumettiez.</p>
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
     </div>
 
     <div id="footer">

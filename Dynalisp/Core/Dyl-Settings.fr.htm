@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD 2025 ou plus récent pour Windows, avec le plug-in des <a href="../Plugins/Windows.fr.htm">fenêtres</a> de DynALisp</td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,103 +35,97 @@
 </table>
 </div>
 <h2>Description</h2>
-<p><span class="fixw">DYL-SETTINGS</span> ouvre la fenêtre <em>Settings</em> de DynALisp : la langue de DynALisp, les réacteurs, qui agissent sur les objets pendant que vous dessinez, les dérogations, que DynALisp applique à chaque dessin ouvert, et les mises à jour de DynALisp. Chaque interrupteur est <strong>désactivé à une nouvelle installation</strong>; une fois activé, il est mémorisé (un paramètre utilisateur Windows, <span class="fixw">Dynalisp*</span>) pour tous les dessins et toutes les sessions. <strong>Save</strong> applique et enregistre les changements, <strong>Cancel</strong> les annule, <strong>Open Docs</strong> ouvre cette page.</p>
-<p>Un paramètre accompagné d'un bouton carré <em>ouvrir</em> a sa propre fenêtre; le bouton est grisé tant que le paramètre est désactivé (ou quand le programme dont il a besoin n'est pas chargé). Chaque paramètre activé ou désactivé est un interrupteur, sa courte description en dessous; la fenêtre prend les couleurs du thème clair ou foncé d'AutoCAD (voir <a href="../Plugins/Windows.fr.htm">Fenêtres</a>).</p>
-<p>Les libellés des fenêtres de DynALisp sont en anglais : cette page les cite tels qu'ils apparaissent.</p>
+<p>Choisissez ce que DynALisp fait pour vous, dans chaque dessin. Tout est désactivé tant que vous ne l'activez pas.</p>
 <figure class="shot"><img src="images/Dyl-Settings-window.png" width="680" height="710" alt="Paramètres: window"></figure>
 <!-- picture: images/Dyl-Settings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-Settings</span> (ou cliquez <em>Paramètres</em> dans le groupe de fonctions DynALisp du ruban).</li>
-<li>Activez les interrupteurs de ce que DynALisp doit faire pour vous; un bouton ouvrir carré à côté d'un réglage ouvre sa propre fenêtre.</li>
-<li>Cliquez <strong>Save</strong> : les réglages s'appliquent à chaque dessin, ceux qui sont ouverts quand vous y revenez.</li>
+<li>Tapez <span class="fixw">Dyl-Settings</span>, ou cliquez <em>Paramètres</em> dans le groupe de fonctions DynALisp du ruban.</li>
+<li>Activez ce que vous voulez. Un bouton carré à côté d'un réglage ouvre ses options.</li>
+<li>Cliquez <strong>Save</strong>. Vos dessins ouverts suivent quand vous y revenez.</li>
 </ol>
 </div>
-<h2 id="environment">Environnement (Environment)</h2>
-<p><em>La langue dans laquelle s'ouvrent ses docs.</em></p>
+<h2 id="environment">Environment</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>Language</td><td><em>English</em> ou <em>French</em> : la langue dans laquelle s'ouvrent les docs de DynALisp (les boutons <strong>Open Docs</strong>, <span class="fixw">Dyl-Docs</span>, les docs de <span class="fixw">Dyl-Suite</span>), l'anglais pour une page pas encore traduite; le sélecteur EN | FR en haut à droite de chaque page change la langue de la page affichée. Il ne change rien d'autre : l'onglet DynALisp du <a href="../Plugins/Ribbon.fr.htm">ruban</a>, les noms des phases (barre d'état, <a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>) et les descriptions des listes de Layer Transfer sont toujours dans la langue de l'AutoCAD installé. Tant qu'il n'est pas enregistré, la langue de l'AutoCAD installé (l'anglais pour une langue que DynALisp n'a pas encore). Ce n'est pas la langue (Language) des <a href="../Setup/Dyl-SetFilePrefs.fr.htm">File Preferences</a>, qui règle les dossiers de contenu et les dictionnaires des dessins.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>Language</td><td>La langue des docs. Le ruban suit la langue d'AutoCAD.</td></tr>
 </table>
 </div>
-<h2 id="reactors">Réacteurs (Reactors)</h2>
-<p><em>Agissent sur les nouveaux objets pendant que vous dessinez.</em> Les réacteurs sont dans le dossier <span class="fixw">Reactor</span> de chaque module.</p>
+<h2 id="reactors">Reactors</h2>
+<p><em>Agissent sur les nouveaux objets pendant que vous dessinez.</em></p>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>DynALisp reactors</td><td>L'interrupteur général. Désactivé, les dossiers <span class="fixw">Reactor</span> ne sont pas chargés du tout et aucun réacteur ne tourne (les paramètres de réacteurs ci-dessous sont grisés). À sa désactivation, les réacteurs des dessins ouverts sont retirés.</td></tr>
-<tr><td>Auto-phase new objects</td><td>Place les nouveaux objets sur le calque de la phase active (<a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>, <span class="fixw">PH-AUTO</span>). Son bouton ouvre Layer Phase.</td></tr>
-<tr><td>Auto layer keys</td><td>Place les nouvelles cotes, lignes de repère, textes, tableaux et autres objets courants créés par une commande sur la clé de calque de leur type (<a href="../Layer/Dyl-ObjectLayerKeys.fr.htm">Object Layer Keys</a>). Son bouton ouvre Object Layer Keys.</td></tr>
-<tr><td>Auto draw order</td><td>Empile les nouveaux objets selon le niveau de leur calque (<a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>). Son bouton ouvre Draw Order.</td></tr>
-<tr><td>Settings sync</td><td>Les autres dessins ouverts suivent les paramètres enregistrés ici lorsqu'ils deviennent courants (seul ce qui a changé est appliqué). Désactivé, un paramètre s'applique au dessin où il est changé et aux dessins ouverts ensuite.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>DynALisp reactors</td><td>Active ou désactive d'un coup tous les réglages de cette section.</td></tr>
+<tr><td>Auto-phase new objects</td><td>Place les nouveaux objets sur le calque de la phase active (<a href="../Layer/Dyl-LayerPhase.fr.htm">Layer Phase</a>).</td></tr>
+<tr><td>Auto layer keys</td><td>Place les nouvelles cotes, lignes de repère, textes et tableaux sur leur calque (<a href="../Layer/Dyl-ObjectLayerKeys.fr.htm">Object Layer Keys</a>).</td></tr>
+<tr><td>Auto draw order</td><td>Empile les nouveaux objets selon le niveau de leur calque (<a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>).</td></tr>
+<tr><td>Settings sync</td><td>Vos autres dessins ouverts suivent les réglages enregistrés ici.</td></tr>
 </table>
 </div>
-<h2 id="overrides">Dérogations (Overrides)</h2>
-<p><em>Appliquées à chaque dessin ouvert.</em></p>
+<h2 id="overrides">Overrides</h2>
+<p><em>Appliqués à chaque dessin que vous ouvrez.</em></p>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>Drawing Settings</td><td>Chaque dessin ouvert est comparé aux unités et à la grille par défaut de son type (impérial ou métrique); un dessin qui en diffère y est ramené. Son bouton ouvre la fenêtre <a href="#drawing">Drawing Settings</a>, offerte même quand la vérification est désactivée (pour le pas d'écart de Shrinkwrap).</td></tr>
-<tr><td>Commands</td><td>Redéfinit les commandes d'enregistrement et d'impression ainsi que <span class="fixw">REGEN</span> (<a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a>) pour qu'elles préparent d'abord le dessin. Son bouton ouvre la fenêtre Output Prep (<a href="../Output/Dyl-PrepDrawing.fr.htm">Prep Drawing</a>, aussi <span class="fixw">DYL-PREPSUITE</span>) : les étapes exécutées avant chaque commande.</td></tr>
-<tr><td>File Preferences</td><td>Le profil DynALisp : les chemins d'AutoCAD réglés selon la classification de la bibliothèque AEC, les unités de dessin et la langue. Son bouton ouvre la fenêtre File Preferences (<a href="../Setup/Dyl-SetFilePrefs.fr.htm">Set File Preferences</a>).</td></tr>
-<tr><td>System variables</td><td>Les valeurs préférées du profil de variables système actif, et les variables protégées, appliquées à chaque dessin ouvert (<a href="../Setup/Dyl-SysVars.fr.htm">System Variables</a>). Son bouton ouvre Dyl-SysVars.</td></tr>
-<tr><td>Display</td><td>Les paramètres d'affichage appliqués à chaque dessin ouvert. Son bouton ouvre la fenêtre <a href="#display">Display</a>.</td></tr>
-<tr><td>Revisions</td><td>Chaque feuille d'un projet du Navigateur de projets est mise à jour avec les révisions du projet à son ouverture : ses cartouches et ses étiquettes de révision (voir <a href="../Output/Dyl-Revisions.fr.htm#sync">Revisions</a>). Son bouton ouvre la fenêtre <a href="../Output/Dyl-Revisions.fr.htm#titleblocks">Revision Title Blocks</a>. Grisé quand <span class="fixw">Dyl-Revisions</span> est désactivé.</td></tr>
-<tr><td>Clean startup</td><td>Une fois AutoCAD démarré, les lignes qu'il a affichées au démarrage (<em>Loading AEC...</em>, <em>Customization file loaded successfully</em>, les palettes et les commandes de démarrage de l'espace de travail...) sont retirées de la ligne de commande. Conservées : la ligne <em>Drawing created using...</em>, les lignes de DynALisp et toute ligne qui signale une erreur ou un avertissement. S'applique au prochain démarrage. Grisé dans une version antérieure à 2015. Voir <a href="../Plugins/CleanStartup.fr.htm">Démarrage épuré</a>.</td></tr>
-<tr><td>Reopen sheet sets</td><td>Les jeux de feuilles ouverts dans le Gestionnaire du jeu de feuilles sont rouverts à chaque démarrage d'AutoCAD, jusqu'à ce que vous les fermiez dans le gestionnaire (AutoCAD les oublie à sa fermeture). Voir <a href="../Plugins/SheetSets.fr.htm">Rouvrir les jeux de feuilles</a>.</td></tr>
-<tr><td>Start page</td><td>L'onglet Démarrer d'AutoCAD affiche la page de démarrage de DynALisp à la place de la sienne : ce que vous avez épinglé, le temps passé dans chaque dessin chaque jour, et les dessins récents. Activé alors que l'onglet Démarrer est désactivé, il le réactive. Grisé quand son plug-in n'est pas chargé. Voir <a href="Dyl-StartPage.fr.htm">Page de démarrage</a>.</td></tr>
-<tr><td>Active time</td><td>Sous Start page : le temps passé à travailler dans chaque dessin est compté, et montré sur la page de démarrage en un graphique des jours de l'année. Gardé sur cet ordinateur seulement. Grisé tant que Start page est désactivée. Voir <a href="Dyl-StartPage.fr.htm#activetime">Temps actif</a>.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>Drawing Settings</td><td>Règle les unités et la grille choisies pour les dessins impériaux et métriques (<a href="#drawing">plus bas</a>).</td></tr>
+<tr><td>Commands</td><td>Nettoie le dessin avant l'enregistrement ou le traçage (<a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a>).</td></tr>
+<tr><td>File Preferences</td><td>Règle les dossiers, les unités et la langue de vos dessins (<a href="../Setup/Dyl-SetFilePrefs.fr.htm">Set File Preferences</a>).</td></tr>
+<tr><td>System variables</td><td>Garde vos variables d'AutoCAD préférées (<a href="../Setup/Dyl-SysVars.fr.htm">System Variables</a>).</td></tr>
+<tr><td>Display</td><td>Les couleurs d'AutoCAD et des onglets de fichiers (<a href="#display">plus bas</a>).</td></tr>
+<tr><td>Revisions</td><td>Met à jour les cartouches d'un projet avec ses révisions à l'ouverture d'une feuille (<a href="../Output/Dyl-Revisions.fr.htm#sync">Revisions</a>).</td></tr>
+<tr><td>Clean startup</td><td>Efface les messages de démarrage de la ligne de commande (<a href="../Plugins/CleanStartup.fr.htm">Clean Startup</a>).</td></tr>
+<tr><td>Reopen sheet sets</td><td>Rouvre vos jeux de feuilles à chaque démarrage d'AutoCAD (<a href="../Plugins/SheetSets.fr.htm">Reopen Sheet Sets</a>).</td></tr>
+<tr><td>Start page</td><td>Affiche la page de démarrage de DynALisp dans l'onglet Démarrer (<a href="Dyl-StartPage.fr.htm">Start Page</a>).</td></tr>
+<tr><td>Active time</td><td>Compte le temps passé dans chaque dessin, affiché sur la page de démarrage. Reste sur votre ordinateur.</td></tr>
 </table>
 </div>
-<h2 id="layerkeys">Clés de calque (Layer Keys)</h2>
-<p><em>Calques existants qui diffèrent de leur clé.</em></p>
+<h2 id="layerkeys">Layer Keys</h2>
+<p><em>Quand un calque déjà dans le dessin diffère de sa clé de calque.</em></p>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>Update them without asking</td><td>Un calque d'une clé de calque qui existe dans le dessin avec une couleur, un type de ligne, une épaisseur de ligne ou un réglage de traçage autre que celui de sa clé est mis à jour selon sa clé, sans le demander (<a href="../Layer/Dyl-LayerKeys.fr.htm#differ">Layer Keys</a>).</td></tr>
-<tr><td>Keep them without asking</td><td>Un tel calque est utilisé tel quel, sans le demander.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>Update them without asking</td><td>Le calque prend la couleur, le type de ligne et l'épaisseur de sa clé (<a href="../Layer/Dyl-LayerKeys.fr.htm#differ">Layer Keys</a>).</td></tr>
+<tr><td>Keep them without asking</td><td>Le calque reste tel quel.</td></tr>
 </table>
 </div>
-<p>L'un des deux au plus (en activer un désactive l'autre). Les deux désactivés, par défaut : la question vous est posée, une fois par calque et par session. <em>Remember my answer and do not ask again</em> dans cette question active l'un d'eux pour vous; désactivez-le ici pour que la question soit posée de nouveau.</p>
+<p>Les deux désactivés : DynALisp vous le demande. Désactivez-en un ici pour qu'on vous le redemande.</p>
 <h2 id="assistant">Assistant</h2>
-<p><em>Ce que Claude peut faire dans le dessin.</em></p>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>Allow Lisp</td><td>L'<a href="../Utilities/Dyl-Assistant.fr.htm">Assistant</a> peut exécuter du code AutoLISP dans le dessin, pour ce que ses autres outils ne font pas. Chaque code est montré en entier sur une carte de la palette, et ne s'exécute qu'une fois que vous cliquez sur <em>Allow</em>, chaque fois; un <span class="fixw">U</span> annule ce qu'il change. Désactivé, par défaut : l'Assistant n'exécute jamais d'AutoLISP. Grisé quand le plugiciel de l'Assistant n'est pas chargé.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>Allow Lisp</td><td>Permet à l'<a href="../Utilities/Dyl-Assistant.fr.htm">Assistant</a> d'en faire plus dans votre dessin. Vous approuvez chaque action avant, et <span class="fixw">U</span> l'annule.</td></tr>
 </table>
 </div>
-<h2 id="updates">Mises à jour (Updates)</h2>
-<p><em>Nouvelles versions de DynALisp.</em></p>
+<h2 id="updates">Updates</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Paramètre</th><th>Ce qu'il fait</th></tr>
-<tr><td>Install updates automatically</td><td>Une fois par jour, le premier dessin ouvert vérifie s'il existe une nouvelle version de DynALisp et lance son installation, qui s'effectue à la fermeture d'AutoCAD (<a href="Dyl-Info.fr.htm#updates">Mises à jour</a>). Désactivé, Dyl-Info vous signale qu'une nouvelle version est sortie. Grisé quand DynALisp est un clone git : mettez-le à jour avec <span class="fixw">git pull</span>.</td></tr>
+<tr><th>Réglage</th><th>Ce qu'il fait</th></tr>
+<tr><td>Install updates automatically</td><td>Installe les nouvelles versions de DynALisp à la fermeture d'AutoCAD (<a href="Dyl-Info.fr.htm#updates">Mises à jour</a>).</td></tr>
 </table>
 </div>
 <h2 id="drawing">Fenêtre Drawing Settings</h2>
 <figure class="shot"><img src="images/Dyl-Settings-DrawingSettings.png" width="674" height="384" alt="Paramètres: window"></figure>
 <div class="spacedbullets">
 <ul>
-<li><strong>Units / Grid</strong> &ndash; pour les dessins impériaux et les dessins métriques, le préréglage d'unités (<a href="../Setup/Dyl-SetUnits.fr.htm">Set Units</a>) et le préréglage de grille (<a href="../Setup/Dyl-StandardGrid.fr.htm">Standard Grid</a>) auxquels chaque dessin est comparé; <em>(Not checked)</em> le laisse tel quel.</li>
-<li><strong>Shrinkwrap gap step</strong> &ndash; pour les dessins impériaux (1 par défaut) et métriques (25 par défaut), le pas dont <a href="../Draw/Dyl-Shrinkwrap.fr.htm">Shrinkwrap</a> augmente sa tolérance d'écart quand aucun contour n'est trouvé, jusqu'à 10 fois. Un nombre supérieur à 0, en unités de dessin. Utilisé même quand Drawing Settings est désactivé.</li>
-<li>Les valeurs sont enregistrées quand Settings est enregistré.</li>
+<li><strong>Units / Grid</strong> &ndash; les unités (<a href="../Setup/Dyl-SetUnits.fr.htm">Set Units</a>) et la grille (<a href="../Setup/Dyl-StandardGrid.fr.htm">Standard Grid</a>) des dessins impériaux et métriques.</li>
+<li><strong>Shrinkwrap gap step</strong> &ndash; de combien <a href="../Draw/Dyl-Shrinkwrap.fr.htm">Shrinkwrap</a> élargit sa recherche quand il ne trouve pas de contour.</li>
 </ul>
 </div>
 <h2 id="display">Fenêtre Display</h2>
 <figure class="shot"><img src="images/Dyl-Settings-Display.png" width="414" height="320" alt="Paramètres: window"></figure>
 <div class="spacedbullets">
 <ul>
-<li><strong>Interface</strong> &ndash; les couleurs de toute l'interface d'AutoCAD, tant qu'il est dans son thème foncé (le thème reste celui choisi dans AutoCAD) : <em>DynALisp</em>, le foncé des fenêtres DynALisp, ses gris dans leur gris-bleu et plus foncés; <em>DynALisp Neutral</em>, la même chose dans un gris neutre, plus foncé, sans le gris-bleu. Elle colore le ruban, les palettes (Propriétés, Palettes d'outils, Propriétés des calques...), la barre d'état, les onglets de fichiers, la barre de titre, la ligne de commande et l'onglet Démarrer, ainsi que les fenêtres DynALisp, et règle à l'avenant l'arrière-plan de l'espace objet (#181B20 ou presque noir, #121212), le papier des présentations et l'arrière-plan autour, chacun avec un réticule qui reste lisible. Son bleu et les icônes restent tels quels. <em>(Not set)</em> : les couleurs d'AutoCAD. <strong>Un essai</strong>, qu'Autodesk ne prend pas en charge : une autre version d'AutoCAD peut ne pas tout accepter, et ce qu'elle n'atteint pas garde les couleurs d'AutoCAD. La palette Propriétés est dessinée par AutoCAD lui-même, en C++ : DynALisp retrouve ses couleurs dans AutoCAD, et la laisse telle quelle s'il ne les trouve pas. AutoCAD peut ne redessiner une palette qu'une fois réaffichée.</li>
-<li><strong>Model space</strong> &ndash; l'arrière-plan de l'espace objet à la place de celui de l'Interface, le reste de l'interface laissé tel quel : <em>Black</em>, <em>Default</em> (gris-bleu foncé, RVB 33,40,48, celui d'AutoCAD à l'installation) ou <em>White</em>, avec un réticule qui reste lisible; <em>(Not set)</em> : celui de l'Interface, ou inchangé quand l'Interface n'est pas choisie.</li>
-<li><strong>Layouts</strong> &ndash; le papier des présentations à la place de celui de l'Interface : <em>White</em> (comme AutoCAD à l'installation) ou <em>Black</em>, avec son réticule; l'arrière-plan autour du papier reste celui de l'Interface. <em>(Not set)</em> : celui de l'Interface, ou inchangé. L'arrière-plan autour du papier peut ne changer qu'une fois la présentation affichée de nouveau, ou AutoCAD redémarré.</li>
-<li>Par exemple, <em>DynALisp Neutral</em> pour l'Interface et <em>Black</em> pour Model space : un espace objet noir pur dans l'interface gris neutre; <em>White</em> pour Layouts garde le papier blanc.</li>
-<li><strong>File tabs</strong> &ndash; une fine barre de couleur juste à gauche du nom sur l'onglet de fichier de chaque dessin d'un projet, inclinée comme les onglets, toujours visible, de la même couleur pour tous les dessins de ce projet, pour retrouver d'un coup d'œil les dessins de chaque projet : <em>Project</em> (le projet du Navigateur de projets d'AutoCAD Architecture : le premier dossier qui contient un fichier <span class="fixw">.apj</span>, du dossier du dessin vers le haut, comme pour les <a href="../Output/Dyl-Revisions.fr.htm">révisions</a>) ou <em>Sheet set</em> (le premier dossier qui contient un fichier <span class="fixw">.dst</span>, du dossier du dessin vers le haut); <em>(Not set)</em> : aucune barre. Un dessin qui n'est dans aucun projet, ou jamais enregistré, n'a pas de barre. Chaque projet garde sa couleur : la couleur de son nom, la même chaque jour et sur chaque ordinateur, ou la suivante libre quand un autre projet ouvert l'a déjà. Les onglets qui ne tiennent pas, listés sous la flèche au bout des onglets, ont la barre le long de leur côté gauche. Un essai aussi, qu'Autodesk ne prend pas en charge : une autre version d'AutoCAD peut ne pas l'accepter, et les onglets restent alors tels quels.</li>
-<li>Enregistré quand Settings est enregistré.</li>
+<li><strong>Interface</strong> &ndash; les couleurs DynALisp pour toute l'interface d'AutoCAD, selon votre humeur. <em>DynALisp Dark</em>, par défaut, est un gris foncé neutre; <em>Midnight</em> est un bleu-gris profond. Fonctionne avec le thème foncé d'AutoCAD.</li>
+<li><strong>Model space</strong> &ndash; un autre fond pour l'espace objet : <em>Black</em>, <em>Default</em> ou <em>White</em>.</li>
+<li><strong>Layouts</strong> &ndash; une autre couleur de papier pour les présentations : <em>White</em> ou <em>Black</em>.</li>
+<li><strong>File tabs</strong> &ndash; une couleur sur l'onglet de fichier de chaque dessin, la même pour tous les dessins d'un <em>Project</em> ou d'un <em>Sheet set</em>.</li>
 </ul>
 </div>
+<p>Interface et File tabs sont expérimentaux : quelques parties d'AutoCAD peuvent garder leurs propres couleurs.</p>
+<p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
 </div>
 
     <div id="footer">

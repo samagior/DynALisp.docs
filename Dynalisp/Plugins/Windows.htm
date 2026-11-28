@@ -20,13 +20,9 @@
 
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Loaded</td>
-<td>With DynALisp, by AutoCAD itself (<span class="fixw">DynALisp.Windows.dll</span>)</td>
-</tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD 2025 or later for Windows, 64-bit</td>
+<td>AutoCAD 2025 or later for Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -36,38 +32,19 @@
 </div>
 
 <h2>Description</h2>
-<p>The windows of DynALisp are modern windows shown by a plugin that AutoCAD loads with DynALisp: sections in cards, a switch for each setting that is on or off, clear text, the same buttons in every window, in the colours of the theme of AutoCAD. They are taking the place of the classic AutoCAD dialog boxes one by one, starting with the <a href="../Core/Dyl-Settings.htm">Settings</a> window and the windows it opens (Drawing Settings, Display, File Preferences, Output Prep), and the <a href="../Draw/Dyl-QuickDrawGallery.htm">Quick Draw Gallery</a>, its hatches drawn as they plot. A window works as before: the same settings, the same buttons, the same <em>Open Docs</em> button.</p>
+<p>The windows of DynALisp: clear sections, a switch for each setting, and an <em>Open Docs</em> button in each one.</p>
 <figure class="shot"><img src="images/Windows-window.png" width="680" height="710" alt="Windows: window"></figure>
 <!-- picture: images/Windows-use.gif -->
-<h2>How To Use</h2>
-<div class="spacedbullets">
-<ol>
-<li>Nothing to turn on: the windows open as soon as DynALisp is loaded.</li>
-<li>Run a command that has a window, such as <span class="fixw">Dyl-Settings</span>.</li>
-<li>A square open button beside a setting opens its own window over the first one. Its <em>OK</em> keeps what you changed, <em>Cancel</em> puts it back; the first window saves it with the rest.</li>
-</ol>
-</div>
-<h2>Size And Place</h2>
+<h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>A window never opens larger than your screen: on a small screen, or with a large Windows display scale, its lists are shorter, and what still does not fit scrolls.</li>
-<li>A window with a list can be resized like any window of Windows: drag its borders or a corner, double-click its title bar to maximize it, drag it to the top of the screen to maximize it or to a side to fill half of it (Windows key + arrows too). Its lists grow and shrink with it; the rest keeps its size. It cannot be made narrower than its content, but for the lists of some windows (Assembly Presets), which get narrower with it.</li>
-<li>Such a window opens again where you left it, at the size you left it (maximized if it was), each window on its own, on this computer. Moved to a screen that is no longer there, it comes back to the screen of AutoCAD.</li>
-<li>A small window without a list (a question, a name, the Settings window) keeps the size of its content.</li>
-</ul>
-</div>
-<h2>Notes</h2>
-<div class="spacedbullets">
-<ul>
-<li>The windows take the colours of AutoCAD: dark grey blue in its dark theme, light grey in its light theme (<em>Color theme</em> in the Display tab of its Options).</li>
-<li>A setting greyed out cannot be changed now: its switch above is off, or its tool is turned off in the Startup Suite.</li>
-<li>When a window does not open, the command line says why. Run <span class="fixw">Dyl-Diagnostics</span>: it reports when the plugin is not loaded (an AutoCAD older than 2015, the file blocked by <span class="fixw">SECURELOAD</span>, or missing).</li>
-<li>AutoCAD 2010 to 2014 are no longer supported: they cannot load the plugin.</li>
-<li>For whoever changes DynALisp: the source is <span class="fixw">Installer\Windows</span>, one project built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later), both DLLs committed; each window is a <span class="fixw">.xaml</span> file of the <span class="fixw">Res</span> folder of its module.</li>
+<li>A window with a list can be resized and maximized. It opens again where you left it.</li>
+<li>A square button beside a setting opens its options.</li>
+<li>A setting greyed out is not available yet: turn on the setting above it.</li>
+<li>The windows follow the light or dark theme of AutoCAD, and the <a href="../Core/Dyl-Settings.htm#display">Interface</a> colors you chose.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

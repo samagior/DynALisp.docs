@@ -20,13 +20,9 @@
 
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Paramètre</td>
-<td>Aucun : toujours actif</td>
-</tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD 2025 ou suivant pour Windows</td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -36,18 +32,10 @@
 </div>
 
 <h2>Description</h2>
-<p>Le cœur de DynALisp en .NET. Il lit les données de DynALisp (les clés de calque, les matériaux, les préréglages de hachure, les préréglages de Quick Draw et de Quick Shape, les assemblages, les groupes, les climats, la Startup Suite et les alias lus à l'ouverture de chaque dessin...) une seule fois pour toute la session d'AutoCAD, et les donne à chaque dessin : un dessin ouvert après le premier ne relit plus ces fichiers. Un fichier modifié, par une fenêtre de DynALisp, dans un autre dessin ou dans Excel, est relu la prochaine fois qu'il sert.</p>
+<p>Rend DynALisp plus rapide : chaque dessin ouvert après le premier est prêt plus tôt.</p>
 <h2>Utilisation</h2>
-<p>Rien à faire : il est chargé avec AutoCAD, et les outils de DynALisp s'en servent d'eux-mêmes.</p>
-<h2>Notes</h2>
-<div class="spacedbullets">
-<ul>
-<li>Quand il n'est pas chargé (bloqué par <span class="fixw">SECURELOAD</span>, ou un fichier manquant), DynALisp fonctionne de la même façon, seulement plus lentement : chaque dessin relit les fichiers. <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> le signale, et indique combien de fichiers il garde et le temps passé à les lire.</li>
-<li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Core</span>, un projet compilé pour .NET 8 (AutoCAD 2025 et 2026) et pour .NET 10 (AutoCAD 2027 et suivants), les deux DLL versionnées.</li>
-</ul>
-</div>
+<p>Rien à faire. Il fonctionne tout seul.</p>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

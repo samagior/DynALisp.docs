@@ -20,10 +20,6 @@
 
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Setting</td>
-<td>None: always on</td>
-</tr>
 <tr>
 <td>Requires</td>
 <td>AutoCAD 2025 or later for Windows</td>
@@ -36,18 +32,10 @@
 </div>
 
 <h2>Description</h2>
-<p>The core of DynALisp in .NET. It reads the data of DynALisp (the layer keys, the materials, the hatch presets, the presets of Quick Draw and Quick Shape, the assemblies, the groups, the climates, the Startup Suite and the aliases read as each drawing opens...) once for the whole session of AutoCAD, and gives it to every drawing: a drawing opened after the first one no longer reads those files again. A file changed, by a window of DynALisp, in another drawing or in Excel, is read again the next time it is needed.</p>
+<p>Makes DynALisp faster: each drawing you open after the first one is ready sooner.</p>
 <h2>How To Use</h2>
-<p>Nothing to do: it is loaded with AutoCAD, and the tools of DynALisp use it on their own.</p>
-<h2>Notes</h2>
-<div class="spacedbullets">
-<ul>
-<li>When it is not loaded (blocked by <span class="fixw">SECURELOAD</span>, or a file missing), DynALisp works the same, only slower: each drawing reads the files again. <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> says so, and shows how many files it keeps and the time it spent reading them.</li>
-<li>For whoever changes DynALisp: the source is <span class="fixw">Installer\Core</span>, one project built for .NET 8 (AutoCAD 2025 and 2026) and for .NET 10 (AutoCAD 2027 and later), both DLLs committed.</li>
-</ul>
-</div>
+<p>Nothing to do. It works on its own.</p>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

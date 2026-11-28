@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,73 +35,61 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Au chargement de DynALisp, la ligne de commande donne un bref résumé : <span class="fixw">DynALisp loaded (516 commands/453 aliases)</span>, puis <span class="fixw">Dyl-Settings to change the settings, Dyl-Info for help.</span> (les nombres sont ceux de votre installation; les avertissements, s'il y en a, suivent sur une dernière ligne qui commence par <span class="fixw">--&gt;</span>). <span class="fixw">DYL-INFO</span> est la fenêtre d'aide de DynALisp; <span class="fixw">DYL-USERFILES</span> gère les fichiers que vous avez modifiés.</p>
+<p><span class="fixw">Dyl-Info</span> montre votre version de DynALisp, ses mises à jour et ses docs. <span class="fixw">Dyl-UserFiles</span> garde la trace de ce que vous avez modifié : préréglages, alias, clés de calque.</p>
 <figure class="shot"><img src="images/Dyl-Info-window.png" width="890" height="703" alt="Info et fichiers utilisateur: window"></figure>
 <!-- picture: images/Dyl-Info-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-Info</span> : la version, les mises à jour, les docs de chaque module et les commandes du noyau.</li>
-<li>Quand une nouvelle version sort, cliquez <strong>Update to...</strong> : vous voyez ce qui a changé, et elle s'installe à la fermeture d'AutoCAD.</li>
-<li>Tapez <span class="fixw">Dyl-UserFiles</span> pour voir, remettre à zéro, exporter ou importer les fichiers que vous avez modifiés (préréglages, alias, clés de calque...).</li>
+<li>Tapez <span class="fixw">Dyl-Info</span>.</li>
+<li>Quand une nouvelle version est sortie, cliquez <strong>Update to...</strong>. Elle s'installe à la fermeture d'AutoCAD.</li>
+<li>Tapez <span class="fixw">Dyl-UserFiles</span> pour réinitialiser, exporter ou importer vos modifications.</li>
 </ol>
 </div>
 <h2 id="info">Fenêtre Info</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>DynALisp</strong> &ndash; la version installée (l'AppVersion de <span class="fixw">PackageContents.xml</span>), si une version plus récente est offerte sur GitHub (vérifié une fois par dessin à l'ouverture de la fenêtre, avec des délais courts pour qu'AutoCAD n'attende jamais longtemps hors ligne), la version d'AutoCAD et le dossier d'installation. <strong>Update to&hellip;</strong> montre ce qui a changé dans la nouvelle version et l'installe (voir <a href="#updates">Mises à jour</a>), <strong>What's new</strong> montre ce qu'apporte chaque version jusqu'à la vôtre, <strong>Check again</strong> vérifie de nouveau, <strong>GitHub repository</strong> ouvre le dépôt.</li>
-<li><strong>Module docs</strong> &ndash; choisissez un module, <strong>Open docs index</strong> ouvre l'index de ses docs (comme <span class="fixw">Dyl-Docs</span> / <span class="fixw">LM-Docs</span>).</li>
-<li><strong>Core commands</strong> &ndash; les commandes de DynALisp lui-même (ci-dessous). Double-cliquez une commande, ou <strong>Run</strong>, pour fermer la fenêtre et la lancer. Les commandes des modules sont listées dans <a href="Dyl-Suite.fr.htm">Dyl-Suite</a>.</li>
-<li><strong>Close</strong>; <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>DynALisp</strong> &ndash; votre version et s'il en existe une nouvelle. <strong>What's new</strong> montre ce qu'apporte chaque version.</li>
+<li><strong>Module docs</strong> &ndash; ouvre les docs d'un module.</li>
+<li><strong>Core commands</strong> &ndash; double-cliquez une commande pour la lancer.</li>
 </ul>
 </div>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Ce qu'elle fait</th></tr>
-<tr><td><span class="fixw">Dyl-Info</span></td><td>Cette fenêtre : version, mises à jour, liens et commandes du noyau.</td></tr>
-<tr><td><span class="fixw">Dyl-Suite</span></td><td>Active ou désactive les commandes des modules, modifie leurs alias, ouvre leurs docs (<a href="Dyl-Suite.fr.htm">Suite de démarrage</a>).</td></tr>
-<tr><td><span class="fixw">Dyl-Settings</span></td><td>Réacteurs, paramètres de dessin, commandes, préférences de fichiers, variables système, affichage (<a href="Dyl-Settings.fr.htm">Paramètres</a>).</td></tr>
-<tr><td><span class="fixw">Dyl-PrepSuite</span></td><td>Préparation de sortie : les étapes exécutées avant les enregistrements, les impressions et REGEN (<a href="../Output/Dyl-PrepDrawing.fr.htm">Prep Drawing</a>).</td></tr>
-<tr><td><span class="fixw">Dyl-UserFiles</span></td><td>Vos fichiers modifiés (préréglages, alias...) : ouvrir, réinitialiser ou en faire le défaut (<a href="#userfiles">ci-dessous</a>).</td></tr>
-<tr><td><span class="fixw">Dyl-Docs</span> / <span class="fixw">LM-Docs</span></td><td><span class="fixw">Dyl-Docs</span> (le bouton <strong>Docs</strong> du ruban) : la page d'accueil du <a href="https://samagior.github.io/DynALisp.docs/index.fr.html" target="_blank">site des docs</a>, qui liste chaque module avec ses docs. Quand un module a des docs que le site n'a pas (un module à vous, dans <span class="fixw">Modules</span>), une page qui liste chaque module (le module Dynalisp en premier, avec la première phrase de son index et un lien vers lui) est plutôt créée dans le dossier temporaire, un module ajouté y est donc listé. Elle s'ouvre dans la langue de DynALisp (<a href="Dyl-Settings.fr.htm#environment">Language</a> dans Dyl-Settings). <span class="fixw">LM-Docs</span> : les docs du module d'exemple LeeMac (les programmes de Lee Mac, une vitrine de ce que DynALisp fait avec du code AutoLISP existant).</td></tr>
-<tr><td><span class="fixw">Dyl-Reload</span></td><td>Recharge les commandes des modules, telles qu'activées dans Dyl-Suite.</td></tr>
-<tr><td><span class="fixw">Dyl-SuiteUpdate</span></td><td>Reconstruit l'index des commandes (<span class="fixw">StartupSuite.csv</span>) à partir des fichiers Lisp.</td></tr>
-<tr><td><span class="fixw">Dyl-VSCode</span></td><td>Ouvre le dossier DynALisp dans Visual Studio Code pour le lire ou le modifier.</td></tr>
-<tr><td><span class="fixw">CMDINDEX</span></td><td>Exporte les commandes d'un dossier Lisp dans un fichier CSV.</td></tr>
-<tr><td><span class="fixw">Dyl-RestoreCommands</span></td><td>Utilise les commandes natives d'enregistrement, de traçage, de publication, d'aperçu et de régénération pour cette session (<a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a>).</td></tr>
-<tr><td><span class="fixw">TBLFIX</span></td><td>Ajuste maintenant chaque rangée de tableau du dessin à la hauteur de son texte.</td></tr>
+<tr><td><span class="fixw">Dyl-Info</span></td><td>Cette fenêtre.</td></tr>
+<tr><td><span class="fixw">Dyl-Suite</span></td><td>Active ou désactive les commandes et leur donne des noms courts (<a href="Dyl-Suite.fr.htm">Startup Suite</a>).</td></tr>
+<tr><td><span class="fixw">Dyl-Settings</span></td><td>Ce que DynALisp fait dans chaque dessin (<a href="Dyl-Settings.fr.htm">Paramètres</a>).</td></tr>
+<tr><td><span class="fixw">Dyl-PrepSuite</span></td><td>Le nettoyage fait avant l'enregistrement ou le traçage (<a href="../Output/Dyl-PrepDrawing.fr.htm">Prep Drawing</a>).</td></tr>
+<tr><td><span class="fixw">Dyl-UserFiles</span></td><td>Vos modifications : les réinitialiser, les exporter ou les importer (<a href="#userfiles">plus bas</a>).</td></tr>
+<tr><td><span class="fixw">Dyl-Docs</span></td><td>Ouvre le <a href="https://samagior.github.io/DynALisp.docs/" target="_blank">site des docs</a>. <span class="fixw">LM-Docs</span> ouvre les docs des programmes de Lee Mac.</td></tr>
+<tr><td><span class="fixw">Dyl-Reload</span></td><td>Recharge les commandes.</td></tr>
+<tr><td><span class="fixw">Dyl-SuiteUpdate</span></td><td>Met à jour la liste des commandes.</td></tr>
+<tr><td><span class="fixw">Dyl-VSCode</span></td><td>Ouvre DynALisp dans Visual Studio Code, pour lire ou modifier les programmes.</td></tr>
+<tr><td><span class="fixw">CMDINDEX</span></td><td>Liste les commandes d'un dossier de programmes dans un fichier de tableur.</td></tr>
+<tr><td><span class="fixw">Dyl-RestoreCommands</span></td><td>Utilise les commandes habituelles d'enregistrement et de traçage d'AutoCAD pour cette session (<a href="../Output/Dyl-CmdOptimizer.fr.htm">Command Optimizer</a>).</td></tr>
+<tr><td><span class="fixw">TBLFIX</span></td><td>Ajuste chaque rangée de tableau à son texte.</td></tr>
 </table>
 </div>
 <h2 id="updates">Mises à jour</h2>
-<p>DynALisp s'installe de l'une de deux façons, et se met à jour de la même façon :</p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Avec le programme d'installation</strong> (<span class="fixw">DynALisp-Setup-&lt;version&gt;.exe</span>, sur la page des <a href="https://github.com/samagior/DynALisp.release/releases">versions de DynALisp</a>). Quand une nouvelle version est sortie, <strong>Update to&hellip;</strong> dans Dyl-Info ouvre la fenêtre <strong>What's New</strong> : ce qu'apportent les versions depuis la vôtre. <strong>Install</strong> télécharge le programme d'installation et le lance en arrière-plan : il attend que vous fermiez AutoCAD (toutes les fenêtres d'AutoCAD), puis installe la nouvelle version dans le même dossier. Vos modifications (le dossier <span class="fixw">User</span>, voir <a href="#userfiles">Fichiers utilisateur</a>) et les modules que vous avez ajoutés (<span class="fixw">MyTools</span>...) sont conservés.</li>
-<li><strong>En clone git</strong> (pour lire ou modifier le code). Dyl-Info montre ce qu'apporte la nouvelle version; mettez le dossier à jour avec <span class="fixw">git pull</span>, puis redémarrez AutoCAD. Le programme d'installation ne s'installe jamais par-dessus un clone.</li>
-</ul>
-</div>
-<p>Au premier démarrage d'AutoCAD après une mise à jour (de l'une ou l'autre façon), la fenêtre What's New montre une fois les nouveautés depuis la version que vous aviez; <strong>What's new</strong> de Dyl-Info les montre de nouveau. Chaque changement a son titre, quelques lignes sur ce que vous pouvez faire maintenant et où le trouver, souvent une image, et <strong>Ouvrir la documentation</strong>, qui ouvre sa page de la documentation (la fenêtre reste ouverte). Elle est dans la langue de DynALisp (<a href="Dyl-Settings.fr.htm#environment">Dyl-Settings &gt; Environment</a>) : anglais ou français. Les images viennent du site de la documentation : elles ne s'affichent qu'en ligne. Un clone git montre aussi, en haut, les changements pas encore publiés (<em>Prochaine version</em>). <strong>All releases</strong> ouvre la page des versions.</p>
+<p><strong>Update to&hellip;</strong> montre les nouveautés, puis installe la nouvelle version à la fermeture d'AutoCAD. Vos modifications sont gardées. Avec <em>Install updates automatically</em> dans les <a href="Dyl-Settings.fr.htm#updates">Paramètres</a>, DynALisp s'en charge pour vous.</p>
+<p>Après une mise à jour, la fenêtre What's New montre ce que vous pouvez faire de nouveau, avec un lien vers les docs.</p>
 <figure class="shot"><img src="images/Dyl-Info-whatsnew.png" width="790" height="669" alt="Info et fichiers utilisateur: window"></figure>
-<p><strong>Mises à jour automatiques</strong> (<em>Install updates automatically</em>, section Updates de <a href="Dyl-Settings.fr.htm#updates">Dyl-Settings</a>, désactivé tant que vous ne l'activez pas) : une fois par jour, le premier dessin ouvert vérifie s'il existe une nouvelle version et lance son installation, qui s'effectue à la fermeture d'AutoCAD. La ligne de commande l'indique sous <span class="fixw">DynALisp loaded</span>.</p>
 <h2 id="userfiles">Fichiers utilisateur</h2>
-<p>Les fichiers de données de DynALisp (préréglages, matériaux, clés de calque, alias, la suite de démarrage, profils de variables système...) sont livrés sous <span class="fixw">Contents</span> et jamais modifiés par les commandes. Ce que vous modifiez est enregistré dans une copie du fichier, dans le dossier <span class="fixw">User</span> du paquet (ignoré par git), lue à la place du fichier par défaut. <span class="fixw">DYL-USERFILES</span> liste ces copies avec ce qu'est chacune :</p>
+<p>Ce que vous modifiez dans DynALisp est gardé à part : une mise à jour ne le perd jamais. <span class="fixw">Dyl-UserFiles</span> le liste :</p>
 <figure class="shot"><img src="images/Dyl-Info-userfiles.png" width="890" height="693" alt="Info et fichiers utilisateur: window"></figure>
 <div class="spacedbullets">
 <ul>
-<li><strong>Open</strong> &ndash; ouvre la copie sélectionnée; <strong>Open User folder</strong> ouvre le dossier.</li>
-<li><strong>Reset to default</strong> &ndash; supprime la copie : le fichier par défaut sous <span class="fixw">Contents</span> est de nouveau utilisé.</li>
-<li><strong>Make it the default</strong> &ndash; la copie remplace son fichier par défaut sous <span class="fixw">Contents</span> (pour la valider dans git) et est supprimée.</li>
-<li>Les deux demandent un second clic sur le même bouton pour confirmer. Un dossier de copies (p. ex. les profils de variables système) est un seul élément, réinitialisé ou fait défaut en entier.</li>
-<li><strong>Export settings&hellip;</strong> &ndash; choisissez un dossier : un dossier <span class="fixw">DynALisp Settings &lt;date&gt;</span> y est créé, avec vos fichiers modifiés (le dossier <span class="fixw">User</span>), les options de <a href="Dyl-Settings.fr.htm">Dyl-Settings</a> (<span class="fixw">DynALisp-Settings.txt</span>) et votre propre module (<span class="fixw">MyTools</span>). Pour en garder une copie, ou les transférer sur un autre ordinateur.</li>
-<li><strong>Import settings&hellip;</strong> &ndash; choisissez le <span class="fixw">DynALisp-Settings.txt</span> d'un dossier enregistré : ses options sont appliquées, ses fichiers copiés par-dessus les vôtres (les fichiers du même nom sont remplacés). Redémarrez AutoCAD pour les utiliser partout.</li>
-<li><strong>Close</strong>; <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>Open</strong> &ndash; ouvre le fichier choisi.</li>
+<li><strong>Reset to default</strong> &ndash; abandonne vos modifications de ce fichier.</li>
+<li><strong>Make it the default</strong> &ndash; votre version devient celle livrée avec DynALisp.</li>
+<li><strong>Export settings&hellip;</strong> &ndash; enregistre vos réglages et modifications dans un dossier, pour les garder ou les passer à un autre ordinateur.</li>
+<li><strong>Import settings&hellip;</strong> &ndash; les ramène. Redémarrez AutoCAD ensuite.</li>
 </ul>
 </div>
 <h2 id="uninstall">Désinstallation</h2>
-<p>Désinstallez DynALisp depuis Paramètres Windows &gt; Applications (installé avec le programme d'installation). Il demande d'abord s'il faut <strong>enregistrer vos paramètres</strong>, et où : le même dossier <span class="fixw">DynALisp Settings &lt;date&gt;</span> qu'avec <strong>Export settings</strong> (vos propres modules inclus). Puis il retire tout : le dossier DynALisp (votre dossier <span class="fixw">User</span> et <span class="fixw">MyTools</span> aussi), les paramètres utilisateur <span class="fixw">Dynalisp*</span> de chaque AutoCAD, le profil DynALisp (le profil que vous aviez avant redevient courant) et les chemins DynALisp des profils d'AutoCAD (chemins de support et de confiance, dictionnaire personnalisé).</p>
-<p>Pour retrouver vos paramètres dans une nouvelle installation, choisissez le <span class="fixw">DynALisp-Settings.txt</span> enregistré à la page <strong>Import Saved Settings</strong> du programme d'installation (ses options sont appliquées au démarrage d'AutoCAD), ou plus tard avec <strong>Import settings</strong> ci-dessus. Un clone git se retire en supprimant son dossier; enregistrez d'abord vos paramètres avec <strong>Export settings</strong>.</p>
+<p>Désinstallez DynALisp depuis Paramètres Windows &gt; Applications. Il propose d'abord d'enregistrer vos réglages, puis retire DynALisp. Le programme d'installation peut ramener les réglages enregistrés.</p>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

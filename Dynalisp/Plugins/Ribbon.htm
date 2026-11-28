@@ -18,23 +18,11 @@
     <div id="content">
         <h1>Ribbon</h1>
 
-<div class="toc">
-<h5>Contents</h5>
-<ul>
-<li class="outer"><a class="outer" href="#desc">Description</a></li>
-<li class="outer"><a class="outer" href="#panels">Panels</a></li>
-<li class="outer"><a class="outer" href="#buttons">Buttons</a></li>
-<li class="outer"><a class="outer" href="#dropdowns">Drop-downs</a></li>
-<li class="outer"><a class="outer" href="#notes">Notes</a></li>
-<li class="outer"><a class="outer" href="../../dev/Dynalisp/Plugins/Ribbon.htm#build">Building The Ribbon</a></li>
-</ul>
-</div>
-
 <div class="programs">
 <table>
 <tr class="alt">
 <td>Requires</td>
-<td>AutoCAD for Windows; the drop-downs need AutoCAD 2025 or later</td>
+<td>AutoCAD 2025 or later for Windows</td>
 </tr>
 <tr>
 <td>Licence</td>
@@ -44,15 +32,15 @@
 </div>
 
 <h2 id="desc">Description</h2>
-<p>The <strong>DynALisp</strong> tab of the ribbon has a button for each tool of the Dynalisp module, with an icon of its own, in a panel per group, and the core commands in the DynALisp panel. AutoCAD loads it with DynALisp: there is nothing to set up. It is in the language of the AutoCAD installed: in a French AutoCAD, its panels, buttons, tooltips and drop-downs are in French (AutoCAD 2025 and later; English in an older version), whatever the <a href="../Core/Dyl-Settings.htm#environment">Language</a> of Dyl-Settings, which is the language of the docs only. The pictures below are the English tab.</p>
+<p>The <strong>DynALisp</strong> tab of the ribbon: a button for each tool, in a panel per group. It speaks the language of your AutoCAD.</p>
 <!-- picture: images/Ribbon-window.png -->
 <!-- picture: images/Ribbon-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Click the <em>DynALisp</em> tab of the ribbon: a panel per group of tools.</li>
-<li>Click a button to run its tool; the arrow of a button lists its presets, and the button then runs the one picked last.</li>
-<li>The tools used less often are in the slide-out of their panel (the arrow beside its title).</li>
+<li>Click the <em>DynALisp</em> tab of the ribbon.</li>
+<li>Click a button to run its tool. Its arrow lists its presets.</li>
+<li>More tools are in the slide-out of each panel, under the arrow beside its title.</li>
 </ol>
 </div>
 <h2 id="panels">Panels</h2>
@@ -99,36 +87,21 @@
 <p class="shot"><img src="Ribbon/DynALisp.png" width="182" alt="The DynALisp panel"></p>
 <p><a href="../Core/Dyl-Settings.htm">Settings</a>, <a href="../Core/Dyl-Suite.htm">Suite</a>, <a href="../Core/Dyl-Info.htm">User Files</a>, <a href="../Core/Dyl-Info.htm">Info</a>, <a href="../Core/Dyl-Info.htm">Docs</a>. In the slide-out: <a href="../Core/Dyl-Suite.htm">Reload</a>.</p>
 <!-- /BuildRibbon: panels -->
-<h2 id="buttons">Buttons</h2>
-<div class="spacedbullets">
-<ul>
-<li>The arrow of a button lists the presets of its tool (the phases, the drawing scales, the units...), its main command first. The button then runs the item picked last, as the Circle button of AutoCAD.</li>
-<li>The arrow of the <strong>Quick Draw</strong> button lists <em>All</em> and the groups of the presets: the gallery opens on the group picked.</li>
-<li>The tools used less often are in the slide-out of their panel: the arrow beside its title.</li>
-<li>A button whose tool works on the objects selected (<strong>Transfer</strong>) keeps the selection; the other buttons cancel the command running first.</li>
-<li>Hover over a button to see its description.</li>
-</ul>
-</div>
 <h2 id="dropdowns">Drop-downs</h2>
-<p>Two panels have drop-downs that show what the drawing is set to, as the Layer drop-down of AutoCAD:</p>
 <div class="spacedbullets">
 <ul>
-<li><strong>Drawing Behaviors</strong> &ndash; auto-phase and the active phase of the current drawing (see <a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>). Picking an item sets it.</li>
-<li><strong>Layer Transfer</strong> &ndash; the Level, From and To of the transfer (see <a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a>). Their lists follow the layers of the drawing. Picking a value only chooses it: the <strong>Transfer</strong> button runs it. The choices are kept for the session.</li>
+<li><strong>Drawing Behaviors</strong> &ndash; auto-phase and the active phase (<a href="../Layer/Dyl-LayerPhase.htm">Layer Phase</a>).</li>
+<li><strong>Layer Transfer</strong> &ndash; the Level, From and To of a transfer (<a href="../Layer/Dyl-LayerTransfer.htm">Layer Transfer</a>). <strong>Transfer</strong> runs it.</li>
 </ul>
 </div>
-<p>They always show the current state, whatever changed it (an alias, a window, another drawing made current).</p>
-<h2 id="notes">Notes</h2>
+<h2 id="notes">Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>The drop-downs and the translation of the tab are done by <span class="fixw">Resources\DynALisp.Ribbon.dll</span>, which needs AutoCAD 2025 or later. In an older version, the tab is in English and has its buttons only: the Layer Phase button opens its window, and the Transfer button asks for the level and the values.</li>
-<li>A tool turned off in <a href="../Core/Dyl-Suite.htm">Dyl-Suite</a> answers <em>Unknown command</em> when its button is clicked.</li>
-<li>The drop-downs change only while AutoCAD is idle, with no command running: after a command, they may take a moment to show the new state.</li>
-<li>A problem of the drop-downs prints a line starting with <em>DynALisp ribbon:</em> at the command line.</li>
+<li>Hover over a button to see what it does.</li>
+<li>A button whose tool is turned off in <a href="../Core/Dyl-Suite.htm">Dyl-Suite</a> answers <em>Unknown command</em>.</li>
 </ul>
 </div>
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

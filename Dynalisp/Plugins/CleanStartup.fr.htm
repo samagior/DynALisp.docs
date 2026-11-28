@@ -20,13 +20,9 @@
 
 <div class="programs">
 <table>
-<tr class="alt">
-<td>Paramètre</td>
-<td><em>Clean startup</em>, dans les dérogations (Overrides) de <a href="../Core/Dyl-Settings.fr.htm">Dyl-Settings</a> (<span class="fixw">DynalispCleanStartup</span>), désactivé à une nouvelle installation</td>
-</tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD 2025 ou suivant pour Windows</td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -36,29 +32,24 @@
 </div>
 
 <h2>Description</h2>
-<p>Une fois AutoCAD démarré, les lignes qu'il a affichées au démarrage (<em>Loading AEC...</em>, <em>Customization file loaded successfully</em>, les palettes et les commandes de démarrage de l'espace de travail...) sont retirées de la ligne de commande. Conservées : la ligne <em>Drawing created using...</em>, les lignes de DynALisp et toute ligne qui signale une erreur ou un avertissement. Activez-le dans <a href="../Core/Dyl-Settings.fr.htm">Dyl-Settings</a> : il s'applique au prochain démarrage.</p>
+<p>Une ligne de commande propre au démarrage d'AutoCAD : seules les lignes de DynALisp et les erreurs restent.</p>
 <!-- picture: images/CleanStartup-window.png -->
 <!-- picture: images/CleanStartup-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Clean startup</em> (dans Overrides), puis Save.</li>
-<li>Redémarrez AutoCAD : une fois démarré, la ligne de commande ne garde que le dessin créé, les lignes de DynALisp et les erreurs.</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, activez <em>Clean startup</em>, puis Save.</li>
+<li>Redémarrez AutoCAD.</li>
 </ol>
 </div>
-<h2>Notes</h2>
+<h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li>AutoCAD et ses déclinaisons (AutoCAD Architecture...) affichent la plupart de ces lignes avant le chargement de DynALisp, et aucun réglage d'AutoCAD ne les supprime : elles sont retirées une fois le démarrage terminé, quand DynALisp est chargé, qu'aucune commande ne tourne et qu'aucune ligne n'est arrivée depuis 2 secondes. Elles peuvent s'afficher un moment d'ici là. Si <em>DynALisp loaded</em> n'est pas arrivé après 30 secondes, les lignes sont retirées quand même; après 2 minutes, rien n'est fait.</li>
-<li>Une ligne est conservée quand elle contient <em>Drawing created using</em>, commence par <em>DynALisp</em>, <em>Dyl-Settings</em> ou <span class="fixw">--&gt;</span>, ou contient <em>error</em>, <em>warning</em>, <em>exception</em>, <em>failed</em>, <em>unable</em>, <em>cannot</em>, <em>not found</em>, <em>invalid</em>, <em>unknown command</em> ou <em>missing</em>.</li>
-<li>Seule la ligne de commande est épurée : les lignes retirées deviennent des lignes vides au-dessus de celles conservées (visibles en remontant son historique), et la fenêtre de texte (<span class="fixw">F2</span>) garde toutes les lignes du démarrage. AutoCAD garde sa propre copie des lignes et ajoute les suivantes après le nombre de lignes affichées : la ligne de commande garde donc ce nombre.</li>
-<li>L'avis <em>System Variable Changed</em> est celui d'AutoCAD : <span class="fixw">SYSMON</span> <span class="fixw">0</span> le désactive pour de bon, que Clean startup soit activé ou non.</li>
-<li>AutoCAD n'a pas de commande pour cela : le module d'extension utilise la liste des lignes de la ligne de commande, et ne fait rien dans une version où il ne la trouve pas. Dans une version antérieure à 2015, le module d'extension n'est pas chargé et le paramètre est grisé.</li>
-<li>Pour qui modifie DynALisp : la source est <span class="fixw">Installer\Startup</span>, un seul projet compilé pour .NET 8 (AutoCAD 2025 et 2026) et pour .NET 10 (AutoCAD 2027 et suivants), les deux DLL validées dans git.</li>
+<li>Les lignes s'affichent un instant, puis disparaissent quand AutoCAD est prêt.</li>
+<li>Toutes les lignes restent dans la fenêtre de texte (<span class="fixw">F2</span>).</li>
 </ul>
 </div>
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">
