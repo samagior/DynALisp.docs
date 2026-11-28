@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Réglage</td>
-<td><em>Start page</em>, dans les Overrides de <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, désactivé à une nouvelle installation</td>
+<td><em>Start page</em> et <em>Active time</em>, dans les Overrides de <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, désactivé à une nouvelle installation</td>
 </tr>
 <tr>
 <td>Nécessite</td>
@@ -36,35 +36,39 @@
 </div>
 
 <h2>Description</h2>
-<p>L'onglet Démarrer d'AutoCAD affiche la page de démarrage de DynALisp à la place de la sienne : vos dessins récents, avec l'image que chaque dessin garde de lui-même, et à côté ce qu'est DynALisp, comment il a démarré dans le dernier dessin ouvert, ses principaux réglages et ses derniers diagnostics. Elle s'ouvre au démarrage d'AutoCAD et chaque fois que vous cliquez sur l'onglet Démarrer, aux couleurs d'AutoCAD (ou de DynALisp Neutral).</p>
+<p>L'onglet Démarrer d'AutoCAD affiche la page de démarrage de DynALisp à la place de la sienne, à la manière d'une page de profil : ce que vous avez épinglé (dessins, jeux de feuilles, projets), le temps passé à travailler chaque jour de l'année, et quelques dessins récents, avec l'image que chaque dessin garde de lui-même. DynALisp lui-même n'est qu'une ligne au bas de la page. Elle s'ouvre au démarrage d'AutoCAD et chaque fois que vous cliquez sur l'onglet Démarrer, aux couleurs d'AutoCAD (ou de DynALisp Neutral).</p>
 <figure class="shot"><picture><source srcset="images/Dyl-StartPage-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-StartPage-window.png" alt="Page de démarrage: window"></picture></figure>
 <!-- picture: images/Dyl-StartPage-use.gif -->
 <h2>Mode d'emploi</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Start page</em> (dans Overrides), puis Save. L'onglet Démarrer affiche la page de DynALisp en moins d'une seconde.</li>
-<li>Cliquez sur un dessin pour l'ouvrir ; un clic droit l'ouvre en lecture seule ou l'affiche dans son dossier. Tapez dans <strong>Search</strong> pour trouver un dessin par son nom ou son dossier.</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Start page</em> (dans Overrides), et <em>Active time</em> sous elle pour compter le temps passé dans chaque dessin, puis Save. L'onglet Démarrer affiche la page de DynALisp en moins d'une seconde.</li>
+<li>Cliquez avec le bouton droit sur un dessin récent et choisissez <strong>Pin</strong>, <strong>Pin sheet set</strong> ou <strong>Pin project</strong>, ou cliquez sur <strong>Pin...</strong> et choisissez un dessin (<span class="fixw">.dwg</span>), un jeu de feuilles (<span class="fixw">.dst</span>) ou un projet (<span class="fixw">.apj</span>).</li>
+<li>Cliquez sur un dessin épinglé pour l'ouvrir. Cliquez sur un jeu de feuilles ou un projet épinglé pour ne montrer que son temps dans le graphique ; cliquez-y de nouveau, ou sur <strong>Show all</strong>, pour tout montrer.</li>
+<li>Cliquez sur un jour du graphique (ou sur un mois au-dessus) pour lister les dessins travaillés à ce moment ; cliquez sur l'un d'eux pour l'ouvrir.</li>
 <li><strong>New</strong> commence un dessin à partir de votre gabarit (celui de <span class="fixw">QNEW</span>), <strong>Open...</strong> ouvre un ou plusieurs dessins.</li>
-<li>Lisez les cartes à droite ; <strong>Settings</strong>, <strong>Run Diagnostics</strong> et <strong>Open report</strong> mènent au reste.</li>
 </ol>
 </div>
 <h2 id="page">La page</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Recent drawings</strong> &ndash; les dessins de la liste des fichiers récents d'AutoCAD, le dernier ouvert en premier, chacun avec son image, son dossier et sa dernière sauvegarde (<em>today</em>, <em>yesterday</em> ou sa date). Un dessin introuvable affiche <em>Not found</em>, grisé. Un dessin déjà ouvert devient le dessin courant au lieu d'être ouvert à nouveau.</li>
-<li><strong>DynALisp</strong> &ndash; comment il est installé (par l'installateur, ou un clone git avec sa branche et son commit), ses modules, et si chaque plug-in de DynALisp est chargé (celui qui ne l'est pas est nommé, en rouge).</li>
-<li><strong>Startup</strong> &ndash; le temps de démarrage de DynALisp dans le dernier dessin ouvert, le dessin et l'heure, ses commandes et alias, ses trois étapes les plus lentes, et en rouge chaque avertissement et chaque fichier qui n'a pas chargé. Avant l'ouverture d'un dessin, le dernier démarrage de la session précédente.</li>
-<li><strong>Settings</strong> &ndash; Reactors, Display, Clean startup, Updates et Language, tels qu'enregistrés dans <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>. <strong>Settings</strong> ouvre Dyl-Settings.</li>
-<li><strong>Diagnostics</strong> &ndash; le dernier rapport complet de <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a> : sa date, le nombre de problèmes et les trois premiers. <strong>Run Diagnostics</strong> en fait un nouveau, <strong>Open report</strong> ouvre le dernier ; <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>Pinned</strong> &ndash; jusqu'à 6 cartes, dans l'ordre où elles ont été épinglées : chacune avec son type (<em>Drawing</em>, <em>Sheet set</em> ou <em>Project</em>), son dossier et son temps actif de la dernière année. Le temps d'un jeu de feuilles ou d'un projet est celui des dessins de son dossier et des dossiers sous lui. Cliquez avec le bouton droit sur une carte pour l'ouvrir (un dessin, un jeu de feuilles : dans le Gestionnaire du jeu de feuilles), montrer son temps, la montrer dans son dossier ou la désépingler.</li>
+<li><strong>Temps actif</strong> &ndash; un carré par jour, plus foncé pour plus de temps : moins d'une heure, de 1 à 3 heures, de 3 à 6 heures, 6 heures et plus. Pointez un jour pour lire son temps. Les 12 derniers mois, ou une année choisie à droite. Dessous, les dessins travaillés le jour ou le mois choisi (le dernier mois avec du temps tant que vous n'en choisissez pas), le plus de temps en premier.</li>
+<li><strong>Recent</strong> &ndash; les 12 premiers dessins de la liste récente d'AutoCAD, le dernier ouvert en premier, chacun avec son image, son dossier et sa dernière sauvegarde. Tapez dans <strong>Search</strong> pour en trouver un par son nom ou son dossier, parmi tous. Cliquez avec le bouton droit sur un dessin pour l'ouvrir en lecture seule, le montrer dans son dossier, ou l'épingler, lui, son jeu de feuilles ou son projet. Un dessin introuvable indique <em>Not found</em>, grisé. Un dessin déjà ouvert devient le dessin courant au lieu d'être rouvert.</li>
+<li><strong>Le bas de la page</strong> &ndash; la version de DynALisp, l'AutoCAD dans lequel il tourne et la durée de son dernier démarrage ; en rouge, ce qui ne va pas (un plug-in non chargé, un avertissement du dernier démarrage, les problèmes du dernier <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Dyl-Diagnostics</a>). <strong>Settings</strong> ouvre <a href="Dyl-Settings.fr.htm">Dyl-Settings</a>, <strong>Diagnostics</strong> fait un nouveau rapport, <strong>Report</strong> ouvre le dernier, <strong>Docs</strong> ouvre cette page.</li>
 </ul>
 </div>
+<h2 id="activetime">Temps actif</h2>
+<p>Un dessin compte tant qu'il est le dessin courant, qu'AutoCAD est l'application au premier plan et que vous avez utilisé la souris ou le clavier dans les 3 dernières minutes. L'onglet Démarrer, une autre application, une pause et un dessin jamais enregistré ne comptent pas. Le temps est écrit toutes les 2 minutes, à la fermeture d'un dessin et à la fermeture d'AutoCAD ; deux AutoCAD ouverts en même temps ajoutent leur temps aux mêmes fichiers.</p>
+<p>Il reste sur cet ordinateur, dans le dossier <span class="fixw">User\Start</span> de DynALisp (un fichier par mois, une ligne par jour et par dessin), avec les épingles : <em>Export settings</em> de <span class="fixw">Dyl-UserFiles</span> les garde, et un rapport de Dyl-Diagnostics ne les contient jamais. Il n'est compté que si <em>Start page</em> est activée aussi.</p>
 <h2>Remarques</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Settings</strong> et <strong>Run Diagnostics</strong> s'exécutent dans un dessin : ils sont grisés tant qu'aucun dessin n'est ouvert.</li>
-<li>La page s'affiche seulement dans l'onglet Démarrer : avec <span class="fixw">STARTMODE</span> à 0 (l'onglet Démarrer désactivé), activer <em>Start page</em> dans Dyl-Settings réactive l'onglet Démarrer.</li>
-<li>La page lit les dessins d'elle-même, si bien que l'onglet Démarrer n'attend jamais un lecteur réseau lent : ils apparaissent une fois lus. Les images sont gardées dans le dossier temporaire, refaites quand un dessin est enregistré.</li>
-<li>AutoCAD n'a aucune commande pour son onglet Démarrer : DynALisp pose sa page sur celle d'AutoCAD, qu'il masque, et la rend quand <em>Start page</em> est désactivé. Dans une version d'AutoCAD où il ne trouve pas l'onglet Démarrer, celui-ci reste tel quel ; la section <strong>Interface</strong> de Dyl-Diagnostics dit ce qui a été trouvé, à joindre à un signalement.</li>
+<li><strong>Settings</strong> et <strong>Diagnostics</strong> s'exécutent dans un dessin, et un jeu de feuilles s'ouvre dans le Gestionnaire du jeu de feuilles d'un dessin : il faut un dessin ouvert.</li>
+<li>Un projet n'a pas de commande pour l'ouvrir : sa carte montre son temps, et <strong>Show in folder</strong> ouvre son dossier.</li>
+<li>La page n'est affichée que dans l'onglet Démarrer : avec <span class="fixw">STARTMODE</span> à 0 (l'onglet Démarrer désactivé), activer <em>Start page</em> dans Dyl-Settings réactive l'onglet Démarrer.</li>
+<li>La page lit les dessins et le temps d'elle-même, si bien que l'onglet Démarrer n'attend jamais un lecteur réseau lent : ils apparaissent une fois lus. Les images sont gardées dans le dossier temporaire, refaites quand un dessin est enregistré.</li>
+<li>AutoCAD n'a pas de commande pour son onglet Démarrer : DynALisp pose sa page par-dessus celle d'AutoCAD, qu'il masque, et la rend quand <em>Start page</em> est désactivée. Dans une version d'AutoCAD où il ne trouve pas l'onglet Démarrer, celui-ci reste tel quel ; la section <strong>Interface</strong> de Dyl-Diagnostics dit ce qui a été trouvé, à joindre à un signalement.</li>
 </ul>
 </div>
 <p><a href="../index.fr.htm">&larr; Index de la documentation du module Dynalisp</a></p>

@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Setting</td>
-<td><em>Start page</em>, in the Overrides of <a href="Dyl-Settings.htm">Dyl-Settings</a>, off on a new installation</td>
+<td><em>Start page</em> and <em>Active time</em>, in the Overrides of <a href="Dyl-Settings.htm">Dyl-Settings</a>, off on a new installation</td>
 </tr>
 <tr>
 <td>Requires</td>
@@ -36,34 +36,38 @@
 </div>
 
 <h2>Description</h2>
-<p>The Start tab of AutoCAD shows the Start page of DynALisp in place of its own: your recent drawings, with the picture each drawing keeps of itself, and beside them what DynALisp is, how it started in the last drawing opened, its main settings and its last diagnostics. It opens as AutoCAD starts and each time you click the Start tab, in the colours of AutoCAD (or of DynALisp Neutral).</p>
+<p>The Start tab of AutoCAD shows the Start page of DynALisp in place of its own, in the manner of a profile page: what you pinned (drawings, sheet sets, projects), the time you spent working each day of the year, and a few recent drawings, with the picture each drawing keeps of itself. DynALisp itself is only a line at the foot of the page. It opens as AutoCAD starts and each time you click the Start tab, in the colours of AutoCAD (or of DynALisp Neutral).</p>
 <figure class="shot"><picture><source srcset="images/Dyl-StartPage-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-StartPage-window.png" alt="Start Page: window"></picture></figure>
 <!-- picture: images/Dyl-StartPage-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>Start page</em> (in Overrides), then Save. The Start tab shows the page of DynALisp within a second.</li>
-<li>Click a drawing to open it; right-click it to open it read-only or show it in its folder. Type in <strong>Search</strong> to find a drawing by its name or its folder.</li>
+<li>In <span class="fixw">Dyl-Settings</span>, check <em>Start page</em> (in Overrides), and <em>Active time</em> under it to count the time spent in each drawing, then Save. The Start tab shows the page of DynALisp within a second.</li>
+<li>Right-click a recent drawing and choose <strong>Pin</strong>, <strong>Pin sheet set</strong> or <strong>Pin project</strong>, or click <strong>Pin...</strong> and pick a drawing (<span class="fixw">.dwg</span>), a sheet set (<span class="fixw">.dst</span>) or a project (<span class="fixw">.apj</span>).</li>
+<li>Click a pinned drawing to open it. Click a pinned sheet set or project to show only its time in the graph; click it again, or <strong>Show all</strong>, to show all of it.</li>
+<li>Click a day of the graph (or a month over it) to list the drawings worked on then; click one to open it.</li>
 <li><strong>New</strong> starts a drawing from your template (the one of <span class="fixw">QNEW</span>), <strong>Open...</strong> opens one or more drawings.</li>
-<li>Read the cards on the right; <strong>Settings</strong>, <strong>Run Diagnostics</strong> and <strong>Open report</strong> lead to the rest.</li>
 </ol>
 </div>
 <h2 id="page">The Page</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Recent drawings</strong> &ndash; the drawings of the recent list of AutoCAD, the last opened first, each with its picture, its folder and when it was last saved (<em>today</em>, <em>yesterday</em> or its date). A drawing that is no longer found says <em>Not found</em>, greyed out. A drawing already open is made current instead of being opened again.</li>
-<li><strong>DynALisp</strong> &ndash; how it is installed (by the setup, or a git clone with its branch and commit), its modules, and whether every plugin of DynALisp is loaded (one that is not is named, in red).</li>
-<li><strong>Startup</strong> &ndash; the time DynALisp took to start in the last drawing opened, the drawing and when, its commands and aliases, its three slowest steps, and in red each warning and each file that did not load. Before any drawing is opened, the last startup of the previous session.</li>
-<li><strong>Settings</strong> &ndash; Reactors, Display, Clean startup, Updates and Language, as saved in <a href="Dyl-Settings.htm">Dyl-Settings</a>. <strong>Settings</strong> opens Dyl-Settings.</li>
-<li><strong>Diagnostics</strong> &ndash; the last full report of <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a>: when, how many problems, and the first three. <strong>Run Diagnostics</strong> makes a new one, <strong>Open report</strong> opens the last; <strong>Open Docs</strong> opens this page.</li>
+<li><strong>Pinned</strong> &ndash; up to 6 cards, in the order they were pinned: each with its kind (<em>Drawing</em>, <em>Sheet set</em> or <em>Project</em>), its folder and its active time in the last year. The time of a sheet set or a project is that of the drawings in its folder and the folders under it. Right-click a card to open it (a drawing, a sheet set: in the Sheet Set Manager), show its time, show it in its folder or unpin it.</li>
+<li><strong>Active time</strong> &ndash; a square for each day, darker for more time: under 1 hour, 1 to 3 hours, 3 to 6 hours, 6 hours and more. Point at a day to read its time. The last 12 months, or a year picked on the right. Under it, the drawings worked on in the day or month picked (the last month with time until you pick one), the most time first.</li>
+<li><strong>Recent</strong> &ndash; the first 12 drawings of the recent list of AutoCAD, the last opened first, each with its picture, its folder and when it was last saved. Type in <strong>Search</strong> to find one by its name or its folder, among all of them. Right-click a drawing to open it read-only, show it in its folder, or pin it, its sheet set or its project. A drawing that is no longer found says <em>Not found</em>, greyed out. A drawing already open is made current instead of being opened again.</li>
+<li><strong>The foot of the page</strong> &ndash; the version of DynALisp, the AutoCAD it runs in and the time of its last startup; in red, what is wrong (a plugin not loaded, a warning of the last startup, the problems of the last <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a>). <strong>Settings</strong> opens <a href="Dyl-Settings.htm">Dyl-Settings</a>, <strong>Diagnostics</strong> makes a new report, <strong>Report</strong> opens the last one, <strong>Docs</strong> opens this page.</li>
 </ul>
 </div>
+<h2 id="activetime">Active Time</h2>
+<p>A drawing counts while it is the current drawing, AutoCAD is the application in front and you used the mouse or the keyboard in the last 3 minutes. The Start tab, another application, a pause and a drawing never saved do not count. The time is written every 2 minutes, when a drawing closes and when AutoCAD quits; two AutoCAD open at once add their time to the same files.</p>
+<p>It stays on this computer, in the <span class="fixw">User\Start</span> folder of DynALisp (a file per month, a line per day and drawing), with the pins: <em>Export settings</em> of <span class="fixw">Dyl-UserFiles</span> keeps them, and a report of Dyl-Diagnostics never holds them. It is counted only while <em>Start page</em> is on too.</p>
 <h2>Notes</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Settings</strong> and <strong>Run Diagnostics</strong> run in a drawing: they are greyed out while no drawing is open.</li>
+<li><strong>Settings</strong> and <strong>Diagnostics</strong> run in a drawing, and a sheet set opens in the Sheet Set Manager of a drawing: they need a drawing open.</li>
+<li>A project has no command to open it: its card shows its time, and <strong>Show in folder</strong> opens its folder.</li>
 <li>The page is shown only in the Start tab: with <span class="fixw">STARTMODE</span> at 0 (the Start tab off), turning <em>Start page</em> on in Dyl-Settings turns the Start tab back on.</li>
-<li>The page reads the drawings on its own, so the Start tab never waits for a slow network drive: they appear once read. The pictures are kept in the temp folder, made again when a drawing is saved.</li>
+<li>The page reads the drawings and the time on its own, so the Start tab never waits for a slow network drive: they appear once read. The pictures are kept in the temp folder, made again when a drawing is saved.</li>
 <li>AutoCAD has no command for its Start tab: DynALisp puts its page over the page of AutoCAD, which it hides, and gives it back when <em>Start page</em> is turned off. In a version of AutoCAD where it does not find the Start tab, the Start tab stays as it is; the <strong>Interface</strong> section of Dyl-Diagnostics says what was found, to send with an issue.</li>
 </ul>
 </div>
