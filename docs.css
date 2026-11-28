@@ -167,17 +167,30 @@ img {
     color: #ffffff;
 }
 
-/* The picture of a window or the GIF of a sample use (a guide page, once its file exists) */
-figure.shot {
-    margin: 16px 32px;
-    text-align: center;
+/* The picture of a window or the GIF of a sample use (a guide page, once its file exists), and
+   the pictures of the ribbon: always at their true size (1:1), never stretched or shrunk to the
+   column; one wider than the column scrolls. */
+figure.shot, p.shot {
+    margin: 16px 0;
+    padding: 4px 4px 12px 4px;
+    overflow-x: auto;
 }
 
-figure.shot img {
-    max-width: 100%;
+figure.shot img, p.shot img {
+    display: block;
+    margin: 0 auto;
+    max-width: none;
+    height: auto;
     border: 1px solid var(--border);
     border-radius: 8px;
     box-shadow: var(--shadow);
+}
+
+p.shot img {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* The pages the website makes from Markdown (README.md, CONVENTIONS.md: the developer home) */

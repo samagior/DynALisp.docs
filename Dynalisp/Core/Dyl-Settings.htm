@@ -37,7 +37,7 @@
 <h2>Program Description</h2>
 <p><span class="fixw">DYL-SETTINGS</span> opens the DynALisp Settings window: the language of DynALisp, the reactors, which act on the objects as you draw, the overrides, which DynALisp sets in every drawing opened, and the updates of DynALisp. Every on/off setting is <strong>off on a new installation</strong>; once turned on it is remembered (a Windows user setting, <span class="fixw">Dynalisp*</span>) for every drawing and session. <strong>Save</strong> applies and saves the changes, <strong>Cancel</strong> discards them, <strong>Open Docs</strong> opens this page.</p>
 <p>A setting with a square <em>open</em> button beside it has its own window; the button is greyed out while the setting is off (or when the program it needs is not loaded). Each on/off setting is a switch, its short description under it; the window takes the colors of the light or dark theme of AutoCAD (see <a href="../Plugins/Windows.htm">Windows</a>).</p>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-window.png" alt="Settings: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-window.png" width="680" height="710" alt="Settings: window"></figure>
 <!-- picture: images/Dyl-Settings-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
@@ -111,7 +111,7 @@
 </table>
 </div>
 <h2 id="drawing">Drawing Settings Window</h2>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-DrawingSettings-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-DrawingSettings.png" alt="Settings: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-DrawingSettings.png" width="674" height="384" alt="Settings: window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Units / Grid</strong> &ndash; for the imperial drawings and the metric drawings, the unit preset (<a href="../Setup/Dyl-SetUnits.htm">Set Units</a>) and the grid preset (<a href="../Setup/Dyl-StandardGrid.htm">Standard Grid</a>) every drawing is checked against; <em>(Not checked)</em> leaves it as it is.</li>
@@ -120,7 +120,7 @@
 </ul>
 </div>
 <h2 id="display">Display Window</h2>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-Display-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-Display.png" alt="Settings: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-Display.png" width="414" height="320" alt="Settings: window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Interface</strong> &ndash; the colors of the whole interface of AutoCAD, while it is in its dark theme (the theme stays the one chosen in AutoCAD): <em>DynALisp</em>, the dark of the DynALisp windows, its greys in their blue-grey and darker; <em>DynALisp Neutral</em>, the same in a neutral grey, darker, without the blue-grey. It colors the ribbon, the palettes (Properties, Tool Palettes, Layer Properties...), the status bar, the file tabs, the title bar, the command line and the Start tab, as well as the windows of DynALisp, and sets the model space background (#181B20 or almost black, #121212), the paper of the layouts and the background around it to match, each with a crosshair that stays readable. Its blue and the icons stay as they are. <em>(Not set)</em>: the colors of AutoCAD. <strong>An experiment</strong>, which Autodesk does not support: another version of AutoCAD may not take all of it, and what it does not reach keeps the colors of AutoCAD. The Properties palette is drawn by AutoCAD itself, in C++: DynALisp finds its colors in AutoCAD, and leaves it as it is when it does not. AutoCAD may redraw a palette only once it is shown again.</li>

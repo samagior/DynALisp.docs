@@ -38,7 +38,7 @@
 <p><span class="fixw">DYL-SETTINGS</span> ouvre la fenêtre <em>Settings</em> de DynALisp : la langue de DynALisp, les réacteurs, qui agissent sur les objets pendant que vous dessinez, les dérogations, que DynALisp applique à chaque dessin ouvert, et les mises à jour de DynALisp. Chaque interrupteur est <strong>désactivé à une nouvelle installation</strong>; une fois activé, il est mémorisé (un paramètre utilisateur Windows, <span class="fixw">Dynalisp*</span>) pour tous les dessins et toutes les sessions. <strong>Save</strong> applique et enregistre les changements, <strong>Cancel</strong> les annule, <strong>Open Docs</strong> ouvre cette page.</p>
 <p>Un paramètre accompagné d'un bouton carré <em>ouvrir</em> a sa propre fenêtre; le bouton est grisé tant que le paramètre est désactivé (ou quand le programme dont il a besoin n'est pas chargé). Chaque paramètre activé ou désactivé est un interrupteur, sa courte description en dessous; la fenêtre prend les couleurs du thème clair ou foncé d'AutoCAD (voir <a href="../Plugins/Windows.fr.htm">Fenêtres</a>).</p>
 <p>Les libellés des fenêtres de DynALisp sont en anglais : cette page les cite tels qu'ils apparaissent.</p>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-window-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-window.png" alt="Paramètres: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-window.png" width="680" height="710" alt="Paramètres: window"></figure>
 <!-- picture: images/Dyl-Settings-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
@@ -112,7 +112,7 @@
 </table>
 </div>
 <h2 id="drawing">Fenêtre Drawing Settings</h2>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-DrawingSettings-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-DrawingSettings.png" alt="Paramètres: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-DrawingSettings.png" width="674" height="384" alt="Paramètres: window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Units / Grid</strong> &ndash; pour les dessins impériaux et les dessins métriques, le préréglage d'unités (<a href="../Setup/Dyl-SetUnits.fr.htm">Set Units</a>) et le préréglage de grille (<a href="../Setup/Dyl-StandardGrid.fr.htm">Standard Grid</a>) auxquels chaque dessin est comparé; <em>(Not checked)</em> le laisse tel quel.</li>
@@ -121,7 +121,7 @@
 </ul>
 </div>
 <h2 id="display">Fenêtre Display</h2>
-<figure class="shot"><picture><source srcset="images/Dyl-Settings-Display-dark.png" media="(prefers-color-scheme: dark)"><img src="images/Dyl-Settings-Display.png" alt="Paramètres: window"></picture></figure>
+<figure class="shot"><img src="images/Dyl-Settings-Display.png" width="414" height="320" alt="Paramètres: window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Interface</strong> &ndash; les couleurs de toute l'interface d'AutoCAD, tant qu'il est dans son thème foncé (le thème reste celui choisi dans AutoCAD) : <em>DynALisp</em>, le foncé des fenêtres DynALisp, ses gris dans leur gris-bleu et plus foncés; <em>DynALisp Neutral</em>, la même chose dans un gris neutre, plus foncé, sans le gris-bleu. Elle colore le ruban, les palettes (Propriétés, Palettes d'outils, Propriétés des calques...), la barre d'état, les onglets de fichiers, la barre de titre, la ligne de commande et l'onglet Démarrer, ainsi que les fenêtres DynALisp, et règle à l'avenant l'arrière-plan de l'espace objet (#181B20 ou presque noir, #121212), le papier des présentations et l'arrière-plan autour, chacun avec un réticule qui reste lisible. Son bleu et les icônes restent tels quels. <em>(Not set)</em> : les couleurs d'AutoCAD. <strong>Un essai</strong>, qu'Autodesk ne prend pas en charge : une autre version d'AutoCAD peut ne pas tout accepter, et ce qu'elle n'atteint pas garde les couleurs d'AutoCAD. La palette Propriétés est dessinée par AutoCAD lui-même, en C++ : DynALisp retrouve ses couleurs dans AutoCAD, et la laisse telle quelle s'il ne les trouve pas. AutoCAD peut ne redessiner une palette qu'une fois réaffichée.</li>
