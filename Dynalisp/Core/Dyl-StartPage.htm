@@ -46,6 +46,7 @@
 <li><strong>New</strong> starts a drawing from your template (the one of <span class="fixw">QNEW</span>), a template of the list starts one from it, <strong>Open...</strong> opens one or more drawings, <strong>Open sheet set...</strong> opens a sheet set in the Sheet Set Manager.</li>
 <li>Right-click a recent drawing and choose <strong>Pin</strong>, <strong>Pin sheet set</strong> or <strong>Pin project</strong>, or click <strong>Pin...</strong> and pick a drawing (<span class="fixw">.dwg</span>), a sheet set (<span class="fixw">.dst</span>) or a project (<span class="fixw">.apj</span>).</li>
 <li>Click a pinned card or a recent drawing to show only its days in the graph (a sheet set or a project: those of the drawings in its folder); click it again, or <strong>Show all</strong>, to show all of them. Double-click it to open it (a project: its folder).</li>
+<li>To show another picture for a drawing, right-click it (a recent drawing or a pin) and choose <strong>Choose preview picture...</strong> to pick an image, or <strong>Set preview area...</strong>: the drawing opens, pick the two corners of the area to show, and its picture is made again each time you save the drawing (see <a href="#previews">Previews</a>).</li>
 <li>Pick the <strong>Columns</strong> of <strong>Pinned</strong> and of <strong>Recent</strong> over them: fewer columns, larger cards and pictures. The page keeps your choice.</li>
 <li>Click a day of the graph (or a month over it) to list the drawings worked on then; click one to open it.</li>
 <li>Under a project on the right, type a task in the box and press Enter; check it once done, right-click it to delete it.</li>
@@ -66,6 +67,17 @@
 <h2 id="activetime">Active Time</h2>
 <p>A drawing counts while it is the current drawing, AutoCAD is the application in front and you used the mouse or the keyboard in the last 3 minutes. The Start tab, another application, a pause and a drawing never saved do not count. The time is written every 2 minutes, when a drawing closes and when AutoCAD quits; two AutoCAD open at once add their time to the same files.</p>
 <p>It stays on this computer, in the <span class="fixw">User\Start</span> folder of DynALisp (a file per month, a line per day and drawing), with the pins: <em>Export settings</em> of <span class="fixw">Dyl-UserFiles</span> keeps them, and a report of Dyl-Diagnostics never holds them. It is counted only while <em>Start page</em> is on too.</p>
+<h2 id="previews">Previews</h2>
+<p>A drawing shows the picture AutoCAD keeps in it: the view it was last saved in. Right-click a recent drawing or a pinned card to show another one:</p>
+<div class="spacedbullets">
+<ul>
+<li><strong>Choose preview picture...</strong> &ndash; an image (PNG, JPEG, BMP, GIF or TIFF) shown in place of the picture of the drawing; a pinned sheet set or project can take one too. When its shape is not that of the frames of the page (16 by 10), a window shows it with a frame over it (<a href="Dyl-StartPagePreview.htm">Preview Picture</a>): drag the frame onto the part to keep, drag its corner or turn the mouse wheel to size it, then OK. The image is copied: moving or deleting it afterwards changes nothing.</li>
+<li><strong>Set preview area...</strong> &ndash; the drawing opens (or becomes current), and AutoCAD asks for the two corners of the area to show, on the Model tab or a layout. Its picture is made at once, then again each time you save the drawing while it is on that tab (QSAVE, SAVE, SAVEAS), so it follows your work: the view zooms to the area for a moment and comes back. An area of another shape than the frames takes a little more of the drawing around it, so its picture fills them.</li>
+<li><strong>Use its own preview</strong> &ndash; forgets the picture chosen.</li>
+</ul>
+</div>
+<p>Every picture fills its frame: the pictures AutoCAD keeps, of the shape of its window, are cut a little at their sides or their top and bottom.</p>
+<p>The pictures stay on this computer, in the <span class="fixw">User\Start</span> folder of DynALisp, with your pins and your active time: they never change the drawing, and other users keep its own preview.</p>
 <h2 id="report">Report a Problem</h2>
 <p>Type what you did, what you saw and what you expected, then click <strong>Open the issue</strong>. DynALisp runs <a href="../Troubleshooting/Dyl-Diagnostics.htm">Dyl-Diagnostics</a> on its own, then opens a new issue of DynALisp on GitHub in your browser, filled in with what you typed, the summary and the problems of the report. GitHub does not let a page attach a file to an issue: the zip of the report is put on the clipboard, so press Ctrl+V in the text of the issue to attach it. Check the issue, then Submit: it is public, and nothing is sent until you do. The report never holds your user name, your computer name, your active time or the drawing itself.</p>
 <h2>Notes</h2>
