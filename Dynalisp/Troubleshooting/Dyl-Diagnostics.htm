@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (PowerShell to zip the report, a GitHub account to send it)</td>
+<td>AutoCAD 2025 or later for Windows, a GitHub account to send the report</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,66 +35,31 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Find out why DynALisp, or AutoCAD with it, does not work as it should. Diagnostics checks how DynALisp is installed and started, the AutoCAD running and what else it loads, the settings and files of DynALisp, its reactors and the current drawing, and writes what it finds in a text report. The problems are marked <span class="fixw">[!]</span> and listed again at the top.</p>
+<p>Find out why something does not work. Diagnostics checks DynALisp, AutoCAD and your drawing, and lists the problems with what to do.</p>
 <!-- picture: images/Dyl-Diagnostics-window.png -->
 <!-- picture: images/Dyl-Diagnostics-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">DIAG</span> (or click <em>Diagnostics</em> in the Troubleshooting panel of the ribbon). The report opens in your text editor.</li>
-<li>Read the problems at the top: each one says what is wrong and, most of the time, what to do.</li>
-<li>To get help, answer <strong>Open issue</strong>: your browser opens a new issue for the developer of DynALisp, its summary filled in, and the folder of the zip of your report. Describe what happened, drag the zip into the issue, then submit it (see <a href="#sending">Sending A Report</a>).</li>
-<li>To check one part quickly, run its command alone (<span class="fixw">DIAG-DWG</span> for the drawing...): the commands below.</li>
+<li>Type <span class="fixw">DIAG</span>. The report opens.</li>
+<li>Read the problems at the top: each one says what to do.</li>
+<li>To get help, answer <strong>Open issue</strong>, say what happened and attach the report (see <a href="#sending">below</a>).</li>
 </ol>
 </div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-DIAGNOSTICS</span></td><td>Diagnostics</td><td>Writes a full report of DynALisp, AutoCAD and the drawing with your settings and files, then offers to send it in a GitHub issue.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSDYNALISP</span></td><td>Diagnostics DynALisp</td><td>Reports the version and installation of DynALisp, its startup, load errors and modules.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSAUTOCAD</span></td><td>Diagnostics AutoCAD</td><td>Reports the AutoCAD product, Windows, the profile, system variables, paths, applications and bundles loaded.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSCONFLICTS</span></td><td>Diagnostics Conflicts</td><td>Looks for other programs that redefine the DynALisp commands, aliases or startup, and their reactors.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSSUITE</span></td><td>Diagnostics Startup Suite</td><td>Checks the Startup Suite and the aliases: missing files, commands not defined, aliases without a command.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSSETTINGS</span></td><td>Diagnostics Settings</td><td>Lists the DynALisp settings and your files, and checks every data file DynALisp reads.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSREACTORS</span></td><td>Diagnostics Reactors</td><td>Checks the DynALisp reactors of the drawing against their settings and lists every reactor.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSREACTOREVENTS</span></td><td>Diagnostics Reactor Events</td><td>Counts the events the drawing sends to the reactors between two runs, to find what slows AutoCAD.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSRECORD</span></td><td>Diagnostics Record</td><td>Records in the background what AutoCAD and DynALisp do, for a bug that comes and goes: a red REC badge shows it is on, run again or Stop to end it.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSINTERFACE</span></td><td>Diagnostics Interface</td><td>Reports the colors of the interface and the file tabs: what DynALisp changes, when, and what still shows the colors of AutoCAD.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Reports the units, spaces, draw order tables, layers, xrefs and objects of the drawing, and its regen time.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSWITNESS</span></td><td>Diagnostics Witness</td><td>Takes the witness files of the .NET core: what the Lisp gives from its test files, zipped to send. In a git clone only.</td></tr>
-</table>
-</div>
 <h2 id="sending">Sending A Report</h2>
+<p>The report goes in a public GitHub issue that you read before you submit it. It never holds your name, your computer name or your drawing. <strong>Report a problem</strong> on the <a href="../Core/Dyl-StartPage.htm">Start page</a> does it all for you.</p>
+<h2>When AutoCAD Is Slow</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">DIAG</span> puts the report, your DynALisp settings and your copies of the data files in a <em>DynALisp Report &lt;date&gt;</em> folder of your temporary folder, and zips it.</li>
-<li><strong>Open issue</strong> opens the new issue in your browser and the folder of the zip; <strong>Close</strong> keeps the report where it is.</li>
-<li>A GitHub issue is public: read the report before you send it. The report never holds your profile folder, your user name or your computer name: they are replaced by <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> and <span class="fixw">%COMPUTERNAME%</span>. Your copies of the data files (presets, aliases, layer keys...) are sent as they are. The drawing itself is never sent.</li>
-<li>Your active time and your pins of the <a href="../Core/Dyl-StartPage.htm">Start page</a> are never part of it.</li>
-<li><strong>Report a problem</strong> of the Start page does all of this for you: describe the problem, and the report is made and put in the issue (the zip on the clipboard, Ctrl+V to attach it).</li>
-<li>Sending it needs a GitHub account; without one, send the zip by email.</li>
-</ul>
-</div>
-<h2>Finding What Slows AutoCAD</h2>
-<p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) counts the events the drawing sends to the reactors: run it, work the slow way for about 20 seconds (zoom, pan, draw), then run it again. The report lists each event (an object added or changed, a command started, a system variable changed) and its count. The DynALisp reactors run only on these events: when none is counted during a slow zoom or pan, the reactors are not what slows it. The events are counted only while the DynALisp reactors are on (<span class="fixw">Dyl-Settings</span>). The same test also times what the DynALisp plugins do while you work (the colors of the interface, the file tabs, the drop-downs of the ribbon, the sheet sets), which no reactor sees, and counts each time AutoCAD did not answer for a tenth of a second or more: the report lists those moments and the steps of the plugins that ran in each. It also lists each time the mouse cursor changed (a cursor that blinks during a pan) and the steps of the plugins just before. Run it twice in the same drawing.</p>
-
-<p><span class="fixw">Pst-DiagnosticsRecord</span> (<span class="fixw">DIAG-RECORD</span>) is for a bug that comes and goes, too rare to catch in 20 seconds. Run it once: a red <b>REC</b> badge appears at the top right of AutoCAD, with the time it has recorded, and stays there while it records (drag it elsewhere if it is in the way). Work as usual, for minutes or hours: each time you feel the bug (a zoom that jumps, a pan that sticks), click <b>Bug now</b> on the badge. To turn it off, click <b>Stop</b> on the badge or run <span class="fixw">DIAG-RECORD</span> again: the badge goes away and the file of the recording opens. Closing AutoCAD ends it too. The file, in <span class="fixw">%TEMP%\DynALisp Diagnostics</span>, holds a summary of each minute (the drawing current, the work of the DynALisp plugin, the times AutoCAD did not answer, the changes of the mouse cursor, the commands run), each time AutoCAD did not answer for a third of a second or more and what ran then, and at each Bug now what the last 15 seconds were made of. It names the drawings by their file name only, never their folder.</p><p>The <em>Drawing</em> part times a regeneration of the drawing: run <span class="fixw">DIAG-DWG</span>, change one thing (the draw order table deleted with <span class="fixw">DO-RESET</span>, the reactors turned off and the drawing opened again...), run it again and compare.</p>
-<h2>The Colors Of The Interface</h2>
-<p><span class="fixw">Pst-DiagnosticsInterface</span> (<span class="fixw">DIAG-INTERFACE</span>) reports the <em>Interface</em> and <em>File tabs</em> of the Display settings (<span class="fixw">Dyl-Settings</span>): what DynALisp changes in each part of AutoCAD (ribbon, palettes, Properties, Start tab, title bar, tabs), when each one changed after AutoCAD started, and what still shows the colors of AutoCAD, with where that color comes from. Run it when a part keeps the colors of AutoCAD or changes late. It also says whether the <a href="../Core/Dyl-StartPage.htm">Start page</a> found the Start tab, and while it is on, the windows around it, to send with an issue when it does not show, and what <em>Active time</em> counted and wrote (never the names of your drawings). It only reads: nothing is changed. The full report has it too.</p>
-<h2>Witness Files</h2>
-<p><span class="fixw">Pst-DiagnosticsWitness</span> (<span class="fixw">DIAG-WITNESS</span>) is for the development of DynALisp, in a git clone only: it runs the Lisp code that the .NET core of DynALisp replaces on the test files of the clone, then shows a <span class="fixw">DynALisp Witness &lt;date&gt;.zip</span> of what it gave in the Explorer. Send that zip when it is asked for: the tests of the core check that the .NET gives the same. Nothing of the drawing, of your settings or of your files is read or changed. It needs Quick Draw turned on in <span class="fixw">Dyl-Suite</span>.</p>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>The compiled programs of other applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) cannot be read: only their name is listed, not the commands they define.</li>
-<li>The startup part is the one of the drawing the report is made in; <span class="fixw">Dyl-Reload</span> records it again.</li>
-<li>The kinds of objects are counted up to 100&nbsp;000 objects; above, only their total is given.</li>
+<li><span class="fixw">DIAG-EVENTS</span> &ndash; run it, work the slow way for 20 seconds, run it again: the report shows what kept AutoCAD busy.</li>
+<li><span class="fixw">DIAG-RECORD</span> &ndash; for a problem that comes and goes. A red <b>REC</b> badge shows it records. Click <b>Bug now</b> when it happens, <b>Stop</b> to end.</li>
+<li><span class="fixw">DIAG-DWG</span> &ndash; times a regeneration of the drawing.</li>
+<li><span class="fixw">DIAG-INTERFACE</span> &ndash; when a part of AutoCAD keeps the wrong colors.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -114,7 +79,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

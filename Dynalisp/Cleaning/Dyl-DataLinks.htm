@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2025 or later for Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,47 +35,35 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Find and delete the Excel data links a drawing no longer needs. Links stay behind when their tables are erased or copied from another drawing, and a link whose Excel file was moved slows down every update of the data links. The tables themselves are never changed or deleted.</p>
+<p>Delete the Excel data links your drawing no longer needs. Your tables stay as they are.</p>
 <!-- picture: images/Dyl-DataLinks-window.png -->
 <!-- picture: images/Dyl-DataLinks-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>The quick way</strong> &ndash; type <span class="fixw">DLPURGE</span>: it names the links no table uses and asks to delete them (Yes by default), then names the used links whose Excel file is missing.</li>
-<li><strong>To review them first</strong> &ndash; type <span class="fixw">Dyl-DataLinks</span>. The Data Links window lists every link of the drawing.</li>
-<li>Click <strong>Select unused</strong> or <strong>Select missing file</strong>, check the list, then click <strong>Delete selected</strong>.</li>
-<li>One <span class="fixw">U</span> brings the deleted links back.</li>
+<li><strong>Quick</strong> &ndash; type <span class="fixw">DLPURGE</span> and answer Yes.</li>
+<li><strong>To review first</strong> &ndash; type <span class="fixw">Dyl-DataLinks</span>, click <strong>Select unused</strong> or <strong>Select missing file</strong>, then <strong>Delete selected</strong>.</li>
+<li>One <span class="fixw">U</span> brings them back.</li>
 </ol>
 </div>
 <h2>Data Links Window</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>The list</strong> &ndash; each link with its status, the number of tables using it and its Excel file. <em>OK</em>: the file was found; <em>Missing file</em>: it was not; <em>No source</em>: the link has no file. Select several links with Ctrl or Shift.</li>
-<li>Under the list, the full source of the link selected (file, sheet and range) and the layouts of its tables, or a summary of the drawing.</li>
-<li><strong>Select unused</strong>, <strong>Select missing file</strong> &ndash; select every link of that kind.</li>
-<li><strong>Delete selected</strong> &ndash; deletes the selected links after a confirmation. A table that used one keeps its content, no longer linked to Excel.</li>
-<li><strong>Update tables</strong> &ndash; updates the tables of the selected links from Excel, then comes back to the window.</li>
-<li><strong>Data Link Manager...</strong> &ndash; opens the AutoCAD Data Link Manager, to give a link another file or detach it from a table.</li>
+<li><strong>The list</strong> &ndash; each link, its status, its tables and its Excel file.</li>
+<li><strong>Update tables</strong> &ndash; refreshes the tables of the selected links from Excel.</li>
+<li><strong>Data Link Manager...</strong> &ndash; to give a link another file.</li>
 </ul>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Description</th></tr>
-<tr><td><span class="fixw">Dyl-DataLinks</span></td><td>Opens the Data Links window, to review and delete the links.</td></tr>
-<tr><td><span class="fixw">DLPURGE</span></td><td>Deletes every link no table uses after one Yes/No prompt, then names the used links whose Excel file is missing.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>A link used only by a table inside a block can show as unused; <strong>Update tables</strong> skips those tables (update them from the Data Link Manager).</li>
+<li>A link used only by a table inside a block may show as unused.</li>
 <li>A file on a disconnected network drive shows as <em>Missing file</em>.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-DataLinks</span>: they are run by their alias, or picked from <span class="fixw">Dyl-DataLinks</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are its variants, run by their short name.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -85,7 +73,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

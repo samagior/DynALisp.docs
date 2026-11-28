@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / Visual LISP); AutoCAD Architecture for the AEC paths</td>
+<td>AutoCAD 2025 or later for Windows; AutoCAD Architecture for the AEC paths</td>
 </tr>
 <tr class="alt">
 <td>Status</td>
@@ -39,69 +39,34 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Set AutoCAD's paths for the way you work, from three choices: the AEC library classification, the drawing units and the language of the content. The templates, the AutoCAD Architecture content, tool catalogs and detail databases, and the spell checker dictionaries follow. Your other options are kept: DynALisp sets them in a profile of its own.</p>
+<p>Set the folders of AutoCAD for the way you work: your classification, your units and your language. Templates, AutoCAD Architecture content and the spell checker follow. Your own options stay untouched.</p>
 <figure class="shot"><img src="images/Dyl-SetFilePrefs-window.png" width="554" height="329" alt="Set File Preferences: window"></figure>
 <!-- picture: images/Dyl-SetFilePrefs-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>File Preferences</em> (in Overrides) and click its open button.</li>
-<li>Pick the three preferences below, and whether to use the DynALisp custom dictionary of the language (<em>Use the custom dictionary of the language</em>), then save.</li>
-<li>AutoCAD now uses the <em>DynALisp</em> profile (Options &gt; Profiles), made the first time as a copy of your current profile. It stays current for the next sessions.</li>
-<li>Or type <span class="fixw">Dyl-SetFilePrefs</span>: the same choices on the command line (Enter keeps the current one).</li>
+<li>In <span class="fixw">Dyl-Settings</span>, turn on <em>File Preferences</em> and click its square button.</li>
+<li>Pick your three preferences, then save.</li>
+<li>AutoCAD now uses the <em>DynALisp</em> profile. Turn <em>File Preferences</em> off to go back to your former profile.</li>
 </ol>
 </div>
 <h2>The Preferences</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>AEC library classification</strong> &ndash; NBS CAWS (Global), CSI MasterFormat (US) or OmniClass: the detail components and keynotes of AutoCAD Architecture.</li>
-<li><strong>Drawing units</strong> &ndash; Metric (Global) or Imperial (US): the templates and the content folders.</li>
-<li><strong>Content language</strong> &ndash; one of the languages AutoCAD is installed in (English, French, German, Spanish...): the AutoCAD Architecture content and the spell checker. The default is the language of AutoCAD. It is not the language of DynALisp and its docs, chosen apart in the Environment section of <span class="fixw">Dyl-Settings</span>.</li>
+<li><strong>AEC library classification</strong> &ndash; NBS CAWS, CSI MasterFormat or OmniClass.</li>
+<li><strong>Drawing units</strong> &ndash; Metric or Imperial.</li>
+<li><strong>Content language</strong> &ndash; the language of the content and of the spell checker.</li>
+<li><strong>Use the custom dictionary of the language</strong> &ndash; adds thousands of construction words to the spell checker (<a href="../Utilities/Dyl-Dictionary.htm">Dictionary</a>).</li>
 </ul>
-</div>
-<h2>Spelling</h2>
-<div class="spacedbullets">
-<ul>
-<li>The spell checker uses the main dictionary of the language; AutoCAD has none for Chinese, Hungarian, Japanese, Korean or Polish, which use American English.</li>
-<li>In French, the DynALisp custom dictionary adds about 4,450 architecture and construction words, Roman numerals and the acronyms of Quebec drawings (CNB, RBQ, CSA...). The words you add while checking spelling are kept in your own copy. See <a href="../Utilities/Dyl-Dictionary.htm">Dictionary</a>.</li>
-</ul>
-</div>
-<h2>Good To Know</h2>
-<div class="spacedbullets">
-<ul>
-<li>Each drawing opened checks the profile. When it is no longer current, or the preferences changed, the last line of the startup tells you to run <span class="fixw">Dyl-SetFilePrefs</span>: a drawing never switches the profile by itself.</li>
-<li>Turn <em>File Preferences</em> off in <span class="fixw">Dyl-Settings</span> to go back to your former profile; the DynALisp profile is kept.</li>
-<li>Each AutoCAD language (English, French...) has its own profiles: the DynALisp profile is made in each one.</li>
-</ul>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-SETFILEPREFS</span></td><td>Set File Preferences</td><td>Prompts for the file preferences and sets the DynALisp profile from them.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>AutoCAD Architecture has no OmniClass detail or keynote database, so OmniClass sets none.</li>
-<li>Only the content installed is used: a language or units whose AutoCAD Architecture content is not installed leaves those paths as they are.</li>
-<li>The language of AutoCAD itself does not change: it is chosen when AutoCAD starts.</li>
-<li>While the DynALisp profile is on, switching to another profile by hand gives a reminder in each drawing opened; turn <em>File Preferences</em> off to use another profile.</li>
+<li>OmniClass has no detail or keynote content in AutoCAD Architecture.</li>
+<li>Only the content installed with AutoCAD is used.</li>
 </ul>
 </div>
-<!-- dyl:aliases -->
-<h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
-<tr><td><span class="fixw">Dyl-SetFilePrefs</span></td><td>&ndash;</td><td>Set File Preferences</td></tr>
-</table>
-</div>
-<!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

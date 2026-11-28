@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (PowerShell pour compresser le rapport, un compte GitHub pour l'envoyer)</td>
+<td>AutoCAD 2025 ou plus récent pour Windows, un compte GitHub pour envoyer le rapport</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,66 +35,31 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Trouvez pourquoi DynALisp, ou AutoCAD avec lui, ne fonctionne pas comme il le devrait. Diagnostics vérifie comment DynALisp est installé et démarré, l'AutoCAD en cours et ce qu'il charge d'autre, les paramètres et fichiers de DynALisp, ses réacteurs et le dessin courant, et écrit ce qu'il trouve dans un rapport texte. Les problèmes sont marqués <span class="fixw">[!]</span> et repris en haut.</p>
+<p>Trouvez pourquoi quelque chose ne fonctionne pas. Diagnostics vérifie DynALisp, AutoCAD et votre dessin, et liste les problèmes avec quoi faire.</p>
 <!-- picture: images/Dyl-Diagnostics-window.png -->
 <!-- picture: images/Dyl-Diagnostics-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">DIAG</span> (ou cliquez <em>Diagnostics</em> dans le groupe de fonctions Dépannage du ruban). Le rapport s'ouvre dans votre éditeur de texte.</li>
-<li>Lisez les problèmes en haut : chacun dit ce qui ne va pas et, la plupart du temps, quoi faire.</li>
-<li>Pour obtenir de l'aide, répondez <strong>Open issue</strong> : votre navigateur ouvre un nouveau ticket pour le développeur de DynALisp, son résumé rempli, et le dossier du zip de votre rapport. Décrivez ce qui s'est passé, glissez le zip dans le ticket, puis envoyez-le (voir <a href="#sending">Envoyer un rapport</a>).</li>
-<li>Pour vérifier une partie rapidement, lancez sa commande seule (<span class="fixw">DIAG-DWG</span> pour le dessin...) : les commandes ci-dessous.</li>
+<li>Tapez <span class="fixw">DIAG</span>. Le rapport s'ouvre.</li>
+<li>Lisez les problèmes en haut : chacun dit quoi faire.</li>
+<li>Pour obtenir de l'aide, répondez <strong>Open issue</strong>, dites ce qui s'est passé et joignez le rapport (voir <a href="#sending">plus bas</a>).</li>
 </ol>
 </div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-DIAGNOSTICS</span></td><td>Diagnostics</td><td>Écrit un rapport complet de DynALisp, d'AutoCAD et du dessin avec vos paramètres et fichiers, puis offre de l'envoyer dans un ticket GitHub.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSDYNALISP</span></td><td>Diagnostics DynALisp</td><td>Rapporte la version et l'installation de DynALisp, son démarrage, ses erreurs de chargement et ses modules.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSAUTOCAD</span></td><td>Diagnostics AutoCAD</td><td>Rapporte le produit AutoCAD, Windows, le profil, les variables système, les chemins, les applications et les paquets chargés.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSCONFLICTS</span></td><td>Diagnostics Conflicts</td><td>Cherche les autres programmes qui redéfinissent les commandes, alias ou le démarrage de DynALisp, et leurs réacteurs.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSSUITE</span></td><td>Diagnostics Startup Suite</td><td>Vérifie la suite de démarrage et les alias : fichiers manquants, commandes non définies, alias sans commande.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSSETTINGS</span></td><td>Diagnostics Settings</td><td>Liste les paramètres DynALisp et vos fichiers, et vérifie chaque fichier de données que lit DynALisp.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSREACTORS</span></td><td>Diagnostics Reactors</td><td>Compare les réacteurs DynALisp du dessin à leurs paramètres et liste chaque réacteur.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSREACTOREVENTS</span></td><td>Diagnostics Reactor Events</td><td>Compte les événements que le dessin envoie aux réacteurs entre deux exécutions, pour trouver ce qui ralentit AutoCAD.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSRECORD</span></td><td>Diagnostics Record</td><td>Enregistre en arrière-plan ce que font AutoCAD et DynALisp, pour un bogue intermittent : une pastille rouge REC montre qu'il est actif, relancer ou Arrêter pour le terminer.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSINTERFACE</span></td><td>Diagnostics Interface</td><td>Rapporte les couleurs de l'interface et des onglets de fichiers : ce que DynALisp change, quand, et ce qui garde encore les couleurs d'AutoCAD.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSDRAWING</span></td><td>Diagnostics Drawing</td><td>Rapporte les unités, les espaces, les tables d'ordre de tracé, les calques, les xréfs et les objets du dessin, et son temps de régénération.</td></tr>
-<tr><td><span class="fixw">PST-DIAGNOSTICSWITNESS</span></td><td>Diagnostics Witness</td><td>Prend les fichiers témoins du cœur .NET : ce que le Lisp donne de ses fichiers de test, compressés pour les envoyer. Dans un clone git seulement.</td></tr>
-</table>
-</div>
 <h2 id="sending">Envoyer un rapport</h2>
+<p>Le rapport va dans un ticket GitHub public que vous relisez avant de le soumettre. Il ne contient jamais votre nom, le nom de votre ordinateur ni votre dessin. <strong>Report a problem</strong> sur la <a href="../Core/Dyl-StartPage.fr.htm">page de démarrage</a> fait tout pour vous.</p>
+<h2>Quand AutoCAD est lent</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">DIAG</span> met le rapport, vos paramètres DynALisp et vos copies des fichiers de données dans un dossier <em>DynALisp Report &lt;date&gt;</em> de votre dossier temporaire, et le compresse.</li>
-<li><strong>Open issue</strong> ouvre le nouveau ticket dans votre navigateur et le dossier du zip; <strong>Close</strong> garde le rapport où il est.</li>
-<li>Un ticket GitHub est public : lisez le rapport avant de l'envoyer. Le rapport ne contient jamais votre dossier de profil, votre nom d'utilisateur ni le nom de votre ordinateur : ils sont remplacés par <span class="fixw">%USERPROFILE%</span>, <span class="fixw">%USERNAME%</span> et <span class="fixw">%COMPUTERNAME%</span>. Vos copies des fichiers de données (préréglages, alias, clés de calque...) sont envoyées telles quelles. Le dessin lui-même n'est jamais envoyé.</li>
-<li>Votre temps actif et vos épingles de la <a href="../Core/Dyl-StartPage.fr.htm">page de démarrage</a> n'en font jamais partie.</li>
-<li><strong>Report a problem</strong> de la page de démarrage fait tout cela pour vous : décrivez le problème, et le rapport est fait et mis dans le ticket (le zip dans le presse-papiers, Ctrl+V pour le joindre).</li>
-<li>L'envoyer demande un compte GitHub; sans compte, envoyez le zip par courriel.</li>
-</ul>
-</div>
-<h2>Trouver ce qui ralentit AutoCAD</h2>
-<p><span class="fixw">Pst-DiagnosticsReactorEvents</span> (<span class="fixw">DIAG-EVENTS</span>) compte les événements que le dessin envoie aux réacteurs : lancez-la, travaillez de la façon lente pendant environ 20 secondes (zoom, panoramique, dessin), puis lancez-la de nouveau. Le rapport liste chaque événement (un objet ajouté ou modifié, une commande lancée, une variable système modifiée) et son compte. Les réacteurs DynALisp ne s'exécutent que sur ces événements : quand aucun n'est compté pendant un zoom ou un panoramique lent, ce ne sont pas les réacteurs qui ralentissent. Les événements ne sont comptés que si les réacteurs DynALisp sont activés (<span class="fixw">Dyl-Settings</span>). Le même test mesure aussi ce que font les plug-ins DynALisp pendant que vous travaillez (les couleurs de l'interface, les onglets de fichiers, les listes déroulantes du ruban, les jeux de feuilles), qu'aucun réacteur ne voit, et compte chaque moment où AutoCAD n'a pas répondu pendant un dixième de seconde ou plus : le rapport liste ces moments et les étapes des plug-ins qui s'y sont exécutées. Il liste aussi chaque changement du curseur de la souris (un curseur qui clignote pendant un panoramique) et les étapes des plug-ins juste avant. Lancez-la deux fois dans le même dessin.</p>
-
-<p><span class="fixw">Pst-DiagnosticsRecord</span> (<span class="fixw">DIAG-RECORD</span>) sert pour un bogue intermittent, trop rare pour être pris en 20 secondes. Lancez-la une fois : une pastille rouge <b>REC</b> apparaît en haut à droite d'AutoCAD, avec le temps enregistré, et y reste tant que l'enregistrement dure (glissez-la ailleurs si elle gêne). Travaillez comme d'habitude, des minutes ou des heures : chaque fois que vous sentez le bogue (un zoom qui saute, un panoramique qui reste bloqué), cliquez <b>Bogue maintenant</b> sur la pastille. Pour l'arrêter, cliquez <b>Arrêter</b> sur la pastille ou lancez de nouveau <span class="fixw">DIAG-RECORD</span> : la pastille disparaît et le fichier de l'enregistrement s'ouvre. Fermer AutoCAD l'arrête aussi. Le fichier, dans <span class="fixw">%TEMP%\DynALisp Diagnostics</span>, contient un résumé de chaque minute (le dessin courant, le travail du plug-in DynALisp, les moments où AutoCAD n'a pas répondu, les changements du curseur, les commandes lancées), chaque moment où AutoCAD n'a pas répondu pendant un tiers de seconde ou plus et ce qui s'exécutait alors, et à chaque Bogue maintenant ce qui s'est passé dans les 15 dernières secondes. Il ne nomme les dessins que par leur nom de fichier, jamais leur dossier.</p><p>La partie <em>Drawing</em> chronomètre une régénération du dessin : lancez <span class="fixw">DIAG-DWG</span>, changez une chose (la table d'ordre de tracé supprimée avec <span class="fixw">DO-RESET</span>, les réacteurs désactivés et le dessin rouvert...), relancez-la et comparez.</p>
-<h2>Les couleurs de l'interface</h2>
-<p><span class="fixw">Pst-DiagnosticsInterface</span> (<span class="fixw">DIAG-INTERFACE</span>) rapporte l'<em>Interface</em> et les <em>File tabs</em> des réglages d'affichage (<span class="fixw">Dyl-Settings</span>) : ce que DynALisp change dans chaque partie d'AutoCAD (ruban, palettes, Propriétés, onglet Démarrer, barre de titre, onglets), quand chacune a changé après le démarrage d'AutoCAD, et ce qui garde encore les couleurs d'AutoCAD, avec d'où vient cette couleur. Lancez-la quand une partie garde les couleurs d'AutoCAD ou change en retard. Elle dit aussi si la <a href="../Core/Dyl-StartPage.fr.htm">page de démarrage</a> a trouvé l'onglet Démarrer et, tant qu'elle est activée, les fenêtres qui l'entourent, à joindre à un signalement quand elle ne s'affiche pas, et ce que <em>Active time</em> a compté et écrit (jamais le nom de vos dessins). Elle ne fait que lire : rien n'est changé. Le rapport complet la contient aussi.</p>
-<h2>Fichiers témoins</h2>
-<p><span class="fixw">Pst-DiagnosticsWitness</span> (<span class="fixw">DIAG-WITNESS</span>) sert au développement de DynALisp, dans un clone git seulement : elle lance sur les fichiers de test du clone le code Lisp que le cœur .NET de DynALisp remplace, puis montre dans l'Explorateur un <span class="fixw">DynALisp Witness &lt;date&gt;.zip</span> de ce qu'il a donné. Envoyez ce zip quand on vous le demande : les tests du cœur vérifient que le .NET donne la même chose. Rien du dessin, de vos paramètres ou de vos fichiers n'est lu ni changé. Quick Draw doit être activé dans <span class="fixw">Dyl-Suite</span>.</p>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Les programmes compilés des autres applications (<span class="fixw">.fas</span>, <span class="fixw">.vlx</span>, <span class="fixw">.dll</span>) ne peuvent pas être lus : seul leur nom est listé, pas les commandes qu'ils définissent.</li>
-<li>La partie du démarrage est celle du dessin où le rapport est fait; <span class="fixw">Dyl-Reload</span> l'enregistre à nouveau.</li>
-<li>Les types d'objets sont comptés jusqu'à 100&nbsp;000 objets; au-delà, seul leur total est donné.</li>
+<li><span class="fixw">DIAG-EVENTS</span> &ndash; lancez-le, travaillez 20 secondes là où c'est lent, relancez-le : le rapport montre ce qui occupait AutoCAD.</li>
+<li><span class="fixw">DIAG-RECORD</span> &ndash; pour un problème qui va et vient. Un badge rouge <b>REC</b> montre l'enregistrement. Cliquez <b>Bug now</b> quand ça arrive, <b>Stop</b> pour finir.</li>
+<li><span class="fixw">DIAG-DWG</span> &ndash; chronomètre une régénération du dessin.</li>
+<li><span class="fixw">DIAG-INTERFACE</span> &ndash; quand une partie d'AutoCAD garde les mauvaises couleurs.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
@@ -114,7 +79,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

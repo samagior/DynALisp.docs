@@ -31,24 +31,17 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez l'échelle d'annotation en quelques touches : tapez <span class="fixw">1-100</span> et le dessin est au 1:100. La même commande donne l'échelle architecturale la plus proche dans un dessin impérial (<span class="fixw">1-100</span> donne <span class="fixw">1/8" = 1'-0"</span>), les mêmes touches servent donc dans les dessins métriques et impériaux.</p>
+<p>Réglez l'échelle d'annotation en quelques touches : tapez <span class="fixw">1-100</span> et le dessin est au 1:100. Dans un dessin impérial, vous obtenez l'échelle architecturale la plus proche.</p>
 <!-- picture: images/Dyl-SwitchDrawingScale-window.png -->
 <!-- picture: images/Dyl-SwitchDrawingScale-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'échelle comme son alias : <span class="fixw">1-50</span>, <span class="fixw">1-100</span>, <span class="fixw">1-48</span>... (les tableaux ci-dessous). L'échelle d'annotation change aussitôt.</li>
-<li>Ou tapez <span class="fixw">Dyl-SwitchDrawingScale</span> et le rapport (<span class="fixw">100</span>, <span class="fixw">1:100</span> ou <span class="fixw">1-100</span>); <span class="fixw">?</span> liste les échelles, Entrée garde l'échelle courante.</li>
-<li>Dans le ruban, la flèche du bouton <em>Changer l'échelle du dessin</em> liste les échelles courantes; le bouton règle ensuite la dernière choisie.</li>
+<li>Tapez une échelle : <span class="fixw">1-50</span>, <span class="fixw">1-100</span>, <span class="fixw">1-48</span>... (tableaux ci-dessous).</li>
+<li>Ou choisissez-en une sous la flèche du bouton <em>Changer l'échelle du dessin</em> du ruban.</li>
 </ol>
 </div>
-<h2>Bon à savoir</h2>
-<div class="spacedbullets">
-<ul>
-<li>Une échelle que le dessin n'a pas encore est ajoutée à sa liste d'échelles, puis réglée.</li>
-<li>La série métrique porte le nom du rapport métrique, la série impériale celui du rapport impérial : <span class="fixw">1-48</span> est <span class="fixw">1/4" = 1'-0"</span> dans un dessin impérial et 1:50 dans un dessin métrique.</li>
-</ul>
-</div>
+<p>Une échelle que le dessin n'a pas encore est ajoutée pour vous.</p>
 <h2 id="commands">Commandes</h2>
 <h3>Série métrique</h3>
 <div class="programs commands wide">
@@ -105,13 +98,12 @@
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li><span class="fixw">1-384</span> règle <span class="fixw">1" = 1'-0"</span> dans les dessins impériaux; l'échelle 1:384 est <span class="fixw">1/32" = 1'-0"</span>.</li>
 <li>Dans une présentation, la commande change l'échelle d'annotation de l'espace papier, pas l'échelle d'une fenêtre.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-SwitchDrawingScale</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-SwitchDrawingScale</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>. Les rangées marquées &#8627; sont ses variantes, lancées par leur nom court.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>

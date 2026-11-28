@@ -31,44 +31,21 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez le format et la précision des unités d'un dessin en une commande : décimales à 1, 0,1 ou 0,01 mm pour les dessins métriques, architecturales à 1/16" pour les dessins impériaux. DynALisp peut aussi donner à chaque dessin les unités de son genre à son ouverture.</p>
+<p>Réglez les unités d'un dessin en une commande : millimètres pour les dessins métriques, 1/16" pour les dessins impériaux.</p>
 <!-- picture: images/Dyl-SetUnits-window.png -->
 <!-- picture: images/Dyl-SetUnits-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'alias des unités : <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0,1 mm), <span class="fixw">UNITS-M2</span> (0,01 mm) ou <span class="fixw">UNITS-I16</span> (1/16").</li>
-<li>Ou tapez <span class="fixw">Dyl-SetUnits</span> : la fenêtre liste les réglages d'unités avec leurs alias; double-cliquez-en un (ou OK).</li>
+<li>Tapez <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0,1 mm), <span class="fixw">UNITS-M2</span> (0,01 mm) ou <span class="fixw">UNITS-I16</span> (1/16").</li>
+<li>Ou tapez <span class="fixw">Dyl-SetUnits</span> et double-cliquez un choix.</li>
 </ol>
 </div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">UNITS-M0</span></td><td>Units Metric 1 mm</td><td>Règle les unités du dessin en décimales avec une précision de 1 mm.</td></tr>
-<tr><td><span class="fixw">UNITS-M1</span></td><td>Units Metric 0.1 mm</td><td>Règle les unités du dessin en décimales avec une précision de 0,1 mm.</td></tr>
-<tr><td><span class="fixw">UNITS-M2</span></td><td>Units Metric 0.01 mm</td><td>Règle les unités du dessin en décimales avec une précision de 0,01 mm.</td></tr>
-<tr><td><span class="fixw">UNITS-I16</span></td><td>Units Imperial 1/16 in</td><td>Règle les unités du dessin en architecture avec une précision de 1/16 po.</td></tr>
-</table>
-</div>
-<h2 id="defaults">Les unités de chaque dessin</h2>
-<div class="spacedbullets">
-<ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Drawing Settings</em> (dans Overrides) et cliquez son bouton ouvrir.</li>
-<li>Choisissez les unités des dessins impériaux et des dessins métriques; <em>(Not checked)</em> laisse les dessins de ce genre tels qu'ils sont.</li>
-<li>Dès lors, chaque dessin qui s'ouvre reçoit les unités de son genre quand les siennes diffèrent. Le dessin n'est pas marqué comme modifié : enregistrez-le pour garder les unités dans le fichier.</li>
-</ol>
-</div>
-<p>Cela fonctionne même quand les commandes de cette page sont désactivées dans <span class="fixw">Dyl-Suite</span>.</p>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Seul l'affichage des longueurs et des angles change : les unités d'insertion et le genre métrique ou impérial du dessin non, et les précisions métriques prennent une unité de dessin pour un millimètre.</li>
-</ul>
-</div>
+<h2 id="defaults">Unités de chaque dessin</h2>
+<p>Choisissez vos unités dans <a href="../Core/Dyl-Settings.fr.htm#drawing">Dyl-Settings &gt; Drawing Settings</a> : chaque dessin ouvert les reçoit.</p>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-SetUnits</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-SetUnits</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>. Les rangées marquées &#8627; sont ses variantes, lancées par leur nom court.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
@@ -81,7 +58,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

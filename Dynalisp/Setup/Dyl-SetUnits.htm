@@ -31,44 +31,21 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Set the units format and precision of a drawing in one command: decimal at 1, 0.1 or 0.01 mm for metric drawings, architectural at 1/16" for imperial ones. DynALisp can also give every drawing the units of its kind when it opens.</p>
+<p>Set the units of a drawing in one command: millimetres for metric drawings, 1/16" for imperial ones.</p>
 <!-- picture: images/Dyl-SetUnits-window.png -->
 <!-- picture: images/Dyl-SetUnits-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type the alias of the units: <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0.1 mm), <span class="fixw">UNITS-M2</span> (0.01 mm) or <span class="fixw">UNITS-I16</span> (1/16").</li>
-<li>Or type <span class="fixw">Dyl-SetUnits</span>: the window lists the unit settings with their aliases; double-click one (or OK).</li>
+<li>Type <span class="fixw">UNITS-M0</span> (1 mm), <span class="fixw">UNITS-M1</span> (0.1 mm), <span class="fixw">UNITS-M2</span> (0.01 mm) or <span class="fixw">UNITS-I16</span> (1/16").</li>
+<li>Or type <span class="fixw">Dyl-SetUnits</span> and double-click a choice.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">UNITS-M0</span></td><td>Units Metric 1 mm</td><td>Sets the drawing units to decimal with a 1 mm precision.</td></tr>
-<tr><td><span class="fixw">UNITS-M1</span></td><td>Units Metric 0.1 mm</td><td>Sets the drawing units to decimal with a 0.1 mm precision.</td></tr>
-<tr><td><span class="fixw">UNITS-M2</span></td><td>Units Metric 0.01 mm</td><td>Sets the drawing units to decimal with a 0.01 mm precision.</td></tr>
-<tr><td><span class="fixw">UNITS-I16</span></td><td>Units Imperial 1/16 in</td><td>Sets the drawing units to architectural with a 1/16 in precision.</td></tr>
-</table>
 </div>
 <h2 id="defaults">Units Of Every Drawing</h2>
-<div class="spacedbullets">
-<ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>Drawing Settings</em> (in Overrides) and click its open button.</li>
-<li>Pick the units of the imperial drawings and of the metric drawings; <em>(Not checked)</em> leaves the drawings of that kind as they are.</li>
-<li>From then on, each drawing that opens gets the units of its kind when its own differ. The drawing is not marked as modified: save it to keep them in the file.</li>
-</ol>
-</div>
-<p>This works even when the commands of this page are turned off in <span class="fixw">Dyl-Suite</span>.</p>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>Only the display of the lengths and angles changes: the insertion units and the metric or imperial kind of the drawing do not, and the metric precisions take one drawing unit as one millimetre.</li>
-</ul>
-</div>
+<p>Pick your units in <a href="../Core/Dyl-Settings.htm#drawing">Dyl-Settings &gt; Drawing Settings</a>: each drawing you open gets them.</p>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-SetUnits</span>: they are run by their alias, or picked from <span class="fixw">Dyl-SetUnits</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are its variants, run by their short name.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -81,7 +58,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

@@ -31,35 +31,26 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Two quick color clean-ups: put a selection back to the color of its layer, or give it one color picked in the AutoCAD color window.</p>
+<p>Put objects back to the color of their layer, or give them one color.</p>
 <!-- picture: images/Dyl-ColorByLayer-window.png -->
 <!-- picture: images/Dyl-ColorByLayer-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Back to ByLayer</strong> &ndash; type <span class="fixw">CHCOLOR</span>, select the objects (or select them first), press Enter. Their color is now ByLayer.</li>
-<li><strong>One color for all</strong> &ndash; type <span class="fixw">CC</span>, pick a color in the <em>Select Color</em> window, then select the objects and press Enter.</li>
+<li><strong>Back to ByLayer</strong> &ndash; type <span class="fixw">CHCOLOR</span>, select the objects, press Enter.</li>
+<li><strong>One color for all</strong> &ndash; type <span class="fixw">CC</span>, pick a color, select the objects, press Enter.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">CHCOLOR</span></td><td>Color ByLayer</td><td>Sets the color of the selected objects to ByLayer.</td></tr>
-<tr><td><span class="fixw">CC</span></td><td>Change Color</td><td>Sets the color of the selected objects to a color picked in the color window.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>In <span class="fixw">CC</span>, cancelling the color window opens it again: pick any color, then press Esc at the selection prompt.</li>
-<li>The color window of <span class="fixw">CC</span> has the index colors only: no true colors or color books.</li>
+<li><span class="fixw">CC</span> offers the index colors only.</li>
 <li>Objects on locked layers are not changed.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-ColorByLayer</span>: they are run by their alias, or picked from <span class="fixw">Dyl-ColorByLayer</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are its variants, run by their short name.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -69,7 +60,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

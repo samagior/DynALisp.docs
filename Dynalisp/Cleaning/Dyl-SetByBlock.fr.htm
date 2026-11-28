@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,43 +35,27 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Faites suivre aux blocs les propriétés de l'endroit où ils sont insérés : tout ce qui est dans les blocs sélectionnés passe sur le calque 0, avec la couleur, le type de ligne et l'épaisseur de ligne DuBloc. Insérez le bloc sur n'importe quel calque, il prend la couleur et le type de ligne de ce calque.</p>
+<p>Faites prendre aux blocs la couleur et le type de ligne du calque où vous les insérez.</p>
 <!-- picture: images/Dyl-SetByBlock-window.png -->
 <!-- picture: images/Dyl-SetByBlock-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">FIXBLKS</span> et sélectionnez une référence de chaque bloc à corriger, puis appuyez sur Entrée.</li>
-<li>Chaque référence de ces blocs dans le dessin change, celles sélectionnées et toutes les autres, ainsi que les blocs imbriqués dedans.</li>
-<li>Pour corriger chaque bloc du dessin, tapez d'abord <span class="fixw">SL-BLOCKALL</span> : il sélectionne chaque référence de bloc; lancez ensuite <span class="fixw">FIXBLKS</span>.</li>
+<li>Tapez <span class="fixw">FIXBLKS</span>, sélectionnez un exemplaire de chaque bloc à corriger, appuyez sur Entrée.</li>
+<li>Tous les exemplaires de ces blocs changent.</li>
+<li>Pour tous les corriger, tapez d'abord <span class="fixw">SL-BLOCKALL</span>, puis <span class="fixw">FIXBLKS</span>.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td><td>Passe le contenu des blocs sélectionnés sur le calque 0 avec la couleur, le type de ligne et l'épaisseur de ligne DuBloc.</td></tr>
-<tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Sélectionne chaque référence de bloc du dessin.</td></tr>
-</table>
 </div>
 <h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li>Tout le changement est une seule étape : un <span class="fixw">U</span> l'annule.</li>
-<li>Les définitions de blocs changent, pas les références : la position, l'échelle et le calque de chaque référence restent les mêmes.</li>
-</ul>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Les attributs déjà remplis dans les références gardent leurs propriétés; seules les définitions d'attributs dans le bloc changent.</li>
-<li>Appuyer sur Entrée sans rien sélectionner termine <span class="fixw">FIXBLKS</span> par une erreur.</li>
-<li>Les styles de tracé ne sont pas modifiés.</li>
+<li>Un <span class="fixw">U</span> l'annule.</li>
+<li>Les attributs déjà remplis gardent leurs propriétés.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-SetByBlock</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-SetByBlock</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>. Les rangées marquées &#8627; sont ses variantes, lancées par leur nom court.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
@@ -81,7 +65,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

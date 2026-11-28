@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (ActiveX / Visual LISP), la préparation de sortie de <span class="fixw">Resources\dynalisp.mnl</span></td>
+<td>AutoCAD 2025 ou plus récent pour Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,53 +35,27 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Préparez le dessin chaque fois que vous l'enregistrez ou l'imprimez, sans y penser : avec Command Optimizer activé, les commandes d'enregistrement et d'impression d'AutoCAD (et <span class="fixw">REGEN</span>) lancent d'abord les étapes de préparation que vous avez cochées &ndash; calques activés et libérés, objets cachés affichés, xréfs rechargées, liaisons de données et tables mises à jour, ordre de tracé appliqué, régénération &ndash; puis font leur travail habituel. <span class="fixw">Ctrl+S</span> enregistre toujours.</p>
+<p>Votre dessin est nettoyé à chaque enregistrement ou traçage, sans y penser : calques activés, objets cachés affichés, xréfs rechargées, tableaux à jour. <span class="fixw">Ctrl+S</span> enregistre toujours.</p>
 <figure class="shot"><img src="images/Dyl-CmdOptimizer-window.png" width="702" height="471" alt="Optimiseur de commandes (Command Optimizer): window"></figure>
 <!-- picture: images/Dyl-CmdOptimizer-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Activez-le : cochez <em>Commands</em> dans les Overrides de <span class="fixw">Dyl-Settings</span>, ou tapez <span class="fixw">Dyl-CmdOptimizer</span> et répondez <em>On</em>. Il s'applique à chaque dessin.</li>
-<li>Choisissez les étapes : le bouton ouvrir à côté de <em>Commands</em> (ou <span class="fixw">Dyl-PrepSuite</span>) ouvre la fenêtre de préparation, une grille des étapes et de quatre colonnes : <em>All saves</em>, <em>All prints</em>, <em>PREVIEW</em> et <em>REGEN</em>. Cochez ce que chacune lance, <em>All On</em> / <em>All Off</em> pour une colonne entière, puis OK.</li>
-<li>Enregistrez, tracez, publiez ou exportez comme d'habitude : les étapes de la colonne passent d'abord, puis la commande.</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, activez <em>Commands</em>.</li>
+<li>Cliquez son bouton carré et cochez les étapes à faire pour <em>All saves</em>, <em>All prints</em>, <em>PREVIEW</em> et <em>REGEN</em>.</li>
+<li>Enregistrez, tracez ou exportez comme d'habitude.</li>
 </ol>
 </div>
 <h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li>Par défaut, <span class="fixw">REGEN</span> applique seulement le préréglage d'ordre de tracé (voir <a href="../Layer/Dyl-DrawOrder.fr.htm">Draw Order</a>), et seulement tant que l'ordre de tracé automatique est activé.</li>
-<li>Une commande désactivée dans <span class="fixw">Dyl-Suite</span> garde son comportement d'AutoCAD.</li>
-<li><span class="fixw">Dyl-RestoreCommands</span> rend les commandes d'AutoCAD pour cette session seulement; désactivez <em>Commands</em> dans <span class="fixw">Dyl-Settings</span> pour les garder.</li>
-</ul>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">Dyl-CmdOptimizer</span></td><td>Command Optimizer</td><td>Active ou désactive la redéfinition des commandes d'enregistrement et d'impression et de REGEN, comme dans Dyl-Settings.</td></tr>
-<tr><td><span class="fixw">SAVE</span></td><td>Save</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la boîte de dialogue native SAVE.</td></tr>
-<tr><td><span class="fixw">QSAVE</span></td><td>Quick Save</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la commande native QSAVE.</td></tr>
-<tr><td><span class="fixw">SAVEAS</span></td><td>Save As</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la boîte de dialogue native SAVEAS.</td></tr>
-<tr><td><span class="fixw">+SAVEAS</span></td><td>Save As Options</td><td>Exécute les étapes de préparation de sortie cochées pour All saves dans Dyl-Settings, puis la commande native +SAVEAS (ses invites laissées à l'utilisateur ou à la macro de menu).</td></tr>
-<tr><td><span class="fixw">PLOT</span></td><td>Plot</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native PLOT.</td></tr>
-<tr><td><span class="fixw">PUBLISH</span></td><td>Publish</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native PUBLISH.</td></tr>
-<tr><td><span class="fixw">PREVIEW</span></td><td>Plot Preview</td><td>Exécute les étapes de préparation de sortie cochées pour PREVIEW dans Dyl-Settings, puis la commande native PREVIEW.</td></tr>
-<tr><td><span class="fixw">EXPORTPDF</span></td><td>Export PDF</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTPDF.</td></tr>
-<tr><td><span class="fixw">EXPORTDWF</span></td><td>Export DWF</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTDWF.</td></tr>
-<tr><td><span class="fixw">EXPORTDWFX</span></td><td>Export DWFx</td><td>Exécute les étapes de préparation de sortie cochées pour All prints dans Dyl-Settings, puis la boîte de dialogue native EXPORTDWFX.</td></tr>
-<tr><td><span class="fixw">REGEN</span></td><td>Regen</td><td>Exécute les étapes de préparation de sortie cochées pour REGEN dans Dyl-Settings (l'ordre de tracé par défaut), puis la commande native REGEN.</td></tr>
-</table>
-</div>
-<h2>Limites connues</h2>
-<div class="spacedbullets">
-<ul>
-<li>Un dessin dont le démarrage de DynALisp s'est arrêté tôt n'a aucune de ces commandes pendant qu'un autre dessin a retiré celles d'AutoCAD : tapez <span class="fixw">_.QSAVE</span> dans ce dessin, et cherchez l'erreur dans ses lignes de démarrage (ou lancez <a href="../Troubleshooting/Dyl-Diagnostics.fr.htm">Diagnostics</a>).</li>
-<li><span class="fixw">-PLOT</span> et <span class="fixw">-PUBLISH</span> ne sont pas préparés : les scripts et les programmes les appellent par leur nom.</li>
+<li>Les étapes sont celles de <a href="Dyl-PrepDrawing.fr.htm">Préparer le dessin</a>.</li>
+<li><span class="fixw">Dyl-RestoreCommands</span> vous rend les commandes habituelles d'AutoCAD pour cette session.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont les commandes AutoCAD que <span class="fixw">Dyl-CmdOptimizer</span> redéfinit (voir plus haut).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>. Les rangées marquées &#8627; sont les commandes AutoCAD qu'elle remplace.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
@@ -101,7 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / Visual LISP)</td>
+<td>AutoCAD 2025 or later for Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,43 +35,27 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Make blocks follow the properties of where they are inserted: everything inside the selected blocks goes to layer 0, with ByBlock color, linetype and lineweight. Insert the block on any layer, and it takes the color and linetype of that layer.</p>
+<p>Make blocks take the color and linetype of the layer you insert them on.</p>
 <!-- picture: images/Dyl-SetByBlock-window.png -->
 <!-- picture: images/Dyl-SetByBlock-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">FIXBLKS</span> and select one reference of each block to fix, then press Enter.</li>
-<li>Every reference of those blocks in the drawing changes, the selected ones and all the others, and the blocks nested inside them too.</li>
-<li>To fix every block of the drawing, type <span class="fixw">SL-BLOCKALL</span> first: it selects every block reference; then run <span class="fixw">FIXBLKS</span>.</li>
+<li>Type <span class="fixw">FIXBLKS</span>, select one of each block to fix, press Enter.</li>
+<li>Every copy of those blocks changes.</li>
+<li>To fix them all, type <span class="fixw">SL-BLOCKALL</span> first, then <span class="fixw">FIXBLKS</span>.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">FIXBLKS</span></td><td>Fix Blocks ByBlock</td><td>Moves the content of the selected blocks to layer 0 with ByBlock color, linetype and lineweight.</td></tr>
-<tr><td><span class="fixw">SL-BLOCKALL</span></td><td>Select All Blocks</td><td>Selects every block reference in the drawing.</td></tr>
-</table>
 </div>
 <h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>The whole change is one step: one <span class="fixw">U</span> undoes it.</li>
-<li>The block definitions change, not the references: the position, scale and layer of each reference stay as they are.</li>
-</ul>
-</div>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>The attributes already filled in the references keep their properties; only the attribute definitions inside the block change.</li>
-<li>Pressing Enter with nothing selected ends <span class="fixw">FIXBLKS</span> with an error.</li>
-<li>Plot styles are not changed.</li>
+<li>One <span class="fixw">U</span> undoes it.</li>
+<li>Attributes already filled in keep their properties.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-SetByBlock</span>: they are run by their alias, or picked from <span class="fixw">Dyl-SetByBlock</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are its variants, run by their short name.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -81,7 +65,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

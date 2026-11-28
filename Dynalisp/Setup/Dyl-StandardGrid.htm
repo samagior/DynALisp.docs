@@ -31,45 +31,37 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Switch the grid and snap of model space between four standard spacings: inch, foot, centimeter and meter. The spacings follow the units of the drawing, so the same command works in metric and imperial drawings. DynALisp can also give every drawing the grid of its kind when it opens.</p>
+<p>Switch the grid and snap between four standard spacings: inch, foot, centimeter and meter. Works in metric and imperial drawings.</p>
 <!-- picture: images/Dyl-StandardGrid-window.png -->
 <!-- picture: images/Dyl-StandardGrid-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type the alias of the grid: <span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span> or <span class="fixw">GRID-M</span>. The grid turns on, with grid snap.</li>
-<li>Or type <span class="fixw">Dyl-StandardGrid</span>: the window lists the grids with their aliases; double-click one (or OK).</li>
+<li>Type <span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span> or <span class="fixw">GRID-M</span>.</li>
+<li>Or type <span class="fixw">Dyl-StandardGrid</span> and double-click a choice.</li>
 </ol>
 </div>
-<h2 id="commands">Commands</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">GRID-IN</span></td><td>Grid Inch</td><td>Sets a 1/4 in grid with a 1 in major grid and a 1/8 in snap, converted in metric drawings.</td></tr>
-<tr><td><span class="fixw">GRID-FT</span></td><td>Grid Foot</td><td>Sets a 1 in grid with a 1 ft major grid and a 1/8 in snap, converted in metric drawings.</td></tr>
-<tr><td><span class="fixw">GRID-CM</span></td><td>Grid Centimeter</td><td>Sets a 2 mm grid with a 1 cm major grid and a 1 mm snap, converted in imperial drawings.</td></tr>
-<tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Sets a 100 mm grid with a 1 m major grid and a 25 mm snap, converted in imperial drawings.</td></tr>
+<tr><th>Command</th><th>Grid</th><th>Major</th><th>Snap</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>1/4 in</td><td>1 in</td><td>1/8 in</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>1 in</td><td>1 ft</td><td>1/8 in</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>2 mm</td><td>1 cm</td><td>1 mm</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>100 mm</td><td>1 m</td><td>25 mm</td></tr>
 </table>
 </div>
 <h2 id="defaults">Grid Of Every Drawing</h2>
-<div class="spacedbullets">
-<ol>
-<li>In <span class="fixw">Dyl-Settings</span>, check <em>Drawing Settings</em> (in Overrides) and click its open button.</li>
-<li>Pick the grid of the imperial drawings and of the metric drawings; <em>(Not checked)</em> leaves the drawings of that kind as they are.</li>
-<li>From then on, each drawing that opens gets the grid of its kind when its own differs. The drawing is not marked as modified: save it to keep the grid in the file.</li>
-</ol>
-</div>
-<p>This works even when the commands of this page are turned off in <span class="fixw">Dyl-Suite</span>.</p>
+<p>Pick your grid in <a href="../Core/Dyl-Settings.htm#drawing">Dyl-Settings &gt; Drawing Settings</a>: each drawing you open gets it.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Setting a grid turns object snap tracking and its tooltips off, and Ortho off, whatever they were before.</li>
-<li>Snap and grid belong to a viewport: only the current viewport changes.</li>
+<li>Setting a grid turns Ortho and object snap tracking off.</li>
+<li>Only the current viewport changes.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are child commands of <span class="fixw">Dyl-StandardGrid</span>: they are run by their alias, or picked from <span class="fixw">Dyl-StandardGrid</span> when it lists them (their command is named <span class="fixw">Pst-*</span>).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are its variants, run by their short name.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -82,7 +74,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

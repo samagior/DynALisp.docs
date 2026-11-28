@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requis</td>
-<td>AutoCAD pour Windows (ActiveX / Visual LISP); AutoCAD Architecture pour les chemins AEC</td>
+<td>AutoCAD 2025 ou plus récent pour Windows; AutoCAD Architecture pour les chemins AEC</td>
 </tr>
 <tr class="alt">
 <td>État</td>
@@ -39,69 +39,34 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez les chemins d'AutoCAD selon votre façon de travailler, à partir de trois choix : la classification de la bibliothèque AEC, les unités de dessin et la langue du contenu. Les gabarits, le contenu, les catalogues d'outils et les bases de détails d'AutoCAD Architecture, et les dictionnaires de l'orthographe suivent. Vos autres options sont gardées : DynALisp les règle dans un profil à lui.</p>
+<p>Réglez les dossiers d'AutoCAD selon votre façon de travailler : votre classification, vos unités et votre langue. Les gabarits, le contenu d'AutoCAD Architecture et le correcteur d'orthographe suivent. Vos propres options restent intactes.</p>
 <figure class="shot"><img src="images/Dyl-SetFilePrefs-window.png" width="554" height="329" alt="Préférences de fichiers (Set File Preferences): window"></figure>
 <!-- picture: images/Dyl-SetFilePrefs-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>File Preferences</em> (dans Overrides) et cliquez son bouton ouvrir.</li>
-<li>Choisissez les trois préférences ci-dessous, et s'il faut utiliser le dictionnaire personnalisé DynALisp de la langue (<em>Use the custom dictionary of the language</em>), puis enregistrez.</li>
-<li>AutoCAD utilise maintenant le profil <em>DynALisp</em> (Options &gt; Profils), créé la première fois comme copie de votre profil courant. Il reste courant pour les sessions suivantes.</li>
-<li>Ou tapez <span class="fixw">Dyl-SetFilePrefs</span> : les mêmes choix à la ligne de commande (Entrée garde le choix courant).</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, activez <em>File Preferences</em> et cliquez son bouton carré.</li>
+<li>Choisissez vos trois préférences, puis enregistrez.</li>
+<li>AutoCAD utilise maintenant le profil <em>DynALisp</em>. Désactivez <em>File Preferences</em> pour revenir à votre ancien profil.</li>
 </ol>
 </div>
 <h2>Les préférences</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>AEC library classification</strong> &ndash; NBS CAWS (Global), CSI MasterFormat (US) ou OmniClass : les composants de détail et les notes clés d'AutoCAD Architecture.</li>
-<li><strong>Drawing units</strong> &ndash; Metric (Global) ou Imperial (US) : les gabarits et les dossiers de contenu.</li>
-<li><strong>Content language</strong> &ndash; une des langues dans lesquelles AutoCAD est installé (anglais, français, allemand, espagnol...) : le contenu d'AutoCAD Architecture et l'orthographe. Par défaut, la langue d'AutoCAD. Ce n'est pas la langue de DynALisp et de ses docs, choisie à part dans la section Environment de <span class="fixw">Dyl-Settings</span>.</li>
+<li><strong>AEC library classification</strong> &ndash; NBS CAWS, CSI MasterFormat ou OmniClass.</li>
+<li><strong>Drawing units</strong> &ndash; métrique ou impérial.</li>
+<li><strong>Content language</strong> &ndash; la langue du contenu et du correcteur d'orthographe.</li>
+<li><strong>Use the custom dictionary of the language</strong> &ndash; ajoute des milliers de mots de la construction au correcteur (<a href="../Utilities/Dyl-Dictionary.fr.htm">Dictionnaire</a>).</li>
 </ul>
-</div>
-<h2>Orthographe</h2>
-<div class="spacedbullets">
-<ul>
-<li>Le vérificateur d'orthographe utilise le dictionnaire principal de la langue; AutoCAD n'en a pas pour le chinois, le hongrois, le japonais, le coréen ni le polonais, qui utilisent l'anglais américain.</li>
-<li>En français, le dictionnaire personnalisé DynALisp ajoute environ 4 450 mots d'architecture et de construction, les chiffres romains et les sigles des plans québécois (CNB, RBQ, CSA...). Les mots que vous ajoutez en vérifiant l'orthographe sont gardés dans votre propre copie. Voir <a href="../Utilities/Dyl-Dictionary.fr.htm">Dictionary</a>.</li>
-</ul>
-</div>
-<h2>Bon à savoir</h2>
-<div class="spacedbullets">
-<ul>
-<li>Chaque dessin ouvert vérifie le profil. Quand il n'est plus courant, ou que les préférences ont changé, la dernière ligne du démarrage vous dit de lancer <span class="fixw">Dyl-SetFilePrefs</span> : un dessin ne change jamais le profil de lui-même.</li>
-<li>Désactivez <em>File Preferences</em> dans <span class="fixw">Dyl-Settings</span> pour revenir à votre profil précédent; le profil DynALisp est gardé.</li>
-<li>Chaque langue d'AutoCAD (anglais, français...) a ses propres profils : le profil DynALisp est créé dans chacune.</li>
-</ul>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-SETFILEPREFS</span></td><td>Set File Preferences</td><td>Demande les préférences de fichiers et règle le profil DynALisp à partir d'elles.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>AutoCAD Architecture n'a pas de base de détails ni de notes clés OmniClass : OmniClass n'en règle aucune.</li>
-<li>Seul le contenu installé est utilisé : une langue ou des unités dont le contenu d'AutoCAD Architecture n'est pas installé laissent ces chemins tels qu'ils sont.</li>
-<li>La langue d'AutoCAD elle-même ne change pas : elle est choisie au démarrage d'AutoCAD.</li>
-<li>Tant que le profil DynALisp est activé, passer à la main à un autre profil donne un rappel dans chaque dessin ouvert; désactivez <em>File Preferences</em> pour utiliser un autre profil.</li>
+<li>OmniClass n'a pas de contenu de détails ni de notes clés dans AutoCAD Architecture.</li>
+<li>Seul le contenu installé avec AutoCAD est utilisé.</li>
 </ul>
 </div>
-<!-- dyl:aliases -->
-<h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
-<tr><td><span class="fixw">Dyl-SetFilePrefs</span></td><td>&ndash;</td><td>Set File Preferences</td></tr>
-</table>
-</div>
-<!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

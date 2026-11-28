@@ -31,45 +31,37 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Passez la grille et l'accrochage de l'espace objet entre quatre espacements standard : pouce, pied, centimètre et mètre. Les espacements suivent les unités du dessin, la même commande sert donc dans les dessins métriques et impériaux. DynALisp peut aussi donner à chaque dessin la grille de son genre à son ouverture.</p>
+<p>Passez la grille et l'accrochage d'un espacement standard à l'autre : pouce, pied, centimètre et mètre. Fonctionne dans les dessins métriques et impériaux.</p>
 <!-- picture: images/Dyl-StandardGrid-window.png -->
 <!-- picture: images/Dyl-StandardGrid-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'alias de la grille : <span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span> ou <span class="fixw">GRID-M</span>. La grille s'active, avec l'accrochage à la grille.</li>
-<li>Ou tapez <span class="fixw">Dyl-StandardGrid</span> : la fenêtre liste les grilles avec leurs alias; double-cliquez-en une (ou OK).</li>
+<li>Tapez <span class="fixw">GRID-IN</span>, <span class="fixw">GRID-FT</span>, <span class="fixw">GRID-CM</span> ou <span class="fixw">GRID-M</span>.</li>
+<li>Ou tapez <span class="fixw">Dyl-StandardGrid</span> et double-cliquez un choix.</li>
 </ol>
 </div>
-<h2 id="commands">Commandes</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">GRID-IN</span></td><td>Grid Inch</td><td>Règle une grille de 1/4 po avec une grille principale de 1 po et un accrochage de 1/8 po, convertis dans les dessins métriques.</td></tr>
-<tr><td><span class="fixw">GRID-FT</span></td><td>Grid Foot</td><td>Règle une grille de 1 po avec une grille principale de 1 pi et un accrochage de 1/8 po, convertis dans les dessins métriques.</td></tr>
-<tr><td><span class="fixw">GRID-CM</span></td><td>Grid Centimeter</td><td>Règle une grille de 2 mm avec une grille principale de 1 cm et un accrochage de 1 mm, convertis dans les dessins impériaux.</td></tr>
-<tr><td><span class="fixw">GRID-M</span></td><td>Grid Meter</td><td>Règle une grille de 100 mm avec une grille principale de 1 m et un accrochage de 25 mm, convertis dans les dessins impériaux.</td></tr>
+<tr><th>Commande</th><th>Grille</th><th>Principale</th><th>Accrochage</th></tr>
+<tr><td><span class="fixw">GRID-IN</span></td><td>1/4 po</td><td>1 po</td><td>1/8 po</td></tr>
+<tr><td><span class="fixw">GRID-FT</span></td><td>1 po</td><td>1 pi</td><td>1/8 po</td></tr>
+<tr><td><span class="fixw">GRID-CM</span></td><td>2 mm</td><td>1 cm</td><td>1 mm</td></tr>
+<tr><td><span class="fixw">GRID-M</span></td><td>100 mm</td><td>1 m</td><td>25 mm</td></tr>
 </table>
 </div>
-<h2 id="defaults">La grille de chaque dessin</h2>
-<div class="spacedbullets">
-<ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Drawing Settings</em> (dans Overrides) et cliquez son bouton ouvrir.</li>
-<li>Choisissez la grille des dessins impériaux et des dessins métriques; <em>(Not checked)</em> laisse les dessins de ce genre tels qu'ils sont.</li>
-<li>Dès lors, chaque dessin qui s'ouvre reçoit la grille de son genre quand la sienne diffère. Le dessin n'est pas marqué comme modifié : enregistrez-le pour garder la grille dans le fichier.</li>
-</ol>
-</div>
-<p>Cela fonctionne même quand les commandes de cette page sont désactivées dans <span class="fixw">Dyl-Suite</span>.</p>
+<h2 id="defaults">Grille de chaque dessin</h2>
+<p>Choisissez votre grille dans <a href="../Core/Dyl-Settings.fr.htm#drawing">Dyl-Settings &gt; Drawing Settings</a> : chaque dessin ouvert la reçoit.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Régler une grille désactive le repérage d'accrochage aux objets et ses info-bulles, ainsi que le mode Ortho, quels qu'ils soient avant.</li>
-<li>L'accrochage et la grille appartiennent à une fenêtre : seule la fenêtre courante change.</li>
+<li>Régler une grille désactive le mode Ortho et le repérage par accrochage.</li>
+<li>Seule la fenêtre courante change.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Noms des commandes et alias</h2>
-<p>Chaque programme a une commande principale qui commence par <span class="fixw">Dyl-</span>. Les noms courts sont ses alias : ils lancent la même commande, et s'ajoutent, se renomment ou se retirent dans <span class="fixw">Dyl-Suite</span> (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>). Les rangées marquées &#8627; sont des commandes enfants de <span class="fixw">Dyl-StandardGrid</span> : elles se lancent par leur alias, ou se choisissent dans <span class="fixw">Dyl-StandardGrid</span> quand elle les liste (leur commande se nomme <span class="fixw">Pst-*</span>).</p>
+<p>Les noms courts sont des alias de la commande : modifiez-les dans <span class="fixw">Dyl-Suite</span>. Les rangées marquées &#8627; sont ses variantes, lancées par leur nom court.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Commande</th><th>Alias</th><th>Nom</th></tr>
@@ -82,7 +74,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <td>Requires</td>
-<td>AutoCAD for Windows (ActiveX / Visual LISP), the output prep of <span class="fixw">Resources\dynalisp.mnl</span></td>
+<td>AutoCAD 2025 or later for Windows</td>
 </tr>
 <tr class="alt">
 <td>Licence</td>
@@ -35,53 +35,27 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Prepare the drawing every time you save or print it, without thinking about it: with Command Optimizer on, the save and print commands of AutoCAD (and <span class="fixw">REGEN</span>) first run the output prep steps you checked &ndash; layers turned on and thawed, hidden objects shown, xrefs reloaded, data links and tables updated, draw order applied, regeneration &ndash; then do their usual job. <span class="fixw">Ctrl+S</span> still saves.</p>
+<p>Your drawing is cleaned up every time you save or plot it, without a thought: layers on, hidden objects shown, xrefs reloaded, tables updated. <span class="fixw">Ctrl+S</span> still saves.</p>
 <figure class="shot"><img src="images/Dyl-CmdOptimizer-window.png" width="702" height="471" alt="Command Optimizer: window"></figure>
 <!-- picture: images/Dyl-CmdOptimizer-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Turn it on: check <em>Commands</em> in the Overrides of <span class="fixw">Dyl-Settings</span>, or type <span class="fixw">Dyl-CmdOptimizer</span> and answer <em>On</em>. It applies to every drawing.</li>
-<li>Pick the steps: the open button next to <em>Commands</em> (or <span class="fixw">Dyl-PrepSuite</span>) opens the output prep window, a grid of the steps and of four columns: <em>All saves</em>, <em>All prints</em>, <em>PREVIEW</em> and <em>REGEN</em>. Check what each one runs, <em>All On</em> / <em>All Off</em> for a whole column, then OK.</li>
-<li>Save, plot, publish or export as usual: the steps of the column run first, then the command.</li>
+<li>In <span class="fixw">Dyl-Settings</span>, turn on <em>Commands</em>.</li>
+<li>Click its square button and check the steps to run for <em>All saves</em>, <em>All prints</em>, <em>PREVIEW</em> and <em>REGEN</em>.</li>
+<li>Save, plot or export as usual.</li>
 </ol>
 </div>
 <h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>By default <span class="fixw">REGEN</span> only applies the draw order preset (see <a href="../Layer/Dyl-DrawOrder.htm">Draw Order</a>), and only while auto draw order is on.</li>
-<li>A command turned off in <span class="fixw">Dyl-Suite</span> keeps its AutoCAD behavior.</li>
-<li><span class="fixw">Dyl-RestoreCommands</span> gives back the AutoCAD commands for this session only; turn <em>Commands</em> off in <span class="fixw">Dyl-Settings</span> to keep them.</li>
-</ul>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">Dyl-CmdOptimizer</span></td><td>Command Optimizer</td><td>Turns the redefinition of the save and print commands and REGEN on or off, as in Dyl-Settings.</td></tr>
-<tr><td><span class="fixw">SAVE</span></td><td>Save</td><td>Runs the output prep steps checked for All saves in Dyl-Settings, then the native SAVE dialog.</td></tr>
-<tr><td><span class="fixw">QSAVE</span></td><td>Quick Save</td><td>Runs the output prep steps checked for All saves in Dyl-Settings, then the native QSAVE.</td></tr>
-<tr><td><span class="fixw">SAVEAS</span></td><td>Save As</td><td>Runs the output prep steps checked for All saves in Dyl-Settings, then the native SAVEAS dialog.</td></tr>
-<tr><td><span class="fixw">+SAVEAS</span></td><td>Save As Options</td><td>Runs the output prep steps checked for All saves in Dyl-Settings, then the native +SAVEAS (its prompts left to the user or menu macro).</td></tr>
-<tr><td><span class="fixw">PLOT</span></td><td>Plot</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native PLOT dialog.</td></tr>
-<tr><td><span class="fixw">PUBLISH</span></td><td>Publish</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native PUBLISH dialog.</td></tr>
-<tr><td><span class="fixw">PREVIEW</span></td><td>Plot Preview</td><td>Runs the output prep steps checked for PREVIEW in Dyl-Settings, then the native PREVIEW.</td></tr>
-<tr><td><span class="fixw">EXPORTPDF</span></td><td>Export PDF</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native EXPORTPDF dialog.</td></tr>
-<tr><td><span class="fixw">EXPORTDWF</span></td><td>Export DWF</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native EXPORTDWF dialog.</td></tr>
-<tr><td><span class="fixw">EXPORTDWFX</span></td><td>Export DWFx</td><td>Runs the output prep steps checked for All prints in Dyl-Settings, then the native EXPORTDWFX dialog.</td></tr>
-<tr><td><span class="fixw">REGEN</span></td><td>Regen</td><td>Runs the output prep steps checked for REGEN in Dyl-Settings (the draw order by default), then the native REGEN.</td></tr>
-</table>
-</div>
-<h2>Known Limitations</h2>
-<div class="spacedbullets">
-<ul>
-<li>A drawing whose DynALisp startup stopped early has none of these commands while another drawing removed the AutoCAD ones: type <span class="fixw">_.QSAVE</span> there, and look for the error in its startup lines (or run <a href="../Troubleshooting/Dyl-Diagnostics.htm">Diagnostics</a>).</li>
-<li><span class="fixw">-PLOT</span> and <span class="fixw">-PUBLISH</span> are not prepared: scripts and programs call them by name.</li>
+<li>The steps are those of <a href="Dyl-PrepDrawing.htm">Prep Drawing</a>.</li>
+<li><span class="fixw">Dyl-RestoreCommands</span> gives you the usual AutoCAD commands for this session.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
 <h2 id="aliases">Command Names And Aliases</h2>
-<p>Each program has one main command starting with <span class="fixw">Dyl-</span>. The short names are its aliases: they run the same command, and can be added, renamed or removed in <span class="fixw">Dyl-Suite</span> (saved in <span class="fixw">Resources\Aliases.csv</span>). The rows marked &#8627; are the AutoCAD commands <span class="fixw">Dyl-CmdOptimizer</span> redefines (see above).</p>
+<p>The short names are aliases of the command: change them in <span class="fixw">Dyl-Suite</span>. The rows marked &#8627; are the AutoCAD commands it replaces.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Command</th><th>Aliases</th><th>Name</th></tr>
@@ -101,7 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">
