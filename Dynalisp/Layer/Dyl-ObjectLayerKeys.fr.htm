@@ -35,47 +35,35 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Mettez chaque genre courant d'objet sur son propre calque, quel que soit le calque courant, comme le font les clés de calque d'AutoCAD Architecture : une cote va sur le calque de la clé <span class="fixw">DIMLINE</span>, un texte sur le calque d'<span class="fixw">ANNOBJ</span>, un nuage de révision sur <span class="fixw">ANNREV</span>...</p>
+<p>Chaque sorte d'objet va d'elle-même sur son calque : les cotes sur le calque des cotes, les textes sur celui des notes, les nuages de révision sur celui des révisions.</p>
 <!-- picture: images/Dyl-ObjectLayerKeys-window.png -->
 <!-- picture: images/Dyl-ObjectLayerKeys-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Dans <span class="fixw">Dyl-Settings</span>, cochez <em>Auto layer keys</em> (dans Reactors); il demande les réacteurs de DynALisp activés.</li>
-<li>Dessinez comme d'habitude : chaque nouvelle cote, ligne de repère, texte... va sur le calque de sa clé à la fin de sa commande.</li>
-<li>Pour changer la clé d'un genre, tapez <span class="fixw">Dyl-ObjectLayerKeys</span> (ou cliquez le bouton ouvrir d'<em>Auto layer keys</em>), choisissez le genre et sa clé, puis OK. Sans clé : les objets de ce genre restent sur le calque courant.</li>
+<li>Dans <span class="fixw">Dyl-Settings</span>, activez <em>Auto layer keys</em>.</li>
+<li>Dessinez comme d'habitude.</li>
+<li>Pour choisir le calque d'une sorte, tapez <span class="fixw">Dyl-ObjectLayerKeys</span>, choisissez la sorte et sa <a href="Dyl-LayerKeys.fr.htm">clé de calque</a>.</li>
 </ol>
 </div>
-<h2>Fenêtre Object Layer Keys</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Liste</strong> &ndash; chaque type d'objet, sa clé de calque (<em>(none)</em> : laissé sur le calque courant) et le calque qu'elle donne dans ce dessin (dans la phase active tant que l'auto-phase est activée; <em>created when used</em> quand le dessin ne l'a pas encore). Plusieurs types peuvent être sélectionnés (Ctrl / Maj clic) pour leur donner une clé d'un coup.</li>
-<li><strong>Layer key</strong> &ndash; la clé des types sélectionnés, choisie parmi les clés de calque; <em>(None: the current layer)</em> les laisse comme AutoCAD les dessine. Le bouton carré <em>ouvrir</em> à côté ouvre la fenêtre <a href="Dyl-LayerKeys.fr.htm">Layer Keys</a> : modifiez-y les clés, ou double-cliquez-en une pour la donner aux types sélectionnés (les clés sont enregistrées, puis cette fenêtre se rouvre).</li>
-<li><strong>Reset Selected</strong> / <strong>Reset All</strong> &ndash; les clés par défaut des types sélectionnés, ou de tous les types.</li>
-<li>Sous les boutons, si Auto layer keys est activé. <strong>OK</strong> enregistre les clés, <strong>Cancel</strong> annule les changements, <strong>Open Docs</strong> ouvre cette page.</li>
-</ul>
-</div>
+<h2>Calques par défaut</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Type</th><th>Objets</th><th>Clé par défaut</th></tr>
-<tr><td>Dimensions</td><td>Toutes les cotes : linéaire, alignée, angulaire, rayon, diamètre, coordonnée, longueur d'arc, avec raccourci</td><td><span class="fixw">DIMLINE</span> (G-Anno-Dims)</td></tr>
-<tr><td>Geometric tolerances</td><td><span class="fixw">TOLERANCE</span></td><td><span class="fixw">DIMLINE</span></td></tr>
-<tr><td>Leaders, Multileaders</td><td><span class="fixw">LEADER</span>, <span class="fixw">MLEADER</span></td><td><span class="fixw">ANNOBJ</span> (G-Anno-Note)</td></tr>
-<tr><td>Text, Mtext</td><td><span class="fixw">TEXT</span>, <span class="fixw">MTEXT</span></td><td><span class="fixw">ANNOBJ</span></td></tr>
-<tr><td>Tables</td><td><span class="fixw">TABLE</span></td><td><span class="fixw">SCHEDOBJ</span> (G-Schd)</td></tr>
-<tr><td>Revision clouds</td><td>Les polylignes faites par <span class="fixw">REVCLOUD</span></td><td><span class="fixw">ANNREV</span> (G-Anno-Revs)</td></tr>
-<tr><td>Hatches</td><td><span class="fixw">HATCH</span>, <span class="fixw">GRADIENT</span></td><td><span class="fixw">HATCH</span> (A-Detl-Patt)</td></tr>
-<tr><td>Wipeouts</td><td><span class="fixw">WIPEOUT</span></td><td><span class="fixw">ANNMASK</span> (G-Anno-Mask)</td></tr>
-<tr><td>Viewports</td><td>Les fenêtres des présentations (<span class="fixw">MVIEW</span>, <span class="fixw">VPORTS</span>)</td><td><span class="fixw">VIEWPORT</span> (G-View-Nplt)</td></tr>
-<tr><td>Raster images</td><td><span class="fixw">IMAGE</span></td><td>Aucune</td></tr>
+<tr><th>Objets</th><th>Calque</th></tr>
+<tr><td>Cotes, tolérances</td><td>G-Anno-Dims</td></tr>
+<tr><td>Lignes de repère, textes</td><td>G-Anno-Note</td></tr>
+<tr><td>Tableaux</td><td>G-Schd</td></tr>
+<tr><td>Nuages de révision</td><td>G-Anno-Revs</td></tr>
+<tr><td>Hachures</td><td>A-Detl-Patt</td></tr>
+<tr><td>Masques</td><td>G-Anno-Mask</td></tr>
+<tr><td>Fenêtres</td><td>G-View-Nplt</td></tr>
+<tr><td>Images</td><td>Le calque courant</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Auto layer keys demande les réacteurs DynALisp (Dyl-Settings).</li>
-<li>Les objets dessinés avec une commande Lisp d'un autre programme ne sont pas déplacés.</li>
-<li><span class="fixw">ObjectLayerKeys.csv</span> ne peut pas être enregistré pendant qu'il est ouvert dans Excel : une alerte s'affiche et les changements sont perdus.</li>
+<li>Les objets dessinés par certains autres modules restent où ils sont.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -89,7 +77,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

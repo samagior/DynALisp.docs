@@ -31,48 +31,38 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Faites suivre aux calques le style de tracé Dyl Standard, où la couleur d'un calque donne son épaisseur de ligne tracée : réglez l'épaisseur de chaque calque d'après sa couleur, ou l'inverse, sa couleur d'après son épaisseur, en gardant sa teinte.</p>
+<p>Accordez l'épaisseur de chaque calque à sa couleur, comme la norme Dyl les trace, ou la couleur à l'épaisseur.</p>
 <!-- picture: images/Dyl-LayerColorWeight-window.png -->
 <!-- picture: images/Dyl-LayerColorWeight-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-LayerColorWeight</span> et choisissez <em>Lineweight</em> (l'épaisseur suit la couleur, par défaut) ou <em>Color</em> (la couleur suit l'épaisseur). Les deux commandes enfants du tableau ci-dessous sautent cette question.</li>
-<li>Choisissez <em>All</em> (chaque calque, par défaut) ou <em>Select</em> (les calques des objets que vous sélectionnez).</li>
-<li>La ligne de commande dit combien de calques ont changé et lesquels elle a laissés tels quels. Un <span class="fixw">U</span> annule le tout.</li>
+<li>Tapez <span class="fixw">LWC</span> (épaisseur selon la couleur) ou <span class="fixw">CLW</span> (couleur selon l'épaisseur).</li>
+<li>Choisissez <em>All</em> ou <em>Select</em>.</li>
+<li>Un <span class="fixw">U</span> l'annule.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td><td>Layer Color Weight</td><td>Accorde l'épaisseur de ligne des calques à leur couleur, ou leur couleur à leur épaisseur de ligne (norme Dyl).</td></tr>
-<tr><td><span class="fixw">PST-LAYERWEIGHTBYCOLOR</span></td><td>Layer Lineweight By Color</td><td>Règle l'épaisseur de ligne des calques selon leur couleur (norme Dyl : couleur ##0 = 0,13, ##1 = 0,18...).</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORBYWEIGHT</span></td><td>Layer Color By Lineweight</td><td>Règle le dernier chiffre de la couleur des calques selon leur épaisseur de ligne, en gardant leur teinte (norme Dyl).</td></tr>
-</table>
 </div>
 <h2>La norme</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Couleurs</th><th>Épaisseur de ligne</th></tr>
-<tr><td>##0 (10, 20 ... 240)</td><td>0,13 mm (s'imprime en noir)</td></tr>
-<tr><td>1 et ##1</td><td>0.18 mm</td></tr>
-<tr><td>2 et ##2</td><td>0.25 mm</td></tr>
-<tr><td>3 et ##3</td><td>0.35 mm</td></tr>
-<tr><td>4 et ##4</td><td>0.50 mm</td></tr>
-<tr><td>5 et ##5</td><td>0.70 mm</td></tr>
-<tr><td>6 et ##6</td><td>1.00 mm</td></tr>
-<tr><td>7 et ##7</td><td>1.40 mm</td></tr>
-<tr><td>##8</td><td>2.00 mm</td></tr>
+<tr><th>Couleurs</th><th>Épaisseur</th></tr>
+<tr><td>##0 (10, 20 ... 240)</td><td>0,13 mm (imprime en noir)</td></tr>
+<tr><td>1 et ##1</td><td>0,18 mm</td></tr>
+<tr><td>2 et ##2</td><td>0,25 mm</td></tr>
+<tr><td>3 et ##3</td><td>0,35 mm</td></tr>
+<tr><td>4 et ##4</td><td>0,50 mm</td></tr>
+<tr><td>5 et ##5</td><td>0,70 mm</td></tr>
+<tr><td>6 et ##6</td><td>1,00 mm</td></tr>
+<tr><td>7 et ##7</td><td>1,40 mm</td></tr>
+<tr><td>##8</td><td>2,00 mm</td></tr>
 <tr><td>##9, 8, 9, 250 à 255</td><td>0,13 mm (gris)</td></tr>
 </table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les calques en couleur vraie ou d'un carnet de couleurs ne sont pas modifiés, ni les calques des xréfs.</li>
-<li>La couleur selon l'épaisseur laisse de côté les calques dont l'épaisseur est Par défaut, et les calques noirs ou gris à 0,13 mm ou 2,00 mm (aucune couleur de plume n'a ces épaisseurs).</li>
-<li>Seuls les calques changent : les objets qui ont leur propre couleur ou épaisseur ne changent pas.</li>
+<li>Les couleurs vraies et les calques des xréfs restent tels quels.</li>
+<li>Seuls les calques changent, pas les objets qui ont leur propre couleur.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -88,7 +78,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

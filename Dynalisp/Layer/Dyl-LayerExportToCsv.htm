@@ -35,30 +35,21 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Write every layer of the drawing and its properties to a CSV file that opens in Excel. The file has the columns that <a href="Dyl-LayerImportFromCsv.htm">Import Layers From CSV</a> reads, so an export can be edited and imported into another drawing.</p>
+<p>Save every layer and its properties in a file for Excel. Edit it, then bring it into another drawing with <a href="Dyl-LayerImportFromCsv.htm">Import Layers From CSV</a>.</p>
 <!-- picture: images/Dyl-LayerExportToCsv-window.png -->
 <!-- picture: images/Dyl-LayerExportToCsv-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
 <li>Type <span class="fixw">Dyl-LayerExportToCsv</span>.</li>
-<li>The file is written to your Downloads folder, named after the date (<span class="fixw">layers_20261120.csv</span>), and the command line gives its full path.</li>
-<li>Open it in Excel: one row per layer, sorted by name, with its color, lineweight, linetype, plot, transparency, on/off, freeze and description.</li>
+<li>The file goes in your Downloads folder.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td><td>Export Layers To CSV</td><td>Exports every layer of the drawing with its properties to a CSV file in the Downloads folder.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The file name only contains the date: a second export on the same day overwrites the first one.</li>
-<li>True colours are exported as their nearest index colour.</li>
-<li>The load message mentions <span class="fixw">EXPORTLAYERS</span>; the command name is <span class="fixw">DYL-LAYEREXPORTTOCSV</span>.</li>
+<li>A second export the same day replaces the first.</li>
+<li>True colors become their nearest index color.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,7 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

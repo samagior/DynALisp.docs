@@ -35,46 +35,28 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Draw each phase of a renovation on its own layers, and switch phase in one command. A phased layer ends with a dash and its phase: <span class="fixw">A-Wall-Full-E</span> for an existing wall to remain, <span class="fixw">A-Wall-Full-D</span> to demolish, <span class="fixw">A-Wall-Full-N</span> for new work (see <a href="../Conventions/LayerNaming.htm#status">Layer Naming</a>).</p>
-<p>Each drawing has an <strong>active phase</strong>, shown in the status bar and in the ribbon. With <strong>auto-phase</strong> on, everything you draw goes to the active phase: copy an existing wall while the phase is new work, and the copy lands on <span class="fixw">A-Wall-Full-N</span>.</p>
+<p>Draw each phase of a renovation on its own layers, and switch phase in one command: existing, demolition, new work. A wall copied during new work lands on <span class="fixw">A-Wall-Full-N</span> by itself.</p>
 <!-- picture: images/Dyl-LayerPhase-window.png -->
 <!-- picture: images/Dyl-LayerPhase-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Pick the active phase</strong> &ndash; type <span class="fixw">PH-E</span> (existing), <span class="fixw">PH-D</span> (demolition), <span class="fixw">PH-N</span> (new work), <span class="fixw">PH-F</span> (future) or <span class="fixw">PH-T</span> (temporary), or pick it in the <em>Phase</em> drop-down of the ribbon. The current layer moves to that phase with it: <span class="fixw">A-Wall-Full-E</span> becomes <span class="fixw">A-Wall-Full-N</span>. <span class="fixw">PH-NEXT</span> goes to the next phase, <span class="fixw">PH-NONE</span> clears it.</li>
-<li><strong>Turn auto-phase on</strong> &ndash; type <span class="fixw">PH-AUTO</span>, pick <em>Auto-phase On</em> in the ribbon, or check <em>Auto-phase new objects</em> in <span class="fixw">Dyl-Settings</span>. It needs the <em>DynALisp reactors</em> on in <span class="fixw">Dyl-Settings</span>; the status bar then shows <span class="fixw">[Auto]</span>.</li>
-<li><strong>Draw as usual</strong> &ndash; each object you create goes to the layer of its phase, made when the drawing does not have it yet. The <a href="Dyl-LayerKeys.htm">layer keys</a> give their layer in the active phase too: <a href="../Draw/Dyl-QuickDraw.htm">QD-BRICK</a> draws on <span class="fixw">A-Detl-Medm-E</span> in existing.</li>
-<li><strong>Show or hide a phase</strong> &ndash; type <span class="fixw">PH</span> to open the Layer Phases window (below).</li>
+<li>Pick the phase: <span class="fixw">PH-E</span> existing, <span class="fixw">PH-D</span> demolition, <span class="fixw">PH-N</span> new work, <span class="fixw">PH-F</span> future, <span class="fixw">PH-T</span> temporary. Or use the <em>Phase</em> list of the ribbon.</li>
+<li>Type <span class="fixw">PH-AUTO</span> so that what you draw goes to that phase.</li>
+<li>Type <span class="fixw">PH</span> to show, hide or isolate a phase.</li>
 </ol>
 </div>
-<h2>Layer Phases Window</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Phase list</strong> &ndash; each phase with its number of layers and objects in the drawing, and whether its layers are <em>Shown</em>, <em>Hidden</em> or <em>Partial</em>. The active phase is marked <span class="fixw">&gt;</span>; <strong>Unphased</strong> counts the layers without a phase. Select several phases with Ctrl or Shift.</li>
-<li><strong>Double-click</strong> a phase to make it the active phase (<em>Unphased</em>: no active phase).</li>
-<li><strong>Show / Hide</strong> &ndash; shows the selected phases, or hides them when they are all shown. <strong>Hide</strong> hides them whatever their state. <strong>Isolate phase</strong> shows them and hides the other phases (never the unphased layers). The drawing updates behind the window.</li>
-<li><strong>Layer keys Editor</strong> &ndash; opens the <a href="Dyl-LayerKeys.htm">Layer Keys</a> window, then comes back here.</li>
-</ul>
-</div>
-<h2>Ribbon</h2>
-<p>The <em>Drawing Behaviors</em> panel of the DynALisp tab has the <strong>Layer Phase</strong> button (the window) and two drop-downs: <strong>Auto-phase</strong> (<em>On</em>, <em>Off</em>; <em>On (reactors off)</em> while the DynALisp reactors are off) and <strong>Phase</strong> (the active phase of the current drawing). Like the Layer drop-down of AutoCAD, they always show the current state. The drop-downs need AutoCAD 2025 or later (see <a href="../Plugins/Ribbon.htm">Ribbon</a>): in an older version, use the <span class="fixw">PH-*</span> aliases and the status bar.</p>
 <h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>Layers <span class="fixw">0</span>, <span class="fixw">Defpoints</span> and the layers of xrefs never get a phase; objects on a layer without a phase stay there, except on the layer of a layer key.</li>
-<li>Editing commands leave their objects where they are: <span class="fixw">TRIM</span>, <span class="fixw">BREAK</span>, <span class="fixw">FILLET</span>, <span class="fixw">JOIN</span>, <span class="fixw">EXPLODE</span>, pasting and <span class="fixw">UNDO</span> never move anything to the active phase.</li>
-<li>A new phase layer copies its source layer, with the phase colors of <a href="Dyl-LayerTransfer.htm">Layer Transfer</a> for demolition and existing.</li>
-<li>The command line says how many objects moved, and warns when their layer is off or frozen.</li>
+<li>A phase layer ends with its letter: <span class="fixw">A-Wall-Full-E</span> (see <a href="../Conventions/LayerNaming.htm#status">Layer Naming</a>).</li>
+<li>Trim, fillet, explode, paste and undo never change the phase of an object.</li>
 </ul>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Auto-phase moves the objects just after their command: the first <span class="fixw">U</span> puts them back on the layer they were drawn on, the second one undoes the command.</li>
-<li>The status bar shows the phase only when <span class="fixw">MODEMACRO</span> is not used by something else.</li>
-<li>After an <span class="fixw">UNDO</span> that brings back a former phase, the drop-down and the status bar show it only at the next change of phase, or when the drawing is made current again.</li>
-<li><span class="fixw">MIRROR</span> with <em>Erase source objects</em> moves the mirrored objects to the active phase, as any copy.</li>
+<li>After a command, the first <span class="fixw">U</span> undoes the change of phase, the second the command.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -96,7 +78,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

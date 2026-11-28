@@ -31,26 +31,15 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Switch the layers from the 255 colors of the Dyl Standard to a few pen colors, 1 to 7, chosen from the lineweight of each layer, for a plotter or a client that wants them. A few colors and layer names keep theirs or get one of their own. The colors are saved in the drawing: <em>Restore</em> gives them back at any time.</p>
+<p>Switch your layers to the pen colors 1 to 7, for a plotter or a client that wants them, and back.</p>
 <!-- picture: images/Dyl-LayerPenColors-window.png -->
 <!-- picture: images/Dyl-LayerPenColors-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">Dyl-LayerPenColors</span> and choose <em>Pens</em> (the default) or <em>Restore</em>. The two child commands of the table below skip this question.</li>
-<li>Choose <em>All</em> (every layer, the default) or <em>Select</em> (the layers of the objects you select).</li>
-<li>The command line says how many layers changed, matched already or were kept by a rule, and which it left. One <span class="fixw">U</span> undoes it all.</li>
-<li>To go back, run it again with <em>Restore</em>: each layer gets its former color.</li>
+<li>Type <span class="fixw">PENS</span>: each layer gets the pen of its lineweight.</li>
+<li>Type <span class="fixw">UNPENS</span> to get the colors back.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERPENCOLORS</span></td><td>Layer Pen Colors</td><td>Switches the layer colors to the pen colors 1 to 7 from their lineweight, or restores their saved colors.</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORSTOPENS</span></td><td>Layer Colors To Pens</td><td>Sets the layer colors to the pen colors 1 to 7 from their lineweight (30 for 0.13), saving their colors.</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORSRESTORE</span></td><td>Layer Colors Restore</td><td>Gives the layers back the colors saved when they were switched to the pen colors.</td></tr>
-</table>
 </div>
 <h2>Pen Colors</h2>
 <div class="programs commands wide">
@@ -66,27 +55,11 @@
 <tr><td>1.40 mm</td><td>7</td></tr>
 </table>
 </div>
-<h2>Rules</h2>
-<p>The layers matching a rule of <span class="fixw">Res\Layer\PenColors.csv</span> are not switched by their lineweight. The first rule matching a layer applies. <span class="fixw">Layers</span> are layer names (wildcards, any case), <span class="fixw">Colors</span> the current colors (wildcards: <span class="fixw">20#</span> is 200 to 209), and <span class="fixw">Color</span> the color given to the layer, empty to keep its color as is. Edit the file in Excel. Your copy is saved in <span class="fixw">User\</span> (see <span class="fixw">Dyl-UserFiles</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Rule</th><th>Layers</th><th>Colors</th><th>Color</th></tr>
-<tr><td>Non-plotting</td><td>&ndash;</td><td>140</td><td>kept</td></tr>
-<tr><td>Text and notes</td><td>&ndash;</td><td>41</td><td>kept</td></tr>
-<tr><td>Dimensions</td><td>&ndash;</td><td>211</td><td>kept</td></tr>
-<tr><td>Existing to remain</td><td>&ndash;</td><td>20#</td><td>kept</td></tr>
-<tr><td>Patterns</td><td>*-Patt, *-Patt-*</td><td>&ndash;</td><td>40</td></tr>
-<tr><td>Screened</td><td>*-Scrn, *-Scrn-*</td><td>&ndash;</td><td>8 (dark grey)</td></tr>
-<tr><td>Existing</td><td>*-Exst, *-Exst-*</td><td>&ndash;</td><td>9 (light grey)</td></tr>
-</table>
-</div>
-<h2>Known Limitations</h2>
+<h2>Good To Know</h2>
 <div class="spacedbullets">
 <ul>
-<li>Layers with lineweight Default or 2.00 mm (no pen color) are not switched. Set their lineweight first, for example from their color with <span class="fixw">Pst-LayerWeightByColor</span> (LWC).</li>
-<li>Xref layers are not changed.</li>
-<li>Only the layers are changed: objects with their own color are not.</li>
-<li>A layer color changed by hand while on pen colors is replaced by the saved one on Restore.</li>
+<li>Text, dimensions, non-plotting and existing layers keep their color; patterns get 40, screened 8, existing 9.</li>
+<li>A layer with no lineweight is left as it is: set it first with <span class="fixw">LWC</span>.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -102,7 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

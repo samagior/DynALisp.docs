@@ -35,7 +35,7 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Classez le Gestionnaire des propriétés des calques par discipline en une commande : un filtre de groupe par discipline (architecture, structure, mécanique...), fait d'après la première lettre des noms de calques, avec les groupes Détail, Élévation, Plan et Coupe sous l'architecture.</p>
+<p>Classez le Gestionnaire des propriétés des calques par discipline : architecture, structure, mécanique... en une commande.</p>
 <!-- picture: images/Dyl-LayerGroup-window.png -->
 <!-- picture: images/Dyl-LayerGroup-use.gif -->
 <h2>Utilisation</h2>
@@ -43,22 +43,13 @@
 <ol>
 <li>Fermez le Gestionnaire des propriétés des calques.</li>
 <li>Tapez <span class="fixw">Dyl-LayerGroup</span>.</li>
-<li>Ouvrez le Gestionnaire des propriétés des calques : les groupes sont dans son arbre des filtres. Relancez la commande après avoir ajouté des calques, pour les mettre à jour.</li>
+<li>Relancez-le après avoir ajouté des calques.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERGROUP</span></td><td>Layer Groups</td><td>Crée les filtres de groupes de calques standard de Dynalisp dans le Gestionnaire des propriétés des calques.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les filtres de groupe listent les calques explicitement : les calques créés après la commande ne sont pas ajoutés. Relancez-la pour rafraîchir les groupes.</li>
-<li>Le groupe Mechanical utilise le motif d'architecture de paysage <span class="fixw">L-*</span> au lieu de <span class="fixw">M-*</span>.</li>
-<li>Fermez le Gestionnaire des propriétés des calques avant de lancer la commande : laissé ouvert, il peut réécrire l'arborescence des filtres à partir de sa propre copie.</li>
+<li>Le groupe mécanique montre les calques de paysage (<span class="fixw">L-*</span>).</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,7 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

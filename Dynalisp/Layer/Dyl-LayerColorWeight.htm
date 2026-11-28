@@ -31,25 +31,16 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Make the layers follow the Dyl Standard plot style, where the color of a layer gives its plotted lineweight: set the lineweight of each layer from its color, or the other way around, its color from its lineweight, keeping its hue.</p>
+<p>Match the lineweight of each layer to its color, as the Dyl Standard plots them, or the color to the lineweight.</p>
 <!-- picture: images/Dyl-LayerColorWeight-window.png -->
 <!-- picture: images/Dyl-LayerColorWeight-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">Dyl-LayerColorWeight</span> and choose <em>Lineweight</em> (the lineweight follows the color, the default) or <em>Color</em> (the color follows the lineweight). The two child commands of the table below skip this question.</li>
-<li>Choose <em>All</em> (every layer, the default) or <em>Select</em> (the layers of the objects you select).</li>
-<li>The command line says how many layers changed and which ones it left as they were. One <span class="fixw">U</span> undoes it all.</li>
+<li>Type <span class="fixw">LWC</span> (lineweight from color) or <span class="fixw">CLW</span> (color from lineweight).</li>
+<li>Choose <em>All</em> or <em>Select</em>.</li>
+<li>One <span class="fixw">U</span> undoes it.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERCOLORWEIGHT</span></td><td>Layer Color Weight</td><td>Matches the lineweight of the layers with their color, or their color with their lineweight (Dyl Standard).</td></tr>
-<tr><td><span class="fixw">PST-LAYERWEIGHTBYCOLOR</span></td><td>Layer Lineweight By Color</td><td>Sets the lineweight of the layers from their color (Dyl Standard: color ##0 = 0.13, ##1 = 0.18...).</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORBYWEIGHT</span></td><td>Layer Color By Lineweight</td><td>Sets the last digit of the layer colors from their lineweight, keeping their hue (Dyl Standard).</td></tr>
-</table>
 </div>
 <h2>The Standard</h2>
 <div class="programs commands wide">
@@ -70,9 +61,8 @@
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Layers in true color or from a color book are not changed, nor the layers of xrefs.</li>
-<li>Color from lineweight leaves out the layers whose lineweight is Default, and the black or grey layers at 0.13 mm or 2.00 mm (no pen color has these lineweights).</li>
-<li>Only the layers are changed: objects with their own color or lineweight are not.</li>
+<li>True colors and the layers of xrefs are left as they are.</li>
+<li>Only the layers change, not objects with their own color.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -88,7 +78,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

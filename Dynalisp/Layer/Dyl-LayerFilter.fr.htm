@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td><span class="fixw">DYL-LAYERFILTER</span> et 46 préréglages &ndash; voir <a href="#commands">Commandes</a></td>
+<td><span class="fixw">DYL-LAYERFILTER</span> et 46 préréglages &ndash; voir <a href="#aliases">Commandes</a></td>
 </tr>
 <tr>
 <td>Requis</td>
@@ -35,94 +35,31 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Réglez la visibilité des calques d'une vue en un mot : afficher ou masquer une phase, isoler un niveau d'un dessin empilé, tramer les autres disciplines... Dans l'espace objet, ce sont les calques eux-mêmes qui changent; dans une présentation, le même filtre s'applique aux fenêtres que vous sélectionnez seulement, comme remplacements de fenêtre.</p>
+<p>Réglez ce qu'une vue montre en un mot : afficher ou cacher une phase, isoler un niveau, tramer l'existant. Dans une présentation, cela vaut pour les fenêtres choisies.</p>
 <!-- picture: images/Dyl-LayerFilter-window.png -->
 <!-- picture: images/Dyl-LayerFilter-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez l'alias de la vue : <span class="fixw">SH-EXST</span> pour afficher les calques existants, <span class="fixw">HI-ANNO</span> pour masquer l'annotation, <span class="fixw">N2</span> pour les travaux neufs du niveau 2... (le tableau ci-dessous).</li>
-<li>Ou tapez <span class="fixw">Dyl-LayerFilter</span> : la fenêtre liste chaque filtre avec son alias; double-cliquez-en un (ou OK).</li>
-<li>Dans une présentation, sélectionnez les fenêtres à filtrer quand c'est demandé; les autres objets de la sélection sont écartés.</li>
-<li>Un filtre marqué <em>Reset</em> masque d'abord tout et n'affiche que ses calques; un filtre marqué <em>Keep</em> s'applique par-dessus ce qui est affiché. Un <span class="fixw">U</span> revient en arrière.</li>
+<li>Tapez un filtre : <span class="fixw">SH-EXST</span> affiche l'existant, <span class="fixw">HI-ANNO</span> cache l'annotation, <span class="fixw">N2</span> affiche les nouveaux travaux du niveau 2.</li>
+<li>Ou tapez <span class="fixw">Dyl-LayerFilter</span> et double-cliquez un filtre.</li>
+<li>Un <span class="fixw">U</span> revient en arrière.</li>
 </ol>
 </div>
-<h2 id="names">Noms des calques</h2>
-<p>Les filtres lisent les noms faits de champs séparés par des tirets : le dernier champ peut être une phase, et un champ peut être un niveau d'un dessin empilé (<span class="fixw">0001</span> à <span class="fixw">0009</span>, comme dans <span class="fixw">A-Wall-0002-N</span>, pour des élévations ou des étages dessinés dans un fichier). Voir <a href="../Conventions/LayerNaming.fr.htm">Nommage des calques</a>.</p>
-<div class="programs commands">
-<table>
-<tr><th>Suffixe</th><th>Phase</th></tr>
-<tr><td><span class="fixw">-E</span></td><td>Existant à conserver</td></tr>
-<tr><td><span class="fixw">-D</span></td><td>Existant à démolir</td></tr>
-<tr><td><span class="fixw">-N</span></td><td>Travaux neufs</td></tr>
-<tr><td><span class="fixw">-R</span></td><td>En rénovation</td></tr>
-<tr><td><span class="fixw">-M</span></td><td>En déplacement</td></tr>
-<tr><td><span class="fixw">-S</span></td><td>À récupérer</td></tr>
-<tr><td><span class="fixw">-A</span></td><td>Abandonné</td></tr>
-<tr><td><span class="fixw">-F</span></td><td>Travaux futurs</td></tr>
-<tr><td><span class="fixw">-T</span></td><td>Travaux temporaires</td></tr>
-<tr><td><span class="fixw">-X</span></td><td>Hors contrat</td></tr>
-</table>
-</div>
-<h2 id="commands">Commandes</h2>
-<p><em>Reset</em> : tout est masqué d'abord et seul le préréglage est affiché. <em>Keep</em> : la visibilité courante est gardée et le préréglage est appliqué par-dessus.</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th><th>État de départ</th></tr>
-<tr><td><span class="fixw">LF-A-FLOR</span></td><td>Architectural Floor Plan Filter</td><td>Règle la visibilité des calques pour n'afficher que les calques du plan d'étage architectural.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">SH-ALL</span></td><td>Show All Layers</td><td>Active et libère tous les calques du dessin, xréfs comprises.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SH-NPLT</span></td><td>Show Non-Plotting Layers</td><td>Active et libère les calques Defpoints, non tracés et de notes de lecture.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SH-NEWW</span></td><td>Show New Work Layers</td><td>Active et libère les calques de la phase travaux neufs.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SH-DEMO</span></td><td>Show Demolition Layers</td><td>Active et libère les calques de la phase existant à démolir.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SH-EXST</span></td><td>Show Existing Layers</td><td>Active et libère les calques de la phase existant à conserver.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SH-KEYP</span></td><td>Show Key Plan Layers</td><td>Active et libère les calques du plan clé.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-ALL</span></td><td>Hide All Layers</td><td>Désactive et gèle tous les calques du dessin, xréfs comprises.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-ANNO</span></td><td>Hide Annotation Layers</td><td>Désactive et gèle les calques d'annotation.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-MEMBRANES</span></td><td>Hide Membrane Layers</td><td>Désactive et gèle les calques des membranes pare-vapeur, pare-air et d'étanchéité.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">SC-EXST</span></td><td>Screen Existing Layers</td><td>Applique une transparence de trame de 50 pour cent aux calques existants.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-NPLT</span></td><td>Hide Non-Plotting Layers</td><td>Désactive et gèle les calques Defpoints, non tracés et de notes de lecture.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-NEWW</span></td><td>Hide New Work Layers</td><td>Désactive et gèle les calques de la phase travaux neufs.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-DEMO</span></td><td>Hide Demolition Layers</td><td>Désactive et gèle les calques de la phase existant à démolir.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-EXST</span></td><td>Hide Existing Layers</td><td>Désactive et gèle les calques de la phase existant à conserver.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">HI-KEYP</span></td><td>Hide Key Plan Layers</td><td>Désactive et gèle les calques du plan clé.</td><td>Keep</td></tr>
-<tr><td><span class="fixw">E1</span></td><td>Existing View Stack 0001</td><td>Affiche les calques existants à conserver de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E2</span></td><td>Existing View Stack 0002</td><td>Affiche les calques existants à conserver de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E3</span></td><td>Existing View Stack 0003</td><td>Affiche les calques existants à conserver de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E4</span></td><td>Existing View Stack 0004</td><td>Affiche les calques existants à conserver de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E5</span></td><td>Existing View Stack 0005</td><td>Affiche les calques existants à conserver de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E6</span></td><td>Existing View Stack 0006</td><td>Affiche les calques existants à conserver de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E7</span></td><td>Existing View Stack 0007</td><td>Affiche les calques existants à conserver de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E8</span></td><td>Existing View Stack 0008</td><td>Affiche les calques existants à conserver de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">E9</span></td><td>Existing View Stack 0009</td><td>Affiche les calques existants à conserver de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D-ARCH</span></td><td>Demolition View Architecture</td><td>Affiche les calques existants et de démolition avec le groupe architectural neuf tramé.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D1</span></td><td>Demolition View Stack 0001</td><td>Affiche les calques existants et de démolition de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D2</span></td><td>Demolition View Stack 0002</td><td>Affiche les calques existants et de démolition de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D3</span></td><td>Demolition View Stack 0003</td><td>Affiche les calques existants et de démolition de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D4</span></td><td>Demolition View Stack 0004</td><td>Affiche les calques existants et de démolition de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D5</span></td><td>Demolition View Stack 0005</td><td>Affiche les calques existants et de démolition de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D6</span></td><td>Demolition View Stack 0006</td><td>Affiche les calques existants et de démolition de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D7</span></td><td>Demolition View Stack 0007</td><td>Affiche les calques existants et de démolition de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D8</span></td><td>Demolition View Stack 0008</td><td>Affiche les calques existants et de démolition de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">D9</span></td><td>Demolition View Stack 0009</td><td>Affiche les calques existants et de démolition de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N-ARCH</span></td><td>New Work View Architecture</td><td>Affiche les calques existants et de travaux neufs avec le groupe architectural neuf tramé.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N-STRUC</span></td><td>New Work View Structure</td><td>Affiche les calques existants et de travaux neufs avec le groupe structural neuf tramé.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N1</span></td><td>New Work View Stack 0001</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0001 avec les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N2</span></td><td>New Work View Stack 0002</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0002 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N3</span></td><td>New Work View Stack 0003</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0003 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N4</span></td><td>New Work View Stack 0004</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0004 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N5</span></td><td>New Work View Stack 0005</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0005 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N6</span></td><td>New Work View Stack 0006</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0006 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N7</span></td><td>New Work View Stack 0007</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0007 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N8</span></td><td>New Work View Stack 0008</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0008 avec les empilements inférieurs masqués et les empilements supérieurs tramés.</td><td>Reset</td></tr>
-<tr><td><span class="fixw">N9</span></td><td>New Work View Stack 0009</td><td>Affiche les calques existants et de travaux neufs de l'empilement 0009 avec les empilements inférieurs masqués.</td><td>Reset</td></tr>
-</table>
+<h2 id="names">Les filtres</h2>
+<div class="spacedbullets">
+<ul>
+<li><span class="fixw">SH-*</span> affiche et <span class="fixw">HI-*</span> cache : tout, non tracé, nouveaux travaux, démolition, existant, plan clé.</li>
+<li><span class="fixw">SC-EXST</span> trame l'existant.</li>
+<li><span class="fixw">E1</span>&ndash;<span class="fixw">E9</span>, <span class="fixw">D1</span>&ndash;<span class="fixw">D9</span>, <span class="fixw">N1</span>&ndash;<span class="fixw">N9</span> affichent l'existant, la démolition ou les nouveaux travaux d'un niveau, les niveaux du dessus tramés.</li>
+<li>Ils lisent la phase à la fin des noms de calques (voir <a href="../Conventions/LayerNaming.fr.htm">Nommage des calques</a>).</li>
+</ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Chaque exécution dans l'espace objet remet à zéro la transparence et le verrouillage de <em>tous</em> les calques, y compris ceux tramés ou verrouillés à la main.</li>
-<li>Les calques des xréfs devraient être tramés quand le dessin de la xréf se trouve dans un sous-dossier <span class="fixw">Model views</span> du dossier du dessin, mais le nom de la xréf est comparé au nom de fichier avec <span class="fixw">.dwg</span> : cela ne correspond donc jamais.</li>
-<li>Le tramage repose sur la transparence des calques : activez <span class="fixw">TRANSPARENCYDISPLAY</span> pour le voir.</li>
+<li>Dans l'espace objet, il remet les calques que vous avez tramés ou verrouillés à la main.</li>
+<li>Activez <span class="fixw">TRANSPARENCYDISPLAY</span> pour voir le tramage.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -182,7 +119,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

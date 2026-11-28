@@ -35,172 +35,47 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Nommez vos calques une fois et laissez chaque outil s'en servir : une clé de calque est un nom court, comme <span class="fixw">THIN</span> ou <span class="fixw">HATCH</span>, sur lequel les outils de DynALisp dessinent au lieu d'un nom de calque. Chaque clé donne son calque et les propriétés pour le créer quand le dessin ne l'a pas. Changez le calque d'une clé, et chaque outil qui l'utilise dessine là, comme le font les clés de calque d'AutoCAD Architecture, dans n'importe quel AutoCAD.</p>
+<p>Choisissez une fois le calque de chaque sorte de ligne, et chaque outil DynALisp dessine dessus. Une clé de calque est un nom court, <span class="fixw">THIN</span> ou <span class="fixw">HATCH</span>, qui tient lieu de calque.</p>
 <!-- picture: images/Dyl-LayerKeys-window.png -->
 <!-- picture: images/Dyl-LayerKeys-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-LayerKeys</span> : la fenêtre Layer Keys liste chaque clé avec son calque et ses propriétés.</li>
-<li>Sélectionnez une clé et changez son calque, sa couleur, son type de ligne, son épaisseur de ligne ou sa description; ou cliquez <strong>New</strong> pour une clé à vous.</li>
-<li>Cliquez <strong>OK</strong>. Dès lors, les outils dessinent sur les calques de leurs clés, créés avec ces propriétés quand ils manquent.</li>
-<li>La même fenêtre s'ouvre par le bouton ouvrir à côté de chaque clé de calque de la fenêtre <a href="../Draw/Dyl-Materials.fr.htm">Materials</a> : là, un double-clic sur une clé la donne au matériau.</li>
+<li>Tapez <span class="fixw">Dyl-LayerKeys</span>.</li>
+<li>Choisissez une clé et changez son calque, sa couleur, son type ou son épaisseur de ligne ; ou cliquez <strong>New</strong>.</li>
+<li>Cliquez <strong>OK</strong>.</li>
 </ol>
 </div>
 <h2>Fenêtre Layer Keys</h2>
 <div class="spacedbullets">
 <ul>
-<li><strong>Liste des clés de calque</strong> &ndash; une colonne par valeur de chaque clé : clé, calque, couleur, type de ligne, épaisseur de ligne, traçage, sa couleur dans les phases (<em>Phase color</em> ou <em>Same color</em>) et description, sous leurs titres. Les boutons sous la liste ajoutent, copient, suppriment et réinitialisent les clés; la zone <strong>Parameters</strong> en dessous modifie la clé sélectionnée. Son titre dit si la clé est <em>(modified)</em> (une clé par défaut modifiée), <em>(custom)</em> (créée par l'utilisateur) ou une <em>(AEC layer override)</em> (voir <a href="#aec">Dérogations de calques AEC</a>); rien pour une clé par défaut avec ses valeurs par défaut.</li>
-<li><strong>Filter</strong> &ndash; ne liste que les clés qui ont le texte tapé dans l'une de leurs valeurs (clé, calque, couleur, type de ligne, épaisseur de ligne, traçage, description; toute casse), par exemple <span class="fixw">a-door</span> ou <span class="fixw">hidden</span>. Vide : toutes les clés. À côté, le nombre de clés listées (<em>12 of 109</em>). La clé affichée reste listée. <strong>Sort by</strong> &ndash; l'ordre de la liste : <em>Key</em> (par défaut), <em>Layer</em>, <em>Color</em>, <em>Linetype</em>, <em>Lineweight</em>, <em>Description</em> ou <em>Status</em> (les clés personnalisées, puis les modifiées, puis les dérogations de calques AEC, puis les clés par défaut). Le tri est gardé jusqu'à la fermeture d'AutoCAD.</li>
-<li><strong>Plusieurs clés à la fois</strong> &ndash; Ctrl+clic ajoute une clé à la sélection (ou l'en retire), Maj+clic sélectionne une plage. La zone affiche <em>Parameters (3 selected)</em> et montre les valeurs de la clé cliquée en premier : une valeur changée est donnée à <em>chaque</em> clé sélectionnée, leurs autres valeurs restent telles quelles. Le nom de la clé et <em>Copy</em> sont grisés tant que plusieurs sont sélectionnées; <em>Delete</em> les retire toutes (seulement quand elles sont toutes personnalisées), <em>Reset key</em> réinitialise celles par défaut parmi elles.</li>
-<li><strong>Key</strong> &ndash; le nom utilisé par les Apps (en majuscules). Le nom d'une clé par défaut ne peut pas être changé.</li>
-<li><strong>Layer name, Description, Color, Linetype, Lineweight, Plot</strong> &ndash; le calque et les propriétés avec lesquelles il est créé. Cliquez l'échantillon de couleur pour choisir une couleur dans la boîte de dialogue des couleurs d'AutoCAD. Le type de ligne se choisit parmi les fichiers <span class="fixw">.lin</span> du chemin de recherche et les types de ligne déjà dans le dessin.</li>
-<li><strong>Phase</strong> &ndash; chaque clé est en phase : tant que l'auto-phase est activée (voir <a href="Dyl-LayerPhase.fr.htm">Phase des calques</a>), une clé donne son calque dans la phase active du dessin : <span class="fixw">A-Detl-Thin-E</span> en existant, <span class="fixw">A-Detl-Thin-N</span> en travaux neufs, <span class="fixw">A-Detl-Thin</span> quand l'auto-phase est désactivée ou que le dessin n'a pas de phase active. La zone montre le calque de la phase active.</li>
-<li><strong>Keep this color in every phase</strong> &ndash; coché, les calques de la clé gardent sa couleur dans chaque phase : <span class="fixw">A-Detl-Thin-E</span> et <span class="fixw">A-Detl-Thin-D</span> sont créés avec la couleur de <span class="fixw">THIN</span>, pas les couleurs de phase (<span class="fixw">20#</span>, <span class="fixw">2#</span>), qu'ils soient faits par la clé ou par l'auto-phase qui déplace un objet dans sa phase. La liste affiche <em>Same color</em> pour ces clés.</li>
-<li>Sous les valeurs, la fenêtre dit si le calque (dans la phase active) manque dans le dessin courant (créé quand une clé est utilisée), existe avec ces valeurs, ou existe avec d'autres valeurs, et lesquelles (voir <a href="#differ">Calques qui diffèrent de leur clé</a>).</li>
-<li><strong>New</strong> &ndash; ajoute une clé personnalisée. <strong>Copy</strong> &ndash; ajoute une clé personnalisée avec les valeurs de celle sélectionnée. <strong>Delete</strong> &ndash; retire la clé personnalisée sélectionnée (le calque lui-même n'est pas supprimé).</li>
-<li><strong>Dérogations de calques AEC</strong> &ndash; comme pour toute clé par défaut, seule la clé est verrouillée : chaque autre valeur peut être modifiée (le titre affiche alors <em>Parameters (AEC layer override, modified)</em>), et <em>Reset key</em> lui redonne ses valeurs AIA. Une note grise sous la zone dit d'où vient son calque.</li>
-<li><strong>Reset key</strong> &ndash; rétablit les valeurs par défaut de la clé par défaut sélectionnée. <strong>Restore defaults</strong> &ndash; rétablit chaque clé par défaut; les clés personnalisées sont gardées.</li>
-<li><strong>OK</strong> enregistre <span class="fixw">LayerKeys.csv</span>, <strong>Cancel</strong> annule chaque changement. <strong>Open Docs</strong> ouvre cette page.</li>
+<li><strong>Filter</strong> et <strong>Sort by</strong> &ndash; trouvez vite une clé.</li>
+<li><strong>Parameters</strong> &ndash; le calque de la clé et ses propriétés. Sélectionnez plusieurs clés pour les changer ensemble.</li>
+<li><strong>Keep this color in every phase</strong> &ndash; le calque garde sa couleur en existant et en démolition.</li>
+<li><strong>Reset key</strong> et <strong>Restore defaults</strong> &ndash; reviennent aux valeurs par défaut.</li>
 </ul>
 </div>
 <h2 id="differ">Calques qui diffèrent de leur clé</h2>
-<p>La première fois qu'une clé donne un calque qui existe déjà dans le dessin (dans une session), ou qu'un <a href="Dyl-LayerTransfer.fr.htm">Layer Transfer</a> vers une phase déplace des objets sur un calque de phase existant d'une clé, sa couleur, son type de ligne, son épaisseur de ligne et son réglage de traçage sont comparés à ceux de la clé (pas la description). Dans la phase active, la couleur attendue est la couleur de phase, ou la couleur de la clé quand la clé garde sa couleur. S'ils diffèrent, une petite fenêtre liste les différences (<em>Color: 5 (layer key: 2)</em>) et demande <em>Update the layer to the values of its layer key?</em></p>
-<div class="spacedbullets">
-<ul>
-<li><strong>Yes</strong> &ndash; le calque reçoit la couleur, le type de ligne (chargé au besoin), l'épaisseur de ligne et le réglage de traçage de la clé; son nom, sa description et ses états activé / désactivé, gelé et verrouillé sont gardés. <strong>No</strong> &ndash; il est utilisé tel quel.</li>
-<li>Dans les deux cas, la question n'est plus posée pour ce calque jusqu'à ce que le dessin soit rouvert, ou que sa clé change (une valeur modifiée, <em>Keep this color in every phase</em> coché...) : <em>OK</em> dans la fenêtre Layer Keys fait revérifier chaque calque selon les clés enregistrées.</li>
-<li><strong>Remember my answer and do not ask again</strong> &ndash; coché, la réponse est gardée pour chaque calque de chaque dessin : <em>Yes</em> les met à jour sans demander (une ligne à la ligne de commande le dit), <em>No</em> les garde sans demander. C'est un paramètre : la section <em>Layer keys</em> de <a href="../Core/Dyl-Settings.fr.htm#layerkeys">Dyl-Settings</a> l'affiche et le reprend (les deux cases décochées : la question revient).</li>
-<li>La question n'est posée que lorsqu'aucune commande ne s'exécute (une App la pose avant de dessiner); sinon elle est posée la prochaine fois que la clé est utilisée.</li>
-</ul>
-</div>
+<p>Quand un calque du dessin ne correspond pas à sa clé, DynALisp demande s'il faut le mettre à jour. Cochez <strong>Remember my answer</strong> pour ne plus être questionné ; revenez-en dans <a href="../Core/Dyl-Settings.fr.htm#layerkeys">Dyl-Settings</a>.</p>
 <h2 id="commands">Clés de calque par défaut</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Clé</th><th>Calque</th><th>Couleur</th><th>Type de ligne</th><th>Épaisseur</th><th>Description</th></tr>
-<tr><td><span class="fixw">FINE</span></td><td><span class="fixw">A-Detl-Fine</span></td><td>1</td><td>Continuous</td><td>0.18 mm</td><td>Detail: Fine Lines</td></tr>
-<tr><td><span class="fixw">THIN</span></td><td><span class="fixw">A-Detl-Thin</span></td><td>2</td><td>Continuous</td><td>0.25 mm</td><td>Detail: Thin Lines</td></tr>
-<tr><td><span class="fixw">MED</span></td><td><span class="fixw">A-Detl-Medm</span></td><td>3</td><td>Continuous</td><td>0.35 mm</td><td>Detail: Medium Lines</td></tr>
-<tr><td><span class="fixw">WIDE</span></td><td><span class="fixw">A-Detl-Wide</span></td><td>4</td><td>Continuous</td><td>0.50 mm</td><td>Detail: Wide Lines</td></tr>
-<tr><td><span class="fixw">XLINE</span></td><td><span class="fixw">A-Detl-XFin</span></td><td>8</td><td>Continuous</td><td>0.13 mm</td><td>Detail: Extra Fine Lines</td></tr>
-<tr><td><span class="fixw">HATCH</span></td><td><span class="fixw">A-Detl-Patt</span></td><td>8</td><td>Continuous</td><td>0.18 mm</td><td>Detail: Texture Or Hatch Patterns</td></tr>
-<tr><td><span class="fixw">G-DS-ANNO-STD-BACKGROUND_SCREEN</span></td><td><span class="fixw">A-Detl-Scrn</span></td><td>254</td><td>Continuous</td><td>0.18 mm</td><td>Detail: Screening Of Coordination Objects And Backgrounds</td></tr>
+<tr><th>Clé</th><th>Calque</th><th>Couleur</th><th>Épaisseur</th></tr>
+<tr><td><span class="fixw">FINE</span></td><td><span class="fixw">A-Detl-Fine</span></td><td>1</td><td>0,18 mm</td></tr>
+<tr><td><span class="fixw">THIN</span></td><td><span class="fixw">A-Detl-Thin</span></td><td>2</td><td>0,25 mm</td></tr>
+<tr><td><span class="fixw">MED</span></td><td><span class="fixw">A-Detl-Medm</span></td><td>3</td><td>0,35 mm</td></tr>
+<tr><td><span class="fixw">WIDE</span></td><td><span class="fixw">A-Detl-Wide</span></td><td>4</td><td>0,50 mm</td></tr>
+<tr><td><span class="fixw">XLINE</span></td><td><span class="fixw">A-Detl-XFin</span></td><td>8</td><td>0,13 mm</td></tr>
+<tr><td><span class="fixw">HATCH</span></td><td><span class="fixw">A-Detl-Patt</span></td><td>8</td><td>0,18 mm</td></tr>
 </table>
 </div>
-<p>Tous les calques par défaut se tracent. Les noms des clés correspondent aux clés d'AutoCAD Architecture qu'utilisaient les Apps auparavant : les préréglages existants continuent donc de fonctionner.</p>
-<h2 id="aec">Dérogations de calques AEC</h2>
-<p>Les clés des styles de clés de calque d'AutoCAD Architecture sont aussi des clés par défaut, marquées <em>AEC layer override</em>. Leur calque et leurs propriétés sont ceux du style de clés de calque <em>AIA (256 Color)</em> d'AutoCAD Architecture (ci-dessous). Telle que livrée (ses valeurs AIA), avec AutoCAD Architecture, une telle clé met un objet sur le calque que lui donne le style de clés de calque du dessin, exactement comme <span class="fixw">AECREMAPLAYERS</span> (la commande crée le calque, avec les propriétés et les dérogations du style, quand le dessin ne l'a pas). Sans AutoCAD Architecture, quand le style du dessin n'a pas cette clé, ou une fois la clé modifiée dans la fenêtre Layer Keys, son propre calque est utilisé, créé avec ses propriétés. <span class="fixw">MASS ELEM</span> n'est pas dans le style AIA (256 Color) : son calque porte son nom (couleur 7, Continuous, épaisseur de ligne par défaut). Les clés <span class="fixw">G-DS-ANNO-STD-*</span> sont gardées pour la compatibilité (les configurations d'affichage d'AutoCAD Architecture) : elles ne sont jamais données à un matériau, la fenêtre Materials ne les liste donc pas, et un matériau qui en avait une reçoit <span class="fixw">HATCH</span> à la place. Une clé ne peut pas être résolue pendant qu'une commande ou une fenêtre est active : son propre calque est alors utilisé aussi. Seule leur clé est verrouillée; elles ne sont pas en phase sauf si <em>Phased</em> est coché. Les clés des détails (<span class="fixw">FINE</span>, <span class="fixw">THIN</span>, <span class="fixw">MED</span>, <span class="fixw">WIDE</span>, <span class="fixw">XLINE</span>, <span class="fixw">HATCH</span>) restent les clés DynALisp ci-dessus, modifiables et en phase.</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Clé</th><th>Calque</th><th>Couleur</th><th>Type de ligne</th><th>Épaisseur</th><th>Traçage</th><th>Description</th></tr>
-<tr><td><span class="fixw">ANNDTOBJ</span></td><td><span class="fixw">G-Detl-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Detail marks</td></tr>
-<tr><td><span class="fixw">ANNELKEY</span></td><td><span class="fixw">G-Elev-Iden</span></td><td>151</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Elevation marks</td></tr>
-<tr><td><span class="fixw">ANNELOBJ</span></td><td><span class="fixw">G-Elev-Line</span></td><td>141</td><td>Continuous</td><td>0.25 mm</td><td>Non</td><td>Elevation Definition Lines</td></tr>
-<tr><td><span class="fixw">ANNMASK</span></td><td><span class="fixw">G-Anno-Mask</span></td><td>170</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Aec Masking Objects</td></tr>
-<tr><td><span class="fixw">ANNMATCH</span></td><td><span class="fixw">G-Anno-Matc</span></td><td>214</td><td>Continuous</td><td>0.70 mm</td><td>Oui</td><td>Match Lines</td></tr>
-<tr><td><span class="fixw">ANNOBJ</span></td><td><span class="fixw">G-Anno-Note</span></td><td>231</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Notes, leaders, etc.</td></tr>
-<tr><td><span class="fixw">ANNREV</span></td><td><span class="fixw">G-Anno-Revs</span></td><td>71</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Revisions</td></tr>
-<tr><td><span class="fixw">ANNSXKEY</span></td><td><span class="fixw">G-Sect-Iden</span></td><td>191</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Section marks</td></tr>
-<tr><td><span class="fixw">ANNSXOBJ</span></td><td><span class="fixw">G-Sect-Line</span></td><td>181</td><td>Continuous</td><td>0.18 mm</td><td>Non</td><td>Section lines</td></tr>
-<tr><td><span class="fixw">ANNSYMOBJ</span></td><td><span class="fixw">G-Anno-Symb</span></td><td>131</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Annotation marks</td></tr>
-<tr><td><span class="fixw">APPL</span></td><td><span class="fixw">A-Appl</span></td><td>11</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Appliances</td></tr>
-<tr><td><span class="fixw">CASE</span></td><td><span class="fixw">A-Case</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Casework</td></tr>
-<tr><td><span class="fixw">CASENO</span></td><td><span class="fixw">A-Case-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Casework tags</td></tr>
-<tr><td><span class="fixw">CEILGRID</span></td><td><span class="fixw">A-Clng-Grid</span></td><td>72</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Ceiling grids</td></tr>
-<tr><td><span class="fixw">CEILOBJ</span></td><td><span class="fixw">A-Clng</span></td><td>13</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Ceiling objects</td></tr>
-<tr><td><span class="fixw">CHASE</span></td><td><span class="fixw">A-Wall-Chas</span></td><td>91</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Chases</td></tr>
-<tr><td><span class="fixw">COGO</span></td><td><span class="fixw">AS-Ctrl</span></td><td>7</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Control Points</td></tr>
-<tr><td><span class="fixw">COLUMN</span></td><td><span class="fixw">S-Cols</span></td><td>112</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Columns</td></tr>
-<tr><td><span class="fixw">COMMUN</span></td><td><span class="fixw">T-Comm</span></td><td>130</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Communication</td></tr>
-<tr><td><span class="fixw">CONTROL</span></td><td><span class="fixw">T-Ctrl</span></td><td>230</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Control systems</td></tr>
-<tr><td><span class="fixw">CWLAYOUT</span></td><td><span class="fixw">A-Glaz-Curt</span></td><td>52</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Curtain Walls</td></tr>
-<tr><td><span class="fixw">CWUNIT</span></td><td><span class="fixw">A-Glaz-Curt-Unit</span></td><td>51</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Curtain Wall Units</td></tr>
-<tr><td><span class="fixw">DIMLINE</span></td><td><span class="fixw">G-Anno-Dims</span></td><td>211</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Dimensions</td></tr>
-<tr><td><span class="fixw">DIMMAN</span></td><td><span class="fixw">G-Anno-Dims</span></td><td>211</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Dimensions (AutoCAD points)</td></tr>
-<tr><td><span class="fixw">DISPTHEME</span></td><td><span class="fixw">G-Anno-Them</span></td><td>52</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Display Theme Legends</td></tr>
-<tr><td><span class="fixw">DOOR</span></td><td><span class="fixw">A-Door</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Doors</td></tr>
-<tr><td><span class="fixw">DOORNO</span></td><td><span class="fixw">A-Door-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Door tags</td></tr>
-<tr><td><span class="fixw">DRAINAGE</span></td><td><span class="fixw">P-Pipe-Dran</span></td><td>150</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Drainage</td></tr>
-<tr><td><span class="fixw">ELEC</span></td><td><span class="fixw">E-Elec</span></td><td>71</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Electrical</td></tr>
-<tr><td><span class="fixw">ELECNO</span></td><td><span class="fixw">E-Elec-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Electrical tags</td></tr>
-<tr><td><span class="fixw">ELEV</span></td><td><span class="fixw">G-Elev</span></td><td>111</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Elevations</td></tr>
-<tr><td><span class="fixw">ELEVAT</span></td><td><span class="fixw">A-Evtr</span></td><td>172</td><td>Continuous</td><td>0.35 mm</td><td>Oui</td><td>Elevators</td></tr>
-<tr><td><span class="fixw">ELEVHIDE</span></td><td><span class="fixw">G-Elev</span></td><td>111</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Elevations (2D)</td></tr>
-<tr><td><span class="fixw">EQUIP</span></td><td><span class="fixw">G-Eqpm</span></td><td>71</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Equipment</td></tr>
-<tr><td><span class="fixw">EQUIPNO</span></td><td><span class="fixw">G-Eqpm-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Equipment tags</td></tr>
-<tr><td><span class="fixw">FINCEIL</span></td><td><span class="fixw">A-Clng-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Ceiling tags</td></tr>
-<tr><td><span class="fixw">FINFLOOR</span></td><td><span class="fixw">A-Flor-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Finish tags</td></tr>
-<tr><td><span class="fixw">FIRE</span></td><td><span class="fixw">F-Eqpm</span></td><td>91</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Fire system equip.</td></tr>
-<tr><td><span class="fixw">FURN</span></td><td><span class="fixw">I-Furn</span></td><td>30</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Furniture</td></tr>
-<tr><td><span class="fixw">FURNNO</span></td><td><span class="fixw">I-Furn-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Furniture tags</td></tr>
-<tr><td><span class="fixw">G-DS-ANNO-STD-NON_PLOTTABLE_OBJECTS</span></td><td><span class="fixw">G-Anno-Stnd-Nplt</span></td><td>140</td><td>Continuous</td><td>0.18 mm</td><td>Non</td><td>General Annotation Layer Key: Non-Plottable Objects</td></tr>
-<tr><td><span class="fixw">G-DS-ANNO-STD-NON_PLOTTABLE_OBJECTS_SCREEN</span></td><td><span class="fixw">G-Anno-Stnd-Nplt-Scrn</span></td><td>8</td><td>Continuous</td><td>0.18 mm</td><td>Non</td><td>General Annotation Layer Key: Non-Plottable Screened Objects</td></tr>
-<tr><td><span class="fixw">GRIDBUB</span></td><td><span class="fixw">S-Grid-Iden</span></td><td>31</td><td>CENTER</td><td>0.25 mm</td><td>Oui</td><td>Plan grid bubbles</td></tr>
-<tr><td><span class="fixw">GRIDLINE</span></td><td><span class="fixw">S-Grid</span></td><td>191</td><td>CENTER</td><td>0.25 mm</td><td>Oui</td><td>Column Grids</td></tr>
-<tr><td><span class="fixw">HIDDEN</span></td><td><span class="fixw">G-Detl-Hidd</span></td><td>1</td><td>HIDDEN2</td><td>0.18 mm</td><td>Oui</td><td>Hidden lines</td></tr>
-<tr><td><span class="fixw">LAYGRID</span></td><td><span class="fixw">G-Grid-Nplt</span></td><td>200</td><td>DASHED</td><td>0.18 mm</td><td>Non</td><td>Layout grids</td></tr>
-<tr><td><span class="fixw">LIGHTCLG</span></td><td><span class="fixw">E-Lite-Clng</span></td><td>193</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Ceiling lighting</td></tr>
-<tr><td><span class="fixw">LIGHTW</span></td><td><span class="fixw">E-Lite-Wall</span></td><td>53</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Wall lighting</td></tr>
-<tr><td><span class="fixw">MASS ELEM</span></td><td><span class="fixw">MASS ELEM</span></td><td>7</td><td>Continuous</td><td>Par défaut</td><td>Oui</td><td>Massing elements</td></tr>
-<tr><td><span class="fixw">MASSGRPS</span></td><td><span class="fixw">G-Mass-Grps</span></td><td>13</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Massing groups</td></tr>
-<tr><td><span class="fixw">MASSSLCE</span></td><td><span class="fixw">G-Mass-Slce</span></td><td>51</td><td>DASHED</td><td>0.25 mm</td><td>Oui</td><td>Massing Slices</td></tr>
-<tr><td><span class="fixw">OPENING</span></td><td><span class="fixw">A-Wall-Open</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Wall openings</td></tr>
-<tr><td><span class="fixw">PEOPLE</span></td><td><span class="fixw">A-Elev-Pepl</span></td><td>30</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>People</td></tr>
-<tr><td><span class="fixw">PFIXT</span></td><td><span class="fixw">P-Fixt</span></td><td>131</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Plumbing fixtures</td></tr>
-<tr><td><span class="fixw">PLANTS</span></td><td><span class="fixw">L-Site-Plnt</span></td><td>71</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Plants - outdoor</td></tr>
-<tr><td><span class="fixw">PLANTSI</span></td><td><span class="fixw">I-Furn-Plnt</span></td><td>70</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Plants - indoor</td></tr>
-<tr><td><span class="fixw">POLYGON</span></td><td><span class="fixw">G-Poly</span></td><td>110</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>AEC Polygons</td></tr>
-<tr><td><span class="fixw">POWER</span></td><td><span class="fixw">E-Wire-Powr</span></td><td>113</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Electrical power</td></tr>
-<tr><td><span class="fixw">PRCL</span></td><td><span class="fixw">AS-Prop</span></td><td>7</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Property</td></tr>
-<tr><td><span class="fixw">PRK-SYM</span></td><td><span class="fixw">C-Site-Prkg</span></td><td>70</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Parking symbols</td></tr>
-<tr><td><span class="fixw">RBFINISHID</span></td><td><span class="fixw">G-Spce-Stnd-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Room Book Layer Key: Finish ID&#x27;s</td></tr>
-<tr><td><span class="fixw">RBQUANTITYID</span></td><td><span class="fixw">G-Spce-Stnd-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Room Book Layer Key: Quantity ID&#x27;s</td></tr>
-<tr><td><span class="fixw">ROOF</span></td><td><span class="fixw">A-Roof</span></td><td>132</td><td>Continuous</td><td>0.35 mm</td><td>Oui</td><td>Rooflines</td></tr>
-<tr><td><span class="fixw">ROOFSLAB</span></td><td><span class="fixw">A-Roof-Slab</span></td><td>12</td><td>Continuous</td><td>0.35 mm</td><td>Oui</td><td>Roof Slabs</td></tr>
-<tr><td><span class="fixw">ROOMNO</span></td><td><span class="fixw">A-Area-Room-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Room tags</td></tr>
-<tr><td><span class="fixw">SCHEDOBJ</span></td><td><span class="fixw">G-Schd</span></td><td>231</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Schedule tables</td></tr>
-<tr><td><span class="fixw">SEATNO</span></td><td><span class="fixw">I-Furn-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Seating tags</td></tr>
-<tr><td><span class="fixw">SECT</span></td><td><span class="fixw">G-Sect</span></td><td>73</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Miscellaneous sections</td></tr>
-<tr><td><span class="fixw">SECTHIDE</span></td><td><span class="fixw">G-Sect</span></td><td>73</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Sections (2D)</td></tr>
-<tr><td><span class="fixw">SITE</span></td><td><span class="fixw">C-Site</span></td><td>91</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Site</td></tr>
-<tr><td><span class="fixw">SLAB</span></td><td><span class="fixw">A-Slab</span></td><td>192</td><td>Continuous</td><td>0.35 mm</td><td>Oui</td><td>Slabs</td></tr>
-<tr><td><span class="fixw">SPACENO</span></td><td><span class="fixw">G-Area-Spce-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Space numbers</td></tr>
-<tr><td><span class="fixw">SPACEOBJ</span></td><td><span class="fixw">G-Area-Spce</span></td><td>52</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Spaces</td></tr>
-<tr><td><span class="fixw">STAIR</span></td><td><span class="fixw">A-Flor-Strs</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Stairs</td></tr>
-<tr><td><span class="fixw">STAIRH</span></td><td><span class="fixw">A-Flor-Strs-Hral</span></td><td>11</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Stair handrails</td></tr>
-<tr><td><span class="fixw">STRUCTBEAM</span></td><td><span class="fixw">S-Beam</span></td><td>72</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Structural Beams</td></tr>
-<tr><td><span class="fixw">STRUCTBEAMIDEN</span></td><td><span class="fixw">S-Beam-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Structural Beam Tags</td></tr>
-<tr><td><span class="fixw">STRUCTBRACE</span></td><td><span class="fixw">S-Cols-Brcg</span></td><td>92</td><td>DASHED</td><td>0.35 mm</td><td>Oui</td><td>Structural Braces</td></tr>
-<tr><td><span class="fixw">STRUCTBRACEIDEN</span></td><td><span class="fixw">S-Cols-Brcg-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Structural Brace Tags</td></tr>
-<tr><td><span class="fixw">STRUCTCOLS</span></td><td><span class="fixw">S-Cols</span></td><td>112</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Structural Columns</td></tr>
-<tr><td><span class="fixw">STRUCTCOLSIDEN</span></td><td><span class="fixw">S-Cols-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Structural Column Tags</td></tr>
-<tr><td><span class="fixw">SWITCH</span></td><td><span class="fixw">E-Devc-Swch</span></td><td>11</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Electrical switches</td></tr>
-<tr><td><span class="fixw">TINN</span></td><td><span class="fixw">AS-Tinn</span></td><td>7</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Triangulated irregular network</td></tr>
-<tr><td><span class="fixw">TITSCALE</span></td><td><span class="fixw">G-Anno-Titl-Scal</span></td><td>231</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Graphical Scales</td></tr>
-<tr><td><span class="fixw">TITTEXT</span></td><td><span class="fixw">G-Anno-Ttlb</span></td><td>213</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Border and title block</td></tr>
-<tr><td><span class="fixw">TITTEXT-DWG</span></td><td><span class="fixw">G-Anno-Titl-Text</span></td><td>233</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Drawing title text</td></tr>
-<tr><td><span class="fixw">TOILACC</span></td><td><span class="fixw">P-Flor-Spcl</span></td><td>90</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Arch. specialties</td></tr>
-<tr><td><span class="fixw">TOILNO</span></td><td><span class="fixw">P-Flor-Fixt-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Toilet tags</td></tr>
-<tr><td><span class="fixw">TOPO</span></td><td><span class="fixw">AS-Topo</span></td><td>7</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Topography</td></tr>
-<tr><td><span class="fixw">UTIL</span></td><td><span class="fixw">C-Site-Util</span></td><td>91</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Site utilities</td></tr>
-<tr><td><span class="fixw">VEHICLES</span></td><td><span class="fixw">C-Site-Vhcl</span></td><td>30</td><td>Continuous</td><td>0.18 mm</td><td>Oui</td><td>Vehicles</td></tr>
-<tr><td><span class="fixw">VIEWPORT</span></td><td><span class="fixw">G-View-Nplt</span></td><td>140</td><td>Continuous</td><td>0.18 mm</td><td>Non</td><td>Sheet View viewports</td></tr>
-<tr><td><span class="fixw">WALL</span></td><td><span class="fixw">A-Wall</span></td><td>113</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Walls</td></tr>
-<tr><td><span class="fixw">WALLFIRE</span></td><td><span class="fixw">F-Wall-Fire-Patt</span></td><td>152</td><td>DASHED</td><td>0.35 mm</td><td>Oui</td><td>Fire wall patterning</td></tr>
-<tr><td><span class="fixw">WALLNO</span></td><td><span class="fixw">A-Anno-Wall-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Wall tags</td></tr>
-<tr><td><span class="fixw">WIND</span></td><td><span class="fixw">A-Glaz</span></td><td>51</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Windows</td></tr>
-<tr><td><span class="fixw">WINDASSEM</span></td><td><span class="fixw">A-Glaz-Assm</span></td><td>71</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Window Assemblies</td></tr>
-<tr><td><span class="fixw">WINDNO</span></td><td><span class="fixw">A-Glaz-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Window tags</td></tr>
-<tr><td><span class="fixw">ZONE</span></td><td><span class="fixw">G-Area-Zone</span></td><td>52</td><td>Continuous</td><td>0.50 mm</td><td>Oui</td><td>Zones</td></tr>
-<tr><td><span class="fixw">ZONENO</span></td><td><span class="fixw">G-Area-Zone-Iden</span></td><td>31</td><td>Continuous</td><td>0.25 mm</td><td>Oui</td><td>Zone tags</td></tr>
-</table>
-</div>
+<h2 id="aec">Remplacements de calques AEC</h2>
+<p>Les clés d'AutoCAD Architecture (<span class="fixw">ANNOBJ</span>, <span class="fixw">DIMLINE</span>, <span class="fixw">DOOR</span>...) sont aussi dans la liste, avec leurs calques AIA. Avec AutoCAD Architecture, elles suivent le style de clés de calque du dessin.</p>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les couleurs sont des valeurs de l'index des couleurs d'AutoCAD (1&ndash;255); les couleurs vraies et les carnets de couleurs ne sont pas pris en charge.</li>
-<li>Modifier une clé ne met pas à jour les calques déjà créés dans les dessins.</li>
-<li><span class="fixw">LayerKeys.csv</span> ne peut pas être enregistré pendant qu'il est ouvert dans Excel : une alerte s'affiche et les changements sont perdus.</li>
+<li>Couleurs d'index seulement.</li>
+<li>Une clé changée ne change pas les calques déjà créés.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -214,7 +89,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

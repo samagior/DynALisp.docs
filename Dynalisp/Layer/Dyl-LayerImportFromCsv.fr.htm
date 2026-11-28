@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td>12 commandes &ndash; voir <a href="#commands">Commandes</a></td>
+<td>12 commandes &ndash; voir <a href="#aliases">Commandes</a></td>
 </tr>
 <tr>
 <td>Requis</td>
@@ -35,42 +35,22 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Appliquez les propriétés de calques d'un fichier CSV aux calques du dessin : couleurs, épaisseurs de ligne, types de ligne, tracé, transparence, état actif et gelé. Une commande préréglée le fait pour un type de plan et enregistre le résultat comme état de calque, pour le restaurer plus tard. Le fichier est celui qu'écrit <a href="Dyl-LayerExportToCsv.fr.htm">Export Layers To CSV</a>.</p>
+<p>Donnez aux calques de votre dessin les couleurs, épaisseurs et visibilités d'un fichier fait avec <a href="Dyl-LayerExportToCsv.fr.htm">Exporter les calques en CSV</a>, ou d'un préréglage de plan.</p>
 <!-- picture: images/Dyl-LayerImportFromCsv-window.png -->
 <!-- picture: images/Dyl-LayerImportFromCsv-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Un fichier quelconque</strong> &ndash; tapez <span class="fixw">IMPORTLAYERS</span> et choisissez le CSV (la fenêtre s'ouvre dans Téléchargements).</li>
-<li><strong>Un préréglage de plan</strong> &ndash; tapez son alias, <span class="fixw">A-FLOR</span> pour un plan d'étage d'architecture... (le tableau ci-dessous). Son CSV est appliqué et enregistré comme état de calque.</li>
-<li>Quand l'état de calque du préréglage existe déjà, choisissez <em>U</em> pour le restaurer (le CSV n'est pas lu), <em>I</em> pour appliquer le CSV à nouveau et remplacer l'état, ou <em>C</em> pour annuler.</li>
-<li>La ligne de commande donne les calques mis à jour et ceux du fichier que le dessin n'a pas.</li>
+<li><strong>Un fichier</strong> &ndash; tapez <span class="fixw">IMPORTLAYERS</span> et choisissez-le.</li>
+<li><strong>Un préréglage de plan</strong> &ndash; tapez <span class="fixw">A-FLOR</span> pour un plan d'étage (la liste plus bas). Il est enregistré comme état de calques.</li>
+<li>Quand cet état existe, choisissez <em>U</em> pour le restaurer, <em>I</em> pour appliquer de nouveau le fichier, ou <em>C</em> pour annuler.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>CSV préréglé</th><th>État de calques</th></tr>
-<tr><td><span class="fixw">A-FLOR</span></td><td>Architectural Floor Plan Layers</td><td><span class="fixw">preset_arch_floor.csv</span></td><td><span class="fixw">ARCH-FLOOR</span></td></tr>
-<tr><td><span class="fixw">A-CEIL</span></td><td>Architectural Ceiling Plan Layers</td><td><span class="fixw">preset_arch_ceiling.csv</span></td><td><span class="fixw">ARCH-CEILING</span></td></tr>
-<tr><td><span class="fixw">A-ROOF</span></td><td>Architectural Roof Plan Layers</td><td><span class="fixw">preset_arch_roof.csv</span></td><td><span class="fixw">ARCH-ROOF</span></td></tr>
-<tr><td><span class="fixw">I-FURN</span></td><td>Interior Furnishing Plan Layers</td><td><span class="fixw">preset_int_furnish.csv</span></td><td><span class="fixw">INT-FURNISH</span></td></tr>
-<tr><td><span class="fixw">I-FNSH</span></td><td>Interior Finish Plan Layers</td><td><span class="fixw">preset_int_finish.csv</span></td><td><span class="fixw">INT-FINISH</span></td></tr>
-<tr><td><span class="fixw">L-PLNT</span></td><td>Landscape Plantings Plan Layers</td><td><span class="fixw">preset_landscape.csv</span></td><td><span class="fixw">LANDSCAPE</span></td></tr>
-<tr><td><span class="fixw">C-FLOR</span></td><td>Civil Property Plan Layers</td><td><span class="fixw">preset_civil.csv</span></td><td><span class="fixw">CIVIL</span></td></tr>
-<tr><td><span class="fixw">S-FLOR</span></td><td>Structural Floor Plan Layers</td><td><span class="fixw">preset_structural.csv</span></td><td><span class="fixw">STRUCTURAL</span></td></tr>
-<tr><td><span class="fixw">E-FLOR</span></td><td>Electrical Floor Plan Layers</td><td><span class="fixw">preset_electrical.csv</span></td><td><span class="fixw">ELECTRICAL</span></td></tr>
-<tr><td><span class="fixw">P-FLOR</span></td><td>Plumbing Floor Plan Layers</td><td><span class="fixw">preset_plumbing.csv</span></td><td><span class="fixw">PLUMBING</span></td></tr>
-<tr><td><span class="fixw">M-FLOR</span></td><td>Mechanical Floor Plan Layers</td><td><span class="fixw">preset_mechanical.csv</span></td><td><span class="fixw">MECHANICAL</span></td></tr>
-<tr><td><span class="fixw">IMPORTLAYERS</span></td><td>Import Layers From CSV</td><td>Parcourir (commence dans Téléchargements)</td><td>Aucun</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les calques sont mis à jour, jamais créés : un calque du fichier que le dessin n'a pas est seulement listé.</li>
-<li>Seul le préréglage du plan d'étage d'architecture a son CSV pour l'instant; les autres préréglages ouvrent la fenêtre des fichiers.</li>
-<li>Les couleurs sont des couleurs d'index seulement.</li>
+<li>Aucun calque n'est ajouté : seuls ceux du dessin changent.</li>
+<li>Seul le préréglage du plan d'étage est prêt pour l'instant.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -95,36 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-        <details class="bundled">
-            <summary>Notes du programme d'origine (en anglais)</summary>
-            <pre>;; ============================================================
-;; IMPORT-LAYERS-FROM-CSV  (Dedicated preset commands)
-;;
-;; Each command loads a named CSV from the same folder as this
-;; LSP, applies all layer properties to matching layers, then
-;; manages a named Layer State in the drawing.
-;;
-;; COMMANDS:
-;;   A-FLOR  - Architectural Floor Plan
-;;   A-CEIL  - Architectural Ceiling Plan
-;;   A-ROOF  - Architectural Roof Plan
-;;   I-FURN  - Interior Furnishing Plan
-;;   I-FNSH - Interior Finish Plan
-;;   L-PLNT  - Landscape Plantings Identification Plan
-;;   C-FLOR  - Civil Property Plan
-;;   S-FLOR  - Structural Floor Plan
-;;   E-FLOR  - Electrical Floor Plan
-;;   P-FLOR  - Plumbing Floor Plan
-;;   M-FLOR  - Mechanical Floor Plan
-;;   IMPORTLAYERS - Browse for any CSV (no layer state)
-;;
-;; Preset CSV files must live in the same folder as this LSP.
-;; CSV format matches the EXPORTLAYERS companion routine:
-;;   Layer Name,Color,Lineweight,Linetype,Plot,Transparency,
-;;   On/Off,Freeze,New VP Freeze,Description
-;; ============================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">

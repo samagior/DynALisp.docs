@@ -35,46 +35,28 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Dessinez chaque phase d'une rénovation sur ses propres calques, et changez de phase en une commande. Un calque en phase finit par un tiret et sa phase : <span class="fixw">A-Wall-Full-E</span> pour un mur existant à conserver, <span class="fixw">A-Wall-Full-D</span> à démolir, <span class="fixw">A-Wall-Full-N</span> pour les travaux neufs (voir <a href="../Conventions/LayerNaming.fr.htm#status">Nommage des calques</a>).</p>
-<p>Chaque dessin a une <strong>phase active</strong>, affichée dans la barre d'état et dans le ruban. Avec l'<strong>auto-phase</strong> activée, tout ce que vous dessinez va dans la phase active : copiez un mur existant pendant la phase des travaux neufs, et la copie arrive sur <span class="fixw">A-Wall-Full-N</span>.</p>
+<p>Dessinez chaque phase d'une rénovation sur ses propres calques, et changez de phase en une commande : existant, démolition, nouveaux travaux. Un mur copié pendant les nouveaux travaux arrive de lui-même sur <span class="fixw">A-Wall-Full-N</span>.</p>
 <!-- picture: images/Dyl-LayerPhase-window.png -->
 <!-- picture: images/Dyl-LayerPhase-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li><strong>Choisissez la phase active</strong> &ndash; tapez <span class="fixw">PH-E</span> (existant), <span class="fixw">PH-D</span> (démolition), <span class="fixw">PH-N</span> (travaux neufs), <span class="fixw">PH-F</span> (travaux futurs) ou <span class="fixw">PH-T</span> (travaux temporaires), ou choisissez-la dans la liste déroulante <em>Phase</em> du ruban. Le calque courant passe dans cette phase avec elle : <span class="fixw">A-Wall-Full-E</span> devient <span class="fixw">A-Wall-Full-N</span>. <span class="fixw">PH-NEXT</span> passe à la phase suivante, <span class="fixw">PH-NONE</span> la retire.</li>
-<li><strong>Activez l'auto-phase</strong> &ndash; tapez <span class="fixw">PH-AUTO</span>, choisissez <em>Auto-phase activée</em> dans le ruban, ou cochez <em>Auto-phase new objects</em> dans <span class="fixw">Dyl-Settings</span>. Elle demande les <em>DynALisp reactors</em> activés dans <span class="fixw">Dyl-Settings</span>; la barre d'état affiche alors <span class="fixw">[Auto]</span>.</li>
-<li><strong>Dessinez comme d'habitude</strong> &ndash; chaque objet que vous créez va sur le calque de sa phase, créé quand le dessin ne l'a pas encore. Les <a href="Dyl-LayerKeys.fr.htm">clés de calque</a> donnent aussi leur calque dans la phase active : <a href="../Draw/Dyl-QuickDraw.fr.htm">QD-BRICK</a> dessine sur <span class="fixw">A-Detl-Medm-E</span> en existant.</li>
-<li><strong>Affichez ou masquez une phase</strong> &ndash; tapez <span class="fixw">PH</span> pour ouvrir la fenêtre Layer Phases (ci-dessous).</li>
+<li>Choisissez la phase : <span class="fixw">PH-E</span> existant, <span class="fixw">PH-D</span> démolition, <span class="fixw">PH-N</span> nouveaux travaux, <span class="fixw">PH-F</span> futur, <span class="fixw">PH-T</span> temporaire. Ou la liste <em>Phase</em> du ruban.</li>
+<li>Tapez <span class="fixw">PH-AUTO</span> pour que ce que vous dessinez aille dans cette phase.</li>
+<li>Tapez <span class="fixw">PH</span> pour afficher, cacher ou isoler une phase.</li>
 </ol>
 </div>
-<h2>Fenêtre Layer Phases</h2>
-<div class="spacedbullets">
-<ul>
-<li><strong>Liste des phases</strong> &ndash; chaque phase avec son nombre de calques et d'objets dans le dessin, et si ses calques sont <em>Shown</em>, <em>Hidden</em> ou <em>Partial</em>. La phase active est marquée <span class="fixw">&gt;</span>; <strong>Unphased</strong> compte les calques sans phase. Sélectionnez plusieurs phases avec Ctrl ou Maj.</li>
-<li><strong>Double-cliquez</strong> une phase pour en faire la phase active (<em>Unphased</em> : aucune phase active).</li>
-<li><strong>Show / Hide</strong> &ndash; affiche les phases sélectionnées, ou les masque quand elles sont toutes affichées. <strong>Hide</strong> les masque quel que soit leur état. <strong>Isolate phase</strong> les affiche et masque les autres phases (jamais les calques sans phase). Le dessin se met à jour derrière la fenêtre.</li>
-<li><strong>Layer keys Editor</strong> &ndash; ouvre la fenêtre <a href="Dyl-LayerKeys.fr.htm">Layer Keys</a>, puis revient ici.</li>
-</ul>
-</div>
-<h2>Ruban</h2>
-<p>Le groupe de fonctions <em>Comportements du dessin</em> de l'onglet DynALisp a le bouton <strong>Phase des calques</strong> (la fenêtre) et deux listes déroulantes : <strong>Auto-phase</strong> (<em>activée</em>, <em>désactivée</em>; <em>activée (réacteurs désactivés)</em> tant que les réacteurs de DynALisp sont désactivés) et <strong>Phase</strong> (la phase active du dessin courant). Comme la liste déroulante Calque d'AutoCAD, elles montrent toujours l'état courant. Les listes déroulantes demandent AutoCAD 2025 ou suivant (voir <a href="../Plugins/Ribbon.fr.htm">Ruban</a>) : dans une version antérieure, utilisez les alias <span class="fixw">PH-*</span> et la barre d'état.</p>
 <h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les calques <span class="fixw">0</span>, <span class="fixw">Defpoints</span> et ceux des xréfs ne reçoivent jamais de phase; les objets sur un calque sans phase y restent, sauf sur le calque d'une clé de calque.</li>
-<li>Les commandes de modification laissent leurs objets où ils sont : <span class="fixw">TRIM</span>, <span class="fixw">BREAK</span>, <span class="fixw">FILLET</span>, <span class="fixw">JOIN</span>, <span class="fixw">EXPLODE</span>, le collage et <span class="fixw">UNDO</span> ne déplacent jamais rien dans la phase active.</li>
-<li>Un nouveau calque de phase copie son calque source, avec les couleurs de phase de <a href="Dyl-LayerTransfer.fr.htm">Layer Transfer</a> pour la démolition et l'existant.</li>
-<li>La ligne de commande indique combien d'objets ont été déplacés, et avertit quand leur calque est désactivé ou gelé.</li>
+<li>Un calque de phase finit par sa lettre : <span class="fixw">A-Wall-Full-E</span> (voir <a href="../Conventions/LayerNaming.fr.htm#status">Nommage des calques</a>).</li>
+<li>Ajuster, raccorder, décomposer, coller et annuler ne changent jamais la phase d'un objet.</li>
 </ul>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>L'auto-phase déplace les objets juste après leur commande : le premier <span class="fixw">U</span> les remet sur le calque où ils ont été dessinés, le second annule la commande.</li>
-<li>La barre d'état n'affiche la phase que quand <span class="fixw">MODEMACRO</span> n'est pas utilisée par autre chose.</li>
-<li>Après un <span class="fixw">UNDO</span> qui ramène une phase précédente, la liste déroulante et la barre d'état ne l'affichent qu'au prochain changement de phase, ou quand le dessin redevient courant.</li>
-<li><span class="fixw">MIRROR</span> avec <em>Erase source objects</em> déplace les objets symétriques dans la phase active, comme toute copie.</li>
+<li>Après une commande, le premier <span class="fixw">U</span> annule le changement de phase, le second la commande.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -96,7 +78,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

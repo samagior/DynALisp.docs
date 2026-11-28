@@ -31,62 +31,35 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Passez les calques des 255 couleurs de la norme Dyl Standard à quelques couleurs de plumes, 1 à 7, choisies d'après l'épaisseur de ligne de chaque calque, pour un traceur ou un client qui les demande. Quelques couleurs et noms de calques gardent la leur ou en reçoivent une à eux. Les couleurs sont enregistrées dans le dessin : <em>Restore</em> les rend à tout moment.</p>
+<p>Passez vos calques aux couleurs de plume 1 à 7, pour un traceur ou un client qui les demande, et revenez-en.</p>
 <!-- picture: images/Dyl-LayerPenColors-window.png -->
 <!-- picture: images/Dyl-LayerPenColors-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
-<li>Tapez <span class="fixw">Dyl-LayerPenColors</span> et choisissez <em>Pens</em> (par défaut) ou <em>Restore</em>. Les deux commandes enfants du tableau ci-dessous sautent cette question.</li>
-<li>Choisissez <em>All</em> (chaque calque, par défaut) ou <em>Select</em> (les calques des objets que vous sélectionnez).</li>
-<li>La ligne de commande dit combien de calques ont changé, concordaient déjà ou ont été gardés par une règle, et lesquels elle a laissés. Un <span class="fixw">U</span> annule le tout.</li>
-<li>Pour revenir en arrière, relancez-la avec <em>Restore</em> : chaque calque reprend sa couleur d'avant.</li>
+<li>Tapez <span class="fixw">PENS</span> : chaque calque prend la plume de son épaisseur.</li>
+<li>Tapez <span class="fixw">UNPENS</span> pour retrouver les couleurs.</li>
 </ol>
 </div>
-<h2 id="commands">Commandes</h2>
+<h2>Couleurs de plume</h2>
 <div class="programs commands wide">
 <table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERPENCOLORS</span></td><td>Layer Pen Colors</td><td>Remplace les couleurs des calques par les couleurs de plumes 1 à 7 selon leur épaisseur de ligne, ou rétablit leurs couleurs enregistrées.</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORSTOPENS</span></td><td>Layer Colors To Pens</td><td>Règle les couleurs des calques sur les couleurs de plumes 1 à 7 selon leur épaisseur de ligne (30 pour 0,13), en enregistrant leurs couleurs.</td></tr>
-<tr><td><span class="fixw">PST-LAYERCOLORSRESTORE</span></td><td>Layer Colors Restore</td><td>Redonne aux calques les couleurs enregistrées quand elles ont été remplacées par les couleurs de plumes.</td></tr>
+<tr><th>Épaisseur</th><th>Couleur</th></tr>
+<tr><td>0,13 mm</td><td>30</td></tr>
+<tr><td>0,18 mm</td><td>1</td></tr>
+<tr><td>0,25 mm</td><td>2</td></tr>
+<tr><td>0,35 mm</td><td>3</td></tr>
+<tr><td>0,50 mm</td><td>4</td></tr>
+<tr><td>0,70 mm</td><td>5</td></tr>
+<tr><td>1,00 mm</td><td>6</td></tr>
+<tr><td>1,40 mm</td><td>7</td></tr>
 </table>
 </div>
-<h2>Couleurs de plumes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Épaisseur de ligne</th><th>Couleur</th></tr>
-<tr><td>0.13 mm</td><td>30</td></tr>
-<tr><td>0.18 mm</td><td>1</td></tr>
-<tr><td>0.25 mm</td><td>2</td></tr>
-<tr><td>0.35 mm</td><td>3</td></tr>
-<tr><td>0.50 mm</td><td>4</td></tr>
-<tr><td>0.70 mm</td><td>5</td></tr>
-<tr><td>1.00 mm</td><td>6</td></tr>
-<tr><td>1.40 mm</td><td>7</td></tr>
-</table>
-</div>
-<h2>Règles</h2>
-<p>Les calques qui correspondent à une règle de <span class="fixw">Res\Layer\PenColors.csv</span> ne passent pas par leur épaisseur de ligne. La première règle qui correspond à un calque s'applique. <span class="fixw">Layers</span> sont des noms de calques (caractères génériques, toute casse), <span class="fixw">Colors</span> les couleurs courantes (caractères génériques : <span class="fixw">20#</span> va de 200 à 209), et <span class="fixw">Color</span> la couleur donnée au calque, vide pour garder sa couleur telle quelle. Modifiez le fichier dans Excel. Votre copie est enregistrée dans <span class="fixw">User\</span> (voir <span class="fixw">Dyl-UserFiles</span>).</p>
-<div class="programs commands wide">
-<table>
-<tr><th>Règle</th><th>Calques</th><th>Couleurs</th><th>Couleur</th></tr>
-<tr><td>Non tracé</td><td>&ndash;</td><td>140</td><td>conservée</td></tr>
-<tr><td>Textes et notes</td><td>&ndash;</td><td>41</td><td>conservée</td></tr>
-<tr><td>Cotes</td><td>&ndash;</td><td>211</td><td>conservée</td></tr>
-<tr><td>Existant à conserver</td><td>&ndash;</td><td>20#</td><td>conservée</td></tr>
-<tr><td>Motifs</td><td>*-Patt, *-Patt-*</td><td>&ndash;</td><td>40</td></tr>
-<tr><td>Tramé</td><td>*-Scrn, *-Scrn-*</td><td>&ndash;</td><td>8 (gris foncé)</td></tr>
-<tr><td>Existant</td><td>*-Exst, *-Exst-*</td><td>&ndash;</td><td>9 (gris pâle)</td></tr>
-</table>
-</div>
-<h2>Limites connues</h2>
+<h2>Bon à savoir</h2>
 <div class="spacedbullets">
 <ul>
-<li>Les calques d'épaisseur Par défaut ou 2,00 mm (sans couleur de plume) ne passent pas. Réglez d'abord leur épaisseur, par exemple selon leur couleur avec <span class="fixw">Pst-LayerWeightByColor</span> (LWC).</li>
-<li>Les calques des xréfs ne sont pas modifiés.</li>
-<li>Seuls les calques changent : les objets qui ont leur propre couleur ne changent pas.</li>
-<li>Une couleur de calque changée à la main pendant les couleurs de plumes est remplacée par celle enregistrée avec Restore.</li>
+<li>Les calques de texte, de cotes, non tracés et existants gardent leur couleur ; les motifs prennent 40, le tramé 8, l'existant 9.</li>
+<li>Un calque sans épaisseur reste tel quel : réglez-la d'abord avec <span class="fixw">LWC</span>.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -102,7 +75,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

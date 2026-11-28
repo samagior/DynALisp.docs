@@ -22,7 +22,7 @@
 <table>
 <tr class="alt">
 <td>Function Syntax</td>
-<td><span class="fixw">DYL-LAYERMAKE</span> and 11 layer sets &ndash; see <a href="#commands">Commands</a></td>
+<td><span class="fixw">DYL-LAYERMAKE</span> and 11 layer sets &ndash; see <a href="#aliases">Commands</a></td>
 </tr>
 <tr>
 <td>Licence</td>
@@ -31,49 +31,22 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Make the whole set of layers of a type of drawing in one command: a basic drawing, an architectural plan, elevation, section or detail, or the NCS layers of one level. Each layer gets its name, color, lineweight, linetype, plot setting and description from the DynALisp layer standard; the layers already there are updated.</p>
+<p>Make all the layers of a type of drawing in one command: plan, elevation, section, detail or NCS. Each one follows the <a href="../Conventions/LayerNaming.htm">Layer Naming</a> standard.</p>
 <figure class="shot"><img src="images/Dyl-LayerMake-window.png" width="590" height="576" alt="Make Layers: window"></figure>
 <!-- picture: images/Dyl-LayerMake-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type the alias of the set: <span class="fixw">LL-A-FLOOR</span> for an architectural floor plan... (the table below), or type <span class="fixw">Dyl-LayerMake</span> and double-click a set.</li>
-<li>Answer the questions of the set at the command line, only those it needs:
-<div class="unspacedbullets">
-<ul>
-<li>the <strong>stack</strong> of a stacked drawing: <em>None</em>, or <em>1-First</em>... <em>9-Ninth</em>, which ends the names with <span class="fixw">0001</span>... <span class="fixw">0009</span>;</li>
-<li>the <strong>discipline</strong>: <em>General</em>, <em>Architectural</em>, <em>Interior</em>, <em>Structural</em> or <em>Landscape</em>;</li>
-<li>the <strong>major group</strong>, 4 characters (<span class="fixw">Detl</span> by default, <span class="fixw">Wall</span>, <span class="fixw">Roof</span>...).</li>
-</ul>
-</div></li>
-<li>The command line lists each layer, created or updated, then their count. The current layer does not change, and one <span class="fixw">U</span> undoes it all.</li>
+<li>Type a set, <span class="fixw">LL-A-FLOOR</span> for a floor plan (the list below), or <span class="fixw">Dyl-LayerMake</span> to pick one.</li>
+<li>Answer its questions: the stack, the discipline, the group.</li>
+<li>One <span class="fixw">U</span> undoes it.</li>
 </ol>
 </div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Layers made</th></tr>
-<tr><td><span class="fixw">LL-BASICDRAWING</span></td><td>Make Basic Drawing Layers</td><td>The line layers (fine, thin, medium, wide, hidden, patterns...) of the discipline and major group you choose.</td></tr>
-<tr><td><span class="fixw">LL-A-ELEV</span></td><td>Make Architectural Elevation Layers</td><td>The elevation lines and the annotation, of a stack.</td></tr>
-<tr><td><span class="fixw">LL-A-SECT</span></td><td>Make Architectural Section Layers</td><td>The same layers as the elevations.</td></tr>
-<tr><td><span class="fixw">LL-A-DETL</span></td><td>Make Architectural Detail Layers</td><td>The detail lines of the major group you choose (membranes, insulation, rebar...) and the annotation.</td></tr>
-<tr><td><span class="fixw">LL-A-FLOOR</span></td><td>Make Architectural Floor Plan Layers</td><td>Walls, doors, glazing, columns, floors and equipment, and the annotation.</td></tr>
-<tr><td><span class="fixw">LL-A-ROOF</span></td><td>Make Architectural Roof Plan Layers</td><td>The roof layers and the annotation.</td></tr>
-<tr><td><span class="fixw">LL-A-CEIL</span></td><td>Make Architectural Ceiling Plan Layers</td><td>The ceiling (grid, lights, HVAC, openings...), the walls, doors and glazing it shows, and the annotation.</td></tr>
-<tr><td><span class="fixw">LL-A-FURN</span></td><td>Make Architectural Furniture Plan Layers</td><td>The furniture, the floor plan layers and the annotation.</td></tr>
-<tr><td><span class="fixw">LL-NCS1</span></td><td>Make NCS Level 1 Layers</td><td>The level 1 layers of the US National CAD Standard, every discipline.</td></tr>
-<tr><td><span class="fixw">LL-NCS2</span></td><td>Make NCS Level 2 Layers</td><td>The level 2 layers, every discipline.</td></tr>
-<tr><td><span class="fixw">LL-NCS3</span></td><td>Make NCS Level 3 Layers</td><td>The level 3 layers, every discipline (level 2 for interiors and plumbing).</td></tr>
-</table>
-</div>
-<p>The names follow the <a href="../Conventions/LayerNaming.htm">Layer Naming</a> standard.</p>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>The color, lineweight and linetype of each layer come from the words of its name: they cannot be chosen here. Change them afterwards, or use the <a href="Dyl-LayerKeys.htm">Layer Keys</a>.</li>
-<li>A layer already in the drawing gets the properties of the standard back, its own changes lost.</li>
-<li>A linetype missing from the linetype file of AutoCAD gives the layer <em>Continuous</em>.</li>
-<li>The NCS sets make several hundred layers: it takes a moment.</li>
+<li>A layer already there gets the properties of the standard back.</li>
+<li>The NCS sets make hundreds of layers: it takes a moment.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -98,7 +71,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

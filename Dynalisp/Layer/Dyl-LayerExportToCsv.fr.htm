@@ -35,30 +35,21 @@
 </table>
 </div>
 <h2>Description</h2>
-<p>Écrivez chaque calque du dessin et ses propriétés dans un fichier CSV qui s'ouvre dans Excel. Le fichier a les colonnes que lit <a href="Dyl-LayerImportFromCsv.fr.htm">Import Layers From CSV</a> : un export peut donc être modifié et importé dans un autre dessin.</p>
+<p>Enregistrez tous les calques et leurs propriétés dans un fichier pour Excel. Modifiez-le, puis amenez-le dans un autre dessin avec <a href="Dyl-LayerImportFromCsv.fr.htm">Importer des calques d'un CSV</a>.</p>
 <!-- picture: images/Dyl-LayerExportToCsv-window.png -->
 <!-- picture: images/Dyl-LayerExportToCsv-use.gif -->
 <h2>Utilisation</h2>
 <div class="spacedbullets">
 <ol>
 <li>Tapez <span class="fixw">Dyl-LayerExportToCsv</span>.</li>
-<li>Le fichier est écrit dans votre dossier Téléchargements, nommé d'après la date (<span class="fixw">layers_20261120.csv</span>), et la ligne de commande donne son chemin complet.</li>
-<li>Ouvrez-le dans Excel : une rangée par calque, triée par nom, avec sa couleur, son épaisseur de ligne, son type de ligne, son tracé, sa transparence, son état actif, gelé et sa description.</li>
+<li>Le fichier va dans votre dossier Téléchargements.</li>
 </ol>
-</div>
-<h2 id="commands">Commandes</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Commande</th><th>Nom</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYEREXPORTTOCSV</span></td><td>Export Layers To CSV</td><td>Exporte chaque calque du dessin avec ses propriétés dans un fichier CSV du dossier Téléchargements.</td></tr>
-</table>
 </div>
 <h2>Limites connues</h2>
 <div class="spacedbullets">
 <ul>
-<li>Le nom du fichier ne contient que la date : un second export le même jour remplace le premier.</li>
-<li>Les couleurs vraies sont exportées comme leur couleur d'index la plus proche.</li>
-<li>Le message de chargement mentionne <span class="fixw">EXPORTLAYERS</span>; le nom de la commande est <span class="fixw">DYL-LAYEREXPORTTOCSV</span>.</li>
+<li>Un deuxième export le même jour remplace le premier.</li>
+<li>Les couleurs vraies deviennent la couleur d'index la plus proche.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,7 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.fr.htm">&larr; Index des docs du module Dynalisp</a></p>
-
     </div>
 
     <div id="footer">

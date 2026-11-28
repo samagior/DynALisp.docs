@@ -35,7 +35,7 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Sort the Layer Properties Manager by discipline in one command: a group filter for each discipline (Architectural, Structural, Mechanical...), made from the first letter of the layer names, with Detail, Elevation, Plan and Section groups under Architectural.</p>
+<p>Sort the Layer Properties Manager by discipline: Architectural, Structural, Mechanical... in one command.</p>
 <!-- picture: images/Dyl-LayerGroup-window.png -->
 <!-- picture: images/Dyl-LayerGroup-use.gif -->
 <h2>How To Use</h2>
@@ -43,22 +43,13 @@
 <ol>
 <li>Close the Layer Properties Manager.</li>
 <li>Type <span class="fixw">Dyl-LayerGroup</span>.</li>
-<li>Open the Layer Properties Manager: the groups are in its filter tree. Run the command again after adding layers, to refresh them.</li>
+<li>Run it again after adding layers.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">DYL-LAYERGROUP</span></td><td>Layer Groups</td><td>Creates the standard Dynalisp layer group filters in the Layer Properties Manager.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Group filters list layers explicitly: layers created after running the command are not added. Run it again to refresh the groups.</li>
-<li>The Mechanical group uses the Landscape pattern <span class="fixw">L-*</span> instead of <span class="fixw">M-*</span>.</li>
-<li>Close the Layer Properties Manager before running the command: when left open it can rewrite the filter tree from its own copy.</li>
+<li>The Mechanical group shows the Landscape layers (<span class="fixw">L-*</span>).</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -72,7 +63,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-
     </div>
 
     <div id="footer">

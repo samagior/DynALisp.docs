@@ -35,33 +35,23 @@
 </table>
 </div>
 <h2>Program Description</h2>
-<p>Copy the layer filters of another drawing, template or standards file into the current drawing, with their nested filters. The other file is only read, never changed, and no layer is imported: only the filters.</p>
+<p>Copy the layer filters of another drawing or template into yours. Nothing else comes with them.</p>
 <!-- picture: images/Dyl-LayerImportFiltersFromDwg-window.png -->
 <!-- picture: images/Dyl-LayerImportFiltersFromDwg-use.gif -->
 <h2>How To Use</h2>
 <div class="spacedbullets">
 <ol>
-<li>Type <span class="fixw">LFIMP</span> and pick the drawing, template or standards file to copy from.</li>
-<li>Its filter tree is printed on the command line. Type the names of the filters to import (wildcards and commas allowed), or press Enter for all of them.</li>
-<li>When a name is already used in the drawing, choose <em>Overwrite</em>, <em>Skip</em> (the default) or <em>Rename</em> (a <span class="fixw">_1</span>, <span class="fixw">_2</span>... suffix).</li>
-<li>The command line gives what was imported, replaced, renamed or skipped. One <span class="fixw">U</span> undoes it.</li>
-<li><span class="fixw">LFLIST</span> prints the filter tree of the current drawing.</li>
+<li>Type <span class="fixw">LFIMP</span> and pick the file.</li>
+<li>Type the filters to bring, or press Enter for all.</li>
+<li>For a name already used, choose <em>Overwrite</em>, <em>Skip</em> or <em>Rename</em>.</li>
+<li><span class="fixw">LFLIST</span> lists the filters of your drawing.</li>
 </ol>
-</div>
-<h2 id="commands">Commands</h2>
-<div class="programs commands wide">
-<table>
-<tr><th>Command</th><th>Name</th><th>Description</th></tr>
-<tr><td><span class="fixw">LFIMP</span></td><td>Import Layer Filters</td><td>Imports the layer filters of another drawing into the current drawing.</td></tr>
-<tr><td><span class="fixw">LFLIST</span></td><td>List Layer Filters</td><td>Lists the layer filter tree of the current drawing at the command line.</td></tr>
-<tr><td><span class="fixw">IMPORTLAYERFILTER</span></td><td>Import Layer Filters (Alias)</td><td>Alias of LFIMP that imports the layer filters of another drawing.</td></tr>
-</table>
 </div>
 <h2>Known Limitations</h2>
 <div class="spacedbullets">
 <ul>
-<li>Group filters are not imported (they refer to layers by handle, which only exist in the source); anything nested under a group filter is skipped too.</li>
-<li>Drawings that only contain pre-2005 layer filters must be opened and saved in a recent AutoCAD first.</li>
+<li>Group filters are not copied.</li>
+<li>A very old drawing must be saved in a recent AutoCAD first.</li>
 </ul>
 </div>
 <!-- dyl:aliases -->
@@ -76,52 +66,6 @@
 </div>
 <!-- /dyl:aliases -->
 <p><a href="../index.htm">&larr; Dynalisp module docs index</a></p>
-        <details class="bundled">
-            <summary>Bundled program notes</summary>
-            <pre>;;; ==========================================================================
-;;; ImportLayerFilters.lsp
-;;;
-;;; Imports layer property filters from a selected source drawing into the
-;;; current drawing.
-;;;
-;;; Scope:
-;;;   - Layer property filters (AcLyLayerFilter), including their nested
-;;;     property filters (hierarchy is preserved).
-;;;   - Layer group filters (AcLyLayerGroup) are NOT imported: they reference
-;;;     layers by handle, which only make sense in the source drawing. Anything
-;;;     nested under a group filter is therefore skipped as well.
-;;;   - Layers themselves are NOT imported, only the filter definitions.
-;;;   - The source drawing is never modified.
-;;;
-;;; Commands:
-;;;   LFIMP              - import filters from a source drawing
-;;;   IMPORTLAYERFILTER  - alias of LFIMP
-;;;   LFLIST             - list the filter tree of the current drawing
-;;;
-;;; Storage (undocumented by Autodesk, observed):
-;;;   Layer table &gt; extension dictionary &gt; ACLYDICTIONARY
-;;;     XRECORD: (1 . &quot;AcLyLayerFilter&quot;) (90 . 1) (300 . name) (301 . expr)
-;;;   Nested filters: extension dictionary of the parent XRECORD
-;;;     &gt; ACLYDICTIONARY &gt; XRECORD ...
-;;;   Data is copied as-is (minus pointers), so any extra group codes used
-;;;   by a given AutoCAD version are preserved.
-;;;
-;;; Duplicate names (checked against the whole current filter tree):
-;;;   Overwrite - the existing filter (and its nested filters) is deleted,
-;;;               then replaced by the source filter.
-;;;   Skip      - the source filter (and its nested filters) is not imported.
-;;;   Rename    - the source filter is imported with a _1, _2, ... suffix.
-;;;
-;;; Notes:
-;;;   The source is read through ObjectDBX, or directly if the drawing is
-;;;   already open in the session.
-;;;   The Layer Properties Manager is closed before writing: if left open,
-;;;   it could rewrite the filter tree from its in-memory copy and wipe out
-;;;   the imported filters.
-;;;   The operation is recorded as a single UNDO group.
-;;; ==========================================================================</pre>
-        </details>
-
     </div>
 
     <div id="footer">
