@@ -18,16 +18,16 @@
     <div id="content">
         <h1>Module Dynalisp</h1>
 
-        <p>Le module Dynalisp regroupe les programmes maison de DynALisp : outils de dessin et de hachures, normes de calques (création, phases, filtres, transferts), unités de dessin, grilles et échelles, configuration de l'environnement, utilitaires généraux et diagnostics qui trouvent ce qui ne va pas. Il compte 44 programmes et 306 commandes : 44 commandes principales, 251 commandes enfants et les 11 commandes AutoCAD redéfinies par Command Optimizer.</p>
+        <p>Les outils de DynALisp : dessin et hachures, calques et phases, unités, grilles et échelles, configuration, utilitaires et diagnostics. 44 programmes, 306 commandes.</p>
 
-        <p class="note">Chaque fenêtre de DynALisp a un bouton <strong>Open Docs</strong>, à côté de ses boutons OK / Cancel ou Close, qui ouvre sa page de ces docs (la fenêtre reste ouverte). Les docs s'ouvrent dans la langue de DynALisp (<a href="Core/Dyl-Settings.fr.htm#environment">Language</a> dans Dyl-Settings), en anglais pour une page pas encore traduite; le sélecteur EN | FR en haut à droite de chaque page passe d'une langue à l'autre. Les fenêtres, le ruban et les commandes de DynALisp sont en anglais : les pages citent leurs libellés tels qu'ils apparaissent.</p>
+        <p class="note">Chaque fenêtre de DynALisp a un bouton <strong>Open Docs</strong> qui ouvre sa page. Les docs s\'ouvrent dans la <a href="Core/Dyl-Settings.fr.htm#environment">langue</a> de DynALisp ; EN | FR en haut la change. Les fenêtres et le ruban sont en anglais : les pages citent leurs libellés tels quels.</p>
 
-        <p class="note">Chaque programme a une commande principale nommée <span class="fixw">Dyl-*</span>. Ses préréglages et variantes sont des commandes enfants (<span class="fixw">Pst-*</span>), lancées par leurs alias (les noms courts, p. ex. <span class="fixw">QD-CONCRETE</span>) ou choisies depuis la commande principale. Dans <span class="fixw">Dyl-Suite</span>, une commande principale qui a des commandes enfants affiche <span class="fixw">[+]</span> / <span class="fixw">[-]</span> : double-cliquez-la (ou Fold/Unfold) pour afficher ou masquer ses commandes enfants; double-cliquez toute autre commande (ou Command docs) pour ouvrir sa page, les commandes sans page propre ouvrant cet index. La liste se trie par commande, alias, nom, module ou groupe avec <span class="fixw">Sort by</span>, chaque commande principale gardant ses commandes enfants sous elle. Les alias s'ajoutent, se renomment ou se retirent dans Dyl-Suite (enregistrés dans <span class="fixw">Resources\Aliases.csv</span>).</p>
+        <p class="note">Chaque programme a une commande, <span class="fixw">Dyl-*</span>, et des noms courts pour ses préréglages (<span class="fixw">QD-CONCRETE</span>). Activez ou désactivez les programmes, et changez les noms courts, dans <a href="Core/Dyl-Suite.fr.htm">Dyl-Suite</a>.</p>
 
 <h2>DynALisp</h2>
-<p>Ce que partagent tous les modules, et non un programme du module : les fenêtres de DynALisp lui-même, le ruban et les modules d'extension, et les normes que suivent les programmes.</p>
+<p>Les fenêtres de DynALisp lui-même, le ruban, et les normes que suivent les programmes.</p>
 <h3>Noyau</h3>
-<p>Les fenêtres de DynALisp lui-même (dans <span class="fixw">Resources</span>).</p>
+<p>Les fenêtres de DynALisp lui-même.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Page</th><th>Syntaxe</th></tr>
@@ -39,15 +39,15 @@
 </table>
 </div>
 <h3>Modules d'extension</h3>
-<p>Les parties de DynALisp qui ne sont pas des commandes : le ruban et les modules d'extension .NET chargés avec lui.</p>
+<p>Ce qui tourne avec AutoCAD, sans commande.</p>
 <div class="programs commands wide">
 <table>
 <tr><th>Page</th><th>Description</th></tr>
-<tr><td><a href="Plugins/Ribbon.fr.htm">Ruban</a></td><td>L'onglet DynALisp : un bouton par outil, ses préréglages sous sa flèche, les listes déroulantes de Layer Phase et de Layer Transfer (<span class="fixw">DynALisp.Ribbon.dll</span>, AutoCAD 2025 et suivants)</td></tr>
-<tr><td><a href="Plugins/CleanStartup.fr.htm">Démarrage épuré</a></td><td>Les lignes de démarrage d'AutoCAD retirées de la ligne de commande (<span class="fixw">DynALisp.Startup.dll</span>, AutoCAD 2025 et suivants)</td></tr>
-<tr><td><a href="Plugins/SheetSets.fr.htm">Rouvrir les jeux de feuilles</a></td><td>Les jeux de feuilles du Gestionnaire du jeu de feuilles rouverts à chaque démarrage, jusqu'à ce que vous les fermiez (<span class="fixw">DynALisp.Startup.dll</span>, AutoCAD 2025 et suivants)</td></tr>
-<tr><td><a href="Plugins/Core.fr.htm">Cœur</a></td><td>Les données de DynALisp lues une fois par session et partagées par chaque dessin (<span class="fixw">DynALisp.Core.dll</span>, AutoCAD 2025 et suivants)</td></tr>
-<tr><td><a href="Plugins/Windows.fr.htm">Fenêtres</a></td><td>Les fenêtres modernes de DynALisp, en commençant par Settings (<span class="fixw">DynALisp.Windows.dll</span>, AutoCAD 2025 et suivants)</td></tr>
+<tr><td><a href="Plugins/Ribbon.fr.htm">Ruban</a></td><td>L'onglet DynALisp : un bouton par outil, ses préréglages sous sa flèche, les listes déroulantes de Layer Phase et de Layer Transfer</td></tr>
+<tr><td><a href="Plugins/CleanStartup.fr.htm">Démarrage épuré</a></td><td>Les lignes de démarrage d'AutoCAD retirées de la ligne de commande</td></tr>
+<tr><td><a href="Plugins/SheetSets.fr.htm">Rouvrir les jeux de feuilles</a></td><td>Les jeux de feuilles du Gestionnaire du jeu de feuilles rouverts à chaque démarrage, jusqu'à ce que vous les fermiez</td></tr>
+<tr><td><a href="Plugins/Core.fr.htm">Cœur</a></td><td>Rend DynALisp plus rapide à l'ouverture d'un dessin</td></tr>
+<tr><td><a href="Plugins/Windows.fr.htm">Fenêtres</a></td><td>Les fenêtres de DynALisp</td></tr>
 </table>
 </div>
 <h3>Conventions</h3>
@@ -59,7 +59,7 @@
 </table>
 </div>
 <h2>Apps</h2>
-<p>Les programmes du module, par groupe : une page par fichier Apps, dans le dossier de son groupe (<span class="fixw">Apps\Draw\Dyl-QuickDraw.lsp</span>, <span class="fixw">Docs\Draw\Dyl-QuickDraw.htm</span>). Chacun s'active ou se désactive dans <a href="Core/Dyl-Suite.fr.htm">Dyl-Suite</a>. Les fenêtres qu'ouvre un programme (les Assembly Presets de Quick Draw) ont aussi leur page, listée sous lui. Les noms des programmes sont ceux de leurs fenêtres et du ruban.</p>
+<p>Les programmes, par groupe. Les fenêtres qu'ouvre un programme sont listées sous lui.</p>
 <h3>Analyse (Analysis)</h3>
 <div class="programs commands wide">
 <table>
