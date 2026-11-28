@@ -22,15 +22,15 @@
 <table>
 <tr class="alt">
 <td>Function Syntax</td>
-<td><span class="fixw">DYL-QUICKDRAW</span> (Quick Draw window) + 35 preset commands &ndash; see <a href="#commands">Commands</a></td>
+<td><span class="fixw">DYL-QUICKDRAW</span> (Quick Draw window) + 35 preset commands &ndash; see <a href="#aliases">Commands</a></td>
 </tr>
 <tr>
-<td>Requires</td>
-<td>AutoCAD 2025 or later for Windows</td>
+<td>Windows</td>
+<td><a href="#window-assemblypresets">Assembly Presets</a>, <a href="#window-quickdrawbandsettings">Band Settings</a>, <a href="#window-quickdrawbordersettings">Border Settings</a>, <a href="#window-quickdrawhatchsettings">Hatch Settings</a>, <a href="#window-quickdrawgallery">Quick Draw Gallery</a>, <a href="#window-presetgroups">Preset Groups</a></td>
 </tr>
 <tr class="alt">
-<td>Licence</td>
-<td>GNU General Public License v3</td>
+<td>Works with</td>
+<td><a href="Dyl-Materials.htm">Materials</a> &ndash; what each preset is made of<br><a href="Dyl-HatchPresets.htm">Hatch Presets</a> &ndash; the hatch of each material<br><a href="../Layer/Dyl-LayerKeys.htm">Layer Keys</a> &ndash; the layers it draws on<br><a href="../Navigate/Dyl-SwitchDrawingScale.htm">Switch Drawing Scale</a> &ndash; the scale of its hatches<br><a href="Dyl-Shrinkwrap.htm">Shrinkwrap</a> &ndash; the outline of its Shrinkwrap method<br><a href="../Analysis/Dyl-Simulation.htm">Simulation</a> &ndash; simulates the details it draws<br><a href="Dyl-Manager.htm">Manager</a> &ndash; sets it up in a tab</td>
 </tr>
 </table>
 </div>
@@ -48,7 +48,7 @@
 <h2 id="window">Quick Draw Window</h2>
 <p>Type <span class="fixw">Dyl-QuickDraw</span> to open it.</p>
 <h3 id="presets">Presets</h3>
-<figure class="shot"><img src="images/Dyl-QuickDraw-presets.png" width="464" height="822" alt="Quick Draw: window"></figure>
+<figure class="shot"><img src="images/Dyl-QuickDraw-presets.png" width="464" height="389" alt="Quick Draw: window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Filter</strong> &ndash; type part of a name to shorten the list. The list beside it sorts by name or by group.</li>
@@ -93,6 +93,59 @@
 <li><strong>Open Docs</strong> &ndash; this page.</li>
 </ul>
 </div>
+<!-- dyl:windows -->
+<h2 id="windows">Its Windows</h2>
+<h3 id="window-assemblypresets">Assembly Presets</h3>
+<p>Make the walls, floors and roofs that <a href="#assembly">Quick Draw</a> draws as one band of several layers. The assemblies of the building code are ready, with their fire and sound ratings, and the window adds up their thermal resistance.</p>
+<figure class="shot"><img src="images/Dyl-AssemblyPresets-window.png" width="1388" height="857" alt="Quick Draw: window"></figure>
+<div class="spacedbullets">
+<ul>
+<li><strong>Assemblies</strong> &ndash; filter, sort, or show one group.</li>
+<li><strong>Name</strong>, <strong>Group</strong>, <strong>Description</strong> &ndash; of the assembly.</li>
+<li><strong>Border lines</strong> and <strong>Dividing lines</strong> &ndash; the lines of its faces, and between its layers.</li>
+<li><strong>Variant</strong> &ndash; its versions, each with its own layers and ratings. <strong>New variant</strong> adds one.</li>
+<li><strong>Fire-resistance rating</strong>, <strong>Sound</strong> &ndash; as the code gives them.</li>
+<li><strong>Exterior</strong> &ndash; which end of the layers is outside.</li>
+<li><strong>Layers</strong> &ndash; each layer: its <strong>Material</strong>, <strong>Thickness</strong>, and whether it is <strong>Load-bearing</strong>, has a <strong>Framing</strong> (studs with insulation between), a <strong>Variable thickness</strong> or a <strong>Low permeance</strong>.</li>
+<li><strong>Add</strong>, <strong>Remove</strong>, <strong>Move up</strong>, <strong>Move down</strong>, <strong>Flip</strong> &ndash; edit the layers. Select several to change them together.</li>
+<li><strong>Preview</strong> &ndash; the assembly as it draws.</li>
+<li><strong>Reset Selected</strong>, <strong>Reset All</strong> &ndash; give the assemblies of the code back.</li>
+</ul>
+</div>
+<p class="more"><a href="Dyl-AssemblyPresets.htm">Assembly Presets &rarr;</a></p>
+<h3 id="window-quickdrawbandsettings">Band Settings</h3>
+<p>Choose how the bands of a Quick Draw preset end, turn their corners and line up their hatch. A sketch shows each choice.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawBandSettings-window.png" width="808" height="583" alt="Quick Draw: window"></figure>
+<div class="spacedbullets">
+<ul>
+<li><strong>Scale by width</strong> &ndash; the hatch grows with the width of the band.</li>
+<li><strong>Origin on line</strong> &ndash; where the pattern starts on the line; <strong>Pick...</strong> finds it on a sample.</li>
+<li><strong>Hatch aligned to</strong> &ndash; the line, or the drawing for a pattern that runs on across the corners.</li>
+<li><strong>Ends</strong> &ndash; <em>Square</em>, <em>Open</em>, <em>Extended</em>, <em>Round</em> or <em>Angled</em>.</li>
+<li><strong>Corners</strong> &ndash; <em>Mitered</em>, <em>Beveled</em>, <em>Round</em> or <em>Lapped</em>.</li>
+<li><strong>Joints</strong> &ndash; a line between segments, or none.</li>
+</ul>
+</div>
+<p>See the sketches in <a href="#endscorners">Quick Draw &ndash; Ends and Corners</a>.</p>
+<p class="more"><a href="Dyl-QuickDrawBandSettings.htm">Band Settings &rarr;</a></p>
+<h3 id="window-quickdrawbordersettings">Border Settings</h3>
+<p>Choose the layer, color, linetype, lineweight and transparency of the border of a Quick Draw preset, or of a layer of an assembly.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawBorderSettings-window.png" width="448" height="397" alt="Quick Draw: window"></figure>
+<p class="more"><a href="Dyl-QuickDrawBorderSettings.htm">Border Settings &rarr;</a></p>
+<h3 id="window-quickdrawhatchsettings">Hatch Settings</h3>
+<p>Choose the layer, color, linetype, lineweight and transparency of the hatch of a Quick Draw preset, or of a layer of an assembly. The material itself does not change.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawHatchSettings-window.png" width="448" height="397" alt="Quick Draw: window"></figure>
+<p class="more"><a href="Dyl-QuickDrawHatchSettings.htm">Hatch Settings &rarr;</a></p>
+<h3 id="window-quickdrawgallery">Quick Draw Gallery</h3>
+<p>Pick a Quick Draw preset by its look: a tile for each one, its hatch as it plots.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawGallery-window.png" width="1004" height="793" alt="Quick Draw: window"></figure>
+<p class="more"><a href="Dyl-QuickDrawGallery.htm">Quick Draw Gallery &rarr;</a></p>
+<h3 id="window-presetgroups">Preset Groups</h3>
+<p>Sort your presets and materials into groups: <em>Wall</em>, <em>Section</em>, <em>Phase</em> for the presets, <em>Masonry</em>, <em>Wood</em>, <em>Insulation</em> for the materials.</p>
+<figure class="shot"><img src="images/Dyl-PresetGroups-window.png" width="698" height="547" alt="Quick Draw: window"></figure>
+<figure class="shot"><img src="images/Dyl-PresetGroups-materials.png" width="698" height="547" alt="Quick Draw: window"></figure>
+<p class="more"><a href="Dyl-PresetGroups.htm">Preset Groups &rarr;</a></p>
+<!-- /dyl:windows -->
 <h2 id="drawscale">Drawing Scale</h2>
 <p>A hatch is set for 1:1. With <em>Adaptive scaling</em>, it grows with the scale of the drawing: x50 at 1:50. Set the scale with <a href="../Navigate/Dyl-SwitchDrawingScale.htm">Switch Drawing Scale</a>. A hatch already drawn keeps its scale.</p>
 <h2 id="defaultmethod">Default Method</h2>

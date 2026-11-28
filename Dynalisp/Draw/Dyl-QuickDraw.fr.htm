@@ -22,15 +22,15 @@
 <table>
 <tr class="alt">
 <td>Syntaxe</td>
-<td><span class="fixw">DYL-QUICKDRAW</span> (Quick Draw window) + 35 preset commands &ndash; see <a href="#commands">Commands</a></td>
+<td><span class="fixw">DYL-QUICKDRAW</span> (fenêtre Quick Draw) + 35 commandes de préréglages &ndash; voir les <a href="#aliases">commandes</a></td>
 </tr>
 <tr>
-<td>Requis</td>
-<td>AutoCAD 2025 ou plus récent pour Windows</td>
+<td>Fenêtres</td>
+<td><a href="#window-assemblypresets">Préréglages d'assemblage (Assembly Presets)</a>, <a href="#window-quickdrawbandsettings">Réglages des bandes (Band Settings)</a>, <a href="#window-quickdrawbordersettings">Border Settings</a>, <a href="#window-quickdrawhatchsettings">Hatch Settings</a>, <a href="#window-quickdrawgallery">Galerie de dessin rapide (Quick Draw Gallery)</a>, <a href="#window-presetgroups">Groupes de préréglages (Preset Groups)</a></td>
 </tr>
 <tr class="alt">
-<td>Licence</td>
-<td>Licence publique générale GNU v3</td>
+<td>Fonctionne avec</td>
+<td><a href="Dyl-Materials.fr.htm">Matériaux</a> &ndash; ce dont chaque préréglage est fait<br><a href="Dyl-HatchPresets.fr.htm">Préréglages de hachures</a> &ndash; la hachure de chaque matériau<br><a href="../Layer/Dyl-LayerKeys.fr.htm">Clés de calque</a> &ndash; les calques où il dessine<br><a href="../Navigate/Dyl-SwitchDrawingScale.fr.htm">Changer l'échelle du dessin</a> &ndash; l'échelle de ses hachures<br><a href="Dyl-Shrinkwrap.fr.htm">Contour extérieur</a> &ndash; le contour de sa méthode Shrinkwrap<br><a href="../Analysis/Dyl-Simulation.fr.htm">Simulation</a> &ndash; simule les détails qu'il dessine<br><a href="Dyl-Manager.fr.htm">Gestionnaire</a> &ndash; le règle dans un onglet</td>
 </tr>
 </table>
 </div>
@@ -48,7 +48,7 @@
 <h2 id="window">Fenêtre Quick Draw</h2>
 <p>Tapez <span class="fixw">Dyl-QuickDraw</span> pour l'ouvrir.</p>
 <h3 id="presets">Préréglages</h3>
-<figure class="shot"><img src="images/Dyl-QuickDraw-presets.png" width="464" height="822" alt="Dessin rapide (Quick Draw): window"></figure>
+<figure class="shot"><img src="images/Dyl-QuickDraw-presets.png" width="464" height="389" alt="Dessin rapide (Quick Draw): window"></figure>
 <div class="spacedbullets">
 <ul>
 <li><strong>Filter</strong> &ndash; tapez une partie d'un nom pour raccourcir la liste. La liste à côté trie par nom ou par groupe.</li>
@@ -93,6 +93,59 @@
 <li><strong>Open Docs</strong> &ndash; cette page.</li>
 </ul>
 </div>
+<!-- dyl:windows -->
+<h2 id="windows">Ses fenêtres</h2>
+<h3 id="window-assemblypresets">Préréglages d'assemblage (Assembly Presets)</h3>
+<p>Créez les murs, planchers et toits que <a href="#assembly">Dessin rapide</a> dessine en une bande de plusieurs couches. Les assemblages du code du bâtiment sont prêts, avec leurs cotes de résistance au feu et d'isolement acoustique, et la fenêtre additionne leur résistance thermique.</p>
+<figure class="shot"><img src="images/Dyl-AssemblyPresets-window.png" width="1388" height="857" alt="Dessin rapide (Quick Draw): window"></figure>
+<div class="spacedbullets">
+<ul>
+<li><strong>Assemblies</strong> &ndash; filtrez, triez, ou montrez un groupe.</li>
+<li><strong>Name</strong>, <strong>Group</strong>, <strong>Description</strong> &ndash; de l'assemblage.</li>
+<li><strong>Border lines</strong> et <strong>Dividing lines</strong> &ndash; les lignes de ses faces, et entre ses couches.</li>
+<li><strong>Variant</strong> &ndash; ses versions, chacune avec ses couches et ses cotes. <strong>New variant</strong> en ajoute une.</li>
+<li><strong>Fire-resistance rating</strong>, <strong>Sound</strong> &ndash; tels que le code les donne.</li>
+<li><strong>Exterior</strong> &ndash; quel bout des couches est dehors.</li>
+<li><strong>Layers</strong> &ndash; chaque couche : son <strong>Material</strong>, son <strong>Thickness</strong>, et si elle est porteuse (<strong>Load-bearing</strong>), a une ossature (<strong>Framing</strong> : montants avec isolant entre), une épaisseur variable (<strong>Variable thickness</strong>) ou une faible perméance (<strong>Low permeance</strong>).</li>
+<li><strong>Add</strong>, <strong>Remove</strong>, <strong>Move up</strong>, <strong>Move down</strong>, <strong>Flip</strong> &ndash; modifiez les couches. Sélectionnez-en plusieurs pour les changer ensemble.</li>
+<li><strong>Preview</strong> &ndash; l'assemblage tel qu'il se dessine.</li>
+<li><strong>Reset Selected</strong>, <strong>Reset All</strong> &ndash; rendent les assemblages du code.</li>
+</ul>
+</div>
+<p class="more"><a href="Dyl-AssemblyPresets.fr.htm">Préréglages d'assemblage (Assembly Presets) &rarr;</a></p>
+<h3 id="window-quickdrawbandsettings">Réglages des bandes (Band Settings)</h3>
+<p>Choisissez comment les bandes d'un préréglage de Quick Draw finissent, tournent leurs coins et alignent leur hachure. Un croquis montre chaque choix.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawBandSettings-window.png" width="808" height="583" alt="Dessin rapide (Quick Draw): window"></figure>
+<div class="spacedbullets">
+<ul>
+<li><strong>Scale by width</strong> &ndash; la hachure grandit avec la largeur de la bande.</li>
+<li><strong>Origin on line</strong> &ndash; où le motif commence sur la ligne ; <strong>Pick...</strong> le trouve sur un échantillon.</li>
+<li><strong>Hatch aligned to</strong> &ndash; la ligne, ou le dessin pour un motif qui continue d'un coin à l'autre.</li>
+<li><strong>Ends</strong> &ndash; <em>Square</em>, <em>Open</em>, <em>Extended</em>, <em>Round</em> ou <em>Angled</em>.</li>
+<li><strong>Corners</strong> &ndash; <em>Mitered</em>, <em>Beveled</em>, <em>Round</em> ou <em>Lapped</em>.</li>
+<li><strong>Joints</strong> &ndash; une ligne entre les segments, ou aucune.</li>
+</ul>
+</div>
+<p>Voyez les croquis dans <a href="#endscorners">Dessin rapide &ndash; Bouts et coins</a>.</p>
+<p class="more"><a href="Dyl-QuickDrawBandSettings.fr.htm">Réglages des bandes (Band Settings) &rarr;</a></p>
+<h3 id="window-quickdrawbordersettings">Border Settings</h3>
+<p>Choisissez le calque, la couleur, le type de ligne, l'épaisseur et la transparence du contour d'un préréglage de Quick Draw, ou d'une couche d'un assemblage.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawBorderSettings-window.png" width="448" height="397" alt="Dessin rapide (Quick Draw): window"></figure>
+<p class="more"><a href="Dyl-QuickDrawBorderSettings.fr.htm">Border Settings &rarr;</a></p>
+<h3 id="window-quickdrawhatchsettings">Hatch Settings</h3>
+<p>Choisissez le calque, la couleur, le type de ligne, l'épaisseur et la transparence de la hachure d'un préréglage de Quick Draw, ou d'une couche d'un assemblage. Le matériau lui-même ne change pas.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawHatchSettings-window.png" width="448" height="397" alt="Dessin rapide (Quick Draw): window"></figure>
+<p class="more"><a href="Dyl-QuickDrawHatchSettings.fr.htm">Hatch Settings &rarr;</a></p>
+<h3 id="window-quickdrawgallery">Galerie de dessin rapide (Quick Draw Gallery)</h3>
+<p>Choisissez un préréglage de Quick Draw à son allure : une tuile pour chacun, sa hachure telle qu'elle s'imprime.</p>
+<figure class="shot"><img src="images/Dyl-QuickDrawGallery-window.png" width="1004" height="793" alt="Dessin rapide (Quick Draw): window"></figure>
+<p class="more"><a href="Dyl-QuickDrawGallery.fr.htm">Galerie de dessin rapide (Quick Draw Gallery) &rarr;</a></p>
+<h3 id="window-presetgroups">Groupes de préréglages (Preset Groups)</h3>
+<p>Classez vos préréglages et matériaux en groupes : <em>Wall</em>, <em>Section</em>, <em>Phase</em> pour les préréglages, <em>Masonry</em>, <em>Wood</em>, <em>Insulation</em> pour les matériaux.</p>
+<figure class="shot"><img src="images/Dyl-PresetGroups-window.png" width="698" height="547" alt="Dessin rapide (Quick Draw): window"></figure>
+<figure class="shot"><img src="images/Dyl-PresetGroups-materials.png" width="698" height="547" alt="Dessin rapide (Quick Draw): window"></figure>
+<p class="more"><a href="Dyl-PresetGroups.fr.htm">Groupes de préréglages (Preset Groups) &rarr;</a></p>
+<!-- /dyl:windows -->
 <h2 id="drawscale">Échelle du dessin</h2>
 <p>Une hachure est réglée pour 1:1. Avec <em>Adaptive scaling</em>, elle grandit avec l'échelle du dessin : x50 à 1:50. Réglez l'échelle avec <a href="../Navigate/Dyl-SwitchDrawingScale.fr.htm">Changer l'échelle du dessin</a>. Une hachure déjà dessinée garde son échelle.</p>
 <h2 id="defaultmethod">Méthode par défaut</h2>
